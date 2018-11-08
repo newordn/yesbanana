@@ -1,0 +1,40 @@
+
+
+.detailCard
+{
+    margin:auto;
+}
+
+.img-upload-div
+{
+    display:flex;
+    box-sizing: border-box;
+    flex-flow:row wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+}
+.img-input
+{
+    padding-bottom:0;
+    background-color:transparent;
+    width:82% !important;
+}
+.pagination
+{
+    width:100%;
+}
+.img-upload
+{
+
+    background-color:#5d99c6;
+    border-radius:5px;
+    border:none;
+    color:white;
+    font-size:1.3rem;
+    width:15%;
+}
+input
+{
+    padding-left:0rem;
+}

@@ -1,0 +1,29 @@
+<!--navigation -->
+<nav class="nav" style="width:100%" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navigation"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <a th:href="@{/groupe/groupes}" style="color:white">
+        <i class="zmdi zmdi-accounts"></i>&nbsp;
+        Groupes</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a th:if="${session.userRole=='root'}" th:href="@{/user/}" style="color:white"  sec:authorize="hasRole('root')">
+        <i class="zmdi zmdi-account"></i>&nbsp;Utilisateurs
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a th:if="${session.userRole=='root'}" th:href="@{/stats/}" style="color:white"  sec:authorize="hasRole('root')">
+        <i class="zmdi zmdi-trending-down"></i>&nbsp;Statistiques</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div th:if="${session.avatar}">
+        <img class="profile-img" th:src="${session.avatar}" alt="avatar">
+    </div>
+    <div th:unless="${session.avatar}">
+        <img class="profile-img" th:src="@{/images/avatar.png}" alt="avatar">
+    </div>
+    <div class="dropdown show">
+        <a th:text="${session.name}" class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+           data-toggle="dropdown" style="background-color:transparent;color:white" aria-haspopup="true" aria-expanded="false">
+            Neword Newcom Orquel
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" th:href="@{/user/update/}">Profil</a>
+            <a class="dropdown-item" th:href="@{/logout}">Deconnexion</a>
+        </div>
+    </div>
+</nav>
+<!-- navigation -->

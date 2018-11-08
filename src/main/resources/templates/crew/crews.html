@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+    <!-- Title Page-->
+    <title>Theses Groupes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <link th:href="@{/css/crew.css} " rel="stylesheet">
+
+<body class="row">
+<div class="col-12 main">
+    <!--navigation-->
+    <div th:insert="~{../templates/fragments/navigation :: navigation}">
+    </div>
+    <!-- navigation -->
+
+    <h2 class="text-center mt-3">Les groupes</h2>
+    <div class="row content mt-3">
+        <div class="col-3  text-center crew mb-2" th:each="crew : ${crews}" style="padding:.5rem;">
+                <div class="card">
+                    <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
+                        <div class="col-6 text-left" style="padding:0">
+                            <a th:href="@{/groupe/groupe/} + ${crew.groupeId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
+                                <i class="zmdi zmdi-eye" ></i>
+                            </a>
+                        </div>
+                        <div class="col-6 text-right" style="padding:0">
+                            <a th:href="@{/groupe/update/} + ${crew.groupeId}" th:if="${session.userRole!='user'}" class="btn btn-danger  rounded-circle" >
+                                <i class="zmdi zmdi-edit" ></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div style="background-color:teal; color:white">
+                        <span th:text="${crew.groupeName}"> Yaounde</span>
+                        <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
+                            <span th:text="${crew.groupeName[0]}"> Yaounde</span>
+                        </div>
+                    </div>
+                    <strong th:if="${#arrays.length(crew.users) > 0}" th:text="${crew.users[0].name}">Maurice Kamto</strong>
+                    <hr style="margin:.2rem">
+                    <div class="row">
+                        <div class="col-6"><span th:text="${crew.groupeCountry}">Cameroun</span></div>
+                        <div class="col-6"><span th:text="${crew.groupeRegion}">Extreme nord</span></div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+    <button th:if="${session.userRole=='root'}" type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
+        <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+        </i>
+    </button>
+    <!--addCrew-->
+    <div th:if="${session.userRole=='root'}" class=" modal fade" id="addCrew" tabindex="-1" role="dialog" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered"  role="document">
+            <form class="add-these-form modal-content card text-center" th:object="${groupe}" method="post" th:action="@{/groupe/save}">
+              <!-- user id -->
+                <input type="number" name="userId" th:value="${session.userId}" style="display:none">
+                <!-- user id -->
+                <div class="row pt-3">
+                    <div class="form-group" style="width: 100%">
+                        <span class='error' id="nameError"></span>
+                        <input type="text" name="groupeName" id="name" class="form-control" placeholder="Nom du groupe" />
+                    </div>
+
+                    <div class="form-group" style="width: 100%">
+                        <span class='error' id="countryError"></span>
+                        <input type="text" name="groupeCountry" id="country" class="form-control" placeholder="Pays" />
+                        </div>
+                        <div class="form-group" style="width: 100%">
+                            <span class='error' id="regionError"></span>
+                            <input type="text" name="groupeRegion" id="region" class="form-control" placeholder="Région" />
+                        </div>
+                        <div class="form-group">
+                            <strong>Chef du groupe : </strong>
+                            <select name="groupChief">
+                                <option th:each="user : ${users}" class="form-control" th:value="${user.userId}" th:text="${user.name}">Nounamo Patrick</option>
+                            </select>
+
+                        </div>
+                        <div class="form-group row form-button" style="width: 100%">
+                            <div class="col-6">
+                                <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
+                            </div>
+                        </div>
+                    </div>
+
+            </form>
+        </div>
+    </div>
+    <!-- addCrew-->
+</div>
+<!--script-->
+<!--vendor scripts -->
+<div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+<!--vendor scripts -->
+<script th:src="@{/js/crew.js}"></script>
+<!--script-->
+</body>
+
+</html>

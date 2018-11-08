@@ -1,0 +1,177 @@
+@import url('./font.css');
+html,body
+{
+    height: 100%;
+    width: 100%;
+    margin:0 !important;
+    font-family: Poppins;
+}
+
+.main
+{
+    padding:0 !important; 
+}
+.nav
+{
+   border-bottom: 1px solid rgb(220,220,220); 
+    height: 4rem;
+    background-color: blue;
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding:1rem;
+    padding-left: 0 !important;
+}
+.save-button-div
+{
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    margin-top:1rem;
+}
+.save-button
+{
+    width:5rem;
+}
+.sidebar
+{
+    border-right: 1px solid rgb(220,220,220);
+    background-color: blue;
+    padding:0 !important;
+}
+
+.log-out
+{
+    color:white;
+    background:transparent;
+    margin-left:.5rem;
+    margin-right:.5rem;
+}
+.content
+{
+    padding:2rem;
+    box-sizing: border-box;
+}
+.profil-form
+{
+    padding:2rem;
+    margin-top:5rem;
+}
+.profil-form input
+{
+    width:100%;
+    border-radius: 5px;
+    border:1px solid gray;
+    padding:.8rem;
+    margin-bottom:1.5rem;
+}
+select
+{
+    border:none;
+    outline: none;
+}
+
+.profile-img
+{
+    border-radius: 50%;
+    width:32px;
+    height:32px;
+}
+.profile-img-1:hover
+{
+    opacity: 0.3;
+}
+.sidebar-items
+{
+    display:flex;
+    flex-flow: column wrap;
+    width:100%;
+    
+}
+.sidebar-items button
+{
+    margin-top:5rem;
+    background-color:transparent;
+    margin-bottom: 4rem;
+    height: 3rem;
+    border:none;
+    font-size:1.1rem;
+    line-height: 3rem;
+    color:white;
+    width:100%;
+}
+.sidebar-items button:hover
+{
+    opacity:0.7;
+}
+.sidebar-items button a
+{
+    color:white;
+}
+.sidebar-items button a:hover
+ {
+     text-decoration: none;
+ }
+.profile-img-div
+{
+    position: relative;
+}
+.profile-img-div:hover
+{
+    cursor:pointer;
+}
+.roles
+{
+    border:1px solid rgb(220,220,220);
+    
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+}
+.roles-radio input
+{
+    width:1rem;
+    height:1.7rem;
+}
+.upload
+{
+    position: absolute;
+    left: 40%;
+    top:30%;
+    opacity:0;
+    font-size:4rem;
+}
+.profile-img-1
+{
+    border-radius: 50%;
+    width:10rem;
+    height:10rem;
+}
+.country 
+{
+    border: 1px solid gray;
+    border-radius: 5px;
+    height: 3.2rem;
+    
+}
+.country select
+{
+    width:25%;
+    color:gray;
+}
+.country input
+{
+    background-color:transparent;
+    color:gray;
+    width:72.3%;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-right:none;
+    border-top:none;
+    border-bottom:none;
+}
+.error
+{
+  color:red;
+  font-style: italic;
+}

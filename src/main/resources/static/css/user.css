@@ -1,0 +1,31 @@
+
+
+.user-name
+{
+    font-weight: bold;
+    font-style: italic;
+}
+.user-avatar
+{
+    height: 10rem;
+}
+.user:hover
+{
+    cursor: pointer;
+}
+.user-item
+{
+    cursor:pointer;
+}
+.user:hover .deleteUpdate
+{
+    opacity: 1;
+}
+.deleteUpdate
+{
+    opacity: 0;
+}
+.user
+{
+    position:relative;;
+}

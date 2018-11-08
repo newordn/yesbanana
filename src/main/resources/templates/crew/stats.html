@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+
+    <!-- Title Page-->
+    <title>Statistiques</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
+    <!-- thymleaf -->
+
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+
+<body class="row">
+
+
+<!-- sidebar-->
+<div th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</div>
+<!-- sidebar-->
+
+
+<div class="col main">
+    <!--navigation-->
+    <div th:insert="~{../templates/fragments/navigation :: navigation}">
+    </div>
+    <!-- navigation -->
+
+    <!-- statistiques -->
+    <div class="row justify-content-center content">
+        <h3 class="col-12 text-center mt-3">Statistiques générales</h3>
+        <div class="col-12 mt-3 card p-5">
+            <div class="row">
+                <div class="col-6 text-center mt-3" >
+                    <ul class="list-group">
+                        <li class="list-group-item active"><span th:text="${usersSize}">20</span> Utilisateurs</li>
+                    </ul>
+                </div>
+                <div class="col-6 text-center mt-3" >
+                    <ul class="list-group">
+                        <li class="list-group-item active"><span th:text="${thesesSize}">20</span> Thèses</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- statistiques -->
+</div>
+<!--vendor scripts -->
+<div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+<!--vendor scripts -->
+
+</body>
+
+</html>

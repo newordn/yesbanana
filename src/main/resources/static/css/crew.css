@@ -1,0 +1,14 @@
+body
+{
+    background-image: url("../images/background.jpg");
+    background-position: center;
+}
+
+.crew:hover .deleteUpdate
+{
+    opacity: 1;
+}
+.deleteUpdate
+{
+    opacity: 0;
+}
