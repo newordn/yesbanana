@@ -1,10 +1,136 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
+    <!-- Required meta tags-->
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+
+    <!-- Title Page-->
     <title>These detail</title>
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+    <!-- thymeleaft -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+
+
 </head>
-<body>
-<h1>Here is a these detail</h1>
+
+<body class="row">
+<!-- sidebar-->
+<div th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</div>
+<!-- sidebar-->
+
+<div class="col main">
+
+    <!--navigation-->
+    <div th:insert="~{../templates/fragments/navigation :: navigation}">
+    </div>
+    <!-- navigation -->
+
+    <div class="row content">
+      <!-- these detail -->
+    <div class="modal fade" id="detail" tabindex="-1" role="dialog">
+        <div class=" modal-dialog modal-dialog-centered" style="max-width: inherit" role="document">
+            <div class=" detailCard card text-center" style="padding:2rem">
+                <div class="modal-content" style="border:none;">
+                       <div class="text-right">
+                        <i class="zmdi zmdi-delete zmdi-hc-2x" style="color:red;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                           <a id="detailUpdateRoute" href="" alt="modifier"><i class="zmdi zmdi-brush zmdi-hc-2x" style="color:blue;"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                           <i data-dismiss="modal" class="zmdi zmdi-close zmdi-hc-2x" style="color:green;"></i>
+                    </div>
+                    <h3>Université et localisation</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Université</th>
+                            <th>Faculté</th>
+                            <th>Option</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td id="detailDate"></td>
+                            <td id="detailUniversity"></td>
+                            <td id="detailFaculty"></td>
+                            <td id="detailOption"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Niveau</th>
+                            <th>Pays</th>
+                            <th>Region</th>
+                            <th>Sujet</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td id="detailLevel"></td>
+                            <td id="detailCountry"></td>
+                            <td id="detailRegion"></td>
+                            <td id="detailSubject"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="detailabstract"><h4>Sommaire</h4></div>
+                    <div><img src="" id="detailAbstract" alt="sommaire"></div>
+                    <h3 class="detailStudents">Etudiant et équipe directrice</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Etudiant</th>
+                            <th>Encadreur/Prof</th>
+                            <th>Chef de travaux/Charge de cours</th>
+                            <th>Assistant</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td id="detailStudent"></td>
+                            <td id="detailProf"></td>
+                            <td id="detailChiefOfWork"></td>
+                            <td id="detailAssistant"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h3 class="detailBibliographyLibrary">Références Bibliographique</h3>
+                    <div class="row ">
+                        <div class=" col-6 detailBibliography">
+                            <h4>Bibliographie</h4>
+                            <ul class="list-group" id="detailBibliography">
+                            </ul>
+                        </div>
+                        <div class="detailLibrary col-6">
+                            <h4>Bibliothèque</h4>
+                            <ul class="list-group" id="detailLibrary">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- these detail-->
+ 
+    </div>
+</div>
+<!-- scripts-->
+    <!--vendor scripts -->
+    <div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+    <!--vendor scripts -->
+
+<!-- scripts-->
+
 </body>
+
 </html>
