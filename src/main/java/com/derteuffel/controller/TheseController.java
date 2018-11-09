@@ -87,6 +87,12 @@ public class TheseController {
         return "these/theses";
     }
 
+    @GetMapping("/add/form")
+    public  String theseForm(Model model){
+        model.addAttribute("these", new These());
+        return "these/theseForm";
+    }
+
     
     // a function which performs the create
     public String create(int currentPage,HSSFWorkbook workbook) throws FileNotFoundException, DocumentException, IOException
