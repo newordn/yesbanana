@@ -23,11 +23,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -75,13 +73,14 @@ public class TheseController {
             model.addAttribute("pageNumbers", pageNumbers);
 
         }
-
+        // transmitting the current page number to the view 
+        model.addAttribute("currentPage",currentPage);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
         session.setAttribute("userId", user.getUserId());
         session.setAttribute("avatar", user.getImg());
         session.setAttribute("name", user.getName());
-        return "crew/theses";
+        return "these/theses";
     }
 
     private static String[] attributs={"UNIVERSITE","FILIERE","OPTION","SUJET/THEME","REGION", "ANNEE","ETUDIANT", "ENCADREUR",

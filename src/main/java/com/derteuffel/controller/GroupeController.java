@@ -36,7 +36,8 @@ import java.util.stream.IntStream;
 @Controller
 @RequestMapping("/groupe")
 public class GroupeController {
-
+    
+    // attributes
     @Autowired
     private GroupeRepository groupeRepository;
     @Autowired
@@ -48,11 +49,11 @@ public class GroupeController {
     @Autowired
     private TheseService theseService;
 
-
     private static int currentPage=1;
     private static int pageSize=6;
 
-
+    
+    // for listing all the crews
     @GetMapping("/groupes")
     public String findAllByParentOrderByGroupeIdDesc(Model model, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -78,7 +79,7 @@ public class GroupeController {
         return "crew/crews";
     }
 
-
+    // for adding a user into one crew
     @GetMapping("/add1/{groupeId}/{userId}")
     public String add( @PathVariable Long groupeId, @PathVariable Long userId)
     {
@@ -89,7 +90,8 @@ public class GroupeController {
         System.out.println("ddf");
         return "redirect:/groupe/groupes";
     }
-
+    
+    // for saving a crew
     @PostMapping("/save")
     public String save(Groupe groupe){
         Groupe groupe1 = groupeRepository.saveAndFlush(groupe);
@@ -111,7 +113,8 @@ public class GroupeController {
         }
 
     }
-    @GetMapping("/groupe/stats")
+    // insight for a crew
+       @GetMapping("/groupe/stats")
     public String stats(Model model, HttpSession session)
     {
         Long groupeId = (Long) session.getAttribute("groupeId");
@@ -121,6 +124,8 @@ public class GroupeController {
         model.addAttribute("thesesSize",theses.size());
         return "crew/stats";
     }
+    
+    // all the theses for a particular user
     @GetMapping("/groupe/all/user/these")
     public String findByUser(Model model, @RequestParam("page") Optional<Integer> page,
                              @RequestParam("size")Optional<Integer>size, HttpSession session){
@@ -138,13 +143,15 @@ public class GroupeController {
             model.addAttribute("pageNumbers", pageNumbers);
 
         }
-
+        // transmitting the current page number to the view 
+        model.addAttribute("currentPage",currentPage);
         session.setAttribute("avatar", user.getImg());
         session.setAttribute("name", user.getName());
         System.out.println();
         return "crew/theses";
     }
 
+    // all the theses for a crew
     @GetMapping("/groupe/all/these")
     public String findByGroupe(Model model, @RequestParam("page") Optional<Integer> page,
                                @RequestParam("size")Optional<Integer>size, HttpSession session){
@@ -162,13 +169,16 @@ public class GroupeController {
             model.addAttribute("pageNumbers", pageNumbers);
 
         }
-
+        
+        // transmitting the current page number to the view 
+        model.addAttribute("currentPage",currentPage);
         session.setAttribute("avatar", user.getImg());
         session.setAttribute("name", user.getName());
         System.out.println();
         return "crew/theses";
     }
 
+    // updating a crew
     @GetMapping("/update/{groupeId}")
     public String update(Model model,@PathVariable Long groupeId){
         Groupe groupe=groupeRepository.getOne(groupeId);

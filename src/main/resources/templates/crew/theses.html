@@ -85,7 +85,7 @@
     </button>
     <!-- add these button -->
     <!-- print button-->
-    <a th:href="@{/these/createPdf}" href="kk;k">
+    <a th:href="@{/these/createPdf/} + ${currentPage} " >
         <button type="button" class="printButton btn btn-success ">
             Imprimer
         </button>
