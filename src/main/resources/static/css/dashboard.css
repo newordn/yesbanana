@@ -13,7 +13,9 @@ html,body
 }
 .nav
 {
-   border-bottom: 1px solid rgb(220,220,220); 
+    position:fixed;
+    top:0;
+    border-bottom: 1px solid rgb(220,220,220); 
     height: 4rem;
     background-color: blue;
     display:flex;
@@ -21,6 +23,7 @@ html,body
     align-items: center;
     padding:1rem;
     padding-left: 0 !important;
+    z-index:1000;
 }
 .save-button-div
 {
@@ -38,6 +41,10 @@ html,body
     border-right: 1px solid rgb(220,220,220);
     background-color: blue;
     padding:0 !important;
+    position:fixed !important;
+    left:0;
+    height:100%;
+    z-index:1000;
 }
 
 .log-out
