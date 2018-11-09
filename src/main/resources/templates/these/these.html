@@ -25,25 +25,24 @@
 </div>
 <!-- sidebar-->
 
-<div class="col main">
+<div class="col-11 offset-1 main">
 
     <!--navigation-->
     <div th:insert="~{../templates/fragments/navigation :: navigation}">
     </div>
     <!-- navigation -->
 
-    <div class="row content">
+    <div>
       <!-- these detail -->
-    <div class="modal fade" id="detail" tabindex="-1" role="dialog">
-        <div class=" modal-dialog modal-dialog-centered" style="max-width: inherit" role="document">
-            <div class=" detailCard card text-center" style="padding:2rem">
-                <div class="modal-content" style="border:none;">
+            <div class=" col text-center" style="padding:2rem;width:100%;margin-top:5rem;">
+                 <h2 class="card alert-info mt-2">Contenu d'une thèse</h2>
+                <div>
                        <div class="text-right">
                         <i class="zmdi zmdi-delete zmdi-hc-2x" style="color:red;"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                            <a id="detailUpdateRoute" href="" alt="modifier"><i class="zmdi zmdi-brush zmdi-hc-2x" style="color:blue;"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
                            <i data-dismiss="modal" class="zmdi zmdi-close zmdi-hc-2x" style="color:green;"></i>
                     </div>
-                    <h3>Université et localisation</h3>
+                    <h3>Université </h3>
                     <table class="table table-bordered">
                         <thead>
                         <tr>
@@ -55,14 +54,14 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td id="detailDate"></td>
-                            <td id="detailUniversity"></td>
-                            <td id="detailFaculty"></td>
-                            <td id="detailOption"></td>
+                            <td id="detailDate" th:text="${these.theseDate}"></td>
+                            <td id="detailUniversity" th:text="${these.university}"></td>
+                            <td id="detailFaculty" th:text="${these.faculty}"></td>
+                            <td id="detailOption" th:text="${these.options}"></td>
                         </tr>
                         </tbody>
                     </table>
-
+                    <h3>Localisation</h3>
                     <table class="table table-bordered">
                         <thead>
                         <tr>
@@ -74,15 +73,15 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td id="detailLevel"></td>
-                            <td id="detailCountry"></td>
-                            <td id="detailRegion"></td>
-                            <td id="detailSubject"></td>
+                            <td id="detailLevel" th:text="${these.level}"></td>
+                            <td id="detailCountry" th:text="${these.country}"></td>
+                            <td id="detailRegion" th:text="${these.regions}"></td>
+                            <td id="detailSubject" th:text="${these.subject}"></td>
                         </tr>
                         </tbody>
                     </table>
                     <div class="detailabstract"><h4>Sommaire</h4></div>
-                    <div><img src="" id="detailAbstract" alt="sommaire"></div>
+                    <div><img th:src="${these.resumes}" id="detailAbstract" alt="sommaire"></div>
                     <h3 class="detailStudents">Etudiant et équipe directrice</h3>
                     <table class="table table-bordered">
                         <thead>
@@ -95,10 +94,10 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td id="detailStudent"></td>
-                            <td id="detailProf"></td>
-                            <td id="detailChiefOfWork"></td>
-                            <td id="detailAssistant"></td>
+                            <td id="detailStudent" th:text="${these.student}"></td>
+                            <td id="detailProf" th:text="${these.profesor}"></td>
+                            <td id="detailChiefOfWork" th:text="${these.workChief}"></td>
+                            <td id="detailAssistant" th:text="${these.assistant}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -118,8 +117,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        
+  
     <!-- these detail-->
  
     </div>

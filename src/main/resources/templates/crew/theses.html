@@ -65,7 +65,9 @@
                 <td th:text="${these.subject}"></td>
                 <td th:text="${these.theseDate}"></td>
                 <td>
-                    <a th:href="'#'+${these.theseId}"   class="detailLink" alt="detail"><i class="zmdi zmdi-eye" data-toggle="modal" data-target="#detail"></i></a>
+                     <a th:href="@{/these/these/} + ${these.theseId}"   class="detailLink" alt="detail">
+                        <i class="zmdi zmdi-eye" data-toggle="modal" data-target="#detail"></i>
+                    </a>
                 </td>
             </tr>
             </tbody>
