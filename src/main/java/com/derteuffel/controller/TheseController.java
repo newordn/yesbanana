@@ -56,11 +56,7 @@ public class TheseController {
     private GroupeRepository groupeRepository;
     private static int currentPage=1;
     private static int pageSize=6;
-    private static String[] attributs={"UNIVERSITE","FILIERE","OPTION","SUJET/THEME","REGION", "ANNEE","ETUDIANT", "ENCADREUR",
-            "PRESIDENT DU JURY","EXAMINATEUR","BIBLIOGRAPHIE", "BIBLIOTHEQUE ET SITE WEB", "RESUME"};
-    
-    
-    
+
     // for getting all theses
     @GetMapping("")
     public String findAllThese(Model model,
@@ -284,6 +280,13 @@ public class TheseController {
         //System.out.println(all);
         System.out.println(theses);
         return theses;
+    }
+
+    @GetMapping("/these/{theseId}")
+    public String get(Model model, @PathVariable Long theseId){
+        Optional<These> optional= theseRepository.findById(theseId);
+        model.addAttribute("these",optional.get());
+        return "these/these";
     }
 
 }
