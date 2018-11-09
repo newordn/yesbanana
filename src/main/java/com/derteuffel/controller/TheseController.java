@@ -56,7 +56,7 @@ public class TheseController {
     private GroupeRepository groupeRepository;
     private static int currentPage=1;
     private static int pageSize=6;
-
+    private String pathToDownloadFileServer = "/home3/banana/jvm/apache-tomcat-8.5.30/domains/yesbanana.org/ROOT/WEB-INF/classes/static/downloadFile/";
     // for getting all theses
     @GetMapping("")
     public String findAllThese(Model model,
@@ -177,7 +177,7 @@ public class TheseController {
                 aRow.createCell(11).setCellValue(these1.getLibrary());
                 aRow.createCell(12).setCellValue(these1.getResumes());
             }
-            filename = "src\\main\\resources\\static\\thesesDownload\\theses" + currentPage + ".xls";
+            filename = pathToDownloadFileServer + "theses" + currentPage + ".xls";
             fileOutputStream = new FileOutputStream(filename);
             workbook.write(fileOutputStream);
             fileOutputStream.flush();
