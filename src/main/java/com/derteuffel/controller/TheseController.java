@@ -30,6 +30,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 
 /**
  * Created by derteuffel on 14/10/2018.
@@ -38,7 +42,7 @@ import java.util.stream.IntStream;
 @RequestMapping("/these")
 public class TheseController {
 
-
+    // attributes
     @Autowired
     private TheseRepository theseRepository;
     @Autowired
@@ -50,10 +54,14 @@ public class TheseController {
     UserRepository userRepository;
     @Autowired
     private GroupeRepository groupeRepository;
-
-
     private static int currentPage=1;
     private static int pageSize=6;
+    private static String[] attributs={"UNIVERSITE","FILIERE","OPTION","SUJET/THEME","REGION", "ANNEE","ETUDIANT", "ENCADREUR",
+            "PRESIDENT DU JURY","EXAMINATEUR","BIBLIOGRAPHIE", "BIBLIOTHEQUE ET SITE WEB", "RESUME"};
+    
+    
+    
+    // for getting all theses
     @GetMapping("")
     public String findAllThese(Model model,
                          @RequestParam("page")Optional<Integer> page,
@@ -83,13 +91,16 @@ public class TheseController {
         return "these/theses";
     }
 
-    private static String[] attributs={"UNIVERSITE","FILIERE","OPTION","SUJET/THEME","REGION", "ANNEE","ETUDIANT", "ENCADREUR",
-            "PRESIDENT DU JURY","EXAMINATEUR","BIBLIOGRAPHIE", "BIBLIOTHEQUE ET SITE WEB", "RESUME"};
-    @GetMapping("/createPdf/{currentPage}")
-    public String createPdf(HSSFWorkbook workbook,@RequestParam("currentPage") int currentPage) throws FileNotFoundException, DocumentException {
-        Page<These> thesePage=theseService.findAllPaginated(PageRequest.of(currentPage-1, pageSize));
-        try {
-            // Obtain a workbook from the excel file
+    
+    // a function which performs the create
+    public String create(int currentPage,HSSFWorkbook workbook) throws FileNotFoundException, DocumentException, IOException
+    {
+            Page<These> thesePage=theseService.findAllPaginated(PageRequest.of(currentPage-1, pageSize));
+            FileOutputStream fileOutputStream=null;
+           String filename=null;
+           try
+           {
+        // Obtain a workbook from the excel file
             HSSFSheet sheet=workbook.createSheet("thseses sheets");
             sheet.setDefaultColumnWidth(30);
 
@@ -145,8 +156,6 @@ public class TheseController {
 
             header.setHeight((short)-1);
 
-
-
             // create data rows
             int rowCount = 1;
 
@@ -166,71 +175,28 @@ public class TheseController {
                 aRow.createCell(11).setCellValue(these1.getLibrary());
                 aRow.createCell(12).setCellValue(these1.getResumes());
             }
-
-            FileOutputStream fileOutputStream = new FileOutputStream("src\\main\\resources\\static\\thesesDownload\\theses1.xls");
-
-
-
+            filename = "src\\main\\resources\\static\\thesesDownload\\theses" + currentPage + ".xls";
+            fileOutputStream = new FileOutputStream(filename);
             workbook.write(fileOutputStream);
             fileOutputStream.flush();
             fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return "src\\main\\resources\\static\\thesesDownload\\theses1.xls";
+        return filename;
     }
 
 
-   /* @GetMapping("/user")
-    public String findByUser(Model model, @RequestParam("page") Optional<Integer> page,
-                             @RequestParam("size")Optional<Integer>size, HttpSession session){
-        page.ifPresent(p->currentPage=p);
-        size.ifPresent(s->pageSize=s);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
-        Page<These> thesePage=theseService.findAllByUser(PageRequest.of(currentPage-1, pageSize));
-        model.addAttribute("theses", thesePage);
-        int totalPages=thesePage.getTotalPages();
-        if (totalPages>0){
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
+    // for the creation of excel docs, don't mind the name 
+    @GetMapping(value = "/createPdf/{currentPage}",produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @ResponseBody   
+    public  FileSystemResource createPdf(@PathVariable("currentPage") int currentPage,HSSFWorkbook workbook, HttpServletResponse response) throws DocumentException, IOException  {
+            response.setContentType("application/xls");      
+            response.setHeader("Content-Disposition", "attachment; filename=" + "theses" + currentPage + ".xls");
+        return new FileSystemResource(create(currentPage, workbook));
+    }
 
-        }
-
-        session.setAttribute("avatar", user.getImg());
-        session.setAttribute("name", user.getName());
-        System.out.println();
-        return "crew/theses";
-    }*/
-
-    /*@GetMapping("/groupe")
-    public String findByGroupe(Model model, @RequestParam("page") Optional<Integer> page,
-                             @RequestParam("size")Optional<Integer>size, HttpSession session, Long groupeId){
-        page.ifPresent(p->currentPage=p);
-        size.ifPresent(s->pageSize=s);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
-        Page<These> thesePage=theseService.findAllByGroupe(PageRequest.of(currentPage-1, pageSize),groupeId);
-        model.addAttribute("theses", thesePage);
-        int totalPages=thesePage.getTotalPages();
-        if (totalPages>0){
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-
-        }
-
-        session.setAttribute("avatar", user.getImg());
-        session.setAttribute("name", user.getName());
-        System.out.println();
-        return "crew/theses";
-    }*/
-
-
+    // for saving a these
     @PostMapping("/add/create")
     public String save(These these,Long groupeId, @RequestParam("file") MultipartFile file) {
 
@@ -256,7 +222,7 @@ public class TheseController {
         }
 
     }
-
+    
     @PostMapping("/add/create/root")
     public String saveRoot(These these,Long groupeId, @RequestParam("file") MultipartFile file) {
 
