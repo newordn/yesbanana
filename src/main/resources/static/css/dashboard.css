@@ -10,6 +10,8 @@ html,body
 .main
 {
     padding:0 !important; 
+    margin: 4.7rem 0 0 0;
+ 
 }
 .nav
 {
@@ -24,7 +26,6 @@ html,body
     padding:1rem;
     padding-left: 0 !important;
     z-index:1000;
-    margin-bottom: 5rem;
 }
 .save-button-div
 {
