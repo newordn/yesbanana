@@ -34,7 +34,7 @@
     <!-- showing theses-->
     <div class="row content justify-content-center">   
                  <h2 class="card alert-info mt-2 p-1">Ajouter une thèse</h2>
-      <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/these/add/create/root}">
+      <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/these/add/create}">
                 <!-- user id -->
                 <input type="number" name="userId" th:value="${session.userId}" style="display:none">
                 <!-- user id -->
@@ -163,7 +163,7 @@
     
               
     </div>
-    <!-- addBibliography-->
+<!-- addBibliography-->
     <div class=" modal fade" id="addBibliography" tabindex="-1" role="dialog">
         <div class=" modal-dialog  modal-dialog-centered" style="box-sizing: content-box" role="document">
             <form class="modal-content card " style="padding:2rem;">
@@ -213,8 +213,7 @@
     </div>
     <!-- addLibrary-->
 
-<!-- scripts-->
-    
+    <!-- scripts-->
         <!--vendor scripts -->
             <div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
         <!--vendor scripts -->
