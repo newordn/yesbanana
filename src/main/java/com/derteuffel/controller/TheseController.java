@@ -57,7 +57,8 @@ public class TheseController {
     private static int currentPage=1;
     private static int pageSize=6;
     private String pathToDownloadFileServer = "/home3/banana/jvm/apache-tomcat-8.5.30/domains/yesbanana.org/ROOT/WEB-INF/classes/static/downloadFile/";
-    // for getting all theses
+    
+// for getting all theses
     @GetMapping("")
     public String findAllThese(Model model,
                          @RequestParam("page")Optional<Integer> page,
@@ -86,11 +87,17 @@ public class TheseController {
         session.setAttribute("name", user.getName());
         return "these/theses";
     }
-
-    @GetMapping("/add/form")
+    // the general form for adding a these
+    @GetMapping("/add/form1")
     public  String theseForm(Model model){
         model.addAttribute("these", new These());
         return "these/theseForm";
+    }
+    // for adding a these in a crew
+    @GetMapping("/add/form")
+    public  String theseForm1(Model model){
+        model.addAttribute("these", new These());
+        return "crew/theseForm";
     }
 
     
@@ -200,11 +207,11 @@ public class TheseController {
 
     // for saving a these
     @PostMapping("/add/create")
-    public String save(These these,Long groupeId, @RequestParam("file") MultipartFile file) {
-
+    public String save(These these, @RequestParam("file") MultipartFile file, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
         String fileName= fileUploadService.storeFile(file);
+        Long groupeId = (Long) session.getAttribute("groupeId");
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(fileName)
@@ -224,13 +231,14 @@ public class TheseController {
         }
 
     }
-    
+    // for the root to save a test directly from the theses list
     @PostMapping("/add/create/root")
-    public String saveRoot(These these,Long groupeId, @RequestParam("file") MultipartFile file) {
+    public String saveRoot(These these, @RequestParam("file") MultipartFile file,HttpSession session) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
         String fileName= fileUploadService.storeFile(file);
+        Long groupeId = (Long) session.getAttribute("groupeId");
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(fileName)
