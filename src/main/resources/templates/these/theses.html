@@ -31,7 +31,7 @@
 </div>
 <!-- sidebar-->
 
-<div class="col main">
+<div class="col-11 offset-1 main">
 
     <!--navigation-->
     <div th:insert="~{../templates/fragments/navigation :: navigation}">
@@ -42,7 +42,6 @@
         <table class="table table-bordered text-center">
             <thead>
             <tr>
-                <th>Numéro</th>
                 <th>Université</th>
                 <th>Faculté/Ecole</th>
                 <th>Niveau</th>
@@ -52,8 +51,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="these, status: ${theses}">
-                <td th:text="${status.index+1}"></td>
+            <tr th:each="these: ${theses}">
                 <td th:text="${these.university}"></td>
                 <td th:text="${these.faculty}"></td>
                 <td th:text="${these.level}"></td>
