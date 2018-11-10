@@ -24,6 +24,7 @@ html,body
     padding:1rem;
     padding-left: 0 !important;
     z-index:1000;
+    margin-bottom: 5rem;
 }
 .save-button-div
 {

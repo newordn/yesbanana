@@ -254,23 +254,7 @@ public class TheseController {
         theseService.delete(theseId);
     }
 
-    /*@PutMapping("/update")
-    @ResponseBody
-    public These updateThese(These these, @RequestParam("file") MultipartFile file){
 
-        String fileName= fileUploadService.storeFile(file);
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
-        FileUploadRespone fileUploadRespone=new FileUploadRespone(fileName,fileDownloadUri);
-        these.setResumes(fileUploadRespone.getFileDownloadUri());
-
-
-       return theseRepository.save(these);
-    }
-*/
 
     @GetMapping("/update/{theseId}")
     public  String update(Model model, @PathVariable Long theseId){
