@@ -1,10 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
+    <!-- Required meta tags-->
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+
+    <!-- Title Page-->
+    <title>Contenu d'une thèse</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- thymeleaft -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+
+
 </head>
-<body>
+
+<body class="row">
+<!-- sidebar-->
+<div th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</div>
+<!-- sidebar-->
+
+<div class="col-11 offset-1 main">
+
+    <!--navigation-->
+    <div th:replace="~{../templates/fragments/navigation :: navigation}">
+    </div>
+    <!-- navigation -->
+
+    <div>
+        <!-- these detail -->
+        <div class=" col text-center" style="padding:2rem;width:100%;">
+            <h2 class="card alert-info mt-2">Equipe de réalisation</h2>
+            <div>
+
+                <div class="container">
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>Etudiant</th>
+                        </thead>
+                        <tbody>
+                        <td id="detailStudent" th:text="${these.student}"></td>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="container">
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>Encadreur</th>
+                        </thead>
+                        <tbody>
+                        <td id="detailProf" th:text="${these.profesor}"></td>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="container">
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>Chef de travaux/Charge de cours</th>
+                        </thead>
+                        <tbody>
+                        <td id="detailChiefOfWork" th:text="${these.workChief}"></td>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="container">
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>Assistant</th>
+                        </thead>
+                        <tbody>
+                        <td id="detailAssistant" th:text="${these.assistant}"></td>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- these detail-->
+
+    </div>
+</div>
+<!-- scripts-->
+<!--vendor scripts -->
+<div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+<!--vendor scripts -->
+
+<!-- scripts-->
 
 </body>
+
 </html>
