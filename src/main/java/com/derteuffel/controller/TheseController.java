@@ -287,10 +287,10 @@ public class TheseController {
         return "these/these";
     }
 
-    @GetMapping("/these/equipe/{theseId}")
+    @GetMapping("/equipe/{theseId}")
     public String getEquipe(Model model, @PathVariable Long theseId){
         Optional<These> optional= theseRepository.findById(theseId);
-        model.addAttribute("these",optional.get());
+        model.addAttribute("these1",optional.get());
         return "these/these1";
     }
 

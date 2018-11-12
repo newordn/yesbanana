@@ -53,8 +53,11 @@
                         </ul>
                     </div>
                 </div>
-                <a th:href="@{/these/these/equipe/} + ${these.theseId}" class="alert-info detailStudents">Etudiant et équipe directrice</a>
-            </div>
+                <div class="card mt-6">
+                    <a th:href="@{/these/equipe/} + ${these.theseId}" class="alert-info detailStudents">
+                        <i class="zmdi zmdi-eye"></i>Etudiant et équipe directrice</a>
+                </div>
+                </div>
         </div>
 
 
