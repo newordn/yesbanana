@@ -36,53 +36,62 @@
         <!-- these detail -->
         <div class=" col text-center" style="padding:2rem;width:100%;">
             <h2 class="card alert-info mt-2">Equipe de réalisation</h2>
-            <div>
+            <div class="mt-4">
 
-                <div class="container">
-                    <table class="table table-bordered">
-                        <thead>
-                        <th>Etudiant</th>
+                <div class="card">
+                    <table class="table">
+                        <thead class="bg-light">
+                        <h4 >Etudiant</h4>
                         </thead>
                         <tbody>
                         <td id="detailStudent" th:text="${these.student}"></td>
                         </tbody>
                     </table>
                 </div>
+            </div>
 
-                <div class="container">
-                    <table class="table table-bordered">
-                        <thead>
-                        <th>Encadreur</th>
+            <div class="mt-4">
+                <div class="card">
+                    <table class="table">
+                        <thead class="bg-light">
+                        <h4>Encadreur</h4>
                         </thead>
                         <tbody>
                         <td id="detailProf" th:text="${these.profesor}"></td>
                         </tbody>
                     </table>
                 </div>
-
-                <div class="container">
-                    <table class="table table-bordered">
-                        <thead>
-                        <th>Chef de travaux/Charge de cours</th>
+            </div>
+            <div class="mt-4">
+                <div class="card">
+                    <table class="table">
+                        <thead class="bg-light">
+                        <h4>Chef de travaux/Charge de cours</h4>
                         </thead>
                         <tbody>
                         <td id="detailChiefOfWork" th:text="${these.workChief}"></td>
                         </tbody>
                     </table>
                 </div>
-
-                <div class="container">
-                    <table class="table table-bordered">
-                        <thead>
-                        <th>Assistant</th>
+            </div>
+            <div class="mt-4">
+                <div class="card">
+                    <table class="table">
+                        <thead class="bg-light">
+                        <h4 >Assistant</h4>
                         </thead>
                         <tbody>
                         <td id="detailAssistant" th:text="${these.assistant}"></td>
                         </tbody>
                     </table>
                 </div>
-
             </div>
+            <div class="text-right mt-4">
+            <a th:href="@{/these/these/}+${theseId}" class="btn btn-primary ">Retour</a>
+            </div>
+            </div>
+
+
         </div>
 
 
