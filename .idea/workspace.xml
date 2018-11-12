@@ -1271,7 +1271,7 @@
       <workItem from="1541787742341" duration="1931000" />
       <workItem from="1542044168182" duration="677000" />
       <workItem from="1542045044657" duration="26000" />
-      <workItem from="1542045951654" duration="1037000" />
+      <workItem from="1542045951654" duration="1116000" />
     </task>
     <task id="LOCAL-00001" summary="now finish the user regstration we would like to set security right now">
       <created>1539163008064</created>
@@ -1295,7 +1295,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="546666000" />
+    <option name="totallyTimeSpent" value="546745000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1308,7 +1308,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32872504" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
