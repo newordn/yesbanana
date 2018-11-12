@@ -8,7 +8,7 @@
     <meta name="author" content="Neword">
 
     <!-- Title Page-->
-    <title>Theses Collection</title>
+    <title>Les utilisateurs</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
     <!-- thymleaf -->
@@ -29,9 +29,9 @@
 <!-- sidebar-->
 
 
-<div class="col main">
+<div class="col-11 offset-1 main">
     <!--navigation-->
-    <div th:insert="~{../templates/fragments/navigation :: navigation}">
+    <div th:replace="~{../templates/fragments/navigation :: navigation}">
     </div>
     <!-- navigation -->
     <h3 class="text-center">Les utilisateurs</h3>

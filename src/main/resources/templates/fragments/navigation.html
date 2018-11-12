@@ -1,5 +1,5 @@
 <!--navigation -->
-<nav class="nav" style="width:100%" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navigation"
+<nav class="nav col-12"  xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navigation"
      xmlns:sec="http://www.w3.org/1999/xhtml">
     <a th:href="@{/these}" style="color:white">
         <i class="zmdi zmdi-graduation-cap"></i>&nbsp;
@@ -12,6 +12,7 @@
     </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a th:if="${session.userRole=='root'}" th:href="@{/stats}" style="color:white"  sec:authorize="hasRole('root')">
         <i class="zmdi zmdi-trending-down"></i>&nbsp;Statistiques</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
     <div th:if="${session.avatar}">
         <img class="profile-img" th:src="${session.avatar}" alt="avatar">
     </div>
@@ -23,10 +24,11 @@
            data-toggle="dropdown" style="background-color:transparent;color:white" aria-haspopup="true" aria-expanded="false">
             Neword Newcom Orquel
         </a>
+        
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item" th:href="@{/user/update/}">Profil</a>
             <a class="dropdown-item" th:href="@{/logout}">Deconnexion</a>
         </div>
-    </div>
+    
 </nav>
 <!-- navigation -->
