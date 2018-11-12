@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+
+    <!-- Title Page-->
+    <title>Contenu d'une thèse</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- thymeleaft -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+
+
+</head>
+
+<body class="row">
+<!-- sidebar-->
+<div th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</div>
+<!-- sidebar-->
+
+<div class="col-11 offset-1 main">
+
+    <!--navigation-->
+    <div th:replace="~{../templates/fragments/navigation :: navigation}">
+    </div>
+    <!-- navigation -->
+
+    <div>
+        <!-- these detail -->
+        <div class=" col text-center" style="padding:2rem;width:100%;">
+            <h2 class="card alert-info mt-2">Contenu d'une thèse</h2>
+            <div>
+                <div class="detailabstract"><h4>Sommaire</h4></div>
+                <div><img th:src="${these.resumes}" id="detailAbstract" alt="sommaire"></div>
+                <h3 class="detailBibliographyLibrary">Références Bibliographique</h3>
+                <div class="row ">
+                    <div class=" col-6 detailBibliography">
+                        <h4>Bibliographie</h4>
+                        <ul class="list-group" id="detailBibliography">
+                        </ul>
+                    </div>
+                    <div class="detailLibrary col-6">
+                        <h4>Bibliothèque</h4>
+                        <ul class="list-group" id="detailLibrary">
+
+                        </ul>
+                    </div>
+                </div>
+                <a th:href="@{/these/these/equipe/}" class="alert-info detailStudents">Etudiant et équipe directrice</a>
+            </div>
+        </div>
+
+
+        <!-- these detail-->
+
+    </div>
+</div>
+<!-- scripts-->
+<!--vendor scripts -->
+<div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+<!--vendor scripts -->
+
+<!-- scripts-->
+
+</body>
+
+</html>
