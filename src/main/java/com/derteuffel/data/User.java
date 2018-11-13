@@ -2,6 +2,7 @@ package com.derteuffel.data;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -63,6 +64,8 @@ public class User implements Serializable{
     @Column
     private Boolean active;
 
+    //private Boolean isAutorized;
+
     @OneToMany(mappedBy = "user")
     @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<These> theses;
@@ -89,7 +92,8 @@ public class User implements Serializable{
     }
 
     public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email, @NotNull @Length(min = 6) String password, @NotNull String country,
-                @NotNull @Size(min = 3) String region, @Size(min = 2) String university, @Size(min = 3) String faculty, @NotNull String number, String img, Boolean active ) {
+                @NotNull @Size(min = 3) String region, @Size(min = 2) String university, @Size(min = 3) String faculty, @NotNull String number, String img,
+                Boolean isAutorized ) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -100,9 +104,11 @@ public class User implements Serializable{
         this.number = number;
         this.img = img;
         this.active=active;
+       // this.isAutorized=isAutorized;
     }
 
-    public User(String name, String email,String password, Role role, String country, String region, String university, String number, String faculty, String img) {
+    public User(String name, String email,String password, Role role, String country,
+                String region, String university, String number, String faculty, String img) {
         this.name = name;
         this.email = email;
         this.country = country;
@@ -113,6 +119,7 @@ public class User implements Serializable{
         this.img = img;
         this.password = password;
         this.role = role;
+        //this.isAutorized=isAutorized;
     }
     public User(String name, String email, String password, String country, String region, String university,
                 String number,Role role, String faculty, String img, List<Groupe> groupes) {
@@ -128,6 +135,14 @@ public class User implements Serializable{
         this.groupes=groupes;
         this.role = role;
     }
+
+   /* public Boolean getAutorized() {
+        return isAutorized;
+    }*/
+
+   /* public void setAutorized(Boolean autorized) {
+        isAutorized = autorized;
+    }*/
 
     @JsonIgnore
     public List<Groupe> getGroupe() {

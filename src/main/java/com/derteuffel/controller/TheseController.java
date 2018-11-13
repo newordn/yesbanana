@@ -283,7 +283,7 @@ public class TheseController {
     @GetMapping("/these/{theseId}")
     public String get(Model model, @PathVariable Long theseId){
         Optional<These> optional= theseRepository.findById(theseId);
-        model.addAttribute("these",optional.get());
+        model.addAttribute("these1",optional.get());
         return "these/these";
     }
 
@@ -300,6 +300,8 @@ public class TheseController {
         model.addAttribute("these1",optional.get());
         return "these/theseBibLib";
     }
+
+
 
 }
 
