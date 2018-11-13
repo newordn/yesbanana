@@ -109,11 +109,11 @@ select
 {
     margin-top:5rem;
     background-color:transparent;
-    margin-bottom: 4rem;
-    height: 3rem;
+    margin-bottom: 2rem;
+    height: 2rem;
     border:none;
     font-size:1.1rem;
-    line-height: 3rem;
+    line-height: 2rem;
     color:white;
     width:100%;
 }

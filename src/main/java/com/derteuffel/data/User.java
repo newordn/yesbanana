@@ -63,6 +63,42 @@ public class User implements Serializable{
     private Date createdDate= new Date();
     @Column
     private Boolean active;
+/*
+    //next added attributes
+    //qualification information
+    @Column
+    private String category;
+    @Column
+    private  String diplom;
+    @Column
+    private String expertDomain;
+
+    //work validity period
+    @Column
+    private Date beginningPeriod;
+    @Column
+    private Date endPeriod;
+    //days interval
+    @Column
+    private Date dayWorkBeginning;
+    @Column
+    private Date dayWorkEnd;
+
+    //student management information
+    @Column
+    private int studentNumber;
+    //affiliation quality
+    @Column
+    private int numberOfWorkers;
+    @Column
+    private int numberInGroupe;
+    //another detail for user
+    @Column
+    private String anotherDetail;
+    //private cv informations
+    @Column
+    private String cv;
+    */
 
     //private Boolean isAutorized;
 
@@ -142,6 +178,102 @@ public class User implements Serializable{
 
    /* public void setAutorized(Boolean autorized) {
         isAutorized = autorized;
+    }*/
+
+    /*public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getDiplom() {
+        return diplom;
+    }
+
+    public void setDiplom(String diplom) {
+        this.diplom = diplom;
+    }
+
+    public String getExpertDomain() {
+        return expertDomain;
+    }
+
+    public void setExpertDomain(String expertDomain) {
+        this.expertDomain = expertDomain;
+    }
+
+    public Date getBeginningPeriod() {
+        return beginningPeriod;
+    }
+
+    public void setBeginningPeriod(Date beginningPeriod) {
+        this.beginningPeriod = beginningPeriod;
+    }
+
+    public Date getEndPeriod() {
+        return endPeriod;
+    }
+
+    public void setEndPeriod(Date endPeriod) {
+        this.endPeriod = endPeriod;
+    }
+
+    public Date getDayWorkBeginning() {
+        return dayWorkBeginning;
+    }
+
+    public void setDayWorkBeginning(Date dayWorkBeginning) {
+        this.dayWorkBeginning = dayWorkBeginning;
+    }
+
+    public Date getDayWorkEnd() {
+        return dayWorkEnd;
+    }
+
+    public void setDayWorkEnd(Date dayWorkEnd) {
+        this.dayWorkEnd = dayWorkEnd;
+    }
+
+    public int getStudentNumber() {
+        return studentNumber;
+    }
+
+    public void setStudentNumber(int studentNumber) {
+        this.studentNumber = studentNumber;
+    }
+
+    public int getNumberOfWorkers() {
+        return numberOfWorkers;
+    }
+
+    public void setNumberOfWorkers(int numberOfWorkers) {
+        this.numberOfWorkers = numberOfWorkers;
+    }
+
+    public int getNumberInGroupe() {
+        return numberInGroupe;
+    }
+
+    public void setNumberInGroupe(int numberInGroupe) {
+        this.numberInGroupe = numberInGroupe;
+    }
+
+    public String getAnotherDetail() {
+        return anotherDetail;
+    }
+
+    public void setAnotherDetail(String anotherDetail) {
+        this.anotherDetail = anotherDetail;
+    }
+
+    public String getCv() {
+        return cv;
+    }
+
+    public void setCv(String cv) {
+        this.cv = cv;
     }*/
 
     @JsonIgnore
