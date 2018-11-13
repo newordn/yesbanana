@@ -42,21 +42,23 @@
         <table class="table table-bordered text-center">
             <thead>
             <tr>
+                <th>Pays</th>
+                <th>Région</th>
                 <th>Université</th>
-                <th>Faculté/Ecole</th>
-                <th>Niveau</th>
-                <th>Thème</th>
-                <th>Année</th>
+                <th>Faculté</th>
+                <th>Option</th>
+                <th>Sujet</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="these: ${theses}">
+                <td th:text="${these.country}"></td>
+                <td th:text="${these.regions}"></td>
                 <td th:text="${these.university}"></td>
                 <td th:text="${these.faculty}"></td>
-                <td th:text="${these.level}"></td>
+                <td th:text="${these.options}"></td>
                 <td th:text="${these.subject}"></td>
-                <td th:text="${these.theseDate}"></td>
                 <td>
                     <a th:href="@{/these/these/} + ${these.theseId}"   class="detailLink" alt="detail">
                         <i class="zmdi zmdi-eye" data-toggle="modal" data-target="#detail"></i>
