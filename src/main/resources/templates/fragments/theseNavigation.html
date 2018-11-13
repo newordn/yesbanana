@@ -1,0 +1,19 @@
+<!--navigation -->
+
+<nav   xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="theseNavigation"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <ul class="list-group">
+        <a th:href="@{/these/equipe/} + ${these1.theseId}" class="alert-info theseNavigation" style="text-decoration: none; ">
+        <li class="list-group-item">
+                        Etudiant et équipe directrice
+        </li>
+        </a>
+        <a th:href="@{/these/biblib/} + ${these1.theseId}" class="alert-info theseNavigation" style="text-decoration: none; ">
+        <li class="list-group-item">
+                        Bibliothèques et Bibliographie
+        </li>
+        </a>
+    </ul>
+    
+</nav>
+<!-- navigation -->

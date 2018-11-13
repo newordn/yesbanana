@@ -32,10 +32,9 @@
     </div>
     <!-- navigation -->
 
-    <div>
         <!-- these detail -->
         <div class=" col text-center" style="padding:2rem;width:100%;">
-            <h2 class="card alert-info mt-1 mb-5">Contenu d'une thèse</h2>
+            <h2 class="card alert-info mt-2">Bibliothèques et Bibliographies</h2>
             <div class="row">
                 <div class="col-3">  
                     <div class="card mt-6">
@@ -43,12 +42,21 @@
                     </div>
                 </div>
                 <div class="col-9">
-                    <div class="detailabstract"><h4>Sommaire</h4></div>
-                    <div><img th:src="${these1.resumes}" id="detailAbstract" alt="sommaire"></div>
-                
-                </div>
+            <h3 class="card alert-info mt-3">Bibliothèques</h3>
+            <ul class="list-group">
+                <li class="list-group-item"></li>
+            </ul>
+            <h3 class="card alert-info mt-3">Bibliographies</h3>
+            <ul class="list-group">
+                <li class="list-group-item"></li>
+            </ul>
+            <div class="text-right mt-4">
+            <a th:href="@{/these/these/}+${these1.theseId}" class="btn btn-primary ">Retour</a>
+
             </div>
-        </div>
+            </div>
+            </div>
+        <!-- these detail-->
 
     </div>
 </div>
