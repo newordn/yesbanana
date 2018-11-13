@@ -19,7 +19,7 @@ $("#confirmLibraryAdding").click(()=>{
 })
 // bibliography
 $("#confirmBibliographyAdding").click(() => {
-    let biblioVal = $("#bibliographyAuthor").val() + ":" + $("#bibliographyTitle").val() + ":" + $("#bibliographyContent").val();
+    let biblioVal = $("#bibliographyAuthor").val() + ":" + $("#bibliographyTitle").val() + ":" + $("#bibliographyContent").val() + ";";
     $("#bibliography").val(biblioVal + ($("#bibliography").val()))
     $("#bibliographyList").append('<li class="list-group-item">' +
         $("#bibliographyTitle").val() + '</li>');

@@ -26,6 +26,7 @@ import javax.servlet.http.HttpSession;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -296,8 +297,19 @@ public class TheseController {
     
     @GetMapping("/biblib/{theseId}")
     public String getBibLib(Model model, @PathVariable Long theseId){
-        Optional<These> optional= theseRepository.findById(theseId);
-        model.addAttribute("these1",optional.get());
+        These these= theseRepository.getOne(theseId);
+        String[] librairies = these.getLibrary().split(";");
+        String[] bibliographies1 = these.getBibliography().split(";");
+        ArrayList<String> bibliographies = new ArrayList<String>();
+        
+        for(String b : bibliographies1)
+        {
+           if( b.split(":").length>1)
+           bibliographies.add(b.split(":")[1]);
+        }
+        model.addAttribute("librairies",librairies);
+        model.addAttribute("bibliographies",bibliographies);
+        model.addAttribute("these1",these);
         return "these/theseBibLib";
     }
 

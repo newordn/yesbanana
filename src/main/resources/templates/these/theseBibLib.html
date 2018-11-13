@@ -44,11 +44,11 @@
                 <div class="col-9">
             <h3 class="card alert-info mt-3">Bibliothèques</h3>
             <ul class="list-group">
-                <li class="list-group-item"></li>
+                <li class="list-group-item" th:each="bibliography : ${bibliographies}" th:text="${bibliography}"></li>
             </ul>
             <h3 class="card alert-info mt-3">Bibliographies</h3>
             <ul class="list-group">
-                <li class="list-group-item"></li>
+                <li class="list-group-item" th:each="librairy : ${librairies}" th:text="${librairy}"></li>
             </ul>
             <div class="text-right mt-4">
             <a th:href="@{/these/these/}+${these1.theseId}" class="btn btn-primary ">Retour</a>
