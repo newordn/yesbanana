@@ -100,6 +100,7 @@ public class UserController {
     }
 
 
+    private String validate_url="yesbanana.org/validate/";
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String createUser(@Valid User user, Model model, @RequestParam("file") MultipartFile file, BindingResult bindingResult, String role) {
         String fileName = fileUploadServices.storeFile(file);
@@ -110,7 +111,7 @@ public class UserController {
 /*
             FileUploadRespone fileUploadRespone = new FileUploadRespone(fileName, fileDownloadUri);*/
         user.setImg("/downloadFile/" + fileName);
-        user.setActive(true);
+        //user.setActive(true);
         List<User> users=userService.listAll();
         if (users.size()<=1){
         Role role1= new Role("root");
@@ -139,16 +140,22 @@ public class UserController {
         } else {
             userService.saveOrUpdate(user);
             MailService mailService = new MailService();
-            /*
+            mailService.sendSimpleMessage(
+                    user.getEmail(),
+                    "Bienvenue sur Yesbanana votre inscription a été éffectuer avec succès",
+                    "veuillez cliquer sur le lien de confirmation "+validate_url+user.getUserId()+ " pour terminer votre inscription et" +
+                            " profiter pleinement de votre espace membre"
+            );
+
             mailService.sendSimpleMessage(
                     "solutioneducationafrique@gmail.com",
                     "YesBanana: Notification Inscription d'un utilisateur",
                     "L'utilisateur " + user.getName() + " dont l'email est " +
                             user.getEmail()+ "  Vient de s'inscrire " +
                             "sur la plateforme YesBanana. Veuillez vous connectez pour manager son status.");
-            */
 
-            return "redirect:/?success=true";
+
+            return "redirect1";
         }
     }
 
@@ -189,14 +196,14 @@ public class UserController {
             user.setActive(true);
             userService.update(user);
             MailService mailService = new MailService();
-            /*
+
             mailService.sendSimpleMessage(
                     "solutioneducationafrique@gmail.com",
                     "YesBanana: Notification Inscription d'un utilisateur",
                     "L'utilisateur " + user.getName() + " dont l'email est " +
                             user.getEmail()+ "  Vient de modifier son profil " +
                             "sur la plateforme YesBanana. Veuillez vous connectez pour manager son status.");
-            */
+
 
 
             return "redirect:/groupe/groupes";

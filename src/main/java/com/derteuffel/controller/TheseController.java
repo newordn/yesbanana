@@ -294,5 +294,12 @@ public class TheseController {
         return "these/these1";
     }
 
+    @GetMapping("/library/{theseId}")
+    public String getlibrary(Model model, @PathVariable Long theseId){
+        Optional<These> optional= theseRepository.findById(theseId);
+        model.addAttribute("these2",optional.get());
+        return "these/these2";
+    }
+
 }
 

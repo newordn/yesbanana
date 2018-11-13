@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,17 +36,8 @@ public class HomeController {
     @Autowired
     private TheseRepository theseRepository;
     @GetMapping("/")
-    public String login(Model model, @RequestParam(value="success",required = false) boolean success, @RequestParam(value="error",required = false) boolean error)
+    public String login()
     {
-        if(success) {
-            model.addAttribute("success", "Votre inscription a été éffectué avec succès, Veuillez vous connecter.");
-            return "index";
-        }
-            if(error) {
-            model.addAttribute("error", "Email ou mot de passe incorrect.");
-            return "index";
-        }
-        else
             return "index";
         }
 
@@ -68,4 +60,17 @@ public class HomeController {
         model.addAttribute("thesesSize",theses.size());
         return "stats/stats";
     }
+
+    @GetMapping("/validate/{userId}")
+    public String validate(@PathVariable Long userId){
+        User user=userService.getById(userId);
+
+        System.out.println(user.getUserId());
+        user.setActive(true);
+        userRepository.save(user);
+        return "redirect:/";
+
+    }
+
+
 }
