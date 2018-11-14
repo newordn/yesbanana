@@ -34,27 +34,33 @@
     <!-- showing theses-->
     <div class="row content justify-content-center">   
                  <h2 class="card alert-info mt-2 p-1">Ajouter une thèse</h2>
-      <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/these/add/create}">
+      <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/these/add/create}" th:object="${these}">
                 <!-- user id -->
                 <input type="number" name="userId" th:value="${session.userId}" style="display:none">
                 <!-- user id -->
+                <!--theseId-->
+                <input type="number" th:field="*{theseId}"  style="display:none">
+                <!--theseId-->
+          <!--groupeId-->
+          <input type="number" name="groupeId" th:value="${session.groupeId}"  style="display:none">
+          <!--groupeId-->
                 <div class="row mb-4">
                     <div class="col-4">
                         <div class="form-group">
                             <span class='error' id="universityError"></span>
-                            <input type="text" name="university" id="university" placeholder="Université/Ecole" />
+                            <input type="text" th:field="*{university}" id="university" placeholder="Université/Ecole" />
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <span class='error' id="facultyError"></span>
-                            <input type="text" name="faculty" id="faculty" placeholder="Faculté/Discipline" />
+                            <input type="text" th:field="*{faculty}" id="faculty" placeholder="Faculté/Discipline" />
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <span class='error' id="optionError"></span>
-                            <input type="text" name="options" id="option" placeholder="Option" />
+                            <input type="text" th:field="*{options}" id="option" placeholder="Option" />
                         </div>
                     </div>
                 </div>
@@ -62,19 +68,19 @@
                     <div class="col-4">
                         <div class="form-group">
                             <span class='error' id="levelError"></span>
-                            <input type="text" name="level" id="level" placeholder="Niveau" />
+                            <input type="text" th:field="*{level}" id="level" placeholder="Niveau" />
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <span class='error' id="subjectError"></span>
-                            <input type="text" name="subject" id="subject" placeholder="Sujet/Thème" />
+                            <input type="text" th:field="*{subject}" id="subject" placeholder="Sujet/Thème" />
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <span class='error' id="dateError"></span>
-                            <input type="text" name="theseDate" id="dateThese" placeholder="Date" />
+                            <input type="text" th:field="*{theseDate}" id="dateThese" placeholder="Date" />
                         </div>
                     </div>
                 </div>
@@ -89,13 +95,13 @@
                     <div class="col-4">
                         <div class="form-group">
                             <span class='error' id="countryError"></span>
-                            <input type="text" name="country" id="country" placeholder="Pays" />
+                            <input type="text" th:field="*{country}" id="country" placeholder="Pays" />
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <span class='error' id="regionError"></span>
-                            <input type="text" name="regions" id="region" placeholder="Région" />
+                            <input type="text" th:field="*{regions}" id="region" placeholder="Région" />
                         </div>
                     </div>
                 </div>
@@ -103,25 +109,25 @@
                     <div class="col-3">
                         <div class="form-group">
                             <span class='error' id="assistantError"></span>
-                            <input type="text" name="assistant" id="assistant" placeholder="Nom de l'assistant" />
+                            <input type="text" th:field="*{assistant}" id="assistant" placeholder="Nom de l'assistant" />
                         </div>
                 </div>
                     <div class="col-3">
                         <div class="form-group">
                             <span class='error' id="studentError"></span>
-                            <input type="text" name="student" id="student" placeholder="Nom de l'étudiant" />
+                            <input type="text" th:field="*{student}" id="student" placeholder="Nom de l'étudiant" />
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group ">
                             <span class='error' id="profError"></span>
-                            <input type="text" name="profesor" id="prof" placeholder="Nom de l'encadreur/prof" />
+                            <input type="text" th:field="*{profesor}" id="prof" placeholder="Nom de l'encadreur/prof" />
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <span class='error' id="workChiefError"></span>
-                            <input type="text" name="workChief" id="workChief" placeholder="Nom du chef des travaux" />
+                            <input type="text" th:field="*{workChief}" id="workChief" placeholder="Nom du chef des travaux" />
                         </div>
                     </div>
                 </div>
@@ -132,7 +138,7 @@
                                 <h4>Bibliographie</h4>
                                 <ul class="list-group" id="bibliographyList">
                                 </ul>
-                                <input type="text" value="" style="display:none;" name="bibliography" id="bibliography" placeholder="Bibliographie" />
+                                <input type="text" value="" style="display:none;" th:field="*{bibliography}" id="bibliography" placeholder="Bibliographie" />
                                 <button style="width:100%"  data-toggle="modal" data-target="#addBibliography"
                                         class="img-upload addBL" type="button" id="addBibliographyBtn">+</button>
                             </div>
@@ -140,7 +146,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group row">
-                            <input type="text" value="" name="library" style="display:none" id="library" placeholder="Bibliothèque" />
+                            <input type="text" value="" th:field="*{library}" style="display:none" id="library" placeholder="Bibliothèque" />
 
                             <div class="col-12">
                                 <h4>Bibliothèque</h4>

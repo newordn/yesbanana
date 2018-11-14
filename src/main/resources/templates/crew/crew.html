@@ -25,19 +25,22 @@
     <!-- update crew form -->
     <h3 class="text-center mt-5">Modifier les informations du groupe</h3>
     <div class="row justify-content-center mt-3" >
-        <form class=" card text-center p-5" style="width:40rem;" method="post">
+        <form class=" card text-center p-5" style="width:40rem;" th:object="${groupe}" th:action="@{/groupe/save}" method="post">
+            <!--groupeId-->
+            <input type="number" th:field="*{groupeId}"  style="display:none">
+            <!--groupeId-->
             <div class="form-group" >
                 <span class='error' id="nameError"></span>
-                <input type="text" name="name" id="name" class="form-control" placeholder="Nom du groupe" />
+                <input type="text" th:field="*{groupeName}" id="groupeName" class="form-control" placeholder="Nom du groupe" />
             </div>
 
             <div class="form-group" style="width: 100%">
                 <span class='error' id="countryError"></span>
-                <input type="text" name="country" id="country" class="form-control" placeholder="Pays" />
+                <input type="text" th:field="*{groupeCountry}" id="groupeCountry" class="form-control" placeholder="Pays" />
             </div>
             <div class="form-group" style="width: 100%">
                 <span class='error' id="regionError"></span>
-                <input type="text" name="region" id="region" class="form-control" placeholder="Région" />
+                <input type="text" th:field="*{groupeRegion}" id="groupeRegion" class="form-control" placeholder="Région" />
             </div>
             <div class="form-group">
                 <strong>Chef du groupe : </strong>
@@ -51,6 +54,7 @@
                     <button type="submit" id="submit" style="width:100%;" name="saveThese" class="btn btn-success">Valider</button>
                 </div>
             </div>
+            </form>
     </div>
 </div>
 </div>
