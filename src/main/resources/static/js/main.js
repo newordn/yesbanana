@@ -112,7 +112,7 @@ else if (countrySelect.val() == "Côte d'ivoire")
     $("#number").val("+221");
 }
 });
-// file picker
+// file picker for img
 $("#addButton").click(()=>{
 
     $("#file_image").click();
@@ -122,6 +122,18 @@ function handleImg()
     let img = this.files[0];
     console.log(img);
     $("#image").val(img.name);
+}
+});
+// file picker for cv
+$("#addButtonCv").click(()=>{
+
+    $("#file_image_cv").click();
+document.getElementById("file_image_cv").addEventListener('change',handleImg,false);
+function handleImg()
+{
+    let img = this.files[0];
+    console.log(img);
+    $("#cv").val(img.name);
 }
 });
 

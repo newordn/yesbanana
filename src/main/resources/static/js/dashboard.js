@@ -63,3 +63,14 @@ else
     $("#passwordInputs").css("display", "none");
 }
 })
+// toggle acomp fields
+$("#accompToggle").change(()=>{
+    if($("#accompToggle").is(":checked"))
+{
+    $("#accompDiv").css("display","block");
+}
+else
+{
+    $("#accompDiv").css("display", "none");
+}
+})
