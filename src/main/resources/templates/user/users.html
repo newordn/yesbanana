@@ -46,7 +46,7 @@
                         </button>
                     </div>
                     <div class="col-6 text-right" style="padding:0">
-                        <a th:href="@{/user/delete/} + ${user.userId}" class="btn btn-danger  rounded-circle" >
+                        <a data-toggle="modal" data-target="#confirmDeletion" th:href="'#' +${user.userId}" onclick= "$('#confirmDeletionBtn').attr('href','http://localhost:8080/user/delete/'+ this.getAttribute('href').substr(1))"   class="btn btn-danger  rounded-circle" >
                             <i class="zmdi zmdi-close" ></i>
                         </a>
                     </div>
@@ -88,6 +88,21 @@
 
     </div>
 </div>
+
+<!-- Delete user modal -->
+<div class=" modal fade" id="confirmDeletion" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role=" document">
+         
+       <form class=" modal-content card text-center" style="padding:1rem;" method="get" id="updateRoleForm">
+        <h4>Voulez vous supprimer cet utilisateur</h4>
+           <div class='row'> 
+               <div class='col-6'><a class="btn btn-danger" type="submit" id="confirmDeletionBtn">Oui</a></div>
+               <div class='col-6'><button class="btn btn-warning" data-dismiss="modal" type="button">Non</button></div>      
+            </div>
+       </form>
+    </div>
+</div>
+<!-- Delete user modal -->
 <!-- update role-->
 <div class=" modal fade" id="updateRole" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role=" document">
