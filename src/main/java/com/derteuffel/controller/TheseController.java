@@ -103,14 +103,7 @@ public class TheseController {
 
     // for update a these in a crew
     @GetMapping("/add/edit/{theseId}")
-    public  String editthese(Model model, Long theseId){
-        model.addAttribute("these",theseRepository.getOne(theseId));
-        return "crew/theseForm";
-    }
-
-    // for update a these in generale
-    @GetMapping("/add/edit1/{theseId}")
-    public  String editThese(Model model, Long theseId){
+    public  String editthese(Model model, @PathVariable Long theseId){
         model.addAttribute("these",theseRepository.getOne(theseId));
         return "crew/theseForm";
     }
@@ -247,7 +240,7 @@ public class TheseController {
 
     }
     // for the root to save a test directly from the theses list
-    @PostMapping("/add/create/root")
+  /*  @PostMapping("/add/create/root")
     public String saveRoot(These these, @RequestParam("file") MultipartFile file,HttpSession session) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -268,7 +261,7 @@ public class TheseController {
         theseRepository.save(these);
         return "redirect:/these";
 
-    }
+    }*/
 
 
 
