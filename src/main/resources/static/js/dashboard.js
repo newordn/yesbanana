@@ -41,7 +41,7 @@ function handleImg() {
 // submitting update form
 $("#confirmOldPass").click(()=>{
     $.ajax({
-    url: "http://localhost:8080/" + $("#oldPassword").val()
+    url: "http://yesbanana.org/" + $("#oldPassword").val()
 }).done((data) => {
     if(data)
     $("#submitUpdateForm").click();
