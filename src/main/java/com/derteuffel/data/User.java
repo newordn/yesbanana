@@ -63,7 +63,7 @@ public class User implements Serializable{
     private Date createdDate= new Date();
     @Column
     private Boolean active;
-/*
+
     //next added attributes
     //qualification information
     @Column
@@ -98,7 +98,7 @@ public class User implements Serializable{
     //private cv informations
     @Column
     private String cv;
-    */
+
 
     //private Boolean isAutorized;
 
@@ -117,19 +117,12 @@ public class User implements Serializable{
     public User() {
     }
 
-    public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email, @NotNull @Length(min = 6) String password, @NotNull String country,
-                @NotNull @Size(min = 3) String region, @NotNull String number) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.country = country;
-        this.region = region;
-        this.number = number;
-    }
-
-    public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email, @NotNull @Length(min = 6) String password, @NotNull String country,
-                @NotNull @Size(min = 3) String region, @Size(min = 2) String university, @Size(min = 3) String faculty, @NotNull String number, String img,
-                Boolean isAutorized ) {
+    public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email, @Length(min = 6) String password,
+                @NotNull String country, @NotNull @Size(min = 3) String region, @Size(min = 2) String university,
+                @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
+                String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod, Date dayWorkBeginning,
+                Date dayWorkEnd, int studentNumber, int numberOfWorkers, int numberInGroupe, String anotherDetail, String cv,
+                List<These> theses, Role role, List<Groupe> groupes) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -139,37 +132,23 @@ public class User implements Serializable{
         this.faculty = faculty;
         this.number = number;
         this.img = img;
-        this.active=active;
-       // this.isAutorized=isAutorized;
-    }
-
-    public User(String name, String email,String password, Role role, String country,
-                String region, String university, String number, String faculty, String img) {
-        this.name = name;
-        this.email = email;
-        this.country = country;
-        this.region = region;
-        this.university = university;
-        this.faculty = faculty;
-        this.number = number;
-        this.img = img;
-        this.password = password;
+        this.createdDate = createdDate;
+        this.active = active;
+        this.category = category;
+        this.diplom = diplom;
+        this.expertDomain = expertDomain;
+        this.beginningPeriod = beginningPeriod;
+        this.endPeriod = endPeriod;
+        this.dayWorkBeginning = dayWorkBeginning;
+        this.dayWorkEnd = dayWorkEnd;
+        this.studentNumber = studentNumber;
+        this.numberOfWorkers = numberOfWorkers;
+        this.numberInGroupe = numberInGroupe;
+        this.anotherDetail = anotherDetail;
+        this.cv = cv;
+        this.theses = theses;
         this.role = role;
-        //this.isAutorized=isAutorized;
-    }
-    public User(String name, String email, String password, String country, String region, String university,
-                String number,Role role, String faculty, String img, List<Groupe> groupes) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.country = country;
-        this.region = region;
-        this.university = university;
-        this.faculty = faculty;
-        this.number = number;
-        this.img = img;
-        this.groupes=groupes;
-        this.role = role;
+        this.groupes = groupes;
     }
 
    /* public Boolean getAutorized() {
@@ -180,7 +159,7 @@ public class User implements Serializable{
         isAutorized = autorized;
     }*/
 
-    /*public String getCategory() {
+    public String getCategory() {
         return category;
     }
 
@@ -274,7 +253,7 @@ public class User implements Serializable{
 
     public void setCv(String cv) {
         this.cv = cv;
-    }*/
+    }
 
     @JsonIgnore
     public List<Groupe> getGroupe() {

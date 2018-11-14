@@ -101,6 +101,20 @@ public class TheseController {
         return "crew/theseForm";
     }
 
+    // for update a these in a crew
+    @GetMapping("/add/edit/{theseId}")
+    public  String editthese(Model model, Long theseId){
+        model.addAttribute("these",theseRepository.getOne(theseId));
+        return "crew/theseForm";
+    }
+
+    // for update a these in generale
+    @GetMapping("/add/edit1/{theseId}")
+    public  String editThese(Model model, Long theseId){
+        model.addAttribute("these",theseRepository.getOne(theseId));
+        return "crew/theseForm";
+    }
+
     
     // a function which performs the create
     public String create(int currentPage,HSSFWorkbook workbook) throws FileNotFoundException, DocumentException, IOException
