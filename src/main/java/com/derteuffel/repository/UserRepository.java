@@ -20,6 +20,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
     User findByEmail(String email);
 
     List<User> findByGroupes_GroupeId( Long groupeId);
+    //List<User> findByGroupes_GroupeId( Long groupeId, String category);
+
 
     @Query("select u from User as u join u.role ur where ur.role=:id order by u.userId desc")
     List<User> findAllByRole(@Param("id") String role);

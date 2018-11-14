@@ -64,6 +64,42 @@ public class User implements Serializable{
     @Column
     private Boolean active;
 
+    //next added attributes
+    //qualification information
+    @Column
+    private String category;
+    @Column
+    private  String diplom;
+    @Column
+    private String expertDomain;
+
+    //work validity period
+    @Column
+    private Date beginningPeriod;
+    @Column
+    private Date endPeriod;
+    //days interval
+    @Column
+    private Date dayWorkBeginning;
+    @Column
+    private Date dayWorkEnd;
+
+    //student management information
+    @Column
+    private int studentNumber;
+    //affiliation quality
+    @Column
+    private int numberOfWorkers;
+    @Column
+    private int numberInGroupe;
+    //another detail for user
+    @Column
+    private String anotherDetail;
+    //private cv informations
+    @Column
+    private String cv;
+
+
     //private Boolean isAutorized;
 
     @OneToMany(mappedBy = "user")
@@ -81,19 +117,12 @@ public class User implements Serializable{
     public User() {
     }
 
-    public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email, @NotNull @Length(min = 6) String password, @NotNull String country,
-                @NotNull @Size(min = 3) String region, @NotNull String number) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.country = country;
-        this.region = region;
-        this.number = number;
-    }
-
-    public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email, @NotNull @Length(min = 6) String password, @NotNull String country,
-                @NotNull @Size(min = 3) String region, @Size(min = 2) String university, @Size(min = 3) String faculty, @NotNull String number, String img,
-                Boolean isAutorized ) {
+    public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email, @Length(min = 6) String password,
+                @NotNull String country, @NotNull @Size(min = 3) String region, @Size(min = 2) String university,
+                @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
+                String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod, Date dayWorkBeginning,
+                Date dayWorkEnd, int studentNumber, int numberOfWorkers, int numberInGroupe, String anotherDetail, String cv,
+                List<These> theses, Role role, List<Groupe> groupes) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -103,37 +132,23 @@ public class User implements Serializable{
         this.faculty = faculty;
         this.number = number;
         this.img = img;
-        this.active=active;
-       // this.isAutorized=isAutorized;
-    }
-
-    public User(String name, String email,String password, Role role, String country,
-                String region, String university, String number, String faculty, String img) {
-        this.name = name;
-        this.email = email;
-        this.country = country;
-        this.region = region;
-        this.university = university;
-        this.faculty = faculty;
-        this.number = number;
-        this.img = img;
-        this.password = password;
+        this.createdDate = createdDate;
+        this.active = active;
+        this.category = category;
+        this.diplom = diplom;
+        this.expertDomain = expertDomain;
+        this.beginningPeriod = beginningPeriod;
+        this.endPeriod = endPeriod;
+        this.dayWorkBeginning = dayWorkBeginning;
+        this.dayWorkEnd = dayWorkEnd;
+        this.studentNumber = studentNumber;
+        this.numberOfWorkers = numberOfWorkers;
+        this.numberInGroupe = numberInGroupe;
+        this.anotherDetail = anotherDetail;
+        this.cv = cv;
+        this.theses = theses;
         this.role = role;
-        //this.isAutorized=isAutorized;
-    }
-    public User(String name, String email, String password, String country, String region, String university,
-                String number,Role role, String faculty, String img, List<Groupe> groupes) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.country = country;
-        this.region = region;
-        this.university = university;
-        this.faculty = faculty;
-        this.number = number;
-        this.img = img;
-        this.groupes=groupes;
-        this.role = role;
+        this.groupes = groupes;
     }
 
    /* public Boolean getAutorized() {
@@ -143,6 +158,102 @@ public class User implements Serializable{
    /* public void setAutorized(Boolean autorized) {
         isAutorized = autorized;
     }*/
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getDiplom() {
+        return diplom;
+    }
+
+    public void setDiplom(String diplom) {
+        this.diplom = diplom;
+    }
+
+    public String getExpertDomain() {
+        return expertDomain;
+    }
+
+    public void setExpertDomain(String expertDomain) {
+        this.expertDomain = expertDomain;
+    }
+
+    public Date getBeginningPeriod() {
+        return beginningPeriod;
+    }
+
+    public void setBeginningPeriod(Date beginningPeriod) {
+        this.beginningPeriod = beginningPeriod;
+    }
+
+    public Date getEndPeriod() {
+        return endPeriod;
+    }
+
+    public void setEndPeriod(Date endPeriod) {
+        this.endPeriod = endPeriod;
+    }
+
+    public Date getDayWorkBeginning() {
+        return dayWorkBeginning;
+    }
+
+    public void setDayWorkBeginning(Date dayWorkBeginning) {
+        this.dayWorkBeginning = dayWorkBeginning;
+    }
+
+    public Date getDayWorkEnd() {
+        return dayWorkEnd;
+    }
+
+    public void setDayWorkEnd(Date dayWorkEnd) {
+        this.dayWorkEnd = dayWorkEnd;
+    }
+
+    public int getStudentNumber() {
+        return studentNumber;
+    }
+
+    public void setStudentNumber(int studentNumber) {
+        this.studentNumber = studentNumber;
+    }
+
+    public int getNumberOfWorkers() {
+        return numberOfWorkers;
+    }
+
+    public void setNumberOfWorkers(int numberOfWorkers) {
+        this.numberOfWorkers = numberOfWorkers;
+    }
+
+    public int getNumberInGroupe() {
+        return numberInGroupe;
+    }
+
+    public void setNumberInGroupe(int numberInGroupe) {
+        this.numberInGroupe = numberInGroupe;
+    }
+
+    public String getAnotherDetail() {
+        return anotherDetail;
+    }
+
+    public void setAnotherDetail(String anotherDetail) {
+        this.anotherDetail = anotherDetail;
+    }
+
+    public String getCv() {
+        return cv;
+    }
+
+    public void setCv(String cv) {
+        this.cv = cv;
+    }
 
     @JsonIgnore
     public List<Groupe> getGroupe() {
