@@ -139,7 +139,7 @@ public class UserController {
             return "user/userForm";
         } else {
             userService.saveOrUpdate(user);
-     /*
+
             MailService mailService = new MailService();
             mailService.sendSimpleMessage(
                     user.getEmail(),
@@ -155,7 +155,7 @@ public class UserController {
                             user.getEmail()+ "  Vient de s'inscrire " +
                             "sur la plateforme YesBanana. Veuillez vous connectez pour manager son status.");
 
-*/
+
             return "redirect1";
         }
     }
@@ -242,4 +242,6 @@ public class UserController {
         return "user/users";
 
     }
+
+
 }

@@ -88,12 +88,7 @@ public class TheseController {
         session.setAttribute("name", user.getName());
         return "these/theses";
     }
-    // the general form for adding a these
-    @GetMapping("/add/form1")
-    public  String theseForm(Model model){
-        model.addAttribute("these", new These());
-        return "these/theseForm";
-    }
+
     // for adding a these in a crew
     @GetMapping("/add/form")
     public  String theseForm1(Model model){
@@ -105,7 +100,7 @@ public class TheseController {
     @GetMapping("/add/edit/{theseId}")
     public  String editthese(Model model, @PathVariable Long theseId){
         model.addAttribute("these",theseRepository.getOne(theseId));
-        return "crew/theseForm";
+        return "crew/theseUpdate";
     }
 
     

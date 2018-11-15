@@ -1,0 +1,28 @@
+<!--navigation -->
+
+<nav   xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="theseNavigation" >
+    <ul class="list-group">
+        <a th:href="@{/groupe/encadrement/chef/} + ${session.groupeId}" class="alert-info theseNavigation" style="text-decoration: none; ">
+            <li class="list-group-item" >
+               Chef de projet
+            </li>
+        </a>
+        <a th:href="@{/groupe/encadrement/assistant/} + ${session.groupeId}" class="alert-info theseNavigation" style="text-decoration: none; ">
+            <li class="list-group-item">
+                Assistant
+            </li>
+        </a>
+        <a th:href="@{/groupe/encadrement/encadreur/} + ${session.groupeId}" class="alert-info theseNavigation" style="text-decoration: none; ">
+            <li class="list-group-item">
+                Encadreur
+            </li>
+        </a>
+        <a th:href="@{/groupe/encadrement/etudiant/} + ${session.groupeId}" class="alert-info theseNavigation" style="text-decoration: none; ">
+            <li class="list-group-item">
+              Etudiant
+            </li>
+        </a>
+    </ul>
+
+</nav>
+<!-- navigation -->

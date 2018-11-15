@@ -183,7 +183,7 @@ public class GroupeController {
     public String update(Model model,@PathVariable Long groupeId){
         Groupe groupe=groupeRepository.getOne(groupeId);
         model.addAttribute("groupe", groupe);
-        model.addAttribute("users", userRepository.findAllByRole("ADMIN"));
+        model.addAttribute("users", userRepository.findAllByRole("admin"));
 
         return "crew/crew";
     }
@@ -258,5 +258,76 @@ public class GroupeController {
     @GetMapping("/")
     public String findAll(){
         return "crew/crews";
+    }
+
+    @GetMapping("/encadrement/chef/{groupeId}")
+    public String findAllByGroupeAndCategory1(Model model,@PathVariable Long groupeId){
+
+        List<User> users= userRepository.findByGroupes_GroupeId(groupeId);
+         List<User> users1= new ArrayList<>();
+        for (User user:users){
+
+            if (user.getCategory().equals("Chef de travaux")){
+                users1.add(user);
+            }
+        }
+
+        model.addAttribute("users", users1);
+        return "crew/encadrement";
+    }
+
+    @GetMapping("/encadrement/assistant/{groupeId}")
+    public String findAllByGroupeAndCategory2(Model model,@PathVariable Long groupeId){
+
+        List<User> users_assistant= userRepository.findByGroupes_GroupeId(groupeId);
+        List<User> users_list= new ArrayList<>();
+        for (User user1:users_assistant){
+
+            if (user1.getCategory().equals("Assistant")){
+                users_list.add(user1);
+            }
+        }
+
+        model.addAttribute("users1", users_list);
+      return "crew/encadrement";
+    }
+
+    @GetMapping("/encadrement/encadreur/{groupeId}")
+    public String findAllByGroupeAndCategory3(Model model,@PathVariable Long groupeId){
+
+        List<User> users_encadreur= userRepository.findByGroupes_GroupeId(groupeId);
+        List<User> users_2= new ArrayList<>();
+        for (User user:users_encadreur){
+
+            if (user.getCategory().equals("Encadreur")){
+                users_2.add(user);
+            }
+        }
+
+        model.addAttribute("users2", users_2);
+        return "crew/encadrement";
+    }
+
+    @GetMapping("/encadrement/etudiant/{groupeId}")
+    public String findAllByGroupeAndCategory4(Model model,@PathVariable Long groupeId){
+
+        List<User> users_etudiant= userRepository.findByGroupes_GroupeId(groupeId);
+        List<User> users_3= new ArrayList<>();
+        for (User user:users_etudiant){
+
+            if (user.getCategory().equals("Etudiant")){
+                users_3.add(user);
+            }
+        }
+
+        model.addAttribute("users3", users_3);
+        return "crew/encadrement";
+    }
+
+    @GetMapping("/training/{groupeId}")
+    public String encadrement(Model model, @PathVariable Long groupeId){
+        Groupe groupe=groupeRepository.getOne(groupeId);
+        model.addAttribute("groupe",groupe);
+        return "crew/encadrement";
     }
 }
