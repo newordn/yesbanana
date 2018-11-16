@@ -89,7 +89,7 @@ public class User implements Serializable{
     private int studentNumber;
     //affiliation quality
     @Column
-    private int numberOfWorkers;
+    private Boolean numberOfWorkers;
     @Column
     private int numberInGroupe;
     //another detail for user
@@ -117,11 +117,28 @@ public class User implements Serializable{
     public User() {
     }
 
+    public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email,
+                @Length(min = 6) String password, @NotNull String country, @NotNull @Size(min = 3) String region,
+                @Size(min = 2) String university, @Size(min = 3) String faculty, @NotNull String number, String img,
+                Date createdDate, Boolean active) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.country = country;
+        this.region = region;
+        this.university = university;
+        this.faculty = faculty;
+        this.number = number;
+        this.img = img;
+        this.createdDate = createdDate;
+        this.active = active;
+    }
+
     public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email, @Length(min = 6) String password,
                 @NotNull String country, @NotNull @Size(min = 3) String region, @Size(min = 2) String university,
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod, Date dayWorkBeginning,
-                Date dayWorkEnd, int studentNumber, int numberOfWorkers, int numberInGroupe, String anotherDetail, String cv,
+                Date dayWorkEnd, int studentNumber, Boolean numberOfWorkers, int numberInGroupe, String anotherDetail, String cv,
                 List<These> theses, Role role, List<Groupe> groupes) {
         this.name = name;
         this.email = email;
@@ -223,11 +240,11 @@ public class User implements Serializable{
         this.studentNumber = studentNumber;
     }
 
-    public int getNumberOfWorkers() {
+    public Boolean getNumberOfWorkers() {
         return numberOfWorkers;
     }
 
-    public void setNumberOfWorkers(int numberOfWorkers) {
+    public void setNumberOfWorkers(Boolean numberOfWorkers) {
         this.numberOfWorkers = numberOfWorkers;
     }
 

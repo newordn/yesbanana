@@ -104,6 +104,7 @@ public class UserController {
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String createUser(@Valid User user, Model model, @RequestParam("file") MultipartFile file, BindingResult bindingResult, String role) {
         String fileName = fileUploadServices.storeFile(file);
+        String fileNameCv = fileUploadServices.storeFile(file);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(fileName)
@@ -111,6 +112,11 @@ public class UserController {
 /*
             FileUploadRespone fileUploadRespone = new FileUploadRespone(fileName, fileDownloadUri);*/
         user.setImg("/downloadFile/" + fileName);
+        if (user.getCv().isEmpty()){
+            user.setCv("/downloadFile/");
+        }else {
+            user.setCv("/downloadFile/"+fileNameCv);
+        }
         //user.setActive(true);
         List<User> users=userService.listAll();
         if (users.size()<=1){
