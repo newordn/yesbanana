@@ -104,7 +104,6 @@ public class UserController {
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String createUser(@Valid User user, Model model, @RequestParam("file") MultipartFile file, BindingResult bindingResult, String role) {
         String fileName = fileUploadServices.storeFile(file);
-        String fileNameCv = fileUploadServices.storeFile(file);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(fileName)
@@ -112,11 +111,6 @@ public class UserController {
 /*
             FileUploadRespone fileUploadRespone = new FileUploadRespone(fileName, fileDownloadUri);*/
         user.setImg("/downloadFile/" + fileName);
-        if (user.getCv().isEmpty()){
-            user.setCv("/downloadFile/");
-        }else {
-            user.setCv("/downloadFile/"+fileNameCv);
-        }
         //user.setActive(true);
         List<User> users=userService.listAll();
         if (users.size()<=1){
@@ -173,18 +167,32 @@ public class UserController {
         User user = userService.findByEmail(auth.getName());
         session.setAttribute("avatar", user.getImg());
         session.setAttribute("name", user.getName());
-        model.addAttribute("user", userService.getById(user.getUserId()));
+        User user1=userService.getById(user.getUserId());
+        model.addAttribute("user", user1);
         model.addAttribute("groupes", groupeRepository.findAll());
         System.out.println(groupeRepository.findAll());
+        if (user1.getAutorized().equals(true)){
+            return "user/user1";
+        }else {
+            return "user/user";
+        }
 
-        return "user/user";
+
+
+
     }
 
     @PostMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
         public String updateUser ( User user, @RequestParam("file") MultipartFile file){
             if(!file.isEmpty()) {
                 String fileName = fileUploadServices.storeFile(file);
+                String fileNameCv= fileUploadServices.storeFile(file);
                 user.setImg("/downloadFile/" + fileName);
+                if (user.getCv().isEmpty()){
+                    user.setCv("/downloadFile/");
+                }else {
+                    user.setCv("/downloadFile/"+fileNameCv);
+                }
             }
             else
             {
@@ -238,6 +246,66 @@ public class UserController {
 
 
         }
+
+
+    @PostMapping(value = "/modifier", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String updateUser1 ( User user, @RequestParam("file") MultipartFile file){
+        if(!file.isEmpty()) {
+            String fileName = fileUploadServices.storeFile(file);
+            user.setImg("/downloadFile/" + fileName);
+        }
+        else
+        {
+            user.setImg(user.getImg());
+        }
+        Role role1=roleService.getById(user.getRole().getRoleId());
+        user.setRole(role1);
+
+        System.out.println(user.getRole().getRole());
+
+        if (user.getPassword().isEmpty()){
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            User user1 = userService.findByEmail(auth.getName());
+            System.out.println(user1.getPassword());
+            user.setPassword(user1.getPassword());
+            user.setActive(true);
+            userService.update(user);
+            MailService mailService = new MailService();
+
+            mailService.sendSimpleMessage(
+                    "solutioneducationafrique@gmail.com",
+                    "YesBanana: Notification Inscription d'un utilisateur",
+                    "L'utilisateur " + user.getName() + " dont l'email est " +
+                            user.getEmail()+ "  Vient de modifier son profil " +
+                            "sur la plateforme YesBanana. Veuillez vous connectez pour manager son status.");
+
+
+
+            return "redirect:/groupe/groupes";
+
+        }
+
+        else {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            user.setActive(true);
+            userService.update(user);
+            MailService mailService = new MailService();
+            mailService.sendSimpleMessage(
+                    "solutioneducationafrique@gmail.com",
+                    "YesBanana: Notification Inscription d'un utilisateur",
+                    "L'utilisateur " + user.getName() + " dont l'email est " +
+                            user.getEmail()+ "  Vient de modifier son profil " +
+                            "sur la plateforme YesBanana. Veuillez vous connectez pour manager son status.");
+
+
+
+            return "redirect:/logout";
+
+        }
+
+
+
+    }
 
 
 

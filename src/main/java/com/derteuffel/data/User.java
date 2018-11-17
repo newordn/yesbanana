@@ -2,19 +2,14 @@ package com.derteuffel.data;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.internal.engine.groups.Group;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.*;
@@ -75,14 +70,18 @@ public class User implements Serializable{
 
     //work validity period
     @Column
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date beginningPeriod;
     @Column
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Temporal(TemporalType.DATE)
     private Date endPeriod;
     //days interval
     @Column
-    private Date dayWorkBeginning;
+    private String dayWorkBeginning;
     @Column
-    private Date dayWorkEnd;
+    private String dayWorkEnd;
 
     //student management information
     @Column
@@ -100,7 +99,9 @@ public class User implements Serializable{
     private String cv;
 
 
-    //private Boolean isAutorized;
+    @Column
+    @NotNull
+    private Boolean autorized=false;
 
     @OneToMany(mappedBy = "user")
     @OnDelete(action= OnDeleteAction.NO_ACTION)
@@ -117,10 +118,44 @@ public class User implements Serializable{
     public User() {
     }
 
+    public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email, @Length(min = 6) String password,
+                @NotNull String country, @NotNull @Size(min = 3) String region, @Size(min = 2) String university,
+                @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
+                String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod,
+                String dayWorkBeginning, String dayWorkEnd, int studentNumber, Boolean numberOfWorkers,
+                String anotherDetail, String cv, List<These> theses, Role role, List<Groupe> groupes, Boolean autorized) {
+        this.name = name;
+        this.email = email;
+        this.autorized=autorized;
+        this.password = password;
+        this.country = country;
+        this.region = region;
+        this.university = university;
+        this.faculty = faculty;
+        this.number = number;
+        this.img = img;
+        this.createdDate = createdDate;
+        this.active = active;
+        this.category = category;
+        this.diplom = diplom;
+        this.expertDomain = expertDomain;
+        this.beginningPeriod = beginningPeriod;
+        this.endPeriod = endPeriod;
+        this.dayWorkBeginning = dayWorkBeginning;
+        this.dayWorkEnd = dayWorkEnd;
+        this.studentNumber = studentNumber;
+        this.numberOfWorkers = numberOfWorkers;
+        this.anotherDetail = anotherDetail;
+        this.cv = cv;
+        this.theses = theses;
+        this.role = role;
+        this.groupes = groupes;
+    }
+
     public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email,
                 @Length(min = 6) String password, @NotNull String country, @NotNull @Size(min = 3) String region,
                 @Size(min = 2) String university, @Size(min = 3) String faculty, @NotNull String number, String img,
-                Date createdDate, Boolean active) {
+                Date createdDate, Boolean active, Boolean autorized) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -132,15 +167,17 @@ public class User implements Serializable{
         this.img = img;
         this.createdDate = createdDate;
         this.active = active;
+        this.autorized = autorized;
     }
 
     public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email, @Length(min = 6) String password,
                 @NotNull String country, @NotNull @Size(min = 3) String region, @Size(min = 2) String university,
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
-                String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod, Date dayWorkBeginning,
-                Date dayWorkEnd, int studentNumber, Boolean numberOfWorkers, int numberInGroupe, String anotherDetail, String cv,
-                List<These> theses, Role role, List<Groupe> groupes) {
+                String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod, String dayWorkBeginning,
+                String dayWorkEnd, int studentNumber, Boolean numberOfWorkers, int numberInGroupe, String anotherDetail, String cv,
+                List<These> theses, Role role, List<Groupe> groupes, Boolean autorized) {
         this.name = name;
+        this.autorized=autorized;
         this.email = email;
         this.password = password;
         this.country = country;
@@ -168,13 +205,13 @@ public class User implements Serializable{
         this.groupes = groupes;
     }
 
-   /* public Boolean getAutorized() {
-        return isAutorized;
-    }*/
+    public Boolean getAutorized() {
+        return autorized;
+    }
 
-   /* public void setAutorized(Boolean autorized) {
-        isAutorized = autorized;
-    }*/
+    public void setAutorized(Boolean autorized) {
+        autorized = autorized;
+    }
 
     public String getCategory() {
         return category;
@@ -216,19 +253,19 @@ public class User implements Serializable{
         this.endPeriod = endPeriod;
     }
 
-    public Date getDayWorkBeginning() {
+    public String getDayWorkBeginning() {
         return dayWorkBeginning;
     }
 
-    public void setDayWorkBeginning(Date dayWorkBeginning) {
+    public void setDayWorkBeginning(String dayWorkBeginning) {
         this.dayWorkBeginning = dayWorkBeginning;
     }
 
-    public Date getDayWorkEnd() {
+    public String getDayWorkEnd() {
         return dayWorkEnd;
     }
 
-    public void setDayWorkEnd(Date dayWorkEnd) {
+    public void setDayWorkEnd(String dayWorkEnd) {
         this.dayWorkEnd = dayWorkEnd;
     }
 

@@ -39,7 +39,7 @@
 
         </div>
         <div class="col-10">
-            <form method="post" enctype="multipart/form-data" id="register-form" th:action="@{/user/update}" th:object="${user}" class=" profil-form card">
+            <form method="post" enctype="multipart/form-data" id="register-form" th:action="@{/user/modofier}" th:object="${user}" class=" profil-form card">
                 <div class="row">
                     <input type="hidden" th:field="*{userId}" id="userId" />
                     <div class="col-6">

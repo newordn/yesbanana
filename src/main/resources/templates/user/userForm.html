@@ -80,92 +80,12 @@
                             <input type="submit" style="display:none">
                             <div class='row mt-3'>
                                 <div class='col-2'>
-                                    <input type="checkbox"  id="accompToggle">
+                                    <input type="checkbox"  th:field="*{autorized}" th:value="true">
                                 </div>
                                 <div class='col-10 ' style='line-height:1rem;'>
-                                    <strong>Devenir Accompagnateur</strong>
+                                    <strong>Accompagnement</strong>
                                 </div>
                             </div>
-                            
-                            <div id="accompDiv" style="display:none" class='mt-3'>
-                                <span class='error' id="categoryError"></span>
-                                    <div class="selector">
-                                        <select name="category" id="category">
-                                            <option value="" selected="selected">Choisir une Category</option>
-                                            <option value="Chef des travaux" >Chef des travaux</option>
-                                            <option value="Assistant">Assistant</option>
-                                            <option value="Encadreur">Encadreur</option>
-                                            <option value="Etudiant">Etudiant</option>
-                                        </select>
-                                    </div>
-                                <span class='error' id="diplomError"></span>
-                                    <div class="selector">
-                                        <select name="diplom" id="diplom">
-                                            <option value="" selected="selected">Choisir un Diplome</option>
-                                            <option value="Master 1" >Master 1</option>
-                                            <option value="Master 2">Master 2</option>
-                                            <option value="Doctorat/PhD">Doctorat/PhD</option>
-                                            <option value="Maitre de Conference">Maitre de Conference</option>
-                                            <option value="Professeur Agregé">Professeur Agregé</option>
-                                        </select>
-                                    </div>
-                                    <span class='error' id="expertDomainError"></span>
-                                    <div class="form-group">
-                                        <label for="expertDomain"><i class="zmdi zmdi-graduation-cap"></i></label>
-                                        <input type="text" name="expertDomain" id="expertDomain" placeholder="Votre Domaine d'expertise" />
-                                    </div>
-                                    <span class='error' id="beginningPeriodError"></span>
-                                    <div class="form-group">
-                                        <label for="beginningPeriod"><i class="zmdi zmdi-time"></i></label>
-                                        <input type="date" name="beginningPeriod" id="beginningPeriod" placeholder="Début-période de disponibilité (2010-04-10)" />
-                                    </div>
-                                <span class='error' id="endPeriodError"></span>
-                                    <div class="form-group">
-                                        <label for="endPeriod"><i class="zmdi zmdi-time"></i></label>
-                                        <input type="date" name="endPeriod" id="endPeriod" placeholder="Fin-période de disponibilité (2010-06-10)" />
-                                    </div>
-
-                                <span class='error' id="dayWorkBeginningError"></span>
-                                    <div class="form-group">
-                                        <label for="dayWorkBeginning"><i class="zmdi zmdi-time"></i></label>
-                                        <input type="datetime-local" name="dayWorkBeginning" id="dayWorkBeginning" placeholder="Début-heure de disponibilité (03:00 am/pm)" />
-                                    </div>
-                                <span class='error' id="dayWorkEndError"></span>
-                                    <div class="form-group">
-                                        <label for="dayWorkEnd"><i class="zmdi zmdi-time"></i></label>
-                                        <input type="datetime-local" name="dayWorkEnd" id="dayWorkEnd" placeholder="Fin-heure de disponibilité (03:00 am/pm)" />
-                                    </div>
-                                <span class='error' id="studentNumberError"></span>
-                                    <div class="form-group">
-                                        <label for="studentNumber"><i class="zmdi zmdi-phone"></i></label>
-                                        <input type="number" name="studentNumber" id="studentNumber" placeholder="Nombre d'étudiant a encadrer" />
-                                    </div>
-                                <span class='error' id="numberOfWorkersError"></span>
-                                <div class="selector">
-                                    <select name="numberOfWorkers" id="numberOfWorkers">
-                                        <option value="" selected="selected">Voulez vous travailler en groupe ou seul?</option>
-                                        <option value="true">Oui</option>
-                                        <option value="false">Non</option>
-                                    </select>
-                                </div>
-
-                                <span class='error' id="numberInGroupeError"></span>
-                                    <div class="form-group">
-                                        <label for="numberInGroupe"><i class="zmdi zmdi-phone"></i></label>
-                                        <input type="number" name="numberInGroupe" id="numberInGroupe" placeholder="Votre numéro dans le groupe" />
-                                    </div>
-                                <span class='error' id="anotherDetailError"></span>
-                                    <div class="form-group">
-                                        <label for="anotherDetail"><i class="zmdi zmdi-lock"></i></label>
-                                        <input type="text" name="anotherDetail" id="anotherDetail" placeholder="Autres informations" />
-                                    </div>
-
-                                    <div class="img-upload-div">
-                                        <input class="img-input" type="text" id="cv"  placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Votre CV">
-                                        <button class="img-upload" type="button" id="addButtonCv">+</button>
-                                        <input type="file" name="file" id="file_image_cv" style="display:none">
-                                    </div>
-                                </div>
 
                         </form>
                     </div>
