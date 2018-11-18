@@ -133,6 +133,7 @@ public class GroupeController {
         size.ifPresent(s->pageSize=s);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
+        Groupe groupe=groupeRepository.getOne((Long)session.getAttribute("groupeId"));
         Page<These> thesePage=theseService.findAllByUser(PageRequest.of(currentPage-1, pageSize));
         model.addAttribute("theses", thesePage);
         int totalPages=thesePage.getTotalPages();
@@ -143,7 +144,8 @@ public class GroupeController {
             model.addAttribute("pageNumbers", pageNumbers);
 
         }
-        // transmitting the current page number to the view 
+        // transmitting the current page number to the view
+        model.addAttribute("groupeName",groupe.getGroupeName());
         model.addAttribute("currentPage",currentPage);
         session.setAttribute("avatar", user.getImg());
         session.setAttribute("name", user.getName());
@@ -159,7 +161,8 @@ public class GroupeController {
         size.ifPresent(s->pageSize=s);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
-        Page<These> thesePage=theseService.findAllByGroupe(PageRequest.of(currentPage-1, pageSize),(Long)session.getAttribute("groupeId"));
+        Groupe groupe=groupeRepository.getOne((Long)session.getAttribute("groupeId"));
+        Page<These> thesePage=theseService.findAllByGroupe(PageRequest.of(currentPage-1, pageSize),groupe.getGroupeId());
         model.addAttribute("theses", thesePage);
         int totalPages=thesePage.getTotalPages();
         if (totalPages>0){
@@ -170,7 +173,8 @@ public class GroupeController {
 
         }
         
-        // transmitting the current page number to the view 
+        // transmitting the current page number to the view
+        model.addAttribute("groupe", groupe);
         model.addAttribute("currentPage",currentPage);
         session.setAttribute("avatar", user.getImg());
         session.setAttribute("name", user.getName());
@@ -182,7 +186,7 @@ public class GroupeController {
     @GetMapping("/update/{groupeId}")
     public String update(Model model,@PathVariable Long groupeId){
         Groupe groupe=groupeRepository.getOne(groupeId);
-        model.addAttribute("groupe", groupe);
+        model.addAttribute("groupeName", groupe.getGroupeName());
         model.addAttribute("users", userRepository.findAllByRole("admin"));
 
         return "crew/crew";
