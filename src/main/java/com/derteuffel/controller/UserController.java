@@ -171,7 +171,7 @@ public class UserController {
         model.addAttribute("user", user1);
         model.addAttribute("groupes", groupeRepository.findAll());
         System.out.println(groupeRepository.findAll());
-        if (user1.getAutorized().equals(true)){
+        if (user1.getAutorization().equals(true)){
             return "user/user1";
         }else {
             return "user/user";

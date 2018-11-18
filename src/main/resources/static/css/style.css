@@ -237,28 +237,16 @@ input:-webkit-autofill {
   grid-template-columns: auto 1fr;
   margin-bottom: 1rem;
 }
-.selector
-{
-  border:1px solid gray;
-  border-radius: 3px;
-  display:grid;
-  margin-bottom: 1rem;
-}
+
 
 .selector select
 {
-  padding-right: 2rem;
-  border-top:none;
-  border-left:none;
-  border-bottom:none;
-  text-align: center;
-  color: #212529;
-  vertical-align: middle;
-  padding: 0.5rem 1rem;
-  margin: 0;
-  transition: 0.25s;
-  transition-property:  color, border;
 
+  width:100%;
+  border-radius: 5px;
+  border:1px solid gray;
+  padding:.8rem;
+  margin-bottom:1.5rem;
 }
 
 .country select

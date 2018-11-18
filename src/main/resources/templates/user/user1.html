@@ -13,6 +13,7 @@
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
     <!-- Bootstrap CSS-->
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 
 <body class="row">
 
@@ -101,19 +102,19 @@
                     </div>
                 <div class="row">
                     <span class='error' id="expertDomainError"></span>
-                    <div class="form-group col-4">
-                        <label for="expertDomain"><i class="zmdi zmdi-graduation-cap"></i></label>
+                    <div class="col-4">
+                        <label for="expertDomain"></label>
                         <input type="text" name="expertDomain" id="expertDomain" placeholder="Votre Domaine d'expertise" />
                     </div>
                     <span class='error' id="beginningPeriodError"></span>
-                    <div class="form-group col-4">
-                        <label for="beginningPeriod"><i class="zmdi zmdi-time"></i></label>
+                    <div class=" col-4">
+                        <label for="beginningPeriod"></label>
                         <input type="date" th:field="*{beginningPeriod}"
                                id="beginningPeriod" placeholder="Début-période de disponibilité (2010-04-10)" />
                     </div>
                     <span class='error' id="endPeriodError"></span>
-                    <div class="form-group col-4">
-                        <label for="endPeriod"><i class="zmdi zmdi-time"></i></label>
+                    <div class=" col-4">
+                        <label for="endPeriod"></label>
                         <input type="date" th:field="*{endPeriod}" id="endPeriod" placeholder="Fin-période de disponibilité (2010-06-10)" />
                     </div>
                     </div>
@@ -180,14 +181,14 @@
                         </select>
                     </div>
                     <span class='error' id="studentNumberError"></span>
-                    <div class="form-group col-4">
-                        <label for="studentNumber"><i class="zmdi zmdi-phone"></i></label>
+                    <div class=" col-4">
+                        <label for="studentNumber"></label>
                         <input type="number" name="studentNumber" id="studentNumber" placeholder="Nombre d'étudiant a encadrer" />
                     </div>
                     </div>
                 <div class="row">
                     <span class='error' id="numberOfWorkersError"></span>
-                    <div class="selector col-6">
+                    <div class=" selector col-6">
                         <select name="numberOfWorkers" id="numberOfWorkers">
                             <option value="" selected="selected">Voulez vous travailler en groupe ou seul?</option>
                             <option value="true">Oui</option>
@@ -196,15 +197,15 @@
                     </div>
 
                     <span class='error' id="numberInGroupeError"></span>
-                    <div class="form-group col-6">
-                        <label for="numberInGroupe"><i class="zmdi zmdi-phone"></i></label>
+                    <div class=" col-6">
+                        <label for="numberInGroupe"></label>
                         <input type="number" name="numberInGroupe" id="numberInGroupe" placeholder="Votre numéro dans le groupe" />
                     </div>
                     </div>
                 <div class="row">
                     <span class='error' id="anotherDetailError"></span>
-                    <div class="form-group col-6">
-                        <label for="anotherDetail"><i class="zmdi zmdi-lock"></i></label>
+                    <div class="col-6">
+                        <label for="anotherDetail"></label>
                         <input type="text" name="anotherDetail" id="anotherDetail" placeholder="Autres informations" />
                     </div>
 
@@ -215,7 +216,7 @@
                     </div>
                     </div>
                     <input  th:field="*{role.roleId}" id="role" placeholder="Votre Faculté" style="display: none"/>
-                </div>
+
                 <div class="col-7 p-0 justify-content-left">
                     <input type="checkbox" class="form-check-input" id="passwordToggle">
                     <label class="form-check-label" for="passwordToggle">
@@ -238,6 +239,7 @@
 
             </div>
             </form>
+        </div>
         </div>
     </div>
     <!-- update form -->

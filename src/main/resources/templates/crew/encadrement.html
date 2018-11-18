@@ -22,7 +22,7 @@
     </div>
     <!-- navigation -->
 
-    <h2 class="text-center mt-3">Les groupes</h2>
+    <h2 class="text-center mt-3">Equipe d'accompagnement</h2>
     <div class="row content mt-3">
         <div class="col-3  text-center crew mb-2"  style="padding:.5rem;">
             <div class="card">
@@ -40,9 +40,7 @@
                     </div>
                 </div>
                 <hr style="margin:.2rem">
-                <div class="row">
-                    <div class="col-6"><span th:text="${user.expertDomain}">Cameroun</span></div>
-                </div>
+
             </div>
 
         </div>
@@ -55,16 +53,13 @@
                         </a>
                     </div>
                 </div>
-                <div style="background-color:teal; color:white" th:each="user : ${users1}">
-                    <span th:text="${user.category}"> Yaounde</span>
+                <div style="background-color:teal; color:white" th:each="user1 : ${users1}">
+                    <span th:text="${user1.category}"> Yaounde</span>
                     <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                        <span th:text="${user.category[0]}"> Yaounde</span>
+                        <span th:text="${user1.category[0]}"> Yaounde</span>
                     </div>
                 </div>
                 <hr style="margin:.2rem">
-                <div class="row">
-                    <div class="col-6"><span th:text="${user.expertDomain}">Cameroun</span></div>
-                </div>
             </div>
         </div>
         <div class="col-3  text-center crew mb-2"  style="padding:.5rem;">
@@ -76,18 +71,14 @@
                             </a>
                         </div>
                     </div>
-                    <div style="background-color:teal; color:white" th:each="user : ${users2}">
-                        <span th:text="${user.category}"> Yaounde</span>
+                    <div style="background-color:teal; color:white" th:each="user2 : ${users2}">
+                        <span th:text="${user2.category}"> Yaounde</span>
                         <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                            <span th:text="${user.category[0]}"> Yaounde</span>
+                            <span th:text="${user2.category[0]}"> Yaounde</span>
                         </div>
                     </div>
                     <hr style="margin:.2rem">
-                    <div class="row">
-                        <div class="col-6"><span th:text="${user.expertDomain}">Cameroun</span></div>
-                    </div>
                 </div>
-        </div>
         <div class="col-3  text-center crew mb-2"  style="padding:.5rem;">
                     <div class="card">
                         <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
@@ -97,16 +88,13 @@
                                 </a>
                             </div>
                         </div>
-                        <div style="background-color:teal; color:white" th:each="user : ${users3}">
-                            <span th:text="${user.category}"> Yaounde</span>
+                        <div style="background-color:teal; color:white" th:each="user3 : ${users3}">
+                            <span th:text="${user3.category}"> Yaounde</span>
                             <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                                <span th:text="${user.category[0]}"> Yaounde</span>
+                                <span th:text="${user3.category[0]}"> Yaounde</span>
                             </div>
                         </div>
                         <hr style="margin:.2rem">
-                        <div class="row">
-                            <div class="col-6"><span th:text="${user.expertDomain}">Cameroun</span></div>
-                        </div>
                     </div>
 
         </div>

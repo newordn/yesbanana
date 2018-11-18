@@ -101,7 +101,7 @@ public class User implements Serializable{
 
     @Column
     @NotNull
-    private Boolean autorized=false;
+    private Boolean autorization=false;
 
     @OneToMany(mappedBy = "user")
     @OnDelete(action= OnDeleteAction.NO_ACTION)
@@ -123,10 +123,10 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod,
                 String dayWorkBeginning, String dayWorkEnd, int studentNumber, Boolean numberOfWorkers,
-                String anotherDetail, String cv, List<These> theses, Role role, List<Groupe> groupes, Boolean autorized) {
+                String anotherDetail, String cv, List<These> theses, Role role, List<Groupe> groupes, Boolean autorization) {
         this.name = name;
         this.email = email;
-        this.autorized=autorized;
+        this.autorization=autorization;
         this.password = password;
         this.country = country;
         this.region = region;
@@ -155,7 +155,7 @@ public class User implements Serializable{
     public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email,
                 @Length(min = 6) String password, @NotNull String country, @NotNull @Size(min = 3) String region,
                 @Size(min = 2) String university, @Size(min = 3) String faculty, @NotNull String number, String img,
-                Date createdDate, Boolean active, Boolean autorized) {
+                Date createdDate, Boolean active, Boolean autorization) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -167,7 +167,7 @@ public class User implements Serializable{
         this.img = img;
         this.createdDate = createdDate;
         this.active = active;
-        this.autorized = autorized;
+        this.autorization=autorization;
     }
 
     public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email, @Length(min = 6) String password,
@@ -175,9 +175,9 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod, String dayWorkBeginning,
                 String dayWorkEnd, int studentNumber, Boolean numberOfWorkers, int numberInGroupe, String anotherDetail, String cv,
-                List<These> theses, Role role, List<Groupe> groupes, Boolean autorized) {
+                List<These> theses, Role role, List<Groupe> groupes, Boolean autorization) {
         this.name = name;
-        this.autorized=autorized;
+        this.autorization=autorization;
         this.email = email;
         this.password = password;
         this.country = country;
@@ -205,12 +205,12 @@ public class User implements Serializable{
         this.groupes = groupes;
     }
 
-    public Boolean getAutorized() {
-        return autorized;
+    public Boolean getAutorization() {
+        return autorization;
     }
 
-    public void setAutorized(Boolean autorized) {
-        autorized = autorized;
+    public void setAutorization(Boolean autorization) {
+        this.autorization = autorization;
     }
 
     public String getCategory() {
