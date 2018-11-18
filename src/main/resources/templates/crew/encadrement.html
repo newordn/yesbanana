@@ -33,10 +33,10 @@
                         </a>
                     </div>
                 </div>
-                <div style="background-color:teal; color:white" th:each="user : ${users}">
-                    <span th:text="${user.category}"> Yaounde</span>
+                <div style="background-color:teal; color:white" >
+                    <span > Chef des Travaux</span>
                     <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                        <span th:text="${user.category[0]}"> Yaounde</span>
+                        <span >C</span>
                     </div>
                 </div>
                 <hr style="margin:.2rem">
@@ -53,10 +53,10 @@
                         </a>
                     </div>
                 </div>
-                <div style="background-color:teal; color:white" th:each="user1 : ${users1}">
-                    <span th:text="${user1.category}"> Yaounde</span>
+                <div style="background-color:teal; color:white" >
+                    <span >Assistant</span>
                     <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                        <span th:text="${user1.category[0]}"> Yaounde</span>
+                        <span >A</span>
                     </div>
                 </div>
                 <hr style="margin:.2rem">
@@ -71,37 +71,34 @@
                             </a>
                         </div>
                     </div>
-                    <div style="background-color:teal; color:white" th:each="user2 : ${users2}">
-                        <span th:text="${user2.category}"> Yaounde</span>
+                    <div style="background-color:teal; color:white" >
+                        <span > Encadreur</span>
                         <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                            <span th:text="${user2.category[0]}"> Yaounde</span>
+                            <span >E</span>
                         </div>
                     </div>
                     <hr style="margin:.2rem">
                 </div>
-        <div class="col-3  text-center crew mb-2"  style="padding:.5rem;">
-                    <div class="card">
-                        <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
-                            <div class="col-6 text-left" style="padding:0">
-                                <a th:href="@{/groupe/encadrement/etudiantf/} + ${session.groupeId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
-                                    <i class="zmdi zmdi-eye" ></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div style="background-color:teal; color:white" th:each="user3 : ${users3}">
-                            <span th:text="${user3.category}"> Yaounde</span>
-                            <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                                <span th:text="${user3.category[0]}"> Yaounde</span>
-                            </div>
-                        </div>
-                        <hr style="margin:.2rem">
-                    </div>
-
         </div>
-
+        <div class="col-3  text-center crew mb-2"  style="padding:.5rem;">
+            <div class="card">
+                <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
+                    <div class="col-6 text-left" style="padding:0">
+                        <a th:href="@{/groupe/encadrement/etudiant/} + ${session.groupeId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
+                            <i class="zmdi zmdi-eye" ></i>
+                        </a>
+                    </div>
+                </div>
+                <div style="background-color:teal; color:white" >
+                    <span> Etudiant</span>
+                    <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
+                        <span>E</span>
+                    </div>
+                </div>
+                <hr style="margin:.2rem">
             </div>
 
-
+        </div>
     </div>
 
 
