@@ -20,32 +20,43 @@
 </head>
 
 <body class="row">
+<!-- sidebar-->
+<div th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</div>
+<!-- sidebar-->
 
-
-<div class="col-12 main">
+<div class="col-11 offset-1 main">
 
     <!--navigation-->
     <div th:replace="~{../templates/fragments/navigation :: navigation}">
     </div>
     <!-- navigation -->
 
-    <div>
         <!-- these detail -->
         <div class=" col text-center" style="padding:2rem;width:100%;">
-            <h3 class="card alert-info mt-1 mb-5" ><span th:text="${these1.subject}"></span></h3>
+            <h2 class="card alert-info mt-2">Bibliothèques et Bibliographies</h2>
             <div class="row">
-                <div class="col-3" >
+                <div class="col-3">  
                     <div class="card mt-6">
                         <div th:replace="~{../templates/fragments/theseNavigation :: theseNavigation}"></div>
                     </div>
                 </div>
                 <div class="col-9">
-                    <div class="detailabstract"><h4>Sommaire</h4></div>
-                    <div><img th:src="${these1.resumes}" id="detailAbstract" alt="sommaire"></div>
-                
-                </div>
+            <h3 class="card alert-info mt-3">Bibliothèques</h3>
+            <ul class="list-group">
+                <li class="list-group-item" th:each="bibliography : ${bibliographies}" th:text="${bibliography}"></li>
+            </ul>
+            <h3 class="card alert-info mt-3">Bibliographies</h3>
+            <ul class="list-group">
+                <li class="list-group-item" th:each="librairy : ${librairies}" th:text="${librairy}"></li>
+            </ul>
+            <div class="text-right mt-4">
+            <a th:href="@{/these/these/}+${these1.theseId}" class="btn btn-primary ">Retour</a>
+
             </div>
-        </div>
+            </div>
+            </div>
+        <!-- these detail-->
 
     </div>
 </div>

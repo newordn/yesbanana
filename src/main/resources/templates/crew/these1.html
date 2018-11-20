@@ -20,9 +20,12 @@
 </head>
 
 <body class="row">
+<!-- sidebar-->
+<div th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</div>
+<!-- sidebar-->
 
-
-<div class="col-12 main">
+<div class="col-11 offset-1 main">
 
     <!--navigation-->
     <div th:replace="~{../templates/fragments/navigation :: navigation}">

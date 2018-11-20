@@ -8,6 +8,7 @@ import com.derteuffel.repository.TheseRepository;
 import com.derteuffel.repository.UserRepository;
 import com.derteuffel.service.TheseService;
 import com.itextpdf.text.*;
+import org.apache.catalina.Group;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Font;
@@ -286,35 +287,44 @@ public class TheseController {
 
     @GetMapping("/these/{theseId}")
     public String get(Model model, @PathVariable Long theseId){
+
         Optional<These> optional= theseRepository.findById(theseId);
         model.addAttribute("these1",optional.get());
         return "these/these";
+
+
     }
 
     @GetMapping("/equipe/{theseId}")
     public String getEquipe(Model model, @PathVariable Long theseId){
         Optional<These> optional= theseRepository.findById(theseId);
         model.addAttribute("these1",optional.get());
-        return "these/these1";
+           return "these/these1";
+
+
     }
-    
+
     @GetMapping("/biblib/{theseId}")
     public String getBibLib(Model model, @PathVariable Long theseId){
         These these= theseRepository.getOne(theseId);
         String[] librairies = these.getLibrary().split(";");
         String[] bibliographies1 = these.getBibliography().split(";");
         ArrayList<String> bibliographies = new ArrayList<String>();
-        
+
         for(String b : bibliographies1)
         {
-           if( b.split(":").length>1)
-           bibliographies.add(b.split(":")[1]);
+            if( b.split(":").length>1)
+                bibliographies.add(b.split(":")[1]);
         }
         model.addAttribute("librairies",librairies);
         model.addAttribute("bibliographies",bibliographies);
         model.addAttribute("these1",these);
-        return "these/theseBibLib";
-    }
+
+            return "these/theseBibLib";
+
+        }
+
+
 
 
 
