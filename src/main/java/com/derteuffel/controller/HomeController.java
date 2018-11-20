@@ -35,10 +35,10 @@ public class HomeController {
     private GroupeRepository groupeRepository;
     @Autowired
     private TheseRepository theseRepository;
-    @GetMapping("/")
+    @GetMapping("/login")
     public String login()
     {
-            return "index";
+            return "connection";
         }
 
 
@@ -47,7 +47,7 @@ public class HomeController {
 
         HttpSession session = request.getSession();
         session.invalidate();
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @GetMapping("/stats")
@@ -68,7 +68,7 @@ public class HomeController {
         System.out.println(user.getUserId());
         user.setActive(true);
         userRepository.save(user);
-        return "redirect:/";
+        return "redirect:/login";
 
     }
 

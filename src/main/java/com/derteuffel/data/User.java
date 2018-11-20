@@ -85,12 +85,12 @@ public class User implements Serializable{
 
     //student management information
     @Column
-    private int studentNumber;
+    private String studentNumber;
     //affiliation quality
     @Column
     private Boolean numberOfWorkers;
     @Column
-    private int numberInGroupe;
+    private String numberInGroupe;
     //another detail for user
     @Column
     private String anotherDetail;
@@ -122,7 +122,7 @@ public class User implements Serializable{
                 @NotNull String country, @NotNull @Size(min = 3) String region, @Size(min = 2) String university,
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod,
-                String dayWorkBeginning, String dayWorkEnd, int studentNumber, Boolean numberOfWorkers,
+                String dayWorkBeginning, String dayWorkEnd, String studentNumber, Boolean numberOfWorkers,
                 String anotherDetail, String cv, List<These> theses, Role role, List<Groupe> groupes, Boolean autorization) {
         this.name = name;
         this.email = email;
@@ -174,7 +174,7 @@ public class User implements Serializable{
                 @NotNull String country, @NotNull @Size(min = 3) String region, @Size(min = 2) String university,
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod, String dayWorkBeginning,
-                String dayWorkEnd, int studentNumber, Boolean numberOfWorkers, int numberInGroupe, String anotherDetail, String cv,
+                String dayWorkEnd, String studentNumber, Boolean numberOfWorkers, String numberInGroupe, String anotherDetail, String cv,
                 List<These> theses, Role role, List<Groupe> groupes, Boolean autorization) {
         this.name = name;
         this.autorization=autorization;
@@ -269,11 +269,11 @@ public class User implements Serializable{
         this.dayWorkEnd = dayWorkEnd;
     }
 
-    public int getStudentNumber() {
+    public String getStudentNumber() {
         return studentNumber;
     }
 
-    public void setStudentNumber(int studentNumber) {
+    public void setStudentNumber(String studentNumber) {
         this.studentNumber = studentNumber;
     }
 
@@ -285,11 +285,11 @@ public class User implements Serializable{
         this.numberOfWorkers = numberOfWorkers;
     }
 
-    public int getNumberInGroupe() {
+    public String getNumberInGroupe() {
         return numberInGroupe;
     }
 
-    public void setNumberInGroupe(int numberInGroupe) {
+    public void setNumberInGroupe(String numberInGroupe) {
         this.numberInGroupe = numberInGroupe;
     }
 
