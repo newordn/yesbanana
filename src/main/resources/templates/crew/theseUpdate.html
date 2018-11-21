@@ -87,9 +87,10 @@
             <div class="row mb-4">
                 <div class="col-4">
                     <div class="img-upload-div">
-                        <input class="img-input" type="text" id="abstract" placeholder="Sommaire">
-                        <button class="img-upload" type="button" id="addButton">+</button>
+                        <input class="img-input" type="text" name="file" id="abstract"  placeholder="Sommaire">
                         <input type="file" name="file" id="abstract_file" style="display:none">
+                        <button class="img-upload" type="button" id="addButton">+</button>
+                        <input class="img-input" type="text" th:field="*{resumes}"  style="display:none" placeholder="Sommaire">
                     </div>
                 </div>
                 <div class="col-4">
