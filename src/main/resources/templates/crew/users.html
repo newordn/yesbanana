@@ -46,8 +46,8 @@
                             </button>
                     </div>
                     <div class="col-6 text-right" style="padding:0">
-                        <a th:href="@{/user/delete/} + ${user.userId}" class="btn btn-danger  rounded-circle" >
-                            <i class="zmdi zmdi-close" ></i>
+                        <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${user.userId }"   class="btn btn-danger  rounded-circle" >
+                        <i class="zmdi zmdi-close" ></i>
                         </a>
                     </div>
                 </div>
@@ -83,6 +83,39 @@
                     </div>
                 </div>
             </div>
+            <!-- Delete user modal -->
+            <!--div class=" modal fade" id="confirmDeletion" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role=" document">
+
+                    <form class=" modal-content card text-center" style="padding:1rem;" method="get" id="updateRoleForm">
+                        <h4>Voulez vous supprimer cet utilisateur</h4>
+                        <div class='row'>
+                            <div class='col-6'><a class="btn btn-danger" type="submit" id="confirmDeletionBtn">Oui</a></div>
+                            <div class='col-6'><button class="btn btn-warning" data-dismiss="modal" type="button">Non</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div-->
+            <div class="modal card modal-warning fade in" th:id="modal-warning+${user.userId }" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span></button>
+                            <h5 class="modal-title">Supprimer un utilisateur</h5>
+                        </div>
+                        <div class="modal-body text-center">
+                            <h3>Etes vous sure de vouloir supprimer définitivement cette Utilisateur?</h3>
+                        </div>
+                        <div class="modal-footer text-center">
+                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Close</button>
+                            <a type="button" class="btn btn-danger" th:href="@{/user/delete/{userId}(userId=${user.userId})}"><i class="fa fa-check"></i>&nbsp;Yes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Delete user modal -->
+
         </div>
         <button type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addUserIntoCrew">
             <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
@@ -109,11 +142,13 @@
 
             </form>
         </div>
+
 </div>
         <!-- addUserIntoCrew-->
 
     </div>
     </div>
+
 <!-- update role-->
 <div class=" modal fade" id="updateRole" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role=" document">
@@ -141,6 +176,9 @@
     <div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
     <!--vendor scripts -->
     <script th:src="@{/js/users.js}"></script>
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap-4.1/bootstrap.min.js}"></script>
+<script th:src="@{/vendor/bootstrap-4.1/popper.min.js}"></script>
 
 </body>
 

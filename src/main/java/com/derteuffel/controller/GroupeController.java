@@ -187,6 +187,7 @@ public class GroupeController {
     public String update(Model model,@PathVariable Long groupeId){
         Groupe groupe=groupeRepository.getOne(groupeId);
         model.addAttribute("groupeName", groupe.getGroupeName());
+        model.addAttribute("groupe",groupe);
         model.addAttribute("users", userRepository.findAllByRole("admin"));
 
         return "crew/crew";

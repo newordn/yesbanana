@@ -27,7 +27,7 @@
     <div class="row justify-content-center mt-3" >
         <form class=" card text-center p-5" style="width:40rem;" th:object="${groupe}" th:action="@{/groupe/save}" method="post">
             <!--groupeId-->
-            <input type="number" th:field="*{groupeId}"  style="display:none"/>
+            <input type="hidden" th:field="*{groupeId}" id="groupeId" />
             <!--groupeId-->
             <div class="form-group" >
                 <span class='error' id="nameError"></span>

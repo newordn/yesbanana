@@ -46,7 +46,7 @@
                         </button>
                     </div>
                     <div class="col-6 text-right" style="padding:0">
-                        <a th:href="@{/user/delete/} + ${user.userId}" class="btn btn-danger  rounded-circle" >
+                        <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${user.userId }"   class="btn btn-danger  rounded-circle" >
                             <i class="zmdi zmdi-close" ></i>
                         </a>
                     </div>
@@ -83,6 +83,28 @@
                     </div>
                 </div>
             </div>
+            <!-- Delete user modal -->
+
+            <div class="modal card modal-warning fade in" th:id="modal-warning+${user.userId }" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span></button>
+                            <h5 class="modal-title">Supprimer un utilisateur</h5>
+                        </div>
+                        <div class="modal-body text-center">
+                            <h3>Etes vous sure de vouloir supprimer définitivement cette Utilisateur?</h3>
+                        </div>
+                        <div class="modal-footer text-center">
+                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Close</button>
+                            <a type="button" class="btn btn-danger" th:href="@{/user/delete/{userId}(userId=${user.userId})}"><i class="fa fa-check"></i>&nbsp;Yes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Delete user modal -->
+
         </div>
 
     </div>
@@ -93,6 +115,10 @@
 <div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
 <!--vendor scripts -->
 <script th:src="@{/js/users.js}"></script>
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap-4.1/bootstrap.min.js}"></script>
+<script th:src="@{/vendor/bootstrap-4.1/popper.min.js}"></script>
+
 
 </body>
 
