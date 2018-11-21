@@ -145,31 +145,29 @@
 
 </div>
         <!-- addUserIntoCrew-->
-
     </div>
     </div>
-
 <!-- update role-->
 <div class=" modal fade" id="updateRole" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role=" document">
-    <form class=" modal-content card text-center" action="/user/updateRole" style="padding:1rem;" method="get" id="updateRoleForm">
-        <h5>Permissions</h5>
-        <input type="number" style="display:none" id="updateRoleUserId" name="userId">
-        <select name="role" class="custom-select">
-            <option value="ROOT" id="root">Super Administrateur</option>
-            <option value="ADMIN" id="admin" >Administrateur</option>
-            <option value="USER" id="user">Utilisateur</option>
-        </select>
-        <div class="text-right">
-            <button class="btn btn-danger" type="button" data-dismiss="modal" >
-                <i class="zmdi zmdi-close"></i>
-            </button>
-            <button class="btn btn-success" id="confirmRoleAdding">
-                <i class="zmdi zmdi-check"></i>
-            </button>
-        </div>
-    </form>
-</div>
+        <form class=" modal-content card text-center" th:action="@{/user/updateRole}" style="padding:1rem;" method="get" id="updateRoleForm">
+            <h5>Permissions</h5>
+            <input type="number" style="display:none" id="updateRoleUserId" name="userId">
+            <select name="role" class="custom-select">
+                <option value="ROOT" id="root">Super Administrateur</option>
+                <option value="ADMIN" id="admin" >Administrateur</option>
+                <option value="USER" id="user">Utilisateur</option>
+            </select>
+            <div class="text-right">
+                <button class="btn btn-danger" type="button" data-dismiss="modal" >
+                    <i class="zmdi zmdi-close"></i>
+                </button>
+                <button class="btn btn-success" id="confirmRoleAdding">
+                    <i class="zmdi zmdi-check"></i>
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 <!-- update role-->
     <!--vendor scripts -->
