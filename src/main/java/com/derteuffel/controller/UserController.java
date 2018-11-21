@@ -80,13 +80,16 @@ public class UserController {
 
 
     @GetMapping("/updateRole")
-    public String updateRole(@RequestParam("userId") Long userId, @RequestParam("role") String role, HttpSession session) {
+    public String updateRole(@RequestParam("userId") Long userId, @RequestParam("role") String role) {
         User user = userService.getById(userId);
-        Long groupeId = (Long) session.getAttribute("groupeId");
         Role role1 = roleService.getById(user.getRole().getRoleId());
         role1.setRole(role);
         roleService.saveOrUpdate(role1);
-        return "redirect:/groupe/groupe/users/" + groupeId;
+        user.setRole(role1);
+        userRepository.save(user);
+        return "redirect:/user";
+
+
     }
 
     @GetMapping("/update/role")

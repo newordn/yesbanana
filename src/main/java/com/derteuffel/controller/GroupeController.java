@@ -7,6 +7,7 @@ import com.derteuffel.data.*;
 import com.derteuffel.repository.GroupeRepository;
 import com.derteuffel.repository.TheseRepository;
 import com.derteuffel.repository.UserRepository;
+import com.derteuffel.service.RoleService;
 import com.derteuffel.service.TheseService;
 import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,8 @@ public class GroupeController {
     private TheseRepository theseRepository;
     @Autowired
     private TheseService theseService;
+    @Autowired
+    private RoleService roleService;
 
     private static int currentPage=1;
     private static int pageSize=6;
@@ -191,6 +194,21 @@ public class GroupeController {
         model.addAttribute("users", userRepository.findAllByRole("admin"));
 
         return "crew/crew";
+    }
+
+    //updating user role in groupe
+    @GetMapping("/updateRole")
+    public String updateRole(@RequestParam("userId") Long userId, @RequestParam("role") String role, HttpSession session) {
+        User user = userService.getById(userId);
+        Long groupeId = (Long) session.getAttribute("groupeId");
+        Role role1 = roleService.getById(user.getRole().getRoleId());
+        role1.setRole(role);
+        roleService.saveOrUpdate(role1);
+        user.setRole(role1);
+        userRepository.save(user);
+            return "redirect:/groupe/groupe/users/" + groupeId;
+
+
     }
 
     @PostMapping("/add/users")
