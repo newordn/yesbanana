@@ -216,7 +216,13 @@ public class GroupeController {
 
     @GetMapping("/groupe/users/{groupeId}")
     public String groupeUser(Model model, @PathVariable Long groupeId){
-        List<User> users1 = userRepository.findAllByRole("user");
+        List<User> users2=userService.listAll();
+        List<User> users1 = new ArrayList<>();
+        for (User user:users2){
+            if (!user.getRole().getRole().equals("root")){
+                users1.add(user);
+            }
+        }
         Groupe groupe = groupeRepository.getOne(groupeId);
         model.addAttribute("users1",users1);
         model.addAttribute("usersGroupe", new UsersGroupe());

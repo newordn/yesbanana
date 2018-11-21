@@ -47,7 +47,12 @@
                     <ul class="list-group">
                         <li class="list-group-item" th:each="librairy : ${librairies}" th:text="${librairy}"></li>
                     </ul>
+
+                    <div class="text-right mt-4">
+                        <a th:href="@{/these/these/}+${these1.theseId}" class="btn btn-primary ">Retour</a>
+                    </div>
                 </div>
+
             </div>
 
         </div>
