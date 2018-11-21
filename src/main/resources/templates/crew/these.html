@@ -20,6 +20,10 @@
 </head>
 
 <body class="row">
+<!--navigation-->
+<div th:replace="~{../templates/fragments/navigation :: navigation}">
+</div>
+<!-- navigation -->
 <!-- sidebar-->
 <div th:replace="~{../templates/fragments/sidebar :: sidebar}">
 </div>
@@ -27,22 +31,17 @@
 
 <div class="col-11 offset-1 main">
 
-    <!--navigation-->
-    <div th:replace="~{../templates/fragments/navigation :: navigation}">
-    </div>
-    <!-- navigation -->
-
     <div>
         <!-- these detail -->
-        <div class=" col text-center" style="padding:2rem;width:100%;">
-            <h3 class="card alert-info mt-1 mb-5" ><span th:text="${these1.subject}"></span></h3>
+        <div class=" col text-center" style="width:100%;">
+            <h2 class="card alert-info  mb-5" ><span th:text="${these1.subject}"></span></h2>
             <div class="row">
-                <div class="col-3" >
+                <div class="col-3" style="position:fixed !important;" >
                     <div class="card mt-6">
                         <div th:replace="~{../templates/fragments/theseNavigation :: theseNavigation}"></div>
                     </div>
                 </div>
-                <div class="col-9">
+                <div class="col-9 offset-3">
                     <div class="detailabstract"><h4>Sommaire</h4></div>
                     <div><img th:src="${these1.resumes}" id="detailAbstract" alt="sommaire"></div>
                 
