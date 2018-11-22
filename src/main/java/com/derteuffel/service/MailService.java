@@ -24,12 +24,16 @@ public class MailService {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
 
-        mailSender.setUsername("newordn@gmail.com");
-        mailSender.setPassword("mbiaba76206644");
+        mailSender.setUsername("metoupeguy@gmail.com");
+        mailSender.setPassword("breakofdawn1994");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
+      //  props.put("mail.smtp.socketFactory.port", "465");
+      //  props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+       // props.put("mail.smtp.socketFactory.fallback", "false");
+
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.debug", "true");
 
@@ -42,4 +46,7 @@ public class MailService {
         message.setText(text);
         mailSender.send(message);
         }
+
+
+
 }
