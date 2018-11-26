@@ -15,7 +15,7 @@
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
     <!-- Bootstrap CSS-->
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
-
+    <link th:href="@{/css/style1.css}" rel="stylesheet">
 
 </head>
 
@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-3" style="position:fixed !important;">
                     <div class="card mt-6">
-                        <div th:replace="~{../templates/fragments/theseNavigation :: theseNavigation}"></div>
+                        <div th:replace="~{../templates/fragments/theseNavigationCrew :: theseNavigationCrew}"></div>
                     </div>
                 </div>
                 <div class="col-9 offset-3">
@@ -112,6 +112,17 @@
 <!--vendor scripts -->
 
 <!-- scripts-->
+<!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+<!-- Popper js -->
+<script th:src="@{/js/bootstrap/popper.min.js}"></script>
+<!-- Bootstrap js -->
+<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+<!-- All Plugins js -->
+<script th:src="@{/js/plugins/plugins.js}"></script>
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
 
 </body>
 

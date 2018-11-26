@@ -10,35 +10,28 @@
     <title>Les thèses</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <!-- thymeleaft -->
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
-    <link th:href="@{/css/showTheses.css}" rel="stylesheet">
-    <!-- Bootstrap CSS-->
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
-    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <link th:href="@{/css/showTheses.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/style1.css}" rel="stylesheet">
+    <link th:href="@{/css/crew.css}" rel="stylesheet">
     <!-- thymeleaft-->
-    <link href="./css/style.css" rel="stylesheet">
-    <link href="./css/dashboard.css" rel="stylesheet">
-    <link href="./css/showTheses.css" rel="stylesheet">
-    <!-- Bootstrap CSS-->
-    <link href="./vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-    <link href="./css/addTheses.css" rel="stylesheet">
 </head>
-<body class="row">
+<body class="row " >
 
 <!-- sidebar-->
 <!--div th:replace="~{../templates/fragments/sidebar :: sidebar}">
 </div-->
 <!-- sidebar-->
 
-<div class="col-11 offset-1 main">
-
+<div class="col-12 main">
     <!--navigation-->
     <div th:replace="~{../templates/fragments/navigation :: navigation}">
     </div>
     <!-- navigation -->
+    <h2 class="text-center mt-5">Thèses Génerale</h2>
     <!-- showing theses-->
-    <div class="row content">
+    <div class="row content mt-3 card p-5 ">
         <table class="table table-bordered text-center">
             <thead>
             <tr>
@@ -91,6 +84,18 @@
     <script th:src="@{/js/dashboard.js}"></script>
     <script th:src="@{/js/showTheses.js}"></script>
     <!-- scripts-->
+<!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+<!-- Popper js -->
+<script th:src="@{/js/bootstrap/popper.min.js}"></script>
+<!-- Bootstrap js -->
+<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+<!-- All Plugins js -->
+<script th:src="@{/js/plugins/plugins.js}"></script>
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
+
 
 </body>
 

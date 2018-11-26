@@ -14,6 +14,12 @@
     align-items: flex-end;
     margin-bottom: 1rem;
 }
+.printButton
+{
+    position:fixed;
+    bottom:1rem;
+    left:10%;
+}
 .img-input
 {
     padding-bottom:0;

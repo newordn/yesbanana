@@ -14,17 +14,11 @@
     <!-- Bootstrap CSS-->
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link th:href="@{/css/style1.css}" rel="stylesheet">
 
 <body class="row">
 
-
-<!-- sidebar-->
-<div th:replace="~{../templates/fragments/sidebar :: sidebar}">
-</div>
-<!-- sidebar-->
-
-
-<div class="col-11 offset-1 main" >
+<div class="col-12 main" >
     <!--navigation-->
     <div th:replace="~{../templates/fragments/navigation :: navigation}">
     </div>
@@ -275,6 +269,18 @@
 <script th:src="@{/js/dashboard.js}"></script>
 <script th:src="@{/js/main.js}" type="module"></script>
 <!-- script -->
+<!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+<!-- Popper js -->
+<script th:src="@{/js/bootstrap/popper.min.js}"></script>
+<!-- Bootstrap js -->
+<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+<!-- All Plugins js -->
+<script th:src="@{/js/plugins/plugins.js}"></script>
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
+
 </body>
 
 </html>

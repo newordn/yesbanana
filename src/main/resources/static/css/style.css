@@ -93,7 +93,7 @@ body {
   font-weight: 400;
   font-family: Poppins;
 margin:0; }
-
+/*
 .container {
   width: 900px;
   background: #fff;
@@ -108,7 +108,7 @@ margin:0; }
   -webkit-border-radius: 20px;
   -o-border-radius: 20px;
   -ms-border-radius: 20px; }
-
+*/
 .display-flex {
   justify-content: space-between;
   -moz-justify-content: space-between;
@@ -503,4 +503,4 @@ label.valid {
     margin-right: 0px;
     margin-bottom: 10px; } }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style1.css.map */

@@ -1,0 +1,23 @@
+<!--navigation -->
+
+<nav   xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="theseNavigationCrew" >
+    <ul class="list-group">
+        <a th:href="@{/groupe/equipe/} + ${these1.theseId}" class="alert-info theseNavigation" style="text-decoration: none; ">
+        <li class="list-group-item">
+                        Etudiant et équipe directrice
+        </li>
+        </a>
+        <a th:href="@{/groupe/biblib/} + ${these1.theseId}" class="alert-info theseNavigation" style="text-decoration: none; ">
+        <li class="list-group-item">
+                        Bibliothèques et Bibliographie
+        </li>
+        </a>
+        <a th:href="@{/these/add/edit/} + ${these1.theseId}" class="alert-info theseNavigation" style="text-decoration: none; ">
+            <li class="list-group-item">
+                Modifier cette thèse?
+            </li>
+        </a>
+    </ul>
+    
+</nav>
+<!-- navigation -->

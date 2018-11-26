@@ -14,6 +14,7 @@
     <link th:href="@{/css/style.css}" rel="stylesheet">
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
     <link th:href="@{/css/showTheses.css}" rel="stylesheet">
+    <link th:href="@{/css/style1.css}" rel="stylesheet">
     <!-- Bootstrap CSS-->
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
     <link th:href="@{/css/addTheses.css}" rel="stylesheet">
@@ -28,12 +29,6 @@
 </head>
 
 <body class="row">
-<!-- sidebar-->
-<div th:replace="~{../templates/fragments/sidebar :: sidebar}">
-</div>
-<!-- sidebar-->
-
-
     <!--navigation-->
     <div th:replace="~{../templates/fragments/navigation :: navigation}">
     </div>
@@ -155,6 +150,18 @@
 <script th:src="@{/js/showTheses.js}"></script>
 
 <!-- scripts-->
+<!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+<!-- Popper js -->
+<script th:src="@{/js/bootstrap/popper.min.js}"></script>
+<!-- Bootstrap js -->
+<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+<!-- All Plugins js -->
+<script th:src="@{/js/plugins/plugins.js}"></script>
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
+
 
 </body>
 

@@ -55,6 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.
                 authorizeRequests()
+                .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/validate/**").permitAll()
                 .antMatchers("/user/userForm").permitAll()
@@ -80,7 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/templates/**","/static/**", "/css/**", "/js/**", "/images/**","/fonts/**", "/downloadFile/**", "/vendor/**");
+                .antMatchers("/resources/**", "/templates/**","/static/**", "/css/**","/scss/**", "/js/**", "/images/**","/img/**","/fonts/**", "/downloadFile/**", "/vendor/**");
     }
 
 }
