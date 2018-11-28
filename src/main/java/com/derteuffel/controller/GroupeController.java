@@ -192,7 +192,14 @@ public class GroupeController {
         Groupe groupe=groupeRepository.getOne(groupeId);
         model.addAttribute("groupeName", groupe.getGroupeName());
         model.addAttribute("groupe",groupe);
-        model.addAttribute("users", userRepository.findAllByRole("admin"));
+        List<User> userList=userService.listAll();
+        List<User> users= new ArrayList<>();
+        for (User user:userList){
+            if (!user.getRole().getRole().equals("root")){
+                users.add(user);
+            }
+        }
+        model.addAttribute("users", users);
 
         return "crew/crew";
     }
