@@ -195,10 +195,11 @@ public class GroupeController {
         List<User> userList=userService.listAll();
         List<User> users= new ArrayList<>();
         for (User user:userList){
-            if (!user.getRole().getRole().equals("root")){
+            if (!user.getRole().getRole().equals("user")){
                 users.add(user);
             }
         }
+        System.out.println(users);
         model.addAttribute("users", users);
 
         return "crew/crew";
