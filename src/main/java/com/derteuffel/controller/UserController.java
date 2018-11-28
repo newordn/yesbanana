@@ -71,7 +71,7 @@ public class UserController {
         return "redirect:/user";
     }
 
-    @GetMapping("/userForm")
+    @GetMapping("/registration")
     public String getform(Model model) {
         model.addAttribute("user", new User());
         return "user/userForm";

@@ -1,0 +1,23 @@
+<!--navigation -->
+<nav class="nav col-12"  xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navigationcrew">
+        <h2 class="col-9 text-center"><span th:text="${groupe.groupeName}"></span></h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div th:if="${session.avatar}">
+        <img class="profile-img" th:src="${session.avatar}" alt="avatar">
+    </div>
+    <div th:unless="${session.avatar}">
+        <img class="profile-img" th:src="@{/images/avatar.png}" alt="avatar">
+    </div>
+    <div class="dropdown show">
+        <a th:text="${session.name}" class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+           data-toggle="dropdown" style="background-color:transparent;color:#0b0b0b" aria-haspopup="true" aria-expanded="false">
+            Neword Newcom Orquel
+        </a>
+        
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" th:href="@{/user/update/}">Profil</a>
+            <a class="dropdown-item" th:href="@{/logout}">Deconnexion</a>
+        </div>
+    </div>
+</nav>
+<!-- navigation -->
+

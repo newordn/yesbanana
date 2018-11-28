@@ -125,6 +125,7 @@ public class GroupeController {
         List<These> theses = theseRepository.findByGroupeOrderByTheseIdDesc(groupeId);
         model.addAttribute("usersSize",users.size());
         model.addAttribute("thesesSize",theses.size());
+        model.addAttribute("groupe", groupeRepository.getOne(groupeId));
         return "crew/stats";
     }
     
@@ -245,8 +246,9 @@ public class GroupeController {
         Groupe groupe = groupeRepository.getOne(groupeId);
         model.addAttribute("users1",users1);
         model.addAttribute("usersGroupe", new UsersGroupe());
-        model.addAttribute("groupeName",groupe.getGroupeName());
+        model.addAttribute("groupe",groupe);
         List<User> users = userRepository.findByGroupes_GroupeId(groupeId);
+        System.out.println(users);
         model.addAttribute("users",users);
         return "crew/users";
 

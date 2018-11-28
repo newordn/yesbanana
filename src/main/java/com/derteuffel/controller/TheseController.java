@@ -99,10 +99,21 @@ public class TheseController {
     }
 
     // for update a these in a crew
-    @GetMapping("/add/edit/{theseId}")
-    public  String editthese(Model model, @PathVariable Long theseId){
+    @GetMapping("/add/edit/crew/{theseId}")
+    public  String editthese_groupe(Model model, @PathVariable Long theseId){
         model.addAttribute("these",theseRepository.getOne(theseId));
         return "crew/theseUpdate";
+    }
+
+    // for update a these in a crew
+    @GetMapping("/add/edit/general/{theseId}")
+    public  String editthese_generale(Model model, @PathVariable Long theseId){
+        model.addAttribute("these",theseRepository.getOne(theseId));
+        model.addAttribute("userId", theseRepository.getOne(theseId).getUser().getUserId());
+        System.out.println(theseRepository.getOne(theseId).getUser().getUserId());
+        model.addAttribute("groupeId",theseRepository.getOne(theseId).getGroupe().getGroupeId());
+        System.out.println(theseRepository.getOne(theseId).getGroupe().getGroupeId());
+        return "these/theseUpdate";
     }
 
     

@@ -15,17 +15,19 @@
     <link th:href="@{/css/addTheses.css}" rel="stylesheet">
     <link th:href="@{/css/crew.css} " rel="stylesheet">
 
-    <link th:href="@{/css/style1.css}" rel="stylesheet">
 
 <body class="row">
-<div class="col-12 main">
-    <!--navigation-->
-    <div th:replace="~{../templates/fragments/navigation :: navigation}">
-    </div>
-    <!-- navigation -->
-
+<!--navigation-->
+<div th:replace="~{../templates/fragments/navigationcrew :: navigationcrew}">
+</div>
+<!-- navigation -->
+<!-- sidebar-->
+<div th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</div>
+<!-- sidebar-->
+<div class="col-11 offset-1 main" style="margin-top: 5.5rem">
     <h2 class="text-center mt-3">Equipe d'accompagnement</h2>
-    <div class="row content mt-3">
+    <div class="row content mt-3" >
         <div class="col-3  text-center crew mb-2"  style="padding:.5rem;">
             <div class="card">
                 <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
@@ -111,17 +113,7 @@
 <!--vendor scripts -->
 <script th:src="@{/js/crew.js}"></script>
 <!--script-->
-<!-- ##### All Javascript Script ##### -->
-<!-- jQuery-2.2.4 js -->
-<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
-<!-- Popper js -->
-<script th:src="@{/js/bootstrap/popper.min.js}"></script>
-<!-- Bootstrap js -->
-<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
-<!-- All Plugins js -->
-<script th:src="@{/js/plugins/plugins.js}"></script>
-<!-- Active js -->
-<script th:src="@{/js/active.js}"></script>
+
 </body>
 
 </html>

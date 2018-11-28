@@ -77,5 +77,20 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/deals")
+    public  String deals(){
+        return "deals";
+    }
+
+    @GetMapping("/about")
+    public  String about(){
+        return "about";
+    }
+
+    @GetMapping("/contact")
+    public  String contact(){
+        return "contact";
+    }
+
 
 }

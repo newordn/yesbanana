@@ -21,7 +21,7 @@
 </head>
 <body class="row">
 <!--navigation-->
-<div th:replace="~{../templates/fragments/navigation :: navigation}">
+<div th:replace="~{../templates/fragments/navigationcrewtheseupdate :: navigationcrewtheseupdate}">
 </div>
 <!-- navigation -->
 <!-- sidebar-->
@@ -31,8 +31,7 @@
 
 <div class="col-11 offset-1 main">
     <!-- showing theses-->
-    <div class="row content justify-content-center">
-        <h2 class="card alert-info mt-2 p-1">Ajouter une thèse</h2>
+    <div class="row content justify-content-center" style="margin-top: 5.5rem;">
         <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/these/add/create}" th:object="${these}">
             <!-- user id -->
             <input type="number" name="userId" th:value="${session.userId}" style="display:none">

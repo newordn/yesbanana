@@ -13,16 +13,17 @@
     <!-- thymeleaft -->
     <link th:href="@{/css/style.css}" rel="stylesheet">
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+
     <!-- Bootstrap CSS-->
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
-    <link th:href="@{/css/style1.css}" rel="stylesheet">
+
 
 
 </head>
 
 <body class="row">
 <!--navigation-->
-<div th:replace="~{../templates/fragments/navigation :: navigation}">
+<div th:replace="~{../templates/fragments/navigationcrewthese :: navigationcrewthese}">
 </div>
 <!-- navigation -->
 <!-- sidebar-->
@@ -35,8 +36,7 @@
     <div>
         <!-- these detail -->
         <div class=" col text-center" style="width:100%;">
-            <h2 class="card alert-info  mb-5" ><span th:text="${these1.subject}"></span></h2>
-            <div class="row">
+            <div class="row content" style="margin-top: 5.5rem">
                 <div class="col-3" style="position:fixed !important;" >
                     <div class="card mt-6">
                         <div th:replace="~{../templates/fragments/theseNavigationCrew :: theseNavigationCrew}"></div>
@@ -58,17 +58,6 @@
 <!--vendor scripts -->
 
 <!-- scripts-->
-<!-- ##### All Javascript Script ##### -->
-<!-- jQuery-2.2.4 js -->
-<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
-<!-- Popper js -->
-<script th:src="@{/js/bootstrap/popper.min.js}"></script>
-<!-- Bootstrap js -->
-<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
-<!-- All Plugins js -->
-<script th:src="@{/js/plugins/plugins.js}"></script>
-<!-- Active js -->
-<script th:src="@{/js/active.js}"></script>
 
 </body>
 

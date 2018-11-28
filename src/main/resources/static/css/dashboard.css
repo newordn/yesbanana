@@ -22,8 +22,8 @@ html,body
     top:0 !important;
     left:0 !important;
     border-bottom: 1px solid rgb(220,220,220); 
-    height: 4rem;
-    background-color: blue;
+    height: 5.5rem;
+    background-color: #FFFFFF;
     display:flex;
     justify-content: flex-end;
     align-items: center;
@@ -33,6 +33,7 @@ html,body
     z-index:1000;
     
 }
+
 .save-button-div
 {
     display:flex;
@@ -46,8 +47,9 @@ html,body
 }
 .sidebar
 {
+    margin-top: 5.5rem;
     border-right: 1px solid rgb(220,220,220);
-    background-color: blue;
+    background-color: #f2f4f8;
     padding:0 !important;
     position:fixed !important;
     left:0;
@@ -105,14 +107,14 @@ select
 }
 .sidebar-items button
 {
-    margin-top:5rem;
+    margin-top:2rem;
     background-color:transparent;
     margin-bottom: 2rem;
     height: 2rem;
     border:none;
     font-size:1.1rem;
     line-height: 2rem;
-    color:white;
+    color:#61ba6d;
     width:100%;
 }
 .sidebar-items button:hover
@@ -121,7 +123,7 @@ select
 }
 .sidebar-items button a
 {
-    color:white;
+    color:#61ba6d;
 }
 .sidebar-items button a:hover
  {
