@@ -29,201 +29,207 @@
 <div th:replace="~{../templates/fragments/navigationcrewtheseadd :: navigationcrewtheseadd}">
 </div>
 <!-- navigation -->
-<div class="col-12 main">
+<!-- sidebar-->
+<div th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</div>
+<!-- sidebar-->
+
+<div class="col-11 offset-1 main">
     <!-- showing theses-->
-    <div class="row content justify-content-center">
-      <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/these/add/create}" th:object="${these}">
-                <!-- user id -->
-                <input type="number" name="userId" th:value="${session.userId}" style="display:none">
-                <!-- user id -->
-                <!--theseId-->
-                <input type="number" th:field="*{theseId}"  style="display:none">
-                <!--theseId-->
-          <!--groupeId-->
-          <input type="number" name="groupeId" th:value="${session.groupeId}"  style="display:none">
-          <!--groupeId-->
-                <div class="row mb-4">
-                    <div class="col-4">
-                        <div class="form-group">
-                            <span class='error' id="universityError"></span>
-                            <input type="text" th:field="*{university}" id="university" placeholder="Université/Ecole" />
-                        </div>
+    <div class="row content justify-content-center" style="margin-top: 5.5rem;">
+        <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/these/add/create}" th:object="${these}">
+            <!-- user id -->
+            <input type="number" name="userId" th:value="${session.userId}" style="display:none">
+            <!-- user id -->
+            <!--theseId-->
+            <input type="number" th:field="*{theseId}"  style="display:none">
+            <!--theseId-->
+            <!--groupeId-->
+            <input type="number" name="groupeId" th:value="${session.groupeId}"  style="display:none">
+            <!--groupeId-->
+            <div class="row mb-4">
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="universityError"></span>
+                        <input type="text" th:field="*{university}" id="university" placeholder="Université/Ecole" />
                     </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <span class='error' id="facultyError"></span>
-                            <input type="text" th:field="*{faculty}" id="faculty" placeholder="Faculté/Discipline" />
-                        </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="facultyError"></span>
+                        <input type="text" th:field="*{faculty}" id="faculty" placeholder="Faculté/Discipline" />
                     </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <span class='error' id="optionError"></span>
-                            <input type="text" th:field="*{options}" id="option" placeholder="Option" />
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="optionError"></span>
+                        <input type="text" th:field="*{options}" id="option" placeholder="Option" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="levelError"></span>
+                        <input type="text" th:field="*{level}" id="level" placeholder="Niveau" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="subjectError"></span>
+                        <input type="text" th:field="*{subject}" id="subject" placeholder="Sujet/Thème" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="dateError"></span>
+                        <input type="text" th:field="*{theseDate}" id="dateThese" placeholder="Date" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-4">
+                    <div class="img-upload-div">
+                        <input class="img-input" type="text" name="file" id="abstract"  placeholder="Sommaire">
+                        <input type="file" name="file" id="abstract_file" style="display:none">
+                        <button class="img-upload" type="button" id="addButton">+</button>
+                        <input class="img-input" type="text" th:field="*{resumes}"  style="display:none" placeholder="Sommaire">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="countryError"></span>
+                        <input type="text" th:field="*{country}" id="country" placeholder="Pays" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="regionError"></span>
+                        <input type="text" th:field="*{regions}" id="region" placeholder="Région" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-3">
+                    <div class="form-group">
+                        <span class='error' id="assistantError"></span>
+                        <input type="text" th:field="*{assistant}" id="assistant" placeholder="Nom de l'assistant" />
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <span class='error' id="studentError"></span>
+                        <input type="text" th:field="*{student}" id="student" placeholder="Nom de l'étudiant" />
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group ">
+                        <span class='error' id="profError"></span>
+                        <input type="text" th:field="*{profesor}" id="prof" placeholder="Nom de l'encadreur/prof" />
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <span class='error' id="workChiefError"></span>
+                        <input type="text" th:field="*{workChief}" id="workChief" placeholder="Nom du chef des travaux" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-6">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <h4>Bibliographie</h4>
+                            <ul class="list-group" id="bibliographyList">
+                            </ul>
+                            <input type="text" value="" style="display:none;" th:field="*{bibliography}" id="bibliography" placeholder="Bibliographie" />
+                            <button style="width:100%"  data-toggle="modal" data-target="#addBibliography"
+                                    class="img-upload addBL" type="button" id="addBibliographyBtn">+</button>
                         </div>
                     </div>
                 </div>
-                <div class="row mb-4">
-                    <div class="col-4">
-                        <div class="form-group">
-                            <span class='error' id="levelError"></span>
-                            <input type="text" th:field="*{level}" id="level" placeholder="Niveau" />
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <span class='error' id="subjectError"></span>
-                            <input type="text" th:field="*{subject}" id="subject" placeholder="Sujet/Thème" />
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <span class='error' id="dateError"></span>
-                            <input type="text" th:field="*{theseDate}" id="dateThese" placeholder="Date" />
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-4">
-                        <div class="img-upload-div">
-                            <input class="img-input" type="text" id="abstract" placeholder="Sommaire">
-                            <button class="img-upload" type="button" id="addButton">+</button>
-                            <input type="file" name="file" id="abstract_file" style="display:none">
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <span class='error' id="countryError"></span>
-                            <input type="text" th:field="*{country}" id="country" placeholder="Pays" />
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <span class='error' id="regionError"></span>
-                            <input type="text" th:field="*{regions}" id="region" placeholder="Région" />
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-3">
-                        <div class="form-group">
-                            <span class='error' id="assistantError"></span>
-                            <input type="text" th:field="*{assistant}" id="assistant" placeholder="Nom de l'assistant" />
-                        </div>
-                </div>
-                    <div class="col-3">
-                        <div class="form-group">
-                            <span class='error' id="studentError"></span>
-                            <input type="text" th:field="*{student}" id="student" placeholder="Nom de l'étudiant" />
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="form-group ">
-                            <span class='error' id="profError"></span>
-                            <input type="text" th:field="*{profesor}" id="prof" placeholder="Nom de l'encadreur/prof" />
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="form-group">
-                            <span class='error' id="workChiefError"></span>
-                            <input type="text" th:field="*{workChief}" id="workChief" placeholder="Nom du chef des travaux" />
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-4">    
-                    <div class="col-6">
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <h4>Bibliographie</h4>
-                                <ul class="list-group" id="bibliographyList">
-                                </ul>
-                                <input type="text" value="" style="display:none;" th:field="*{bibliography}" id="bibliography" placeholder="Bibliographie" />
-                                <button style="width:100%"  data-toggle="modal" data-target="#addBibliography"
-                                        class="img-upload addBL" type="button" id="addBibliographyBtn">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group row">
-                            <input type="text" value="" th:field="*{library}" style="display:none" id="library" placeholder="Bibliothèque" />
+                <div class="col-6">
+                    <div class="form-group row">
+                        <input type="text" value="" th:field="*{library}" style="display:none" id="library" placeholder="Bibliothèque" />
 
-                            <div class="col-12">
-                                <h4>Bibliothèque</h4>
-                                <ul class="list-group" id="libraryList">
-                                </ul>
-                                <button style="width:100%" data-toggle="modal" type="button" data-target="#addLibrary"
-                                        class="img-upload addBL" id="addlibraryBtn">+</button>
-                            </div>
-
+                        <div class="col-12">
+                            <h4>Bibliothèque</h4>
+                            <ul class="list-group" id="libraryList">
+                            </ul>
+                            <button style="width:100%" data-toggle="modal" type="button" data-target="#addLibrary"
+                                    class="img-upload addBL" id="addlibraryBtn">+</button>
                         </div>
+
                     </div>
                 </div>
-                <div class="row mb-4">
-                    <div class="col-12" style="text-align:center">
-                                <button style="width:25%;"   class="btn btn-success" type="submit">Valider</button>
-                    </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-12" style="text-align:center">
+                    <button style="width:25%;"   class="btn btn-success" type="submit">Valider</button>
                 </div>
-                </form>
-                    </div>
-    
-              
+            </div>
+        </form>
+        <a style="width:25%;" th:href="@{/groupe/groupe/all/these}"  class="btn btn-warning" >Annuler</a>
     </div>
+
+
+</div>
 <!-- addBibliography-->
-    <div class=" modal fade" id="addBibliography" tabindex="-1" role="dialog">
-        <div class=" modal-dialog  modal-dialog-centered" style="box-sizing: content-box" role="document">
-            <form class="modal-content card " style="padding:2rem;">
-                <div class="form-group">
-                    <input type="text" id="bibliographyAuthor" placeholder="Auteur" />
-                </div>
-                <div class="form-group">
-                    <input type="text" id="bibliographyTitle" placeholder="Titre" />
-                </div>
-                <div class="form-group">
-                    <input type="text" id="bibliographyContent" placeholder="Description" />
-                </div>
-                <div class="text-right">
-                    <button type="button" class="btn btn-danger rounded-circle" style="width:3rem"
-                            data-dismiss="modal">
-                        <i class="zmdi zmdi-close"></i>
-                    </button>
-                    <button type="button" id="confirmBibliographyAdding" class="btn btn-primary rounded-circle" style="width:3rem">
-                        <i class="zmdi zmdi-check"></i>
-                        </i>
-                    </button>
-                </div>
-            </form>
-        </div>
+<div class=" modal fade" id="addBibliography" tabindex="-1" role="dialog">
+    <div class=" modal-dialog  modal-dialog-centered" style="box-sizing: content-box" role="document">
+        <form class="modal-content card " style="padding:2rem;">
+            <div class="form-group">
+                <input type="text" id="bibliographyAuthor" placeholder="Auteur" />
+            </div>
+            <div class="form-group">
+                <input type="text" id="bibliographyTitle" placeholder="Titre" />
+            </div>
+            <div class="form-group">
+                <input type="text" id="bibliographyContent" placeholder="Description" />
+            </div>
+            <div class="text-right">
+                <button type="button" class="btn btn-danger rounded-circle" style="width:3rem"
+                        data-dismiss="modal">
+                    <i class="zmdi zmdi-close"></i>
+                </button>
+                <button type="button" id="confirmBibliographyAdding" class="btn btn-primary rounded-circle" style="width:3rem">
+                    <i class="zmdi zmdi-check"></i>
+                </button>
+            </div>
+        </form>
     </div>
-    <!-- addBibliography-->
+</div>
+<!-- addBibliography-->
 
 
-    <!-- addLibrary-->
-    <div class=" modal fade" id="addLibrary" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" style="box-sizing: content-box" role="document">
-            <form class="modal-content card " style="padding:2rem;">
-                <div class="form-group">
-                    <input type="text" id="libraryContent" placeholder="Lien" />
-                </div>
-                <div class="text-right">
-                    <button type="button" class="btn btn-danger rounded-circle" style="width:3rem" data-dismiss="modal">
-                        <i class="zmdi zmdi-close"></i>
-                    </button>
-                    <button type="button" id="confirmLibraryAdding" class="btn btn-primary rounded-circle" style="width:3rem">
-                        <i class="zmdi zmdi-check"></i>
-                        </i>
-                    </button>
-                </div>
-            </form>
-        </div>
+<!-- addLibrary-->
+<div class=" modal fade" id="addLibrary" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" style="box-sizing: content-box" role="document">
+        <form class="modal-content card " style="padding:2rem;">
+            <div class="form-group">
+                <input type="text" id="libraryContent" placeholder="Lien" />
+            </div>
+            <div class="text-right">
+                <button type="button" class="btn btn-danger rounded-circle" style="width:3rem" data-dismiss="modal">
+                    <i class="zmdi zmdi-close"></i>
+                </button>
+                <button type="button" id="confirmLibraryAdding" class="btn btn-primary rounded-circle" style="width:3rem">
+                    <i class="zmdi zmdi-check"></i>
+                </button>
+            </div>
+        </form>
     </div>
-    <!-- addLibrary-->
+</div>
+<!-- addLibrary-->
 
-    <!-- scripts-->
-        <!--vendor scripts -->
-            <div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
-        <!--vendor scripts -->
-    <script th:src="@{/js/dashboard.js}"></script>
-    <script th:src="@{/js/showTheses.js}"></script>
-    <!-- scripts-->
+<!-- scripts-->
+<!--vendor scripts -->
+<div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+<!--vendor scripts -->
+<script th:src="@{/js/dashboard.js}"></script>
+<script th:src="@{/js/showTheses.js}"></script>
+<!-- scripts-->
+
 <!-- ##### All Javascript Script ##### -->
 <!-- jQuery-2.2.4 js -->
 <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
