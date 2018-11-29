@@ -16,6 +16,12 @@ html,body
 {
     padding:0 !important;
 }
+.home{
+    left: 0;
+    position: fixed !important;
+    padding-left: 12px;
+    color:#61ba6d ;
+}
 .nav
 {
     position:fixed !important;

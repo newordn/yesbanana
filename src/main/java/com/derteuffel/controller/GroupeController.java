@@ -121,12 +121,16 @@ public class GroupeController {
     public String stats(Model model, HttpSession session)
     {
         Long groupeId = (Long) session.getAttribute("groupeId");
-        List<User> users = userRepository.findByGroupes_GroupeId(groupeId);
-        List<These> theses = theseRepository.findByGroupeOrderByTheseIdDesc(groupeId);
-        model.addAttribute("usersSize",users.size());
-        model.addAttribute("thesesSize",theses.size());
-        model.addAttribute("groupe", groupeRepository.getOne(groupeId));
-        return "crew/stats";
+        if (groupeId == null){
+            return "redirect:/groupe/groupes";
+        }else {
+            List<User> users = userRepository.findByGroupes_GroupeId(groupeId);
+            List<These> theses = theseRepository.findByGroupeOrderByTheseIdDesc(groupeId);
+            model.addAttribute("usersSize", users.size());
+            model.addAttribute("thesesSize", theses.size());
+            model.addAttribute("groupe", groupeRepository.getOne(groupeId));
+            return "crew/stats";
+        }
     }
     
     // all the theses for a particular user
@@ -137,24 +141,33 @@ public class GroupeController {
         size.ifPresent(s->pageSize=s);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
+        List<These> by_groupe=theseRepository.findByUserOrderByTheseIdDesc(user.getUserId());
         Groupe groupe=groupeRepository.getOne((Long)session.getAttribute("groupeId"));
-        Page<These> thesePage=theseService.findAllByUser(PageRequest.of(currentPage-1, pageSize));
-        model.addAttribute("theses", thesePage);
-        int totalPages=thesePage.getTotalPages();
-        if (totalPages>0){
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
+        if ((Long)session.getAttribute("groupeId") == null){
+            return "redirect:/groupe/groupes";
+        }else {
+            Page<These> thesePage = theseService.findAllByUser(PageRequest.of(currentPage - 1, pageSize));
+                for (These these:by_groupe){
+                    if (these.getGroupe().getGroupeId().equals((Long)session.getAttribute("groupeId"))){
+                        model.addAttribute("theses", thesePage);
+                    }
+                }
+            int totalPages = thesePage.getTotalPages();
+            if (totalPages > 0) {
+                List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                        .boxed()
+                        .collect(Collectors.toList());
+                model.addAttribute("pageNumbers", pageNumbers);
 
+            }
+            // transmitting the current page number to the view
+            model.addAttribute("groupeName", groupe.getGroupeName());
+            model.addAttribute("currentPage", currentPage);
+            session.setAttribute("avatar", user.getImg());
+            session.setAttribute("name", user.getName());
+            System.out.println();
+            return "crew/theses";
         }
-        // transmitting the current page number to the view
-        model.addAttribute("groupeName",groupe.getGroupeName());
-        model.addAttribute("currentPage",currentPage);
-        session.setAttribute("avatar", user.getImg());
-        session.setAttribute("name", user.getName());
-        System.out.println();
-        return "crew/theses";
     }
 
     // all the theses for a crew
@@ -166,24 +179,28 @@ public class GroupeController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
         Groupe groupe=groupeRepository.getOne((Long)session.getAttribute("groupeId"));
-        Page<These> thesePage=theseService.findAllByGroupe(PageRequest.of(currentPage-1, pageSize),groupe.getGroupeId());
-        model.addAttribute("theses", thesePage);
-        int totalPages=thesePage.getTotalPages();
-        if (totalPages>0){
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
+        if ((Long)session.getAttribute("groupeId") == null){
+            return "redirect:/groupe/groupes";
+        }else {
+            Page<These> thesePage = theseService.findAllByGroupe(PageRequest.of(currentPage - 1, pageSize), groupe.getGroupeId());
+            model.addAttribute("theses", thesePage);
+            int totalPages = thesePage.getTotalPages();
+            if (totalPages > 0) {
+                List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                        .boxed()
+                        .collect(Collectors.toList());
+                model.addAttribute("pageNumbers", pageNumbers);
 
+            }
+
+            // transmitting the current page number to the view
+            model.addAttribute("groupe", groupe);
+            model.addAttribute("currentPage", currentPage);
+            session.setAttribute("avatar", user.getImg());
+            session.setAttribute("name", user.getName());
+            System.out.println();
+            return "crew/theses";
         }
-        
-        // transmitting the current page number to the view
-        model.addAttribute("groupe", groupe);
-        model.addAttribute("currentPage",currentPage);
-        session.setAttribute("avatar", user.getImg());
-        session.setAttribute("name", user.getName());
-        System.out.println();
-        return "crew/theses";
     }
 
     // updating a crew
