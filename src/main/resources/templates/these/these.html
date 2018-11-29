@@ -11,7 +11,7 @@
     <title>Contenu d'une thèse</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <!-- thymeleaft -->
-    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <!--link th:href="@{/css/style.css}" rel="stylesheet"-->
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
     <link th:href="@{/css/style1.css}" rel="stylesheet">
     <!-- Bootstrap CSS-->
@@ -31,13 +31,13 @@
         <!-- these detail -->
         <div class=" col text-center"  >
             <div class="row content mt-5" >
-                <div class="detailabstract"><h2>Sommaire</h2></div>
                 <div class="col-3" style="position:fixed !important;" >
                     <div class="card mt-6">
                         <div th:replace="~{../templates/fragments/theseNavigation :: theseNavigation}"></div>
                     </div>
                 </div>
                 <div class="col-9 offset-3" >
+                    <div class="detailabstract"><h2>Sommaire</h2></div>
                     <div><img th:src="${these1.resumes}" id="detailAbstract" alt="sommaire"></div>
                 
                 </div>
