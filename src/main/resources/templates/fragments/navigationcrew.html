@@ -1,5 +1,6 @@
 <!--navigation -->
 <nav class="nav col-12"  xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navigationcrew">
+    <a th:href="@{/groupe/groupes}" class="btn"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
         <h2 class="col-9 text-center"><span th:text="${groupe.groupeName}"></span></h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div th:if="${session.avatar}">
         <img class="profile-img" th:src="${session.avatar}" alt="avatar">
