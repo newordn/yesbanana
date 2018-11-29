@@ -307,14 +307,18 @@ public class GroupeController {
          List<User> users1= new ArrayList<>();
         for (User user:users){
 
-            if (user.getCategory().equals("Chef de travaux")){
+
+            if (user.getCategory()== null) {
+                users1=new ArrayList<>();
+            }else if (user.getCategory().equals("Chef de travaux")){
                 users1.add(user);
             }
         }
 
+        model.addAttribute("usersGroupe", new UsersGroupe());
         model.addAttribute("groupe", groupe);
         model.addAttribute("users", users1);
-        return "user/users";
+        return "crew/users";
     }
 
     @GetMapping("/encadrement/assistant/{groupeId}")
@@ -323,16 +327,19 @@ public class GroupeController {
         Groupe groupe=groupeRepository.getOne(groupeId);
         List<User> users_assistant= userRepository.findByGroupes_GroupeId(groupe.getGroupeId());
         List<User> users_list= new ArrayList<>();
-        for (User user1:users_assistant){
+        for (User user:users_assistant){
 
-            if (user1.getCategory().equals("Assistant")){
-                users_list.add(user1);
+            if (user.getCategory()== null) {
+                users_list=new ArrayList<>();
+            }else if (user.getCategory().equals("Assistant")){
+                users_list.add(user);
             }
         }
 
+        model.addAttribute("usersGroupe", new UsersGroupe());
         model.addAttribute("groupe", groupe);
         model.addAttribute("users", users_list);
-      return "user/users";
+      return "crew/users";
     }
 
     @GetMapping("/encadrement/encadreur/{groupeId}")
@@ -343,14 +350,17 @@ public class GroupeController {
         List<User> users_2= new ArrayList<>();
         for (User user:users_encadreur){
 
-            if (user.getCategory().equals("Encadreur")){
+            if (user.getCategory()== null) {
+                users_2=new ArrayList<>();
+            }else if (user.getCategory().equals("Encadreur")){
                 users_2.add(user);
             }
         }
 
+        model.addAttribute("usersGroupe", new UsersGroupe());
         model.addAttribute("groupe", groupe);
         model.addAttribute("users", users_2);
-        return "user/users";
+        return "crew/users";
     }
 
     @GetMapping("/encadrement/etudiant/{groupeId}")
@@ -361,14 +371,18 @@ public class GroupeController {
         List<User> users_3= new ArrayList<>();
         for (User user:users_etudiant){
 
-            if (user.getCategory().equals("Etudiant")){
+            if (user.getCategory()== null) {
+                users_3=new ArrayList<>();
+            }else if (user.getCategory().equals("Etudiant")){
                 users_3.add(user);
             }
+
         }
 
+        model.addAttribute("usersGroupe", new UsersGroupe());
         model.addAttribute("groupe", groupe);
         model.addAttribute("users", users_3);
-        return "user/users";
+        return "crew/users";
     }
 
     @GetMapping("/training/{groupeId}")

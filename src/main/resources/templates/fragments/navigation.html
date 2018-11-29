@@ -86,9 +86,9 @@
                         </div>
 
                         <!-- Nav Start -->
-                        <div class="classynav">
+                        <div class="classynav" id="navigation">
                             <ul>
-                                <li><a th:if="${session.userRole=='root'}" th:href="@{/these}" sec:authorize="hasRole('root')">Acceuil</a></li>
+                                <li class="active"><a th:if="${session.userRole=='root'}" th:href="@{/these}" sec:authorize="hasRole('root')">Acceuil</a></li>
                                 <li><a th:if="${session.userRole=='root'}" th:href="@{/groupe/groupes}" sec:authorize="hasRole('root')">Régions</a>
                                     <!--ul class="dropdown">
                                         <li><a href="index.html">Home</a></li>
