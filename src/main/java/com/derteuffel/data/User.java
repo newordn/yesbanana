@@ -100,6 +100,9 @@ public class User implements Serializable{
     @Column
     private String cv;
 
+    @Column
+    private String resetToken;
+
 
     @Column
     @NotNull
@@ -205,6 +208,14 @@ public class User implements Serializable{
         this.theses = theses;
         this.role = role;
         this.groupes = groupes;
+    }
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
     }
 
     public Boolean getAutorization() {

@@ -28,5 +28,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     List<User> findAllByCategory(String category);
 
+    Optional<User> findByResetToken(String resetToken);
+
 
 }

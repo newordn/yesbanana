@@ -67,6 +67,11 @@ public class UserService implements UserInterface {
     }
 
     @Override
+    public Optional<User> findByResetToken(String resetToken) {
+        return userRepository.findByResetToken(resetToken);
+    }
+
+    @Override
     @Transactional
     public void delete(Long userId) {
 
