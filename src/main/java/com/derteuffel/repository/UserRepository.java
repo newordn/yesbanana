@@ -26,5 +26,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("select u from User as u join u.role ur where ur.role=:id order by u.userId desc")
     List<User> findAllByRole(@Param("id") String role);
 
+    List<User> findAllByCategory(String category);
+
 
 }

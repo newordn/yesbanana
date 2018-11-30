@@ -62,6 +62,11 @@ public class UserService implements UserInterface {
     }
 
     @Override
+    public List<User> findByCategory(String category) {
+        return userRepository.findAllByCategory(category);
+    }
+
+    @Override
     @Transactional
     public void delete(Long userId) {
 

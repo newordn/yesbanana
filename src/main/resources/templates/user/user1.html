@@ -74,7 +74,7 @@
                 <div class="row">
                     <span class='error' id="categoryError"></span>
                     <div class="selector col-6">
-                        <select name="category" id="category">
+                        <select th:field="*{category}" id="category">
                             <option value="" selected="selected">Choisir une Category</option>
                             <option value="Chef des travaux" >Chef des travaux</option>
                             <option value="Assistant">Assistant</option>
@@ -84,7 +84,7 @@
                     </div>
                     <span class='error' id="diplomError"></span>
                     <div class="selector col-6">
-                        <select name="diplom" id="diplom">
+                        <select th:fiel="*{diplom}" id="diplom">
                             <option value="" selected="selected">Choisir un Diplome</option>
                             <option value="Master 1" >Master 1</option>
                             <option value="Master 2">Master 2</option>
@@ -116,7 +116,7 @@
                 <div class="row">
                     <span class='error' id="dayWorkBeginningError"></span>
                     <div class="selector col-4">
-                        <select name="dayWorkBeginning" id="dayWorkBeginning">
+                        <select th:field="*{dayWorkBeginning}" id="dayWorkBeginning">
                             <option value="" selected="selected">Debut de la journée</option>
                             <option value="00:00" >00:00</option>
                             <option value="01:00" >01:00</option>
@@ -146,7 +146,7 @@
                     </div>
                     <span class='error' id="dayWorkEndError"></span>
                     <div class="selector col-4">
-                        <select name="dayWorkEnd" id="dayWorkEnd">
+                        <select th:field="*{dayWorkEnd}" id="dayWorkEnd">
                             <option value="" selected="selected">Fin de la journée</option>
                             <option value="00:00" >00:00</option>
                             <option value="01:00" >01:00</option>
@@ -183,7 +183,7 @@
                 <div class="row">
                     <span class='error' id="numberOfWorkersError"></span>
                     <div class=" selector col-6">
-                        <select name="numberOfWorkers" id="numberOfWorkers">
+                        <select th:field="*{numberOfWorkers}" id="numberOfWorkers">
                             <option value="" selected="selected">Voulez vous travailler en groupe ou seul?</option>
                             <option value="true">Oui</option>
                             <option value="false">Non</option>
@@ -209,7 +209,8 @@
                         <input type="file" name="file" id="file_image_cv" style="display:none">
                     </div>
                     </div>
-                    <input  th:field="*{role.roleId}" id="role" placeholder="Votre Faculté" style="display: none"/>
+                    <input type="hidden" th:field="*{role.roleId}" id="role" />
+                <input  type="hidden" th:field="*{autorization}" />
 
                 <div class="col-7 p-0 justify-content-left">
                     <input type="checkbox" class="form-check-input" id="passwordToggle" >

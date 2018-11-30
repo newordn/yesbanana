@@ -59,6 +59,8 @@ public class User implements Serializable{
     @Column
     private Boolean active;
 
+
+
     //next added attributes
     //qualification information
     @Column
@@ -71,10 +73,10 @@ public class User implements Serializable{
     //work validity period
     @Column
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date beginningPeriod;
     @Column
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date endPeriod;
     //days interval
