@@ -61,7 +61,7 @@ public class PasswordController {
             passworMail.sendSimpleMessage(user.getEmail(),
                     "Demande de réinitialisation de mot de passe",
                     "Pour réinitialiser votre mot de passe, cliquez sur le lien ci-dessous:\n" + appUrl+
-                            ":8080/password/reset?token=" + user.getResetToken());
+                            "/password/reset?token=" + user.getResetToken());
 
             // add message in view to confirmation
             model.addAttribute("success", "un lien pour reinitialliser votre mot de passe a été envoyé a cette adresse" + email);
