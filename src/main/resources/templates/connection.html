@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" type="text/css">
     <!-- Main css -->
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
 </head>
 <body>
 
@@ -24,7 +25,7 @@
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>
-                        <a th:href="@{/user/registration}" class="signup-image-link">S'inscrire</a>
+
                     </div>
 
                     <div class="signin-form">
@@ -44,7 +45,8 @@
                                 <button  id="submit-login" type="submit" class="form-submit">Valider</button>
                             </div>
                         </form>
-                        <span class="mt-3" style="padding: 12px;">Mot de passe <a th:href="@{/password/forgot}">oublier?</a></span>
+                        <p class="mt-3" style="padding: 12px;">Mot de passe <a th:href="@{/password/forgot}">oublier?</a></p>
+                        <a th:href="@{/user/registration}" class="signup-image-link text-right mt-5">S'inscrire</a>
                     </div>
                 </div>
             </div>
