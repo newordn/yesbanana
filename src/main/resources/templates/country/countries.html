@@ -15,6 +15,11 @@
     <!-- Favicon -->
     <link rel="icon" th:src="@{/core-img/yesb.png}">
 
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <link th:href="@{/css/crew.css} " rel="stylesheet">
+
     <!-- Core Stylesheet -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/style1.css}">
 
@@ -107,91 +112,30 @@
     </div>
 </header>
 <!-- ##### Header Area End ##### -->
-
-
-<!-- ##### Course Area Start ##### -->
-<div class="academy-courses-area section-padding-100-0">
-    <div class="container">
-        <div class="row">
-            <!-- Single Course Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="300ms">
-                    <div class="course-icon">
-                        <i class="icon-id-card"></i>
-                    </div>
-                    <div class="course-content">
-                        <a th:href="@{/external/secure/country/countries}"><h4>Université</h4></a>
-                    </div>
+<h2 class="text-center mt-5">Selectioner un Pays</h2>
+<div class="row content mt-3">
+    <div class="col-3  text-center crew mb-2" th:each="country : ${countries}" style="padding:.5rem;">
+        <div class="card">
+            <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
+                <div class="col-6 text-left" style="padding:0">
+                    <a th:href="@{/external/secure/country/country/} + ${country.countryId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
+                        <i class="zmdi zmdi-eye" ></i>
+                    </a>
                 </div>
             </div>
-            <!-- Single Course Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="400ms">
-                    <div class="course-icon">
-                        <i class="icon-worldwide"></i>
-                    </div>
-                    <div class="course-content">
-                        <h4>Marketing</h4>
-                        <p>Lacinia, lacinia la cus non, fermen tum nisi.</p>
-                    </div>
+            <div style="background-color:whitesmoke; color:black">
+                <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
+                    <span th:text="${country.country[0]}"> Yaounde</span>
                 </div>
-            </div>
-            <!-- Single Course Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="500ms">
-                    <div class="course-icon">
-                        <i class="icon-map"></i>
-                    </div>
-                    <div class="course-content">
-                        <h4>Photography</h4>
-                        <p>Cras vitae turpis lacinia, lacinia la cus non, fermentum nisi.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Course Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="600ms">
-                    <div class="course-icon">
-                        <i class="icon-like"></i>
-                    </div>
-                    <div class="course-content">
-                        <h4>Social Media</h4>
-                        <p>Cras vitae turpis lacinia, lacinia la cus non, fermentum nisi.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Course Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="700ms">
-                    <div class="course-icon">
-                        <i class="icon-responsive"></i>
-                    </div>
-                    <div class="course-content">
-                        <h4>Development</h4>
-                        <p>Lacinia, lacinia la cus non, fermen tum nisi.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Course Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="800ms">
-                    <div class="course-icon">
-                        <i class="icon-message"></i>
-                    </div>
-                    <div class="course-content">
-                        <h4>Design</h4>
-                        <p>Cras vitae turpis lacinia, lacinia la cus non, fermentum nisi.</p>
-                    </div>
-                </div>
+                <span th:text="${country.country}"> Yaounde</span>
             </div>
         </div>
+
     </div>
 </div>
-<!-- ##### Course Area End ##### -->
 
 <!-- ##### Footer Area Start ##### -->
-<footer class="footer-area" style=" position: fixed;left: 0;bottom: 0;width: 100%;">
-    <div class="bottom-footer-area">
+    <div class="bottom-footer-area" style=" position: fixed;left: 0;bottom: 0;width: 100%;">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -207,15 +151,15 @@
 
 <!-- ##### All Javascript Script ##### -->
 <!-- jQuery-2.2.4 js -->
-<script src="js/jquery/jquery-2.2.4.min.js"></script>
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
 <!-- Popper js -->
-<script src="js/bootstrap/popper.min.js"></script>
+<script th:src="@{/js/bootstrap/popper.min.js}"></script>
 <!-- Bootstrap js -->
-<script src="js/bootstrap/bootstrap.min.js"></script>
+<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
 <!-- All Plugins js -->
-<script src="js/plugins/plugins.js"></script>
+<script th:src="@{/js/plugins/plugins.js}"></script>
 <!-- Active js -->
-<script src="js/active.js"></script>
+<script th:src="@{/js/active.js}"></script>
 </body>
 
 </html>

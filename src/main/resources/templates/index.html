@@ -39,7 +39,7 @@
                                 <a th:href="@{/}"><img th:src="@{/img/core-img/yesb.png}" alt=""></a>
                             </div>
                             <div class="login-content">
-                                <a th:href="@{/login}">Register / Login</a>
+                                <a th:href="@{/login}">Staffs</a>
                             </div>
                         </div>
                     </div>
@@ -71,9 +71,25 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a th:href="@{/}">Acceuil</a></li>
-                                    <li><a th:href="@{/deals}">Nos offres</a></li>
-                                    <li><a th:href="@{/about}">A propos</a></li>
-                                    <li><a th:href="@{/contact}">Nous contacter</a></li>
+                                    <li><a th:href="@{/deals}">Commencez avec nous?</a></li>
+                                    <li><a href="#">Nous contacter</a>
+                                        <ul class="dropdown">
+                                            <li><a href="#">Expert</a>
+                                                <ul class="dropdown">
+                                                    <li><a th:href="@{/login/visitor/expert/universite}">Université</a></li>
+                                                    <li><a th:href="@{/login/visitor/expert/professionnel}">Professionnel</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a th:href="@{/login/visitor/parent}">Parents</a></li>
+                                            <li><a th:href="@{/login/visitor/etudiant}">Etudiant</a></li>
+                                            <li><a href="#">Enseignant</a>
+                                                <ul class="dropdown">
+                                                    <li><a th:href="@{/login/visitor/enseignant/primaire}">Primaire</a></li>
+                                                    <li><a th:href="@{/login/visitor/enseignant/secondaire}">Secondaire</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </div>
                             <!-- Nav End -->
@@ -179,103 +195,8 @@
     </div>
     <!-- ##### Top Feature Area End ##### -->
 
-    <!-- ##### Course Area Start ##### -->
-    <div class="academy-courses-area section-padding-100-0">
-        <div class="container">
-            <div class="row">
-                <!-- Single Course Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="300ms">
-                        <div class="course-icon">
-                            <i class="icon-id-card"></i>
-                        </div>
-                        <div class="course-content">
-                            <h4>Economie et Commerce</h4>
-                            <p>Cras vitae turpis lacinia, lacinia la cus non, fermentum nisi.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Course Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="400ms">
-                        <div class="course-icon">
-                            <i class="icon-worldwide"></i>
-                        </div>
-                        <div class="course-content">
-                            <h4>Marketing</h4>
-                            <p>Lacinia, lacinia la cus non, fermen tum nisi.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Course Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="500ms">
-                        <div class="course-icon">
-                            <i class="icon-map"></i>
-                        </div>
-                        <div class="course-content">
-                            <h4>Photography</h4>
-                            <p>Cras vitae turpis lacinia, lacinia la cus non, fermentum nisi.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Course Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="600ms">
-                        <div class="course-icon">
-                            <i class="icon-like"></i>
-                        </div>
-                        <div class="course-content">
-                            <h4>Social Media</h4>
-                            <p>Cras vitae turpis lacinia, lacinia la cus non, fermentum nisi.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Course Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="700ms">
-                        <div class="course-icon">
-                            <i class="icon-responsive"></i>
-                        </div>
-                        <div class="course-content">
-                            <h4>Development</h4>
-                            <p>Lacinia, lacinia la cus non, fermen tum nisi.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Single Course Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="800ms">
-                        <div class="course-icon">
-                            <i class="icon-message"></i>
-                        </div>
-                        <div class="course-content">
-                            <h4>Design</h4>
-                            <p>Cras vitae turpis lacinia, lacinia la cus non, fermentum nisi.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ##### Course Area End ##### -->
-    <!-- ##### CTA Area Start ##### -->
-    <div class="call-to-action-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="cta-content d-flex align-items-center justify-content-between flex-wrap">
-                        <h3>Commencer avec nous ?</h3>
-                        <a th:href="@{/}" class="btn academy-btn">Developper</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ##### CTA Area End ##### -->
-
     <!-- ##### Footer Area Start ##### -->
-    <footer class="footer-area">
+    <footer class="footer-area" >
         <div class="main-footer-area section-padding-100-0">
             <div class="container">
                 <div class="row">
