@@ -14,13 +14,13 @@ public class Country implements Serializable {
     @GeneratedValue
     private Long countryId;
     @Column
-    private String country;
+    private String countryName;
 
     @OneToMany(mappedBy = "country")
     private List<Region> regions;
 
-    public Country(String country) {
-        this.country = country;
+    public Country(String countryName) {
+        this.countryName = countryName;
     }
 
     public Country() {
@@ -34,12 +34,12 @@ public class Country implements Serializable {
         this.regions = regions;
     }
 
-    public String getCountry() {
-        return country;
+    public String getCountryName() {
+        return countryName;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
     public Long getCountryId() {

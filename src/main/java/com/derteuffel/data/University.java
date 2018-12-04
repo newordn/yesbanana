@@ -15,7 +15,7 @@ public class University implements Serializable {
     private Long universityId;
 
     @Column
-    private String university;
+    private String universityName;
 
     @ManyToOne
     private Region region;
@@ -23,8 +23,8 @@ public class University implements Serializable {
     @OneToMany(mappedBy = "university")
     private List<Faculty> facultyList;
 
-    public University(String university, Region region) {
-        this.university = university;
+    public University(String universityName, Region region) {
+        this.universityName = universityName;
         this.region = region;
     }
 
@@ -47,12 +47,13 @@ public class University implements Serializable {
         this.universityId = universityId;
     }
 
-    public String getUniversity() {
-        return university;
+
+    public String getUniversityName() {
+        return universityName;
     }
 
-    public void setUniversity(String university) {
-        this.university = university;
+    public void setUniversityName(String universityName) {
+        this.universityName = universityName;
     }
 
     public Region getRegion() {

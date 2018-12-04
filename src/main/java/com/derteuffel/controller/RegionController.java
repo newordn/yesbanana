@@ -42,12 +42,7 @@ public class RegionController {
         return "region/regions";
     }
 */
-    @PostMapping("/save")
-    public  String save(Region region, Long countryId) {
-        Country country= countryRepository.getOne(countryId);
-        regionRepository.save(region);
-        return "redirect:/external/secure/country/country/management/"+ country.getCountryId();
-    }
+
 
     @GetMapping("/region/{regionId}")
     public String findById(Model model, @PathVariable Long regionId) {
@@ -56,24 +51,6 @@ public class RegionController {
         model.addAttribute("region",regionOptional.get());
         model.addAttribute("universities", universities);
         return "region/region";
-    }
-
-    @GetMapping("/region/management/{regionId}")
-    public String findOne(Model model, @PathVariable Long regionId,HttpSession session) {
-        Optional<Region> regionOptional=regionRepository.findById(regionId);
-        session.setAttribute("regionId", regionId);
-        List<University> universities=universityRepository.findAllByRegion(regionOptional.get().getRegionId());
-        model.addAttribute("region",regionOptional.get());
-        model.addAttribute("universities", universities);
-        model.addAttribute("university", new University());
-        return "management/region";
-    }
-
-    @GetMapping("/delete/university/{universityId}")
-    public String delete(@PathVariable Long universityId, HttpSession session) {
-        Long regionId=(Long)session.getAttribute("regionId");
-        universityRepository.deleteById(universityId);
-        return "redirect:/external/secure/region/region/management/"+regionId;
     }
 
 }

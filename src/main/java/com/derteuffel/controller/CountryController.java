@@ -43,19 +43,6 @@ public class CountryController {
         return "country/countries";
     }
 
-    @GetMapping("/countries/management")
-    public String findAllCountry(Model model) {
-        List<Country> countries= countryRepository.findAll();
-        model.addAttribute("countries", countries);
-        model.addAttribute("country", new Country());
-        return "management/countries";
-    }
-    @PostMapping("/save")
-    public String save(Country country) {
-         countryRepository.save(country);
-        return "redirect:/external/secure/country/countries/management";
-    }
-
     @GetMapping("/country/{countryId}")
     public String findById(Model model,@PathVariable Long countryId) {
         Optional<Country> countryOptional=countryRepository.findById(countryId);
@@ -65,29 +52,6 @@ public class CountryController {
 
         return "country/country";
     }
-    @GetMapping("/country/management/{countryId}")
-    public String findone(Model model,@PathVariable Long countryId) {
-        Optional<Country> countryOptional=countryRepository.findById(countryId);
-        List<Region> regions= regionRepository.findAllByCountry(countryOptional.get().getCountryId());
-        model.addAttribute("country", countryOptional.get());
-        model.addAttribute("regions", regions);
-        model.addAttribute("region",new Region());
 
-        return "management/country";
-    }
 
-    @GetMapping("/delete/{countryId}")
-    public String deleteById(@PathVariable Long countryId) {
-        countryRepository.deleteById(countryId);
-
-        return "redirect:/external/secure/country/countries/management";
-    }
-
-    @GetMapping("/delete/region/{regionId}")
-    public String delete(@PathVariable Long regionId, HttpSession session) {
-        Long countryId= (Long)session.getAttribute("countryId");
-        regionRepository.deleteById(regionId);
-
-        return "redirect:/external/secure/country/country/management"+countryId;
-    }
 }

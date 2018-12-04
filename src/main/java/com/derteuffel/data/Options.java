@@ -15,15 +15,15 @@ public class Options implements Serializable {
     @GeneratedValue
     private Long optionsId;
 
-    private  String options;
+    private  String optionsName;
 
     @ManyToOne
     private Faculty faculty;
     public Options() {
     }
 
-    public Options(String options, Faculty faculty) {
-        this.options = options;
+    public Options(String optionsName, Faculty faculty) {
+        this.optionsName = optionsName;
         this.faculty=faculty;
     }
 
@@ -35,12 +35,12 @@ public class Options implements Serializable {
         this.optionsId = optionsId;
     }
 
-    public String getOptions() {
-        return options;
+    public String getOptionsName() {
+        return optionsName;
     }
 
-    public void setOptions(String options) {
-        this.options = options;
+    public void setOptionsName(String optionsName) {
+        this.optionsName = optionsName;
     }
 
     public Faculty getFaculty() {

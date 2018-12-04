@@ -239,6 +239,7 @@ public class TheseController {
         Groupe groupe= groupeRepository.getOne(groupeId);
         these.setGroupe(groupe);
         these.setUser(user);
+        these.setOptions(these.getOptions().toLowerCase());
         theseRepository.save(these);
         if (!user.getRole().getRole().equals("user")){
             return "redirect:/groupe/groupe/all/these/";

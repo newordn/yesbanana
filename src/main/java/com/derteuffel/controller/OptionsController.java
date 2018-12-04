@@ -45,17 +45,10 @@ public class OptionsController {
         return "options/optionses";
     }
 
-    @PostMapping("/save")
-    public String save(Options options, Long facultyId) {
-        Faculty faculty=facultyRepository.getOne(facultyId);
-         optionsRepository.save(options);
-        return "redirect:/external/secure/faculty/faculty/management/"+ faculty.getFaculty();
-    }
-
     @GetMapping("/options/{optionsId}")
     public String findById(Model model, @PathVariable Long optionsId) {
         Optional<Options> optionsOptional= optionsRepository.findById(optionsId);
-        model.addAttribute("theses", theseRepository.findAllByOptionsOrderByTheseIdDesc(optionsOptional.get().getOptions()));
+        model.addAttribute("theses", theseRepository.findAllByOptionsOrderByTheseIdDesc(optionsOptional.get().getOptionsName().toLowerCase()));
         return "options/options";
     }
 

@@ -43,13 +43,6 @@ public class UniversityController {
         return "university/universities";
     }
 */
-    @PostMapping("/save")
-    public String save(University university, Long regionId) {
-        Region region= regionRepository.getOne(regionId);
-        universityRepository.save(university);
-        return "redirect:/external/secure/region/region/management/"+ region.getRegionId();
-    }
-
     @GetMapping("/university/{universityId}")
     public String findById(Model model, @PathVariable Long universityId) {
         Optional<University> universityOptional=universityRepository.findById(universityId);
@@ -58,22 +51,5 @@ public class UniversityController {
         model.addAttribute("faculties", faculties);
         return "university/university";
     }
-    @GetMapping("/university/management/{universityId}")
-    public String findOne(Model model, @PathVariable Long universityId, HttpSession session) {
-        Optional<University> universityOptional=universityRepository.findById(universityId);
-        session.setAttribute("universityId",universityId);
-        List<Faculty> faculties=facultyRepository.findAllByUnniversity(universityOptional.get().getUniversityId());
-        model.addAttribute("university", universityOptional.get());
-        model.addAttribute("faculties", faculties);
-        model.addAttribute("faculty",new Faculty());
-        return "management/university";
-    }
 
-
-    @GetMapping("/delete/faculty/{facultyId}")
-    public String deletefaculty(@PathVariable Long facultyId, HttpSession session) {
-        Long universityId= (Long)session.getAttribute("universityId");
-        facultyRepository.deleteById(facultyId);
-        return "redirect:/external/secure/university/university/management/"+ universityId;
-    }
 }

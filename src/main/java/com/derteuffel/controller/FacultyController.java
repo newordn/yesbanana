@@ -48,13 +48,6 @@ public class FacultyController {
     }
     */
 
-    @PostMapping("/save")
-    public String save(Faculty faculty, Long universityId) {
-        University university= universityRepository.getOne(universityId);
-        facultyRepository.save(faculty);
-        return "redirect:/external/secure/university/university/management/"+ university.getUniversity();
-    }
-
     @GetMapping("/faculty/{facultyId}")
     public String findById(Model model, @PathVariable Long facultyId) {
          Optional<Faculty> facultyOptional= facultyRepository.findById(facultyId);
@@ -63,21 +56,5 @@ public class FacultyController {
         return "faculty/faculty";
     }
 
-    @GetMapping("/faculty/management/{facultyId}")
-    public String findOne(Model model, @PathVariable Long facultyId, HttpSession session) {
-        session.setAttribute("facultyId", facultyId);
-        Optional<Faculty> facultyOptional= facultyRepository.findById(facultyId);
-        model.addAttribute("faculty", facultyOptional.get());
-        model.addAttribute("optionses", optionsRepository.findAllByFaculty(facultyOptional.get().getFacultyId()));
-        model.addAttribute("options",new Options());
-        return "management/faculty";
-    }
 
-
-    @GetMapping("/delete/options/{optionsId}")
-    public String deleteById(@PathVariable Long optionsId, HttpSession session) {
-        Long facultyId= (Long)session.getAttribute("facultyId");
-        optionsRepository.deleteById(optionsId);
-        return "redirect:/external/secure/faculty/faculty/management/"+facultyId;
-    }
 }

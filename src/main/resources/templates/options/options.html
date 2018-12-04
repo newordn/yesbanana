@@ -77,15 +77,14 @@
                             <ul>
                                 <li><a th:href="@{/}">Acceuil</a></li>
                                 <li><a th:href="@{/deals}">Commencez avec nous?</a></li>
-                                <li><a href="#">Nous contacter</a>
+                                <li><a href="#">Emplois</a>
                                     <ul class="dropdown">
                                         <li><a href="#">Expert</a>
                                             <ul class="dropdown">
-                                                <li><a th:href="@{/login/visitor/expert/universite}">Université</a></li>
+                                                <li><a th:href="@{/login/visitor/expert/universite}">Universitaire</a></li>
                                                 <li><a th:href="@{/login/visitor/expert/professionnel}">Professionnel</a></li>
                                             </ul>
                                         </li>
-                                        <li><a th:href="@{/login/visitor/parent}">Parents</a></li>
                                         <li><a th:href="@{/login/visitor/etudiant}">Etudiant</a></li>
                                         <li><a href="#">Enseignant</a>
                                             <ul class="dropdown">
@@ -114,28 +113,28 @@
 <!-- ##### Header Area End ##### -->
 <h2 class="text-center mt-5">Les Sujets</h2>
 <div class="row content mt-3">
-    <div class="col-10  text-center crew mb-2" th:each="these : ${theses}" style="padding:.5rem;">
+    <div class="col-12  text-center crew mb-2" th:each="these : ${theses}" style="padding:.5rem;">
         <div class="card">
             <table>
                 <tbody>
-                    <tr>
-                       <td >
-                           <div class="card-img-top" style="color:white;line-height:4rem;font-size:4rem;background-color:lightseagreen;border-radius: 50%;width: 4.5em;margin:auto;height: 4rem;">
-                                <span th:text="${country.country[0]}"> Yaounde</span>
-                            </div>
-                       </td>
-                        <td>
-                            <span th:text="${country.country}"> Yaounde</span>
-                        </td>
-                        <td>
-                            <a th:href="@{/login/visitor/etudiant}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
-                                <i class="zmdi zmdi-eye" ></i>
-                            </a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td >
+                        <div class="card-img-top pull-left" style="color:white;line-height:4rem;font-size:4rem;background-color:lightseagreen;border-radius: 50%;width: 4rem;margin:auto;height: 4rem;left:0">
+                            <span th:text="${these.subject[0]}"> Yaounde</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span th:text="${these.subject}"> Yaounde</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/login/visitor/etudiant}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
+                            <i class="zmdi zmdi-eye" ></i>
+                        </a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
-           </div>
+        </div>
 
     </div>
 </div>

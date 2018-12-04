@@ -15,7 +15,7 @@ public class Faculty implements Serializable {
     private Long facultyId;
 
     @Column
-    private String faculty;
+    private String facultyName;
 
     @ManyToOne
     private University university;
@@ -23,8 +23,9 @@ public class Faculty implements Serializable {
     @OneToMany(mappedBy = "faculty")
     private List<Options> optionsList;
 
-    public Faculty(String faculty) {
-        this.faculty = faculty;
+    public Faculty(String facultyName, University university) {
+        this.facultyName = facultyName;
+        this.university=university;
     }
 
     public Faculty() {
@@ -46,12 +47,13 @@ public class Faculty implements Serializable {
         this.facultyId = facultyId;
     }
 
-    public String getFaculty() {
-        return faculty;
+
+    public String getFacultyName() {
+        return facultyName;
     }
 
-    public void setFaculty(String faculty) {
-        this.faculty = faculty;
+    public void setFacultyName(String facultyName) {
+        this.facultyName = facultyName;
     }
 
     public University getUniversity() {

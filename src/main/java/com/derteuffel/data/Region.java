@@ -17,7 +17,7 @@ public class Region implements Serializable {
     private Long regionId;
 
     @Column
-    private String region;
+    private String regName;
 
     @ManyToOne
     private Country country;
@@ -26,8 +26,9 @@ public class Region implements Serializable {
     private List<University> universities;
 
 
-    public Region(String region) {
-        this.region = region;
+    public Region(String regName, Country country) {
+        this.regName = regName;
+        this.country=country;
     }
 
     public Region() {
@@ -49,12 +50,12 @@ public class Region implements Serializable {
         this.regionId = regionId;
     }
 
-    public String getRegion() {
-        return region;
+    public String getRegName() {
+        return regName;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setRegName(String regName) {
+        this.regName = regName;
     }
 
     public Country getCountry() {
