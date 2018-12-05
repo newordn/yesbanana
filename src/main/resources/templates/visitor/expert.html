@@ -26,8 +26,8 @@
                 <div style="font-size:1.2rem;text-align: center;"><i th:if="${error}" th:text="${error}" style="color:red;"></i> </div>
                 <div class="signup-content">
                     <div class="signup-form col-6">
-                        <h2 class="form-title">Inscription</h2>
-                        <form method="POST" enctype="multipart/form-data" th:object="${user}" th:action="@{/user/create}" class="register-form" id="register-form">
+                        <h2 class="form-title">Demande d'inscription</h2>
+                        <form method="POST" enctype="multipart/form-data" th:object="${user}" th:action="@{/user/create/visitor}" class="register-form" id="register-form">
                             <span class='error' id="nameError"></span>
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
@@ -73,25 +73,25 @@
                             </div>
                                 <div style="margin-bottom:-2.2rem"><i class="zmdi zmdi-photo-size-select-large"></i> </div>
                             <div class="img-upload-div">
-                                <input class="img-input" type="text" id="image"  placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Votre image">
+                                <input class="img-input" type="text" id="image"  placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Votre photo">
                                 <button class="img-upload" type="button" id="addButton">+</button>
                                 <input type="file" name="file" id="file_image" style="display:none">
                             </div>
                             <input type="submit" style="display:none">
-                            <div class='row mt-3'>
-                                <div class='col-2'>
-                                    <input type="checkbox"  name="autorization" th:checked="${autorization}">
-                                </div>
-                                <div class='col-10 ' style='line-height:1rem;'>
-                                    <strong>Accompagnement</strong>
-                                </div>
+                            <div class="img-upload-div">
+                                <input class="img-input" type="text" id="cv"  placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ajouter un cv">
+                                <button class="img-upload" type="button" id="addButtonCv" style="margin-top: 1.5rem;">+</button>
+                                <input type="file" name="file" id="file_image_cv" style="display:none">
                             </div>
-
+                            <span class='error' id="anotherDetailError"></span>
+                            <div class="form-group mt-3">
+                                <label for="anotherDetail"><i class="zmdi zmdi-graduation-cap"></i></label>
+                                <input type="text" name="anotherDetail" id="anotherDetail" placeholder="En quelque mots vos objectifs viser" />
+                            </div>
                         </form>
                     </div>
                     <div class="signup-image ">
                          <figure><img th:src="@{/images/signup-image.jpg}" alt="sing up image"></figure>
-                        <a th:href="@{/login}" class="signup-image-link">Se connecter</a>
                         <div class="form-group form-button" >
                             <input type="submit" id="submit" style="width:100%;" name="signup"  class="form-submit" value="S'inscrire" />
                         </div>

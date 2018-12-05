@@ -37,6 +37,7 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private FileUploadServices fileUploadServices;
+    @Autowired FileUploadService fileUploadService;
     @Autowired
     private RoleService roleService;
     @Autowired
@@ -163,6 +164,63 @@ public class UserController {
         }
     }
 
+
+    @PostMapping(value = "/create/visitor", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String createVisitor(@Valid User user, Model model, @RequestParam("file") MultipartFile file, BindingResult bindingResult, String role) {
+        String fileName = fileUploadServices.storeFile(file);
+        String fileNameCv= fileUploadService.storeFile(file);
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+/*
+            FileUploadRespone fileUploadRespone = new FileUploadRespone(fileName, fileDownloadUri);*/
+        user.setImg("/downloadFile/" + fileName);
+
+            user.setCv("/downloadFile/"+fileNameCv);
+
+        //user.setActive(true);
+        List<User> users=userService.listAll();
+        if (users.size()<=1){
+            Role role1= new Role("root");
+            user.setRole(role1);
+        }else {
+            Role userRole = roleService.findByRole(role);
+            if (userRole == null) {
+                Role newRole = new Role("user");
+                user.setRole(newRole);
+                System.out.println(userRole);
+            } else {
+                user.setRole(userRole);
+            }
+        }
+
+
+
+        User user1 = userService.findByEmail(user.getEmail());
+        if (user1 != null) {
+
+            bindingResult.rejectValue("email", "user.error", "There is already a user registered with the email provided");
+        }
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("error", "Il existe un utilisateur avec le même email.");
+            return "user/userForm";
+        } else {
+            userService.saveOrUpdate(user);
+
+            MailService mailService = new MailService();
+            mailService.sendSimpleMessage(
+                    "solutioneducationafrique@gmail.com",
+                    "YesBanana: Notification Inscription d'un utilisateur a partir du module emploi",
+                    "L'utilisateur " + user.getName() + " dont l'email est " +
+                            user.getEmail()+ "  Vient de s'inscrire  en tant que" + user.getAnotherDetail()+
+                            "sur la plateforme YesBanana. Veuillez vous connectez pour manager son status.");
+
+
+            return "redirect2";
+        }
+    }
+
     @GetMapping("/update")
     public String update(Model model, HttpSession session) {
 
@@ -186,21 +244,23 @@ public class UserController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-        public String updateUser ( User user, @RequestParam("file") MultipartFile file){
+        public String updateUser ( User user, @RequestParam("file") MultipartFile file, @RequestParam("cvFile") MultipartFile cvFile){
             if(!file.isEmpty()) {
-                String fileName = fileUploadServices.storeFile(file);
-                String fileNameCv= fileUploadServices.storeFile(file);
+                String fileName = fileUploadService.storeFile(file);
+
                 user.setImg("/downloadFile/" + fileName);
-                if (user.getCv().isEmpty()){
-                    user.setCv("/downloadFile/");
-                }else {
-                    user.setCv("/downloadFile/"+fileNameCv);
-                }
+
             }
             else
             {
                 user.setImg(user.getImg());
             }
+        if (!cvFile.isEmpty()){
+            String fileNameCv= fileUploadServices.storeFile(cvFile);
+                user.setCv("/downloadFile/"+fileNameCv);
+        }else {
+            user.setCv(user.getCv());
+        }
             Role role1=roleService.getById(user.getRole().getRoleId());
             user.setRole(role1);
 

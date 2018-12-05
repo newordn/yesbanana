@@ -166,4 +166,23 @@ public class HomeController {
         return "other";
     }
 
+    @GetMapping("/visitor/student")
+    public String student(Model model)
+    {
+        model.addAttribute("user", new User());
+        return "visitor/student";
+    }
+
+    @GetMapping("/visitor/expert")
+    public String expert(Model model){
+        model.addAttribute("user", new User());
+        return "visitor/expert";
+    }
+
+    @GetMapping("/visitor/teacher")
+    public String teacher(Model model){
+        model.addAttribute("user", new User());
+        return "visitor/teacher";
+    }
+
 }
