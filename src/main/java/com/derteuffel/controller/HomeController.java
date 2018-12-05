@@ -92,5 +92,78 @@ public class HomeController {
         return "contact";
     }
 
+    @GetMapping("/school/primary")
+    public String schoolprimary(){
+        return "primary/courses";
+    }
+
+    @GetMapping("/school/primary/transport")
+    public String schoolprimarytransport(){
+        return "primary/transport";
+    }
+
+
+    @GetMapping("/school/secondary")
+    public String schoolsecondary(){
+        return "secondary/courses";
+    }
+
+    @GetMapping("/school/secondary/transport")
+    public String schoolsecondarytransport(){
+        return "secondary/transport";
+    }
+
+    @GetMapping("/training/admin")
+    public String trainingadminfinance(){
+        return "training/adminfinance";
+    }
+
+
+
+    @GetMapping("/training/english/french")
+    public String trainingenglishfrench(){
+        return "training/englishfrench";
+    }
+
+
+
+    @GetMapping("/training/wash")
+    public String trainingwash(){
+        return "training/wash";
+    }
+
+
+
+    @GetMapping("/training/protection")
+    public String trainingprotection(){
+        return "training/protection";
+    }
+
+
+
+    @GetMapping("/training/resource")
+    public String trainingresource(){
+        return "training/resource";
+    }
+
+
+
+    @GetMapping("/training/logistic")
+    public String traininglogistic(){
+        return "training/logistic";
+    }
+
+
+
+    @GetMapping("/training/it")
+    public String trainingit(){
+        return "training/it";
+    }
+
+
+    @GetMapping("/other/services")
+    public String other(){
+        return "other";
+    }
 
 }

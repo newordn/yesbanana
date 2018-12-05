@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -72,15 +72,14 @@
                             <ul>
                                 <li><a th:href="@{/}">Acceuil</a></li>
                                 <li><a th:href="@{/deals}">Commencez avec nous?</a></li>
-                                <li><a href="#">Nous contacter</a>
+                                <li><a href="#">Emplois</a>
                                     <ul class="dropdown">
                                         <li><a href="#">Expert</a>
                                             <ul class="dropdown">
-                                                <li><a th:href="@{/login/visitor/expert/universite}">Université</a></li>
+                                                <li><a th:href="@{/login/visitor/expert/universite}">Universitaire</a></li>
                                                 <li><a th:href="@{/login/visitor/expert/professionnel}">Professionnel</a></li>
                                             </ul>
                                         </li>
-                                        <li><a th:href="@{/login/visitor/parent}">Parents</a></li>
                                         <li><a th:href="@{/login/visitor/etudiant}">Etudiant</a></li>
                                         <li><a href="#">Enseignant</a>
                                             <ul class="dropdown">
@@ -131,8 +130,7 @@
                         <i class="icon-worldwide"></i>
                     </div>
                     <div class="course-content">
-                        <h4>Marketing</h4>
-                        <p>Lacinia, lacinia la cus non, fermen tum nisi.</p>
+                        <a th:href="@{/school/primary}"><h4>Ecole Primaire</h4></a>
                     </div>
                 </div>
             </div>
@@ -143,8 +141,7 @@
                         <i class="icon-map"></i>
                     </div>
                     <div class="course-content">
-                        <h4>Photography</h4>
-                        <p>Cras vitae turpis lacinia, lacinia la cus non, fermentum nisi.</p>
+                        <a th:href="@{/school/secondary}"><h4>Ecole Secondaire</h4></a>
                     </div>
                 </div>
             </div>
@@ -155,8 +152,7 @@
                         <i class="icon-like"></i>
                     </div>
                     <div class="course-content">
-                        <h4>Social Media</h4>
-                        <p>Cras vitae turpis lacinia, lacinia la cus non, fermentum nisi.</p>
+                        <a th:href="@{/training/admin}"> <h4>Formation professionnelle</h4></a>
                     </div>
                 </div>
             </div>
@@ -167,8 +163,8 @@
                         <i class="icon-responsive"></i>
                     </div>
                     <div class="course-content">
-                        <h4>Development</h4>
-                        <p>Lacinia, lacinia la cus non, fermen tum nisi.</p>
+                       <a th:href="@{/other/services}"> <h4>Autres Services</h4></a>
+                        <p>Logement, Transport, Approvi-<br>sionnement, Supermache </br>en ligne</p>
                     </div>
                 </div>
             </div>
