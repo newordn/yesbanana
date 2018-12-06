@@ -109,36 +109,6 @@ public class HomeController {
         return "primary/courses";
     }
 
-    //primary school transport
-    @GetMapping("/school/primary/transport")
-    public String schoolprimarytransport(){
-        return "primary/transport";
-    }
-
-    //primary school librairy
-    @GetMapping("/school/primary/librairy")
-    public String schoolprimarylibrairy(){
-        return "primary/librairy";
-    }
-
-    //primary school hooliday
-    @GetMapping("/school/primary/holliday")
-    public String schoolprimaryhollidays(){
-        return "primary/holliday";
-    }
-
-    //primary school language
-    @GetMapping("/school/primary/language")
-    public String schoolprimarylanguage(){
-        return "primary/language";
-    }
-
-    //primary school games
-    @GetMapping("/school/primary/games")
-    public String schoolprimarygames(){
-        return "primary/games";
-    }
-
 
     //secondary school courses
     @GetMapping("/school/secondary")
@@ -146,101 +116,13 @@ public class HomeController {
         return "secondary/courses";
     }
 
-    //secondary school transport
-    @GetMapping("/school/secondary/transport")
-    public String schoolsecondarytransport(){
-        return "secondary/transport";
-    }
-
-    //secondary school librairy
-    @GetMapping("/school/secondary/librairy")
-    public String schoolsecondarylibrairy(){
-        return "secondary/librairy";
-    }
-
-    //secondary school exam
-    @GetMapping("/school/secondary/exam")
-    public String schoolsecondaryexam(){
-        return "secondary/exam";
-    }
-
-    //secondary school language
-    @GetMapping("/school/secondary/language")
-    public String schoolsecondarylanguage(){
-        return "secondary/language";
-    }
-
-    //secondary school holliday
-    @GetMapping("/school/secondary/holliday")
-    public String schoolsecondaryholliday(){
-        return "secondary/holliday";
-    }
-
-    //secondary school games
-    @GetMapping("/school/secondary/games")
-    public String schoolsecondarygames(){
-        return "secondary/games";
-    }
 
     // training finance and administration
     @GetMapping("/training/admin")
-    public String trainingadminfinance(){
+    public String training(){
         return "training/adminfinance";
     }
 
-
-//training english and french
-    @GetMapping("/training/english/french")
-    public String trainingenglishfrench(){
-        return "training/englishfrench";
-    }
-
-
-//training wash
-    @GetMapping("/training/wash")
-    public String trainingwash(){
-        return "training/wash";
-    }
-
-
-    //training protection
-    @GetMapping("/training/protection")
-    public String trainingprotection(){
-        return "training/protection";
-    }
-
-
-    //training resources
-    @GetMapping("/training/resource")
-    public String trainingresource(){
-        return "training/resource";
-    }
-
-
-    //training logistic
-    @GetMapping("/training/logistic")
-    public String traininglogistic(){
-        return "training/logistic";
-    }
-
-
-    //training it
-    @GetMapping("/training/it")
-    public String trainingit(){
-        return "training/it";
-    }
-
-    //training leadership
-    @GetMapping("/training/leadership")
-    public String trainingleadership(){
-        return "training/leadership";
-    }
-
-    //training management
-    @GetMapping("/training/management")
-    public String trainingmanagement(){
-        return "training/management";
-    }
 
 
     @GetMapping("/other/services")
@@ -256,16 +138,6 @@ public class HomeController {
     @GetMapping("/school/project")
     public String concour(){
         return "project/concour";
-    }
-
-    @GetMapping("/school/undertake/expert")
-    public String expert(){
-        return "project/expert";
-    }
-
-    @GetMapping("/school/undertake")
-    public String advice(){
-        return "project/undertake";
     }
 
     @GetMapping("/visitor/student")
