@@ -4,10 +4,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cours d'appui et transport</title>
+    <title>Anglais et/ou francais</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
-    <link th:href="@{/css/style1.css}" rel="stylesheet">
+    <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
     <!-- Bootstrap CSS-->
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
 
@@ -16,54 +16,14 @@
 <!--navigation -->
 <nav class="nav col-12 classynav row"  >
     <a th:href="@{/deals}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
-<h3 class="col-7 text-center pull-left" style="margin-right: 20rem;">Anglais et/ou Français</h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <h3 class="col-7 text-center pull-left" style="margin-right: 20rem;">Anglais et/ou français</h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </nav>
-<div class="col-2" style="margin-top: 5.5rem;position:fixed;padding-left: 12px;height: 100%;">
-    <ul class="list-group">
-        <a th:href="@{/training/admin} " class="alert-info active theseNavigation" style="text-decoration: none; ">
-            <li class="list-group-item"  >
-                Administration et finance<span class="sr-only">(current)</span>
-            </li>
-        </a>
-        <a th:href="@{/training/english/french} " class="alert-info theseNavigation" style="text-decoration: none; ">
-            <li class="list-group-item" >
-                Anglais et/ou français
-            </li>
-        </a>
-        <a th:href="@{/training/it} " class="alert-info theseNavigation" style="text-decoration: none; ">
-            <li class="list-group-item" >
-                IT
-            </li>
-        </a>
-        <a th:href="@{/training/logistique}" class="alert-info theseNavigation" style="text-decoration: none; ">
-            <li class="list-group-item">
-                Logistique
-            </li>
-        </a>
+<nav th:replace="fragments/navbar2::navbar2('admin')"></nav>
+<div  style="margin-top: 10.5rem;padding: 2rem;">
+    <div >
+        <h4>ici contenue Anglais et français</h4>
+    </div>
 
-        <a th:href="@{/training/protection}" class="alert-info theseNavigation" style="text-decoration: none; ">
-            <li class="list-group-item">
-                Protection
-            </li>
-        </a>
-
-        <a th:href="@{/training/resource}" class="alert-info theseNavigation" style="text-decoration: none; ">
-            <li class="list-group-item">
-                Resource humaine
-            </li>
-        </a>
-
-        <a th:href="@{/training/wash}" class="alert-info theseNavigation" style="text-decoration: none; ">
-            <li class="list-group-item">
-                Wash
-            </li>
-        </a>
-    </ul>
-
-</div>
-<div class="col-10 offset-2" style="margin-top: 5.5rem;padding: 2rem;">
-
-    <h4>ici contenue Cours d'anglais et/ou de francais</h4>
 </div>
 <!-- ##### Footer Area Start ##### -->
 <div class="bottom-footer-area" style=" position: fixed;left: 0;bottom: 0;width: 100%;">

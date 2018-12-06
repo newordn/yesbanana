@@ -16,6 +16,8 @@
 <body>
 
     <div class="main">-
+        <a th:href="@{/}" class="btn home" style="padding: 30px;"><img th:src="@{/img/core-img/yesb.png}" alt=""></a>
+
         <!-- Sing in  Form -->
         <section class="sign-in">
             <div class="container">
@@ -46,7 +48,7 @@
                             </div>
                         </form>
                         <p class="mt-3" style="padding: 12px;">Mot de passe <a th:href="@{/password/forgot}">oublier?</a></p>
-                        <a th:href="@{/user/registration}" class="signup-image-link text-right mt-5">S'inscrire</a>
+                        <a th:href="@{/user/registration}" class="signup-image-link text-left mt-3 btn btn-success">S'inscrire</a>
                     </div>
                 </div>
             </div>

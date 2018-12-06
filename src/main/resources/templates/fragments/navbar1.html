@@ -1,0 +1,40 @@
+<div th:fragment="navbar1(activeTab)" xmlns:th="http://www.w3.org/1999/xhtml">
+<ul class="nav nav-tabs"  style="width:100%;margin-top: 4.9rem;">
+    <li class="nav-item" th:class="${activeTab == librairy}?'active':''">
+        <a th:href="@{/school/secondary/librairy}" class=" nav-link btn btn-default"><span>Bibliotheques en ligne</span></a>&nbsp;
+        <!--a href="#bib" id="bib-tab" data-toggle="tab" role="tab" aria-controls="bib" aria-seleted="true" class=" nav-link active  btn btn-default"><span>Bibliotheques en ligne</span></a-->&nbsp;
+    </li>
+    <li class="nav-item" th:class="${activeTab == courses}?'active':''">
+        <a th:href="@{/school/secondary}"  class="btn btn-default nav-link"><span>Cours d'appui</span></a>&nbsp;
+        <!--a href="#home" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-seleted="false" class="btn btn-default nav-link"><span>Cours d'appui</span></a-->&nbsp;
+    </li>
+    <li class="nav-item" th:class="${activeTab == transport}?'active':''">
+        <a th:href="@{/school/secondary/transport}" class="btn btn-default nav-link"><span>Transports sécurisés</span></a>&nbsp;
+        <!--a href="#transport" id="transport-tab" data-toggle="tab" role="tab" aria-controls="transport" aria-seleted="false" class="btn btn-default nav-link"><span>Transports sécurisés</span></a-->&nbsp;
+    </li>
+    <li class="nav-item" th:class="${activeTab == language}?'active':''">
+        <a th:href="@{/school/secondary/language}" class="btn btn-default nav-link"><span>Cours d'anglais et/ou françcais</span></a>&nbsp;
+        <!--a href="#language" id="language-tab" data-toggle="tab" role="tab" aria-controls="language" aria-seleted="false" class="btn btn-default nav-link"><span>Cours d'anglais et/ou françcais</span></a-->&nbsp;
+    </li>
+    <li class="nav-item" th:class="${activeTab == games}?'active':''">
+        <a th:href="@{/school/secondary/games}" class="btn btn-default nav-link"><span>Jeux éducatif</span></a>&nbsp;
+        <!--a href="#games" id="games-tab" data-toggle="tab" role="tab" aria-controls="games" aria-seleted="false" class="btn btn-default nav-link"><span>Jeux éducatif</span></a-->&nbsp;
+    </li>
+    <li class="nav-item" th:class="${activeTab == exam}?'active':''">
+        <a th:href="@{/school/secondary/exam}" class="btn btn-default nav-link"><span>Préparation au Baccalauréat</span></a>&nbsp;
+        <!--a href="#games" id="games-tab" data-toggle="tab" role="tab" aria-controls="games" aria-seleted="false" class="btn btn-default nav-link"><span>Jeux éducatif</span></a-->&nbsp;
+    </li>
+    <li class="nav-item" th:class="${activeTab == holliday}?'active':''">
+        <a th:href="@{/school/secondary/holliday}" class="btn btn-default nav-link"><span>Colonies de vacances</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <!--a th:href="@{/school/primary/hollyday}" id="holliday-tab" data-toggle="tab" role="tab" aria-controls="holliday" aria-seleted="false" class="btn btn-default nav-link"><span>Colonies de vacances</span></a-->&nbsp;&nbsp;&nbsp;&nbsp;
+    </li>
+    <li class="nav-item " th:class="${activeTab == ecole}?'':''" >
+        <a th:href="@{#}" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Education</a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" th:href="@{/school/primary}">primaire</a></li>
+            <li><a class="dropdown-item" th:href="@{/school/secondary}">secondaire</a></li>
+            <li><a class="dropdown-item" th:href="@{/school/civic}">civique</a></li>
+        </ul>
+    </li>&nbsp;
+</ul>
+</div>

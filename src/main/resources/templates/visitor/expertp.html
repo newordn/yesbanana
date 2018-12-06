@@ -19,7 +19,7 @@
 <body>
 
     <div class="main">
-
+        <a th:href="@{/}" class="btn home" style="padding: 30px;"><img th:src="@{/img/core-img/yesb.png}" alt=""></a>
         <!-- Sign up form -->
         <section class="signup">
             <div class="container">
@@ -86,14 +86,73 @@
                             <span class='error' id="anotherDetailError"></span>
                             <div class="form-group mt-3">
                                 <label for="anotherDetail"><i class="zmdi zmdi-graduation-cap"></i></label>
-                                <input type="text" name="anotherDetail" id="anotherDetail" placeholder="En quelque mots vos objectifs viser" />
+                                <input type="text" name="anotherDetail" id="anotherDetail" placeholder="Vos motivations" />
                             </div>
+                            <div class="form-group mt-3">
+                                <!-- loop over category -->
+                                <select class="form-control" th:field="*{diplom}">
+                                    <option value="">choisir un niveau</option>
+                                    <option value="Master1&2">Master1&2</option>
+                                    <option value="Phd/Doctorat">Phd/Doctorat</option>
+                                </select>
+
+                            </div>
+                            <div class="form-group mt-3">
+                                <table class="table table-bordered table-striped table-highlight">
+                                    <thead>
+                                    <tr>
+                                        <th>Année</th>
+                                        <th>Master1&2</th>
+                                        <th>Phd/Doctorat</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2 à 3 ans</td>
+                                            <td>
+                                                <input type="checkbox" name="amount" th:checked="${amount}" th:value="${100}" th:text="${100}"/>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" name="amount" th:checked="${amount}" th:value="${150}" th:text="${150}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4 à 8 ans</td>
+                                            <td>
+                                                <input type="checkbox" name="amount" th:checked="${amount}" th:value="${200}" th:text="${200}"/>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" name="amount" th:checked="${amount}" th:value="${250}" th:text="${250}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>9 à 12 ans</td>
+                                            <td>
+                                                <input type="checkbox" name="amount" th:checked="${amount}" th:value="${300}" th:text="${300}"/>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" name="amount" th:checked="${amount}" th:value="${350}" th:text="${350}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>12 ans à +</td>
+                                            <td>
+                                                <input type="checkbox" name="amount" th:checked="${amount}" th:value="${500}" th:text="${500}"/>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" name="amount" th:checked="${amount}" th:value="${600}" th:text="${600}"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </form>
                     </div>
                     <div class="signup-image ">
                          <figure><img th:src="@{/images/signup-image.jpg}" alt="sing up image"></figure>
                         <div class="form-group form-button" >
-                            <input type="submit" id="submit" style="width:100%;" name="signup"  class="form-submit" value="S'inscrire" />
+                            <input type="submit" id="submit" style="width:100%;" name="signup"  class="form-submit" value="Valider" />
                         </div>
                     </div>
                 </div>

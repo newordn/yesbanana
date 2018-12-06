@@ -4,7 +4,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>transport sécuriser</title>
+    <title>Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
     <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
@@ -12,21 +12,16 @@
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
 
 </head>
-<body >
+<body class="row">
 <!--navigation -->
-<nav class="nav col-12 row" style="height: 5rem;" >
+<nav class="nav col-12 classynav row"  >
     <a th:href="@{/deals}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
-    <div class="col-11 offset-1 text-center"  style="left: 0;">
-        <h3 class=" text-center " >Ecole secondaire : </h3><p>Transport Sécuriser</p>
-    </div>
-
-
+    <h3 class="col-7 text-center pull-left" style="margin-right: 20rem;">Management</h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </nav>
-<nav th:replace="fragments/navbar1::navbar1('courses')"></nav>
-
+<nav th:replace="fragments/navbar2::navbar2('admin')"></nav>
 <div  style="margin-top: 10.5rem;padding: 2rem;">
     <div >
-        <h4>ici contenue transport</h4>
+        <h4>ici contenue Management</h4>
     </div>
 
 </div>
@@ -35,7 +30,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <p style="color: #c6cace;"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This site is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Yesbanana</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
             </div>

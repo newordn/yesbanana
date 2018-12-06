@@ -18,6 +18,7 @@ import java.util.List;
 public interface TheseRepository extends JpaRepository<These,Long> {
 
     List<These> findAllByOrderByTheseIdDesc();
+    List<These> findAllByFacultyOrderByTheseIdDesc(String faculty);
 
     @Query("select t from These as t join t.user tu where tu.userId=:id order by t.theseId desc")
     List<These> findByUserOrderByTheseIdDesc( @Param("id") Long userId);
@@ -26,4 +27,7 @@ public interface TheseRepository extends JpaRepository<These,Long> {
     List<These> findByGroupeOrderByTheseIdDesc( @Param("id") Long groupeId);
 
     List<These> findAllByOptionsOrderByTheseIdDesc(String options);
+    List<These> findAllByCountryOrderByTheseIdDesc(String country);
+    List<These> findAllByRegionsOrderByTheseIdDesc(String regions);
+    List<These> findAllByUniversityOrderByTheseIdDesc(String university);
 }

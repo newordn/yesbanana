@@ -11,6 +11,7 @@
 
     <!-- Title -->
     <title>yesbanana</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
     <!-- Favicon -->
     <link rel="icon" th:src="@{/core-img/yesb.png}">
@@ -65,7 +66,7 @@
 
 </button>
 <!-- add university button end-->
-<!--addUniversity-->
+<!--addFaculty-->
 <div th:if="${session.userRole=='root'}" class=" modal fade" id="addfaculty" tabindex="-1" role="dialog" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered"  role="document">
         <form class="add-these-form modal-content card text-center" th:object="${faculty}" method="post" th:action="@{/management/faculty/form/save}">
@@ -73,7 +74,11 @@
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="nameError"></span>
                     <input type="hidden" name="universityId" th:value="${session.universityId}" />
-                    <input type="text" name="facultyName" id="name" class="form-control" placeholder="Nom de la faculte ou ecole" />
+                    <!-- loop over available  faculty -->
+                    <select class="form-control" th:field="*{facultyName}">
+                        <option value="">choisir une faculté</option>
+                        <option th:each="these : ${theses}" th:value="${these.faculty}" th:text="${these.faculty}">Faculty</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row form-button" style="width: 100%">
@@ -87,7 +92,7 @@
         </form>
     </div>
 </div>
-<!-- addCountry-->
+<!-- addFaculty-->
 
 
 <!-- ##### All Javascript Script ##### -->

@@ -1,0 +1,20 @@
+<div th:fragment="navbar3(activeTab)" xmlns:th="http://www.w3.org/1999/xhtml">
+<ul class="nav nav-tabs"  style="width:100%;margin-top: 4.9rem;">
+    <li class="nav-item" th:class="${activeTab == librairy}?'active':null">
+        <a th:href="@{/school/undertake}" class=" nav-link btn btn-default"><span>Conseil</span></a>&nbsp;
+        <!--a href="#bib" id="bib-tab" data-toggle="tab" role="tab" aria-controls="bib" aria-seleted="true" class=" nav-link active  btn btn-default"><span>Bibliotheques en ligne</span></a-->&nbsp;
+    </li>
+    <li class="nav-item" th:class="${activeTab == courses}?'active':null">
+        <a th:href="@{/school/undertake/expert}"  class="btn btn-default nav-link"><span>Avis d'un expert</span></a>&nbsp;
+        <!--a href="#home" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-seleted="false" class="btn btn-default nav-link"><span>Cours d'appui</span></a-->&nbsp;
+    </li>
+    <li class="nav-item " th:class="${activeTab == courses}?'active':null">
+        <a th:href="@{#}" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ouvertures</a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" th:href="@{/school/project}">Concours de projets</a></li>
+            <li><a class="dropdown-item" th:href="@{/school/undertake}">Monter mon projet</a></li>
+        </ul>
+    </li>&nbsp;
+
+</ul>
+</div>

@@ -11,6 +11,7 @@
 
     <!-- Title -->
     <title>yesbanana</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
     <!-- Favicon -->
     <link rel="icon" th:src="@{/core-img/yesb.png}">
@@ -71,7 +72,11 @@
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="nameError"></span>
                     <input type="hidden" name="countryId" th:value="${session.countryId}" />
-                    <input type="text" name="regName" id="name" class="form-control" placeholder="Entrer votre region" />
+                    <!-- loop over available  region -->
+                    <select class="form-control" th:field="*{regName}">
+                        <option value="">choisir une région</option>
+                        <option th:each="these : ${theses}" th:value="${these.regions}" th:text="${these.regions}">Regions</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row form-button" style="width: 100%">

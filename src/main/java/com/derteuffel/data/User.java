@@ -102,6 +102,8 @@ public class User implements Serializable{
 
     @Column
     private String resetToken;
+    @Column
+    private String amount;
 
 
     @Column
@@ -128,7 +130,7 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod,
                 String dayWorkBeginning, String dayWorkEnd, String studentNumber, Boolean numberOfWorkers,
-                String anotherDetail, String cv, List<These> theses, Role role, List<Groupe> groupes, Boolean autorization) {
+                String anotherDetail, String cv, List<These> theses, Role role, List<Groupe> groupes, Boolean autorization, String amount) {
         this.name = name;
         this.email = email;
         this.autorization=autorization;
@@ -155,6 +157,7 @@ public class User implements Serializable{
         this.theses = theses;
         this.role = role;
         this.groupes = groupes;
+        this.amount=amount;
     }
 
     public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email,
@@ -208,6 +211,14 @@ public class User implements Serializable{
         this.theses = theses;
         this.role = role;
         this.groupes = groupes;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 
     public String getResetToken() {
