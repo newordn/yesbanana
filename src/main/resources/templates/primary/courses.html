@@ -1,34 +1,83 @@
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>cours d'appuit</title>
+    <title>Education primaire</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
     <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
     <!-- Bootstrap CSS-->
-    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
-
+    <!--link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all"-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
-<body >
-<!--navigation -->
-<nav class="nav col-12 row" style="height: 5rem;" >
+<body>
+<br>
+
+<div style="height: 100%">
     <a th:href="@{/deals}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
-    <div class="col-11 offset-1 text-center"  style="left: 0;">
-        <h3 class=" text-center " >Ecole primaire : </h3> <span>Cours d'appui</span>
+    <h2 class="text-center col-11 offset-1" style="padding-top: 0.5rem;">Education primaire</h2>
+    <br>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" style="height:auto; margin-top: 5rem;width: 100%">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Education</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" th:href="@{/school/primary}">primaire</a>
+                <a class="dropdown-item" th:href="@{/school/secondary}">secondaire</a>
+                <a class="dropdown-item" th:href="@{/school/civic}">civique</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#home">Cours d'appui</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#colonie">Colonie de vaccances</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#jeu">Jeux éducatif</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#langue">Cours d'anglais et/ou francais</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#transport">Transport securise</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#bib">Bibliothèque en ligne</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content" style="margin-top: 4rem; height: 100%; padding: 2rem;">
+        <div id="home" class="container tab-pane active" style="height: inherit"><br>
+            <h3>Cours d'appui</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <div id="langue" class="container tab-pane fade"><br>
+            <h3>Cours d'anglais et/ou francais</h3>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+        <div id="transport" class="container tab-pane fade"><br>
+            <h3>Transport Securisé</h3>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+        </div>
+        <div id="jeu" class="container tab-pane fade"><br>
+            <h3>Jeux d'éducation</h3>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+        </div>
+        <div id="bib" class="container tab-pane fade"><br>
+            <h3>Bibliothèque en ligne</h3>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+        </div>
+        <div id="colonie" class="container tab-pane fade"><br>
+            <h3>Colonie des vaccances</h3>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+        </div>
     </div>
-
-
-</nav>
-<nav th:replace="fragments/navbar::navbar('courses')"></nav>
-
-<div  style="margin-top: 10.5rem;padding: 2rem;">
-    <div >
-        <h4>ici contenue Cours d'appui</h4>
-    </div>
-
 </div>
 <!-- ##### Footer Area Start ##### -->
 <div class="bottom-footer-area" style=" position: fixed;left: 0;bottom: 0;width: 100%;">
@@ -46,16 +95,6 @@
 <script th:src="@{/js/dashboard.js}"></script>
 <!-- script -->
 <!-- ##### All Javascript Script ##### -->
-<!-- jQuery-2.2.4 js -->
-<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
-<!-- Popper js -->
-<script th:src="@{/js/bootstrap/popper.min.js}"></script>
-<!-- Bootstrap js -->
-<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
-<!-- All Plugins js -->
-<script th:src="@{/js/plugins/plugins.js}"></script>
-<!-- Active js -->
-<script th:src="@{/js/active.js}"></script>
 
 </body>
 </html>
