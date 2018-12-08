@@ -1,54 +1,45 @@
+
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Bourses et projets</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Education Primaire et secondaire</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
     <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
     <!-- Bootstrap CSS-->
     <!--link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all"-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
 </head>
-<body>
-<br>
-
-<div style="height: 100%">
+<body >
+<!--navigation -->
+<nav class="nav col-12 row" style="height: 5rem;" >
     <a th:href="@{/deals}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
-    <h2 class="text-center col-11 offset-1" style="padding-top: 0.5rem;">Bourses et projets</h2>
-    <br>
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist" style="height:auto; margin-top: 5rem;width: 100%">
-        <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#challenge">Concours de projets</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#advice">Conseils</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#expert">Accompagnement d'un expert</a>
-        </li>
-    </ul>
+    <div class="col-11 offset-1 text-center"  style="left: 0;">
+        <h3 class=" text-center " >Education Primaire et Secondaire </h3>
+    </div>
+</nav>
 
-    <!-- Tab panes -->
-    <div class="tab-content" style="margin-top: 4rem; height: 100%; padding: 2rem;">
-        <div id="challenge" class="container tab-pane active" style="height: inherit"><br>
-            <h3>Concours de projets</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+<div  style="margin-top: 5rem;padding: 2rem; height: inherit;">
+    <div class="row">
+        <div class="text-center " th:each="country : ${countries}">
+        <div class="card" style="width:400px">
+                <img class="card-img-top" th:src="@{/images/country.png}" th:text="${country.countryName[0]} " alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title" th:text="${country.countryName}">Cameroun</h4>
+                <p class="card-text">Capital: <span th:text="${country.countryStreet}"></span></p>
+                <a th:href="@{/education/region/}+ ${country.countryId}" class="btn btn-primary">Parcourir</a>
+            </div>
         </div>
-        <div id="advice" class="container tab-pane fade"><br>
-            <h3>Conseil comment monter mon projet</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </div>
-        <div id="expert" class="container tab-pane fade"><br>
-            <h3>Avis d'un expert</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
         </div>
     </div>
+
 </div>
 <!-- ##### Footer Area Start ##### -->
 <div class="bottom-footer-area" style=" position: fixed;left: 0;bottom: 0;width: 100%;">
@@ -66,6 +57,16 @@
 <script th:src="@{/js/dashboard.js}"></script>
 <!-- script -->
 <!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+<!-- Popper js -->
+<script th:src="@{/js/bootstrap/popper.min.js}"></script>
+<!-- Bootstrap js -->
+<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+<!-- All Plugins js -->
+<script th:src="@{/js/plugins/plugins.js}"></script>
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
 
 </body>
 </html>

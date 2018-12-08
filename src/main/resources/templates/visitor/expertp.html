@@ -26,7 +26,7 @@
                 <div style="font-size:1.2rem;text-align: center;"><i th:if="${error}" th:text="${error}" style="color:red;"></i> </div>
                 <div class="signup-content">
                     <div class="signup-form col-6">
-                        <h2 class="form-title">Demande d'inscription</h2>
+                        <h3 class="form-title">Demande d'inscription expert professionnel</h3>
                         <form method="POST" enctype="multipart/form-data" th:object="${user}" th:action="@{/user/create/visitor}" class="register-form" id="register-form">
                             <span class='error' id="nameError"></span>
                             <div class="form-group">
@@ -139,7 +139,7 @@
                                             <td>
                                                 <input type="checkbox" name="amount" th:checked="${amount}" th:value="${500}" th:text="${500}"/>
                                             </td>
-                                            <td>
+                                             <td>
                                                 <input type="checkbox" name="amount" th:checked="${amount}" th:value="${600}" th:text="${600}"/>
                                             </td>
                                         </tr>

@@ -1,11 +1,7 @@
 package com.derteuffel.controller;
 
-import com.derteuffel.data.Groupe;
-import com.derteuffel.data.These;
-import com.derteuffel.data.User;
-import com.derteuffel.repository.GroupeRepository;
-import com.derteuffel.repository.TheseRepository;
-import com.derteuffel.repository.UserRepository;
+import com.derteuffel.data.*;
+import com.derteuffel.repository.*;
 import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -35,6 +31,11 @@ public class HomeController {
     private GroupeRepository groupeRepository;
     @Autowired
     private TheseRepository theseRepository;
+    @Autowired
+    private CountryRepository countryRepository;
+    @Autowired
+    private RegionRepository regionRepository;
+
     @GetMapping("/login")
     public String login()
     {
@@ -93,8 +94,17 @@ public class HomeController {
     }
 
     @GetMapping("/education")
-    public  String education(){
-        return "redirect:/school/primary";
+    public  String education(Model model){
+        List<Country> countries=countryRepository.findAll();
+        model.addAttribute("countries", countries);
+        return "country/education";
+    }
+    @GetMapping("/education/region/{countryId}")
+    public String region(Model model, @PathVariable Long countryId){
+        Country country= countryRepository.getOne(countryId);
+        List<Region> regions= regionRepository.findAllByCountry(country.getCountryId());
+        model.addAttribute("regions", regions);
+        return "region/education";
     }
 
     // civic education
@@ -115,6 +125,7 @@ public class HomeController {
     public String schoolsecondary(){
         return "secondary/courses";
     }
+
 
 
     // training finance and administration

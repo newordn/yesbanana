@@ -15,15 +15,26 @@ public class Country implements Serializable {
     private Long countryId;
     @Column
     private String countryName;
+    @Column
+    private String countryStreet;
 
     @OneToMany(mappedBy = "country")
     private List<Region> regions;
 
-    public Country(String countryName) {
+    public Country(String countryName, String countryStreet) {
         this.countryName = countryName;
+        this.countryStreet=countryStreet;
     }
 
     public Country() {
+    }
+
+    public String getCountryStreet() {
+        return countryStreet;
+    }
+
+    public void setCountryStreet(String countryStreet) {
+        this.countryStreet = countryStreet;
     }
 
     public List<Region> getRegions() {
