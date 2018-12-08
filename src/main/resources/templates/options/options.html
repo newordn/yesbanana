@@ -44,9 +44,6 @@
                         <div class="academy-logo">
                             <a th:href="@{/}"><img th:src="@{/img/core-img/yesb.png}" alt=""></a>
                         </div>
-                        <div class="login-content">
-                            <a th:href="@{/login}">Staffs</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -78,7 +75,7 @@
                             <ul>
                                 <li><a th:href="@{/}">Acceuil</a></li>
                                 <li><a th:href="@{/deals}">Commencez avec nous?</a></li>
-                                <li><a href="#">Emplois</a>
+                                <li><a href="#">Travailler avec nous</a>
                                     <ul class="dropdown">
                                         <li><a href="#">Expert</a>
                                             <ul class="dropdown">
@@ -128,7 +125,7 @@
                         <span th:text="${these.subject}"> Yaounde</span>
                     </td>
                     <td>
-                        <a th:href="@{/login/visitor/etudiant}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
+                        <a th:href="@{/visitor/student}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
                             <i class="zmdi zmdi-eye" ></i>
                         </a>
                     </td>

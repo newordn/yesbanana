@@ -426,23 +426,36 @@ public class GroupeController {
 
     @GetMapping("/biblib/{theseId}")
     public String getBibLib(Model model, @PathVariable Long theseId){
+        System.out.println("sdfffsfghjdg");
         These these= theseRepository.getOne(theseId);
-        String[] librairies = these.getLibrary().split(";");
-        String[] bibliographies1 = these.getBibliography().split(";");
-        ArrayList<String> bibliographies = new ArrayList<String>();
+        ArrayList<String> librairies= these.getLibraries();
+        ArrayList<String> bibliographies = these.getBibliographies();
+        System.out.println(bibliographies);
+        String[] bibliography_attributes= null;
+        ArrayList<String> authors= new ArrayList<>();
+        for (int p=0; p< bibliographies.size();p++){
+            String[] attribute= bibliographies.get(p).split(":");
+            authors.add(attribute[0]);
 
-        for(String b : bibliographies1)
-        {
-            if( b.split(":").length>1)
-                bibliographies.add(b.split(":")[1]);
         }
+        System.out.println("sdfffsfghjdg");
+
+        System.out.println(bibliographies);
+        //System.out.println(librairies);
+        System.out.println(authors);
+        for(int i=0; i<bibliographies.size();i++){
+            String[] attribute=bibliographies.get(i).split(":");
+            bibliography_attributes=attribute;
+        }
+        System.out.println(bibliography_attributes);
+        model.addAttribute("bibliography_attributes", bibliography_attributes);
         model.addAttribute("librairies",librairies);
-        model.addAttribute("bibliographies",bibliographies);
+        model.addAttribute("authors",authors);
         model.addAttribute("these1",these);
 
-            return "crew/theseBibLib";
-
+        return "crew/theseBibLib";
 
     }
+
 
 }

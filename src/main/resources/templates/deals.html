@@ -38,9 +38,6 @@
                         <div class="academy-logo">
                             <a th:href="@{/}"><img th:src="@{/img/core-img/yesb.png}" alt=""></a>
                         </div>
-                        <div class="login-content">
-                            <a th:href="@{/login}">Staffs</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -72,7 +69,7 @@
                             <ul>
                                 <li><a th:href="@{/}">Acceuil</a></li>
                                 <li><a th:href="@{/deals}">Commencez avec nous?</a></li>
-                                <li><a href="#">Emplois</a>
+                                <li><a href="#">Travailler avec nous</a>
                                     <ul class="dropdown">
                                         <li><a href="#">Expert</a>
                                             <ul class="dropdown">
@@ -115,68 +112,84 @@
             <!-- Single Course Area -->
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="300ms">
+                    <a th:href="@{/external/secure/country/countries}">
                     <div class="course-icon">
                         <i class="icon-id-card"></i>
                     </div>
                     <div class="course-content">
-                        <a th:href="@{/external/secure/country/countries}"><h4>Université</h4></a>
+                        <h4>Université</h4>
                     </div>
+                </a>
                 </div>
             </div>
             <!-- Single Course Area -->
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="400ms">
+                    <a th:href="@{/education}" class="btn">
                     <div class="course-icon">
                         <i class="icon-worldwide"></i>
                     </div>
                     <div class="course-content">
-                        <a th:href="@{/education}"><h4>Etude Primaire et secondaire</h4></a>
+                        <h5>Education Primaire et secondaire</h5>
+                        <p>Cours d'appui, Transport sécurisé, colonie des<br>vaccances, jeu  éducatif, Cours d'anglais et/ou<br>francais, Bibliothèque en ligne</p>
                     </div>
+                    </a>
                 </div>
             </div>
             <!-- Single Course Area -->
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="500ms">
+                    <a th:href="@{/school/project}">
                     <div class="course-icon">
                         <i class="icon-map"></i>
                     </div>
                     <div class="course-content">
-                        <a th:href="@{/school/project}"><h4>Bourses et projets</h4></a>
+                        <h5>Bourses et projets</h5>
+                        <p>Concours de projets, Conseils<br>Avis d'un expert</p>
                     </div>
+                    </a>
                 </div>
             </div>
             <!-- Single Course Area -->
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="600ms">
+                    <a th:href="@{/training/admin}">
                     <div class="course-icon">
                         <i class="icon-like"></i>
                     </div>
                     <div class="course-content">
-                        <a th:href="@{/training/admin}"> <h4>Formation professionnelle</h4></a>
+                         <h5>Formation professionnelle</h5>
+                        <p>Administration et finances, Anglais <br> et/ou francais, IT, Wash, Resources <br>
+                        Humaines, Leadership, Management<br> Logistique, Protection</p>
                     </div>
+                    </a>
                 </div>
             </div>
             <!-- Single Course Area -->
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="700ms">
+                    <a th:href="@{/other/services}">
                     <div class="course-icon">
                         <i class="icon-responsive"></i>
                     </div>
                     <div class="course-content">
-                       <a th:href="@{/other/services}"> <h4>Autres Services</h4></a>
+                        <h4>Autres Services</h4>
                         <p>Logement, Transport, Approvi-<br>sionnement</p>
                     </div>
+                    </a>
                 </div>
             </div>
             <!-- Single Course Area -->
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="800ms">
+                    <a th:href="@{/other/markets}">
                     <div class="course-icon">
                         <i class="icon-message"></i>
                     </div>
                     <div class="course-content">
-                        <a th:href="@{/other/markets}"> <h4>Super marché en ligne</h4></a>
+                         <h4>Super marché en ligne</h4>
                     </div>
+                    </a>
                 </div>
             </div>
         </div>

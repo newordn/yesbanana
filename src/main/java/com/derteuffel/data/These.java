@@ -48,6 +48,11 @@ public class These implements Serializable{
     private String theseDate;
     @Column
     private String country;
+    @Column
+    private ArrayList<String> libraries;
+    @Column
+    private ArrayList<String> bibliographies;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
@@ -59,12 +64,14 @@ public class These implements Serializable{
     public These(String university, String faculty, String options, String level,
                  String subject, String resumes, String regions, String student, String profesor,
                  String workChief, String assistant, String bibliography, String library,
-                 Date created_at, String theseDate, String country) {
+                 Date created_at, String theseDate, String country, ArrayList<String> libraries, ArrayList<String> bibliographies) {
         this.university = university;
         this.faculty = faculty;
         this.options = options;
         this.level = level;
+        this.bibliographies=bibliographies;
         this.subject = subject;
+        this.libraries=libraries;
         this.resumes = resumes;
         this.regions = regions;
         this.student = student;
@@ -78,7 +85,23 @@ public class These implements Serializable{
         this.country=country;
     }
 
-   public Groupe getGroupe() {
+    public ArrayList<String> getLibraries() {
+        return libraries;
+    }
+
+    public void setLibraries(ArrayList<String> libraries) {
+        this.libraries = libraries;
+    }
+
+    public ArrayList<String> getBibliographies() {
+        return bibliographies;
+    }
+
+    public void setBibliographies(ArrayList<String> bibliographies) {
+        this.bibliographies = bibliographies;
+    }
+
+    public Groupe getGroupe() {
         return groupe;
     }
 

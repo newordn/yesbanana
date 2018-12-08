@@ -61,6 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/contact").permitAll()
                 .antMatchers("/other/**").permitAll()
                 .antMatchers("/visitor/**").permitAll()
+                .antMatchers("/test/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/validate/**").permitAll()
                 .antMatchers("/school/**").permitAll()
@@ -72,6 +73,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/create/visitor").permitAll()
                 .antMatchers("/password/**").permitAll()
                 .antMatchers("/management/**").hasAuthority("root")
+                /*.antMatchers("/user/**").permitAll()
+                .antMatchers("/these/**").permitAll()
+                .antMatchers("/groupe/**").permitAll()*/
                 .antMatchers("/user/**").hasAnyAuthority("admin","user","root")
                 .antMatchers("/these/**").hasAnyAuthority("user","admin","root")
                 .antMatchers("/groupe/**").hasAnyAuthority("user","admin","root")
