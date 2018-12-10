@@ -137,10 +137,23 @@ public class HomeController {
 
 
     @GetMapping("/other/services")
-    public String other(){
-        return "other";
+    public String other(Model model){
+        List<Country> countries=countryRepository.findAll();
+        model.addAttribute("countries", countries);
+        return "country/others";
     }
 
+    @GetMapping("/other/services/region/{countryId}")
+public String otherRegion(Model model, @PathVariable Long countryId){
+    Country country= countryRepository.getOne(countryId);
+    List<Region> regions= regionRepository.findAllByCountry(country.getCountryId());
+    model.addAttribute("regions", regions);
+    return "region/others";
+}
+    @GetMapping("/other")
+    public String otherAll(){
+        return "other";
+    }
     @GetMapping("/other/markets")
     public String market(){
         return "markets/market";

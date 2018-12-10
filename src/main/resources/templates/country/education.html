@@ -29,8 +29,8 @@
 <div  style="margin-top: 5rem;padding: 2rem; height: inherit;">
     <div class="row">
         <div class="text-center " th:each="country : ${countries}">
-        <div class="card" style="width:400px">
-                <img class="card-img-top" th:src="@{/images/country.png}" th:text="${country.countryName[0]} " alt="Card image" style="width:100%">
+        <div class="card" style="width:300px; height:300px;">
+                <img class="card-img-top" th:src="@{/images/country.png}" th:text="${country.countryName[0]} " alt="Card image" style="width:100%; height: 130px;">
             <div class="card-body">
                 <h4 class="card-title" th:text="${country.countryName}">Cameroun</h4>
                 <p class="card-text">Capital: <span th:text="${country.countryStreet}"></span></p>
