@@ -2,6 +2,7 @@ package com.derteuffel.controller;
 
 import com.derteuffel.data.*;
 import com.derteuffel.repository.*;
+import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,6 +39,8 @@ public class ManagementController {
     private TheseRepository theseRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
     // options management methods
     @PostMapping("/options/form/save")
@@ -234,5 +237,102 @@ public class ManagementController {
         return "redirect:/management/countries";
     }
 
+    @GetMapping("/visitor")
+    public String visitors(Model model){
+        List<User> visitors= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        System.out.println(visitors);
+        List<User> users=userRepository.findAllByCategory("Chef des travaux");
+        List<User> users1=userRepository.findAllByCategory("Assistant");
+        List<User> users2=userRepository.findAllByCategory("Professeur");
+        List<User> users5=userRepository.findAllByCategory("Primaire");
+        List<User> users6=userRepository.findAllByCategory("Secondaire");
+        List<User> users7=userRepository.findAllByCategory("Etudiant");
+        List<User> users3=userRepository.findAllByDiplomOrderByUserIdDesc("Master1&2");
+        List<User> users4=userRepository.findAllByDiplomOrderByUserIdDesc("Phd/Doctorat");
+        List<User> chiefs=new ArrayList<>(), assistants=new ArrayList<>(),professors=new ArrayList<>(),
+        masters=new ArrayList<>(), doctorats=new ArrayList<>(), primaries=new ArrayList<>(), secondaries=new ArrayList<>(),
+        students=new ArrayList<>();
+        // adding user in chiefs
+        for (User user:visitors){
+            for (int i=0;i<users.size();i++){
+                if (user.getUserId().equals(users.get(i).getUserId())){
+                    chiefs.add(user);
+                }
+            }
+        }
+        //adding user in assistants
+        for (User user1:visitors){
+            for (int p=0;p<users1.size();p++){
+                if (user1.getUserId().equals(users1.get(p).getUserId())){
+                    assistants.add(user1);
+                }
+            }
+        }
+        //adding user in professors
+        for (User user2:visitors){
+            for (int p=0;p<users2.size();p++){
+                if (user2.getUserId().equals(users2.get(p).getUserId())){
+                    professors.add(user2);
+                }
+            }
+        }
+        // adding user in masters
+        for (User user3:visitors){
+            for (int p=0;p<users3.size();p++){
+                if (user3.getUserId().equals(users3.get(p).getUserId())){
+                    masters.add(user3);
+                }
+            }
+        }
+        //adding user in phd/doctorat
+        for (User user4:visitors){
+            for (int p=0;p<users4.size();p++){
+                if (user4.getUserId().equals(users4.get(p).getUserId())){
+                    doctorats.add(user4);
+                }
+            }
+        }
+        //adding user in secondaries
+        for (User user6:visitors){
+            for (int p=0;p<users6.size();p++){
+                if (user6.getUserId().equals(users6.get(p).getUserId())){
+                    secondaries.add(user6);
+                }
+            }
+        }
+        //adding user in primaries
+        for (User user5:visitors){
+            for (int p=0;p<users5.size();p++){
+                if (user5.getUserId().equals(users5.get(p).getUserId())){
+                    primaries.add(user5);
+                }
+            }
+        }
+        //adding user in students
+        for (User user7:visitors){
+            for (int p=0;p<users7.size();p++){
+                if (user7.getUserId().equals(users7.get(p).getUserId())){
+                    students.add(user7);
+                }
+            }
+        }
+
+        model.addAttribute("chiefs", chiefs);
+        model.addAttribute("assistants", assistants);
+        model.addAttribute("primaries", primaries);
+        model.addAttribute("secondaries", secondaries);
+        model.addAttribute("students", students);
+        model.addAttribute("professors", professors);
+        model.addAttribute("masters", masters);
+        model.addAttribute("doctorats", doctorats);
+        return "management/visitors";
+    }
+
+    @GetMapping("/visitor/detail/{userId}")
+    public String visitor(Model model, @PathVariable Long userId){
+        User user= userService.getById(userId);
+        model.addAttribute("user", user);
+        return "management/visitor";
+    }
 
 }

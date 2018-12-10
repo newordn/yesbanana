@@ -19,6 +19,9 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Long> {
     User findByEmail(String email);
 
+    List<User> findAllByActiveOrderByUserIdDesc(Boolean active);
+    List<User> findAllByDiplomOrderByUserIdDesc(String diplom);
+
     List<User> findByGroupes_GroupeId( Long groupeId);
     //List<User> findByGroupes_GroupeId( Long groupeId, String category);
 

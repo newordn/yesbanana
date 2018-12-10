@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Visiteurs</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
+    <!-- Bootstrap CSS-->
+    <!--link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all"-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<br>
+
+<div style="height: 100%">
+    <nav class="nav" style="width: 100%">
+        <a th:href="@{/groupe/groupes}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+        <h2 class="text-center col-11 offset-1" style="padding-top: 0.5rem;">Visiteurs</h2>
+    </nav>
+    <br>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" style="height:auto; margin-top: 5rem; width: 100%;">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#chief">Chef des travaux</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#assistant">Assistant</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#professor">Professeur</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#master">Master 1&2</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#doctorat">Phd/Doctorat</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#primary">Enseignants education primaire</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#secondary">Enseignants education secondaire</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#student">Etudiants</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content" style="margin-top: 6rem; height: 100%; padding: 2rem;">
+        <div id="chief" class="container tab-pane active" style="height: inherit"><br>
+            <h3>Chef de Travaux</h3>
+            <br>
+            <div class="row content mt-3 card p-5 ">
+                <table class="table table-bordered text-center">
+                    <thead>
+                    <tr>
+                        <th>Pays</th>
+                        <th>Nom</th>
+                        <th>Domaine d'expertise</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="chief: ${chiefs}">
+                        <td th:text="${chief.country}"></td>
+                        <td th:text="${chief.name}"></td>
+                        <td th:text="${chief.expertDomain}"></td>
+                        <td>
+                            <a th:href="@{/management/visitor/detail/} + ${chief.userId}"   class="detailLink" alt="detail">
+                                <i class="zmdi zmdi-eye" data-toggle="modal" data-target="#detail"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+            </div>
+        <div id="professor" class="container tab-pane fade" style="height: inherit"><br>
+            <h3>Professeurs</h3>
+            <div class="row content mt-3 card p-5 ">
+                <table class="table table-bordered text-center">
+                    <thead>
+                    <tr>
+                        <th>Pays</th>
+                        <th>Nom</th>
+                        <th>Domaine d'expertise</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="professor: ${professors}">
+                        <td th:text="${professor.country}"></td>
+                        <td th:text="${professor.name}"></td>
+                        <td th:text="${professor.expertDomain}"></td>
+                        <td>
+                            <a th:href="@{/management/visitor/detail/} + ${professor.userId}"   class="detailLink" alt="detail">
+                                <i class="zmdi zmdi-eye" data-toggle="modal" data-target="#detail"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+        </div>
+        <div id="assistant" class="container tab-pane fade" style="height: inherit"><br>
+            <h3>Assistants</h3>
+            <div class="row content mt-3 card p-5 ">
+                <table class="table table-bordered text-center">
+                    <thead>
+                    <tr>
+                        <th>Pays</th>
+                        <th>Nom</th>
+                        <th>Domaine d'expertise</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="assistant: ${assistants}">
+                        <td th:text="${assistant.country}"></td>
+                        <td th:text="${assistant.name}"></td>
+                        <td th:text="${assistant.expertDomain}"></td>
+                        <td>
+                            <a th:href="@{/management/visitor/detail/} + ${assistant.userId}"   class="detailLink" alt="detail">
+                                <i class="zmdi zmdi-eye" data-toggle="modal" data-target="#detail"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+        </div>
+        <div id="master" class="container tab-pane fade" style="height: inherit"><br>
+            <h3>Master 1&2</h3>
+            <div class="row content mt-3 card p-5 ">
+                <table class="table table-bordered text-center">
+                    <thead>
+                    <tr>
+                        <th>Pays</th>
+                        <th>Nom</th>
+                        <th>Domaine d'expertise</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="master: ${masters}">
+                        <td th:text="${master.country}"></td>
+                        <td th:text="${master.name}"></td>
+                        <td th:text="${master.expertDomain}"></td>
+                        <td>
+                            <a th:href="@{/management/visitor/detail/} + ${master.userId}"   class="detailLink" alt="detail">
+                                <i class="zmdi zmdi-eye" data-toggle="modal" data-target="#detail"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+        </div>
+        <div id="doctorat" class="container tab-pane fade" style="height: inherit"><br>
+            <h3>Phd/Doctorat</h3>
+            <div class="row content mt-3 card p-5 ">
+                <table class="table table-bordered text-center">
+                    <thead>
+                    <tr>
+                        <th>Pays</th>
+                        <th>Nom</th>
+                        <th>Domaine d'expertise</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="doctorat: ${doctorats}">
+                        <td th:text="${doctorat.country}"></td>
+                        <td th:text="${doctorat.name}"></td>
+                        <td th:text="${doctorat.expertDomain}"></td>
+                        <td>
+                            <a th:href="@{/management/visitor/detail/} + ${doctorat.userId}"   class="detailLink" alt="detail">
+                                <i class="zmdi zmdi-eye" data-toggle="modal" data-target="#detail"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+        </div>
+        <div id="primary" class="container tab-pane fade" style="height: inherit"><br>
+            <h3>Enseignant Education primaire</h3>
+            <div class="row content mt-3 card p-5 ">
+                <table class="table table-bordered text-center">
+                    <thead>
+                    <tr>
+                        <th>Pays</th>
+                        <th>Nom</th>
+                        <th>Domaine d'expertise</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="primary: ${primaries}">
+                        <td th:text="${primary.country}"></td>
+                        <td th:text="${primary.name}"></td>
+                        <td th:text="${primary.expertDomain}"></td>
+                        <td>
+                            <a th:href="@{/management/visitor/detail/} + ${primary.userId}"   class="detailLink" alt="detail">
+                                <i class="zmdi zmdi-eye" data-toggle="modal" data-target="#detail"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+        </div>
+        <div id="secondary" class="container tab-pane fade" style="height: inherit"><br>
+            <h3>Enseignant Education secondaire</h3>
+            <div class="row content mt-3 card p-5 ">
+                <table class="table table-bordered text-center">
+                    <thead>
+                    <tr>
+                        <th>Pays</th>
+                        <th>Nom</th>
+                        <th>Domaine d'expertise</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="secondary: ${secondaries}">
+                        <td th:text="${secondary.country}"></td>
+                        <td th:text="${secondary.name}"></td>
+                        <td th:text="${secondary.expertDomain}"></td>
+                        <td>
+                            <a th:href="@{/management/visitor/detail/} + ${secondary.userId}"   class="detailLink" alt="detail">
+                                <i class="zmdi zmdi-eye" data-toggle="modal" data-target="#detail"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+        </div>
+        <div id="student" class="container tab-pane fade" style="height: inherit"><br>
+            <h3>Etudiants</h3>
+            <div class="row content mt-3 card p-5 ">
+                <table class="table table-bordered text-center">
+                    <thead>
+                    <tr>
+                        <th>Pays</th>
+                        <th>Nom</th>
+                        <th>Domaine d'expertise</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="student: ${students}">
+                        <td th:text="${student.country}"></td>
+                        <td th:text="${student.name}"></td>
+                        <td th:text="${student.expertDomain}"></td>
+                        <td>
+                            <a th:href="@{/management/visitor/detail/} + ${student.userId}"   class="detailLink" alt="detail">
+                                <i class="zmdi zmdi-eye" data-toggle="modal" data-target="#detail"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- ##### Footer Area Start ##### -->
+<div class="bottom-footer-area" style=" position: fixed;left: 0;bottom: 0;width: 100%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p style="color: #c6cace;"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This site is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Yesbanana</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- navigation -->
+<script th:src="@{/js/dashboard.js}"></script>
+<!-- script -->
+<!-- ##### All Javascript Script ##### -->
+
+</body>
+</html>

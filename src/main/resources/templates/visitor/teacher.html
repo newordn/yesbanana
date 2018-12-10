@@ -87,6 +87,15 @@
                             <label for="anotherDetail"><i class="zmdi zmdi-graduation-cap"></i></label>
                             <input type="text" name="anotherDetail" id="anotherDetail" placeholder="Vos motivations" />
                         </div>
+                        <div class="form-group mt-3">
+                            <!-- loop over category -->
+                            <select class="form-control" th:field="*{category}">
+                                <option value="">choisir un niveau</option>
+                                <option value="Primaire">Primaire</option>
+                                <option value="Secondaire">Secondaire</option>
+                            </select>
+
+                        </div>
                         <input type="submit" style="display:none">
                     </form>
                 </div>
