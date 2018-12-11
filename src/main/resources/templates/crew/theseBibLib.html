@@ -43,10 +43,10 @@
             <ul class="list-group">
                 <li class="list-group-item" th:each="bibliography : ${authors}" >
                         <span th:text="${bibliography}"></span>
-                    <button type="button"   data-toggle="modal" class="rounded-circle pull-right" data-target="#showAuthor">
+                    <a th:attr="data-target='#showAuthor'+${bibliography}"   data-toggle="modal"  data-target="#showAuthor">
                         <i class="zmdi zmdi-eye zmdi-hc-2x"></i>
-                    </button>
-                    <div class=" modal fade" id="showAuthor" tabindex="-1" role="dialog" data-keyboard="false">
+                    </a>
+                    <div class=" modal fade in" th:id="showAuthor+${bibliography}" role="dialog">
                         <div class="modal-dialog modal-dialog-centered"  role="document">
                             <div class="add-these-form modal-content card text-center">
                                 <div class="row pt-3" th:each="attribut : ${bibliography_attributes}">
