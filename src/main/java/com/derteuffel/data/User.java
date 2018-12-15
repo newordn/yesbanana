@@ -113,6 +113,8 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user")
     @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<These> theses;
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role")
@@ -130,7 +132,7 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod,
                 String dayWorkBeginning, String dayWorkEnd, String studentNumber, Boolean numberOfWorkers,
-                String anotherDetail, String cv, List<These> theses, Role role, List<Groupe> groupes, Boolean autorization, String amount) {
+                String anotherDetail, List<Post> posts, String cv, List<These> theses, Role role, List<Groupe> groupes, Boolean autorization, String amount) {
         this.name = name;
         this.email = email;
         this.autorization=autorization;
@@ -158,6 +160,7 @@ public class User implements Serializable{
         this.role = role;
         this.groupes = groupes;
         this.amount=amount;
+        this.posts=posts;
     }
 
     public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email,
@@ -183,8 +186,9 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod, String dayWorkBeginning,
                 String dayWorkEnd, String studentNumber, Boolean numberOfWorkers, String numberInGroupe, String anotherDetail, String cv,
-                List<These> theses, Role role, List<Groupe> groupes, Boolean autorization) {
+                List<These> theses, List<Post> posts, Role role, List<Groupe> groupes, Boolean autorization) {
         this.name = name;
+        this.posts=posts;
         this.autorization=autorization;
         this.email = email;
         this.password = password;
@@ -211,6 +215,14 @@ public class User implements Serializable{
         this.theses = theses;
         this.role = role;
         this.groupes = groupes;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     public String getAmount() {

@@ -30,6 +30,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findAllByRole(@Param("id") String role);
 
     List<User> findAllByCategory(String category);
+    List<User> findAllByRegionOrderByUserIdDesc(String region);
 
     Optional<User> findByResetToken(String resetToken);
 

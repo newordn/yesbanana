@@ -26,6 +26,8 @@ public class Region implements Serializable {
 
     @OneToMany(mappedBy = "region")
     private List<University> universities;
+    @OneToMany(mappedBy = "region")
+    private List<Post> posts;
 
 
     public Region(String regName,String chefLieu, Country country) {
@@ -75,5 +77,13 @@ public class Region implements Serializable {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }

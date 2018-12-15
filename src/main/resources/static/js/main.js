@@ -8,7 +8,17 @@ let facultyErrorMsg = "Doit contenir au moins 2 caractères";
 let passwordErrorMsg = "Doit contenir au moins 6 caractères";
 let repassErrorMsg = "Doit correspondre au mot de passe entré";
 // constraints
+// file picker
+$("#addButton").click(() => {
 
+    $("#customFile").click();
+document.getElementById("file").addEventListener('change', handleImg, false);
+function handleImg() {
+    let img = this.files[0];
+    console.log(img);
+    $("#image").val(img.name);
+}
+});
 // form validation
 //name
 let nameInput = $("#name");

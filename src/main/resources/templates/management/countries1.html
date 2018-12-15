@@ -27,72 +27,85 @@
 </head>
 
 <body>
+
+
+<!-- ##### Header Area Start ##### -->
 <!--navigation-->
 <div th:replace="~{../templates/fragments/navigation :: navigation}">
 </div>
 <!-- navigation -->
-<h2 class="text-center mt-5">Regions</h2>
+<!-- ##### Header Area End ##### -->
+<h2 class="text-center mt-5">Liste Pays</h2>
 <div class="row content mt-3">
-    <div class="col-3  text-center crew mb-2" th:each="region : ${regions}" style="padding:.5rem;">
+    <div class="col-3  text-center crew mb-2" th:each="country : ${countries}" style="padding:.5rem;">
         <div class="card">
             <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
                 <div class="col-6 text-left" style="padding:0">
-                    <a th:href="@{/management/region/parameter} + ${region.regionId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
+                    <a th:href="@{/management/country/visitor/} + ${country.countryId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
                         <i class="zmdi zmdi-eye" ></i>
                     </a>
                 </div>
                 <div class="col-6 text-right" style="padding:0">
-                    <a th:href="@{/management/delete/region/} + ${region.regionId}" th:if="${session.userRole!='user'}" class="btn btn-danger  rounded-circle" >
+                    <a th:href="@{/management/country/delete/} + ${country.countryId}" th:if="${session.userRole!='user'}" class="btn btn-danger  rounded-circle" >
                         <i class="zmdi zmdi-close" ></i>
                     </a>
                 </div>
             </div>
             <div style="background-color:whitesmoke; color:black">
                 <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                    <span th:text="${region.regName[0]}"> Yaounde</span>
+                    <span th:text="${country.countryName[0]}"> Yaounde</span>
                 </div>
-                <span th:text="${region.regName}"> Yaounde</span>
+                <span th:text="${country.countryName}"> Yaounde</span>
             </div>
         </div>
 
     </div>
 </div>
-
-
-<!-- add university button start-->
-<button th:if="${session.userRole=='root'}" type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addRegion">
+<!-- add country button start-->
+<button th:if="${session.userRole=='root'}" type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCountry">
     <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
 </button>
-<!-- add university button end-->
-<!--addRegion-->
-<div th:if="${session.userRole=='root'}" class=" modal fade" id="addRegion" tabindex="-1" role="dialog" data-keyboard="false">
+<!-- add country button end-->
+<!--addCountry-->
+<div th:if="${session.userRole=='root'}" class=" modal fade" id="addCountry" tabindex="-1" role="dialog" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered"  role="document">
-        <form class="add-these-form modal-content card text-center" th:object="${region}" method="post" th:action="@{/management/region/form/save}">
+        <form class="add-these-form modal-content card text-center" th:object="${country}" method="post" th:action="@{/management/country/form/save}">
             <div class="row pt-3">
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="nameError"></span>
-                    <input type="hidden" name="countryId" th:value="${session.countryId}" />
-                    <!-- loop over available  region -->
-                    <select class="form-control" th:field="*{regName}">
-                        <option value="">choisir une région</option>
-                        <option th:each="these : ${theses}" th:value="${these.regions}" th:text="${these.regions}">Regions</option>
+                    <!-- loop over available  country -->
+                    <select class="form-control" th:field="*{countryName}">
+                        <option value="">choisir un pays</option>
+                        <option th:each="these : ${theses}" th:value="${these.country}" th:text="${these.country}">Country</option>
                     </select>
                 </div>
-            </div>
-            <div class="form-group row form-button" style="width: 100%">
-                <div class="col-6">
-                    <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
                 </div>
-                <div class="col-6">
-                    <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
+                <div class="form-group row form-button" style="width: 100%">
+                    <div class="col-6">
+                        <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
+                    </div>
                 </div>
-            </div>
         </form>
     </div>
-</div>
+    </div>
+
 <!-- addCountry-->
 
 <!-- ##### Footer Area Start ##### -->
+<!--div class="bottom-footer-area" style=" position: fixed;left: 0;bottom: 0;width: 100%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12"-->
+                <!-- p>< Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. >
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This site is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Yesbanana</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. ></p>
+            </div>
+        </div>
+    </div>
+</div-->
 
 <!-- ##### Footer Area Start ##### -->
 
@@ -107,6 +120,7 @@
 <script th:src="@{/js/plugins/plugins.js}"></script>
 <!-- Active js -->
 <script th:src="@{/js/active.js}"></script>
+<script th:src="@{/js/main.js}"></script>
 </body>
 
 </html>

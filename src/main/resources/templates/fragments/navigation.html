@@ -128,8 +128,8 @@
                                     </div-->
                                 </li>
                                 <li><a th:if="${session.userRole=='root'}" th:href="@{/stats}" sec:authorize="hasRole('root')">Statistiques</a></li>
-                                <li><a th:if="${session.userRole=='root'}" th:href="@{/management/countries}" sec:authorize="hasRole('root')">Paramètres</a></li>
-                                <li><a th:if="${session.userRole=='root'}" th:href="@{/management/visitor}" sec:authorize="hasRole('root')">Visiteurs</a></li>
+                                <li><a th:if="${session.userRole=='root'}" th:href="@{/management/countries/parameter}" sec:authorize="hasRole('root')">Paramètres</a></li>
+                                <li><a th:if="${session.userRole=='root'}" th:href="@{/management/countries/visitor}" sec:authorize="hasRole('root')">Visiteurs</a></li>
 
                                 <!--li><a href="deals.html">Course</a></li>
                                 <li><a href="contact.html">Contact</a></li-->

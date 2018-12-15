@@ -25,6 +25,14 @@
     <br>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist" style="height:auto; margin-top: 5rem; width: 100%;">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Module</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" th:href="@{/management/visitor/}+${session.regionId}">Visiteurs</a>
+                <a class="dropdown-item" th:href="@{/management/school/primary/}+${session.regionId}">Educations</a>
+                <a class="dropdown-item" th:href="@{/management/other/}+${session.regionId}">Autres services</a>
+            </div>
+        </li>
         <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#chief">Chef des travaux</a>
         </li>
