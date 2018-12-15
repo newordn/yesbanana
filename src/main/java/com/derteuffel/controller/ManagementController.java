@@ -339,15 +339,8 @@ public class ManagementController {
         Optional<Country> countryOptional=countryRepository.findById(countryId);
         List<Region> regions= regionRepository.findAllByCountry(countryOptional.get().getCountryId());
         List<These> theses=theseRepository.findAllByCountryOrderByTheseIdDesc(countryOptional.get().getCountryName().toUpperCase());
-        List<These> theses1=new ArrayList<>();
-        for (int i=0; i<regions.size();i++){
-            for (These these:theses){
-                if (!these.getRegions().toUpperCase().equals(regions.get(i).getRegName().toUpperCase())){
-                    theses1.add(these);
-                }
-            }
-        }
-        model.addAttribute("theses", theses1);
+        System.out.println(theses);
+        model.addAttribute("theses", theses);
         model.addAttribute("country", countryOptional.get());
         model.addAttribute("regions", regions);
         model.addAttribute("region",new Region());
