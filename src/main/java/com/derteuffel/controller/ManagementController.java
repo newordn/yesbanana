@@ -235,7 +235,7 @@ public class ManagementController {
         Long countryId=(Long) session.getAttribute("countryId");
         region.setCountry(countryRepository.getOne(countryId));
         regionRepository.save(region);
-        return "redirect:/management/country/"+ countryId;
+        return "redirect:/management/country/parameter/"+ countryId;
     }
     @GetMapping("/delete/region/{regionId}")
     public String deleteRegion(@PathVariable Long regionId, HttpSession session) {

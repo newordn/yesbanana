@@ -59,38 +59,6 @@
 </div>
 
 
-<!-- add university button start-->
-<button th:if="${session.userRole=='root'}" type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addRegion">
-    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
-</button>
-<!-- add university button end-->
-<!--addRegion-->
-<div th:if="${session.userRole=='root'}" class=" modal fade" id="addRegion" tabindex="-1" role="dialog" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered"  role="document">
-        <form class="add-these-form modal-content card text-center" th:object="${region}" method="post" th:action="@{/management/region/form/save}">
-            <div class="row pt-3">
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="nameError"></span>
-                    <input type="hidden" name="countryId" th:value="${session.countryId}" />
-                    <!-- loop over available  region -->
-                    <select class="form-control" th:field="*{regName}">
-                        <option value="">choisir une région</option>
-                        <option th:each="these : ${theses}" th:value="${these.regions}" th:text="${these.regions}">Regions</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row form-button" style="width: 100%">
-                <div class="col-6">
-                    <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
-                </div>
-                <div class="col-6">
-                    <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- addCountry-->
 
 <!-- ##### Footer Area Start ##### -->
 
