@@ -40,11 +40,11 @@
                         </div>
                         <span class='error' id="numberError"></span>
                         <div class="country">
-                            <select name="country" id="countrySelect">
-                                <option value="Cameroun">Cameroun</option>
-                                <option value="Côte d'ivoire">Côte d'ivoire</option>
+                            <select th:field="*{country}" id="countrySelect">
+                                <option value="">Selection pays</option>
+                                <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
                             </select>
-                            <input type="text" name="number" id="number" placeholder="Votre Numéro" value="+237"/>
+                            <input type="text" name="number" id="number" placeholder="Votre Numéro" />
                         </div>
                         <span class='error' id="regionError"></span>
                         <div class="form-group">

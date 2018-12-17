@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,207 @@ public class ManagementController {
     private UserRepository userRepository;
     @Autowired
     private UserService userService;
+    List<String> countries= Arrays.asList(
+            "Afghanistan",
+            "Albania",
+            "Algeria",
+            "Andorra",
+            "Angola",
+            "Antigua and Barbuda",
+            "Argentina",
+            "Armenia",
+            "Australia",
+            "Austria",
+            "Azerbaijan",
+            "Bahamas",
+            "Bahrain",
+            "Bangladesh",
+            "Barbados",
+            "Belarus",
+            "Belgium",
+            "Belize",
+            "Benin",
+            "Bhutan",
+            "Bolivia",
+            "Bosnia and Herzegovina",
+            "Botswana",
+            "Brazil",
+            "Brunei",
+            "Bulgaria",
+            "Burkina Faso",
+            "Burundi",
+            "Cabo Verde",
+            "Cambodia",
+            "Cameroon",
+            "Canada",
+            "Central African Republic (CAR)",
+            "Chad",
+            "Chile",
+            "China",
+            "Colombia",
+            "Comoros",
+            " Democratic Republic of the Congo",
+            "Republic of the Congo",
+            "Costa Rica",
+            "Cote d'Ivoire",
+            "Croatia",
+            "Cuba",
+            "Cyprus",
+            "Czech Republic",
+            "Denmark",
+            "Djibouti",
+            "Dominica",
+            "Dominican Republic",
+            "Ecuador",
+            "Egypt",
+            "El Salvador",
+            "Equatorial Guinea",
+            "Eritrea",
+            "Estonia",
+            "Eswatini (formerly Swaziland)",
+            "Ethiopia",
+            "Fiji",
+            "Finland",
+            "France",
+            "Gabon",
+            "Gambia",
+            "Georgia",
+            "Germany",
+            "Ghana",
+            "Greece",
+            "Grenada",
+            "Guatemala",
+            "Guinea",
+            "Guinea-Bissau",
+            "Guyana",
+            "Haiti",
+            "Honduras",
+            "Hungary",
+            "Iceland",
+            "India",
+            "Indonesia",
+            "Iran",
+            "Iraq",
+            "Ireland",
+            "Israel",
+            "Italy",
+            "Jamaica",
+            "Japan",
+            "Jordan",
+            "Kazakhstan",
+            "Kenya",
+            "Kiribati",
+            "Kosovo",
+            "Kuwait",
+            "Kyrgyzstan",
+            "Laos",
+            "Latvia",
+            "Lebanon",
+            "Lesotho",
+            "Liberia",
+            "Libya",
+            "Liechtenstein",
+            "Lithuania",
+            "Luxembourg",
+            "Macedonia (FYROM)",
+            "Madagascar",
+            "Malawi",
+            "Malaysia",
+            "Maldives",
+            "Mali",
+            "Malta",
+            "Marshall Islands",
+            "Mauritania",
+            "Mauritius",
+            "Mexico",
+            "Micronesia",
+            "Moldova",
+            "Monaco",
+            "Mongolia",
+            "Montenegro",
+            "Morocco",
+            "Mozambique",
+            "Myanmar (formerly Burma)",
+            "Namibia",
+            "Nauru",
+            "Nepal",
+            "Netherlands",
+            "New Zealand",
+            "Nicaragua",
+            "Niger",
+            "Nigeria",
+            "North Korea",
+            "Norway",
+            "Oman",
+            "Pakistan",
+            "Palau",
+            "Palestine",
+            "Panama",
+            "Papua New Guinea",
+            "Paraguay",
+            "Peru",
+            "Philippines",
+            "Poland",
+            "Portugal",
+            "Qatar",
+            "Romania",
+            "Russia",
+            "Rwanda",
+            "Saint Kitts and Nevis",
+            "Saint Lucia",
+            "Saint Vincent and the Grenadines",
+            "Samoa",
+            "San Marino",
+            "Sao Tome",
+            "Saudi Arabia",
+            "Senegal",
+            "Serbia",
+            "Seychelles",
+            "Sierra Leone",
+            "Singapore",
+            "Slovakia",
+            "Slovenia",
+            "Solomon Islands",
+            "Somalia",
+            "South Africa",
+            "South Korea",
+            "South Sudan",
+            "Spain",
+            "Sri Lanka",
+            "Sudan",
+            "Suriname",
+            "Swaziland",
+            "Sweden",
+            "Switzerland",
+            "Syria",
+            "Taiwan",
+            "Tajikistan",
+            "Tanzania",
+            "Thailand",
+            "Timor-Leste",
+            "Togo",
+            "Tonga",
+            "Trinidad and Tobago",
+            "Tunisia",
+            "Turkey",
+            "Turkmenistan",
+            "Tuvalu",
+            "Uganda",
+            "Ukraine",
+            "United Arab Emirates",
+            "United Kingdom",
+            "United States of America",
+            "Uruguay",
+            "Uzbekistan",
+            "Vanuatu",
+            "Vatican City (Holy See)",
+            "Venezuela",
+            "Vietnam",
+            "Yemen",
+            "Zambia",
+            "Zimbabwe"
+
+    );
 
     // options management methods
     @PostMapping("/options/form/save")
@@ -290,18 +492,9 @@ public class ManagementController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
         session.setAttribute("userId", user.getUserId());
-        List<Country> countries= countryRepository.findAll();
-        List<These> theses= theseRepository.findAll();
-        List<These> theses1=new ArrayList<>();
-        for (int i=0; i<countries.size();i++){
-            for (These these:theses){
-                if (!these.getCountry().toUpperCase().equals(countries.get(i).getCountryName().toUpperCase())){
-                    theses1.add(these);
-                }
-            }
-        }
+        List<Country> countries1= countryRepository.findAll();
+        model.addAttribute("countries1", countries1);
         model.addAttribute("countries", countries);
-        model.addAttribute("theses", theses1);
         model.addAttribute("country", new Country());
         return "management/countries";
     }
@@ -312,17 +505,7 @@ public class ManagementController {
         User user=userRepository.findByEmail(auth.getName());
         session.setAttribute("userId", user.getUserId());
         List<Country> countries= countryRepository.findAll();
-        List<These> theses= theseRepository.findAll();
-        List<These> theses1=new ArrayList<>();
-        for (int i=0; i<countries.size();i++){
-            for (These these:theses){
-                if (!these.getCountry().toUpperCase().equals(countries.get(i).getCountryName().toUpperCase())){
-                    theses1.add(these);
-                }
-            }
-        }
         model.addAttribute("countries", countries);
-        model.addAttribute("theses", theses1);
         model.addAttribute("country", new Country());
         return "management/countries1";
     }

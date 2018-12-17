@@ -37,7 +37,7 @@
 <!-- ##### Header Area End ##### -->
 <h2 class="text-center mt-5">Liste Pays</h2>
 <div class="row content mt-3">
-    <div class="col-3  text-center crew mb-2" th:each="country : ${countries}" style="padding:.5rem;">
+    <div class="col-1  text-center crew mb-2" th:each="country : ${countries1}" style="padding:.5rem;">
         <div class="card">
             <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
                 <div class="col-6 text-left" style="padding:0">
@@ -71,13 +71,15 @@
     <div class="modal-dialog modal-dialog-centered"  role="document">
         <form class="add-these-form modal-content card text-center" th:object="${country}" method="post" th:action="@{/management/country/form/save}">
             <div class="row pt-3">
-                <div class="form-group" style="width: 100%">
                     <span class='error' id="nameError"></span>
                     <!-- loop over available  country -->
-                    <select class="form-control" th:field="*{countryName}">
-                        <option value="">choisir un pays</option>
-                        <option th:each="these : ${theses}" th:value="${these.country}" th:text="${these.country}">Country</option>
+                    <select class="country" name="country" id="countrySelect" style="width: 100%">
+                        <option value="">Selection pays</option>
+                        <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
                     </select>
+                <div class="form-group">
+                    <span class='error' id="countryStreetError"></span>
+                    <input type="text" th:field="*{countryStreet}" id="countryStreet" placeholder="Capitale" />
                 </div>
                 </div>
                 <div class="form-group row form-button" style="width: 100%">

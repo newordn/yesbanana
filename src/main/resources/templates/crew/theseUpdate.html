@@ -92,10 +92,11 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="form-group">
                         <span class='error' id="countryError"></span>
-                        <input type="text" th:field="*{country}" id="country" placeholder="Pays" />
-                    </div>
+                        <select th:field="*{country}" style="width: 100%" class="country" id="countrySelect">
+                            <option value="">Selection pays</option>
+                            <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
+                        </select>
                 </div>
                 <div class="col-4">
                     <div class="form-group">

@@ -50,10 +50,10 @@
                     <div class=" col-6">
                         <div class="country">
                             <select th:field="*{country}" id="countrySelect">
-                                <option value="Cameroun">Cameroun</option>
-                                <option value="Côte d'ivoire">Côte d'ivoire</option>
+                                <option value="">Selection pays</option>
+                                <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
                             </select>
-                            <input type="text" th:field="*{number}" id="number" placeholder="Votre Numéro" value="+237" />
+                            <input type="text" th:field="*{number}" id="number" placeholder="Votre Numéro"  />
                         </div>
                     </div>
                     <div class="col-6">

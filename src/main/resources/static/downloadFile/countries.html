@@ -37,11 +37,11 @@
 <!-- ##### Header Area End ##### -->
 <h2 class="text-center mt-5">Liste Pays</h2>
 <div class="row content mt-3">
-    <div class="col-1  text-center crew mb-2" th:each="country : ${countries}" style="padding:.5rem;">
+    <div class="col-3  text-center crew mb-2" th:each="country : ${countries}" style="padding:.5rem;">
         <div class="card">
             <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
                 <div class="col-6 text-left" style="padding:0">
-                    <a th:href="@{/management/country/visitor/} + ${country.countryId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
+                    <a th:href="@{/management/country/parameter/} + ${country.countryId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
                         <i class="zmdi zmdi-eye" ></i>
                     </a>
                 </div>
@@ -61,6 +61,38 @@
 
     </div>
 </div>
+<!-- add country button start-->
+<button th:if="${session.userRole=='root'}" type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCountry">
+    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+</button>
+<!-- add country button end-->
+<!--addCountry-->
+<div th:if="${session.userRole=='root'}" class=" modal fade" id="addCountry" tabindex="-1" role="dialog" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered"  role="document">
+        <form class="add-these-form modal-content card text-center" th:object="${country}" method="post" th:action="@{/management/country/form/save}">
+            <div class="row pt-3">
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="nameError"></span>
+                    <!-- loop over available  country -->
+                    <select class="form-control" th:field="*{countryName}">
+                        <option value="">choisir un pays</option>
+                        <option th:each="these : ${theses}" th:value="${these.country}" th:text="${these.country}">Country</option>
+                    </select>
+                </div>
+                </div>
+                <div class="form-group row form-button" style="width: 100%">
+                    <div class="col-6">
+                        <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
+                    </div>
+                </div>
+        </form>
+    </div>
+    </div>
+
+<!-- addCountry-->
 
 <!-- ##### Footer Area Start ##### -->
 <!--div class="bottom-footer-area" style=" position: fixed;left: 0;bottom: 0;width: 100%;">

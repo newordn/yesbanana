@@ -28,6 +28,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -56,6 +57,208 @@ public class TheseController {
     UserRepository userRepository;
     @Autowired
     private GroupeRepository groupeRepository;
+
+    List<String> countries= Arrays.asList(
+            "Afghanistan",
+            "Albania",
+            "Algeria",
+            "Andorra",
+            "Angola",
+            "Antigua and Barbuda",
+            "Argentina",
+            "Armenia",
+            "Australia",
+            "Austria",
+            "Azerbaijan",
+            "Bahamas",
+            "Bahrain",
+            "Bangladesh",
+            "Barbados",
+            "Belarus",
+            "Belgium",
+            "Belize",
+            "Benin",
+            "Bhutan",
+            "Bolivia",
+            "Bosnia and Herzegovina",
+            "Botswana",
+            "Brazil",
+            "Brunei",
+            "Bulgaria",
+            "Burkina Faso",
+            "Burundi",
+            "Cabo Verde",
+            "Cambodia",
+            "Cameroon",
+            "Canada",
+            "Central African Republic (CAR)",
+            "Chad",
+            "Chile",
+            "China",
+            "Colombia",
+            "Comoros",
+            " Democratic Republic of the Congo",
+            "Republic of the Congo",
+            "Costa Rica",
+            "Cote d'Ivoire",
+            "Croatia",
+            "Cuba",
+            "Cyprus",
+            "Czech Republic",
+            "Denmark",
+            "Djibouti",
+            "Dominica",
+            "Dominican Republic",
+            "Ecuador",
+            "Egypt",
+            "El Salvador",
+            "Equatorial Guinea",
+            "Eritrea",
+            "Estonia",
+            "Eswatini (formerly Swaziland)",
+            "Ethiopia",
+            "Fiji",
+            "Finland",
+            "France",
+            "Gabon",
+            "Gambia",
+            "Georgia",
+            "Germany",
+            "Ghana",
+            "Greece",
+            "Grenada",
+            "Guatemala",
+            "Guinea",
+            "Guinea-Bissau",
+            "Guyana",
+            "Haiti",
+            "Honduras",
+            "Hungary",
+            "Iceland",
+            "India",
+            "Indonesia",
+            "Iran",
+            "Iraq",
+            "Ireland",
+            "Israel",
+            "Italy",
+            "Jamaica",
+            "Japan",
+            "Jordan",
+            "Kazakhstan",
+            "Kenya",
+            "Kiribati",
+            "Kosovo",
+            "Kuwait",
+            "Kyrgyzstan",
+            "Laos",
+            "Latvia",
+            "Lebanon",
+            "Lesotho",
+            "Liberia",
+            "Libya",
+            "Liechtenstein",
+            "Lithuania",
+            "Luxembourg",
+            "Macedonia (FYROM)",
+            "Madagascar",
+            "Malawi",
+            "Malaysia",
+            "Maldives",
+            "Mali",
+            "Malta",
+            "Marshall Islands",
+            "Mauritania",
+            "Mauritius",
+            "Mexico",
+            "Micronesia",
+            "Moldova",
+            "Monaco",
+            "Mongolia",
+            "Montenegro",
+            "Morocco",
+            "Mozambique",
+            "Myanmar (formerly Burma)",
+            "Namibia",
+            "Nauru",
+            "Nepal",
+            "Netherlands",
+            "New Zealand",
+            "Nicaragua",
+            "Niger",
+            "Nigeria",
+            "North Korea",
+            "Norway",
+            "Oman",
+            "Pakistan",
+            "Palau",
+            "Palestine",
+            "Panama",
+            "Papua New Guinea",
+            "Paraguay",
+            "Peru",
+            "Philippines",
+            "Poland",
+            "Portugal",
+            "Qatar",
+            "Romania",
+            "Russia",
+            "Rwanda",
+            "Saint Kitts and Nevis",
+            "Saint Lucia",
+            "Saint Vincent and the Grenadines",
+            "Samoa",
+            "San Marino",
+            "Sao Tome",
+            "Saudi Arabia",
+            "Senegal",
+            "Serbia",
+            "Seychelles",
+            "Sierra Leone",
+            "Singapore",
+            "Slovakia",
+            "Slovenia",
+            "Solomon Islands",
+            "Somalia",
+            "South Africa",
+            "South Korea",
+            "South Sudan",
+            "Spain",
+            "Sri Lanka",
+            "Sudan",
+            "Suriname",
+            "Swaziland",
+            "Sweden",
+            "Switzerland",
+            "Syria",
+            "Taiwan",
+            "Tajikistan",
+            "Tanzania",
+            "Thailand",
+            "Timor-Leste",
+            "Togo",
+            "Tonga",
+            "Trinidad and Tobago",
+            "Tunisia",
+            "Turkey",
+            "Turkmenistan",
+            "Tuvalu",
+            "Uganda",
+            "Ukraine",
+            "United Arab Emirates",
+            "United Kingdom",
+            "United States of America",
+            "Uruguay",
+            "Uzbekistan",
+            "Vanuatu",
+            "Vatican City (Holy See)",
+            "Venezuela",
+            "Vietnam",
+            "Yemen",
+            "Zambia",
+            "Zimbabwe"
+
+    );
     private static int currentPage=1;
     private static int pageSize=6;
     private String pathToDownloadFileServer = "/home3/banana/jvm/apache-tomcat-8.5.30/domains/yesbanana.org/ROOT/WEB-INF/classes/static/downloadFile/";
@@ -95,6 +298,7 @@ public class TheseController {
     @GetMapping("/add/form")
     public  String theseForm1(Model model){
         model.addAttribute("these", new These());
+        model.addAttribute("countries", countries);
         return "crew/theseForm";
     }
 
@@ -102,6 +306,7 @@ public class TheseController {
     @GetMapping("/add/edit/crew/{theseId}")
     public  String editthese_groupe(Model model, @PathVariable Long theseId){
         model.addAttribute("these",theseRepository.getOne(theseId));
+        model.addAttribute("countries", countries);
         return "crew/theseUpdate";
     }
 
@@ -112,6 +317,7 @@ public class TheseController {
         model.addAttribute("userId", theseRepository.getOne(theseId).getUser().getUserId());
         System.out.println(theseRepository.getOne(theseId).getUser().getUserId());
         model.addAttribute("groupeId",theseRepository.getOne(theseId).getGroupe().getGroupeId());
+        model.addAttribute("countries", countries);
         System.out.println(theseRepository.getOne(theseId).getGroupe().getGroupeId());
         return "these/theseUpdate";
     }
@@ -264,30 +470,6 @@ public class TheseController {
         }
 
     }
-    // for the root to save a test directly from the theses list
-  /*  @PostMapping("/add/create/root")
-    public String saveRoot(These these, @RequestParam("file") MultipartFile file,HttpSession session) {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
-        String fileName= fileUploadService.storeFile(file);
-        Long groupeId = (Long) session.getAttribute("groupeId");
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
-
-        FileUploadRespone fileUploadRespone=new FileUploadRespone(fileName,fileDownloadUri);
-        these.setResumes(fileUploadRespone.getFileDownloadUri());
-        Groupe groupe= groupeRepository.getOne(groupeId);
-        these.setGroupe(groupe);
-        these.setUser(user);
-        theseRepository.save(these);
-        return "redirect:/these";
-
-    }*/
-
 
 
     @DeleteMapping("/delete/{theseId}")
@@ -300,6 +482,7 @@ public class TheseController {
     @GetMapping("/update/{theseId}")
     public  String update(Model model, @PathVariable Long theseId){
         model.addAttribute("these", theseRepository.getOne(theseId));
+        model.addAttribute("countries", countries);
         return "these/theseUpdate";
     }
     @GetMapping("/user/{userId}")

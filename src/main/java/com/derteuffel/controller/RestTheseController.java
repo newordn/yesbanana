@@ -64,14 +64,6 @@ public List<Groupe> findAll(){
     return     groupeRepository.save(groupe);
     }
 
-  /*  @PostMapping("/groupe/add/user")
-    public Groupe addUser(){
-        User user= userRepository.getById(new Long(1));
-        Groupe groupe1=groupeRepository.getOne(new Long(3));
-        groupe1.setUsers(user);
-        groupeRepository.save(groupe1);
-        return groupe1;
-    }*/
 
     @GetMapping("/{password}")
     public boolean update( @PathVariable String password){

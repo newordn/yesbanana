@@ -34,11 +34,11 @@
                 <span class='error' id="nameError"></span>
                 <input type="text" th:field="*{groupeName}" id="groupeName" class="form-control" placeholder="Nom du groupe" />
             </div>
-
-            <div class="form-group" style="width: 100%">
                 <span class='error' id="countryError"></span>
-                <input type="text" th:field="*{groupeCountry}" id="groupeCountry" class="form-control" placeholder="Pays" />
-            </div>
+                <select class="country" style="width: 100%" th:field="*{groupeCountry}" id="countrySelect">
+                    <option value="">Selection pays</option>
+                    <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
+                </select>
             <div class="form-group" style="width: 100%">
                 <span class='error' id="regionError"></span>
                 <input type="text" th:field="*{groupeRegion}" id="groupeRegion" class="form-control" placeholder="Région" />
