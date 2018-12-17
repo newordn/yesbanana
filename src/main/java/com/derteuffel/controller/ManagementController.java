@@ -513,7 +513,7 @@ public class ManagementController {
     public String save(Country country) {
         System.out.println(country.getCountryId());
         countryRepository.save(country);
-        return "redirect:/management/countries";
+        return "redirect:/management/countries/parameter";
     }
 
     @GetMapping("/country/parameter/{countryId}")

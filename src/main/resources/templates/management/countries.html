@@ -73,13 +73,13 @@
             <div class="row pt-3">
                     <span class='error' id="nameError"></span>
                     <!-- loop over available  country -->
-                    <select class="country" name="country" id="countrySelect" style="width: 100%">
+                    <select class="country" th:field="*{countryName}" id="countrySelect" style="width: 100%">
                         <option value="">Selection pays</option>
                         <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
                     </select>
-                <div class="form-group">
+                <div class="form-group mt-3" style="width: 100%">
                     <span class='error' id="countryStreetError"></span>
-                    <input type="text" th:field="*{countryStreet}" id="countryStreet" placeholder="Capitale" />
+                    <input type="text" style="width: inherit" class="form-control" th:field="*{countryStreet}" id="countryStreet" placeholder="Capitale" />
                 </div>
                 </div>
                 <div class="form-group row form-button" style="width: 100%">
