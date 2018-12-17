@@ -30,12 +30,14 @@
             </div>
         </li>
 
-        <a th:href="@{#}" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Niveau d'education</a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" th:href="@{/school/primary/}+${session.regionId}">primaire</a></li>
-            <li><a class="dropdown-item" th:href="@{/school/secondary/}+${session.regionId}">secondaire</a></li>
-            <li><a class="dropdown-item" th:href="@{/school/civic/}+${session.regionId}">civique</a></li>
-        </ul>
+        <li class="nav-item dropdown">
+        <a th:href="@{#}" class="nav-link dropdown-toggle"  data-toggle="dropdown" >Niveau d'education</a>
+        <div class="dropdown-menu" >
+            <a class="dropdown-item" th:href="@{/management/school/primary/}+${session.regionId}">primaire</a>
+            <a class="dropdown-item" th:href="@{/management/school/secondary/}+${session.regionId}">secondaire</a>
+            <a class="dropdown-item" th:href="@{/management/school/civic/}+${session.regionId}">civique</a>
+        </div>
+        </li>
     </div>&nbsp;
 
 </nav>
