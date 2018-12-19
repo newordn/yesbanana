@@ -28,6 +28,8 @@ public class Post implements Serializable {
     private Date creationDate=new Date();
     private int niveau;
 
+    private int likes=0;
+
     @ManyToOne
     private Region region;
 
@@ -37,8 +39,9 @@ public class Post implements Serializable {
     public Post() {
     }
 
-    public Post(String title,int niveau, User user, String description, String category, ArrayList<String> pieces, Date creationDate, Region region) {
+    public Post(String title,int niveau,int likes, User user, String description, String category, ArrayList<String> pieces, Date creationDate, Region region) {
         this.title = title;
+        this.likes=likes;
         this.description = description;
         this.niveau=niveau;
         this.category = category;
@@ -46,6 +49,14 @@ public class Post implements Serializable {
         this.creationDate = creationDate;
         this.region = region;
         this.user=user;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 
     public int getNiveau() {

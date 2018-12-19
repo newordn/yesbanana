@@ -12,7 +12,7 @@ let repassErrorMsg = "Doit correspondre au mot de passe entré";
 $("#addButton").click(() => {
 
     $("#customFile").click();
-document.getElementById("file").addEventListener('change', handleImg, false);
+document.getElementById("file_image").addEventListener('change', handleImg, false);
 function handleImg() {
     let img = this.files[0];
     console.log(img);
@@ -165,7 +165,7 @@ else if (countrySelect.val() == "Aruba")
 {
     $("#number").val("+297");
 }
-v
+
 else if (countrySelect.val() == "Australia")
 {
     $("#number").val("+61");

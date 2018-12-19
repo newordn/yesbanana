@@ -86,6 +86,15 @@ public class PostController {
         return "management/civic/post";
     }
 
+   /* public int likes(Long postId){
+
+        Post post= postRepository.getOne(postId);
+        int n;
+        int likes=post.getLikes();
+        for (int i=0;i<=n)
+
+    }*/
+
     @GetMapping("/secondary/form/languages/{regionId}")
     public String secondary_languages(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
