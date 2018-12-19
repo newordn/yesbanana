@@ -34,7 +34,7 @@
             <div class="card-body">
                 <h4 class="card-title" th:text="${region.regName}">Cameroun</h4>
                 <p class="card-text">Capital: <span th:text="${region.chefLieu}"></span></p>
-                <a th:href="@{/other}" class="btn btn-primary">Parcourir</a>
+                <a th:href="@{/other/}+${region.regionId}" class="btn btn-primary">Parcourir</a>
             </div>
         </div>
         </div>

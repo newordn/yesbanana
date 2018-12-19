@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Education primaire</title>
+    <title>Education secondaire</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
@@ -28,9 +28,9 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Niveau d'education</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" th:href="@{/school/primary}">primaire</a>
-                <a class="dropdown-item" th:href="@{/school/secondary}">secondaire</a>
-                <a class="dropdown-item" th:href="@{/school/civic}">civique</a>
+                <a class="dropdown-item" th:href="@{/school/primary/}+${session.regionId}">primaire</a>
+                <a class="dropdown-item" th:href="@{/school/secondary/}+${session.regionId}">secondaire</a>
+                <a class="dropdown-item" th:href="@{/school/civic/}+${session.regionId}">civique</a>
             </div>
         </li>
         <li class="nav-item">
@@ -58,33 +58,691 @@
 
     <!-- Tab panes -->
     <div class="tab-content" style="margin-top: 6rem; height: 100%; padding: 2rem;">
-        <div id="home" class="container tab-pane active" style="height: inherit"><br>
-            <h3>Cours d'appui</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <div id="home" class="container tab-pane active " style="height: inherit"><br>
+            <div class="row ">
+                <!-- Blog Entries Column -->
+                <div class="col-md-8">
+                    <div class="card">
+                        <h1 class="my-4 text-center ">Cours d'appui</h1>
+                        <!-- Blog Post -->
+                        <div class="container" style="width: 90%" th:each="course : ${courses_posts}">
+                            <div class="card mb-4">
+                                <img class="card-img-top" th:src="${course.pieces[0]}" style="height: 200px; width: 500px" alt="Card image cap">
+                                <hr style="	border-top: 1px solid #8c8b8b;">
+                                <div class="card-body">
+                                    <h2 class="card-title text-center" th:text="${course.title}">Titre de la publication</h2>
+                                    <p class="card-text" th:text="${course.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                                    <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${course.postId}">Voir detail &rarr;</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Créer le <span th:text="${course.creationDate}"></span> by
+                                    <span th:text="${course.user.name}"></span>
+                                </div>
+                            </div>
+                            <!-- Pagination -->
+                            <ul class="pagination justify-content-center mb-4">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&larr; Older</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Newer &rarr;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-md-4">
+
+                    <!-- Search Widget -->
+                    <div class="card my-2">
+                        <h5 class="card-header">Recherche</h5>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Chercher dans...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Aller!</button>
+                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Categories</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">Web Design</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">HTML</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Freebies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">JavaScript</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">CSS</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Tutorials</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Autres modules</h5>
+                        <div class="card-body">
+                            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- row -->
+            <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/post/secondary/form/courses/}+${session.regionId}" style="bottom: 5rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
         </div>
         <div id="langue" class="container tab-pane fade"><br>
-            <h3>Cours d'anglais et/ou francais</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <div class="row ">
+                <!-- Blog Entries Column -->
+                <div class="col-md-8">
+                    <div class="card">
+                        <h1 class="my-4 text-center ">Cours d'anglais et/ou francais</h1>
+                        <!-- Blog Post -->
+                        <div class="container" style="width: 90%" th:each="language : ${courses_languages}">
+                            <div class="card mb-4">
+                                <img class="card-img-top" th:src="${language.pieces[0]}" style="height: 200px; width: 500px" alt="Card image cap">
+                                <hr style="	border-top: 1px solid #8c8b8b;">
+                                <div class="card-body">
+                                    <h2 class="card-title text-center" th:text="${language.title}">Titre de la publication</h2>
+                                    <p class="card-text" th:text="${language.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                                    <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${language.postId}">Voir detail &rarr;</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Créer le <span th:text="${language.creationDate}"></span> by
+                                    <span th:text="${language.user.name}"></span>
+                                </div>
+                            </div>
+                            <!-- Pagination -->
+                            <ul class="pagination justify-content-center mb-4">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&larr; Older</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Newer &rarr;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-md-4">
+
+                    <!-- Search Widget -->
+                    <div class="card my-2">
+                        <h5 class="card-header">Recherche</h5>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Chercher dans...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Aller!</button>
+                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Categories</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">Web Design</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">HTML</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Freebies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">JavaScript</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">CSS</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Tutorials</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Autres modules</h5>
+                        <div class="card-body">
+                            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- row -->
+            <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/post/secondary/form/languages/}+${session.regionId}" style="bottom: 5rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
         </div>
         <div id="transport" class="container tab-pane fade"><br>
-            <h3>Transport Securisé</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            <div class="row ">
+                <!-- Blog Entries Column -->
+                <div class="col-md-8">
+                    <div class="card">
+                        <h1 class="my-4 text-center ">Transport Securisé</h1>
+                        <!-- Blog Post -->
+                        <div class="container" style="width: 90%" th:each="transport : ${courses_transports}">
+                            <div class="card mb-4">
+                                <img class="card-img-top" th:src="${transport.pieces[0]}" style="height: 200px; width: 500px" alt="Card image cap">
+                                <hr style="	border-top: 1px solid #8c8b8b;">
+                                <div class="card-body">
+                                    <h2 class="card-title text-center" th:text="${transport.title}">Titre de la publication</h2>
+                                    <p class="card-text" th:text="${transport.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                                    <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${transport.postId}">Voir detail &rarr;</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Créer le <span th:text="${transport.creationDate}"></span> by
+                                    <span th:text="${transport.user.name}"></span>
+                                </div>
+                            </div>
+                            <!-- Pagination -->
+                            <ul class="pagination justify-content-center mb-4">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&larr; Older</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Newer &rarr;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-md-4">
+
+                    <!-- Search Widget -->
+                    <div class="card my-2">
+                        <h5 class="card-header">Recherche</h5>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Chercher dans...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Aller!</button>
+                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Categories</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">Web Design</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">HTML</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Freebies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">JavaScript</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">CSS</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Tutorials</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Autres modules</h5>
+                        <div class="card-body">
+                            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- row -->
+            <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/post/secondary/form/transport/}+${session.regionId}" style="bottom: 5rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
         </div>
         <div id="jeu" class="container tab-pane fade"><br>
-            <h3>Jeux d'éducation</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            <div class="row ">
+                <!-- Blog Entries Column -->
+                <div class="col-md-8">
+                    <div class="card">
+                        <h1 class="my-4 text-center ">Jeux d'éducation</h1>
+                        <!-- Blog Post -->
+                        <div class="container" style="width: 90%" th:each=" game : ${courses_games}">
+                            <div class="card mb-4">
+                                <img class="card-img-top" th:src="${game.pieces[0]}" style="height: 200px; width: 500px" alt="Card image cap">
+                                <hr style="	border-top: 1px solid #8c8b8b;">
+                                <div class="card-body">
+                                    <h2 class="card-title text-center" th:text="${game.title}">Titre de la publication</h2>
+                                    <p class="card-text" th:text="${game.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                                    <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${game.postId}">Voir detail &rarr;</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Créer le <span th:text="${game.creationDate}"></span> by
+                                    <span th:text="${game.user.name}"></span>
+                                </div>
+                            </div>
+                            <!-- Pagination -->
+                            <ul class="pagination justify-content-center mb-4">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&larr; Older</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Newer &rarr;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-md-4">
+
+                    <!-- Search Widget -->
+                    <div class="card my-2">
+                        <h5 class="card-header">Recherche</h5>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Chercher dans...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Aller!</button>
+                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Categories</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">Web Design</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">HTML</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Freebies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">JavaScript</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">CSS</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Tutorials</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Autres modules</h5>
+                        <div class="card-body">
+                            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- row -->
+            <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/post/secondary/form/games/}+${session.regionId}" style="bottom: 5rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
         </div>
         <div id="bib" class="container tab-pane fade"><br>
-            <h3>Bibliothèque en ligne</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            <div class="row ">
+                <!-- Blog Entries Column -->
+                <div class="col-md-8">
+                    <div class="card">
+                        <h1 class="my-4 text-center ">Bibliothèque en ligne</h1>
+                        <!-- Blog Post -->
+                        <div class="container" style="width: 90%" th:each="library : ${courses_libraries}">
+                            <div class="card mb-4">
+                                <img class="card-img-top" th:src="${library.pieces[0]}" style="height: 200px; width: 500px" alt="Card image cap">
+                                <hr style="	border-top: 1px solid #8c8b8b;">
+                                <div class="card-body">
+                                    <h2 class="card-title text-center" th:text="${library.title}">Titre de la publication</h2>
+                                    <p class="card-text" th:text="${library.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                                    <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${library.postId}">Voir detail &rarr;</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Créer le <span th:text="${library.creationDate}"></span> by
+                                    <span th:text="${library.user.name}"></span>
+                                </div>
+                            </div>
+                            <!-- Pagination -->
+                            <ul class="pagination justify-content-center mb-4">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&larr; Older</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Newer &rarr;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-md-4">
+
+                    <!-- Search Widget -->
+                    <div class="card my-2">
+                        <h5 class="card-header">Recherche</h5>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Chercher dans...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Aller!</button>
+                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Categories</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">Web Design</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">HTML</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Freebies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">JavaScript</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">CSS</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Tutorials</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Autres modules</h5>
+                        <div class="card-body">
+                            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- row -->
+            <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/post/secondary/form/library/}+${session.regionId}" style="bottom: 5rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
         </div>
         <div id="framing" class="container tab-pane fade"><br>
-            <h3>Encadrement</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            <div class="row ">
+                <!-- Blog Entries Column -->
+                <div class="col-md-8">
+                    <div class="card">
+                        <h1 class="my-4 text-center ">Loisirs</h1>
+                        <!-- Blog Post -->
+                        <div class="container" style="width: 90%" th:each="framing : ${courses_framings}">
+                            <div class="card mb-4">
+                                <img class="card-img-top" th:src="${framing.pieces[0]}" style="height: 200px; width: 500px" alt="Card image cap">
+                                <hr style="	border-top: 1px solid #8c8b8b;">
+                                <div class="card-body">
+                                    <h2 class="card-title text-center" th:text="${framing.title}">Titre de la publication</h2>
+                                    <p class="card-text" th:text="${framing.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                                    <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${framing.postId}">Voir detail &rarr;</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Créer le <span th:text="${framing.creationDate}"></span> by
+                                    <span th:text="${framing.user.name}"></span>
+                                </div>
+                            </div>
+                            <!-- Pagination -->
+                            <ul class="pagination justify-content-center mb-4">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&larr; Older</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Newer &rarr;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-md-4">
+
+                    <!-- Search Widget -->
+                    <div class="card my-2">
+                        <h5 class="card-header">Recherche</h5>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Chercher dans...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Aller!</button>
+                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Categories</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">Web Design</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">HTML</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Freebies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">JavaScript</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">CSS</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Tutorials</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Autres modules</h5>
+                        <div class="card-body">
+                            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- row -->
+            <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/post/secondary/form/framing/}+${session.regionId}" style="bottom: 5rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
         </div>
         <div id="examen" class="container tab-pane fade"><br>
-            <h3>Préparation au Baccalauréat</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            <div class="row ">
+                <!-- Blog Entries Column -->
+                <div class="col-md-8">
+                    <div class="card">
+                        <h1 class="my-4 text-center ">Préparation au Baccalauréat</h1>
+                        <!-- Blog Post -->
+                        <div class="container" style="width: 90%" th:each="exam : ${courses_exams}">
+                            <div class="card mb-4">
+                                <img class="card-img-top" th:src="${exam.pieces[0]}" style="height: 200px; width: 500px" alt="Card image cap">
+                                <hr style="	border-top: 1px solid #8c8b8b;">
+                                <div class="card-body">
+                                    <h2 class="card-title text-center" th:text="${exam.title}">Titre de la publication</h2>
+                                    <p class="card-text" th:text="${exam.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                                    <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${exam.postId}">Voir detail &rarr;</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Créer le <span th:text="${exam.creationDate}"></span> by
+                                    <span th:text="${exam.user.name}"></span>
+                                </div>
+                            </div>
+                            <!-- Pagination -->
+                            <ul class="pagination justify-content-center mb-4">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&larr; Older</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Newer &rarr;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-md-4">
+
+                    <!-- Search Widget -->
+                    <div class="card my-2">
+                        <h5 class="card-header">Recherche</h5>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Chercher dans...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Aller!</button>
+                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Categories</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">Web Design</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">HTML</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Freebies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">JavaScript</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">CSS</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Tutorials</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Autres modules</h5>
+                        <div class="card-body">
+                            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- row -->
+            <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/post/secondary/form/exam/}+${session.regionId}" style="bottom: 5rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
         </div>
     </div>
 </div>

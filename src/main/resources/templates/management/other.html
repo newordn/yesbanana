@@ -55,27 +55,32 @@
                     <div class="card">
                         <h1 class="my-4 text-center ">Logements</h1>
                         <!-- Blog Post -->
-                        <div class="card mb-4">
-                            <img class="card-img-top" th:src="@{/images/default-image.png}" alt="Card image cap">
-                            <div class="card-body">
-                                <h2 class="card-title">Titre de la publication</h2>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                                <a href="#" class="btn btn-primary">Voir detail &rarr;</a>
+                        <div class="container" style="width: 90%" th:each="housing : ${posts_housings}">
+                            <div class="card mb-4">
+                                <img class="card-img-top" th:src="${housing.pieces[0]}" style="height: 200px; width: 500px" alt="Card image cap">
+                                <br>
+                                <hr style="	border-top: 1px solid #8c8b8b;">
+                                <br>
+                                <div class="card-body">
+                                    <h2 class="card-title" th:text="${housing.title}">Titre de la publication</h2>
+                                    <p class="card-text" th:text="${housing.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                                    <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${housing.postId}">Voir detail &rarr;</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Créer le <span th:text="${housing.creationDate}"></span> by
+                                    <span th:text="${housing.user.name}"></span>
+                                </div>
                             </div>
-                            <div class="card-footer text-muted">
-                                Posted on January 1, 2017 by
-                                <a href="#">Start yesbanana</a>
-                            </div>
+                            <!-- Pagination -->
+                            <ul class="pagination justify-content-center mb-4">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&larr; Older</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Newer &rarr;</a>
+                                </li>
+                            </ul>
                         </div>
-                        <!-- Pagination -->
-                        <ul class="pagination justify-content-center mb-4">
-                            <li class="page-item">
-                                <a class="page-link" href="#">&larr; Older</a>
-                            </li>
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#">Newer &rarr;</a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
                 <!-- Sidebar Widgets Column -->
@@ -149,27 +154,32 @@
                     <div class="card">
                         <h1 class="my-4 text-center ">Transports</h1>
                         <!-- Blog Post -->
-                        <div class="card mb-4">
-                            <img class="card-img-top" th:src="@{/images/default-image.png}" alt="Card image cap">
-                            <div class="card-body">
-                                <h2 class="card-title">Titre de la publication</h2>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                                <a href="#" class="btn btn-primary">Voir detail &rarr;</a>
+                        <div class="container" style="width: 90%" th:each="transport : ${posts_transports}">
+                            <div class="card mb-4">
+                                <img class="card-img-top" th:src="${transport.pieces[0]}" style="height: 200px; width: 500px" alt="Card image cap">
+                                <br>
+                                <hr style="	border-top: 1px solid #8c8b8b;">
+                                <br>
+                                <div class="card-body">
+                                    <h2 class="card-title" th:text="${transport.title}">Titre de la publication</h2>
+                                    <p class="card-text" th:text="${transport.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                                    <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${transport.postId}">Voir detail &rarr;</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Créer le <span th:text="${transport.creationDate}"></span> by
+                                    <span th:text="${transport.user.name}"></span>
+                                </div>
                             </div>
-                            <div class="card-footer text-muted">
-                                Posted on January 1, 2017 by
-                                <a href="#">Start yesbanana</a>
-                            </div>
+                            <!-- Pagination -->
+                            <ul class="pagination justify-content-center mb-4">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&larr; Older</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Newer &rarr;</a>
+                                </li>
+                            </ul>
                         </div>
-                        <!-- Pagination -->
-                        <ul class="pagination justify-content-center mb-4">
-                            <li class="page-item">
-                                <a class="page-link" href="#">&larr; Older</a>
-                            </li>
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#">Newer &rarr;</a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
                 <!-- Sidebar Widgets Column -->
@@ -245,27 +255,32 @@
                     <div class="card">
                         <h1 class="my-4 text-center ">Approvisionnement</h1>
                         <!-- Blog Post -->
-                        <div class="card mb-4">
-                            <img class="card-img-top" th:src="@{/images/default-image.png}" alt="Card image cap">
-                            <div class="card-body">
-                                <h2 class="card-title">Titre de la publication</h2>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                                <a href="#" class="btn btn-primary">Voir detail &rarr;</a>
+                        <div class="container" style="width: 90%" th:each="procurement : ${posts_procurements}">
+                            <div class="card mb-4">
+                                <img class="card-img-top" th:src="${procurement.pieces[0]}" style="height: 200px; width: 500px" alt="Card image cap">
+                                <br>
+                                <hr style="	border-top: 1px solid #8c8b8b;">
+                                <br>
+                                <div class="card-body">
+                                    <h2 class="card-title" th:text="${procurement.title}">Titre de la publication</h2>
+                                    <p class="card-text" th:text="${procurement.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                                    <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${procurement.postId}">Voir detail &rarr;</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Créer le <span th:text="${procurement.creationDate}"></span> by
+                                    <span th:text="${procurement.user.name}"></span>
+                                </div>
                             </div>
-                            <div class="card-footer text-muted">
-                                Posted on January 1, 2017 by
-                                <a href="#">Start yesbanana</a>
-                            </div>
+                            <!-- Pagination -->
+                            <ul class="pagination justify-content-center mb-4">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&larr; Older</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Newer &rarr;</a>
+                                </li>
+                            </ul>
                         </div>
-                        <!-- Pagination -->
-                        <ul class="pagination justify-content-center mb-4">
-                            <li class="page-item">
-                                <a class="page-link" href="#">&larr; Older</a>
-                            </li>
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#">Newer &rarr;</a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
                 <!-- Sidebar Widgets Column -->

@@ -22,17 +22,111 @@
     <div class="col-2 nav dropdown offset-10 " style="height: 5rem;" >
         <a th:href="@{#}" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Niveau d'education</a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" th:href="@{/school/primary}">primaire</a></li>
-            <li><a class="dropdown-item" th:href="@{/school/secondary}">secondaire</a></li>
-            <li><a class="dropdown-item" th:href="@{/school/civic}">civique</a></li>
+            <li><a class="dropdown-item" th:href="@{/school/primary/}+${session.regionId}">primaire</a></li>
+            <li><a class="dropdown-item" th:href="@{/school/secondary/}+${session.regionId}">secondaire</a></li>
+            <li><a class="dropdown-item" th:href="@{/school/civic/}+${session.regionId}">civique</a></li>
         </ul>
     </div>&nbsp;
 
 </nav>
 
 <div  style="margin-top: 5.5rem;padding: 2rem;">
-    <div >
-        <h4>ici contenue Education civique</h4>
+    <div class="container" >
+        <div class="row ">
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+                <div class="card">
+                    <h1 class="my-4 text-center ">Education civique</h1>
+                    <!-- Blog Post -->
+                    <div class="container" style="width: 90%" th:each="civic : ${civics_posts}">
+                        <div class="card mb-4">
+                            <img class="card-img-top" th:src="${civic.pieces[0]}" style="height: 200px; width: 500px" alt="Card image cap">
+                            <hr style="	border-top: 1px solid #8c8b8b;">
+                            <div class="card-body">
+                                <h2 class="card-title text-center" th:text="${civic.title}">Titre de la publication</h2>
+                                <p class="card-text" th:text="${civic.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                                <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${civic.postId}">Voir detail &rarr;</a>
+                            </div>
+                            <div class="card-footer text-muted">
+                                Créer le <span th:text="${civic.creationDate}"></span> by
+                                <span th:text="${civic.user.name}"></span>
+                            </div>
+                        </div>
+                        <!-- Pagination -->
+                        <ul class="pagination justify-content-center mb-4">
+                            <li class="page-item">
+                                <a class="page-link" href="#">&larr; Older</a>
+                            </li>
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">Newer &rarr;</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+                <!-- Search Widget -->
+                <div class="card my-2">
+                    <h5 class="card-header">Recherche</h5>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Chercher dans...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Aller!</button>
+                </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categories Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Categories</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li>
+                                        <a href="#">Web Design</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">HTML</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Freebies</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li>
+                                        <a href="#">JavaScript</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">CSS</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Tutorials</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Side Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Autres modules</h5>
+                    <div class="card-body">
+                        You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- row -->
     </div>
 
 </div>

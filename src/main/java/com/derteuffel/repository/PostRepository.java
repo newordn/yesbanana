@@ -18,4 +18,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByRegion(@Param("id") Long postId);
 
     List<Post> findAllByCategoryOrderByPostIdDesc(String category);
+
+    List<Post> findAllByNiveauOrderByPostIdDesc(int niveau);
 }

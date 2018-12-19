@@ -26,6 +26,7 @@ public class Post implements Serializable {
     private ArrayList<String> pieces;
     @Column
     private Date creationDate=new Date();
+    private int niveau;
 
     @ManyToOne
     private Region region;
@@ -36,14 +37,23 @@ public class Post implements Serializable {
     public Post() {
     }
 
-    public Post(String title,User user, String description, String category, ArrayList<String> pieces, Date creationDate, Region region) {
+    public Post(String title,int niveau, User user, String description, String category, ArrayList<String> pieces, Date creationDate, Region region) {
         this.title = title;
         this.description = description;
+        this.niveau=niveau;
         this.category = category;
         this.pieces = pieces;
         this.creationDate = creationDate;
         this.region = region;
         this.user=user;
+    }
+
+    public int getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(int niveau) {
+        this.niveau = niveau;
     }
 
     public User getUser() {
