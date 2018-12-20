@@ -46,7 +46,9 @@
                             <div class="card-body">
                                 <h2 class="card-title text-center" th:text="${civic.title}">Titre de la publication</h2>
                                 <p class="card-text" th:text="${civic.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                                <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${civic.postId}">Voir detail &rarr;</a>
+                                <a href="#" class="btn btn-primary" th:href="@{/school/detail/}+${civic.postId}">Voir detail &rarr;</a>
+                                <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-up"></i>&nbsp;<span th:text="${civic.likes}" class="badge badge-success"></span></a>
+                                <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-down"></i><span th:text="${civic.likes}" class="badge badge-danger"></span> </a>
                             </div>
                             <div class="card-footer text-muted">
                                 Créer le <span th:text="${civic.creationDate}"></span> by

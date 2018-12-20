@@ -85,6 +85,8 @@
                                     <h2 class="card-title text-center" th:text="${course.title}">Titre de la publication</h2>
                                     <p class="card-text" th:text="${course.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
                                     <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${course.postId}">Voir detail &rarr;</a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-up"></i>&nbsp;<span th:text="${course.likes}" class="badge badge-success"></span></a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-down"></i><span th:text="${course.likes}" class="badge badge-danger"></span> </a>
                                 </div>
                                 <div class="card-footer text-muted">
                                     Créer le <span th:text="${course.creationDate}"></span> by
@@ -183,6 +185,8 @@
                                     <h2 class="card-title text-center" th:text="${language.title}">Titre de la publication</h2>
                                     <p class="card-text" th:text="${language.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
                                     <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${language.postId}">Voir detail &rarr;</a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-up"></i>&nbsp;<span th:text="${language.likes}" class="badge badge-success"></span></a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-down"></i><span th:text="${language.likes}" class="badge badge-danger"></span> </a>
                                 </div>
                                 <div class="card-footer text-muted">
                                     Créer le <span th:text="${language.creationDate}"></span> by
@@ -281,6 +285,8 @@
                                     <h2 class="card-title text-center" th:text="${transport.title}">Titre de la publication</h2>
                                     <p class="card-text" th:text="${transport.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
                                     <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${transport.postId}">Voir detail &rarr;</a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-up"></i>&nbsp;<span th:text="${transport.likes}" class="badge badge-success"></span></a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-down"></i><span th:text="${transport.likes}" class="badge badge-danger"></span> </a>
                                 </div>
                                 <div class="card-footer text-muted">
                                     Créer le <span th:text="${transport.creationDate}"></span> by
@@ -379,6 +385,8 @@
                                     <h2 class="card-title text-center" th:text="${game.title}">Titre de la publication</h2>
                                     <p class="card-text" th:text="${game.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
                                     <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${game.postId}">Voir detail &rarr;</a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-up"></i>&nbsp;<span th:text="${game.likes}" class="badge badge-success"></span></a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-down"></i><span th:text="${game.likes}" class="badge badge-danger"></span> </a>
                                 </div>
                                 <div class="card-footer text-muted">
                                     Créer le <span th:text="${game.creationDate}"></span> by
@@ -477,6 +485,8 @@
                                     <h2 class="card-title text-center" th:text="${library.title}">Titre de la publication</h2>
                                     <p class="card-text" th:text="${library.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
                                     <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${library.postId}">Voir detail &rarr;</a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-up"></i>&nbsp;<span th:text="${library.likes}" class="badge badge-success"></span></a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-down"></i><span th:text="${library.likes}" class="badge badge-danger"></span> </a>
                                 </div>
                                 <div class="card-footer text-muted">
                                     Créer le <span th:text="${library.creationDate}"></span> by
@@ -575,6 +585,8 @@
                                     <h2 class="card-title text-center" th:text="${framing.title}">Titre de la publication</h2>
                                     <p class="card-text" th:text="${framing.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
                                     <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${framing.postId}">Voir detail &rarr;</a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-up"></i>&nbsp;<span th:text="${framing.likes}" class="badge badge-success"></span></a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-down"></i><span th:text="${framing.likes}" class="badge badge-danger"></span> </a>
                                 </div>
                                 <div class="card-footer text-muted">
                                     Créer le <span th:text="${framing.creationDate}"></span> by
@@ -673,6 +685,8 @@
                                     <h2 class="card-title text-center" th:text="${exam.title}">Titre de la publication</h2>
                                     <p class="card-text" th:text="${exam.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
                                     <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${exam.postId}">Voir detail &rarr;</a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-up"></i>&nbsp;<span th:text="${exam.likes}" class="badge badge-success"></span></a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-down"></i><span th:text="${exam.likes}" class="badge badge-danger"></span> </a>
                                 </div>
                                 <div class="card-footer text-muted">
                                     Créer le <span th:text="${exam.creationDate}"></span> by

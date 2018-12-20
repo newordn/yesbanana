@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by derteuffel on 20/10/2018.
@@ -345,7 +346,14 @@ public class HomeController {
         model.addAttribute("posts_housings", posts_by_housings);
         model.addAttribute("posts_transports", posts_by_transport);
         model.addAttribute("posts_procurements", posts_by_procurements);
-        return "management/other";
+        return "other";
+    }
+
+    @GetMapping("/school/detail/{postId}")
+    public String findById(Model model,@PathVariable Long postId) {
+        Optional<Post> optional=postRepository.findById(postId);
+        model.addAttribute("post", optional.get());
+        return "region/post";
     }
 
 
@@ -600,10 +608,7 @@ public String otherRegion(Model model, @PathVariable Long countryId){
     model.addAttribute("regions", regions);
     return "region/others";
 }
-    @GetMapping("/other")
-    public String otherAll(){
-        return "other";
-    }
+
     @GetMapping("/other/markets")
     public String market(){
         return "markets/market";

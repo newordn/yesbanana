@@ -85,14 +85,17 @@ public class PostController {
         model.addAttribute("post", new Post());
         return "management/civic/post";
     }
-
-   /* public int likes(Long postId){
-
+/*
+    @GetMapping("/detail/like/{postId}")
+    public void likes(@PathVariable Long postId){
         Post post= postRepository.getOne(postId);
-        int n;
         int likes=post.getLikes();
-        for (int i=0;i<=n)
-
+        for (int i=0; i<= likes; i++){
+            likes=likes+i;
+        }
+        System.out.println(likes);
+        post.setLikes(likes);
+        postRepository.save(post);
     }*/
 
     @GetMapping("/secondary/form/languages/{regionId}")
@@ -267,8 +270,11 @@ public class PostController {
         return "redirect:/management/region/visitor/"+(Long)session.getAttribute("regionId");
     }
 
-    public Optional<Post> findById(Long aLong) {
-        return postRepository.findById(aLong);
+    @GetMapping("/detail/{postId}")
+    public String findById(Model model,@PathVariable Long postId) {
+        Optional<Post> optional=postRepository.findById(postId);
+        model.addAttribute("post", optional.get());
+        return "management/post";
     }
 
     public void deleteById(Long aLong) {

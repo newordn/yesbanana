@@ -66,6 +66,8 @@
                                     <h2 class="card-title" th:text="${housing.title}">Titre de la publication</h2>
                                     <p class="card-text" th:text="${housing.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
                                     <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${housing.postId}">Voir detail &rarr;</a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-up"></i>&nbsp;<span th:text="${housing.likes}" class="badge badge-success"></span></a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-down"></i><span th:text="${housing.likes}" class="badge badge-danger"></span> </a>
                                 </div>
                                 <div class="card-footer text-muted">
                                     Créer le <span th:text="${housing.creationDate}"></span> by
@@ -165,6 +167,8 @@
                                     <h2 class="card-title" th:text="${transport.title}">Titre de la publication</h2>
                                     <p class="card-text" th:text="${transport.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
                                     <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${transport.postId}">Voir detail &rarr;</a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-up"></i>&nbsp;<span th:text="${transport.likes}" class="badge badge-success"></span></a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-down"></i><span th:text="${transport.likes}" class="badge badge-danger"></span> </a>
                                 </div>
                                 <div class="card-footer text-muted">
                                     Créer le <span th:text="${transport.creationDate}"></span> by
@@ -266,6 +270,8 @@
                                     <h2 class="card-title" th:text="${procurement.title}">Titre de la publication</h2>
                                     <p class="card-text" th:text="${procurement.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
                                     <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${procurement.postId}">Voir detail &rarr;</a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-up"></i>&nbsp;<span th:text="${procurement.likes}" class="badge badge-success"></span></a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-down"></i><span th:text="${procurement.likes}" class="badge badge-danger"></span> </a>
                                 </div>
                                 <div class="card-footer text-muted">
                                     Créer le <span th:text="${procurement.creationDate}"></span> by
