@@ -11,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by derteuffel on 20/10/2018.
@@ -40,6 +44,8 @@ public class HomeController {
     private RegionRepository regionRepository;
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private FileUploadService fileUploadService;
 
     List<String> countries= Arrays.asList(
             "Afghanistan",
@@ -640,11 +646,60 @@ public String otherRegion(Model model, @PathVariable Long countryId){
         return "visitor/expertp";
     }
 
-    @GetMapping("/visitor/teacher")
-    public String teacher(Model model){
+    @GetMapping("/visitor/teacher/primaire")
+    public String teacherp(Model model){
         model.addAttribute("countries", countries);
         model.addAttribute("user", new User());
         return "visitor/teacher";
+    }
+    @GetMapping("/visitor/teacher/secondaire")
+    public String teachers(Model model){
+        model.addAttribute("countries", countries);
+        model.addAttribute("user", new User());
+        return "visitor/teachers";
+    }
+
+    @GetMapping("/visitor/post/form")
+    public String visitor_pub(Model model){
+        model.addAttribute("post", new Post());
+        return "visitor/post";
+    }
+
+    @PostMapping("/visitor/post/save")
+    public String save(Post post, @RequestParam("files") MultipartFile[] files) {
+        List<FileUploadRespone> pieces= Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        ArrayList<String> filesPaths = new ArrayList<String>();
+        for(int i=0;i<pieces.size();i++)
+        {
+            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        }
+
+        System.out.println(filesPaths);
+        post.setPieces(filesPaths);
+        if (post.getCategory().equals("Education civique")){
+            post.setNiveau(3);
+        }else if (post.getCategory().equals("Education primaire")){
+            post.setNiveau(1);
+        }else if (post.getCategory().equals("Education secondaire")){
+            post.setNiveau(2);
+        }else {
+            post.setNiveau(4);
+        }
+        postRepository.save(post);
+        return "redirect:/";
+    }
+    public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
+        String fileName = fileUploadService.storeFile(file);
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+
+        return new FileUploadRespone(fileName, fileDownloadUri);
     }
 
 }

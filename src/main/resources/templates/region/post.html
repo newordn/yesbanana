@@ -46,26 +46,16 @@
                         <span th:text="${post.title}"></span>
                         </div>
                     </div>
+                    <h5 class="card-header my-4">Description</h5>
+                    <div class="card-body">
+                        <p><span th:text="${post.description}"></span></p>
+                    </div>
+                    <h5 class="card-header my-4">Auteur et autres</h5>
+                    <div class="card-body">
+                        <span th:text="${post.user.name}"></span><br>
+                        <span th:text="${post.creationDate}"></span>
+                    </div>
                 </div>
-
-            <!-- Categories Widget -->
-            <div class="card my-4">
-                <h5 class="card-header">Description</h5>
-                <div class="card-body">
-                    <p><span th:text="${post.description}"></span></p>
-                </div>
-            </div>
-
-            <!-- Side Widget -->
-            <div class="card my-4">
-                <h5 class="card-header">Autres modules</h5>
-                <div class="card-body">
-                    <span th:text="${post.user.name}"></span><br>
-                    <span th:text="${post.creationDate}"></span>
-                </div>
-            </div>
-
-
             </div>
         </div>
         <!-- row -->

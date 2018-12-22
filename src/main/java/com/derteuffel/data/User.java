@@ -104,6 +104,8 @@ public class User implements Serializable{
     private String resetToken;
     @Column
     private String amount;
+    @Column
+    private String classe;
 
 
     @Column
@@ -132,11 +134,12 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod,
                 String dayWorkBeginning, String dayWorkEnd, String studentNumber, Boolean numberOfWorkers,
-                String anotherDetail, List<Post> posts, String cv, List<These> theses, Role role, List<Groupe> groupes, Boolean autorization, String amount) {
+                String anotherDetail,String classe, List<Post> posts, String cv, List<These> theses, Role role, List<Groupe> groupes, Boolean autorization, String amount) {
         this.name = name;
         this.email = email;
         this.autorization=autorization;
         this.password = password;
+        this.classe=classe;
         this.country = country;
         this.region = region;
         this.university = university;
@@ -186,11 +189,12 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod, String dayWorkBeginning,
                 String dayWorkEnd, String studentNumber, Boolean numberOfWorkers, String numberInGroupe, String anotherDetail, String cv,
-                List<These> theses, List<Post> posts, Role role, List<Groupe> groupes, Boolean autorization) {
+                List<These> theses,String classe, List<Post> posts, Role role, List<Groupe> groupes, Boolean autorization) {
         this.name = name;
         this.posts=posts;
         this.autorization=autorization;
         this.email = email;
+        this.classe=classe;
         this.password = password;
         this.country = country;
         this.region = region;
@@ -215,6 +219,14 @@ public class User implements Serializable{
         this.theses = theses;
         this.role = role;
         this.groupes = groupes;
+    }
+
+    public String getClasse() {
+        return classe;
+    }
+
+    public void setClasse(String classe) {
+        this.classe = classe;
     }
 
     public List<Post> getPosts() {
