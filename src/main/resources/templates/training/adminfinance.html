@@ -390,37 +390,2647 @@
             <!-- ##### Footer Area End ##### -->
         </div>
         <div id="language" class="container tab-pane fade"><br>
-            <h3>Anglais et/ou Francais</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <h3 class="my-4 text-center sticky">Anglais et/ou Francais</h3>
+            <div class="row mb-4">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card " style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">1912</span></h2>
+                            <h5>Evenements historiques</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">123</span></h2>
+                            <h5>Tuteurs dédiés</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">89</span></h2>
+                            <h5>Planifications des événements</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">56</span></h2>
+                            <h5>Cours disponibles</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 card bg-dark">
+                        <div class="section-heading">
+                            <h3 class="text-white" style="padding-top: 1.5rem;">Cours en ligne</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <!-- Single Popular Course -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" class="free">Free</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$5.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$10.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 bg-primary card">
+                        <div class="section-heading">
+                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="row mb-4">
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card " style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
+                <div class="row">
+                    <div class="col-12 bg-secondary card ">
+                        <div class="section-heading">
+                            <h3 class="text-center text-white" style="padding-top: 1.5rem;">Planning des événement avenir</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ##### Footer Area Start ##### -->
+            <footer class="footer-area">
+                <!-- Top Footer Area -->
+                <div class="top-footer-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Footer Logo -->
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a>
+                                </div>
+                                <!-- Copywrite -->
+                                <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Footer Area -->
+                <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+                    <!-- Contact Info -->
+                    <div class="contact-info">
+                        <a href="#"><span>Phone:</span> +237 694 126 158</a>
+                        <a href="#"><span>Email:</span> admin@yesbanana.org</a>
+                    </div>
+                    <!-- Follow Us -->
+                    <div class="follow-us">
+                        <span>Suivez-nous</span>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </footer>
+            <!-- ##### Footer Area End ##### -->
         </div>
         <div id="it" class="container tab-pane fade"><br>
-            <h3>IT</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            <h3 class="my-4 text-center sticky">IT</h3>
+            <div class="row mb-4">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card " style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">1912</span></h2>
+                            <h5>Evenements historiques</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">123</span></h2>
+                            <h5>Tuteurs dédiés</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">89</span></h2>
+                            <h5>Planifications des événements</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">56</span></h2>
+                            <h5>Cours disponibles</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 card bg-dark">
+                        <div class="section-heading">
+                            <h3 class="text-white" style="padding-top: 1.5rem;">Cours en ligne</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <!-- Single Popular Course -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" class="free">Free</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$5.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$10.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 bg-primary card">
+                        <div class="section-heading">
+                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="row mb-4">
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card " style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
+                <div class="row">
+                    <div class="col-12 bg-secondary card ">
+                        <div class="section-heading">
+                            <h3 class="text-center text-white" style="padding-top: 1.5rem;">Planning des événement avenir</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ##### Footer Area Start ##### -->
+            <footer class="footer-area">
+                <!-- Top Footer Area -->
+                <div class="top-footer-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Footer Logo -->
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a>
+                                </div>
+                                <!-- Copywrite -->
+                                <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Footer Area -->
+                <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+                    <!-- Contact Info -->
+                    <div class="contact-info">
+                        <a href="#"><span>Phone:</span> +237 694 126 158</a>
+                        <a href="#"><span>Email:</span> admin@yesbanana.org</a>
+                    </div>
+                    <!-- Follow Us -->
+                    <div class="follow-us">
+                        <span>Suivez-nous</span>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </footer>
+            <!-- ##### Footer Area End ##### -->
         </div>
         <div id="logistique" class="container tab-pane fade"><br>
-            <h3>Logistique</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-        </div>
+            <h3 class="my-4 text-center sticky">Logistique</h3>
+            <div class="row mb-4">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card " style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">1912</span></h2>
+                            <h5>Evenements historiques</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">123</span></h2>
+                            <h5>Tuteurs dédiés</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">89</span></h2>
+                            <h5>Planifications des événements</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">56</span></h2>
+                            <h5>Cours disponibles</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 card bg-dark">
+                        <div class="section-heading">
+                            <h3 class="text-white" style="padding-top: 1.5rem;">Cours en ligne</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <!-- Single Popular Course -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" class="free">Free</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$5.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$10.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 bg-primary card">
+                        <div class="section-heading">
+                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="row mb-4">
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card " style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
+                <div class="row">
+                    <div class="col-12 bg-secondary card ">
+                        <div class="section-heading">
+                            <h3 class="text-center text-white" style="padding-top: 1.5rem;">Planning des événement avenir</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ##### Footer Area Start ##### -->
+            <footer class="footer-area">
+                <!-- Top Footer Area -->
+                <div class="top-footer-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Footer Logo -->
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a>
+                                </div>
+                                <!-- Copywrite -->
+                                <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Footer Area -->
+                <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+                    <!-- Contact Info -->
+                    <div class="contact-info">
+                        <a href="#"><span>Phone:</span> +237 694 126 158</a>
+                        <a href="#"><span>Email:</span> admin@yesbanana.org</a>
+                    </div>
+                    <!-- Follow Us -->
+                    <div class="follow-us">
+                        <span>Suivez-nous</span>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </footer>
+            <!-- ##### Footer Area End ##### -->        </div>
         <div id="protection" class="container tab-pane fade"><br>
-            <h3>Protection</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-        </div>
+            <h3 class="my-4 text-center sticky">Protection</h3>
+            <div class="row mb-4">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card " style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">1912</span></h2>
+                            <h5>Evenements historiques</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">123</span></h2>
+                            <h5>Tuteurs dédiés</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">89</span></h2>
+                            <h5>Planifications des événements</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">56</span></h2>
+                            <h5>Cours disponibles</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 card bg-dark">
+                        <div class="section-heading">
+                            <h3 class="text-white" style="padding-top: 1.5rem;">Cours en ligne</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <!-- Single Popular Course -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" class="free">Free</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$5.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$10.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 bg-primary card">
+                        <div class="section-heading">
+                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="row mb-4">
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card " style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
+                <div class="row">
+                    <div class="col-12 bg-secondary card ">
+                        <div class="section-heading">
+                            <h3 class="text-center text-white" style="padding-top: 1.5rem;">Planning des événement avenir</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ##### Footer Area Start ##### -->
+            <footer class="footer-area">
+                <!-- Top Footer Area -->
+                <div class="top-footer-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Footer Logo -->
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a>
+                                </div>
+                                <!-- Copywrite -->
+                                <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Footer Area -->
+                <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+                    <!-- Contact Info -->
+                    <div class="contact-info">
+                        <a href="#"><span>Phone:</span> +237 694 126 158</a>
+                        <a href="#"><span>Email:</span> admin@yesbanana.org</a>
+                    </div>
+                    <!-- Follow Us -->
+                    <div class="follow-us">
+                        <span>Suivez-nous</span>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </footer>
+            <!-- ##### Footer Area End ##### -->        </div>
         <div id="rh" class="container tab-pane fade"><br>
-            <h3>Resources Humaines</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-        </div>
+            <h3 class="my-4 text-center sticky">Resources Humaines</h3>
+            <div class="row mb-4">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card " style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">1912</span></h2>
+                            <h5>Evenements historiques</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">123</span></h2>
+                            <h5>Tuteurs dédiés</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">89</span></h2>
+                            <h5>Planifications des événements</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">56</span></h2>
+                            <h5>Cours disponibles</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 card bg-dark">
+                        <div class="section-heading">
+                            <h3 class="text-white" style="padding-top: 1.5rem;">Cours en ligne</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <!-- Single Popular Course -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" class="free">Free</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$5.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$10.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 bg-primary card">
+                        <div class="section-heading">
+                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="row mb-4">
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card " style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
+                <div class="row">
+                    <div class="col-12 bg-secondary card ">
+                        <div class="section-heading">
+                            <h3 class="text-center text-white" style="padding-top: 1.5rem;">Planning des événement avenir</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ##### Footer Area Start ##### -->
+            <footer class="footer-area">
+                <!-- Top Footer Area -->
+                <div class="top-footer-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Footer Logo -->
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a>
+                                </div>
+                                <!-- Copywrite -->
+                                <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Footer Area -->
+                <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+                    <!-- Contact Info -->
+                    <div class="contact-info">
+                        <a href="#"><span>Phone:</span> +237 694 126 158</a>
+                        <a href="#"><span>Email:</span> admin@yesbanana.org</a>
+                    </div>
+                    <!-- Follow Us -->
+                    <div class="follow-us">
+                        <span>Suivez-nous</span>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </footer>
+            <!-- ##### Footer Area End ##### -->        </div>
         <div id="leadership" class="container tab-pane fade"><br>
-            <h3>Leadership</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-        </div>
+            <h3 class="my-4 text-center sticky">Leadership</h3>
+            <div class="row mb-4">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card " style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">1912</span></h2>
+                            <h5>Evenements historiques</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">123</span></h2>
+                            <h5>Tuteurs dédiés</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">89</span></h2>
+                            <h5>Planifications des événements</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">56</span></h2>
+                            <h5>Cours disponibles</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 card bg-dark">
+                        <div class="section-heading">
+                            <h3 class="text-white" style="padding-top: 1.5rem;">Cours en ligne</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <!-- Single Popular Course -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" class="free">Free</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$5.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$10.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 bg-primary card">
+                        <div class="section-heading">
+                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="row mb-4">
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card " style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
+                <div class="row">
+                    <div class="col-12 bg-secondary card ">
+                        <div class="section-heading">
+                            <h3 class="text-center text-white" style="padding-top: 1.5rem;">Planning des événement avenir</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ##### Footer Area Start ##### -->
+            <footer class="footer-area">
+                <!-- Top Footer Area -->
+                <div class="top-footer-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Footer Logo -->
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a>
+                                </div>
+                                <!-- Copywrite -->
+                                <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Footer Area -->
+                <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+                    <!-- Contact Info -->
+                    <div class="contact-info">
+                        <a href="#"><span>Phone:</span> +237 694 126 158</a>
+                        <a href="#"><span>Email:</span> admin@yesbanana.org</a>
+                    </div>
+                    <!-- Follow Us -->
+                    <div class="follow-us">
+                        <span>Suivez-nous</span>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </footer>
+            <!-- ##### Footer Area End ##### -->        </div>
         <div id="management" class="container tab-pane fade"><br>
-            <h3>Management</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-        </div>
+            <h3 class="my-4 text-center sticky">Management</h3>
+            <div class="row mb-4">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card " style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">1912</span></h2>
+                            <h5>Evenements historiques</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">123</span></h2>
+                            <h5>Tuteurs dédiés</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">89</span></h2>
+                            <h5>Planifications des événements</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">56</span></h2>
+                            <h5>Cours disponibles</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 card bg-dark">
+                        <div class="section-heading">
+                            <h3 class="text-white" style="padding-top: 1.5rem;">Cours en ligne</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <!-- Single Popular Course -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" class="free">Free</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$5.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$10.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 bg-primary card">
+                        <div class="section-heading">
+                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="row mb-4">
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card " style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
+                <div class="row">
+                    <div class="col-12 bg-secondary card ">
+                        <div class="section-heading">
+                            <h3 class="text-center text-white" style="padding-top: 1.5rem;">Planning des événement avenir</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ##### Footer Area Start ##### -->
+            <footer class="footer-area">
+                <!-- Top Footer Area -->
+                <div class="top-footer-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Footer Logo -->
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a>
+                                </div>
+                                <!-- Copywrite -->
+                                <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Footer Area -->
+                <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+                    <!-- Contact Info -->
+                    <div class="contact-info">
+                        <a href="#"><span>Phone:</span> +237 694 126 158</a>
+                        <a href="#"><span>Email:</span> admin@yesbanana.org</a>
+                    </div>
+                    <!-- Follow Us -->
+                    <div class="follow-us">
+                        <span>Suivez-nous</span>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </footer>
+            <!-- ##### Footer Area End ##### -->        </div>
         <div id="wash" class="container tab-pane fade"><br>
             <h3>Wash</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-        </div>
+            <div class="row mb-4">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card " style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">1912</span></h2>
+                            <h5>Evenements historiques</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">123</span></h2>
+                            <h5>Tuteurs dédiés</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">89</span></h2>
+                            <h5>Planifications des événements</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card" style="height: 300px;">
+                        <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h2><span class="counter text-primary">56</span></h2>
+                            <h5>Cours disponibles</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 card bg-dark">
+                        <div class="section-heading">
+                            <h3 class="text-white" style="padding-top: 1.5rem;">Cours en ligne</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <!-- Single Popular Course -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" class="free">Free</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$5.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class=" card">
+                            <img class="card-image-top" th:src="@{/images/default.png}">
+                            <!-- Course Content -->
+                            <div class="course-content">
+                                <h4>Titre de l'unite</h4>
+                                <div class="meta d-flex align-items-center">
+                                    <a th:href="@{#}">Nom du formateur</a>
+                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                    <a th:href="@{#}">Unite d'enseignement</a>
+                                </div>
+                                <p>Ici breve description du contenu du cours</p>
+                            </div>
+                            <!-- Seat Rating Fee -->
+                            <div class="seat-rating-fee d-flex justify-content-between">
+                                <div class="seat-rating h-100 d-flex align-items-center">
+                                    <div class="seat">
+                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
+                                    </div>
+                                    <div class="rating">
+                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
+                                    </div>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a href="#" >$10.99</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px;">
+                <div class="row">
+                    <div class="col-12 bg-primary card">
+                        <div class="section-heading">
+                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="row mb-4">
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card " style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3 my-2">
+                            <div class="card" style="height: 300px;">
+                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
+                                <div class="card-body text-center">
+                                    <h5>Nom de l'encadreur</h5>
+                                    <span>Titre de l'unité</span>
+                                    <div class="social-info">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
+                <div class="row">
+                    <div class="col-12 bg-secondary card ">
+                        <div class="section-heading">
+                            <h3 class="text-center text-white" style="padding-top: 1.5rem;">Planning des événement avenir</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Upcoming Events -->
+                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                        <div class="single-upcoming-events">
+                            <!-- Events Thumb -->
+                            <div class="events-thumb ">
+                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
+                                <h6 class="event-date">Date de l'événement</h6>
+                                <h4 class="event-title">Titre de l'événement</h4>
+                            </div>
+                            <!-- Date & Fee -->
+                            <div class="date-fee d-flex justify-content-between">
+                                <div class="date">
+                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                </div>
+                                <div class="events-fee">
+                                    <a href="#">$45</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ##### Footer Area Start ##### -->
+            <footer class="footer-area">
+                <!-- Top Footer Area -->
+                <div class="top-footer-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Footer Logo -->
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a>
+                                </div>
+                                <!-- Copywrite -->
+                                <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Footer Area -->
+                <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+                    <!-- Contact Info -->
+                    <div class="contact-info">
+                        <a href="#"><span>Phone:</span> +237 694 126 158</a>
+                        <a href="#"><span>Email:</span> admin@yesbanana.org</a>
+                    </div>
+                    <!-- Follow Us -->
+                    <div class="follow-us">
+                        <span>Suivez-nous</span>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </footer>
+            <!-- ##### Footer Area End ##### -->        </div>
     </div>
 </div>
 
