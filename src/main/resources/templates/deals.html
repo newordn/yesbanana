@@ -17,6 +17,7 @@
 
     <!-- Core Stylesheet -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/style1.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/myStyle.css}">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
@@ -85,7 +86,7 @@
                                                 <li><a th:href="@{/visitor/teacher/secondaire}">Secondaire</a></li>
                                             </ul>
                                         </li>
-                                        <li><a th:href="@{/visitor/post/form}">Publication</a></li>
+                                        <li><a th:href="@{/user/visitor/form}">Publication</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -112,8 +113,8 @@
     <div class="container">
         <div class="row">
             <!-- Single Course Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="300ms">
+            <div class="col-12 col-sm-6 col-lg-4" style="padding: 0.5rem;">
+                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp card" data-wow-delay="300ms" style="height: 300px;">
                     <a th:href="@{/external/secure/country/countries}">
                     <div class="course-icon">
                         <i class="icon-id-card"></i>
@@ -125,36 +126,36 @@
                 </div>
             </div>
             <!-- Single Course Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="400ms">
+            <div class="col-12 col-sm-6 col-lg-4" style="padding: 0.5rem;">
+                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp card" data-wow-delay="400ms" style="height: 300px;">
                     <a th:href="@{/education}" class="btn">
                     <div class="course-icon">
                         <i class="icon-worldwide"></i>
                     </div>
                     <div class="course-content">
-                        <h5>Education Primaire et secondaire</h5>
-                        <p>Cours d'appui, Transport sécurisé, colonie des<br>vaccances, jeu  éducatif, Cours d'anglais et/ou<br>francais, Bibliothèque en ligne</p>
+                        <h5>Education Primaire et <br>secondaire</h5>
+                        <p>Cours d'appui, Transport sécu-<br>risé, colonie des vacances, jeu<br>éducatif, Cours d'anglais et/ou<br>francais, Bibliothèque en ligne</p>
                     </div>
                     </a>
                 </div>
             </div>
             <!-- Single Course Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="500ms">
+            <div class="col-12 col-sm-6 col-lg-4" style="padding: 0.5rem;">
+                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp card" data-wow-delay="500ms" style="height: 300px;">
                     <a th:href="@{/school/project}">
                     <div class="course-icon">
                         <i class="icon-map"></i>
                     </div>
                     <div class="course-content">
-                        <h5>Concours des talents et projets</h5>
+                        <h5>Concours des talents et<br> projets</h5>
                         <p>Concours de projets, Conseils,<br>Accompagnement d'un expert</p>
                     </div>
                     </a>
                 </div>
             </div>
             <!-- Single Course Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="600ms">
+            <div class="col-12 col-sm-6 col-lg-4" style="padding: 0.5rem;">
+                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp card" data-wow-delay="600ms" style="height: 300px;">
                     <a th:href="@{/training/admin}">
                     <div class="course-icon">
                         <i class="icon-like"></i>
@@ -168,8 +169,8 @@
                 </div>
             </div>
             <!-- Single Course Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="700ms">
+            <div class="col-12 col-sm-6 col-lg-4" style="padding: 0.5rem;">
+                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp card" data-wow-delay="700ms" style="height: 300px;">
                     <a th:href="@{/other/services}">
                     <div class="course-icon">
                         <i class="icon-responsive"></i>
@@ -182,8 +183,8 @@
                 </div>
             </div>
             <!-- Single Course Area -->
-            <div class="col-12 col-sm-6 col-lg-4">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp" data-wow-delay="800ms">
+            <div class="col-12 col-sm-6 col-lg-4" style="padding: 0.5rem;">
+                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp card" data-wow-delay="800ms" style="height: 300px;">
                     <a th:href="@{/other/markets}">
                     <div class="course-icon">
                         <i class="icon-message"></i>
@@ -200,20 +201,42 @@
 <!-- ##### Course Area End ##### -->
 
 <!-- ##### Footer Area Start ##### -->
-<footer class="footer-area" style=" position: fixed;left: 0;bottom: 0;width: 100%;">
-    <div class="bottom-footer-area">
+<footer class="footer-area">
+    <!-- Top Footer Area -->
+    <div class="top-footer-area">
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This site is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Yesbanana</a>
+                    <!-- Footer Logo -->
+                    <div class="footer-logo">
+                        <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a>
+                    </div>
+                    <!-- Copywrite -->
+                    <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Bottom Footer Area -->
+    <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+        <!-- Contact Info -->
+        <div class="contact-info">
+            <a href="#"><span>Phone:</span> +237 694 126 158</a>
+            <a href="#"><span>Email:</span> admin@yesbanana.org</a>
+        </div>
+        <!-- Follow Us -->
+        <div class="follow-us">
+            <span>Suivez-nous</span>
+            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+        </div>
+    </div>
 </footer>
-<!-- ##### Footer Area Start ##### -->
+<!-- ##### Footer Area End ##### -->
 
 <!-- ##### All Javascript Script ##### -->
 <!-- jQuery-2.2.4 js -->

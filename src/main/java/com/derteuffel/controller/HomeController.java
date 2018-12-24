@@ -2,6 +2,7 @@ package com.derteuffel.controller;
 
 import com.derteuffel.data.*;
 import com.derteuffel.repository.*;
+import com.derteuffel.service.MailService;
 import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -358,6 +359,13 @@ public class HomeController {
     @GetMapping("/school/detail/{postId}")
     public String findById(Model model,@PathVariable Long postId) {
         Optional<Post> optional=postRepository.findById(postId);
+        int postLike=0;
+                int i=optional.get().getLikes();
+        i++;
+        postLike =i;
+        System.out.println(postLike);
+        optional.get().setLikes(postLike);
+        postRepository.save(optional.get());
         model.addAttribute("post", optional.get());
         return "region/post";
     }
@@ -659,12 +667,6 @@ public String otherRegion(Model model, @PathVariable Long countryId){
         return "visitor/teachers";
     }
 
-    @GetMapping("/visitor/post/form")
-    public String visitor_pub(Model model){
-        model.addAttribute("post", new Post());
-        return "visitor/post";
-    }
-
     @PostMapping("/visitor/post/save")
     public String save(Post post, @RequestParam("files") MultipartFile[] files) {
         List<FileUploadRespone> pieces= Arrays.asList(files)
@@ -689,6 +691,13 @@ public String otherRegion(Model model, @PathVariable Long countryId){
             post.setNiveau(4);
         }
         postRepository.save(post);
+        MailService mailService = new MailService();
+        mailService.sendSimpleMessage(
+                /*"solutioneducationafrique@gmail.com"*/
+                "derteuffel0@gmail.com",
+                "YesBanana: Notification création d'une publication",
+                "cette publication est encore en suspend veuillez bien vous connecter pour lui attribuer un status "+
+        "ou veiller cliquer sur le lien pour etre rediriger vers la page "+"http:localhost:8080/school/detail/"+post.getPostId());
         return "redirect:/";
     }
     public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
@@ -700,6 +709,12 @@ public String otherRegion(Model model, @PathVariable Long countryId){
                 .toUriString();
 
         return new FileUploadRespone(fileName, fileDownloadUri);
+    }
+
+    //get one course
+    @GetMapping("/school/course/detail")
+    public String getCourse(){
+        return "training/detail/course";
     }
 
 }
