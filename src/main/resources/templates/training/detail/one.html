@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title></title>
+    <title>Contenu d'un cours</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
@@ -23,61 +23,39 @@
     <nav class="nav col-12 row" style="height: 5rem;" >
         <a th:href="@{/deals}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
         <div class="col-11 offset-1 text-center"  style="left: 0;">
-            <h3 class=" text-center " > Titre de la formation ici </h3>
+            <h3 class=" text-center " > Sous Titre de la formation ici celon la periode </h3>
         </div>
     </nav>
     <div class="col-12 col-sm-12 col-lg-12" style="margin-top: 5rem;">
         <br>
-        <h3 class="text-center">Première période de la formation</h3>
+        <h3 class="text-center">Première leçon</h3>
         <br>
-        <div class="row">
-            <div class="col-12 col-sm-6 col-lg-3 text-center">
-                <p>Première période</p>
-                <img th:src="@{/images/default-profile.png}" class="rounded-circle" style="height: 80px; width: 80px;">
-            </div>
-            <div class="col-12 col-sm-6 col-lg-9">
-                <div class="container">
-                    <p><span>Titre </span><span>Durée </span><span>Contenu</span></p>
-                    <p><span>Titre </span><span>Durée </span><span>Contenu</span></p>
-                    <p><span>Titre </span><span>Durée </span><span>Contenu</span></p>
+        <div class="container">
+            <div class="col-12 col-sm-6 col-lg-12 text-center">
+                <p>Première période</p><br>
+                <img th:src="@{/images/default-image.png}" class="rounded card-image-top">
+                <div class="card-body mt-3" style="width: 750px; margin-left: 8.5rem;">
+                    <p>With Safari, you learn the way you learn best. Get unlimited access to videos, live online training, learning paths, books, interactive tutorials, and more.
+                    </p><br>
+                    <a class="btn btn-warning" th:href="@{#}" ><i class="fa fa-eye"></i>&nbsp;&nbsp;Commencer la leçon</a><br>
+                        <span style="color: #9fcdff">Carte de credit necessaire</span>
                 </div>
-                <a class="btn btn-primary" th:href="@{/school/lesson/trial}">Suivre les leçons &rarr;</a>
             </div>
         </div>
         <hr style="	border-top: 5px solid #8c8b8b;  ">
         <br>
         <h3 class="text-center">Deuxième période de la formation</h3>
         <br>
-        <div class="row">
-            <div class="col-12 col-sm-6 col-lg-3 text-center">
-                <p>Deuxième période</p>
-                <img th:src="@{/images/default-profile.png}" class="rounded-circle" style="height: 80px; width: 80px;">
-            </div>
-            <div class="col-12 col-sm-6 col-lg-9">
-                <div class="container">
-                    <p><strong>Titre de la leçon :</strong> With Safari</p>
-                    <p><strong>Durée :</strong> durée de la leçon</p>
-                    <p><strong>Contenu :</strong> dfhshgfdghdgkdjklsdôùgertjeifuigfugekdfkogyudpgdfogvkjmozierzerhfffghofuefzerôpierfojôpvfedfdkgegpifrgpirurggtgh</p>
+        <div class="container">
+            <div class="col-12 col-sm-6 col-lg-12 text-center">
+                <p>Première période</p><br>
+                <img th:src="@{/images/default-image.png}" class="rounded card-image-top">
+                <div class="card-body mt-3" style="width: 750px; margin-left: 8.5rem;">
+                    <p>With Safari, you learn the way you learn best. Get unlimited access to videos, live online training, learning paths, books, interactive tutorials, and more.
+                    </p><br>
+                    <a class="btn btn-warning" th:href="@{#}" ><i class="fa fa-eye"></i>&nbsp;&nbsp;Commencer la leçon</a><br>
+                    <span style="color: #9fcdff">Carte de credit necessaire</span>
                 </div>
-                <a class="btn btn-primary" th:href="@{/school/lesson/trial}">Suivre les leçons &rarr;</a>
-            </div>
-        </div>
-        <hr style="	border-top: 5px solid #8c8b8b;">
-        <br>
-        <h3 class="text-center">Troisième période de la formation</h3>
-        <br>
-        <div class="row">
-            <div class="col-12 col-sm-6 col-lg-3 text-center">
-                <p>Troisième période</p>
-                <img th:src="@{/images/default-profile.png}" class="rounded-circle" style="height: 80px; width: 80px;">
-            </div>
-            <div class="col-12 col-sm-6 col-lg-9">
-                <div class="container">
-                    <p><strong>Titre de la leçon :</strong> With Safari</p>
-                    <p><strong>Durée :</strong> durée de la leçon</p>
-                    <p><strong>Contenu :</strong> dfhshgfdghdgkdjklsdôùgertjeifuigfugekdfkogyudpgdfogvkjmozierzerhfffghofuefzerôpierfojôpvfedfdkgegpifrgpirurggtgh</p>
-                </div>
-                <a class="btn btn-primary" th:href="@{/school/lesson/trial}">Suivre les leçons &rarr;</a>
             </div>
         </div>
     </div>

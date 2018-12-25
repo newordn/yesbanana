@@ -370,6 +370,11 @@ public class HomeController {
         return "region/post";
     }
 
+    @GetMapping("/school/lesson/trial")
+    public String oneLesson(){
+        return "training/detail/one";
+    }
+
 
     @GetMapping("/education")
     public  String education(Model model){
