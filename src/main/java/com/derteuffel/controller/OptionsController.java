@@ -48,6 +48,7 @@ public class OptionsController {
     @GetMapping("/options/{optionsId}")
     public String findById(Model model, @PathVariable Long optionsId) {
         Optional<Options> optionsOptional= optionsRepository.findById(optionsId);
+        model.addAttribute("options", optionsOptional.get());
         model.addAttribute("theses", theseRepository.findAllByOptionsOrderByTheseIdDesc(optionsOptional.get().getOptionsName().toLowerCase()));
         return "options/options";
     }
