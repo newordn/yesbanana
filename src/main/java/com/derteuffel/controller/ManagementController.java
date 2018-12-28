@@ -4,20 +4,21 @@ import com.derteuffel.data.*;
 import com.derteuffel.repository.*;
 import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by derteuffel on 03/12/2018.
@@ -28,6 +29,10 @@ public class ManagementController {
 
     @Autowired
     private CountryRepository countryRepository;
+    @Autowired
+    private CourseRepository courseRepository;
+    @Autowired
+    private LessonRepository lessonRepository;
     @Autowired
     private RegionRepository regionRepository;
     @Autowired
@@ -42,6 +47,10 @@ public class ManagementController {
     private UserRepository userRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PeriodRepository periodRepository;
+    @Autowired
+    private FileUploadService fileUploadService;
     @Autowired
     private PostRepository postRepository;
     List<String> countries= Arrays.asList(
@@ -829,4 +838,175 @@ public class ManagementController {
         return "management/other";
     }
 
+    //course management methods start
+    @GetMapping("/course/form")
+    public String addCourse(Model model){
+        model.addAttribute("course", new Course());
+        return "management/course/form";
+    }
+
+    @GetMapping("/course/all")
+    public String findAll(Model model) {
+        List<Course> admin_fin= courseRepository.findAllByDomainOrderByCourseIdDesc("administration et finance");
+        List<Course> ang_fran= courseRepository.findAllByDomainOrderByCourseIdDesc("anglais et/ou francais");
+        List<Course> it= courseRepository.findAllByDomainOrderByCourseIdDesc("it");
+        List<Course> logistiques= courseRepository.findAllByDomainOrderByCourseIdDesc("logistiques");
+        List<Course> protections= courseRepository.findAllByDomainOrderByCourseIdDesc("protection");
+        List<Course> res_hum= courseRepository.findAllByDomainOrderByCourseIdDesc("resources humaines");
+        List<Course> leaderships= courseRepository.findAllByDomainOrderByCourseIdDesc("leadership");
+        List<Course> managements= courseRepository.findAllByDomainOrderByCourseIdDesc("management");
+        List<Course> wash= courseRepository.findAllByDomainOrderByCourseIdDesc("wash");
+        model.addAttribute("courses1", admin_fin);
+        model.addAttribute("courses2", ang_fran);
+        model.addAttribute("courses3", it);
+        model.addAttribute("courses4", logistiques);
+        model.addAttribute("courses5", protections);
+        model.addAttribute("courses6", res_hum);
+        model.addAttribute("courses7", leaderships);
+        model.addAttribute("courses8", managements);
+        model.addAttribute("courses9", wash);
+        return "management/course/courses";
+    }
+
+    public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
+        String fileName = fileUploadService.storeFile(file);
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+
+        return new FileUploadRespone(fileName, fileDownloadUri);
+    }
+
+    @PostMapping(value = "/course/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String saveCourse(Course course, @RequestParam("files") MultipartFile files){
+
+        List<FileUploadRespone> pieces= Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        ArrayList<String> filesPaths = new ArrayList<String>();
+        for(int i=0;i<pieces.size();i++)
+        {
+            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        }
+
+        System.out.println(filesPaths);
+        course.setPieces(filesPaths);
+
+        Course course1=courseRepository.save(course);
+        return "redirect:/management/course/get/"+ course1.getCourseId();
+    }
+
+    @GetMapping("/delete/{courseId}")
+    public String deleteCourse( @PathVariable Long courseId){
+        courseRepository.deleteById(courseId);
+        return "redirect:/management/course/all";
+    }
+
+    @GetMapping("/course/get/{courseId}")
+    public String findOneCourse(Model model,@PathVariable Long courseId, HttpSession session) {
+        session.setAttribute("courseId",courseId);
+        Optional<Course> optional= courseRepository.findById(courseId);
+        List<Period> periods= periodRepository.findAllByCourses(optional.get().getCourseId());
+        model.addAttribute("course", optional.get());
+        model.addAttribute("periods", periods);
+        return "course/course";
+    }
+
+    //course management methods end
+
+    // period management methods start
+    @GetMapping("/period/all")
+    public String findAllPeriodByCourse(Model model, @PathVariable Long courseId){
+
+        List<Period> periods= periodRepository.findAllByCourses(courseId);
+        model.addAttribute("periods", periods);
+        return "management/period/periods";
+    }
+
+    @GetMapping("/period/get/{periodId}")
+    public String getOnePeriod(Model model, @PathVariable Long periodId, HttpSession session){
+        session.setAttribute("periodId", periodId);
+        Optional<Period> optional= periodRepository.findById(periodId);
+        List<Lesson> lessonList=lessonRepository.findAllByPeriod(optional.get().getPeriodId());
+        model.addAttribute("lessons", lessonList);
+        model.addAttribute("period", optional.get());
+        return "management/period/period";
+    }
+
+    @GetMapping("/period/form")
+    public String periodForm(Model model){
+        model.addAttribute("period",new Period());
+        return "management/period/form";
+    }
+    @PostMapping("/period/save")
+    public String periodSaved(Period period, HttpSession session){
+        Long courseId= (Long)session.getAttribute("courseId");
+        Course course= courseRepository.getOne(courseId);
+        period.setCourse(course);
+        Period period1=periodRepository.save(period);
+        return "redirect:/management/period/get/"+ period1.getPeriodId();
+    }
+
+    @DeleteMapping("/period/delete/{periodId}")
+    public String periodDelete(@PathVariable Long periodId, HttpSession session){
+        periodRepository.deleteById(periodId);
+        return "redirect:/management/course/get/"+(Long)session.getAttribute("courseId");
+    }
+    // period management methods end
+
+    //Lesson management methods Start
+    @GetMapping("/lesson/get/{lessonId}")
+    public String getOneLesson(Model model, @PathVariable Long lessonId){
+        Optional<Lesson> optional= lessonRepository.findById(lessonId);
+        model.addAttribute("lesson", optional.get());
+        return "management/lesson/lesson";
+    }
+
+    @GetMapping("/lesson/form")
+    public String lessonForm(Model model){
+        model.addAttribute("lesson", new Lesson());
+        return "management/lesson/form";
+    }
+
+    @PostMapping(value = "/lesson/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String lessonSave(Lesson lesson, HttpSession session, @RequestParam("files") MultipartFile files){
+        List<FileUploadRespone> pieces= Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        ArrayList<String> filesPaths = new ArrayList<String>();
+        for(int i=0;i<pieces.size();i++)
+        {
+            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        }
+
+        System.out.println(filesPaths);
+        lesson.setPieces(filesPaths);
+        Period period= periodRepository.getOne((Long)session.getAttribute("periodId"));
+        lesson.setPeriod(period);
+
+        Lesson lesson1= lessonRepository.save(lesson);
+        return "redirect:/management/period/get/"+lesson1.getLessonId();
+    }
+
+    @DeleteMapping("/lesson/delete/{lessonId}")
+    public String lessonDelete(@PathVariable Long lessonId, HttpSession session){
+        lessonRepository.deleteById(lessonId);
+        return "redirect:/management/period/get/"+(Long)session.getAttribute("periodId");
+    }
+    //Lesson management methods End
 }
+
+
+
+
+
+
+
+
+
+
+

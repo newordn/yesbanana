@@ -559,16 +559,11 @@ public class HomeController {
         return "secondary/courses";
     }
 
-
-
     // training finance and administration
     @GetMapping("/training/admin")
     public String training(){
         return "training/adminfinance";
     }
-
-
-
     @GetMapping("/other/services")
     public String other(Model model){
         List<Country> countries=countryRepository.findAll();
