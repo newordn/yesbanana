@@ -363,7 +363,7 @@ img {
         text-transform: uppercase; }
         .header-area .academy-main-menu .classy-navbar .classynav ul li a:hover, .header-area .academy-main-menu .classy-navbar .classynav ul li a:focus {
           color: #69bc5f; }
-    .header-area .academy-main-menu .classynav {
+    .header-area .academy-main-menu  {
       padding-left: 2em; }
       @media only screen and (min-width: 992px) and (max-width: 1199px) {
         .header-area .academy-main-menu .classynav {
