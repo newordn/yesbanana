@@ -99,7 +99,6 @@
                     </div>
                 </div>
                 <div class="row my-2" th:each="course : ${courses1}">
-                <!--div class="row my-2"-->
                     <!-- Single Popular Course -->
                     <div class="col-12 col-md-6 col-lg-6 my-2">
                         <div class="card">
@@ -107,15 +106,15 @@
                                 <!--img th:if="${course.pieces[0]}" class="card-image-top" th:src="${course.pieces[0]}"-->
                                 <!--img th:unless="${course.pieces[0]}" class="card-image-top" th:src="@{/images/default.png}"-->
                                 <!--img  class="card-image-top" th:src="@{/images/default.png}"-->
-                                <div class="col-lg-2" style="padding:10px">
+                                <div class="col-lg-2" style="padding:20px">
                                     <!--span th:text="${course.title[0]}"></span-->
-                                    <span class="badge badge-success" style="line-height:2rem;font-size:2rem;width:100%;height: inherit;border-radius: 50% ">c</span>
+                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
                                 </div>
                                 <div class="col-lg-8" style="padding:10px">
                                     <span th:text="${course.title}"></span>
                                 </div>
                                 <div class="col-lg-2" style="padding: 10px">
-                                    <a class="btn" th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
                                         <span class="badge badge-light" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-circle-right"></i></span>
                                     </a>
                                 </div>
@@ -128,39 +127,16 @@
                                 <!--img th:if="${course.pieces[0]}" class="card-image-top" th:src="${course.pieces[0]}"-->
                                 <!--img th:unless="${course.pieces[0]}" class="card-image-top" th:src="@{/images/default.png}"-->
                                 <!--img  class="card-image-top" th:src="@{/images/default.png}"-->
-                                <div class="col-lg-2" style="padding:10px">
+                                <div class="col-lg-2" style="padding:20px">
                                     <!--span th:text="${course.title[0]}"></span-->
-                                    <span class="badge badge-success" style="line-height:2rem;font-size:2rem;width:100%;height: inherit;border-radius: 50% ">c</span>
+                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
                                 </div>
                                 <div class="col-lg-8" style="padding:10px">
                                     <!--span th:text="${course.title}"></span-->
                                     <span>blablablablablablablabal</span>
                                 </div>
                                 <div class="col-lg-2" style="padding: 10px">
-                                    <a class="btn" th:href="@{#}" style="padding: 0">
-                                        <span class="badge badge-light" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-circle-right"></i></span>
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div><br>
-                    <div class="col-12 col-md-6 col-lg-6 my-2">
-                        <div class="card">
-                            <div class=" row" style="margin-left: 0; margin-right: 0">
-                                <!--img th:if="${course.pieces[0]}" class="card-image-top" th:src="${course.pieces[0]}"-->
-                                <!--img th:unless="${course.pieces[0]}" class="card-image-top" th:src="@{/images/default.png}"-->
-                                <!--img  class="card-image-top" th:src="@{/images/default.png}"-->
-                                <div class="col-lg-2" style="padding:10px">
-                                    <!--span th:text="${course.title[0]}"></span-->
-                                    <span class="badge badge-success" style="line-height:2rem;font-size:2rem;width:100%;height: inherit;border-radius: 50% ">c</span>
-                                </div>
-                                <div class="col-lg-8" style="padding:10px">
-                                    <!--span th:text="${course.title}"></span-->
-                                    <span>blablablablablablablabal</span>
-                                </div>
-                                <div class="col-lg-2" style="padding: 10px">
-                                    <a class="btn" th:href="@{#}" style="padding: 0">
+                                    <a  th:href="@{#}" style="padding: 0">
                                         <span class="badge badge-light" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-circle-right"></i></span>
                                     </a>
                                 </div>
@@ -173,16 +149,16 @@
                                 <!--img th:if="${course.pieces[0]}" class="card-image-top" th:src="${course.pieces[0]}"-->
                                 <!--img th:unless="${course.pieces[0]}" class="card-image-top" th:src="@{/images/default.png}"-->
                                 <!--img  class="card-image-top" th:src="@{/images/default.png}"-->
-                                <div class="col-lg-2" style="padding:10px">
+                                <div class="col-lg-2" style="padding:20px">
                                     <!--span th:text="${course.title[0]}"></span-->
-                                    <span class="badge badge-success" style="line-height:2rem;font-size:2rem;width:100%;height: inherit;border-radius: 50% ">c</span>
+                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
                                 </div>
                                 <div class="col-lg-8" style="padding:10px">
                                     <!--span th:text="${course.title}"></span-->
                                     <span>blablablablablablablabal</span>
                                 </div>
                                 <div class="col-lg-2" style="padding: 10px">
-                                    <a class="btn" th:href="@{#}" style="padding: 0">
+                                    <a  th:href="@{#}" style="padding: 0">
                                         <span class="badge badge-light" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-circle-right"></i></span>
                                     </a>
                                 </div>
@@ -195,16 +171,16 @@
                                 <!--img th:if="${course.pieces[0]}" class="card-image-top" th:src="${course.pieces[0]}"-->
                                 <!--img th:unless="${course.pieces[0]}" class="card-image-top" th:src="@{/images/default.png}"-->
                                 <!--img  class="card-image-top" th:src="@{/images/default.png}"-->
-                                <div class="col-lg-2" style="padding:10px">
+                                <div class="col-lg-2" style="padding:20px">
                                     <!--span th:text="${course.title[0]}"></span-->
-                                    <span class="badge badge-success" style="line-height:2rem;font-size:2rem;width:100%;height: inherit;border-radius: 50% ">c</span>
+                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
                                 </div>
                                 <div class="col-lg-8" style="padding:10px">
                                     <!--span th:text="${course.title}"></span-->
                                     <span>blablablablablablablabal</span>
                                 </div>
                                 <div class="col-lg-2" style="padding: 10px">
-                                    <a class="btn" th:href="@{#}" style="padding: 0">
+                                    <a  th:href="@{#}" style="padding: 0">
                                         <span class="badge badge-light" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-circle-right"></i></span>
                                     </a>
                                 </div>
@@ -217,23 +193,45 @@
                                 <!--img th:if="${course.pieces[0]}" class="card-image-top" th:src="${course.pieces[0]}"-->
                                 <!--img th:unless="${course.pieces[0]}" class="card-image-top" th:src="@{/images/default.png}"-->
                                 <!--img  class="card-image-top" th:src="@{/images/default.png}"-->
-                                <div class="col-lg-2" style="padding:10px">
+                                <div class="col-lg-2" style="padding:20px">
                                     <!--span th:text="${course.title[0]}"></span-->
-                                    <span class="badge badge-success" style="line-height:2rem;font-size:2rem;width:100%;height: inherit;border-radius: 50% ">c</span>
+                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
                                 </div>
                                 <div class="col-lg-8" style="padding:10px">
                                     <!--span th:text="${course.title}"></span-->
                                     <span>blablablablablablablabal</span>
                                 </div>
                                 <div class="col-lg-2" style="padding: 10px">
-                                    <a class="btn" th:href="@{#}" style="padding: 0">
+                                    <a  th:href="@{#}" style="padding: 0">
                                         <span class="badge badge-light" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-circle-right"></i></span>
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div><br>
-                </--div>
+                    <div class="col-12 col-md-6 col-lg-6 my-2">
+                        <div class="card">
+                            <div class=" row" style="margin-left: 0; margin-right: 0">
+                                <!--img th:if="${course.pieces[0]}" class="card-image-top" th:src="${course.pieces[0]}"-->
+                                <!--img th:unless="${course.pieces[0]}" class="card-image-top" th:src="@{/images/default.png}"-->
+                                <!--img  class="card-image-top" th:src="@{/images/default.png}"-->
+                                <div class="col-lg-2" style="padding:20px">
+                                    <!--span th:text="${course.title[0]}"></span-->
+                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
+                                </div>
+                                <div class="col-lg-8" style="padding:10px">
+                                    <!--span th:text="${course.title}"></span-->
+                                    <span>blablablablablablablabal</span>
+                                </div>
+                                <div class="col-lg-2" style="padding: 10px">
+                                    <a  th:href="@{#}" style="padding: 0">
+                                        <span class="badge badge-light" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-circle-right"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><br>
+                </div>
                 <div class="pagination-div">
                     <span th:if="${courses1.hasPrevious()}">
                         <a th:href="@{/course/all(courses1=${courses1.number-1},size=${courses1.size})}">Previous</a>
