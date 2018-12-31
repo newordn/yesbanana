@@ -916,7 +916,7 @@ public class ManagementController {
         List<Period> periods= periodRepository.findAllByCourses(optional.get().getCourseId());
         model.addAttribute("course", optional.get());
         model.addAttribute("periods", periods);
-        return "course/course";
+        return "management/course/course";
     }
 
     //course management methods end
