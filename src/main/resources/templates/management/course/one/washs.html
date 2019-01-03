@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formation professionnelle</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/myStyle.css}" rel="stylesheet">
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+<div style="height: 100%">
+    <nav class="nav" style="width: 100%">
+        <a th:href="@{/management/course/all}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+        <h2 class="text-center col-11 offset-1" style="padding-top: 0.5rem;">Formation professionnelle</h2>
+    </nav>
+    <div class="container" style="padding: 2rem; margin-top: 3rem;">
+
+        <br>
+        <div class="card col-12 col-sm-12 col-lg-12" style="padding-right: 0;padding-left: 0">
+            <div class="card-header">
+                <h3 class="text-center">Formation en Wash</h3>
+            </div>
+            <div class="card-body">
+                <div class="col-12 col-sm-12 col-lg-12 my-2" th:each="course : ${courses}">
+                    <div class="card">
+                        <div class=" row" style="margin-left: 0; margin-right: 0">
+                            <div class="col-lg-2" style="padding:20px">
+                                <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
+                            </div>
+                            <div class="col-lg-8" style="padding:10px">
+                                <span th:text="${course.title}"></span>
+                            </div>
+                            <div class="col-lg-1" style="padding:20px">
+                                <span th:text="'$'+${course.price}"></span>
+                            </div>
+                            <div class="col-lg-1" style="padding: 20px">
+                                <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
+                                    <span style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div><br>
+                <div class="row " style="bottom: 1rem;width: 100%;">
+                    <div class="form-group col-12 col-sm-6 col-lg-3">
+                        <select class="form-control pagination" id="pageSizeSelect">
+                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                    th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${courses.totalPages != 1}"
+                         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+                        <ul class="pagination">
+                            <li th:class="${courses.number == 0} ? disabled" ><a
+                                    class="pageLink"
+                                    th:href="@{/management/course/wash(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            </li>
+                            <li th:class="${courses.number == 0} ? disabled" ><a
+                                    class="pageLink"
+                                    th:href="@{/management/course/wash(pageSize=${selectedPageSize}, page=${courses.number})}">←</a>
+                            </li>
+                            <li
+                                    th:class="${courses.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" >
+                                <a class="pageLink"
+                                   th:href="@{/management/course/wash(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li
+                                    th:class="${courses.number + 1 == courses.totalPages} ? disabled" >
+                                <a class="pageLink"
+                                   th:href="@{/management/course/wash(pageSize=${selectedPageSize}, page=${courses.number + 2})}">→</a>
+                            </li>
+                            <li
+                                    th:class="${courses.number + 1 == courses.totalPages} ? disabled" >
+                                <a class="pageLink"
+                                   th:href="@{/management/course/wash(pageSize=${selectedPageSize}, page=${courses.totalPages})}">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/management/course/form}" style="bottom: 3rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
+    </div>
+</div>
+
+<!-- navigation -->
+<script th:src="@{/js/dashboard.js}"></script>
+<!-- script -->
+<!-- ##### All Javascript Script ##### -->
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function() {
+        changePageAndSize();
+    });
+    function changePageAndSize() {
+        $('#pageSizeSelect').change(function(evt) {
+            window.location.replace("/management/course/wash?pageSize=" + this.value + "&page=1");
+        });
+    }
+    /*]]>*/
+</script>
+
+</body>
+</html>

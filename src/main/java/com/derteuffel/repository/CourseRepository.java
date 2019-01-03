@@ -17,4 +17,5 @@ import java.util.List;
 @Repository
 public interface CourseRepository extends PagingAndSortingRepository<Course, Long> {
     Page<Course> findAllByDomainOrderByCourseIdDesc(String domain, Pageable pageable);
+
 }

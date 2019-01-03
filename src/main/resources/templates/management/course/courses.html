@@ -22,7 +22,7 @@
 
 <div style="height: 100%">
     <nav class="nav" style="width: 100%">
-        <a th:href="@{/deals}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+        <a th:href="@{/groupe/groupes}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
         <h2 class="text-center col-11 offset-1" style="padding-top: 0.5rem;">Formation Professionel</h2>
     </nav>
         <br>
@@ -111,26 +111,29 @@
                                 </div>
                                 <div class="col-lg-2" style="padding: 10px">
                                     <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
-                                        <span class="badge badge-light" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-circle-right"></i></span>
+                                        <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div><br>
                 </div>
-                <div class="pagination-div">
+                <div class="pagination-div" style="display: none;">
                     <span th:if="${courses1.hasPrevious()}">
-                        <a th:href="@{/course/all(courses1=${courses1.number-1},size=${courses1.size})}">Previous</a>
+                        <a th:href="@{/management/course/all(courses1=${courses1.number-1},size=${courses1.size})}">Previous</a>
                     </span>
                     <th:block th:each="i: ${#numbers.sequence(0, courses1.totalPages - 1)}">
                         <span th:if="${courses1.number == i}" class="selected">[[${i}+1]]</span>
                         <span th:unless="${courses1.number == i}">
-                             <a th:href="@{/course/all(courses1=${i},size=${courses1.size})}">[[${i}+1]]</a>
-                        </span>
+                            <a th:href="@{/management/course/all(courses1=${i},size=${courses1.size})}">[[${i}+1]]</a>
+                         </span>
                     </th:block>
                     <span th:if="${courses1.hasNext()}">
-                        <a th:href="@{/course/all(courses1=${courses1.number+1},size=${courses1.size})}">Next</a>
+                        <a th:href="@{/management/course/all(courses1=${courses1.number+1},size=${courses1.size})}">Next</a>
                     </span>
+                </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/course/admin}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -204,7 +207,6 @@
                     </div>
                 </div>
             </div>
-            <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/management/course/form}" style="bottom: 5rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
             <!-- ##### Footer Area Start ##### -->
             <footer class="footer-area">
                 <!-- Top Footer Area -->
@@ -246,7 +248,7 @@
         <div id="language" class="container tab-pane fade"><br>
             <h3 class="my-4 text-center sticky">Anglais et/ou Francais</h3>
             <div class="row mb-4">
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
                         <div class="card-body text-center">
@@ -255,16 +257,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card" style="height: 300px;">
-                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
-                        <div class="card-body text-center">
-                            <h2><span class="counter text-primary">123</span></h2>
-                            <h5>Tuteurs dédiés</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
@@ -273,11 +266,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">56</span></h2>
+                            <h2><span class="counter text-primary" th:text="${courses2Size}"></span></h2>
                             <h5>Cours disponibles</h5>
                         </div>
                     </div>
@@ -291,178 +284,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="row my-2">
+                <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses2}">
+                        <div class="card">
+                            <div class=" row" style="margin-left: 0; margin-right: 0">
+                                <div class="col-lg-2" style="padding:20px">
+                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
                                 </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
+                                <div class="col-lg-8" style="padding:10px">
+                                    <span th:text="${course.title}"></span>
                                 </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" class="free">Free</a>
+                                <div class="col-lg-2" style="padding: 10px">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
+                                        <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$5.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$10.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div><br>
                 </div>
-            </div>
-            <div class="container" style="padding-top: 30px;">
-                <div class="row">
-                    <div class="col-12 bg-primary card">
-                        <div class="section-heading">
-                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
-                        </div>
-                    </div>
+                <div class="pagination-div" style="display: none;">
+                    <span th:if="${courses2.hasPrevious()}">
+                        <a th:href="@{/management/course/all(courses2=${courses2.number-1},size=${courses2.size})}">Previous</a>
+                    </span>
+                    <th:block th:each="i: ${#numbers.sequence(0, courses2.totalPages - 1)}">
+                        <span th:if="${courses2.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${courses2.number == i}">
+                            <a th:href="@{/management/course/all(courses2=${i},size=${courses2.size})}">[[${i}+1]]</a>
+                         </span>
+                    </th:block>
+                    <span th:if="${courses2.hasNext()}">
+                        <a th:href="@{/management/course/all(courses2=${courses2.number+1},size=${courses2.size})}">Next</a>
+                    </span>
                 </div>
-                <div class="row my-2">
-                    <div class="row mb-4">
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card " style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/course/language}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -577,7 +434,7 @@
         <div id="it" class="container tab-pane fade"><br>
             <h3 class="my-4 text-center sticky">IT</h3>
             <div class="row mb-4">
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
                         <div class="card-body text-center">
@@ -586,16 +443,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card" style="height: 300px;">
-                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
-                        <div class="card-body text-center">
-                            <h2><span class="counter text-primary">123</span></h2>
-                            <h5>Tuteurs dédiés</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
@@ -604,11 +452,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">56</span></h2>
+                            <h2><span class="counter text-primary" th:text="${courses3Size}"></span></h2>
                             <h5>Cours disponibles</h5>
                         </div>
                     </div>
@@ -622,95 +470,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="row my-2">
+                <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses3}">
+                        <div class="card">
+                            <div class=" row" style="margin-left: 0; margin-right: 0">
+                                <div class="col-lg-2" style="padding:20px">
+                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
                                 </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
+                                <div class="col-lg-8" style="padding:10px">
+                                    <span th:text="${course.title}"></span>
                                 </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" class="free">Free</a>
+                                <div class="col-lg-2" style="padding: 10px">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
+                                        <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$5.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$10.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div><br>
+                </div>
+                <div class="pagination-div" style="display: none;">
+                    <span th:if="${courses3.hasPrevious()}">
+                        <a th:href="@{/management/course/all(courses3=${courses3.number-1},size=${courses3.size})}">Previous</a>
+                    </span>
+                    <th:block th:each="i: ${#numbers.sequence(0, courses3.totalPages - 1)}">
+                        <span th:if="${courses3.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${courses3.number == i}">
+                            <a th:href="@{/management/course/all(courses3=${i},size=${courses3.size})}">[[${i}+1]]</a>
+                         </span>
+                    </th:block>
+                    <span th:if="${courses3.hasNext()}">
+                        <a th:href="@{/management/course/all(courses3=${courses3.number+1},size=${courses3.size})}">Next</a>
+                    </span>
+                </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/course/it}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px;">
@@ -908,7 +703,7 @@
         <div id="logistique" class="container tab-pane fade"><br>
             <h3 class="my-4 text-center sticky">Logistique</h3>
             <div class="row mb-4">
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
                         <div class="card-body text-center">
@@ -917,16 +712,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card" style="height: 300px;">
-                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
-                        <div class="card-body text-center">
-                            <h2><span class="counter text-primary">123</span></h2>
-                            <h5>Tuteurs dédiés</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
@@ -935,11 +721,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">56</span></h2>
+                            <h2><span class="counter text-primary" th:text="${courses4Size}"></span></h2>
                             <h5>Cours disponibles</h5>
                         </div>
                     </div>
@@ -953,178 +739,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="row my-2">
+                <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses4}">
+                        <div class="card">
+                            <div class=" row" style="margin-left: 0; margin-right: 0">
+                                <div class="col-lg-2" style="padding:20px">
+                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
                                 </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
+                                <div class="col-lg-8" style="padding:10px">
+                                    <span th:text="${course.title}"></span>
                                 </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" class="free">Free</a>
+                                <div class="col-lg-2" style="padding: 10px">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
+                                        <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$5.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$10.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div><br>
                 </div>
-            </div>
-            <div class="container" style="padding-top: 30px;">
-                <div class="row">
-                    <div class="col-12 bg-primary card">
-                        <div class="section-heading">
-                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
-                        </div>
-                    </div>
+                <div class="pagination-div" style="display: none;">
+                    <span th:if="${courses4.hasPrevious()}">
+                        <a th:href="@{/management/course/all(courses4=${courses4.number-1},size=${courses4.size})}">Previous</a>
+                    </span>
+                    <th:block th:each="i: ${#numbers.sequence(0, courses4.totalPages - 1)}">
+                        <span th:if="${courses4.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${courses4.number == i}">
+                            <a th:href="@{/management/course/all(courses4=${i},size=${courses4.size})}">[[${i}+1]]</a>
+                         </span>
+                    </th:block>
+                    <span th:if="${courses4.hasNext()}">
+                        <a th:href="@{/management/course/all(courses4=${courses4.number+1},size=${courses4.size})}">Next</a>
+                    </span>
                 </div>
-                <div class="row my-2">
-                    <div class="row mb-4">
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card " style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/course/logistique}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -1239,7 +889,7 @@
         <div id="protection" class="container tab-pane fade"><br>
             <h3 class="my-4 text-center sticky">Protection</h3>
             <div class="row mb-4">
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
                         <div class="card-body text-center">
@@ -1248,16 +898,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card" style="height: 300px;">
-                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
-                        <div class="card-body text-center">
-                            <h2><span class="counter text-primary">123</span></h2>
-                            <h5>Tuteurs dédiés</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
@@ -1266,11 +907,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">56</span></h2>
+                            <h2><span class="counter text-primary" th:text="${courses5Size}"></span></h2>
                             <h5>Cours disponibles</h5>
                         </div>
                     </div>
@@ -1284,178 +925,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="row my-2">
+                <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses5}">
+                        <div class="card">
+                            <div class=" row" style="margin-left: 0; margin-right: 0">
+                                <div class="col-lg-2" style="padding:20px">
+                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
                                 </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
+                                <div class="col-lg-8" style="padding:10px">
+                                    <span th:text="${course.title}"></span>
                                 </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" class="free">Free</a>
+                                <div class="col-lg-2" style="padding: 10px">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
+                                        <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$5.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$10.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div><br>
                 </div>
-            </div>
-            <div class="container" style="padding-top: 30px;">
-                <div class="row">
-                    <div class="col-12 bg-primary card">
-                        <div class="section-heading">
-                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
-                        </div>
-                    </div>
+                <div class="pagination-div" style="display: none;">
+                    <span th:if="${courses5.hasPrevious()}">
+                        <a th:href="@{/management/course/all(courses3=${courses5.number-1},size=${courses5.size})}">Previous</a>
+                    </span>
+                    <th:block th:each="i: ${#numbers.sequence(0, courses5.totalPages - 1)}">
+                        <span th:if="${courses5.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${courses5.number == i}">
+                            <a th:href="@{/management/course/all(courses5=${i},size=${courses5.size})}">[[${i}+1]]</a>
+                         </span>
+                    </th:block>
+                    <span th:if="${courses5.hasNext()}">
+                        <a th:href="@{/management/course/all(courses5=${courses5.number+1},size=${courses5.size})}">Next</a>
+                    </span>
                 </div>
-                <div class="row my-2">
-                    <div class="row mb-4">
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card " style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/course/protection}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -1570,7 +1075,7 @@
         <div id="rh" class="container tab-pane fade"><br>
             <h3 class="my-4 text-center sticky">Resources Humaines</h3>
             <div class="row mb-4">
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
                         <div class="card-body text-center">
@@ -1579,16 +1084,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card" style="height: 300px;">
-                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
-                        <div class="card-body text-center">
-                            <h2><span class="counter text-primary">123</span></h2>
-                            <h5>Tuteurs dédiés</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
@@ -1597,11 +1093,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">56</span></h2>
+                            <h2><span class="counter text-primary" th:text="${courses6Size}"></span></h2>
                             <h5>Cours disponibles</h5>
                         </div>
                     </div>
@@ -1615,178 +1111,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="row my-2">
+                <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses6}">
+                        <div class="card">
+                            <div class=" row" style="margin-left: 0; margin-right: 0">
+                                <div class="col-lg-2" style="padding:20px">
+                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
                                 </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
+                                <div class="col-lg-8" style="padding:10px">
+                                    <span th:text="${course.title}"></span>
                                 </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" class="free">Free</a>
+                                <div class="col-lg-2" style="padding: 10px">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
+                                        <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$5.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$10.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div><br>
                 </div>
-            </div>
-            <div class="container" style="padding-top: 30px;">
-                <div class="row">
-                    <div class="col-12 bg-primary card">
-                        <div class="section-heading">
-                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
-                        </div>
-                    </div>
+                <div class="pagination-div" style="display: none;">
+                    <span th:if="${courses6.hasPrevious()}">
+                        <a th:href="@{/management/course/all(courses6=${courses6.number-1},size=${courses6.size})}">Previous</a>
+                    </span>
+                    <th:block th:each="i: ${#numbers.sequence(0, courses6.totalPages - 1)}">
+                        <span th:if="${courses6.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${courses6.number == i}">
+                            <a th:href="@{/management/course/all(courses6=${i},size=${courses6.size})}">[[${i}+1]]</a>
+                         </span>
+                    </th:block>
+                    <span th:if="${courses6.hasNext()}">
+                        <a th:href="@{/management/course/all(courses6=${courses6.number+1},size=${courses6.size})}">Next</a>
+                    </span>
                 </div>
-                <div class="row my-2">
-                    <div class="row mb-4">
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card " style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/course/resources}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -1901,7 +1261,7 @@
         <div id="leadership" class="container tab-pane fade"><br>
             <h3 class="my-4 text-center sticky">Leadership</h3>
             <div class="row mb-4">
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
                         <div class="card-body text-center">
@@ -1910,16 +1270,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card" style="height: 300px;">
-                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
-                        <div class="card-body text-center">
-                            <h2><span class="counter text-primary">123</span></h2>
-                            <h5>Tuteurs dédiés</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
@@ -1928,11 +1279,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">56</span></h2>
+                            <h2><span class="counter text-primary" th:text="${courses7Size}"></span></h2>
                             <h5>Cours disponibles</h5>
                         </div>
                     </div>
@@ -1946,178 +1297,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="row my-2">
+                <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses7}">
+                        <div class="card">
+                            <div class=" row" style="margin-left: 0; margin-right: 0">
+                                <div class="col-lg-2" style="padding:20px">
+                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
                                 </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
+                                <div class="col-lg-8" style="padding:10px">
+                                    <span th:text="${course.title}"></span>
                                 </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" class="free">Free</a>
+                                <div class="col-lg-2" style="padding: 10px">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
+                                        <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$5.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$10.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div><br>
                 </div>
-            </div>
-            <div class="container" style="padding-top: 30px;">
-                <div class="row">
-                    <div class="col-12 bg-primary card">
-                        <div class="section-heading">
-                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
-                        </div>
-                    </div>
+                <div class="pagination-div" style="display: none;">
+                    <span th:if="${courses7.hasPrevious()}">
+                        <a th:href="@{/management/course/all(courses7=${courses7.number-1},size=${courses7.size})}">Previous</a>
+                    </span>
+                    <th:block th:each="i: ${#numbers.sequence(0, courses7.totalPages - 1)}">
+                        <span th:if="${courses7.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${courses7.number == i}">
+                            <a th:href="@{/management/course/all(courses7=${i},size=${courses7.size})}">[[${i}+1]]</a>
+                         </span>
+                    </th:block>
+                    <span th:if="${courses7.hasNext()}">
+                        <a th:href="@{/management/course/all(courses7=${courses7.number+1},size=${courses7.size})}">Next</a>
+                    </span>
                 </div>
-                <div class="row my-2">
-                    <div class="row mb-4">
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card " style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/course/leadership}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -2232,7 +1447,7 @@
         <div id="management" class="container tab-pane fade"><br>
             <h3 class="my-4 text-center sticky">Management</h3>
             <div class="row mb-4">
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
                         <div class="card-body text-center">
@@ -2241,16 +1456,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card" style="height: 300px;">
-                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
-                        <div class="card-body text-center">
-                            <h2><span class="counter text-primary">123</span></h2>
-                            <h5>Tuteurs dédiés</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
@@ -2259,11 +1465,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">56</span></h2>
+                            <h2><span class="counter text-primary" th:text="${courses8Size}"></span></h2>
                             <h5>Cours disponibles</h5>
                         </div>
                     </div>
@@ -2277,178 +1483,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="row my-2">
+                <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses7}">
+                        <div class="card">
+                            <div class=" row" style="margin-left: 0; margin-right: 0">
+                                <div class="col-lg-2" style="padding:20px">
+                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
                                 </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
+                                <div class="col-lg-8" style="padding:10px">
+                                    <span th:text="${course.title}"></span>
                                 </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" class="free">Free</a>
+                                <div class="col-lg-2" style="padding: 10px">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
+                                        <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$5.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$10.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div><br>
                 </div>
-            </div>
-            <div class="container" style="padding-top: 30px;">
-                <div class="row">
-                    <div class="col-12 bg-primary card">
-                        <div class="section-heading">
-                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
-                        </div>
-                    </div>
+                <div class="pagination-div" style="display: none;">
+                    <span th:if="${courses8.hasPrevious()}">
+                        <a th:href="@{/management/course/all(courses8=${courses8.number-1},size=${courses8.size})}">Previous</a>
+                    </span>
+                    <th:block th:each="i: ${#numbers.sequence(0, courses8.totalPages - 1)}">
+                        <span th:if="${courses8.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${courses8.number == i}">
+                            <a th:href="@{/management/course/all(courses8=${i},size=${courses8.size})}">[[${i}+1]]</a>
+                         </span>
+                    </th:block>
+                    <span th:if="${courses8.hasNext()}">
+                        <a th:href="@{/management/course/all(courses8=${courses8.number+1},size=${courses8.size})}">Next</a>
+                    </span>
                 </div>
-                <div class="row my-2">
-                    <div class="row mb-4">
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card " style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/course/management}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -2563,7 +1633,7 @@
         <div id="wash" class="container tab-pane fade"><br>
             <h3>Wash</h3>
             <div class="row mb-4">
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
                         <div class="card-body text-center">
@@ -2572,16 +1642,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card" style="height: 300px;">
-                        <img class="card-img-top" th:src="@{/img/core-img/star.png}"  alt="Card image cap">
-                        <div class="card-body text-center">
-                            <h2><span class="counter text-primary">123</span></h2>
-                            <h5>Tuteurs dédiés</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
@@ -2590,11 +1651,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">56</span></h2>
+                            <h2><span class="counter text-primary" th:text="${courses9Size}"></span></h2>
                             <h5>Cours disponibles</h5>
                         </div>
                     </div>
@@ -2608,178 +1669,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="row my-2">
+                <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses7}">
+                        <div class="card">
+                            <div class=" row" style="margin-left: 0; margin-right: 0">
+                                <div class="col-lg-2" style="padding:20px">
+                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
                                 </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
+                                <div class="col-lg-8" style="padding:10px">
+                                    <span th:text="${course.title}"></span>
                                 </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" class="free">Free</a>
+                                <div class="col-lg-2" style="padding: 10px">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
+                                        <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$5.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class=" card">
-                            <img class="card-image-top" th:src="@{/images/default.png}">
-                            <!-- Course Content -->
-                            <div class="course-content">
-                                <h4>Titre de l'unite</h4>
-                                <div class="meta d-flex align-items-center">
-                                    <a th:href="@{#}">Nom du formateur</a>
-                                    <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                    <a th:href="@{#}">Unite d'enseignement</a>
-                                </div>
-                                <p>Ici breve description du contenu du cours</p>
-                            </div>
-                            <!-- Seat Rating Fee -->
-                            <div class="seat-rating-fee d-flex justify-content-between">
-                                <div class="seat-rating h-100 d-flex align-items-center">
-                                    <div class="seat">
-                                        <a><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;10
-                                    </div>
-                                    <div class="rating">
-                                        <a><i class="fa fa-star" aria-hidden="true"></i></a>&nbsp;4.5
-                                    </div>
-                                </div>
-                                <div class="course-fee h-100">
-                                    <a th:href="@{/school/course/detail}" >$10.99</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div><br>
                 </div>
-            </div>
-            <div class="container" style="padding-top: 30px;">
-                <div class="row">
-                    <div class="col-12 bg-primary card">
-                        <div class="section-heading">
-                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
-                        </div>
-                    </div>
+                <div class="pagination-div" style="display: none;">
+                    <span th:if="${courses9.hasPrevious()}">
+                        <a th:href="@{/management/course/all(courses9=${courses9.number-1},size=${courses9.size})}">Previous</a>
+                    </span>
+                    <th:block th:each="i: ${#numbers.sequence(0, courses9.totalPages - 1)}">
+                        <span th:if="${courses9.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${courses9.number == i}">
+                            <a th:href="@{/management/course/all(courses9=${i},size=${courses9.size})}">[[${i}+1]]</a>
+                         </span>
+                    </th:block>
+                    <span th:if="${courses9.hasNext()}">
+                        <a th:href="@{/management/course/all(courses9=${courses9.number+1},size=${courses9.size})}">Next</a>
+                    </span>
                 </div>
-                <div class="row my-2">
-                    <div class="row mb-4">
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card " style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/course/wash}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -2897,7 +1822,5 @@
 <!-- navigation -->
 <script th:src="@{/js/dashboard.js}"></script>
 <!-- script -->
-<!-- ##### All Javascript Script ##### -->
-
 </body>
 </html>
