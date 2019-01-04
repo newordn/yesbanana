@@ -8,10 +8,8 @@
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
     <link th:href="@{/css/myStyle.css}" rel="stylesheet">
     <link th:href="@{/css/addTheses.css}" rel="stylesheet">
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
+          integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
     <!-- Bootstrap CSS-->
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
@@ -66,30 +64,30 @@
                     <div th:if="${courses.totalPages != 1}"
                          class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
                         <ul class="pagination">
-                            <li th:class="${courses.number == 0} ? disabled" ><a
-                                    class="pageLink"
-                                    th:href="@{/management/course/resources(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            <li th:class="${courses.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=1)}">«</a>
                             </li>
-                            <li th:class="${courses.number == 0} ? disabled" ><a
-                                    class="pageLink"
-                                    th:href="@{/management/course/resources(pageSize=${selectedPageSize}, page=${courses.number})}">←</a>
+                            <li th:class="${courses.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=${courses.number})}">←</a>
                             </li>
                             <li
                                     th:class="${courses.number == (page - 1)} ? 'active pointer-disabled'"
-                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" >
-                                <a class="pageLink"
-                                   th:href="@{/management/course/resources(pageSize=${selectedPageSize}, page=${page})}"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                                <a class="page-link"
+                                   th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=${page})}"
                                    th:text="${page}"></a>
                             </li>
                             <li
-                                    th:class="${courses.number + 1 == courses.totalPages} ? disabled" >
-                                <a class="pageLink"
-                                   th:href="@{/management/course/resources(pageSize=${selectedPageSize}, page=${courses.number + 2})}">→</a>
+                                    th:class="${courses.number + 1 == courses.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=${courses.number + 2})}">→</a>
                             </li>
                             <li
-                                    th:class="${courses.number + 1 == courses.totalPages} ? disabled" >
-                                <a class="pageLink"
-                                   th:href="@{/management/course/resources(pageSize=${selectedPageSize}, page=${courses.totalPages})}">»</a>
+                                    th:class="${courses.number + 1 == courses.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=${courses.totalPages})}">»</a>
                             </li>
                         </ul>
                     </div>

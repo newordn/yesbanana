@@ -1162,7 +1162,7 @@ public class ManagementController {
         session.setAttribute("courseId",courseId);
         Optional<Course> optional= courseRepository.findById(courseId);
         List<Period> periods= periodRepository.findAllByCourses(optional.get().getCourseId());
-        model.addAttribute("templates/course", optional.get());
+        model.addAttribute("course", optional.get());
         model.addAttribute("periods", periods);
         return "management/course/course";
     }
