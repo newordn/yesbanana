@@ -100,7 +100,7 @@
                 </div>
                 <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="templates.course : ${courses1}">
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses1}">
                         <div class="card">
                             <div class=" row" style="margin-left: 0; margin-right: 0">
                                 <div class="col-lg-2" style="padding:20px">
@@ -110,7 +110,7 @@
                                     <span th:text="${course.title}"></span>
                                 </div>
                                 <div class="col-lg-2" style="padding: 10px">
-                                    <a  th:href="@{/management/templates.course/get/}+${course.courseId}" style="padding: 0">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
                                         <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
                                     </a>
                                 </div>
@@ -120,20 +120,20 @@
                 </div>
                 <div class="pagination-div" style="display: none;">
                     <span th:if="${courses1.hasPrevious()}">
-                        <a th:href="@{/management/templates.course/all(courses1=${courses1.number-1},size=${courses1.size})}">Previous</a>
+                        <a th:href="@{/management/course/all(courses1=${courses1.number-1},size=${courses1.size})}">Previous</a>
                     </span>
                     <th:block th:each="i: ${#numbers.sequence(0, courses1.totalPages - 1)}">
                         <span th:if="${courses1.number == i}" class="selected">[[${i}+1]]</span>
                         <span th:unless="${courses1.number == i}">
-                            <a th:href="@{/management/templates.course/all(courses1=${i},size=${courses1.size})}">[[${i}+1]]</a>
+                            <a th:href="@{/management/course/all(courses1=${i},size=${courses1.size})}">[[${i}+1]]</a>
                          </span>
                     </th:block>
                     <span th:if="${courses1.hasNext()}">
-                        <a th:href="@{/management/templates.course/all(courses1=${courses1.number+1},size=${courses1.size})}">Next</a>
+                        <a th:href="@{/management/course/all(courses1=${courses1.number+1},size=${courses1.size})}">Next</a>
                     </span>
                 </div>
                 <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
-                    <a class="btn btn-primary" th:href="@{/management/templates.course/admin}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                    <a class="btn btn-primary" th:href="@{/management/course/admin}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -286,7 +286,7 @@
                 </div>
                 <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="templates.course : ${courses2}">
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses2}">
                         <div class="card">
                             <div class=" row" style="margin-left: 0; margin-right: 0">
                                 <div class="col-lg-2" style="padding:20px">
@@ -296,7 +296,7 @@
                                     <span th:text="${course.title}"></span>
                                 </div>
                                 <div class="col-lg-2" style="padding: 10px">
-                                    <a  th:href="@{/management/templates.course/get/}+${course.courseId}" style="padding: 0">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
                                         <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
                                     </a>
                                 </div>
@@ -306,20 +306,20 @@
                 </div>
                 <div class="pagination-div" style="display: none;">
                     <span th:if="${courses2.hasPrevious()}">
-                        <a th:href="@{/management/templates.course/all(courses2=${courses2.number-1},size=${courses2.size})}">Previous</a>
+                        <a th:href="@{/management/course/all(courses2=${courses2.number-1},size=${courses2.size})}">Previous</a>
                     </span>
                     <th:block th:each="i: ${#numbers.sequence(0, courses2.totalPages - 1)}">
                         <span th:if="${courses2.number == i}" class="selected">[[${i}+1]]</span>
                         <span th:unless="${courses2.number == i}">
-                            <a th:href="@{/management/templates.course/all(courses2=${i},size=${courses2.size})}">[[${i}+1]]</a>
+                            <a th:href="@{/management/course/all(courses2=${i},size=${courses2.size})}">[[${i}+1]]</a>
                          </span>
                     </th:block>
                     <span th:if="${courses2.hasNext()}">
-                        <a th:href="@{/management/templates.course/all(courses2=${courses2.number+1},size=${courses2.size})}">Next</a>
+                        <a th:href="@{/management/course/all(courses2=${courses2.number+1},size=${courses2.size})}">Next</a>
                     </span>
                 </div>
                 <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
-                    <a class="btn btn-primary" th:href="@{/management/templates.course/language}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                    <a class="btn btn-primary" th:href="@{/management/course/language}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -472,7 +472,7 @@
                 </div>
                 <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="templates.course : ${courses3}">
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses3}">
                         <div class="card">
                             <div class=" row" style="margin-left: 0; margin-right: 0">
                                 <div class="col-lg-2" style="padding:20px">
@@ -492,103 +492,20 @@
                 </div>
                 <div class="pagination-div" style="display: none;">
                     <span th:if="${courses3.hasPrevious()}">
-                        <a th:href="@{/management/templates.course/all(courses3=${courses3.number-1},size=${courses3.size})}">Previous</a>
+                        <a th:href="@{/management/course/all(courses3=${courses3.number-1},size=${courses3.size})}">Previous</a>
                     </span>
                     <th:block th:each="i: ${#numbers.sequence(0, courses3.totalPages - 1)}">
                         <span th:if="${courses3.number == i}" class="selected">[[${i}+1]]</span>
                         <span th:unless="${courses3.number == i}">
-                            <a th:href="@{/management/templates.course/all(courses3=${i},size=${courses3.size})}">[[${i}+1]]</a>
+                            <a th:href="@{/management/course/all(courses3=${i},size=${courses3.size})}">[[${i}+1]]</a>
                          </span>
                     </th:block>
                     <span th:if="${courses3.hasNext()}">
-                        <a th:href="@{/management/templates.course/all(courses3=${courses3.number+1},size=${courses3.size})}">Next</a>
+                        <a th:href="@{/management/course/all(courses3=${courses3.number+1},size=${courses3.size})}">Next</a>
                     </span>
                 </div>
                 <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
-                    <a class="btn btn-primary" th:href="@{/management/templates.course/it}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
-                </div>
-            </div>
-            <div class="container" style="padding-top: 30px;">
-                <div class="row">
-                    <div class="col-12 bg-primary card">
-                        <div class="section-heading">
-                            <h3 class="text-white " style="padding-top: 1.5rem;">Equipe d'acomppagnement de la Région</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="row my-2">
-                    <div class="row mb-4">
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card " style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top"  th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;" alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-4 col-lg-3 my-2">
-                            <div class="card" style="height: 300px;">
-                                <img class="card-img-top" th:src="@{/images/default-profile.png}" style="height: 150px;"  alt="Card image cap">
-                                <div class="card-body text-center">
-                                    <h5>Nom de l'encadreur</h5>
-                                    <span>Titre de l'unité</span>
-                                    <div class="social-info">
-                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <a class="btn btn-primary" th:href="@{/management/course/it}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -741,7 +658,7 @@
                 </div>
                 <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="templates.course : ${courses4}">
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses4}">
                         <div class="card">
                             <div class=" row" style="margin-left: 0; margin-right: 0">
                                 <div class="col-lg-2" style="padding:20px">
@@ -751,7 +668,7 @@
                                     <span th:text="${course.title}"></span>
                                 </div>
                                 <div class="col-lg-2" style="padding: 10px">
-                                    <a  th:href="@{/management/templates.course/get/}+${course.courseId}" style="padding: 0">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
                                         <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
                                     </a>
                                 </div>
@@ -761,20 +678,20 @@
                 </div>
                 <div class="pagination-div" style="display: none;">
                     <span th:if="${courses4.hasPrevious()}">
-                        <a th:href="@{/management/templates.course/all(courses4=${courses4.number-1},size=${courses4.size})}">Previous</a>
+                        <a th:href="@{/management/course/all(courses4=${courses4.number-1},size=${courses4.size})}">Previous</a>
                     </span>
                     <th:block th:each="i: ${#numbers.sequence(0, courses4.totalPages - 1)}">
                         <span th:if="${courses4.number == i}" class="selected">[[${i}+1]]</span>
                         <span th:unless="${courses4.number == i}">
-                            <a th:href="@{/management/templates.course/all(courses4=${i},size=${courses4.size})}">[[${i}+1]]</a>
+                            <a th:href="@{/management/course/all(courses4=${i},size=${courses4.size})}">[[${i}+1]]</a>
                          </span>
                     </th:block>
                     <span th:if="${courses4.hasNext()}">
-                        <a th:href="@{/management/templates.course/all(courses4=${courses4.number+1},size=${courses4.size})}">Next</a>
+                        <a th:href="@{/management/course/all(courses4=${courses4.number+1},size=${courses4.size})}">Next</a>
                     </span>
                 </div>
                 <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
-                    <a class="btn btn-primary" th:href="@{/management/templates.course/logistique}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                    <a class="btn btn-primary" th:href="@{/management/course/logistique}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -927,7 +844,7 @@
                 </div>
                 <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="templates.course : ${courses5}">
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses5}">
                         <div class="card">
                             <div class=" row" style="margin-left: 0; margin-right: 0">
                                 <div class="col-lg-2" style="padding:20px">
@@ -937,7 +854,7 @@
                                     <span th:text="${course.title}"></span>
                                 </div>
                                 <div class="col-lg-2" style="padding: 10px">
-                                    <a  th:href="@{/management/templates.course/get/}+${course.courseId}" style="padding: 0">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
                                         <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
                                     </a>
                                 </div>
@@ -947,20 +864,20 @@
                 </div>
                 <div class="pagination-div" style="display: none;">
                     <span th:if="${courses5.hasPrevious()}">
-                        <a th:href="@{/management/templates.course/all(courses3=${courses5.number-1},size=${courses5.size})}">Previous</a>
+                        <a th:href="@{/management/course/all(courses3=${courses5.number-1},size=${courses5.size})}">Previous</a>
                     </span>
                     <th:block th:each="i: ${#numbers.sequence(0, courses5.totalPages - 1)}">
                         <span th:if="${courses5.number == i}" class="selected">[[${i}+1]]</span>
                         <span th:unless="${courses5.number == i}">
-                            <a th:href="@{/management/templates.course/all(courses5=${i},size=${courses5.size})}">[[${i}+1]]</a>
+                            <a th:href="@{/management/course/all(courses5=${i},size=${courses5.size})}">[[${i}+1]]</a>
                          </span>
                     </th:block>
                     <span th:if="${courses5.hasNext()}">
-                        <a th:href="@{/management/templates.course/all(courses5=${courses5.number+1},size=${courses5.size})}">Next</a>
+                        <a th:href="@{/management/course/all(courses5=${courses5.number+1},size=${courses5.size})}">Next</a>
                     </span>
                 </div>
                 <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
-                    <a class="btn btn-primary" th:href="@{/management/templates.course/protection}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                    <a class="btn btn-primary" th:href="@{/management/course/protection}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -1113,7 +1030,7 @@
                 </div>
                 <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="templates.course : ${courses6}">
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses6}">
                         <div class="card">
                             <div class=" row" style="margin-left: 0; margin-right: 0">
                                 <div class="col-lg-2" style="padding:20px">
@@ -1123,7 +1040,7 @@
                                     <span th:text="${course.title}"></span>
                                 </div>
                                 <div class="col-lg-2" style="padding: 10px">
-                                    <a  th:href="@{/management/templates.course/get/}+${course.courseId}" style="padding: 0">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
                                         <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
                                     </a>
                                 </div>
@@ -1133,20 +1050,20 @@
                 </div>
                 <div class="pagination-div" style="display: none;">
                     <span th:if="${courses6.hasPrevious()}">
-                        <a th:href="@{/management/templates.course/all(courses6=${courses6.number-1},size=${courses6.size})}">Previous</a>
+                        <a th:href="@{/management/course/all(courses6=${courses6.number-1},size=${courses6.size})}">Previous</a>
                     </span>
                     <th:block th:each="i: ${#numbers.sequence(0, courses6.totalPages - 1)}">
                         <span th:if="${courses6.number == i}" class="selected">[[${i}+1]]</span>
                         <span th:unless="${courses6.number == i}">
-                            <a th:href="@{/management/templates.course/all(courses6=${i},size=${courses6.size})}">[[${i}+1]]</a>
+                            <a th:href="@{/management/course/all(courses6=${i},size=${courses6.size})}">[[${i}+1]]</a>
                          </span>
                     </th:block>
                     <span th:if="${courses6.hasNext()}">
-                        <a th:href="@{/management/templates.course/all(courses6=${courses6.number+1},size=${courses6.size})}">Next</a>
+                        <a th:href="@{/management/course/all(courses6=${courses6.number+1},size=${courses6.size})}">Next</a>
                     </span>
                 </div>
                 <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
-                    <a class="btn btn-primary" th:href="@{/management/templates.course/resources}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                    <a class="btn btn-primary" th:href="@{/management/course/resources}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -1299,7 +1216,7 @@
                 </div>
                 <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="templates.course : ${courses7}">
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses7}">
                         <div class="card">
                             <div class=" row" style="margin-left: 0; margin-right: 0">
                                 <div class="col-lg-2" style="padding:20px">
@@ -1309,7 +1226,7 @@
                                     <span th:text="${course.title}"></span>
                                 </div>
                                 <div class="col-lg-2" style="padding: 10px">
-                                    <a  th:href="@{/management/templates.course/get/}+${course.courseId}" style="padding: 0">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
                                         <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
                                     </a>
                                 </div>
@@ -1319,20 +1236,20 @@
                 </div>
                 <div class="pagination-div" style="display: none;">
                     <span th:if="${courses7.hasPrevious()}">
-                        <a th:href="@{/management/templates.course/all(courses7=${courses7.number-1},size=${courses7.size})}">Previous</a>
+                        <a th:href="@{/management/course/all(courses7=${courses7.number-1},size=${courses7.size})}">Previous</a>
                     </span>
                     <th:block th:each="i: ${#numbers.sequence(0, courses7.totalPages - 1)}">
                         <span th:if="${courses7.number == i}" class="selected">[[${i}+1]]</span>
                         <span th:unless="${courses7.number == i}">
-                            <a th:href="@{/management/templates.course/all(courses7=${i},size=${courses7.size})}">[[${i}+1]]</a>
+                            <a th:href="@{/management/course/all(courses7=${i},size=${courses7.size})}">[[${i}+1]]</a>
                          </span>
                     </th:block>
                     <span th:if="${courses7.hasNext()}">
-                        <a th:href="@{/management/templates.course/all(courses7=${courses7.number+1},size=${courses7.size})}">Next</a>
+                        <a th:href="@{/management/course/all(courses7=${courses7.number+1},size=${courses7.size})}">Next</a>
                     </span>
                 </div>
                 <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
-                    <a class="btn btn-primary" th:href="@{/management/templates.course/leadership}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                    <a class="btn btn-primary" th:href="@{/management/course/leadership}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -1485,7 +1402,7 @@
                 </div>
                 <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="templates.course : ${courses7}">
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses7}">
                         <div class="card">
                             <div class=" row" style="margin-left: 0; margin-right: 0">
                                 <div class="col-lg-2" style="padding:20px">
@@ -1495,7 +1412,7 @@
                                     <span th:text="${course.title}"></span>
                                 </div>
                                 <div class="col-lg-2" style="padding: 10px">
-                                    <a  th:href="@{/management/templates.course/get/}+${course.courseId}" style="padding: 0">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
                                         <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
                                     </a>
                                 </div>
@@ -1505,20 +1422,20 @@
                 </div>
                 <div class="pagination-div" style="display: none;">
                     <span th:if="${courses8.hasPrevious()}">
-                        <a th:href="@{/management/templates.course/all(courses8=${courses8.number-1},size=${courses8.size})}">Previous</a>
+                        <a th:href="@{/management/course/all(courses8=${courses8.number-1},size=${courses8.size})}">Previous</a>
                     </span>
                     <th:block th:each="i: ${#numbers.sequence(0, courses8.totalPages - 1)}">
                         <span th:if="${courses8.number == i}" class="selected">[[${i}+1]]</span>
                         <span th:unless="${courses8.number == i}">
-                            <a th:href="@{/management/templates.course/all(courses8=${i},size=${courses8.size})}">[[${i}+1]]</a>
+                            <a th:href="@{/management/course/all(courses8=${i},size=${courses8.size})}">[[${i}+1]]</a>
                          </span>
                     </th:block>
                     <span th:if="${courses8.hasNext()}">
-                        <a th:href="@{/management/templates.course/all(courses8=${courses8.number+1},size=${courses8.size})}">Next</a>
+                        <a th:href="@{/management/course/all(courses8=${courses8.number+1},size=${courses8.size})}">Next</a>
                     </span>
                 </div>
                 <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
-                    <a class="btn btn-primary" th:href="@{/management/templates.course/management}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                    <a class="btn btn-primary" th:href="@{/management/course/management}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
@@ -1671,7 +1588,7 @@
                 </div>
                 <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="templates.course : ${courses7}">
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses7}">
                         <div class="card">
                             <div class=" row" style="margin-left: 0; margin-right: 0">
                                 <div class="col-lg-2" style="padding:20px">
@@ -1681,7 +1598,7 @@
                                     <span th:text="${course.title}"></span>
                                 </div>
                                 <div class="col-lg-2" style="padding: 10px">
-                                    <a  th:href="@{/management/templates.course/get/}+${course.courseId}" style="padding: 0">
+                                    <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
                                         <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
                                     </a>
                                 </div>
@@ -1691,20 +1608,20 @@
                 </div>
                 <div class="pagination-div" style="display: none;">
                     <span th:if="${courses9.hasPrevious()}">
-                        <a th:href="@{/management/templates.course/all(courses9=${courses9.number-1},size=${courses9.size})}">Previous</a>
+                        <a th:href="@{/management/course/all(courses9=${courses9.number-1},size=${courses9.size})}">Previous</a>
                     </span>
                     <th:block th:each="i: ${#numbers.sequence(0, courses9.totalPages - 1)}">
                         <span th:if="${courses9.number == i}" class="selected">[[${i}+1]]</span>
                         <span th:unless="${courses9.number == i}">
-                            <a th:href="@{/management/templates.course/all(courses9=${i},size=${courses9.size})}">[[${i}+1]]</a>
+                            <a th:href="@{/management/course/all(courses9=${i},size=${courses9.size})}">[[${i}+1]]</a>
                          </span>
                     </th:block>
                     <span th:if="${courses9.hasNext()}">
-                        <a th:href="@{/management/templates.course/all(courses9=${courses9.number+1},size=${courses9.size})}">Next</a>
+                        <a th:href="@{/management/course/all(courses9=${courses9.number+1},size=${courses9.size})}">Next</a>
                     </span>
                 </div>
                 <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
-                    <a class="btn btn-primary" th:href="@{/management/templates.course/wash}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                    <a class="btn btn-primary" th:href="@{/management/course/wash}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
