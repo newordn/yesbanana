@@ -96,7 +96,7 @@
                                 <li><a th:if="${session.userRole=='root'}" th:href="@{/stats}" sec:authorize="hasRole('root')">Statistiques</a></li>
                                 <li><a th:if="${session.userRole=='root'}" th:href="@{/management/countries/parameter}" sec:authorize="hasRole('root')">Paramètres</a></li>
                                 <li><a th:if="${session.userRole=='root'}" th:href="@{/management/countries/visitor}" sec:authorize="hasRole('root')">Visiteurs</a></li>
-                                <li><a th:if="${session.userRole=='root'}" th:href="@{/management/course/all}" sec:authorize="hasRole('root')">Formations</a></li>
+                                <li><a th:if="${session.userRole=='root'}" th:href="@{/management/templates.course/all}" sec:authorize="hasRole('root')">Formations</a></li>
                             </ul>
                         </div>
                         <!-- Nav End -->

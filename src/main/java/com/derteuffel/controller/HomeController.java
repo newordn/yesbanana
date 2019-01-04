@@ -667,10 +667,10 @@ public String otherRegion(Model model, @PathVariable Long countryId){
         return new FileUploadRespone(fileName, fileDownloadUri);
     }
 
-    //get one course
-    @GetMapping("/school/course/detail")
+    //get one templates.course
+    @GetMapping("/school/templates.course/detail")
     public String getCourse(){
-        return "training/detail/course";
+        return "training/detail/templates.course";
     }
 
 }

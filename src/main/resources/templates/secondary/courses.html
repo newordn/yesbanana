@@ -67,7 +67,7 @@
                     <div class="card">
                         <h1 class="my-4 text-center ">Cours d'appui</h1>
                         <!-- Blog Post -->
-                        <div class="container" style="width: 90%" th:each="course : ${courses_posts}">
+                        <div class="container" style="width: 90%" th:each="templates.course : ${courses_posts}">
                             <div class="card mb-4">
                                 <img class="card-img-top" th:src="${course.pieces[0]}"  alt="Card image cap">
                                 <hr style="	border-top: 1px solid #8c8b8b;">

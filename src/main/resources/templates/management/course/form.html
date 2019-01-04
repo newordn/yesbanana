@@ -16,7 +16,7 @@
 <div class="container mt-3">
     <div class="card card-body" style="height: 80%; width: 80%;margin-left: 100px">
     <h2 class="text-center">Formulaire d'ajout d'une formation professionnelle</h2>
-    <form th:action="@{/management/course/save}" th:object="${course}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/management/templates.course/save}" th:object="${course}" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="usr">Titre de la formation:</label>
             <input type="text" class="form-control" id="usr" th:field="*{title}">

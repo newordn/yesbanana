@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -849,7 +848,7 @@ public class ManagementController {
         return "management/other";
     }
 
-    //course management methods start
+    //templates.course management methods start
     @GetMapping("/course/form")
     public String addCourse(Model model){
         model.addAttribute("course", new Course());
@@ -897,7 +896,7 @@ public class ManagementController {
         // add pages size
         model.addAttribute("pageSizes", PAGE_SIZES);
         //language
-        //course admin finance
+        //templates.course admin finance
         Page<Course> admin_fin= courseRepository.findAllByDomainOrderByCourseIdDesc("administration et finance", new PageRequest(evalPage, evalPageSize));
         PagerModel pager = new PagerModel(admin_fin.getTotalPages(),admin_fin.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("pager", pager);
@@ -922,7 +921,7 @@ public class ManagementController {
         // add pages size
         model.addAttribute("pageSizes", PAGE_SIZES);
         //language
-        //course it
+        //templates.course it
         Page<Course> it= courseRepository.findAllByDomainOrderByCourseIdDesc("it", new PageRequest(evalPage, evalPageSize));
         PagerModel pager2 = new PagerModel(it.getTotalPages(),it.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("pager", pager2);
@@ -946,7 +945,7 @@ public class ManagementController {
         model.addAttribute("selectedPageSize", evalPageSize);
         // add pages size
         model.addAttribute("pageSizes", PAGE_SIZES);
-        // course logistique
+        // templates.course logistique
         Page<Course> logistiques= courseRepository.findAllByDomainOrderByCourseIdDesc("logistiques", new PageRequest(evalPage, evalPageSize));
         PagerModel pager3 = new PagerModel(logistiques.getTotalPages(),logistiques.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("courses", logistiques);
@@ -1080,9 +1079,9 @@ public class ManagementController {
         Page<Course> courses1= courseRepository.findAllByDomainOrderByCourseIdDesc("administration et finance",pageable);
         //language
         Page<Course> courses2= courseRepository.findAllByDomainOrderByCourseIdDesc("anglais et/ou francais",pageable);
-        //course it
+        //templates.course it
         Page<Course> courses3= courseRepository.findAllByDomainOrderByCourseIdDesc("it",pageable);
-        // course logistique
+        // templates.course logistique
         Page<Course> courses4= courseRepository.findAllByDomainOrderByCourseIdDesc("logistiques", pageable);
         // courses protection
         Page<Course> courses5= courseRepository.findAllByDomainOrderByCourseIdDesc("protection", pageable);
@@ -1163,12 +1162,12 @@ public class ManagementController {
         session.setAttribute("courseId",courseId);
         Optional<Course> optional= courseRepository.findById(courseId);
         List<Period> periods= periodRepository.findAllByCourses(optional.get().getCourseId());
-        model.addAttribute("course", optional.get());
+        model.addAttribute("templates/course", optional.get());
         model.addAttribute("periods", periods);
         return "management/course/course";
     }
 
-    //course management methods end
+    //templates.course management methods end
 
     // period management methods start
     @GetMapping("/period/all")
