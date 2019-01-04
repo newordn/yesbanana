@@ -1131,27 +1131,13 @@ public class ManagementController {
         return new FileUploadRespone(fileName, fileDownloadUri);
     }
 
-    @PostMapping(value = "/course/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String saveCourse(Course course, @RequestParam("files") MultipartFile files){
-
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        ArrayList<String> filesPaths = new ArrayList<String>();
-        for(int i=0;i<pieces.size();i++)
-        {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
-        }
-
-        System.out.println(filesPaths);
-        course.setPieces(filesPaths);
-
+    @PostMapping(value = "/course/save")
+    public String saveCourse(Course course){
         Course course1=courseRepository.save(course);
         return "redirect:/management/course/get/"+ course1.getCourseId();
     }
 
-    @GetMapping("/delete/{courseId}")
+    @GetMapping("/course/delete/{courseId}")
     public String deleteCourse( @PathVariable Long courseId){
         courseRepository.deleteById(courseId);
         return "redirect:/management/course/all";
@@ -1162,6 +1148,12 @@ public class ManagementController {
         session.setAttribute("courseId",courseId);
         Optional<Course> optional= courseRepository.findById(courseId);
         List<Period> periods= periodRepository.findAllByCourses(optional.get().getCourseId());
+        List<Lesson> lessons= new ArrayList<>();
+        for (Period period: periods){
+            List<Lesson> list= period.getLessons();
+            lessons.addAll(list);
+        }
+        System.out.println( lessons);
         model.addAttribute("course", optional.get());
         model.addAttribute("periods", periods);
         return "management/course/course";
@@ -1189,7 +1181,9 @@ public class ManagementController {
     }
 
     @GetMapping("/period/form")
-    public String periodForm(Model model){
+    public String periodForm(Model model, HttpSession session){
+        Long courseId= (Long)session.getAttribute("courseId");
+        model.addAttribute("courseId", courseId);
         model.addAttribute("period",new Period());
         return "management/period/form";
     }
@@ -1199,7 +1193,7 @@ public class ManagementController {
         Optional<Course> course= courseRepository.findById(courseId);
         period.setCourse(course.get());
         Period period1=periodRepository.save(period);
-        return "redirect:/management/period/get/"+ period1.getPeriodId();
+        return "redirect:/management/course/get/"+ courseId;
     }
 
     @DeleteMapping("/period/delete/{periodId}")
@@ -1237,11 +1231,12 @@ public class ManagementController {
 
         System.out.println(filesPaths);
         lesson.setPieces(filesPaths);
+
         Period period= periodRepository.getOne((Long)session.getAttribute("periodId"));
         lesson.setPeriod(period);
 
         Lesson lesson1= lessonRepository.save(lesson);
-        return "redirect:/management/period/get/"+lesson1.getLessonId();
+        return "redirect:/management/period/get/"+(Long)session.getAttribute("periodId");
     }
 
     @DeleteMapping("/lesson/delete/{lessonId}")

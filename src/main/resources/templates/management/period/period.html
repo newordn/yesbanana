@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Contenu d'un cours</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/myStyle.css}" rel="stylesheet">
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
+    <!-- Bootstrap CSS-->
+    <!--link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all"-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+</head>
+<body>
+
+<div class="container">
+    <nav class="nav col-12 row" style="height: 5rem;" >
+        <a th:href="@{/groupe/groupes}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+        <div class="col-11 offset-1 text-center"  style="left: 0;">
+            <h3 class=" text-center " th:text="${period.periodName}"> Sous Titre de la formation ici celon la periode </h3>
+        </div>
+    </nav>
+    <div class="col-12 col-sm-12 col-lg-12" style="margin-top: 5rem;" >
+        <br>
+        <div th:each="lesson : ${lessons}" class="alert-secondary">
+            <h3 class="text-center" th:text="${lesson?.title}">Première leçon</h3>
+            <br>
+            <div class="container">
+                <div class="col-12 col-sm-6 col-lg-12 text-center">
+                    <p th:text="${period?.title}">Première période</p><br>
+                    <img  th:src="${lesson.pieces[0]}" class="rounded card-image-top">
+                    <div class="card-body mt-3" style="width: 750px; margin-left: 8.5rem;">
+                        <p th:text="${lesson.resumes}">With Safari, you learn the way you learn best. Get unlimited access to videos, live online training, learning paths, books, interactive tutorials, and more.
+                        </p><br>
+                        <a class="btn btn-warning" th:href="@{#}" ><i class="fa fa-eye"></i>&nbsp;&nbsp;Commencer la leçon</a><br>
+                            <span style="color: #9fcdff">Carte de credit necessaire</span>
+                    </div>
+                </div>
+            </div >
+                <hr class="style14">
+        </div>
+        <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/management/lesson/form}" style="bottom: 3rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <!-- Top Footer Area -->
+        <div class="top-footer-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Footer Logo -->
+                        <div class="footer-logo">
+                            <a th:href="@{/}"><img th:src="@{/img/core-img/yesb.png}" alt=""></a>
+                        </div>
+                        <!-- Copywrite -->
+                        <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Footer Area -->
+        <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <a href="#"><span>Phone:</span> +237 694 126 158</a>
+                <a href="#"><span>Email:</span> admin@yesbanana.org</a>
+            </div>
+            <!-- Follow Us -->
+            <div class="follow-us">
+                <span>Suivez-nous</span>
+                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+</div>
+</body>
+</html>

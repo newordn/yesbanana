@@ -16,7 +16,7 @@
 <div class="container mt-3">
     <div class="card card-body" style="height: 80%; width: 80%;margin-left: 100px">
     <h2 class="text-center">Formulaire d'ajout d'une formation professionnelle</h2>
-    <form th:action="@{/management/templates.course/save}" th:object="${course}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/management/course/save}" th:object="${course}" method="post" >
         <div class="form-group">
             <label for="usr">Titre de la formation:</label>
             <input type="text" class="form-control" id="usr" th:field="*{title}">
@@ -28,11 +28,6 @@
         <div class="form-group">
             <label for="comment">Description:</label>
             <textarea class="form-control" rows="100" id="comment" th:field="*{description}" style="height: 200px"></textarea>
-        </div>
-        <p>Fichiers relatif a la formation:</p>
-        <div class="custom-file mb-3">
-            <input type="file" multiple class="custom-file-input" id="customFile" name="files">
-            <label class="custom-file-label" for="customFile">Charger vos fichiers</label>
         </div>
         <div class="form-group">
             <label for="sel1">Choisir un domaine de formation:</label>

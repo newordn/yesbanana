@@ -35,6 +35,6 @@ public class PeriodController {
         List<Lesson> lessonList= lessonRepository.findAllByPeriod(optional.get().getPeriodId());
         model.addAttribute("period", optional.get());
         model.addAttribute("lessons", lessonList);
-        return "period/lessons";
+        return "period/period";
     }
 }

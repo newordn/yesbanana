@@ -80,4 +80,5 @@ public class Lesson implements Serializable {
     public void setPeriod(Period period) {
         this.period = period;
     }
+
 }

@@ -18,8 +18,6 @@ public class Course implements Serializable {
     @Column
     private String tutor;
     @Column
-    private ArrayList<String> pieces= new ArrayList<>();
-    @Column
     private double price;
     @Column
     private int views;
@@ -36,13 +34,11 @@ public class Course implements Serializable {
     public Course() {
     }
 
-    public Course(Long courseId, String title, String tutor, ArrayList<String> pieces,
-                  double price, int views, int notes, String description, String domain) {
+    public Course(Long courseId, String title, String tutor, double price, int views, int notes, String description, String domain) {
         this.courseId = courseId;
         this.title = title;
         this.domain= domain;
         this.tutor = tutor;
-        this.pieces = pieces;
         this.price = price;
         this.views = views;
         this.notes = notes;
@@ -80,14 +76,6 @@ public class Course implements Serializable {
 
     public void setTutor(String tutor) {
         this.tutor = tutor;
-    }
-
-    public ArrayList<String> getPieces() {
-        return pieces;
-    }
-
-    public void setPieces(ArrayList<String> pieces) {
-        this.pieces = pieces;
     }
 
     public double getPrice() {
