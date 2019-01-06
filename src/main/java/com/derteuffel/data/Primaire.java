@@ -13,21 +13,16 @@ import java.util.Collection;
  */
 @Entity
 @PrimaryKeyJoinColumn(name = "educationId")
-public class Secondary extends Education implements Serializable {
-
+public class Primaire extends Education implements Serializable {
 
     @ManyToOne
     private Region region;
 
-    public Secondary() {
+    public Primaire() {
     }
-
-
-    public Secondary(String title, String description, Long likes, ArrayList<String> pieces, String type, Collection<Event> events) {
+    public Primaire(String title, String description, Long likes, ArrayList<String> pieces, String type) {
         super(title, description, likes, pieces, type);
     }
-
-
 
     public Region getRegion() {
         return region;

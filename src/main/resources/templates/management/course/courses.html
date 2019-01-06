@@ -59,8 +59,12 @@
 
     <!-- Tab panes -->
     <div class="tab-content" style="margin-top: 4rem; height: inherit; padding: 2rem;">
+        <!-- ADMINISTRATION FINANCES  START -->
         <div id="finances" class="container tab-pane active" style="height: inherit; margin-bottom: inherit"><br>
+            <!-- HEADER TYPE TITLE START -->
             <h3 class="my-4 text-center sticky">Administration et finances</h3>
+            <!-- HEADER TYPE TITLE END-->
+            <!-- EVENT RELEASES START-->
             <div class="row mb-4">
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
@@ -75,7 +79,7 @@
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">89</span></h2>
+                            <h2><span class="counter text-primary" th:text="${listSize}">89</span></h2>
                             <h5>Planifications des événements</h5>
                         </div>
                     </div>
@@ -90,6 +94,8 @@
                     </div>
                 </div>
             </div>
+            <!-- EVENT RELEASES END-->
+            <!-- ONLINE COURSE START-->
             <div class="container" style="padding-top: 30px;">
                 <div class="row">
                     <div class="col-12 card bg-dark">
@@ -136,6 +142,8 @@
                     <a class="btn btn-primary" th:href="@{/management/course/admin}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
+            <!-- ONLINE COURSE END-->
+            <!-- AVAILABLE EVENTS START-->
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
                 <div class="row">
                     <div class="col-12 bg-secondary card ">
@@ -146,67 +154,70 @@
                 </div>
                 <div class="row">
                     <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                    <div class="col-12 col-md-6 col-lg-4 my-2" th:each=" admin : ${lists}">
                         <div class="single-upcoming-events">
                             <!-- Events Thumb -->
                             <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                    <h6 class="event-date">Date de l'événement</h6>
-                                    <h4 class="event-title">Titre de l'événement</h4>
+                                <img th:src="${admin?.image}" class="card-image-top" alt="">
+                                    <h6 class="event-date" th:text="${admin?.releaseDate}">Date de l'événement</h6>
+                                    <h4 class="event-title" th:text="${admin?.title}">Titre de l'événement</h4>
                             </div>
                             <!-- Date & Fee -->
                             <div class="date-fee d-flex justify-content-between">
                                 <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    <p th:text="${admin?.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
                                 </div>
                                 <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
+                                    <a href="#" th:text="'$'+${admin?.price}"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/event/admin}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                </div>
+                <div class="row " style="bottom: 1rem;width: 100%;display: none">
+                    <div class="form-group col-12 col-sm-6 col-lg-3">
+                        <select class="form-control pagination" id="pageSizeSelect">
+                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                    th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${lists.totalPages != 1}"
+                         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+                        <ul class="pagination">
+                            <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            </li>
+                            <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists.number})}">←</a>
+                            </li>
+                            <li
+                                    th:class="${lists.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li
+                                    th:class="${lists.number + 1 == lists.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists.number + 2})}">→</a>
+                            </li>
+                            <li
+                                    th:class="${lists.number + 1 == lists.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists.totalPages})}">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            <!-- AVAILABLE EVENTS END-->
             <!-- ##### Footer Area Start ##### -->
             <footer class="footer-area">
                 <!-- Top Footer Area -->
@@ -245,8 +256,13 @@
             </footer>
             <!-- ##### Footer Area End ##### -->
         </div>
+        <!-- ADMINISTRATION FINANCES  END -->
+        <!-- ANGLAIS ET/OU FRANCAIS  START -->
         <div id="language" class="container tab-pane fade"><br>
+            <!-- HEADER TYPE TITLE START -->
             <h3 class="my-4 text-center sticky">Anglais et/ou Francais</h3>
+            <!-- HEADER TYPE TITLE END-->
+            <!-- EVENT RELEASES START-->
             <div class="row mb-4">
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
@@ -261,7 +277,7 @@
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">89</span></h2>
+                            <h2><span class="counter text-primary" th:text="${listSize1}">89</span></h2>
                             <h5>Planifications des événements</h5>
                         </div>
                     </div>
@@ -276,6 +292,8 @@
                     </div>
                 </div>
             </div>
+            <!-- EVENT RELEASES END-->
+            <!-- ONLINE COURSE START-->
             <div class="container" style="padding-top: 30px;">
                 <div class="row">
                     <div class="col-12 card bg-dark">
@@ -322,6 +340,8 @@
                     <a class="btn btn-primary" th:href="@{/management/course/language}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
+            <!-- ONLINE COURSE END-->
+            <!-- AVAILABLE EVENTS START-->
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
                 <div class="row">
                     <div class="col-12 bg-secondary card ">
@@ -332,67 +352,70 @@
                 </div>
                 <div class="row">
                     <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                    <div class="col-12 col-md-6 col-lg-4 my-2" th:each=" admin : ${lists1}">
                         <div class="single-upcoming-events">
                             <!-- Events Thumb -->
                             <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
+                                <img th:src="${admin.image}" class="card-image-top" alt="">
+                                <h6 class="event-date" th:text="${admin.releaseDate}">Date de l'événement</h6>
+                                <h4 class="event-title" th:text="${admin.title}">Titre de l'événement</h4>
                             </div>
                             <!-- Date & Fee -->
                             <div class="date-fee d-flex justify-content-between">
                                 <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    <p th:text="${admin.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
                                 </div>
                                 <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
+                                    <a href="#" th:text="'$'+${admin.price}"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/event/language}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                </div>
+                <div class="row " style="bottom: 1rem;width: 100%;display: none">
+                    <div class="form-group col-12 col-sm-6 col-lg-3">
+                        <select class="form-control pagination" id="pageSizeSelect">
+                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                    th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${lists1.totalPages != 1}"
+                         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+                        <ul class="pagination">
+                            <li th:class="${lists1.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            </li>
+                            <li th:class="${lists1.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists1.number})}">←</a>
+                            </li>
+                            <li
+                                    th:class="${lists1.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li
+                                    th:class="${lists1.number + 1 == lists1.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists1.number + 2})}">→</a>
+                            </li>
+                            <li
+                                    th:class="${lists1.number + 1 == lists1.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists1.totalPages})}">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            <!-- AVAILABLE EVENTS END-->
             <!-- ##### Footer Area Start ##### -->
             <footer class="footer-area">
                 <!-- Top Footer Area -->
@@ -431,8 +454,13 @@
             </footer>
             <!-- ##### Footer Area End ##### -->
         </div>
+        <!-- ANGLAIS ET/OU FRANCAIS  END -->
+        <!-- IT  START -->
         <div id="it" class="container tab-pane fade"><br>
+            <!-- HEADER TYPE TITLE START -->
             <h3 class="my-4 text-center sticky">IT</h3>
+            <!-- HEADER TYPE TITLE END -->
+            <!-- EVENT RELEASES START-->
             <div class="row mb-4">
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
@@ -447,7 +475,7 @@
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">89</span></h2>
+                            <h2><span class="counter text-primary" th:text="${listSize2}">89</span></h2>
                             <h5>Planifications des événements</h5>
                         </div>
                     </div>
@@ -462,6 +490,8 @@
                     </div>
                 </div>
             </div>
+            <!-- EVENT RELEASES END-->
+            <!-- ONLINE COURSE START-->
             <div class="container" style="padding-top: 30px;">
                 <div class="row">
                     <div class="col-12 card bg-dark">
@@ -508,6 +538,8 @@
                     <a class="btn btn-primary" th:href="@{/management/course/it}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
+            <!-- ONLINE COURSE END-->
+            <!-- AVAILABLE EVENTS START-->
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
                 <div class="row">
                     <div class="col-12 bg-secondary card ">
@@ -518,67 +550,70 @@
                 </div>
                 <div class="row">
                     <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                    <div class="col-12 col-md-6 col-lg-4 my-2" th:each=" admin : ${lists2}">
                         <div class="single-upcoming-events">
                             <!-- Events Thumb -->
                             <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
+                                <img th:src="${admin.image}" class="card-image-top" alt="">
+                                <h6 class="event-date" th:text="${admin.releaseDate}">Date de l'événement</h6>
+                                <h4 class="event-title" th:text="${admin.title}">Titre de l'événement</h4>
                             </div>
                             <!-- Date & Fee -->
                             <div class="date-fee d-flex justify-content-between">
                                 <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    <p th:text="${admin.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
                                 </div>
                                 <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
+                                    <a href="#" th:text="'$'+${admin.price}"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/event/it}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                </div>
+                <div class="row " style="bottom: 1rem;width: 100%;display: none">
+                    <div class="form-group col-12 col-sm-6 col-lg-3">
+                        <select class="form-control pagination" id="pageSizeSelect">
+                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                    th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${lists2.totalPages != 1}"
+                         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+                        <ul class="pagination">
+                            <li th:class="${lists2.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            </li>
+                            <li th:class="${lists2.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists2.number})}">←</a>
+                            </li>
+                            <li
+                                    th:class="${lists2.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li
+                                    th:class="${lists2.number + 1 == lists2.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists2.number + 2})}">→</a>
+                            </li>
+                            <li
+                                    th:class="${lists2.number + 1 == lists2.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists2.totalPages})}">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            <!-- AVAILABLE EVENTS END-->
             <!-- ##### Footer Area Start ##### -->
             <footer class="footer-area">
                 <!-- Top Footer Area -->
@@ -617,8 +652,13 @@
             </footer>
             <!-- ##### Footer Area End ##### -->
         </div>
+        <!-- IT  END -->
+        <!-- LOGISTIQUE  START -->
         <div id="logistique" class="container tab-pane fade"><br>
+            <!-- HEADER TYPE TITLE START -->
             <h3 class="my-4 text-center sticky">Logistique</h3>
+            <!-- HEADER TYPE TITLE END -->
+            <!-- EVENT RELEASES START-->
             <div class="row mb-4">
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
@@ -633,7 +673,7 @@
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">89</span></h2>
+                            <h2><span class="counter text-primary" th:text="${listSize3}">89</span></h2>
                             <h5>Planifications des événements</h5>
                         </div>
                     </div>
@@ -648,6 +688,8 @@
                     </div>
                 </div>
             </div>
+            <!-- EVENT RELEASES END-->
+            <!-- ONLINE COURSE START-->
             <div class="container" style="padding-top: 30px;">
                 <div class="row">
                     <div class="col-12 card bg-dark">
@@ -694,6 +736,8 @@
                     <a class="btn btn-primary" th:href="@{/management/course/logistique}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
+            <!-- ONLINE COURSE END-->
+            <!-- AVAILABLE EVENTS START-->
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
                 <div class="row">
                     <div class="col-12 bg-secondary card ">
@@ -704,67 +748,70 @@
                 </div>
                 <div class="row">
                     <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                    <div class="col-12 col-md-6 col-lg-4 my-2" th:each=" admin : ${lists3}">
                         <div class="single-upcoming-events">
                             <!-- Events Thumb -->
                             <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
+                                <img th:src="${admin.image}" class="card-image-top" alt="">
+                                <h6 class="event-date" th:text="${admin.releaseDate}">Date de l'événement</h6>
+                                <h4 class="event-title" th:text="${admin.title}">Titre de l'événement</h4>
                             </div>
                             <!-- Date & Fee -->
                             <div class="date-fee d-flex justify-content-between">
                                 <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    <p th:text="${admin.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
                                 </div>
                                 <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
+                                    <a href="#" th:text="'$'+${admin.price}"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/event/logistique}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                </div>
+                <div class="row " style="bottom: 1rem;width: 100%;display: none">
+                    <div class="form-group col-12 col-sm-6 col-lg-3">
+                        <select class="form-control pagination" id="pageSizeSelect">
+                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                    th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${lists3.totalPages != 1}"
+                         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+                        <ul class="pagination">
+                            <li th:class="${lists3.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            </li>
+                            <li th:class="${lists3.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists3.number})}">←</a>
+                            </li>
+                            <li
+                                    th:class="${lists3.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li
+                                    th:class="${lists3.number + 1 == lists3.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists3.number + 2})}">→</a>
+                            </li>
+                            <li
+                                    th:class="${lists3.number + 1 == lists3.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists3.totalPages})}">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            <!-- AVAILABLE EVENTS END-->
             <!-- ##### Footer Area Start ##### -->
             <footer class="footer-area">
                 <!-- Top Footer Area -->
@@ -803,8 +850,13 @@
             </footer>
             <!-- ##### Footer Area End ##### -->
         </div>
+        <!-- LOGISTIQUE  END -->
+        <!-- PROTECTION  START -->
         <div id="protection" class="container tab-pane fade"><br>
+            <!-- HEADER TYPE TITLE START -->
             <h3 class="my-4 text-center sticky">Protection</h3>
+            <!-- HEADER TYPE TITLE END -->
+            <!-- EVENT RELEASES START-->
             <div class="row mb-4">
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
@@ -819,7 +871,7 @@
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">89</span></h2>
+                            <h2><span class="counter text-primary" th:text="${listSize4}">89</span></h2>
                             <h5>Planifications des événements</h5>
                         </div>
                     </div>
@@ -834,6 +886,8 @@
                     </div>
                 </div>
             </div>
+            <!-- EVENT RELEASES END-->
+            <!-- ONLINE COURSE START-->
             <div class="container" style="padding-top: 30px;">
                 <div class="row">
                     <div class="col-12 card bg-dark">
@@ -880,6 +934,8 @@
                     <a class="btn btn-primary" th:href="@{/management/course/protection}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
+            <!-- ONLINE COURSE END-->
+            <!-- AVAILABLE EVENTS START-->
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
                 <div class="row">
                     <div class="col-12 bg-secondary card ">
@@ -890,67 +946,70 @@
                 </div>
                 <div class="row">
                     <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                    <div class="col-12 col-md-6 col-lg-4 my-2" th:each=" admin : ${lists4}">
                         <div class="single-upcoming-events">
                             <!-- Events Thumb -->
                             <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
+                                <img th:src="${admin.image}" class="card-image-top" alt="">
+                                <h6 class="event-date" th:text="${admin.releaseDate}">Date de l'événement</h6>
+                                <h4 class="event-title" th:text="${admin.title}">Titre de l'événement</h4>
                             </div>
                             <!-- Date & Fee -->
                             <div class="date-fee d-flex justify-content-between">
                                 <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    <p th:text="${admin.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
                                 </div>
                                 <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
+                                    <a href="#" th:text="'$'+${admin.price}"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/event/protection}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                </div>
+                <div class="row " style="bottom: 1rem;width: 100%;display: none">
+                    <div class="form-group col-12 col-sm-6 col-lg-3">
+                        <select class="form-control pagination" id="pageSizeSelect">
+                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                    th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${lists4.totalPages != 1}"
+                         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+                        <ul class="pagination">
+                            <li th:class="${lists4.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            </li>
+                            <li th:class="${lists4.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists4.number})}">←</a>
+                            </li>
+                            <li
+                                    th:class="${lists4.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li
+                                    th:class="${lists4.number + 1 == lists4.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists4.number + 2})}">→</a>
+                            </li>
+                            <li
+                                    th:class="${lists4.number + 1 == lists4.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists4.totalPages})}">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            <!-- AVAILABLE EVENTS END-->
             <!-- ##### Footer Area Start ##### -->
             <footer class="footer-area">
                 <!-- Top Footer Area -->
@@ -989,8 +1048,13 @@
             </footer>
             <!-- ##### Footer Area End ##### -->
         </div>
+        <!-- PROTECTION  END -->
+        <!-- RESSOURCES HUMAINES  START -->
         <div id="rh" class="container tab-pane fade"><br>
+            <!-- HEADER TYPE TITLE START -->
             <h3 class="my-4 text-center sticky">Resources Humaines</h3>
+            <!-- HEADER TYPE TITLE END -->
+            <!-- EVENT RELEASES START-->
             <div class="row mb-4">
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
@@ -1005,7 +1069,7 @@
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">89</span></h2>
+                            <h2><span class="counter text-primary" th:text="${listSize5}">89</span></h2>
                             <h5>Planifications des événements</h5>
                         </div>
                     </div>
@@ -1020,6 +1084,8 @@
                     </div>
                 </div>
             </div>
+            <!-- EVENT RELEASES END-->
+            <!-- ONLINE COURSE START-->
             <div class="container" style="padding-top: 30px;">
                 <div class="row">
                     <div class="col-12 card bg-dark">
@@ -1066,6 +1132,8 @@
                     <a class="btn btn-primary" th:href="@{/management/course/resources}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
+            <!-- ONLINE COURSE END-->
+            <!-- AVAILABLE EVENTS START-->
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
                 <div class="row">
                     <div class="col-12 bg-secondary card ">
@@ -1076,67 +1144,70 @@
                 </div>
                 <div class="row">
                     <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                    <div class="col-12 col-md-6 col-lg-4 my-2" th:each=" admin : ${lists5}">
                         <div class="single-upcoming-events">
                             <!-- Events Thumb -->
                             <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
+                                <img th:src="${admin.image}" class="card-image-top" alt="">
+                                <h6 class="event-date" th:text="${admin.releaseDate}">Date de l'événement</h6>
+                                <h4 class="event-title" th:text="${admin.title}">Titre de l'événement</h4>
                             </div>
                             <!-- Date & Fee -->
                             <div class="date-fee d-flex justify-content-between">
                                 <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    <p th:text="${admin.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
                                 </div>
                                 <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
+                                    <a href="#" th:text="'$'+${admin.price}"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/event/resources}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                </div>
+                <div class="row " style="bottom: 1rem;width: 100%;display: none">
+                    <div class="form-group col-12 col-sm-6 col-lg-3">
+                        <select class="form-control pagination" id="pageSizeSelect">
+                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                    th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${lists5.totalPages != 1}"
+                         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+                        <ul class="pagination">
+                            <li th:class="${lists5.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            </li>
+                            <li th:class="${lists5.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists5.number})}">←</a>
+                            </li>
+                            <li
+                                    th:class="${lists5.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li
+                                    th:class="${lists5.number + 1 == lists5.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists5.number + 2})}">→</a>
+                            </li>
+                            <li
+                                    th:class="${lists5.number + 1 == lists5.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists5.totalPages})}">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            <!-- AVAILABLE EVENTS END-->
             <!-- ##### Footer Area Start ##### -->
             <footer class="footer-area">
                 <!-- Top Footer Area -->
@@ -1175,8 +1246,13 @@
             </footer>
             <!-- ##### Footer Area End ##### -->
         </div>
+        <!-- RESSOURCES HUMAINES  END -->
+        <!-- LEADERSHIP  START -->
         <div id="leadership" class="container tab-pane fade"><br>
+            <!-- HEADER TYPE TITLE START -->
             <h3 class="my-4 text-center sticky">Leadership</h3>
+            <!-- HEADER TYPE TITLE END -->
+            <!-- EVENT RELEASES START-->
             <div class="row mb-4">
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
@@ -1191,7 +1267,7 @@
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">89</span></h2>
+                            <h2><span class="counter text-primary" th:text="${listSize6}">89</span></h2>
                             <h5>Planifications des événements</h5>
                         </div>
                     </div>
@@ -1206,6 +1282,8 @@
                     </div>
                 </div>
             </div>
+            <!-- EVENT RELEASES END-->
+            <!-- ONLINE COURSE START-->
             <div class="container" style="padding-top: 30px;">
                 <div class="row">
                     <div class="col-12 card bg-dark">
@@ -1252,6 +1330,8 @@
                     <a class="btn btn-primary" th:href="@{/management/course/leadership}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
+            <!-- ONLINE COURSE END-->
+            <!-- AVAILABLE EVENTS START-->
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
                 <div class="row">
                     <div class="col-12 bg-secondary card ">
@@ -1262,67 +1342,70 @@
                 </div>
                 <div class="row">
                     <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                    <div class="col-12 col-md-6 col-lg-4 my-2" th:each=" admin : ${lists6}">
                         <div class="single-upcoming-events">
                             <!-- Events Thumb -->
                             <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
+                                <img th:src="${admin.image}" class="card-image-top" alt="">
+                                <h6 class="event-date" th:text="${admin.releaseDate}">Date de l'événement</h6>
+                                <h4 class="event-title" th:text="${admin.title}">Titre de l'événement</h4>
                             </div>
                             <!-- Date & Fee -->
                             <div class="date-fee d-flex justify-content-between">
                                 <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    <p th:text="${admin.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
                                 </div>
                                 <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
+                                    <a href="#" th:text="'$'+${admin.price}"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/event/leadership}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                </div>
+                <div class="row " style="bottom: 1rem;width: 100%;display: none">
+                    <div class="form-group col-12 col-sm-6 col-lg-3">
+                        <select class="form-control pagination" id="pageSizeSelect">
+                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                    th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${lists6.totalPages != 1}"
+                         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+                        <ul class="pagination">
+                            <li th:class="${lists6.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            </li>
+                            <li th:class="${lists6.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists6.number})}">←</a>
+                            </li>
+                            <li
+                                    th:class="${lists6.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li
+                                    th:class="${lists6.number + 1 == lists6.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists6.number + 2})}">→</a>
+                            </li>
+                            <li
+                                    th:class="${lists6.number + 1 == lists6.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists6.totalPages})}">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            <!-- AVAILABLE EVENTS END-->
             <!-- ##### Footer Area Start ##### -->
             <footer class="footer-area">
                 <!-- Top Footer Area -->
@@ -1361,8 +1444,13 @@
             </footer>
             <!-- ##### Footer Area End ##### -->
         </div>
+        <!-- LEADERSHIP  END -->
+        <!-- MANAGEMENT  START -->
         <div id="management" class="container tab-pane fade"><br>
+            <!-- HEADER TYPE TITLE START -->
             <h3 class="my-4 text-center sticky">Management</h3>
+            <!-- HEADER TYPE TITLE END -->
+            <!-- EVENT RELEASES START-->
             <div class="row mb-4">
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
@@ -1377,7 +1465,7 @@
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">89</span></h2>
+                            <h2><span class="counter text-primary" th:text="${listSize7}">89</span></h2>
                             <h5>Planifications des événements</h5>
                         </div>
                     </div>
@@ -1392,6 +1480,8 @@
                     </div>
                 </div>
             </div>
+            <!-- EVENT RELEASES END-->
+            <!-- ONLINE COURSE START-->
             <div class="container" style="padding-top: 30px;">
                 <div class="row">
                     <div class="col-12 card bg-dark">
@@ -1438,6 +1528,8 @@
                     <a class="btn btn-primary" th:href="@{/management/course/management}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
+            <!-- ONLINE COURSE END-->
+            <!-- AVAILABLE EVENTS START-->
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
                 <div class="row">
                     <div class="col-12 bg-secondary card ">
@@ -1448,67 +1540,70 @@
                 </div>
                 <div class="row">
                     <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                    <div class="col-12 col-md-6 col-lg-4 my-2" th:each=" admin : ${lists7}">
                         <div class="single-upcoming-events">
                             <!-- Events Thumb -->
                             <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
+                                <img th:src="${admin.image}" class="card-image-top" alt="">
+                                <h6 class="event-date" th:text="${admin.releaseDate}">Date de l'événement</h6>
+                                <h4 class="event-title" th:text="${admin.title}">Titre de l'événement</h4>
                             </div>
                             <!-- Date & Fee -->
                             <div class="date-fee d-flex justify-content-between">
                                 <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    <p th:text="${admin.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
                                 </div>
                                 <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
+                                    <a href="#" th:text="'$'+${admin.price}"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/event/management}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                </div>
+                <div class="row " style="bottom: 1rem;width: 100%;display: none">
+                    <div class="form-group col-12 col-sm-6 col-lg-3">
+                        <select class="form-control pagination" id="pageSizeSelect">
+                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                    th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${lists7.totalPages != 1}"
+                         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+                        <ul class="pagination">
+                            <li th:class="${lists7.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            </li>
+                            <li th:class="${lists7.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists7.number})}">←</a>
+                            </li>
+                            <li
+                                    th:class="${lists7.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li
+                                    th:class="${lists7.number + 1 == lists7.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists7.number + 2})}">→</a>
+                            </li>
+                            <li
+                                    th:class="${lists7.number + 1 == lists7.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists7.totalPages})}">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            <!-- AVAILABLE EVENTS END-->
             <!-- ##### Footer Area Start ##### -->
             <footer class="footer-area">
                 <!-- Top Footer Area -->
@@ -1547,8 +1642,13 @@
             </footer>
             <!-- ##### Footer Area End ##### -->
         </div>
+        <!-- MANAGEMENT  END -->
+        <!-- WASH  START -->
         <div id="wash" class="container tab-pane fade"><br>
-            <h3>Wash</h3>
+            <!-- HEADER TYPE TITLE START -->
+            <h3 class="my-4 text-center sticky">Wash</h3>
+            <!-- HEADER TYPE TITLE END -->
+            <!-- EVENT RELEASES START-->
             <div class="row mb-4">
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card " style="height: 300px;">
@@ -1563,7 +1663,7 @@
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary">89</span></h2>
+                            <h2><span class="counter text-primary" th:text="${listSize8}">89</span></h2>
                             <h5>Planifications des événements</h5>
                         </div>
                     </div>
@@ -1578,6 +1678,8 @@
                     </div>
                 </div>
             </div>
+            <!-- EVENT RELEASES END-->
+            <!-- ONLINE COURSE START-->
             <div class="container" style="padding-top: 30px;">
                 <div class="row">
                     <div class="col-12 card bg-dark">
@@ -1624,6 +1726,8 @@
                     <a class="btn btn-primary" th:href="@{/management/course/wash}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
+            <!-- ONLINE COURSE END-->
+            <!-- AVAILABLE EVENTS START-->
             <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
                 <div class="row">
                     <div class="col-12 bg-secondary card ">
@@ -1634,67 +1738,70 @@
                 </div>
                 <div class="row">
                     <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
+                    <div class="col-12 col-md-6 col-lg-4 my-2" th:each=" admin : ${lists8}">
                         <div class="single-upcoming-events">
                             <!-- Events Thumb -->
                             <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
+                                <img th:src="${admin.image}" class="card-image-top" alt="">
+                                <h6 class="event-date" th:text="${admin.releaseDate}">Date de l'événement</h6>
+                                <h4 class="event-title" th:text="${admin.title}">Titre de l'événement</h4>
                             </div>
                             <!-- Date & Fee -->
                             <div class="date-fee d-flex justify-content-between">
                                 <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    <p th:text="${admin.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
                                 </div>
                                 <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="@{/images/default.png}" class="card-image-top" alt="">
-                                <h6 class="event-date">Date de l'événement</h6>
-                                <h4 class="event-title">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#">$45</a>
+                                    <a href="#" th:text="'$'+${admin.price}"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                    <a class="btn btn-primary" th:href="@{/management/event/wash}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                </div>
+                <div class="row " style="bottom: 1rem;width: 100%;display: none">
+                    <div class="form-group col-12 col-sm-6 col-lg-3">
+                        <select class="form-control pagination" id="pageSizeSelect">
+                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                    th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${lists8.totalPages != 1}"
+                         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+                        <ul class="pagination">
+                            <li th:class="${lists8.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            </li>
+                            <li th:class="${lists8.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists8.number})}">←</a>
+                            </li>
+                            <li
+                                    th:class="${lists8.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li
+                                    th:class="${lists8.number + 1 == lists8.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists8.number + 2})}">→</a>
+                            </li>
+                            <li
+                                    th:class="${lists8.number + 1 == lists8.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists8.totalPages})}">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            <!-- AVAILABLE EVENTS END-->
             <!-- ##### Footer Area Start ##### -->
             <footer class="footer-area">
                 <!-- Top Footer Area -->
@@ -1733,11 +1840,24 @@
             </footer>
             <!-- ##### Footer Area End ##### -->
         </div>
+        <!-- WASH  END -->
     </div>
 </div>
 
 <!-- navigation -->
 <script th:src="@{/js/dashboard.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function() {
+        changePageAndSize();
+    });
+    function changePageAndSize() {
+        $('#pageSizeSelect').change(function(evt) {
+            window.location.replace("/management/event/it?pageSize=" + this.value + "&page=1");
+        });
+    }
+    /*]]>*/
+</script>
 <!-- script -->
 </body>
 </html>

@@ -4,6 +4,7 @@ import com.derteuffel.data.*;
 import com.derteuffel.data.PagerModel;
 import com.derteuffel.repository.*;
 import com.derteuffel.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Mult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -56,6 +57,8 @@ public class ManagementController {
     private PeriodRepository periodRepository;
     @Autowired
     private FileUploadService fileUploadService;
+    @Autowired
+    private EventRepository eventRepository;
     @Autowired
     private PostRepository postRepository;
     List<String> countries= Arrays.asList(
@@ -848,11 +851,35 @@ public class ManagementController {
         return "management/other";
     }
 
-    //templates.course management methods start
+    //course management methods start
     @GetMapping("/course/form")
     public String addCourse(Model model){
         model.addAttribute("course", new Course());
         return "management/course/form";
+    }
+
+    @GetMapping("/event/language")
+    public String languageEvents(@RequestParam("pageSize") Optional<Integer> pageSize,
+                           @RequestParam("page") Optional<Integer> page, Model model){
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        //language
+        Page<Event> list1= eventRepository.findAllByType("anglais et/ou francais", new PageRequest(evalPage,evalPageSize));
+        PagerModel pager1 = new PagerModel(list1.getTotalPages(),list1.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("pager", pager1);
+        model.addAttribute("events", list1);
+        return "management/event/course/one/languages";
     }
 
     @GetMapping("/course/language")
@@ -904,6 +931,31 @@ public class ManagementController {
         return "management/course/one/admin";
     }
 
+    @GetMapping("/event/admin")
+    public String adminEvents(@RequestParam("pageSize") Optional<Integer> pageSize,
+                        @RequestParam("page") Optional<Integer> page, Model model){
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        //language
+        //templates.course admin finance
+        Page<Event> events= eventRepository.findAllByType("administration et finance", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager = new PagerModel(events.getTotalPages(),events.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("pager", pager);
+        model.addAttribute("events", events);
+        return "management/event/course/one/admin";
+    }
+
     @GetMapping("/course/it")
     public String it(@RequestParam("pageSize") Optional<Integer> pageSize,
                            @RequestParam("page") Optional<Integer> page, Model model){
@@ -929,6 +981,31 @@ public class ManagementController {
         return "management/course/one/its";
     }
 
+    @GetMapping("/event/it")
+    public String itEvents(@RequestParam("pageSize") Optional<Integer> pageSize,
+                     @RequestParam("page") Optional<Integer> page, Model model){
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        //language
+        //templates.course it
+        Page<Event> events= eventRepository.findAllByType("it", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager2 = new PagerModel(events.getTotalPages(),events.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("pager", pager2);
+        model.addAttribute("events", events);
+        return "management/event/course/one/its";
+    }
+
     @GetMapping("/course/logistique")
     public String logistique(@RequestParam("pageSize") Optional<Integer> pageSize,
                            @RequestParam("page") Optional<Integer> page, Model model){
@@ -951,6 +1028,30 @@ public class ManagementController {
         model.addAttribute("courses", logistiques);
         model.addAttribute("pager", pager3);
         return "management/course/one/logistiques";
+    }
+
+    @GetMapping("/event/logistique")
+    public String logistiqueEvents(@RequestParam("pageSize") Optional<Integer> pageSize,
+                             @RequestParam("page") Optional<Integer> page, Model model){
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        // templates.course logistique
+        Page<Event> events= eventRepository.findAllByType("logistiques", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager3 = new PagerModel(events.getTotalPages(),events.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("events", events);
+        model.addAttribute("pager", pager3);
+        return "management/event/course/one/logistiques";
     }
 
     @GetMapping("/course/protection")
@@ -978,6 +1079,31 @@ public class ManagementController {
         return "management/course/one/protections";
     }
 
+    @GetMapping("/event/protection")
+    public String protectionEvents(@RequestParam("pageSize") Optional<Integer> pageSize,
+                             @RequestParam("page") Optional<Integer> page, Model model){
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        //language
+        // courses protection
+        Page<Event> events= eventRepository.findAllByType("protection", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager4 = new PagerModel(events.getTotalPages(),events.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("events", events);
+        model.addAttribute("pager", pager4);
+        return "management/event/course/one/protections";
+    }
+
     @GetMapping("/course/resources")
     public String resources(@RequestParam("pageSize") Optional<Integer> pageSize,
                            @RequestParam("page") Optional<Integer> page, Model model){
@@ -1000,6 +1126,29 @@ public class ManagementController {
         model.addAttribute("courses", res_hum);
         model.addAttribute("pager", pager5);
         return "management/course/one/resources";
+    }
+    @GetMapping("/event/resources")
+    public String resourcesEvent(@RequestParam("pageSize") Optional<Integer> pageSize,
+                            @RequestParam("page") Optional<Integer> page, Model model){
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        // courses resource humaine
+        Page<Event> events= eventRepository.findAllByType("resources humaines", new PageRequest(evalPage,evalPageSize));
+        PagerModel pager5 = new PagerModel(events.getTotalPages(),events.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("events", events);
+        model.addAttribute("pager", pager5);
+        return "management/event/course/one/resources";
     }
 
     @GetMapping("/course/leadership")
@@ -1026,6 +1175,30 @@ public class ManagementController {
         return "management/course/one/leaderships";
     }
 
+    @GetMapping("/event/leadership")
+    public String leadershipEvents(@RequestParam("pageSize") Optional<Integer> pageSize,
+                             @RequestParam("page") Optional<Integer> page, Model model){
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        // courses leadership
+        Page<Event> events= eventRepository.findAllByType("leadership", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager6 = new PagerModel(events.getTotalPages(),events.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("events", events);
+        model.addAttribute("pager", pager6);
+        return "management/event/course/one/leaderships";
+    }
+
     @GetMapping("/course/management")
     public String management(@RequestParam("pageSize") Optional<Integer> pageSize,
                            @RequestParam("page") Optional<Integer> page, Model model){
@@ -1048,6 +1221,30 @@ public class ManagementController {
         model.addAttribute("courses", managements);
         model.addAttribute("pager", pager7);
         return "management/course/one/managements";
+    }
+
+    @GetMapping("/event/management")
+    public String managementEvents(@RequestParam("pageSize") Optional<Integer> pageSize,
+                             @RequestParam("page") Optional<Integer> page, Model model){
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        // courses managements
+        Page<Event> events= eventRepository.findAllByType("management", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager7 = new PagerModel(events.getTotalPages(),events.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("events", events);
+        model.addAttribute("pager", pager7);
+        return "management/event/course/one/managements";
     }
 
     @GetMapping("/course/wash")
@@ -1074,8 +1271,33 @@ public class ManagementController {
         return "management/course/one/washs";
     }
 
+    @GetMapping("/event/wash")
+    public String washEvents(@RequestParam("pageSize") Optional<Integer> pageSize,
+                       @RequestParam("page") Optional<Integer> page, Model model){
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        // courses wash
+        Page<Event> events= eventRepository.findAllByType("wash", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager8 = new PagerModel(events.getTotalPages(),events.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("events", events);
+        model.addAttribute("pager", pager8);
+        return "management/event/course/one/washs";
+    }
+
     @GetMapping("/course/all")
-    public String findList( Model model, @PageableDefault(size = 6) Pageable pageable) {
+    public String findList( Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
+                            @RequestParam("page") Optional<Integer> page) {
         Page<Course> courses1= courseRepository.findAllByDomainOrderByCourseIdDesc("administration et finance",pageable);
         //language
         Page<Course> courses2= courseRepository.findAllByDomainOrderByCourseIdDesc("anglais et/ou francais",pageable);
@@ -1117,8 +1339,72 @@ public class ManagementController {
         model.addAttribute("courses8Size", courses8.getTotalElements());
         model.addAttribute("courses9", courses9);
         model.addAttribute("courses9Size", courses9.getTotalElements());
+
+
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", 3);
+        Page<Event> list= eventRepository.findAllByType("administration et finance", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager1 = new PagerModel(list.getTotalPages(),list.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("lists", list);
+        model.addAttribute("pager", pager1);
+        Page<Event> list1= eventRepository.findAllByType("anglais et/ou francais", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager2 = new PagerModel(list1.getTotalPages(),list1.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("lists1", list1);
+        model.addAttribute("pager", pager2);
+        Page<Event> list2= eventRepository.findAllByType("it", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager3 = new PagerModel(list2.getTotalPages(),list2.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("lists2", list2);
+        model.addAttribute("pager", pager3);
+        Page<Event> list3= eventRepository.findAllByType("logistiques", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager4 = new PagerModel(list3.getTotalPages(),list3.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("lists3", list3);
+        model.addAttribute("pager", pager4);
+        Page<Event> list4= eventRepository.findAllByType("protection", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager5 = new PagerModel(list4.getTotalPages(),list4.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("lists4", list4);
+        model.addAttribute("pager", pager5);
+        Page<Event> list5= eventRepository.findAllByType("resources humaines", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager6 = new PagerModel(list5.getTotalPages(),list5.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("lists5", list5);
+        model.addAttribute("pager", pager6);
+        Page<Event> list6= eventRepository.findAllByType("leadership", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager7 = new PagerModel(list6.getTotalPages(),list6.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("lists6", list6);
+        model.addAttribute("pager", pager7);
+        Page<Event> list7= eventRepository.findAllByType("management", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager8 = new PagerModel(list7.getTotalPages(),list7.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("lists7", list7);
+        model.addAttribute("pager", pager8);
+        Page<Event> list8= eventRepository.findAllByType("wash", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager9 = new PagerModel(list8.getTotalPages(),list8.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("lists8", list8);
+        model.addAttribute("pager", pager9);
+
+
+
+        model.addAttribute("listSize", list.getTotalElements());
+        model.addAttribute("listSize1", list1.getTotalElements());
+        model.addAttribute("listSize2", list2.getTotalElements());
+        model.addAttribute("listSize3", list3.getTotalElements());
+        model.addAttribute("listSize4", list4.getTotalElements());
+        model.addAttribute("listSize5", list5.getTotalElements());
+        model.addAttribute("listSize6", list6.getTotalElements());
+        model.addAttribute("listSize7", list7.getTotalElements());
+        model.addAttribute("listSize8", list8.getTotalElements());
         return "management/course/courses";
     }
+
 
     public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
         String fileName = fileUploadService.storeFile(file);
@@ -1133,6 +1419,7 @@ public class ManagementController {
 
     @PostMapping(value = "/course/save")
     public String saveCourse(Course course){
+        course.setDomain(course.getDomain().toLowerCase());
         Course course1=courseRepository.save(course);
         return "redirect:/management/course/get/"+ course1.getCourseId();
     }
@@ -1159,7 +1446,8 @@ public class ManagementController {
         return "management/course/course";
     }
 
-    //templates.course management methods end
+
+    //course management methods end
 
     // period management methods start
     @GetMapping("/period/all")
@@ -1245,6 +1533,103 @@ public class ManagementController {
         return "redirect:/management/period/get/"+(Long)session.getAttribute("periodId");
     }
     //Lesson management methods End
+
+    // Event management methods start
+
+    @GetMapping("/event/get/{eventId}")
+    public String event(Model model, @PathVariable Long eventId){
+
+        Optional<Event> optional= eventRepository.findById(eventId);
+        model.addAttribute("event", optional.get());
+        return "management/event/course/event";
+    }
+
+    @GetMapping("/event/course/form")
+    public String evenetForm(Model model){
+        List<Region> regions= regionRepository.findAll();
+        model.addAttribute("regions", regions);
+        model.addAttribute("event", new Event());
+        return "management/event/course/form";
+    }
+
+    @PostMapping("/event/course/save")
+    public  String eventSave(Event event, @RequestParam("file") MultipartFile file){
+        String fileName = fileUploadService.storeFile(file);
+
+        event.setImage("/downloadFile/"+fileName);
+        event.setType(event.getType().toLowerCase());
+        eventRepository.save(event);
+        if (event.getType().equals("administration et finance")) {
+            return "redirect:/management/event/admin";
+        }else if (event.getType().equals("protection")){
+            return "redirect:/management/event/protection";
+
+        }else if (event.getType().equals("resources humaines")){
+            return "redirect:/management/event/resources";
+
+        }else if (event.getType().equals("anglais et/ou francais")){
+            return "redirect:/management/event/language";
+
+        }else if (event.getType().equals("it")){
+            return "redirect:/management/event/it";
+
+        }else if (event.getType().equals("leadership")){
+            return "redirect:/management/event/leadership";
+
+        }else if (event.getType().equals("logistiques")){
+            return "redirect:/management/event/logistique";
+
+        }else if (event.getType().equals("management")){
+            return "redirect:/management/event/management";
+
+        }else {
+            return "redirect:/management/event/wash";
+
+        }
+    }
+
+    @GetMapping("/event/primaire/form")
+    public String evenetPrimaireForm(Model model){
+        model.addAttribute("event", new Event());
+        return "management/event/primaire/form";
+    }
+
+    @GetMapping("/event/secondary/form")
+    public String evenetSecondaryForm(Model model){
+        model.addAttribute("event", new Event());
+        return "management/event/secondary/form";
+    }
+
+
+    @PostMapping("/event/primaire/save")
+    public  String eventSavePrimaire(Event event, @RequestParam("file") MultipartFile file){
+        String fileName = fileUploadService.storeFile(file);
+
+        event.setImage("/downloadFile/"+fileName);
+        eventRepository.save(event);
+        return "redirect:/management/primaire/events";
+    }
+
+    @PostMapping("/event/secondary/save")
+    public  String eventSaveSecondary(Event event, @RequestParam("file") MultipartFile file){
+        String fileName = fileUploadService.storeFile(file);
+
+        event.setImage("/downloadFile/"+fileName);
+        eventRepository.save(event);
+        return "redirect:/management/secondary/events";
+    }
+
+    @PostMapping("/event/civic/save")
+    public  String eventSaveEducation(Event event, @RequestParam("files") MultipartFile files){
+        String fileName = fileUploadService.storeFile(files);
+
+        event.setImage("/downloadFile/"+fileName);
+        eventRepository.save(event);
+        return "redirect:/management/civic/events";
+    }
+
+
+    // Event management method end
 }
 
 

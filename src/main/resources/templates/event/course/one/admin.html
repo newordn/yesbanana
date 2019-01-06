@@ -12,11 +12,16 @@
           integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
     <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <!-- data tables javascript class-->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script th:src="@{/js/dataTable/adminEvents.js}"></script>
+
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
@@ -25,7 +30,7 @@
 <body>
 <div style="height: 100%">
     <nav class="nav" style="width: 100%">
-        <a th:href="@{/management/course/all}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+        <a th:href="@{/course/all}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
         <h2 class="text-center col-11 offset-1" style="padding-top: 0.5rem;">Formation professionnelle</h2>
     </nav>
     <div class="container" style="padding: 2rem; margin-top: 3rem;">
@@ -33,27 +38,33 @@
         <br>
         <div class="card col-12 col-sm-12 col-lg-12" style="padding-right: 0;padding-left: 0">
             <div class="card-header">
-                <h3 class="text-center">Formation en Leadership</h3>
+                <h3 class="text-center">Evénement en administration et finances</h3>
             </div>
             <div class="card-body">
-                <div class="col-12 col-sm-12 col-lg-12 my-2" th:each="course : ${courses}">
+                <div class="col-12 col-sm-12 col-lg-12 my-2">
                     <div class="card">
-                        <div class=" row" style="margin-left: 0; margin-right: 0">
-                            <div class="col-lg-2" style="padding:20px">
-                                <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
-                            </div>
-                            <div class="col-lg-8" style="padding:10px">
-                                <span th:text="${course.title}"></span>
-                            </div>
-                            <div class="col-lg-1" style="padding:20px">
-                                <span th:text="'$'+${course.price}"></span>
-                            </div>
-                            <div class="col-lg-1" style="padding: 20px">
-                                <a  th:href="@{/management/course/get/}+${course.courseId}" style="padding: 0">
-                                    <span style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
-                                </a>
-                            </div>
-                        </div>
+                        <table  class="table table-bordered table-hover table-lg display">
+                            <thead class="thead-light">
+                            <tr>
+                                <th>Type</th>
+                                <th>Titre</th>
+                                <th>Date de déroulement</th>
+                                <th>Prix</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr  th:each="event : ${events}">
+                                <td th:text="${event.type}"></td>
+                                <td th:text="${event.title}"></td>
+                                <td th:text="${event.releaseDate}"></td>
+                                <td th:text="${event.price}"></td>
+                                <td >
+                                    <a th:href="@{/event/get/}+${event.eventId}"><i class="fa fa-eye"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div><br>
                 <div class="row " style="bottom: 1rem;width: 100%;">
@@ -64,40 +75,42 @@
                                     th:selected="${pageSize} == ${selectedPageSize}"></option>
                         </select>
                     </div>
-                    <div th:if="${courses.totalPages != 1}"
+                    <div th:if="${events.totalPages != 1}"
                          class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
                         <ul class="pagination">
-                            <li th:class="${courses.number == 0} ? disabled" class="page-item" ><a
+                            <li th:class="${events.number == 0} ? disabled" class="page-item" ><a
                                     class="page-link"
-                                    th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=1)}">«</a>
-                            </li>
-                            <li th:class="${courses.number == 0} ? disabled" class="page-item" ><a
+                                    th:href="@{/event/admin(pageSize=${selectedPageSize}, page=1)}">«</a>
+
+                            <li th:class="${events.number == 0} ? disabled" class="page-item" ><a
                                     class="page-link"
-                                    th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=${courses.number})}">←</a>
+                                    th:href="@{/event/admin(pageSize=${selectedPageSize}, page=${events.number})}">←</a>
                             </li>
                             <li
-                                    th:class="${courses.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:class="${events.number == (page - 1)} ? 'active pointer-disabled'"
                                     th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
                                 <a class="page-link"
-                                   th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:href="@{/event/admin(pageSize=${selectedPageSize}, page=${page})}"
                                    th:text="${page}"></a>
                             </li>
                             <li
-                                    th:class="${courses.number + 1 == courses.totalPages} ? disabled" class="page-item">
+                                    th:class="${events.number + 1 == events.totalPages} ? disabled" class="page-item">
                                 <a class="page-link"
-                                   th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=${courses.number + 2})}">→</a>
+                                   th:href="@{/event/admin(pageSize=${selectedPageSize}, page=${events.number + 2})}">→</a>
                             </li>
                             <li
-                                    th:class="${courses.number + 1 == courses.totalPages} ? disabled" class="page-item">
+                                    th:class="${events.number + 1 == events.totalPages} ? disabled" class="page-item">
                                 <a class="page-link"
-                                   th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=${courses.totalPages})}">»</a>
+                                   th:href="@{/event/admin(pageSize=${selectedPageSize}, page=${events.totalPages})}">»</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/management/course/form}" style="bottom: 3rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
+        <a th:if="${session.userRole=='root'}" class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/event/course/form}">
+            <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
+
     </div>
 </div>
 
@@ -113,7 +126,7 @@
     });
     function changePageAndSize() {
         $('#pageSizeSelect').change(function(evt) {
-            window.location.replace("/management/course/leadership?pageSize=" + this.value + "&page=1");
+            window.location.replace("/course/admin?pageSize=" + this.value + "&page=1");
         });
     }
     /*]]>*/

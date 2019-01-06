@@ -1,5 +1,6 @@
 package com.derteuffel.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.CodePointLength;
 
 import javax.persistence.*;
@@ -29,7 +30,11 @@ public class Region implements Serializable {
     @OneToMany(mappedBy = "region")
     private List<Post> posts;
     @OneToMany(mappedBy = "region")
-    private List<Education> educations;
+    private List<Event> events;
+    @OneToMany(mappedBy = "region")
+    private List<Primaire> primaires;
+    @OneToMany(mappedBy = "region")
+    private List<Secondary> secondaries;
     @OneToMany(mappedBy = "region")
     private List<Other> others;
 
@@ -43,14 +48,25 @@ public class Region implements Serializable {
     public Region() {
     }
 
-    public List<Education> getEducations() {
-        return educations;
+    @JsonIgnore
+    public List<Primaire> getPrimaires() {
+        return primaires;
     }
 
-    public void setEducations(List<Education> educations) {
-        this.educations = educations;
+    public void setPrimaires(List<Primaire> primaires) {
+        this.primaires = primaires;
     }
 
+    @JsonIgnore
+    public List<Secondary> getSecondaries() {
+        return secondaries;
+    }
+
+    public void setSecondaries(List<Secondary> secondaries) {
+        this.secondaries = secondaries;
+    }
+
+    @JsonIgnore
     public List<Other> getOthers() {
         return others;
     }
@@ -71,6 +87,7 @@ public class Region implements Serializable {
         return regionId;
     }
 
+    @JsonIgnore
     public List<University> getUniversities() {
         return universities;
     }
@@ -105,5 +122,14 @@ public class Region implements Serializable {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+
+    @JsonIgnore
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * Created by derteuffel on 27/12/2018.
  */
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Education implements Serializable {
 
     @Id
@@ -23,8 +24,7 @@ public class Education implements Serializable {
     private ArrayList<String> pieces=new ArrayList<>();
     @Column
     private String type;
-    @ManyToOne
-    private Region region;
+
 
     public Education() {
     }
@@ -83,13 +83,5 @@ public class Education implements Serializable {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
     }
 }
