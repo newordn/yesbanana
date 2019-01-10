@@ -3,6 +3,7 @@ package com.derteuffel.controller;
 import com.derteuffel.data.*;
 import com.derteuffel.data.PagerModel;
 import com.derteuffel.repository.*;
+import com.derteuffel.service.MailService;
 import com.derteuffel.service.UserService;
 import com.sun.org.apache.xpath.internal.operations.Mult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1476,12 +1477,56 @@ public class ManagementController {
         return "management/period/form";
     }
     @PostMapping("/period/save")
-    public String periodSaved(Period period, HttpSession session){
+    public String periodSaved(Period period, HttpSession session, String adresse, String contenue){
         Long courseId= (Long)session.getAttribute("courseId");
         Optional<Course> course= courseRepository.findById(courseId);
         period.setCourse(course.get());
-        Period period1=periodRepository.save(period);
+        periodRepository.save(period);
+        System.out.println(adresse);
+        System.out.println(contenue);
+        MailService mail= new MailService();
+        mail.sendSimpleMessage(
+                adresse,
+                "Notification de enregistrement d'une periode de formation",
+                contenue
+        );
         return "redirect:/management/course/get/"+ courseId;
+    }
+
+    @GetMapping("/period/publish/{periodId}")
+    public String publishPeriod(@PathVariable Long periodId, HttpSession session){
+        Period period= periodRepository.getOne(periodId);
+        period.setStatus(true);
+        periodRepository.save(period);
+        return "redirect:/management/course/get/"+(Long)session.getAttribute("courseId");
+    }
+
+    @GetMapping("/period/draft/{periodId}")
+    public String draftPeriod(@PathVariable Long periodId, HttpSession session){
+        Period period= periodRepository.getOne(periodId);
+        period.setStatus(false);
+        periodRepository.save(period);
+        return "redirect:/management/course/get/"+(Long)session.getAttribute("courseId");
+    }
+
+    @GetMapping("/period/unPublish/form/{periodId}")
+    public String unPublishForm(@PathVariable Long periodId, Model model){
+        Period period= periodRepository.getOne(periodId);
+        model.addAttribute("period", period);
+        return "management/period/correction";
+    }
+    @PostMapping("/period/unPublish/{periodId}")
+    public String unPublishPeriod(Period period, HttpSession session, String adresse, String contenue){
+
+        period.setStatus(null);
+        periodRepository.save(period);
+        MailService backMessage= new MailService();
+        backMessage.sendSimpleMessage(
+                adresse,
+                "Notification de correction du contenu de cette periode",
+                contenue
+        );
+        return "redirect:/management/course/get/"+(Long)session.getAttribute("courseId");
     }
 
     @DeleteMapping("/period/delete/{periodId}")

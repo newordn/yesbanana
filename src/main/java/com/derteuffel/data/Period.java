@@ -18,6 +18,8 @@ public class Period implements Serializable {
     @Column
     private String periodName;
 
+    private Boolean status;
+
     @ManyToOne
     private Course course;
     @OneToMany(mappedBy = "period")
@@ -26,10 +28,11 @@ public class Period implements Serializable {
     public Period() {
     }
 
-    public Period(Long periodId, String title, String periodName) {
+    public Period(Long periodId, String title, String periodName, Boolean status) {
         this.periodId = periodId;
         this.title = title;
         this.periodName = periodName;
+        this.status=status;
     }
 
     public Long getPeriodId() {
@@ -70,5 +73,13 @@ public class Period implements Serializable {
 
     public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }

@@ -1,9 +1,7 @@
 package com.derteuffel.controller;
 
 
-import com.derteuffel.data.Post;
-import com.derteuffel.data.Role;
-import com.derteuffel.data.User;
+import com.derteuffel.data.*;
 import com.derteuffel.repository.GroupeRepository;
 import com.derteuffel.repository.RoleRepository;
 import com.derteuffel.repository.UserRepository;
@@ -11,6 +9,8 @@ import com.derteuffel.service.MailService;
 import com.derteuffel.service.RoleService;
 import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -46,6 +47,8 @@ public class UserController {
 
     @Autowired
     private GroupeRepository groupeRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
 
     @Autowired
@@ -252,11 +255,34 @@ public class UserController {
             "Zimbabwe"
 
     );
-
+    private static final int BUTTONS_TO_SHOW = 3;
+    private static final int INITIAL_PAGE = 0;
+    private static final int INITIAL_PAGE_SIZE = 5;
+    private static final int[] PAGE_SIZES = { 5,6,7,8};
     @GetMapping("")
-    public String allUsers(Model model) {
+    public String allUsers(Model model, @RequestParam("pageSize") Optional<Integer> pageSize,
+                           @RequestParam("page") Optional<Integer> page) {
+        if (userRepository.count()!=0){
+            ;//pass
+        }
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
 
-        List<User> users = userService.listAll();
+        Page<User> users = userRepository.findAll(new PageRequest(evalPage,evalPageSize));
+        PagerModel pager = new PagerModel(users.getTotalPages(),users.getNumber(),BUTTONS_TO_SHOW);// evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        // add pager
+        model.addAttribute("pager", pager);
+
         model.addAttribute("users", users);
         String avatar = "";
         for (User user : users) {
@@ -266,6 +292,18 @@ public class UserController {
         }
 
         return "user/users";
+    }
+
+    @GetMapping("/detail/{userId}")
+    public String user(Model model, @PathVariable Long userId){
+
+        User user= userService.getById(userId);
+        model.addAttribute("user",user);
+        AddUserRole form= new AddUserRole(roleRepository.findAll(), user);
+        Set<Role> roles= roleRepository.findByUsers_UserId(userId);
+        model.addAttribute("form",form);
+        model.addAttribute("roles", roles);
+        return "user/detail";
     }
 
 
@@ -284,8 +322,24 @@ public class UserController {
     }
 
 
+    @PostMapping("/role/save")
+    public String role(Model model, AddUserRole form, Errors errors, HttpSession session){
 
-    @GetMapping("/updateRole")
+        if (errors.hasErrors()){
+            model.addAttribute("form", form);
+            return "user/role/form";
+        }
+        Long userId= (Long)session.getAttribute("userId");
+        Role role= roleRepository.getOne(form.getRoleId());
+        System.out.println(role.getRole());
+        User user= userRepository.getOne(userId);
+        System.out.println(user.getName());
+        user.setRoles(role);
+        userRepository.save(user);
+        return "redirect:/user/detail/"+userId;
+    }
+
+   /* @GetMapping("/updateRole")
     public String updateRole(@RequestParam("userId") Long userId, @RequestParam("role") String role) {
         User user = userService.getById(userId);
         Role role1 = roleService.getById(user.getRole().getRoleId());
@@ -307,6 +361,7 @@ public class UserController {
         roleService.saveOrUpdate(role1);
         return "redirect:/user";
     }
+    */
 
 
     private String validate_url="yesbanana.org/validate/";
@@ -321,21 +376,6 @@ public class UserController {
             FileUploadRespone fileUploadRespone = new FileUploadRespone(fileName, fileDownloadUri);*/
         user.setImg("/downloadFile/" + fileName);
         //user.setActive(true);
-        List<User> users=userService.listAll();
-        if (users.size()<=1){
-        Role role1= new Role("root");
-            user.setRole(role1);
-        }else {
-            Role userRole = roleService.findByRole(role);
-            if (userRole == null) {
-                Role newRole = new Role("user");
-                user.setRole(newRole);
-                System.out.println(userRole);
-            } else {
-                user.setRole(userRole);
-            }
-        }
-
 
 
         User user1 = userService.findByEmail(user.getEmail());
@@ -380,23 +420,6 @@ public class UserController {
             FileUploadRespone fileUploadRespone = new FileUploadRespone(fileName, fileDownloadUri);*/
         user.setImg("/downloadFile/" + fileName);
         //user.setActive(true);
-        List<User> users=userService.listAll();
-        if (users.size()<=1){
-            Role role1= new Role("root");
-            user.setRole(role1);
-        }else {
-            Role userRole = roleService.findByRole(role);
-            if (userRole == null) {
-                Role newRole = new Role("user");
-                user.setRole(newRole);
-                System.out.println(userRole);
-            } else {
-                user.setRole(userRole);
-            }
-        }
-
-
-
         User user1 = userService.findByEmail(user.getEmail());
         if (user1 != null) {
 
@@ -444,22 +467,6 @@ public class UserController {
             user.setCv("/downloadFile/"+fileNameCv);
 
         //user.setActive(true);
-        List<User> users=userService.listAll();
-        if (users.size()<=1){
-            Role role1= new Role("root");
-            user.setRole(role1);
-        }else {
-            Role userRole = roleService.findByRole(role);
-            if (userRole == null) {
-                Role newRole = new Role("user");
-                user.setRole(newRole);
-                System.out.println(userRole);
-            } else {
-                user.setRole(userRole);
-            }
-        }
-
-
 
         User user1 = userService.findByEmail(user.getEmail());
         if (user1 != null) {
@@ -526,10 +533,7 @@ public class UserController {
         }else {
             user.setCv(user.getCv());
         }
-            Role role1=roleService.getById(user.getRole().getRoleId());
-            user.setRole(role1);
 
-            System.out.println(user.getRole().getRole());
 
         if (user.getPassword().isEmpty()){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -586,10 +590,6 @@ public class UserController {
         {
             user.setImg(user.getImg());
         }
-        Role role1=roleService.getById(user.getRole().getRoleId());
-        user.setRole(role1);
-
-        System.out.println(user.getRole().getRole());
 
         if (user.getPassword().isEmpty()){
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();

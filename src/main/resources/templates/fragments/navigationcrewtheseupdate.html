@@ -15,7 +15,7 @@
         </a>
         
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" th:href="@{/user/update/}">Profil</a>
+            <a class="dropdown-item" th:href="@{/user/deatil/}+${session.userId}">Profil</a>
             <a class="dropdown-item" th:href="@{/logout}">Deconnexion</a>
         </div>
     </div>

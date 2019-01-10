@@ -54,10 +54,10 @@ public List<Groupe> findAll(){
     return  groupeRepository.findAll();
 
 }
-    @GetMapping("/users")
+    /*@GetMapping("/users")
     public List<User> findAllu() {
         return userRepository.listAll();
-    }
+    }*/
 
     @PostMapping("/groupe/groupe/save")
     public Groupe save(Groupe groupe){

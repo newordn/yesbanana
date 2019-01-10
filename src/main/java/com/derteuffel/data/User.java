@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -118,9 +119,9 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role")
-    private Role role;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 
 
     @ManyToMany(mappedBy="users")
@@ -134,7 +135,7 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod,
                 String dayWorkBeginning, String dayWorkEnd, String studentNumber, Boolean numberOfWorkers,
-                String anotherDetail,String classe, List<Post> posts, String cv, List<These> theses, Role role, List<Groupe> groupes, Boolean autorization, String amount) {
+                String anotherDetail,String classe, List<Post> posts, String cv, List<These> theses, List<Role> roles, List<Groupe> groupes, Boolean autorization, String amount) {
         this.name = name;
         this.email = email;
         this.autorization=autorization;
@@ -160,7 +161,7 @@ public class User implements Serializable{
         this.anotherDetail = anotherDetail;
         this.cv = cv;
         this.theses = theses;
-        this.role = role;
+        this.roles = roles;
         this.groupes = groupes;
         this.amount=amount;
         this.posts=posts;
@@ -189,7 +190,7 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod, String dayWorkBeginning,
                 String dayWorkEnd, String studentNumber, Boolean numberOfWorkers, String numberInGroupe, String anotherDetail, String cv,
-                List<These> theses,String classe, List<Post> posts, Role role, List<Groupe> groupes, Boolean autorization) {
+                List<These> theses,String classe, List<Post> posts, List<Role> roles, List<Groupe> groupes, Boolean autorization) {
         this.name = name;
         this.posts=posts;
         this.autorization=autorization;
@@ -217,7 +218,7 @@ public class User implements Serializable{
         this.anotherDetail = anotherDetail;
         this.cv = cv;
         this.theses = theses;
-        this.role = role;
+        this.roles = roles;
         this.groupes = groupes;
     }
 
@@ -366,12 +367,12 @@ public class User implements Serializable{
         groupes.add(groupe);
     }
 
-    public Role getRole() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Role role) {
+        roles.add(role);
     }
    /* public void addRole(Role role){
         if (!this.roles.contains(role)){

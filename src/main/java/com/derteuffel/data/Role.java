@@ -3,8 +3,12 @@ package com.derteuffel.data;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import com.derteuffel.data.User;
+import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by derteuffel on 20/10/2018.
@@ -18,8 +22,8 @@ private Long roleId;
 
     private String role;
 
-    @OneToOne(mappedBy = "role")
-   private User user;
+    @ManyToMany(mappedBy = "roles")
+   private List<User> users;
 
     public Role() {
     }
@@ -45,12 +49,12 @@ private Long roleId;
 */
 
     @JsonIgnore
-    public User getUser() {
-        return user;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsers(User user) {
+        users.add(user);
     }
 
     public Long getRoleId() {

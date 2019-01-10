@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
     <meta charset="utf-8">
@@ -48,7 +48,7 @@
         </div>
         <div class="col-12 col-sm-12 col-lg-5" style="padding: 1rem">
             <p><strong>Description de la formation</strong></p>
-            <textarea th:text="${course.description}" class="disabled" style="height: 220px; width: inherit"></textarea>
+            <textarea th:text="${course.description}" disabled style="height: 220px; width: inherit"></textarea>
         </div>
     </div>
     <hr class="style14">
@@ -67,14 +67,50 @@
                     <p><strong>Titre : </strong><span th:text="${lesson.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Durée : </strong><span th:text="${lesson.elapsedTime}"> </span>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Résumé : </strong><span th:text="${lesson.resumes}"></span></p>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-12" style="padding-left: 15px;padding-right: 15px">
-                    <a class="btn btn-primary" th:href="@{/management/period/get/}+${period.periodId}" style="width: 100%">Suivre les leçons &rarr;</a>
+                    <a class="btn btn-primary" th:href="@{/management/period/get/}+${period.periodId}" style="width: 100%">Suivre les leçons</a>
                 </div>
+                <div class="row mt-3" style="padding-left: 15px;padding-right: 15px">
+                    <div class="col-12 col-sm-12 col-lg-4">
+                        <a class="btn btn-success" th:href="@{/management/period/publish/}+${period.periodId}" style="width: 100%">Approuver et publier </a>
+                    </div>
+                    <div class="col-12 col-sm-12 col-lg-4">
+                        <a class="btn btn-warning" th:href="@{/management/period/unPublish/form/}+${period.periodId}"  style="width: 100%">Renvoi pour modification</a>
+                        <div class="modal card modal-warning fade in" th:id="modal-warning+${period.periodId}" >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span></button>
+                                        <h5 class="modal-title">Envoi d'un message de correction de la periode de formation</h5>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <div class="form-group">
+                                            <label > Adresse email destinataire :</label>
+                                            <input type="email" class="form-control" name="adresse">
+                                        </div>
+                                        <div class="form-group">
+                                            <label > Corps du message :</label>
+                                            <textarea class="form-control" rows="10" name="contenue"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer text-center">
+                                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                        <a class="btn btn-danger" th:href="@{/management/period/unPublish/}+${period.periodId}" ><i class="fa fa-check"></i>&nbsp;Envoye</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-lg-4">
+                        <a class="btn btn-secondary" th:href="@{/management/period/draft/}+${period.periodId}" style="width: 100%">Approuve sans publier</a>
+                    </div>
+                     </div>
             </div>
         </div>
         <hr class="style14">
         <br>
     </div>
-    <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/management/period/form}" style="bottom: 3rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
+    <a sec:authorize="!hasRole('ROLE_USER')" class="btn addButton btn-primary rounded-circle" th:href="@{/management/period/form}" style="bottom: 3rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer-area">
         <!-- Top Footer Area -->

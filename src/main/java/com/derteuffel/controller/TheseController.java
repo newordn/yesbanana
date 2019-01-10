@@ -1,6 +1,7 @@
 package com.derteuffel.controller;
 
 import com.derteuffel.data.Groupe;
+import com.derteuffel.data.Role;
 import com.derteuffel.data.These;
 import com.derteuffel.data.User;
 import com.derteuffel.repository.GroupeRepository;
@@ -27,10 +28,8 @@ import javax.servlet.http.HttpSession;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.servlet.http.HttpServletResponse;
@@ -463,7 +462,14 @@ public class TheseController {
         these.setUser(user);
         these.setOptions(these.getOptions().toLowerCase());
         theseRepository.save(these);
-        if (!user.getRole().getRole().equals("user")){
+        Collection<Role> roles=user.getRoles();
+        int p=0;
+        for (Role role : roles){
+            if (!role.getRole().equals("user")){
+                p=1;
+            }
+        }
+        if (p==1){
             return "redirect:/groupe/groupe/all/these/";
         }else {
             return "redirect:/groupe/groupe/all/user/these";

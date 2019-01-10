@@ -5,6 +5,7 @@ package com.derteuffel.controller;
 
 import com.derteuffel.data.*;
 import com.derteuffel.repository.GroupeRepository;
+import com.derteuffel.repository.RoleRepository;
 import com.derteuffel.repository.TheseRepository;
 import com.derteuffel.repository.UserRepository;
 import com.derteuffel.service.RoleService;
@@ -51,6 +52,8 @@ public class GroupeController {
     private TheseService theseService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+            private RoleRepository roleRepository;
 
     List<String> countries= Arrays.asList(
             "Afghanistan",
@@ -266,23 +269,40 @@ public class GroupeController {
         session.setAttribute("userId",user.getUserId());
         session.setAttribute("avatar",user.getImg());
         session.setAttribute("name", user.getName());
-        session.setAttribute("userRole",user.getRole().getRole());
-        List<User> users = userRepository.findAllByRole("admin");
-        users.addAll(userRepository.findAllByRole("root"));
-        System.out.println(users);
-        if (user.getRole().getRole().equals("root")){
-            model.addAttribute("crews", groupeRepository.findAll());
-            System.out.println(groupeRepository.findAll());
-            model.addAttribute("countries", countries);
-            model.addAttribute("groupe", new Groupe());
-            model.addAttribute("users",users);
-        }else {
-
-
-            model.addAttribute("crews", groupeRepository.findByUsers_UserId(user.getUserId()));
-            model.addAttribute("groupe", new Groupe());
+        model.addAttribute("groupe", new Groupe());
+        model.addAttribute("countries", countries);
+        Collection<User> users1 = userRepository.findByRoles_Role("ADMIN");
+        List<Groupe> groupes= groupeRepository.findAll();
+        List<Groupe> crews= new ArrayList<>();
+        List<Groupe> crews1= new ArrayList<>();
+        Collection<User> users= new ArrayList<>();
+        users1.addAll(userRepository.findByRoles_Role("ROOT"));
+        System.out.println(users1);
+        int p=0;
+        for(Role role : user.getRoles()){
+            if (role.getRole().equals("ROOT")){
+                users.addAll(users1);
+                crews.addAll(groupes);
+                    p=1;
+            }else {
+                crews1.addAll(groupeRepository.findByUsers_UserId(user.getUserId()));
+            }
         }
-        return "crew/crews";
+        System.out.println(users);
+
+        if (p==1){
+            model.addAttribute("crews",crews);
+            model.addAttribute("users",users);
+            System.out.println(p);
+            return "crew/crews";
+        }else {
+            model.addAttribute("crews1",crews1);
+            model.addAttribute("users",users);
+            System.out.println(p);
+            return "crew/crews1";
+        }
+
+
     }
 
     // for adding a user into one crew
@@ -415,19 +435,13 @@ public class GroupeController {
         model.addAttribute("groupeName", groupe.getGroupeName());
         model.addAttribute("groupe",groupe);
         model.addAttribute("countries", countries);
-        List<User> userList=userService.listAll();
-        List<User> users= new ArrayList<>();
-        for (User user:userList){
-            if (!user.getRole().getRole().equals("user")){
-                users.add(user);
-            }
-        }
+        Collection<User> users= userRepository.findByRoles_Role("user");
         System.out.println(users);
         model.addAttribute("users", users);
 
         return "crew/crew";
     }
-
+/*
     //updating user role in groupe
     @GetMapping("/updateRole")
     public String updateRole(@RequestParam("userId") Long userId, @RequestParam("role") String role, HttpSession session) {
@@ -442,6 +456,7 @@ public class GroupeController {
 
 
     }
+    */
 
     @PostMapping("/add/users")
     public  String addGroupUser(UsersGroupe usersGroupe, HttpSession session){
@@ -465,15 +480,38 @@ public class GroupeController {
 
     }
 
+    private static final int BUTTONS_TO_SHOW = 3;
+    private static final int INITIAL_PAGE = 0;
+    private static final int INITIAL_PAGE_SIZE = 5;
+    private static final int[] PAGE_SIZES = { 5,6,7,8};
+
     @GetMapping("/groupe/users/{groupeId}")
-    public String groupeUser(Model model, @PathVariable Long groupeId){
+    public String groupeUser(Model model, @PathVariable Long groupeId,@RequestParam("pageSize") Optional<Integer> pageSize,
+                             @RequestParam("page") Optional<Integer> page){
+
+    //
+    // Evaluate page size. If requested parameter is null, return initial
+    // page size
+    int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+    // Evaluate page. If requested parameter is null or less than 0 (to
+    // prevent exception), return initial size. Otherwise, return value of
+    // param. decreased by 1.
+    int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+    // print repo
+
         List<User> users1=userService.listAll();
         Groupe groupe = groupeRepository.getOne(groupeId);
         model.addAttribute("users1",users1);
         model.addAttribute("usersGroupe", new UsersGroupe());
         model.addAttribute("groupe",groupe);
-        List<User> users = userRepository.findByGroupes_GroupeId(groupeId);
-        System.out.println(users);
+        Page<User> users = userRepository.findByGroupes_GroupeId(groupeId,new PageRequest(evalPage,evalPageSize));
+    PagerModel pager = new PagerModel(users.getTotalPages(),users.getNumber(),BUTTONS_TO_SHOW);// evaluate page size
+    model.addAttribute("selectedPageSize", evalPageSize);
+    // add pages size
+    model.addAttribute("pageSizes", PAGE_SIZES);
+    // add pager
+    model.addAttribute("pager", pager);
+    System.out.println(users);
         model.addAttribute("users",users);
         return "crew/users";
 
@@ -487,19 +525,23 @@ public class GroupeController {
         Long userId=(Long)session.getAttribute("userId");
         Groupe groupe = groupeRepository.getOne(groupeId);
         User user=userService.getById(userId);
-        if (!user.getRole().getRole().equals("user")){
-            model.addAttribute("userId", userId);
-            model.addAttribute("these",new These());
-            model.addAttribute("countries", countries);
-            model.addAttribute("theses", theseRepository.findByGroupeOrderByTheseIdDesc(groupeId));
-            model.addAttribute("groupeName",groupe.getGroupeName());
+        model.addAttribute("userId", userId);
+        model.addAttribute("these",new These());
+        model.addAttribute("countries", countries);
+        model.addAttribute("theses", theseRepository.findByGroupeOrderByTheseIdDesc(groupeId));
+        model.addAttribute("groupeName",groupe.getGroupeName());
+        Collection<Role> roles= roleRepository.findByUsers_UserId(user.getUserId());
+        int p=0;
+        for (Role role : roles){
+        if (!role.getRole().equals("user")){
+            p=1;
+        }else {
+            p=2;
+        }
+        }
+        if (p==1){
             return "redirect:/groupe/groupe/all/these";
         }else {
-            model.addAttribute("userId", userId);
-            model.addAttribute("countries", countries);
-            model.addAttribute("these",new These());
-            model.addAttribute("theses", theseRepository.findByUserOrderByTheseIdDesc(user.getUserId()));
-            model.addAttribute("groupeName",groupe.getGroupeName());
             return "redirect:/groupe/groupe/all/user/these";
         }
 

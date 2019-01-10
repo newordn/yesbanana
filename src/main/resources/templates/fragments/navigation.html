@@ -55,8 +55,8 @@
                         </div>
                         <div class="login-content classynav">
                                 <ul class="dropdown">
-                                    <li><a class="dropdown-item" th:href="@{/user/update/}">Profil</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/logout}">Deconnexion</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
+                                    <li sec:authorize="isFullyAuthenticated()"><a class="dropdown-item" th:href="@{/logout}">Deconnexion</a></li>
                                 </ul>
                         </div>
                     </div>
@@ -86,17 +86,17 @@
                         </div>
 
                         <!-- Nav Start -->
-                        <div class="classynav" id="navigation">
-                            <ul>
-                                <li class="active"><a th:if="${session.userRole=='root'}" th:href="@{/these}" sec:authorize="hasRole('root')">Acceuil</a></li>
-                                <li><a th:if="${session.userRole=='root'}" th:href="@{/groupe/groupes}" sec:authorize="hasRole('root')">Régions</a>
+                        <div class="classynav" id="navigation" >
+                            <ul sec:authorize="hasRole('ROLE_ROOT')" >
+                                <li class="active"><a  th:href="@{/these}" >Acceuil</a></li>
+                                <li><a  th:href="@{/groupe/groupes}" >Régions</a>
                                 </li>
-                                <li><a th:if="${session.userRole=='root'}" th:href="@{/user}" sec:authorize="hasRole('root')">Utilisateurs</a>
+                                <li><a  th:href="@{/user}" >Utilisateurs</a>
                                 </li>
-                                <li><a th:if="${session.userRole=='root'}" th:href="@{/stats}" sec:authorize="hasRole('root')">Statistiques</a></li>
-                                <li><a th:if="${session.userRole=='root'}" th:href="@{/management/countries/parameter}" sec:authorize="hasRole('root')">Paramètres</a></li>
-                                <li><a th:if="${session.userRole=='root'}" th:href="@{/management/countries/visitor}" sec:authorize="hasRole('root')">Visiteurs</a></li>
-                                <li><a th:if="${session.userRole=='root'}" th:href="@{/management/course/all}" sec:authorize="hasRole('root')">Formations</a></li>
+                                <li><a  th:href="@{/stats}" >Statistiques</a></li>
+                                <li><a  th:href="@{/management/countries/parameter}" >Paramètres</a></li>
+                                <li><a  th:href="@{/management/countries/visitor}" >Visiteurs</a></li>
+                                <li><a  th:href="@{/management/course/all}" >Formations</a></li>
                             </ul>
                         </div>
                         <!-- Nav End -->
@@ -104,7 +104,7 @@
 
                     <!-- Calling Info -->
                     <div class="calling-info">
-                        <div class="call-center row">
+                        <div class="call-center row" sec:authorize="isAuthenticated()">
                                 <div class="classynav">
                                     <ul>
                                     <li>
