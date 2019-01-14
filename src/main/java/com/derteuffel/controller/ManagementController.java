@@ -332,6 +332,42 @@ public class ManagementController {
         return "management/university";
     }
 
+    //visitor management functions
+
+    @GetMapping("/chiefs")
+    public  String chiefs(){
+        return "user/chiefs";
+    }
+
+
+    @GetMapping("/student")
+    public  String student(){
+        return "user/student";
+    }
+
+
+    @GetMapping("/assistants")
+    public  String assistants(){
+        return "user/assistants";
+    }
+
+
+    @GetMapping("/professeurs")
+    public  String professeurs(){
+        return "user/professeurs";
+    }
+
+
+    @GetMapping("/primaire")
+    public  String primary(){
+        return "user/primaires";
+    }
+
+
+    @GetMapping("/secondaire")
+    public  String secondaire(){
+        return "user/secondaires";
+    }
 
     // region management methods
     @GetMapping("/region/parameter/{regionId}")
@@ -354,110 +390,17 @@ public class ManagementController {
         model.addAttribute("university", new University());
         return "management/region";
     }
-    // region management methods
-    @GetMapping("/region/visitor/{regionId}")
-    public String find(Model model, @PathVariable Long regionId, HttpSession session) {
-        Optional<Region> regionOptional=regionRepository.findById(regionId);
-        session.setAttribute("regionId", regionId);
-        List<User> nulls= userRepository.findAllByActiveOrderByUserIdDesc(null);
-        List<User> visitors_region= userRepository.findAllByRegionOrderByUserIdDesc(regionOptional.get().getRegName());
-        List<User> visitors= new ArrayList<>();
-        for (User user: nulls){
-            for (int a=0; a< visitors_region.size(); a++){
-                if (user.getUserId().equals(visitors_region.get(a).getUserId())){
-                    visitors.add(user);
-                }
-            }
-        }
-        System.out.println(visitors);
-        List<User> users=userRepository.findAllByCategory("Chef des travaux");
-        List<User> users1=userRepository.findAllByCategory("Assistant");
-        List<User> users2=userRepository.findAllByCategory("Professeur");
-        List<User> users5=userRepository.findAllByCategory("Primaire");
-        List<User> users6=userRepository.findAllByCategory("Secondaire");
-        List<User> users7=userRepository.findAllByCategory("Etudiant");
+/*
         List<User> users3=userRepository.findAllByDiplomOrderByUserIdDesc("Master1&2");
         List<User> users4=userRepository.findAllByDiplomOrderByUserIdDesc("Phd/Doctorat");
         List<User> chiefs=new ArrayList<>(), assistants=new ArrayList<>(),professors=new ArrayList<>(),
                 masters=new ArrayList<>(), doctorats=new ArrayList<>(), primaries=new ArrayList<>(), secondaries=new ArrayList<>(),
                 students=new ArrayList<>();
-        // adding user in chiefs
-        for (User user:visitors){
-            for (int i=0;i<users.size();i++){
-                if (user.getUserId().equals(users.get(i).getUserId())){
-                    chiefs.add(user);
-                }
-            }
-        }
-        //adding user in assistants
-        for (User user1:visitors){
-            for (int p=0;p<users1.size();p++){
-                if (user1.getUserId().equals(users1.get(p).getUserId())){
-                    assistants.add(user1);
-                }
-            }
-        }
-        //adding user in professors
-        for (User user2:visitors){
-            for (int p=0;p<users2.size();p++){
-                if (user2.getUserId().equals(users2.get(p).getUserId())){
-                    professors.add(user2);
-                }
-            }
-        }
-        // adding user in masters
-        for (User user3:visitors){
-            for (int p=0;p<users3.size();p++){
-                if (user3.getUserId().equals(users3.get(p).getUserId())){
-                    masters.add(user3);
-                }
-            }
-        }
-        //adding user in phd/doctorat
-        for (User user4:visitors){
-            for (int p=0;p<users4.size();p++){
-                if (user4.getUserId().equals(users4.get(p).getUserId())){
-                    doctorats.add(user4);
-                }
-            }
-        }
-        //adding user in secondaries
-        for (User user6:visitors){
-            for (int p=0;p<users6.size();p++){
-                if (user6.getUserId().equals(users6.get(p).getUserId())){
-                    secondaries.add(user6);
-                }
-            }
-        }
-        //adding user in primaries
-        for (User user5:visitors){
-            for (int p=0;p<users5.size();p++){
-                if (user5.getUserId().equals(users5.get(p).getUserId())){
-                    primaries.add(user5);
-                }
-            }
-        }
-        //adding user in students
-        for (User user7:visitors){
-            for (int p=0;p<users7.size();p++){
-                if (user7.getUserId().equals(users7.get(p).getUserId())){
-                    students.add(user7);
-                }
-            }
-        }
 
-        model.addAttribute("chiefs", chiefs);
-        model.addAttribute("assistants", assistants);
-        model.addAttribute("primaries", primaries);
-        model.addAttribute("secondaries", secondaries);
-        model.addAttribute("students", students);
-        model.addAttribute("professors", professors);
-        model.addAttribute("masters", masters);
-        model.addAttribute("doctorats", doctorats);
 
-        model.addAttribute("region",regionOptional.get());
         return "management/visitors";
     }
+    */
 
     @PostMapping("/region/form/save")
     public String saveRegion(Region region, HttpSession session) {
@@ -1478,6 +1421,8 @@ public class ManagementController {
     }
     @PostMapping("/period/save")
     public String periodSaved(Period period, HttpSession session, String adresse, String contenue){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
         Long courseId= (Long)session.getAttribute("courseId");
         Optional<Course> course= courseRepository.findById(courseId);
         period.setCourse(course.get());
@@ -1488,7 +1433,7 @@ public class ManagementController {
         mail.sendSimpleMessage(
                 adresse,
                 "Notification de enregistrement d'une periode de formation",
-                contenue
+                user.getName()+" vous notifi celon le contenue suivant :"+ contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
         return "redirect:/management/course/get/"+ courseId;
     }
@@ -1517,14 +1462,15 @@ public class ManagementController {
     }
     @PostMapping("/period/unPublish/{periodId}")
     public String unPublishPeriod(Period period, HttpSession session, String adresse, String contenue){
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
         period.setStatus(null);
         periodRepository.save(period);
         MailService backMessage= new MailService();
         backMessage.sendSimpleMessage(
                 adresse,
                 "Notification de correction du contenu de cette periode",
-                contenue
+                user.getName()+" vous notifi celon le contenue suivant :"+contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
         return "redirect:/management/course/get/"+(Long)session.getAttribute("courseId");
     }
@@ -1551,7 +1497,7 @@ public class ManagementController {
     }
 
     @PostMapping(value = "/lesson/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String lessonSave(Lesson lesson, HttpSession session, @RequestParam("files") MultipartFile files){
+    public String lessonSave(Lesson lesson, HttpSession session, @RequestParam("files") MultipartFile files,  String adresse, String contenue){
         List<FileUploadRespone> pieces= Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
@@ -1562,13 +1508,59 @@ public class ManagementController {
             filesPaths.add(pieces.get(i).getFileDownloadUri());
         }
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
         System.out.println(filesPaths);
         lesson.setPieces(filesPaths);
 
         Period period= periodRepository.getOne((Long)session.getAttribute("periodId"));
         lesson.setPeriod(period);
+        lessonRepository.save(lesson);
+        MailService mail= new MailService();
+        mail.sendSimpleMessage(
+                adresse,
+                "Notification de enregistrement d'une periode de formation",
+                user.getName()+" vous notifi celon le contenue suivant :"+ contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
+        );
+        return "redirect:/management/period/get/"+(Long)session.getAttribute("periodId");
+    }
+    @GetMapping("/lesson/publish/{lessonId}")
+    public String publishLesson(@PathVariable Long lessonId, HttpSession session){
+        Lesson lesson= lessonRepository.getOne(lessonId);
+        lesson.setStatus(true);
+        System.out.println(lesson.getStatus());
+        lessonRepository.save(lesson);
+        return "redirect:/management/period/get/"+(Long)session.getAttribute("periodId");
+    }
 
-        Lesson lesson1= lessonRepository.save(lesson);
+    @GetMapping("/lesson/draft/{lessonId}")
+    public String draftLesson(@PathVariable Long lessonId, HttpSession session){
+
+        Lesson lesson= lessonRepository.getOne(lessonId);
+        lesson.setStatus(false);
+        lessonRepository.save(lesson);
+        return "redirect:/management/period/get/"+(Long)session.getAttribute("periodId");
+
+    }
+
+    @GetMapping("/lesson/unPublish/form/{lessonId}")
+    public String unPublishLesson(@PathVariable Long lessonId, Model model){
+        Lesson lesson= lessonRepository.getOne(lessonId);
+        model.addAttribute("lesson", lesson);
+        return "management/lesson/correction";
+    }
+    @PostMapping("/lesson/unPublish/{lessonId}")
+    public String unPublishLesson(Lesson lesson, HttpSession session, String adresse, String contenue){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
+        lesson.setStatus(null);
+        lessonRepository.save(lesson);
+        MailService backMessage= new MailService();
+        backMessage.sendSimpleMessage(
+                adresse,
+                "Notification de correction du contenu de cette lesson",
+                user.getName()+" vous notifi celon le contenue suivant :"+contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
+        );
         return "redirect:/management/period/get/"+(Long)session.getAttribute("periodId");
     }
 

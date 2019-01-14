@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Contenu d'un cours</title>
     <meta charset="utf-8">
@@ -35,18 +35,61 @@
             <div class="container">
                 <div class="col-12 col-sm-6 col-lg-12 text-center">
                     <p th:text="${period?.title}">Première période</p><br>
-                    <img  th:src="${lesson.pieces[0]}" class="rounded card-image-top">
+                    <!--img  th:src="${lesson.pieces[0]}" class="rounded card-image-top"-->
+                    <video width="400" height="280" controls>
+                        <source th:src="${lesson.pieces[0]}">
+                    </video>
                     <div class="card-body mt-3" style="width: 750px; margin-left: 8.5rem;">
                         <p th:text="${lesson.resumes}">With Safari, you learn the way you learn best. Get unlimited access to videos, live online training, learning paths, books, interactive tutorials, and more.
                         </p><br>
                         <a class="btn btn-warning" th:href="@{#}" ><i class="fa fa-eye"></i>&nbsp;&nbsp;Commencer la leçon</a><br>
                             <span style="color: #9fcdff">Carte de credit necessaire</span>
+                        <div class="row mt-3" sec:authorize="hasRole('ROLE_ROOT')" style="padding-left: 15px;padding-right: 15px">
+                            <div class="col-12 col-sm-12 col-lg-4">
+                                <a class="btn btn-success" th:href="@{/management/lesson/publish/}+${lesson.lessonId}" style="width: 100%">Approuver et publier </a>
+                            </div>
+                            <div class="col-12 col-sm-12 col-lg-4">
+                                <a class="btn btn-warning" th:href="@{/management/lesson/unPublish/form/}+${lesson.lessonId}"  style="width: 100%">Renvoi pour modification</a>
+                                <div class="modal card modal-warning fade in" th:id="modal-warning+${lesson.lessonId}" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header text-center">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span></button>
+                                                <h5 class="modal-title">Envoi d'un message de correction de la periode de formation</h5>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="form-group">
+                                                    <label > Adresse email destinataire :</label>
+                                                    <input type="email" class="form-control" name="adresse">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label > Corps du message :</label>
+                                                    <textarea class="form-control" rows="10" name="contenue"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer text-center">
+                                                <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                                <a class="btn btn-danger" th:href="@{/management/lesson/unPublish/}+${lesson.lessonId}" ><i class="fa fa-check"></i>&nbsp;Envoye</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-lg-4">
+                                <a class="btn btn-secondary" th:href="@{/management/lesson/draft/}+${lesson.lessonId}" style="width: 100%">Approuve sans publier</a>
+                            </div>
+                        </div>
+
+                        <a  class="btn btn-success mt-3" sec:authorize="!hasRole('ROLE_USER')">
+                            Status <span class="badge badge-light"  th:text="${lesson.status}">4</span>
+                        </a>
                     </div>
                 </div>
             </div >
                 <hr class="style14">
         </div>
-        <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/management/lesson/form}" style="bottom: 3rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
+        <a sec:authorize="!hasRole('ROLE_USER')" class="btn addButton btn-primary rounded-circle" th:href="@{/management/lesson/form}" style="bottom: 3rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer-area">
         <!-- Top Footer Area -->

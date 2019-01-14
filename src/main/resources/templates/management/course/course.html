@@ -66,10 +66,13 @@
                 <div class="container" th:each=" lesson : ${period.lessons}">
                     <p><strong>Titre : </strong><span th:text="${lesson.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Durée : </strong><span th:text="${lesson.elapsedTime}"> </span>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Résumé : </strong><span th:text="${lesson.resumes}"></span></p>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-12" style="padding-left: 15px;padding-right: 15px">
+                <div class="col-12 col-sm-6 col-lg-12 mt-3" style="padding-left: 15px;padding-right: 15px">
+                    <a  class="btn btn-success mb-3" sec:authorize="!hasRole('ROLE_USER')">
+                        Status <span class="badge badge-light"  th:text="${period.status}">4</span>
+                    </a>
                     <a class="btn btn-primary" th:href="@{/management/period/get/}+${period.periodId}" style="width: 100%">Suivre les leçons</a>
                 </div>
-                <div class="row mt-3" style="padding-left: 15px;padding-right: 15px">
+                <div class="row mt-3" sec:authorize="hasRole('ROLE_ROOT')" style="padding-left: 15px;padding-right: 15px">
                     <div class="col-12 col-sm-12 col-lg-4">
                         <a class="btn btn-success" th:href="@{/management/period/publish/}+${period.periodId}" style="width: 100%">Approuver et publier </a>
                     </div>

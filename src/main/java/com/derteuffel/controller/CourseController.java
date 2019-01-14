@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +50,16 @@ public class CourseController {
     public String findOneCourse(Model model,@PathVariable Long courseId, HttpSession session) {
         session.setAttribute("courseId",courseId);
         Optional<Course> optional= courseRepository.findById(courseId);
-        List<Period> periods= periodRepository.findAllByCourses(optional.get().getCourseId());
+        List<Period> periods= new ArrayList<>();
+        List<Period> periods1= periodRepository.findAllByStatusOrderByPeriodIdDesc(true);
+        List<Period> periodList= periodRepository.findAllByCourses(optional.get().getCourseId());
+        for (Period period : periodList){
+            for (int i=0; i< periods1.size();i++){
+                if (period.getPeriodId().equals(periods1.get(i).getPeriodId())){
+                    periods.add(period);
+                }
+            }
+        }
         model.addAttribute("course", optional.get());
         model.addAttribute("periods", periods);
         return "course/course";

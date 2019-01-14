@@ -16,4 +16,6 @@ public interface LessonRepository extends JpaRepository<Lesson, Long>{
 
     @Query("select l from Lesson as l join l.period lp where lp.periodId=:id order by l.lessonId desc")
     List<Lesson> findAllByPeriod(@Param("id") Long periodId);
+
+    List<Lesson> findAllByStatusOrderByLessonIdDesc(Boolean status);
 }

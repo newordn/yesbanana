@@ -35,7 +35,10 @@
             <div class="container">
                 <div class="col-12 col-sm-6 col-lg-12 text-center">
                     <p th:text="${period?.title}">Première période</p><br>
-                    <img  th:src="${lesson.pieces[0]}" class="rounded card-image-top">
+                    <!--img  th:src="${lesson.pieces[0]}" class="rounded card-image-top"-->
+                    <video width="400" height="280" controls>
+                        <source th:src="${lesson.pieces[0]}">
+                    </video>
                     <div class="card-body mt-3" style="width: 750px; margin-left: 8.5rem;">
                         <p th:text="${lesson.resumes}">With Safari, you learn the way you learn best. Get unlimited access to videos, live online training, learning paths, books, interactive tutorials, and more.
                         </p><br>
@@ -45,6 +48,7 @@
                 </div>
             </div >
                 <hr class="style14">
+        </div>
         </div>
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer-area">

@@ -16,4 +16,6 @@ import java.util.List;
 public interface PeriodRepository extends JpaRepository<Period,Long>{
     @Query("select p from Period as p join p.course pc where pc.courseId=:id order by p.periodId desc")
     List<Period> findAllByCourses(@Param("id") Long courseId);
+
+    List<Period> findAllByStatusOrderByPeriodIdDesc(Boolean status);
 }

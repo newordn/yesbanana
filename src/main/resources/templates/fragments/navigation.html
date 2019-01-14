@@ -91,19 +91,41 @@
                                 <li class="active"><a  th:href="@{/these}" >Acceuil</a></li>
                                 <li><a  th:href="@{/groupe/groupes}" >Régions</a>
                                 </li>
-                                <li><a  th:href="@{/user}" >Utilisateurs</a>
+                                <li><a  th:href="@{/user}" >Staffs</a>
                                 </li>
                                 <li><a  th:href="@{/stats}" >Statistiques</a></li>
                                 <li><a  th:href="@{/management/countries/parameter}" >Paramètres</a></li>
-                                <li><a  th:href="@{/management/countries/visitor}" >Visiteurs</a></li>
-                                <li><a  th:href="@{/management/course/all}" >Formations</a></li>
+                                <li><a href="#">Travailler avec nous</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Expert univ</a>
+                                            <ul class="dropdown">
+                                                <li><a th:href="@{/management/chiefs}">C des travaux</a></li>
+                                                <li><a th:href="@{/management/professeurs}">Professeurs</a></li>
+                                                <li><a th:href="@{/management/assistants}">Assistant</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a  href="#" >Expert Pro</a>
+                                            <ul class="dropdown">
+                                                <li><a th:href="@{/management/primaire}">Master1&2</a></li>
+                                                <li><a th:href="@{/management/secondaire}">Phd/Doctorat</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a th:href="@{/management/student}">Etudiant</a></li>
+                                        <li><a href="#">Enseignant</a>
+                                            <ul class="dropdown">
+                                                <li><a th:href="@{/management/primaire}">Primaire</a></li>
+                                                <li><a th:href="@{/management/secondaire}">Secondaire</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                         <!-- Nav End -->
                     </div>
 
                     <!-- Calling Info -->
-                    <div class="calling-info">
+                    <div class="calling-info" style="padding-left: 0">
                         <div class="call-center row" sec:authorize="isAuthenticated()">
                                 <div class="classynav">
                                     <ul>

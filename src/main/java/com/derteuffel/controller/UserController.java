@@ -275,7 +275,7 @@ public class UserController {
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
         // print repo
 
-        Page<User> users = userRepository.findAll(new PageRequest(evalPage,evalPageSize));
+        Page<User> users = userRepository.findAllByActiveOrderByUserIdDesc(true,new PageRequest(evalPage,evalPageSize));
         PagerModel pager = new PagerModel(users.getTotalPages(),users.getNumber(),BUTTONS_TO_SHOW);// evaluate page size
         model.addAttribute("selectedPageSize", evalPageSize);
         // add pages size

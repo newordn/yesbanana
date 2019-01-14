@@ -12,7 +12,7 @@ public class Lesson implements Serializable {
     @Id
     @GeneratedValue
     private Long lessonId;
-
+    private Boolean status;
     private String title;
     @Column
     private ArrayList<String> pieces= new ArrayList<>();
@@ -26,11 +26,20 @@ public class Lesson implements Serializable {
     public Lesson() {
     }
 
-    public Lesson(String title, ArrayList<String> pieces, String resumes, String elapsedTime) {
+    public Lesson(String title, ArrayList<String> pieces, String resumes, String elapsedTime, Boolean status) {
         this.title = title;
+        this.status=status;
         this.pieces = pieces;
         this.resumes = resumes;
         this.elapsedTime = elapsedTime;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public Long getLessonId() {
