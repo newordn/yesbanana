@@ -297,7 +297,8 @@ public class UserController {
     @GetMapping("/detail/{userId}")
     public String user(Model model, @PathVariable Long userId){
 
-        User user= userService.getById(userId);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
         model.addAttribute("user",user);
         AddUserRole form= new AddUserRole(roleRepository.findAll(), user);
         Set<Role> roles= roleRepository.findByUsers_UserId(userId);

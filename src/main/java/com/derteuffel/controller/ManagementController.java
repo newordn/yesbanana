@@ -585,8 +585,15 @@ public class ManagementController {
         return "management/region/other/form";
     }
 
+    @GetMapping("/other/update/{otherId}")
+    public String otherUpdate(Model model,@PathVariable Long otherId){
+        Other other= otherRepository.getOne(otherId);
+        model.addAttribute("other", other);
+        return "management/region/other/edit";
+    }
+
     @PostMapping("/other/save")
-    public String other(HttpSession session, @RequestParam("files") MultipartFile[] files, Other other){
+    public String otherSave(HttpSession session, @RequestParam("files") MultipartFile[] files, Other other){
 
         List<FileUploadRespone> pieces= Arrays.asList(files)
                 .stream()
@@ -605,6 +612,36 @@ public class ManagementController {
         other.setRegion(region);
         Other other1=otherRepository.save(other);
         return "redirect:/management/region/other/"+other1.getType().toLowerCase()+"/"+(Long)session.getAttribute("regionId");
+    }
+
+    @PostMapping("/other/update/{otherId}")
+    public String otherUpdate(HttpSession session, @RequestParam("files") MultipartFile[] files, Other other){
+
+        List<FileUploadRespone> pieces= Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        ArrayList<String> filesPaths = new ArrayList<String>();
+        for(int i=0;i<pieces.size();i++)
+        {
+            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        }
+        other.setPieces(filesPaths);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
+        other.setUser(user);
+        Region region=regionRepository.getOne((Long)session.getAttribute("regionId"));
+        other.setRegion(region);
+        Other other1=otherRepository.save(other);
+        return "redirect:/management/region/other/"+other1.getType().toLowerCase()+"/"+(Long)session.getAttribute("regionId");
+    }
+
+    @DeleteMapping("/other/delete/{otherId}")
+    public String otherRemove(@PathVariable Long otherId, HttpSession session){
+        String type= otherRepository.getOne(otherId).getType();
+        otherRepository.deleteById(otherId);
+
+        return "redirect:/management/region/other/"+type.toLowerCase()+"/"+(Long)session.getAttribute("regionId");
     }
 
     //course management methods start
