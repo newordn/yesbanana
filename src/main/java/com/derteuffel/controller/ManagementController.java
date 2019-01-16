@@ -373,7 +373,7 @@ public class ManagementController {
 
     @GetMapping("/master")
     public  String master(){
-        return "user/masters";
+        return "user/master";
     }
 
     @GetMapping("/doctorat")
