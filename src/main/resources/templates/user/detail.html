@@ -171,7 +171,10 @@
                                 <h5 th:text="${user.category}">Developer</h5>
                             </div>
                             <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
-                                <a th:href="@{/}" class="btn btn-primary btn-block">YESBANANA</a>
+                                <a th:href="@{/#}" class="btn btn-primary btn-block">Roles</a>
+                                <ul th:each=" role : ${roles}">
+                                    <li> <p th:text="${role.role}"></p></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
