@@ -284,6 +284,7 @@ public class CourseController {
         return "course/one/washs";
     }
 
+    //second part for shower
     @GetMapping("/administration")
     public String courseAdmin(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
                               @RequestParam("page") Optional<Integer> page){
@@ -309,7 +310,7 @@ public class CourseController {
         model.addAttribute("lists", list);
         model.addAttribute("pager", pager1);
         model.addAttribute("listSize", list.getTotalElements());
-        return "management/course/administration";
+        return "course/administration";
 
     }
 
@@ -339,7 +340,7 @@ public class CourseController {
         model.addAttribute("lists1", list1);
         model.addAttribute("pager", pager2);
         model.addAttribute("listSize1", list1.getTotalElements());
-        return "management/course/language";
+        return "course/language";
 
     }
 
@@ -369,7 +370,7 @@ public class CourseController {
         model.addAttribute("lists2", list2);
         model.addAttribute("pager", pager3);
         model.addAttribute("listSize2", list2.getTotalElements());
-        return "management/course/its";
+        return "course/its";
 
     }
 
@@ -398,7 +399,7 @@ public class CourseController {
         model.addAttribute("lists3", list3);
         model.addAttribute("pager", pager4);
         model.addAttribute("listSize3", list3.getTotalElements());
-        return "management/course/logistique";
+        return "course/logistique";
 
     }
 
@@ -427,7 +428,7 @@ public class CourseController {
         model.addAttribute("lists4", list4);
         model.addAttribute("pager", pager5);
         model.addAttribute("listSize4", list4.getTotalElements());
-        return "management/course/protection";
+        return "course/protection";
 
     }
 
@@ -458,13 +459,14 @@ public class CourseController {
         model.addAttribute("lists5", list5);
         model.addAttribute("pager", pager6);
         model.addAttribute("listSize5", list5.getTotalElements());
-        return "management/course/resource";
+        return "course/resource";
 
     }
 
     @GetMapping("/leaderships")
     public String courseLeadership(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
-                                   @RequestParam("page") Optional<Integer> page){
+                                   @RequestParam("page") Optional<Integer> page)
+    {
 
         // courses leadership
         Page<Course> courses7= courseRepository.findAllByDomainOrderByCourseIdDesc("leadership", pageable);
@@ -490,7 +492,7 @@ public class CourseController {
         model.addAttribute("lists6", list6);
         model.addAttribute("pager", pager7);
         model.addAttribute("listSize6", list6.getTotalElements());
-        return "management/course/leadership";
+        return "course/leadership";
 
     }
 
@@ -522,7 +524,7 @@ public class CourseController {
         model.addAttribute("lists7", list7);
         model.addAttribute("pager", pager8);
         model.addAttribute("listSize7", list7.getTotalElements());
-        return "management/course/management";
+        return "course/management";
 
     }
 
@@ -553,117 +555,8 @@ public class CourseController {
         model.addAttribute("lists8", list8);
         model.addAttribute("pager", pager9);
         model.addAttribute("listSize8", list8.getTotalElements());
-        return "management/course/wash";
+        return "course/wash";
     }
 
-    @GetMapping("/all")
-    public String findList( Model model, @PageableDefault(size = 6) Pageable pageable,@RequestParam("pageSize") Optional<Integer> pageSize,
-                            @RequestParam("page") Optional<Integer> page) {
-        Page<Course> courses1= courseRepository.findAllByDomainOrderByCourseIdDesc("administration et finance",pageable);
-        //language
-        Page<Course> courses2= courseRepository.findAllByDomainOrderByCourseIdDesc("anglais et/ou francais",pageable);
-        //templates.course it
-        Page<Course> courses3= courseRepository.findAllByDomainOrderByCourseIdDesc("it",pageable);
-        // templates.course logistique
-        Page<Course> courses4= courseRepository.findAllByDomainOrderByCourseIdDesc("logistiques", pageable);
-        // courses protection
-        Page<Course> courses5= courseRepository.findAllByDomainOrderByCourseIdDesc("protection", pageable);
-        // courses resource humaine
-        Page<Course> courses6= courseRepository.findAllByDomainOrderByCourseIdDesc("resources humaines", pageable);
-        // courses leadership
-        Page<Course> courses7= courseRepository.findAllByDomainOrderByCourseIdDesc("leadership", pageable);
-        // courses managements
-        Page<Course> courses8= courseRepository.findAllByDomainOrderByCourseIdDesc("management", pageable);
-        // courses wash
-        Page<Course> courses9= courseRepository.findAllByDomainOrderByCourseIdDesc("wash", pageable);
-
-        model.addAttribute("courses1", courses1);
-        model.addAttribute("courses1Size", courses1.getTotalElements());
-        System.out.println(courses1.getTotalElements());
-        System.out.println(courses1.getSize());
-        System.out.println(courses1.getNumberOfElements());
-        System.out.println(courses1.getNumber());
-        model.addAttribute("courses2", courses2);
-        model.addAttribute("courses2Size", courses2.getTotalElements());
-        System.out.println(courses2.getNumberOfElements());
-        model.addAttribute("courses3", courses3);
-        model.addAttribute("courses3Size", courses3.getTotalElements());
-        model.addAttribute("courses4", courses4);
-        model.addAttribute("courses4Size", courses4.getTotalElements());
-        model.addAttribute("courses5", courses5);
-        model.addAttribute("courses5Size", courses5.getTotalElements());
-        model.addAttribute("courses6", courses6);
-        model.addAttribute("courses6Size", courses6.getTotalElements());
-        model.addAttribute("courses7", courses7);
-        model.addAttribute("courses7Size", courses7.getTotalElements());
-        model.addAttribute("courses8", courses8);
-        model.addAttribute("courses8Size", courses8.getTotalElements());
-        model.addAttribute("courses9", courses9);
-        model.addAttribute("courses9Size", courses9.getTotalElements());
-
-
-        //
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-        // evaluate page size
-        model.addAttribute("selectedPageSize", evalPageSize);
-        // add pages size
-        model.addAttribute("pageSizes", 3);
-        Page<Event> list= eventRepository.findAllByType("administration et finance", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager1 = new PagerModel(list.getTotalPages(),list.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists", list);
-        model.addAttribute("pager", pager1);
-        Page<Event> list1= eventRepository.findAllByType("anglais et/ou francais", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager2 = new PagerModel(list1.getTotalPages(),list1.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists1", list1);
-        model.addAttribute("pager", pager2);
-        Page<Event> list2= eventRepository.findAllByType("it", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager3 = new PagerModel(list2.getTotalPages(),list2.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists2", list2);
-        model.addAttribute("pager", pager3);
-        Page<Event> list3= eventRepository.findAllByType("logistiques", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager4 = new PagerModel(list3.getTotalPages(),list3.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists3", list3);
-        model.addAttribute("pager", pager4);
-        Page<Event> list4= eventRepository.findAllByType("protection", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager5 = new PagerModel(list4.getTotalPages(),list4.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists4", list4);
-        model.addAttribute("pager", pager5);
-        Page<Event> list5= eventRepository.findAllByType("resources humaines", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager6 = new PagerModel(list5.getTotalPages(),list5.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists5", list5);
-        model.addAttribute("pager", pager6);
-        Page<Event> list6= eventRepository.findAllByType("leadership", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager7 = new PagerModel(list6.getTotalPages(),list6.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists6", list6);
-        model.addAttribute("pager", pager7);
-        Page<Event> list7= eventRepository.findAllByType("management", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager8 = new PagerModel(list7.getTotalPages(),list7.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists7", list7);
-        model.addAttribute("pager", pager8);
-        Page<Event> list8= eventRepository.findAllByType("wash", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager9 = new PagerModel(list8.getTotalPages(),list8.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists8", list8);
-        model.addAttribute("pager", pager9);
-
-
-
-        model.addAttribute("listSize", list.getTotalElements());
-        model.addAttribute("listSize1", list1.getTotalElements());
-        model.addAttribute("listSize2", list2.getTotalElements());
-        model.addAttribute("listSize3", list3.getTotalElements());
-        model.addAttribute("listSize4", list4.getTotalElements());
-        model.addAttribute("listSize5", list5.getTotalElements());
-        model.addAttribute("listSize6", list6.getTotalElements());
-        model.addAttribute("listSize7", list7.getTotalElements());
-        model.addAttribute("listSize8", list8.getTotalElements());
-        return "course/courses";
-    }
 
 }
