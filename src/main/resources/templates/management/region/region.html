@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -8,11 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
     <!-- Title -->
     <title>yesbanana</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Favicon -->
     <link rel="icon" th:src="@{/core-img/yesb.png}">
 
@@ -33,27 +33,27 @@
 </div>
 <!-- navigation -->
 <!-- ##### Header Area End ##### -->
-<h2 class="text-center mt-5">Les Facultés</h2>
+<h2 class="text-center mt-5">Liste Universités</h2>
 <div class="row content mt-3">
-    <div class="col-3  text-center crew mb-2" th:each="faculty : ${faculties}" style="padding:.5rem;">
+    <div class="col-3  text-center crew mb-2" th:each="university : ${universities}" style="padding:.5rem;">
         <div class="card">
             <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
                 <div class="col-6 text-left" style="padding:0">
-                    <a th:href="@{/management/faculty/} + ${faculty.facultyId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
+                    <a th:href="@{/management/university/} + ${university.universityId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
                         <i class="zmdi zmdi-eye" ></i>
                     </a>
                 </div>
                 <div class="col-6 text-right" style="padding:0">
-                    <a th:href="@{/management/delete/faculty/} + ${faculty.facultyId}" sec:authorize="!hasRole('ROLE_USER')" class="btn btn-danger  rounded-circle" >
+                    <a th:href="@{/management/delete/university/} + ${university.universityId}" sec:authorize="!hasRole('ROLE_USER')" class="btn btn-danger  rounded-circle" >
                         <i class="zmdi zmdi-close" ></i>
                     </a>
                 </div>
             </div>
             <div style="background-color:whitesmoke; color:black">
                 <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                    <span th:text="${faculty.facultyName[0]}"> Yaounde</span>
+                    <span th:text="${university.universityName[0]}"> Yaounde</span>
                 </div>
-                <span th:text="${faculty.facultyName}"> Yaounde</span>
+                    <span th:text="${university.universityName}"> Yaounde</span>
             </div>
         </div>
 
@@ -61,23 +61,22 @@
 </div>
 
 <!-- add university button start-->
-<button sec:authorize="!hasRole('ROLE_USER')" type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addfaculty">
+<button sec:authorize="!hasRole('ROLE_USER')" type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addUniversity">
     <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
-
 </button>
 <!-- add university button end-->
-<!--addFaculty-->
-<div sec:authorize="!hasRole('ROLE_USER')" class=" modal fade" id="addfaculty" tabindex="-1" role="dialog" data-keyboard="false">
+<!--addUniversity-->
+<div sec:authorize="!hasRole('ROLE_USER')" class=" modal fade" id="addUniversity" tabindex="-1" role="dialog" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered"  role="document">
-        <form class="add-these-form modal-content card text-center" th:object="${faculty}" method="post" th:action="@{/management/faculty/form/save}">
+        <form class="add-these-form modal-content card text-center" th:object="${university}" method="post" th:action="@{/management/university/form/save}">
             <div class="row pt-3">
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="nameError"></span>
-                    <input type="hidden" name="universityId" th:value="${session.universityId}" />
-                    <!-- loop over available  faculty -->
-                    <select class="form-control" th:field="*{facultyName}">
-                        <option value="">choisir une faculté</option>
-                        <option th:each="these : ${theses}" th:value="${these.faculty}" th:text="${these.faculty}">Faculty</option>
+                    <input type="hidden" name="regionId" th:value="${session.regionId}" />
+                    <!-- loop over available  options -->
+                    <select class="form-control" th:field="*{universityName}">
+                        <option value="">choisir une université</option>
+                        <option th:each="these : ${theses}" th:value="${these.university}" th:text="${these.university}">University</option>
                     </select>
                 </div>
             </div>
@@ -92,7 +91,7 @@
         </form>
     </div>
 </div>
-<!-- addFaculty-->
+<!-- addCountry-->
 
 
 <!-- ##### All Javascript Script ##### -->

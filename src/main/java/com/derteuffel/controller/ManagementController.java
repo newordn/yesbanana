@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.print.attribute.standard.MediaSize;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,6 +63,8 @@ public class ManagementController {
     private EventRepository eventRepository;
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private OtherRepository otherRepository;
     List<String> countries= Arrays.asList(
             "Afghanistan",
             "Albania",
@@ -316,18 +319,17 @@ public class ManagementController {
         List<These> theses=theseRepository.findAllByUniversityOrderByTheseIdDesc(universityOptional.get().getUniversityName());
         List<These> theses1=new ArrayList<>();
         List<Faculty> faculties=facultyRepository.findAllByUnniversity(universityOptional.get().getUniversityId());
-
         for (int i=0; i<faculties.size();i++){
             for (These these:theses){
                 if (!these.getFaculty().toUpperCase().equals(faculties.get(i).getFacultyName().toUpperCase())){
-                 theses1.add(these);
+                    theses1.add(these);
                 }
             }
         }
+        model.addAttribute("theses", theses1);
         session.setAttribute("universityId",universityId);
         model.addAttribute("university", universityOptional.get());
         model.addAttribute("faculties", faculties);
-        model.addAttribute("theses", theses1);
         model.addAttribute("faculty",new Faculty());
         return "management/university";
     }
@@ -369,9 +371,19 @@ public class ManagementController {
         return "user/secondaires";
     }
 
+    @GetMapping("/master")
+    public  String master(){
+        return "user/masters";
+    }
+
+    @GetMapping("/doctorat")
+    public  String doctorat(){
+        return "user/doctorat";
+    }
+
     // region management methods
-    @GetMapping("/region/parameter/{regionId}")
-    public String findOne(Model model, @PathVariable Long regionId, HttpSession session) {
+    @GetMapping("/region/university/{regionId}")
+    public String university(Model model, @PathVariable Long regionId, HttpSession session) {
         Optional<Region> regionOptional=regionRepository.findById(regionId);
         session.setAttribute("regionId", regionId);
         List<University> universities=universityRepository.findAllByRegion(regionOptional.get().getRegionId());
@@ -384,23 +396,69 @@ public class ManagementController {
                 }
             }
         }
-        model.addAttribute("region",regionOptional.get());
         model.addAttribute("theses", theses1);
+        model.addAttribute("region",regionOptional.get());
         model.addAttribute("universities", universities);
         model.addAttribute("university", new University());
-        return "management/region";
+        return "management/region/region";
     }
-/*
-        List<User> users3=userRepository.findAllByDiplomOrderByUserIdDesc("Master1&2");
-        List<User> users4=userRepository.findAllByDiplomOrderByUserIdDesc("Phd/Doctorat");
-        List<User> chiefs=new ArrayList<>(), assistants=new ArrayList<>(),professors=new ArrayList<>(),
-                masters=new ArrayList<>(), doctorats=new ArrayList<>(), primaries=new ArrayList<>(), secondaries=new ArrayList<>(),
-                students=new ArrayList<>();
 
-
-        return "management/visitors";
+    @GetMapping("/region/other/logement/{regionId}")
+    public String other(Model model, @PathVariable Long regionId, HttpSession session) {
+        Optional<Region> regionOptional=regionRepository.findById(regionId);
+        session.setAttribute("regionId", regionId);
+        List<Other> others= otherRepository.findAllByRegion(regionOptional.get().getRegionId());
+        List<Other> others1= otherRepository.findAllByType("Logement");
+        List<Other> others2= new ArrayList<>();
+        for (Other other : others){
+            for (int i=0; i<others1.size();i++){
+                if (other.getOtherId().equals(others1.get(i).getOtherId())){
+                    others2.add(other);
+                }
+            }
+        }
+        model.addAttribute("region", regionOptional.get());
+        model.addAttribute("logements", others2);
+        return "management/region/other/logement";
     }
-    */
+
+    @GetMapping("/region/other/approvisionnement/{regionId}")
+    public String approvisionnement(Model model, @PathVariable Long regionId, HttpSession session) {
+        Optional<Region> regionOptional=regionRepository.findById(regionId);
+        session.setAttribute("regionId", regionId);
+        List<Other> others= otherRepository.findAllByRegion(regionOptional.get().getRegionId());
+        List<Other> others1= otherRepository.findAllByType("Approvisionnement");
+        List<Other> others2= new ArrayList<>();
+        for (Other other : others){
+            for (int i=0; i<others1.size();i++){
+                if (other.getOtherId().equals(others1.get(i).getOtherId())){
+                    others2.add(other);
+                }
+            }
+        }
+        model.addAttribute("region", regionOptional.get());
+        model.addAttribute("approvisionnements", others2);
+        return "management/region/other/approvisionnement";
+    }
+
+    @GetMapping("/region/other/transport/{regionId}")
+    public String transport(Model model, @PathVariable Long regionId, HttpSession session) {
+        Optional<Region> regionOptional=regionRepository.findById(regionId);
+        session.setAttribute("regionId", regionId);
+        List<Other> others= otherRepository.findAllByRegion(regionOptional.get().getRegionId());
+        List<Other> others1= otherRepository.findAllByType("Transport");
+        List<Other> others2= new ArrayList<>();
+        for (Other other : others){
+            for (int i=0; i<others1.size();i++){
+                if (other.getOtherId().equals(others1.get(i).getOtherId())){
+                    others2.add(other);
+                }
+            }
+        }
+        model.addAttribute("region", regionOptional.get());
+        model.addAttribute("transports", others2);
+        return "management/region/other/transport";
+    }
 
     @PostMapping("/region/form/save")
     public String saveRegion(Region region, HttpSession session) {
@@ -434,8 +492,8 @@ public class ManagementController {
                 }
             }
         }
-        model.addAttribute("faculty", facultyOptional.get());
         model.addAttribute("theses",theses1);
+        model.addAttribute("faculty", facultyOptional.get());
         model.addAttribute("optionses", optionses);
         model.addAttribute("options",new Options());
         return "management/faculty";
@@ -458,7 +516,7 @@ public class ManagementController {
     }
 
     // country management methods
-    @GetMapping("/countries/parameter")
+    @GetMapping("/countries/university")
     public String findAllCountry(Model model, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
@@ -467,10 +525,10 @@ public class ManagementController {
         model.addAttribute("countries1", countries1);
         model.addAttribute("countries", countries);
         model.addAttribute("country", new Country());
-        return "management/countries";
+        return "management/country/countries";
     }
     // country management methods
-    @GetMapping("/countries/visitor")
+    @GetMapping("/countries/other")
     public String findAllCountry1(Model model, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
@@ -478,7 +536,7 @@ public class ManagementController {
         List<Country> countries= countryRepository.findAll();
         model.addAttribute("countries", countries);
         model.addAttribute("country", new Country());
-        return "management/countries1";
+        return "management/country/countries1";
     }
     @PostMapping("/country/form/save")
     public String save(Country country) {
@@ -487,7 +545,7 @@ public class ManagementController {
         return "redirect:/management/countries/parameter";
     }
 
-    @GetMapping("/country/parameter/{countryId}")
+    @GetMapping("/country/university/{countryId}")
     public String findparameter(Model model,@PathVariable Long countryId, HttpSession session) {
         session.setAttribute("countryId",countryId);
         Optional<Country> countryOptional=countryRepository.findById(countryId);
@@ -498,29 +556,16 @@ public class ManagementController {
         model.addAttribute("country", countryOptional.get());
         model.addAttribute("regions", regions);
         model.addAttribute("region",new Region());
-
-        return "management/country";
+        return "management/country/country";
     }
-    @GetMapping("/country/visitor/{countryId}")
+    @GetMapping("/country/other/{countryId}")
     public String findvisitor(Model model,@PathVariable Long countryId, HttpSession session) {
         session.setAttribute("countryId",countryId);
         Optional<Country> countryOptional=countryRepository.findById(countryId);
         List<Region> regions= regionRepository.findAllByCountry(countryOptional.get().getCountryId());
-        List<These> theses=theseRepository.findAllByCountryOrderByTheseIdDesc(countryOptional.get().getCountryName().toUpperCase());
-        List<These> theses1=new ArrayList<>();
-        for (int i=0; i<regions.size();i++){
-            for (These these:theses){
-                if (!these.getRegions().toUpperCase().equals(regions.get(i).getRegName().toUpperCase())){
-                    theses1.add(these);
-                }
-            }
-        }
-        model.addAttribute("theses", theses1);
         model.addAttribute("country", countryOptional.get());
         model.addAttribute("regions", regions);
-        model.addAttribute("region",new Region());
-
-        return "management/country1";
+        return "management/country/country1";
     }
     @GetMapping("/country/delete/{countryId}")
     public String deleteCountry(@PathVariable Long countryId, HttpSession session) {
@@ -532,267 +577,34 @@ public class ManagementController {
     }
 
 
-    @GetMapping("/visitor/detail/{userId}")
-    public String visitor(Model model, @PathVariable Long userId){
-        User user= userService.getById(userId);
-        model.addAttribute("user", user);
-        return "management/visitor";
+    @GetMapping("/other/form")
+    public String otherForm(Model model, HttpSession session){
+        Long regionId= (Long)session.getAttribute("regionId");
+        model.addAttribute("other",new Other());
+        model.addAttribute("regionId", regionId);
+        return "management/region/other/form";
     }
 
-    @GetMapping("/school/primary/{regionId}")
-    public String education(Model model, HttpSession session){
-         List<Post> post_by_region= postRepository.findAllByRegion((Long)session.getAttribute("regionId"));
-        List<Post> post_by_level= postRepository.findAllByNiveauOrderByPostIdDesc(1);
-        List<Post> post_region_by_niveau= new ArrayList<>();
-        for (Post post:post_by_region){
-            for (int i=0; i< post_by_level.size();i++ ){
-                if (post.getPostId().equals(post_by_level.get(i).getPostId())){
-                    post_region_by_niveau.add(post);
-                }
-            }
+    @PostMapping("/other/save")
+    public String other(HttpSession session, @RequestParam("files") MultipartFile[] files, Other other){
 
+        List<FileUploadRespone> pieces= Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        ArrayList<String> filesPaths = new ArrayList<String>();
+        for(int i=0;i<pieces.size();i++)
+        {
+            filesPaths.add(pieces.get(i).getFileDownloadUri());
         }
-        List<Post> posts_by_courses= new ArrayList<>(),posts_by_hollidays= new ArrayList<>(), posts_by_games= new ArrayList<>(),
-                posts_by_languages= new ArrayList<>(),posts_by_transports= new ArrayList<>(), posts_by_libraries= new ArrayList<>();
-
-        List<Post> coursesPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Cours d'appui");
-        List<Post> librariesPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Bibliotheque en ligne");
-        List<Post> languagesPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Cours de langue");
-        List<Post> hollidaysPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Colonie des vacances");
-        List<Post> gamesPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Jeux educatif");
-        List<Post> transportPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Transport securise");
-
-
-        for (Post post:post_region_by_niveau){
-            for (int c=0; c< coursesPosts.size();c++ ){
-                if (post.getPostId().equals(coursesPosts.get(c).getPostId())){
-                    posts_by_courses.add(post);
-                }
-            }
-
-        }
-        for (Post post:post_region_by_niveau){
-            for (int l=0; l< librariesPosts.size();l++ ){
-                if (post.getPostId().equals(librariesPosts.get(l).getPostId())){
-                    posts_by_libraries.add(post);
-                }
-            }
-
-        }
-        for (Post post:post_region_by_niveau){
-            for (int g=0; g< gamesPosts.size();g++ ){
-                if (post.getPostId().equals(gamesPosts.get(g).getPostId())){
-                    posts_by_games.add(post);
-                }
-            }
-
-        }
-        for (Post post:post_region_by_niveau){
-            for (int h=0; h< hollidaysPosts.size();h++ ){
-                if (post.getPostId().equals(hollidaysPosts.get(h).getPostId())){
-                    posts_by_hollidays.add(post);
-                }
-            }
-
-        }
-        for (Post post:post_region_by_niveau){
-            for (int la=0; la< languagesPosts.size();la++ ){
-                if (post.getPostId().equals(languagesPosts.get(la).getPostId())){
-                    posts_by_languages.add(post);
-                }
-            }
-
-        }
-        for (Post post:post_region_by_niveau){
-            for (int t=0; t< transportPosts.size();t++ ){
-                if (post.getPostId().equals(transportPosts.get(t).getPostId())){
-                    posts_by_transports.add(post);
-                }
-            }
-
-        }
-
-        model.addAttribute("courses_posts", posts_by_courses);
-        model.addAttribute("courses_transports", posts_by_transports);
-        model.addAttribute("courses_hollidays", posts_by_hollidays);
-        model.addAttribute("courses_games", posts_by_games);
-        model.addAttribute("courses_languages", posts_by_languages);
-        model.addAttribute("courses_libraries", posts_by_libraries);
-
-        return "management/coursesAddingPrimary";
-    }
-
-    @GetMapping("/school/secondary/{regionId}")
-    public String education1(Model model, HttpSession session){
-        List<Post> post_by_region= postRepository.findAllByRegion((Long)session.getAttribute("regionId"));
-        List<Post> post_by_level= postRepository.findAllByNiveauOrderByPostIdDesc(2);
-        List<Post> post_region_by_niveau= new ArrayList<>();
-        for (Post post:post_by_region){
-            for (int i=0; i< post_by_level.size();i++ ){
-                if (post.getPostId().equals(post_by_level.get(i).getPostId())){
-                    post_region_by_niveau.add(post);
-                }
-            }
-
-        }
-        List<Post> posts_by_courses= new ArrayList<>(),posts_by_framings= new ArrayList<>(),posts_by_exams= new ArrayList<>(),
-                posts_by_games= new ArrayList<>(), posts_by_languages= new ArrayList<>(),posts_by_transports= new ArrayList<>(),
-                posts_by_libraries= new ArrayList<>();
-
-        List<Post> coursesPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Cours d'appui");
-        List<Post> librariesPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Bibliotheque en ligne");
-        List<Post> languagesPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Cours de langue");
-        List<Post> framingsPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Loisirs");
-        List<Post> examsPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Preparation au baccalaureat");
-        List<Post> gamesPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Jeux educatif");
-        List<Post> transportPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Transport securise");
-
-
-        for (Post post:post_region_by_niveau){
-            for (int c=0; c< coursesPosts.size();c++ ){
-                if (post.getPostId().equals(coursesPosts.get(c).getPostId())){
-                    posts_by_courses.add(post);
-                }
-            }
-
-        }
-        for (Post post:post_region_by_niveau){
-            for (int l=0; l< librariesPosts.size();l++ ){
-                if (post.getPostId().equals(librariesPosts.get(l).getPostId())){
-                    posts_by_libraries.add(post);
-                }
-            }
-
-        }
-        for (Post post:post_region_by_niveau){
-            for (int g=0; g< gamesPosts.size();g++ ){
-                if (post.getPostId().equals(gamesPosts.get(g).getPostId())){
-                    posts_by_games.add(post);
-                }
-            }
-
-        }
-        for (Post post:post_region_by_niveau){
-            for (int h=0; h< framingsPosts.size();h++ ){
-                if (post.getPostId().equals(framingsPosts.get(h).getPostId())){
-                    posts_by_framings.add(post);
-                }
-            }
-
-        }
-        for (Post post:post_region_by_niveau){
-            for (int ex=0; ex< examsPosts.size();ex++ ){
-                if (post.getPostId().equals(examsPosts.get(ex).getPostId())){
-                    posts_by_exams.add(post);
-                }
-            }
-
-        }
-        for (Post post:post_region_by_niveau){
-            for (int la=0; la< languagesPosts.size();la++ ){
-                if (post.getPostId().equals(languagesPosts.get(la).getPostId())){
-                    posts_by_languages.add(post);
-                }
-            }
-
-        }
-        for (Post post:post_region_by_niveau){
-            for (int t=0; t< transportPosts.size();t++ ){
-                if (post.getPostId().equals(transportPosts.get(t).getPostId())){
-                    posts_by_transports.add(post);
-                }
-            }
-
-        }
-
-        model.addAttribute("courses_posts", posts_by_courses);
-        model.addAttribute("courses_transports", posts_by_transports);
-        model.addAttribute("courses_framings", posts_by_framings);
-        model.addAttribute("courses_exams", posts_by_exams);
-        model.addAttribute("courses_games", posts_by_games);
-        model.addAttribute("courses_languages", posts_by_languages);
-        model.addAttribute("courses_libraries", posts_by_libraries);
-
-        return "management/coursesAddingSecondary";
-    }
-
-    @GetMapping("/school/civic/{regionId}")
-    public String education2(Model model, HttpSession session){
-        List<Post> post_by_region= postRepository.findAllByRegion((Long)session.getAttribute("regionId"));
-        List<Post> post_by_level= postRepository.findAllByNiveauOrderByPostIdDesc(3);
-        List<Post> post_region_by_niveau= new ArrayList<>();
-        for (Post post:post_by_region){
-            for (int i=0; i< post_by_level.size();i++ ){
-                if (post.getPostId().equals(post_by_level.get(i).getPostId())){
-                    post_region_by_niveau.add(post);
-                }
-            }
-
-        }
-        List<Post> posts_by_civics= new ArrayList<>();
-        List<Post> civicPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Education civique");
-
-        for (Post post:post_region_by_niveau){
-            for (int c=0; c< civicPosts.size();c++ ){
-                if (post.getPostId().equals(civicPosts.get(c).getPostId())){
-                    posts_by_civics.add(post);
-                }
-            }
-
-        }
-
-        model.addAttribute("civics_posts", posts_by_civics);
-        return "management/civic";
-    }
-
-    @GetMapping("/other/{regionId}")
-    public String other(Model model, HttpSession session){
-        List<Post> post_by_region= postRepository.findAllByRegion((Long)session.getAttribute("regionId"));
-        List<Post> post_by_level= postRepository.findAllByNiveauOrderByPostIdDesc(4);
-        List<Post> post_region_by_niveau= new ArrayList<>();
-        for (Post post:post_by_region){
-            for (int i=0; i< post_by_level.size();i++ ){
-                if (post.getPostId().equals(post_by_level.get(i).getPostId())){
-                    post_region_by_niveau.add(post);
-                }
-            }
-
-        }
-        List<Post> posts_by_housings= new ArrayList<>(), posts_by_procurements=new ArrayList<>(), posts_by_transport=new ArrayList<>();
-        List<Post> housingPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Logements");
-        List<Post> procurementPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Approvisionnement");
-        List<Post> transportPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Transport");
-
-        for (Post post:post_region_by_niveau){
-            for (int h=0; h< housingPosts.size();h++ ){
-                if (post.getPostId().equals(housingPosts.get(h).getPostId())){
-                    posts_by_housings.add(post);
-                }
-            }
-
-        }
-
-        for (Post post:post_region_by_niveau){
-            for (int p=0; p< procurementPosts.size();p++ ){
-                if (post.getPostId().equals(procurementPosts.get(p).getPostId())){
-                    posts_by_procurements.add(post);
-                }
-            }
-
-        }
-        for (Post post:post_region_by_niveau){
-            for (int t=0; t< transportPosts.size();t++ ){
-                if (post.getPostId().equals(transportPosts.get(t).getPostId())){
-                    posts_by_transport.add(post);
-                }
-            }
-
-        }
-
-        model.addAttribute("posts_housings", posts_by_housings);
-        model.addAttribute("posts_transports", posts_by_transport);
-        model.addAttribute("posts_procurements", posts_by_procurements);
-        return "management/other";
+        other.setPieces(filesPaths);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
+        other.setUser(user);
+        Region region=regionRepository.getOne((Long)session.getAttribute("regionId"));
+        other.setRegion(region);
+        Other other1=otherRepository.save(other);
+        return "redirect:/management/region/other/"+other1.getType().toLowerCase()+"/"+(Long)session.getAttribute("regionId");
     }
 
     //course management methods start
@@ -1239,52 +1051,13 @@ public class ManagementController {
         return "management/event/course/one/washs";
     }
 
-    @GetMapping("/course/all")
-    public String findList( Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
-                            @RequestParam("page") Optional<Integer> page) {
-        Page<Course> courses1= courseRepository.findAllByDomainOrderByCourseIdDesc("administration et finance",pageable);
-        //language
-        Page<Course> courses2= courseRepository.findAllByDomainOrderByCourseIdDesc("anglais et/ou francais",pageable);
-        //templates.course it
-        Page<Course> courses3= courseRepository.findAllByDomainOrderByCourseIdDesc("it",pageable);
-        // templates.course logistique
-        Page<Course> courses4= courseRepository.findAllByDomainOrderByCourseIdDesc("logistiques", pageable);
-        // courses protection
-        Page<Course> courses5= courseRepository.findAllByDomainOrderByCourseIdDesc("protection", pageable);
-        // courses resource humaine
-        Page<Course> courses6= courseRepository.findAllByDomainOrderByCourseIdDesc("resources humaines", pageable);
-        // courses leadership
-        Page<Course> courses7= courseRepository.findAllByDomainOrderByCourseIdDesc("leadership", pageable);
-        // courses managements
-        Page<Course> courses8= courseRepository.findAllByDomainOrderByCourseIdDesc("management", pageable);
-        // courses wash
-        Page<Course> courses9= courseRepository.findAllByDomainOrderByCourseIdDesc("wash", pageable);
+    @GetMapping("/course/administration")
+    public String courseAdmin(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
+                              @RequestParam("page") Optional<Integer> page){
 
+        Page<Course> courses1= courseRepository.findAllByDomainOrderByCourseIdDesc("administration et finance",pageable);
         model.addAttribute("courses1", courses1);
         model.addAttribute("courses1Size", courses1.getTotalElements());
-        System.out.println(courses1.getTotalElements());
-        System.out.println(courses1.getSize());
-        System.out.println(courses1.getNumberOfElements());
-        System.out.println(courses1.getNumber());
-        model.addAttribute("courses2", courses2);
-        model.addAttribute("courses2Size", courses2.getTotalElements());
-        System.out.println(courses2.getNumberOfElements());
-        model.addAttribute("courses3", courses3);
-        model.addAttribute("courses3Size", courses3.getTotalElements());
-        model.addAttribute("courses4", courses4);
-        model.addAttribute("courses4Size", courses4.getTotalElements());
-        model.addAttribute("courses5", courses5);
-        model.addAttribute("courses5Size", courses5.getTotalElements());
-        model.addAttribute("courses6", courses6);
-        model.addAttribute("courses6Size", courses6.getTotalElements());
-        model.addAttribute("courses7", courses7);
-        model.addAttribute("courses7Size", courses7.getTotalElements());
-        model.addAttribute("courses8", courses8);
-        model.addAttribute("courses8Size", courses8.getTotalElements());
-        model.addAttribute("courses9", courses9);
-        model.addAttribute("courses9Size", courses9.getTotalElements());
-
-
         //
         // Evaluate page size. If requested parameter is null, return initial
         // page size
@@ -1302,51 +1075,252 @@ public class ManagementController {
         PagerModel pager1 = new PagerModel(list.getTotalPages(),list.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("lists", list);
         model.addAttribute("pager", pager1);
+        model.addAttribute("listSize", list.getTotalElements());
+        return "management/course/administration";
+
+    }
+
+    @GetMapping("/course/languages")
+    public String courseLanguage(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
+                              @RequestParam("page") Optional<Integer> page){
+
+//language
+        Page<Course> courses2= courseRepository.findAllByDomainOrderByCourseIdDesc("anglais et/ou francais",pageable);
+        model.addAttribute("courses2", courses2);
+        model.addAttribute("courses2Size", courses2.getTotalElements());
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", 3);
         Page<Event> list1= eventRepository.findAllByType("anglais et/ou francais", new PageRequest(evalPage, evalPageSize));
         PagerModel pager2 = new PagerModel(list1.getTotalPages(),list1.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("lists1", list1);
         model.addAttribute("pager", pager2);
+        model.addAttribute("listSize1", list1.getTotalElements());
+        return "management/course/language";
+
+    }
+
+    @GetMapping("/course/its")
+    public String courseIt(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
+                              @RequestParam("page") Optional<Integer> page){
+
+//templates.course it
+        Page<Course> courses3= courseRepository.findAllByDomainOrderByCourseIdDesc("it",pageable);
+        model.addAttribute("courses3", courses3);
+        model.addAttribute("courses3Size", courses3.getTotalElements());
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", 3);
         Page<Event> list2= eventRepository.findAllByType("it", new PageRequest(evalPage, evalPageSize));
         PagerModel pager3 = new PagerModel(list2.getTotalPages(),list2.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("lists2", list2);
         model.addAttribute("pager", pager3);
+        model.addAttribute("listSize2", list2.getTotalElements());
+        return "management/course/its";
+
+    }
+
+    @GetMapping("/course/logistiques")
+    public String courseLogistique(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
+                              @RequestParam("page") Optional<Integer> page){
+
+// templates.course logistique
+        Page<Course> courses4= courseRepository.findAllByDomainOrderByCourseIdDesc("logistiques", pageable);
+        model.addAttribute("courses4", courses4);
+        model.addAttribute("courses4Size", courses4.getTotalElements());
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", 3);
         Page<Event> list3= eventRepository.findAllByType("logistiques", new PageRequest(evalPage, evalPageSize));
         PagerModel pager4 = new PagerModel(list3.getTotalPages(),list3.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("lists3", list3);
         model.addAttribute("pager", pager4);
+        model.addAttribute("listSize3", list3.getTotalElements());
+        return "management/course/logistique";
+
+    }
+
+    @GetMapping("/course/protections")
+    public String courseProtection(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
+                              @RequestParam("page") Optional<Integer> page){
+// courses protection
+        Page<Course> courses5= courseRepository.findAllByDomainOrderByCourseIdDesc("protection", pageable);
+        model.addAttribute("courses5", courses5);
+        model.addAttribute("courses5Size", courses5.getTotalElements());
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", 3);
+
         Page<Event> list4= eventRepository.findAllByType("protection", new PageRequest(evalPage, evalPageSize));
         PagerModel pager5 = new PagerModel(list4.getTotalPages(),list4.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("lists4", list4);
         model.addAttribute("pager", pager5);
+        model.addAttribute("listSize4", list4.getTotalElements());
+        return "management/course/protection";
+
+    }
+
+    @GetMapping("/course/resource")
+    public String courseResource(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
+                              @RequestParam("page") Optional<Integer> page){
+
+        // courses resource humaine
+        Page<Course> courses6= courseRepository.findAllByDomainOrderByCourseIdDesc("resources humaines", pageable);
+
+        model.addAttribute("courses6", courses6);
+        model.addAttribute("courses6Size", courses6.getTotalElements());
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", 3);
+
         Page<Event> list5= eventRepository.findAllByType("resources humaines", new PageRequest(evalPage, evalPageSize));
         PagerModel pager6 = new PagerModel(list5.getTotalPages(),list5.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("lists5", list5);
         model.addAttribute("pager", pager6);
+        model.addAttribute("listSize5", list5.getTotalElements());
+        return "management/course/resource";
+
+    }
+
+    @GetMapping("/course/leaderships")
+    public String courseLeadership(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
+                              @RequestParam("page") Optional<Integer> page){
+
+        // courses leadership
+        Page<Course> courses7= courseRepository.findAllByDomainOrderByCourseIdDesc("leadership", pageable);
+
+        model.addAttribute("courses7", courses7);
+        model.addAttribute("courses7Size", courses7.getTotalElements());
+
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", 3);
+
         Page<Event> list6= eventRepository.findAllByType("leadership", new PageRequest(evalPage, evalPageSize));
         PagerModel pager7 = new PagerModel(list6.getTotalPages(),list6.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("lists6", list6);
         model.addAttribute("pager", pager7);
+        model.addAttribute("listSize6", list6.getTotalElements());
+        return "management/course/leadership";
+
+    }
+
+    @GetMapping("/course/managements")
+    public String courseManagement(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
+                              @RequestParam("page") Optional<Integer> page){
+
+        // courses managements
+        Page<Course> courses8= courseRepository.findAllByDomainOrderByCourseIdDesc("management", pageable);
+
+        model.addAttribute("courses8", courses8);
+        model.addAttribute("courses8Size", courses8.getTotalElements());
+
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", 3);
+
         Page<Event> list7= eventRepository.findAllByType("management", new PageRequest(evalPage, evalPageSize));
         PagerModel pager8 = new PagerModel(list7.getTotalPages(),list7.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("lists7", list7);
         model.addAttribute("pager", pager8);
+        model.addAttribute("listSize7", list7.getTotalElements());
+        return "management/course/management";
+
+    }
+
+
+    @GetMapping("/course/washs")
+    public String findList( Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
+                            @RequestParam("page") Optional<Integer> page) {
+        // courses wash
+        Page<Course> courses9= courseRepository.findAllByDomainOrderByCourseIdDesc("wash", pageable);
+
+        model.addAttribute("courses9", courses9);
+        model.addAttribute("courses9Size", courses9.getTotalElements());
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", 3);
         Page<Event> list8= eventRepository.findAllByType("wash", new PageRequest(evalPage, evalPageSize));
         PagerModel pager9 = new PagerModel(list8.getTotalPages(),list8.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("lists8", list8);
         model.addAttribute("pager", pager9);
-
-
-
-        model.addAttribute("listSize", list.getTotalElements());
-        model.addAttribute("listSize1", list1.getTotalElements());
-        model.addAttribute("listSize2", list2.getTotalElements());
-        model.addAttribute("listSize3", list3.getTotalElements());
-        model.addAttribute("listSize4", list4.getTotalElements());
-        model.addAttribute("listSize5", list5.getTotalElements());
-        model.addAttribute("listSize6", list6.getTotalElements());
-        model.addAttribute("listSize7", list7.getTotalElements());
         model.addAttribute("listSize8", list8.getTotalElements());
-        return "management/course/courses";
+        return "management/course/wash";
     }
 
 
@@ -1365,7 +1339,26 @@ public class ManagementController {
     public String saveCourse(Course course){
         course.setDomain(course.getDomain().toLowerCase());
         Course course1=courseRepository.save(course);
-        return "redirect:/management/course/get/"+ course1.getCourseId();
+        if (course1.getDomain().equals("administration et finance")){
+            return "redirect:/management/course/administration";
+        }else if (course1.getDomain().equals("wash")){
+            return "redirect:/management/course/washs";
+        }else if (course1.getDomain().equals("logistiques")){
+            return "redirect:/management/course/logistiques";
+        }else if (course1.getDomain().equals("leadership")){
+            return "redirect:/management/course/leaderships";
+        }else if (course1.getDomain().equals("management")){
+            return "redirect:/management/course/managements";
+        }else if (course1.getDomain().equals("it")){
+            return "redirect:/management/course/its";
+        }else if (course1.getDomain().equals("anglais et/ou francais")){
+            return "redirect:/management/course/languages";
+        }else if (course1.getDomain().equals("resources humaines")){
+            return "redirect:/management/course/resource";
+        }else{
+            return "redirect:/management/course/protections";
+        }
+
     }
 
     @GetMapping("/course/delete/{courseId}")

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -44,7 +44,7 @@
                     </a>
                 </div>
                 <div class="col-6 text-right" style="padding:0">
-                    <a th:href="@{/management/delete/options/} + ${options.optionsId}" th:if="${session.userRole!='user'}" class="btn btn-danger  rounded-circle" >
+                    <a th:href="@{/management/delete/options/} + ${options.optionsId}" sec:authorize="!hasRole('ROLE_USER')" class="btn btn-danger  rounded-circle" >
                         <i class="zmdi zmdi-close" ></i>
                     </a>
                 </div>
@@ -62,12 +62,12 @@
 
 
 <!-- add university button start-->
-<button th:if="${session.userRole=='root'}" type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addOptions">
+<button sec:authorize="!hasRole('ROLE_USER')" type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addOptions">
     <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
 </button>
 <!-- add university button end-->
 <!--addOptions-->
-<div th:if="${session.userRole=='root'}" class=" modal fade" id="addOptions" tabindex="-1" role="dialog" data-keyboard="false">
+<div sec:authorize="!hasRole('ROLE_USER')" class=" modal fade" id="addOptions" tabindex="-1" role="dialog" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered"  role="document">
         <form class="add-these-form modal-content card text-center" th:object="${options}" method="post" th:action="@{/management/options/form/save}">
             <div class="row pt-3">

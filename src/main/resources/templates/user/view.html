@@ -145,18 +145,17 @@
         <div class="row user-left-part">
             <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
                 <div class="row ">
-                    <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center" sec:authorize="isAuthenticated()">
+                    <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
                         <img th:src="${user.img}" class="rounded-circle">
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center" >
-                        <a class="btn btn-success btn-block follow" sec:authorize="isAuthenticated()" th:href="@{/user/update}" >Modifier<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><i class="fa fa-pencil"></i></a>
-                        <a class="btn btn-danger btn-block follow" sec:authorize="!hasRole('ROLE_USER')" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${user.userId }">Supprimer<span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"></i></a>
+                    <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center" sec:authorize="!hasRole('ROLE_USER')">
+                        <a class="btn btn-danger btn-block follow" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${user.userId }">Supprimer<span></span><i class="fa fa-trash"></i></a>
                     </div>
                     <div class="row user-detail-row">
                         <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
                             <div class="border"></div>
-                            <span>STAFFS</span>&nbsp;&nbsp;
-                            <a th:href="@{/groupe/groupes}">Retour</a>
+                            <p></p>
+                            <span>VISITEUR</span>
                         </div>
                     </div>
 
@@ -180,10 +179,10 @@
                             <div class="col-md-8">
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#profile" role="tab" data-toggle="tab"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;Informations Personnelles</a>
+                                        <a class="nav-link active" href="#profile" role="tab" data-toggle="tab"><i class="fa fa-user-circle"></i>Informations Personnelles</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#buzz" role="tab" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;&nbsp;Infos Professionnelles</a>
+                                        <a class="nav-link" href="#buzz" role="tab" data-toggle="tab"><i class="fa fa-info-circle"></i> Infos Professionnelles</a>
                                     </li>
                                 </ul>
 
@@ -238,14 +237,6 @@
                                                 <p th:text="${user.category}">Developer</p>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Diplome :</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p th:text="${user.diplom}">6 months</p>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane fade" id="buzz">
                                         <div class="row">
@@ -278,62 +269,6 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <p>$ <span th:text="${user.amount}"></span></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Debut periode :</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p th:text="${user.beginningPeriod}">6 months</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Fin periode:</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p th:text="${user.endPeriod}">6 months</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Debut journée :</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p th:text="${user.dayWorkBeginning}">6 months</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Fin journée:</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p th:text="${user.dayWorkEnd}">6 months</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Etudiants :</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p th:text="${user.studentNumber}">6 months</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Travailler seul?:</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p th:text="${user.numberOfWorkers}">6 months</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Nombre/groupe:</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p th:text="${user.numberInGroupe}">6 months</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -399,4 +334,4 @@
 <!-- Delete user modal -->
 </body>
 
-</html>S
+</html>

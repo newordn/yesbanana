@@ -75,7 +75,7 @@ public class User implements Serializable{
     @Column
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date beginningPeriod;
+    private Date beginningPeriod ;
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
@@ -107,6 +107,8 @@ public class User implements Serializable{
     private String amount;
     @Column
     private String classe;
+    @Column
+    private  String experienceYear="0";
 
 
     @Column
@@ -135,9 +137,10 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod,
                 String dayWorkBeginning, String dayWorkEnd, String studentNumber, Boolean numberOfWorkers,
-                String anotherDetail,String classe, List<Post> posts, String cv, List<These> theses, List<Role> roles, List<Groupe> groupes, Boolean autorization, String amount) {
+                String anotherDetail,String classe,String experienceYear, List<Post> posts, String cv, List<These> theses, List<Role> roles, List<Groupe> groupes, Boolean autorization, String amount) {
         this.name = name;
         this.email = email;
+        this.experienceYear= experienceYear;
         this.autorization=autorization;
         this.password = password;
         this.classe=classe;
@@ -190,10 +193,11 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod, String dayWorkBeginning,
                 String dayWorkEnd, String studentNumber, Boolean numberOfWorkers, String numberInGroupe, String anotherDetail, String cv,
-                List<These> theses,String classe, List<Post> posts, List<Role> roles, List<Groupe> groupes, Boolean autorization) {
+                List<These> theses,String classe, String experienceYear, List<Post> posts, List<Role> roles, List<Groupe> groupes, Boolean autorization) {
         this.name = name;
         this.posts=posts;
         this.autorization=autorization;
+        this.experienceYear=experienceYear;
         this.email = email;
         this.classe=classe;
         this.password = password;
@@ -221,6 +225,15 @@ public class User implements Serializable{
         this.roles = roles;
         this.groupes = groupes;
     }
+
+    public String getExperienceYear() {
+        return experienceYear;
+    }
+
+    public void setExperienceYear(String experienceYear) {
+        this.experienceYear = experienceYear;
+    }
+
 
     public String getClasse() {
         return classe;

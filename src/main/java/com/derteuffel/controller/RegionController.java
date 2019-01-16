@@ -1,9 +1,6 @@
 package com.derteuffel.controller;
 
-import com.derteuffel.data.Country;
-import com.derteuffel.data.Post;
-import com.derteuffel.data.Region;
-import com.derteuffel.data.University;
+import com.derteuffel.data.*;
 import com.derteuffel.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -36,6 +33,8 @@ public class RegionController {
     private OptionsRepository optionsRepository;
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private OtherRepository otherRepository;
 
     //region crud methods
 /*
@@ -48,60 +47,73 @@ public class RegionController {
 */
 
 
-    @GetMapping("/region/{regionId}")
+    @GetMapping("/region/university/{regionId}")
     public String findById(Model model, @PathVariable Long regionId,HttpSession session) {
         Optional<Region> regionOptional=regionRepository.findById(regionId);
         List<University> universities=universityRepository.findAllByRegion(regionOptional.get().getRegionId());
-        List<Post> post_by_region= postRepository.findAllByRegion(regionOptional.get().getRegionId());
-        List<Post> post_by_level= postRepository.findAllByNiveauOrderByPostIdDesc(4);
-        List<Post> post_region_by_niveau= new ArrayList<>();
-        for (Post post:post_by_region){
-            for (int i=0; i< post_by_level.size();i++ ){
-                if (post.getPostId().equals(post_by_level.get(i).getPostId())){
-                    post_region_by_niveau.add(post);
-                }
-            }
 
-        }
-        List<Post> posts_by_housings= new ArrayList<>(), posts_by_procurements=new ArrayList<>(), posts_by_transport=new ArrayList<>();
-        List<Post> housingPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Logements");
-        List<Post> procurementPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Approvisionnement");
-        List<Post> transportPosts=postRepository.findAllByCategoryOrderByPostIdDesc("Transport");
-
-        for (Post post:post_region_by_niveau){
-            for (int h=0; h< housingPosts.size();h++ ){
-                if (post.getPostId().equals(housingPosts.get(h).getPostId())){
-                    posts_by_housings.add(post);
-                }
-            }
-
-        }
-
-        for (Post post:post_region_by_niveau){
-            for (int p=0; p< procurementPosts.size();p++ ){
-                if (post.getPostId().equals(procurementPosts.get(p).getPostId())){
-                    posts_by_procurements.add(post);
-                }
-            }
-
-        }
-        for (Post post:post_region_by_niveau){
-            for (int t=0; t< transportPosts.size();t++ ){
-                if (post.getPostId().equals(transportPosts.get(t).getPostId())){
-                    posts_by_transport.add(post);
-                }
-            }
-
-        }
-        System.out.println(posts_by_housings);
-        System.out.println(posts_by_transport);
-        System.out.println(posts_by_procurements);
         model.addAttribute("region",regionOptional.get());
         model.addAttribute("universities", universities);
-        model.addAttribute("posts_housings", posts_by_housings);
-        model.addAttribute("posts_transports", posts_by_transport);
-        model.addAttribute("posts_procurements", posts_by_procurements);
+
         return "region/element";
     }
+
+    @GetMapping("/region/logement/{regionId}")
+    public String other(Model model, @PathVariable Long regionId, HttpSession session) {
+        Optional<Region> regionOptional=regionRepository.findById(regionId);
+        session.setAttribute("regionId", regionId);
+        List<Other> others= otherRepository.findAllByRegion(regionOptional.get().getRegionId());
+        List<Other> others1= otherRepository.findAllByType("Logements");
+        List<Other> others2= new ArrayList<>();
+        for (Other other : others){
+            for (int i=0; i<others1.size();i++){
+                if (other.getOtherId().equals(others1.get(i).getOtherId())){
+                    others2.add(other);
+                }
+            }
+        }
+        model.addAttribute("region", regionOptional.get());
+        model.addAttribute("logements", others2);
+        return "region/other/logement";
+    }
+
+    @GetMapping("/region/approvisionnement/{regionId}")
+    public String approvisionnement(Model model, @PathVariable Long regionId, HttpSession session) {
+        Optional<Region> regionOptional=regionRepository.findById(regionId);
+        session.setAttribute("regionId", regionId);
+        List<Other> others= otherRepository.findAllByRegion(regionOptional.get().getRegionId());
+        List<Other> others1= otherRepository.findAllByType("Approvisionnement");
+        List<Other> others2= new ArrayList<>();
+        for (Other other : others){
+            for (int i=0; i<others1.size();i++){
+                if (other.getOtherId().equals(others1.get(i).getOtherId())){
+                    others2.add(other);
+                }
+            }
+        }
+        model.addAttribute("region", regionOptional.get());
+        model.addAttribute("approvisionnements", others2);
+        return "region/other/approvisionnement";
+    }
+
+    @GetMapping("/region/transport/{regionId}")
+    public String transport(Model model, @PathVariable Long regionId, HttpSession session) {
+        Optional<Region> regionOptional=regionRepository.findById(regionId);
+        session.setAttribute("regionId", regionId);
+        List<Other> others= otherRepository.findAllByRegion(regionOptional.get().getRegionId());
+        List<Other> others1= otherRepository.findAllByType("Transports");
+        List<Other> others2= new ArrayList<>();
+        for (Other other : others){
+            for (int i=0; i<others1.size();i++){
+                if (other.getOtherId().equals(others1.get(i).getOtherId())){
+                    others2.add(other);
+                }
+            }
+        }
+        model.addAttribute("region", regionOptional.get());
+        model.addAttribute("transports", others2);
+        return "region/other/transport";
+    }
+
 
 }

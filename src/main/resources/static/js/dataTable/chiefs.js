@@ -19,7 +19,7 @@ $(document).ready( function () {
             { "mData": "userId",
             mRender: function (mData,type,row){
                 var str1='';
-                str1 += '<a href="/user/detail/'+mData+'"><i class="fa fa-eye"></i></a>';
+                str1 += '<a href="/user/view/'+mData+'"><i class="fa fa-eye"></i></a>';
                 return str1;
             }}
 

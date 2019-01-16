@@ -1,9 +1,12 @@
 package com.derteuffel.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.CodePointLength;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
 
@@ -26,16 +29,21 @@ public class Region implements Serializable {
     private Country country;
 
     @OneToMany(mappedBy = "region")
+    @Cascade(CascadeType.ALL)
     private List<University> universities;
     @OneToMany(mappedBy = "region")
     private List<Post> posts;
     @OneToMany(mappedBy = "region")
+    @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<Event> events;
     @OneToMany(mappedBy = "region")
+    @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<Primaire> primaires;
     @OneToMany(mappedBy = "region")
+    @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<Secondary> secondaries;
     @OneToMany(mappedBy = "region")
+    @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<Other> others;
 
 

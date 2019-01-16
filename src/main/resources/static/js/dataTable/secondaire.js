@@ -15,10 +15,11 @@ $(document).ready( function () {
             { "mData": "country" },
             { "mData": "region" },
             { "mData": "number" },
+            { "mData": "category" },
             { "mData": "userId",
                 mRender: function (mData,type,row){
                     var str6='';
-                    str6 += '<a href="/user/detail/'+mData+'"><i class="fa fa-eye"></i></a>';
+                    str6 += '<a href="/user/view/'+mData+'"><i class="fa fa-eye"></i></a>';
                     return str6;
                 }}
 

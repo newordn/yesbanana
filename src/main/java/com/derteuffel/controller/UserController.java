@@ -306,6 +306,29 @@ public class UserController {
         return "user/detail";
     }
 
+    @GetMapping("/view/{userId}")
+    public String view(Model model, @PathVariable Long userId, HttpSession session){
+        session.setAttribute("userId",userId);
+        User user= userService.getById(userId);
+        model.addAttribute("user",user);
+        return "user/view";
+    }
+
+    @PostMapping("/user/contact")
+    public String contact(String adresse, String objet, String message, HttpSession session){
+
+        Long userId= (Long)session.getAttribute("userId");
+        MailService mailService= new MailService();
+        mailService.sendSimpleMessage(
+                adresse,
+                "Objet :"+objet,
+                "Contenue :"+message
+        );
+
+        return "redirect:/user/view/"+ userId;
+
+    }
+
 
     @GetMapping("/delete/{userId}")
     public String deleteUser(@PathVariable Long userId) {

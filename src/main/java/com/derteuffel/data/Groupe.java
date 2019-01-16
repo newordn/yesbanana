@@ -1,6 +1,8 @@
 package com.derteuffel.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,6 +32,7 @@ public class Groupe implements Serializable{
     private List<User> users;
 
     @OneToMany(mappedBy = "groupe")
+    @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<These> theses;
 
     public Groupe(String groupeName, String groupChief, String groupeRegion, String groupeCountry) {

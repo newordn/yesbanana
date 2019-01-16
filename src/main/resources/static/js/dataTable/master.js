@@ -2,8 +2,8 @@
  * Created by derteuffel on 06/01/2019.
  */
 $(document).ready( function () {
-    var assistants = $('#assistant').DataTable({
-        "sAjaxSource": "/assistants",
+    var master = $('#master').DataTable({
+        "sAjaxSource": "/master",
         "sAjaxDataProp": "",
         "order": [[ 0, "asc" ]],
         language: {

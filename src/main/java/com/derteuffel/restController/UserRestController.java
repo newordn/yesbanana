@@ -28,7 +28,7 @@ public class UserRestController {
 
     @GetMapping("/chiefs")
     public List<User> chiefs() {
-        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(false);
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
         List<User> users1= userRepository.findAllByCategory("Chef des travaux");
         List<User> chiefs= new ArrayList<>();
         for (User user : users){
@@ -44,7 +44,7 @@ public class UserRestController {
 
     @GetMapping("/assistants")
     public List<User> assistants() {
-        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(false);
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
         List<User> users1= userRepository.findAllByCategory("Assistant");
         List<User> assistants= new ArrayList<>();
         for (User user : users){
@@ -54,11 +54,12 @@ public class UserRestController {
                 }
             }
         }
+        System.out.println(assistants);
         return assistants;
     }
     @GetMapping("/professeurs")
     public List<User> professors() {
-        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(false);
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
         List<User> users1= userRepository.findAllByCategory("Professeur");
         List<User> professeurs= new ArrayList<>();
         for (User user : users){
@@ -68,11 +69,12 @@ public class UserRestController {
                 }
             }
         }
+        System.out.println(professeurs);
         return professeurs;
     }
     @GetMapping("/primaries")
     public List<User> primaries() {
-        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(false);
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
         List<User> users1= userRepository.findAllByCategory("Primaire");
         List<User> primaries= new ArrayList<>();
         for (User user : users){
@@ -82,11 +84,12 @@ public class UserRestController {
                 }
             }
         }
+        System.out.println(primaries);
         return primaries;
     }
     @GetMapping("/secondaries")
     public List<User> secondary() {
-        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(false);
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
         List<User> users1= userRepository.findAllByCategory("Secondaire");
         List<User> secondaries= new ArrayList<>();
         for (User user : users){
@@ -96,11 +99,12 @@ public class UserRestController {
                 }
             }
         }
+        System.out.println(secondaries);
         return secondaries;
     }
     @GetMapping("/student")
     public List<User> students() {
-        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(false);
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
         List<User> users1= userRepository.findAllByCategory("Etudiant");
         List<User> students= new ArrayList<>();
         for (User user : users){
@@ -110,10 +114,38 @@ public class UserRestController {
                 }
             }
         }
+        System.out.println(students);
         return students;
     }
 
-    public List<User> findAllByDiplomOrderByUserIdDesc(String diplom) {
-        return userRepository.findAllByDiplomOrderByUserIdDesc(diplom);
+    @GetMapping("/master")
+    public List<User> master() {
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        List<User> users1= userRepository.findAllByDiplomOrderByUserIdDesc("Master1&2");
+        List<User> userList= new ArrayList<>();
+        for (User user: users){
+            for (int i=0; i< users1.size(); i++){
+                if (user.getUserId().equals(users1.get(i).getUserId())){
+                    userList.add(user);
+                }
+            }
+        }
+        return userList;
     }
+
+    @GetMapping("/doctorat")
+    public List<User> doctorat() {
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        List<User> users1= userRepository.findAllByDiplomOrderByUserIdDesc("Phd/Doctorat");
+        List<User> userList= new ArrayList<>();
+        for (User user: users){
+            for (int i=0; i< users1.size(); i++){
+                if (user.getUserId().equals(users1.get(i).getUserId())){
+                    userList.add(user);
+                }
+            }
+        }
+        return userList;
+    }
+
 }

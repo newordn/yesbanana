@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -27,40 +27,53 @@
 </head>
 
 <body>
+
+
+<!-- ##### Header Area Start ##### -->
 <!--navigation-->
 <div th:replace="~{../templates/fragments/navigation :: navigation}">
 </div>
 <!-- navigation -->
-<h2 class="text-center mt-5">Regions</h2>
+<!-- ##### Header Area End ##### -->
+<h2 class="text-center mt-5">Liste Pays</h2>
 <div class="row content mt-3">
-    <div class="col-3  text-center crew mb-2" th:each="region : ${regions}" style="padding:.5rem;">
+    <div class="col-1  text-center crew mb-2" th:each="country : ${countries}" style="padding:.5rem;">
         <div class="card">
             <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
                 <div class="col-6 text-left" style="padding:0">
-                    <a th:href="@{/management/region/visitor/} + ${region.regionId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
+                    <a th:href="@{/management/country/other/} + ${country.countryId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
                         <i class="zmdi zmdi-eye" ></i>
                     </a>
                 </div>
                 <div class="col-6 text-right" style="padding:0">
-                    <a th:href="@{/management/delete/region/} + ${region.regionId}" th:if="${session.userRole!='user'}" class="btn btn-danger  rounded-circle" >
+                    <a th:href="@{/management/country/delete/} + ${country.countryId}" sec:authorize="!hasRole('ROLE_USER')" class="btn btn-danger  rounded-circle" >
                         <i class="zmdi zmdi-close" ></i>
                     </a>
                 </div>
             </div>
             <div style="background-color:whitesmoke; color:black">
                 <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                    <span th:text="${region.regName[0]}"> Yaounde</span>
+                    <span th:text="${country.countryName[0]}"> Yaounde</span>
                 </div>
-                <span th:text="${region.regName}"> Yaounde</span>
+                <span th:text="${country.countryName}"> Yaounde</span>
             </div>
         </div>
 
     </div>
 </div>
 
-
-
 <!-- ##### Footer Area Start ##### -->
+<!--div class="bottom-footer-area" style=" position: fixed;left: 0;bottom: 0;width: 100%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12"-->
+                <!-- p>< Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. >
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This site is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Yesbanana</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. ></p>
+            </div>
+        </div>
+    </div>
+</div-->
 
 <!-- ##### Footer Area Start ##### -->
 
@@ -75,6 +88,7 @@
 <script th:src="@{/js/plugins/plugins.js}"></script>
 <!-- Active js -->
 <script th:src="@{/js/active.js}"></script>
+<script th:src="@{/js/main.js}"></script>
 </body>
 
 </html>

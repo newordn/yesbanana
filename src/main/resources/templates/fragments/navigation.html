@@ -55,6 +55,17 @@
                         </div>
                         <div class="login-content classynav">
                                 <ul class="dropdown">
+                                    <li>
+                                        <!-- insert the profile image-->
+                                        <div class="login-content" th:if="${session.avatar}">
+                                            <img class="profile-img" th:src="${session.avatar}" alt="avatar">
+                                        </div>
+                                        <div class="login-content" th:unless="${session.avatar}">
+                                            <img class="profile-img" th:src="@{/images/avatar.png}" alt="avatar">
+                                            <!--a href="#">Register / Login</a-->
+                                        </div>
+                                        <!-- insert the profile image-->
+                                    </li>
                                     <li><a class="dropdown-item" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
                                     <li sec:authorize="isFullyAuthenticated()"><a class="dropdown-item" th:href="@{/logout}">Deconnexion</a></li>
                                 </ul>
@@ -94,7 +105,7 @@
                                 <li><a  th:href="@{/user}" >Staffs</a>
                                 </li>
                                 <li><a  th:href="@{/stats}" >Statistiques</a></li>
-                                <li><a  th:href="@{/management/countries/parameter}" >Paramètres</a></li>
+                                <li><a  th:href="@{/management/countries/university}">Université</a></li>
                                 <li><a href="#">Travailler avec nous</a>
                                     <ul class="dropdown">
                                         <li><a href="#">Expert univ</a>
@@ -106,8 +117,8 @@
                                         </li>
                                         <li><a  href="#" >Expert Pro</a>
                                             <ul class="dropdown">
-                                                <li><a th:href="@{/management/primaire}">Master1&2</a></li>
-                                                <li><a th:href="@{/management/secondaire}">Phd/Doctorat</a></li>
+                                                <li><a th:href="@{/management/master}">Master1&2</a></li>
+                                                <li><a th:href="@{/management/doctorat}">Phd/Doctorat</a></li>
                                             </ul>
                                         </li>
                                         <li><a th:href="@{/management/student}">Etudiant</a></li>
@@ -119,6 +130,8 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li><a  th:href="@{/management/countries/other}" >Autres</a></li>
+                                <li><a  th:href="@{/management/course/administration}" >Formations</a></li>
                             </ul>
                         </div>
                         <!-- Nav End -->
@@ -129,17 +142,6 @@
                         <div class="call-center row" sec:authorize="isAuthenticated()">
                                 <div class="classynav">
                                     <ul>
-                                    <li>
-                                    <!-- insert the profile image-->
-                                    <div class="login-content" th:if="${session.avatar}">
-                                        <img class="profile-img" th:src="${session.avatar}" alt="avatar">
-                                    </div>
-                                    <div class="login-content" th:unless="${session.avatar}">
-                                        <img class="profile-img" th:src="@{/images/avatar.png}" alt="avatar">
-                                    <!--a href="#">Register / Login</a-->
-                                    </div>
-                                    <!-- insert the profile image-->
-                                    </li>
                                     <li>
                                         <a th:text="${session.name}"  href="#" style="background-color:transparent;color:white" aria-haspopup="true" aria-expanded="false">
                                             Neword Newcom Orquel

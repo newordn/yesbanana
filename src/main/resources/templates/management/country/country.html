@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -8,11 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Title -->
     <title>yesbanana</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
     <!-- Favicon -->
     <link rel="icon" th:src="@{/core-img/yesb.png}">
 
@@ -27,58 +27,58 @@
 </head>
 
 <body>
-<!-- ##### Header Area Start ##### -->
 <!--navigation-->
 <div th:replace="~{../templates/fragments/navigation :: navigation}">
 </div>
 <!-- navigation -->
-<!-- ##### Header Area End ##### -->
-<h2 class="text-center mt-5">Liste Universités</h2>
+<h2 class="text-center mt-5">Regions</h2>
 <div class="row content mt-3">
-    <div class="col-3  text-center crew mb-2" th:each="university : ${universities}" style="padding:.5rem;">
+    <div class="col-3  text-center crew mb-2" th:each="region : ${regions}" style="padding:.5rem;">
         <div class="card">
             <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
                 <div class="col-6 text-left" style="padding:0">
-                    <a th:href="@{/management/university/} + ${university.universityId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
+                    <a th:href="@{/management/region/parameter/} + ${region.regionId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
                         <i class="zmdi zmdi-eye" ></i>
                     </a>
                 </div>
                 <div class="col-6 text-right" style="padding:0">
-                    <a th:href="@{/management/delete/university/} + ${university.universityId}" th:if="${session.userRole!='user'}" class="btn btn-danger  rounded-circle" >
+                    <a th:href="@{/management/delete/region/} + ${region.regionId}" sec:authorize="!hasRole('ROLE_USER')" class="btn btn-danger  rounded-circle" >
                         <i class="zmdi zmdi-close" ></i>
                     </a>
                 </div>
             </div>
             <div style="background-color:whitesmoke; color:black">
                 <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                    <span th:text="${university.universityName[0]}"> Yaounde</span>
+                    <span th:text="${region.regName[0]}"> Yaounde</span>
                 </div>
-                    <span th:text="${university.universityName}"> Yaounde</span>
+                <span th:text="${region.regName}"> Yaounde</span>
             </div>
         </div>
 
     </div>
 </div>
 
+
 <!-- add university button start-->
-<button th:if="${session.userRole=='root'}" type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addUniversity">
+<button th:if="${session.userRole=='root'}" type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addRegion">
     <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
 </button>
 <!-- add university button end-->
-<!--addUniversity-->
-<div th:if="${session.userRole=='root'}" class=" modal fade" id="addUniversity" tabindex="-1" role="dialog" data-keyboard="false">
+<!--addRegion-->
+<div th:if="${session.userRole=='root'}" class=" modal fade" id="addRegion" tabindex="-1" role="dialog" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered"  role="document">
-        <form class="add-these-form modal-content card text-center" th:object="${university}" method="post" th:action="@{/management/university/form/save}">
+        <form class="add-these-form modal-content card text-center" th:object="${region}" method="post" th:action="@{/management/region/form/save}">
             <div class="row pt-3">
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="nameError"></span>
-                    <input type="hidden" name="regionId" th:value="${session.regionId}" />
-                    <!-- loop over available  options -->
-                    <select class="form-control" th:field="*{universityName}">
-                        <option value="">choisir une université</option>
-                        <option th:each="these : ${theses}" th:value="${these.university}" th:text="${these.university}">University</option>
-                    </select>
+                    <input type="hidden" name="countryId" th:value="${session.countryId}" />
+                    <span class='error' id="regNameError"></span>
+                    <input type="text" style="width: inherit" class="form-control" th:field="*{regName}" id="regName" placeholder="Region" />
                 </div>
+                    <div class="form-group mt-3" style="width: 100%">
+                        <span class='error' id="cheflieuError"></span>
+                        <input type="text" style="width: inherit" class="form-control" th:field="*{chefLieu}" id="cheflieu" placeholder="Chef lieu de region" />
+                    </div>
             </div>
             <div class="form-group row form-button" style="width: 100%">
                 <div class="col-6">
@@ -93,6 +93,9 @@
 </div>
 <!-- addCountry-->
 
+<!-- ##### Footer Area Start ##### -->
+
+<!-- ##### Footer Area Start ##### -->
 
 <!-- ##### All Javascript Script ##### -->
 <!-- jQuery-2.2.4 js -->

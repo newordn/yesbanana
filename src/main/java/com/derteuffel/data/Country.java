@@ -1,8 +1,11 @@
 package com.derteuffel.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,6 +24,7 @@ public class Country implements Serializable {
     private String countryStreet;
 
     @OneToMany(mappedBy = "country")
+    @Cascade(CascadeType.ALL)
     private List<Region> regions;
 
     public Country(String countryName, String countryStreet) {

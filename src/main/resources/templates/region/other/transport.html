@@ -29,13 +29,13 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs sticky-top" role="tablist" style="height:auto; margin-top: 5rem;width: 100%">
         <li class="nav-item">
-            <a class="nav-link active"  th:href="@{/external/secure/region/region/university/}+${region.regionId}">Universites</a>
+            <a class="nav-link"  th:href="@{/external/secure/region/region/university/}+${region.regionId}">Universites</a>
         </li>
         <li class="nav-item">
             <a class="nav-link"  th:href="@{/external/secure/region/region/logement/}+${region.regionId}">Logements</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link"  th:href="@{/external/secure/region/region/transport/}+${region.regionId}">Transport</a>
+            <a class="nav-link active"  th:href="@{/external/secure/region/region/transport/}+${region.regionId}">Transport</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" th:href="@{/external/secure/region/region/approvisionnement/}+${region.regionId}">Approvisionnement</a>
@@ -44,30 +44,8 @@
 
     <!-- Tab panes -->
     <div class="tab-content" style="margin-top: 4.5rem; height: 100%; padding: 2rem;">
-        <div id="university" class="container tab-pane active" style="height: inherit"><br>
-            <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/post/other/form/housing/}+${session.regionId}" style="bottom: 5rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
-                <!-- Blog Entries Column -->
-                <div class="col-12 col-sm-12 col-lg-12">
-                        <h1 class="my-4 text-center ">Universités</h1>
-                        <table class="table table-hover " >
-                            <thead class="bg-primary">
-                            <tr>
-                                <th>#</th>
-                                <th>Nom de l'université</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="university : ${universities}">
-                                <td th:text="${university.universityName[0]}"></td>
-                                <td th:text="${university.universityName}"></td>
-                                <td>
-                                    <a th:href="@{/external/secure/university/university/} + ${university.universityId}" ><i class="fa fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                </div>
+        <div id="transport" class="container tab-pane active"><br>
+           <h3>Transport</h3>
             <!-- ##### Footer Area Start ##### -->
             <footer class="footer-area">
                 <!-- Top Footer Area -->

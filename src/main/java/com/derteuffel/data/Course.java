@@ -1,6 +1,10 @@
 package com.derteuffel.data;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +33,7 @@ public class Course implements Serializable {
     private String domain;
 
     @OneToMany(mappedBy = "course")
+    @Cascade(CascadeType.ALL)
     private List<Period> periods;
 
     public Course() {

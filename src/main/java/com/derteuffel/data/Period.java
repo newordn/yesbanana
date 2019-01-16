@@ -1,5 +1,8 @@
 package com.derteuffel.data;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -23,6 +26,7 @@ public class Period implements Serializable {
     @ManyToOne
     private Course course;
     @OneToMany(mappedBy = "period")
+    @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<Lesson> lessons;
 
     public Period() {

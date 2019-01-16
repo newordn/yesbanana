@@ -24,6 +24,8 @@ public class Other implements Serializable {
     private String type;
     @ManyToOne
     private Region region;
+    @ManyToOne
+    private User user;
 
     public Other() {
     }
@@ -34,6 +36,14 @@ public class Other implements Serializable {
         this.likes = likes;
         this.pieces = pieces;
         this.type = type;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getOtherId() {

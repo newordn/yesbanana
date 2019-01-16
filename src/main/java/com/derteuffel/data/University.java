@@ -1,6 +1,10 @@
 package com.derteuffel.data;
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,6 +25,7 @@ public class University implements Serializable {
     private Region region;
 
     @OneToMany(mappedBy = "university")
+    @Cascade(CascadeType.ALL)
     private List<Faculty> facultyList;
 
     public University(String universityName, Region region) {
