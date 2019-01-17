@@ -347,12 +347,8 @@ public class UserController {
 
 
     @PostMapping("/role/save")
-    public String role(Model model, AddUserRole form, Errors errors, HttpSession session){
+    public String role(Model model, AddUserRole form, HttpSession session){
 
-        if (errors.hasErrors()){
-            model.addAttribute("form", form);
-            return "user/role/form";
-        }
         Long userId= (Long)session.getAttribute("userId");
         Role role= roleRepository.getOne(form.getRoleId());
         System.out.println(role.getRole());

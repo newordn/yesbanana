@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Formation professionnelle</title>
     <meta charset="utf-8">
@@ -108,7 +108,7 @@
                 </div>
             </div>
         </div>
-        <a th:if="${session.userRole=='root'}" class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/event/course/form}">
+        <a sec:authorize="!hasRole('ROLE_USER')" class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/event/course/form}">
             <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
 
     </div>

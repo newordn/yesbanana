@@ -561,91 +561,33 @@ public class GroupeController {
     }
 
     @GetMapping("/encadrement/chef/{groupeId}")
-    public String findAllByGroupeAndCategory1(Model model,@PathVariable Long groupeId){
+    public String findAllByGroupeAndCategory1(Model model, @PathVariable Long groupeId){
 
-        Groupe groupe=groupeRepository.getOne(groupeId);
-        List<User> users= userRepository.findByGroupes_GroupeId(groupe.getGroupeId());
-        System.out.println(users);
-        List<User> userList=userService.findByCategory("Chef des travaux");
-        System.out.println(userList);
-         List<User> users1= new ArrayList<>();
+        Groupe groupe= groupeRepository.getOne(groupeId);
         model.addAttribute("groupe", groupe);
-        for (int i=0;i<users.size();i++){
-            for (User user: userList){
-                if (user.getUserId().equals(users.get(i).getUserId())){
-                     users1.add(user);
-                }
-            }
-        }
-        System.out.println(users1);
-
-        model.addAttribute("usersGroupe", new UsersGroupe());
-        model.addAttribute("users", users1);
-
-        return "crew/users";
+        return "crew/user/chiefs";
     }
 
     @GetMapping("/encadrement/assistant/{groupeId}")
-    public String findAllByGroupeAndCategory2(Model model,@PathVariable Long groupeId){
-
-        Groupe groupe=groupeRepository.getOne(groupeId);
-        List<User> users_assistant= userRepository.findByGroupes_GroupeId(groupe.getGroupeId());
-        List<User> userList=userService.findByCategory("Assistant");
-        List<User> users_list= new ArrayList<>();
-        for (int i=0;i<users_assistant.size();i++){
-            for (User user: userList){
-                if (user.getUserId().equals(users_assistant.get(i).getUserId())){
-                    users_list.add(user);
-                }
-            }
-        }
-
-        model.addAttribute("usersGroupe", new UsersGroupe());
+    public String findAllByGroupeAndCategory2(Model model, @PathVariable Long groupeId){
+        Groupe groupe= groupeRepository.getOne(groupeId);
         model.addAttribute("groupe", groupe);
-        model.addAttribute("users", users_list);
-      return "crew/users";
+      return "crew/user/assistants";
     }
 
     @GetMapping("/encadrement/encadreur/{groupeId}")
-    public String findAllByGroupeAndCategory3(Model model,@PathVariable Long groupeId){
-
-        Groupe groupe=groupeRepository.getOne(groupeId);
-        List<User> users_encadreur= userRepository.findByGroupes_GroupeId(groupe.getGroupeId());
-        List<User> userList=userService.findByCategory("Encadreur");
-        List<User> users_2= new ArrayList<>();
-        for (int i=0;i<users_encadreur.size();i++){
-            for (User user: userList){
-                if (user.getUserId().equals(users_encadreur.get(i).getUserId())){
-                    users_2.add(user);
-                }
-            }
-        }
-
-        model.addAttribute("usersGroupe", new UsersGroupe());
+    public String findAllByGroupeAndCategory3(Model model, @PathVariable Long groupeId){
+        Groupe groupe= groupeRepository.getOne(groupeId);
         model.addAttribute("groupe", groupe);
-        model.addAttribute("users", users_2);
-        return "crew/users";
+        return "crew/user/encadreurs";
     }
 
     @GetMapping("/encadrement/etudiant/{groupeId}")
-    public String findAllByGroupeAndCategory4(Model model,@PathVariable Long groupeId){
+    public String findAllByGroupeAndCategory4(Model model, @PathVariable Long groupeId){
 
-        Groupe groupe=groupeRepository.getOne(groupeId);
-        List<User> users_etudiant= userRepository.findByGroupes_GroupeId(groupe.getGroupeId());
-        List<User> userList=userService.findByCategory("Etudiant");
-        List<User> users_3= new ArrayList<>();
-        for (int i=0;i<users_etudiant.size();i++){
-            for (User user: userList){
-                if (user.getUserId().equals(users_etudiant.get(i).getUserId())){
-                    users_etudiant.add(user);
-                }
-            }
-        }
-
-        model.addAttribute("usersGroupe", new UsersGroupe());
+        Groupe groupe= groupeRepository.getOne(groupeId);
         model.addAttribute("groupe", groupe);
-        model.addAttribute("users", users_3);
-        return "crew/users";
+        return "crew/user/etudiants";
     }
 
     @GetMapping("/training/{groupeId}")

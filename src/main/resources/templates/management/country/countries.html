@@ -73,7 +73,7 @@
             <div class="row pt-3">
                     <span class='error' id="nameError"></span>
                     <!-- loop over available  country -->
-                    <select class="country" th:field="*{countryName}" id="countrySelect" style="width: 100%">
+                    <select class="form-control" th:field="*{countryName}" id="countrySelect" style="width: 100%">
                         <option value="">Selection pays</option>
                         <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
                     </select>

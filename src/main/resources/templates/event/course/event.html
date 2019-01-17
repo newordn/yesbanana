@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Detail d'un évenement</title>
     <meta charset="utf-8">
@@ -57,8 +57,8 @@
             </div>
         </div>
             <div class="col-12 col-sm-12 col-lg-12 mt-3 " style=" padding-left: 150px; padding-right: 150px">
-                <a th:if="${session.userRole=='root'}" th:href="@{/management/event/update/}+${event.eventId}" class="btn btn-success" style="width: 100%;">Modifier  <i class="fa fa-pencil"></i></a>
-                <a th:unless="${session.userRole=='root'}" th:href="@{#}" class="btn btn-success" style="width: 100%;">Participer  <i class="fa fa-check"></i></a>
+                <a sec:authorize="!hasRole('ROLE_USER')" th:href="@{/management/event/update/}+${event.eventId}" class="btn btn-success" style="width: 100%;">Modifier  <i class="fa fa-pencil"></i></a>
+                <a  th:href="@{#}" class="btn btn-success" style="width: 100%;">Participer  <i class="fa fa-check"></i></a>
             </div>
     </div>
 </div>

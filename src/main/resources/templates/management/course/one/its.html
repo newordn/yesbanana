@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>IT</title>
     <meta charset="utf-8">
@@ -97,7 +97,7 @@
                 </div>
             </div>
         </div>
-        <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/management/course/form}" style="bottom: 3rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
+        <a sec:authorize="!hasRole('ROLE_USER')" class="btn addButton btn-primary rounded-circle" th:href="@{/management/course/form}" style="bottom: 3rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
     </div>
 </div>
 

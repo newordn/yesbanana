@@ -11,6 +11,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
 
     <style>
         body{
@@ -170,11 +172,36 @@
                                 <h1 th:text="${user.name}">Juan Perez</h1>
                                 <h5 th:text="${user.category}">Developer</h5>
                             </div>
-                            <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
+                            <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1  text-center pull-rigth">
                                 <a th:href="@{/#}" class="btn btn-primary btn-block">Roles</a>
                                 <ul th:each=" role : ${roles}">
                                     <li> <p th:text="${role.role}"></p></li>
                                 </ul>
+                                <button sec:authorize="hasRole('ROLE_ROOT')" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#addRole">
+                                    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+                                </button>
+                                <div sec:authorize="hasRole('ROLE_ROOT')" class=" modal fade" id="addRole" tabindex="-1" role="dialog" data-keyboard="false">
+                                    <div class="modal-dialog modal-dialog-centered"  role="document">
+                                        <form class="add-these-form modal-content card text-center" th:object="${form}" method="post" th:action="@{/user/role/save}">
+                                            <div class=" pt-3 pl-1 pr-1 pb-3">
+                                                <span class='error' id="nameError"></span>
+                                                <!-- loop over available  country -->
+                                                <select class="form-control" th:field="*{roleId}"  style="width: 100%">
+                                                    <option value="">Choisissez un role a attribuer</option>
+                                                    <option th:each="role : *{roles}" th:value="${role.roleId}" th:text="${role.role}">Côte d'ivoire</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group row form-button" style="width: 100%">
+                                                <div class="col-6">
+                                                    <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

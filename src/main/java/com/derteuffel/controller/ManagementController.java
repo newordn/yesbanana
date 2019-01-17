@@ -550,7 +550,7 @@ public class ManagementController {
         session.setAttribute("countryId",countryId);
         Optional<Country> countryOptional=countryRepository.findById(countryId);
         List<Region> regions= regionRepository.findAllByCountry(countryOptional.get().getCountryId());
-        List<These> theses=theseRepository.findAllByCountryOrderByTheseIdDesc(countryOptional.get().getCountryName().toUpperCase());
+        List<These> theses=theseRepository.findAllByCountryOrderByTheseIdDesc(countryOptional.get().getCountryName());
         System.out.println(theses);
         model.addAttribute("theses", theses);
         model.addAttribute("country", countryOptional.get());

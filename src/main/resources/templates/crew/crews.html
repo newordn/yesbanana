@@ -26,8 +26,8 @@
     <!-- navigation -->
 
     <h2 class="text-center mt-5">Régions</h2>
-    <div class="row content mt-3">
-        <div sec:authorize="hasRole('ROLE_ROOT')" class="col-3  text-center crew mb-2" th:each="crew : ${crews}" style="padding:.5rem;">
+    <div class="row content mt-3" sec:authorize="hasRole('ROLE_ROOT')">
+        <div  class="col-3  text-center crew mb-2" th:each="crew : ${crews}" style="padding:.5rem;">
                 <div class="card">
                     <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
                         <div class="col-6 text-left" style="padding:0">
@@ -35,7 +35,7 @@
                                 <i class="zmdi zmdi-eye" ></i>
                             </a>
                         </div>
-                        <div class="col-6 text-right" style="padding:0" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <div class="col-6 text-right" style="padding:0" sec:authorize="!hasRole('ROLE_USER')">
                             <a th:href="@{/groupe/update/} + ${crew.groupeId}"  class="btn btn-danger  rounded-circle" >
                                 <i class="zmdi zmdi-edit" ></i>
                             </a>
