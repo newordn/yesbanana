@@ -307,6 +307,17 @@ public class UserController {
         return "user/detail";
     }
 
+    @GetMapping("/staffs/{userId}")
+    public String getUser(Model model, @PathVariable Long userId){
+        User user= userService.getById(userId);
+        model.addAttribute("user",user);
+        AddUserRole form= new AddUserRole(roleService.listAll(), user);
+        Set<Role> roles= roleService.findByGroupe(userId);
+        model.addAttribute("form",form);
+        model.addAttribute("roles", roles);
+        return "user/detail";
+    }
+
     @GetMapping("/view/{userId}")
     public String view(Model model, @PathVariable Long userId, HttpSession session){
         session.setAttribute("userId",userId);
