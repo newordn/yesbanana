@@ -465,7 +465,7 @@ public class TheseController {
         Collection<Role> roles=user.getRoles();
         int p=0;
         for (Role role : roles){
-            if (!role.getRole().equals("user")){
+            if (!role.getRole().equals("USER")){
                 p=1;
             }
         }

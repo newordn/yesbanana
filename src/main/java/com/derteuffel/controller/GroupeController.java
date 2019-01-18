@@ -533,7 +533,7 @@ public class GroupeController {
         Collection<Role> roles= roleRepository.findByUsers_UserId(user.getUserId());
         int p=0;
         for (Role role : roles){
-        if (!role.getRole().equals("user")){
+        if (!role.getRole().equals("USER")){
             p=1;
         }else {
             p=2;
