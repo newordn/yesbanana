@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <!-- Required meta tags-->
@@ -57,7 +57,7 @@
                     <td th:text="${user.region}"></td>
                     <td th:text="${user.number}"></td>
                     <td>
-                        <a th:href="@{/user/detail/}+${user.userId}"class=" btn btn-success" ><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a sec:authorize="!hasRole('ROLE_USER')" th:href="@{/user/detail/}+${user.userId}"class=" btn btn-success" ><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
                         <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${user.userId }" class="btn btn-danger" ><i class="fa fa-trash"></i></a>
                     </td>
                     <!-- Delete user modal -->

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Created by derteuffel on 02/11/2018.
@@ -18,14 +19,19 @@ public class RoleService implements roleInterface {
     @Autowired
    private RoleRepository roleRepository;
     @Override
-    public List<?> listAll() {
-        return null;
+    public List<Role> listAll() {
+        return roleRepository.findAll();
     }
 
     @Override
     public Role getById(Long roleId) {
         Optional<Role> role=roleRepository.findById(roleId);
         return role.get();
+    }
+
+    @Override
+    public Set<Role> findByGroupe(Long userId) {
+        return roleRepository.findByUsers_UserId(userId);
     }
 
     @Override
