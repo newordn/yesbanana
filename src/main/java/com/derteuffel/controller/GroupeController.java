@@ -528,7 +528,6 @@ public class GroupeController {
         model.addAttribute("userId", userId);
         model.addAttribute("these",new These());
         model.addAttribute("countries", countries);
-        model.addAttribute("theses", theseRepository.findByGroupeOrderByTheseIdDesc(groupe.getGroupeId()));
         model.addAttribute("groupeName",groupe.getGroupeName());
         Collection<Role> roles= roleRepository.findByUsers_UserId(user.getUserId());
         int p=0;
@@ -540,9 +539,13 @@ public class GroupeController {
         }
         }
         if (p==1){
-            return "redirect:/groupe/groupe/all/these";
+            List<These> by_groupe=theseRepository.findByUserOrderByTheseIdDesc(user.getUserId());
+            model.addAttribute("theses",by_groupe);
+            return "crew/theses";
         }else {
-            return "redirect:/groupe/groupe/all/user/these";
+            model.addAttribute("theses", theseRepository.findByGroupeOrderByTheseIdDesc(groupe.getGroupeId()));
+
+            return "crew/theses";
         }
 
 
