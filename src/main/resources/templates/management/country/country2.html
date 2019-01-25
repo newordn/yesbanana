@@ -35,36 +35,11 @@
 <div class="row content mt-3">
     <div class="col-3  text-center crew mb-2" th:each="region : ${regions}" style="padding:.5rem;">
         <div class="card">
-            <div  class="" style="position:absolute;z-index:1000;width:100%;margin:auto"    >
-                <div class="col-6 pull-right text-right" style="padding:0">
-                    <a  sec:authorize="!hasRole('ROLE_USER')" class="btn btn-danger  rounded-circle" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${region.regionId }">
-                        <i class="fa fa-trash-o"></i>
-                    </a>
-                </div>
-            </div>
             <div style="background-color:whitesmoke; color:black">
                 <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
                     <span th:text="${region.regName[0]}"> Yaounde</span>
                 </div>
-                <a th:text="${region.regName}" th:href="@{/management/region/other/logement/} + ${region.regionId}"> Yaounde</a>
-            </div>
-        </div>
-        <div class="modal card modal-warning alert-warning fade in" th:id="modal-warning+${region.regionId}" >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header text-center alert-info">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span></button>
-                        <h5 class="modal-title">Suppression d'une Region</h5>
-                    </div>
-                    <div class="modal-body text-center">
-                        <h3>Etes vous sure de vouloir supprimer définitivement cette Region de la liste?</h3>
-                    </div>
-                    <div class="modal-footer text-center">
-                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
-                        <a type="button" class="btn btn-danger" th:href="@{/management/delete/region/} + ${region.regionId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
-                    </div>
-                </div>
+                <span th:text="${region.regName}" th:href="@{/management/region/primaire/courses/} + ${region.regionId}"> Yaounde</span>
             </div>
         </div>
 

@@ -277,14 +277,14 @@ public class ManagementController {
     public String save(Options options, Long facultyId) {
         Faculty faculty=facultyRepository.getOne(facultyId);
         options.setFaculty(faculty);
-        options.setOptionsName(options.getOptionsName().toUpperCase());
+        options.setOptionsName(options.getOptionsName());
         optionsRepository.save(options);
         return "redirect:/management/faculty/"+ faculty.getFacultyId();
     }
     @GetMapping("/options/{optionsId}")
     public String findById(Model model, @PathVariable Long optionsId) {
         Optional<Options> optionsOptional= optionsRepository.findById(optionsId);
-        model.addAttribute("theses", theseRepository.findAllByOptionsOrderByTheseIdDesc(optionsOptional.get().getOptionsName().toLowerCase()));
+        model.addAttribute("theses", theseRepository.findAllByOptionsOrderByTheseIdDesc(optionsOptional.get().getOptionsName()));
         return "management/options";
     }
 
@@ -311,22 +311,14 @@ public class ManagementController {
         university.setRegion(region);
         university.setUniversityName(university.getUniversityName().toUpperCase());
         universityRepository.save(university);
-        return "redirect:/management/region/"+ region.getRegionId();
+        return "redirect:/management/region/university/"+ region.getRegionId();
     }
     @GetMapping("/university/{universityId}")
     public String findOneUniversity(Model model, @PathVariable Long universityId, HttpSession session) {
         Optional<University> universityOptional=universityRepository.findById(universityId);
         List<These> theses=theseRepository.findAllByUniversityOrderByTheseIdDesc(universityOptional.get().getUniversityName());
-        List<These> theses1=new ArrayList<>();
         List<Faculty> faculties=facultyRepository.findAllByUnniversity(universityOptional.get().getUniversityId());
-        for (int i=0; i<faculties.size();i++){
-            for (These these:theses){
-                if (!these.getFaculty().toUpperCase().equals(faculties.get(i).getFacultyName().toUpperCase())){
-                    theses1.add(these);
-                }
-            }
-        }
-        model.addAttribute("theses", theses1);
+        model.addAttribute("theses", theses);
         session.setAttribute("universityId",universityId);
         model.addAttribute("university", universityOptional.get());
         model.addAttribute("faculties", faculties);
@@ -387,16 +379,10 @@ public class ManagementController {
         Optional<Region> regionOptional=regionRepository.findById(regionId);
         session.setAttribute("regionId", regionId);
         List<University> universities=universityRepository.findAllByRegion(regionOptional.get().getRegionId());
-        List<These> theses=theseRepository.findAllByRegionsOrderByTheseIdDesc(regionOptional.get().getRegName().toUpperCase());
-        List<These> theses1=new ArrayList<>();
-        for (int i=0; i<universities.size();i++){
-            for (These these:theses){
-                if (!these.getUniversity().toUpperCase().equals(universities.get(i).getUniversityName().toUpperCase())){
-                    theses1.add(these);
-                }
-            }
-        }
-        model.addAttribute("theses", theses1);
+        List<These> theses=theseRepository.findAllByRegionsOrderByTheseIdDesc(regionOptional.get().getRegName());
+        System.out.println(theses);
+        System.out.println(universities);
+        model.addAttribute("theses", theses);
         model.addAttribute("region",regionOptional.get());
         model.addAttribute("universities", universities);
         model.addAttribute("university", new University());
@@ -460,13 +446,51 @@ public class ManagementController {
         return "management/region/other/transport";
     }
 
+
+    /** EDUCATION METHODS IMPLEMLENTS STARTS**/
+
+    @GetMapping("/region/primaire/courses/{regionId}")
+    public String courses(Model model, @PathVariable Long regionId, HttpSession session) {
+
+        return "management/region/education/primary/course";
+    }
+
+    @GetMapping("/region/primaire/jeux/{regionId}")
+    public String jeusx(Model model, @PathVariable Long regionId, HttpSession session) {
+
+        return "management/region/education/primary/jeu";
+    }
+    @GetMapping("/region/primaire/colonie/{regionId}")
+    public String colonie(Model model, @PathVariable Long regionId, HttpSession session) {
+
+        return "management/region/education/primary/colonie";
+    }
+    @GetMapping("/region/primaire/transport/{regionId}")
+    public String transportSecurise(Model model, @PathVariable Long regionId, HttpSession session) {
+
+        return "management/region/education/primary/transport";
+    }
+    @GetMapping("/region/primaire/langue/{regionId}")
+    public String langue(Model model, @PathVariable Long regionId, HttpSession session) {
+
+        return "management/region/education/primary/langue";
+    }
+    @GetMapping("/region/primaire/bibliotheque/{regionId}")
+    public String bibliotheque(Model model, @PathVariable Long regionId, HttpSession session) {
+
+        return "management/region/education/primary/bibliotheque";
+    }
+
+    /** EDUCATION METHODS IMPLEMLENTS END**/
+
+
     @PostMapping("/region/form/save")
     public String saveRegion(Region region, HttpSession session) {
         Long countryId=(Long) session.getAttribute("countryId");
         region.setCountry(countryRepository.getOne(countryId));
-        region.setRegName(region.getRegName().toUpperCase());
+        region.setRegName(region.getRegName());
         regionRepository.save(region);
-        return "redirect:/management/country/parameter/"+ countryId;
+        return "redirect:/management/country/university/"+ countryId;
     }
     @GetMapping("/delete/region/{regionId}")
     public String deleteRegion(@PathVariable Long regionId, HttpSession session) {
@@ -483,16 +507,9 @@ public class ManagementController {
         session.setAttribute("facultyId", facultyId);
         Optional<Faculty> facultyOptional= facultyRepository.findById(facultyId);
         List<Options> optionses=optionsRepository.findAllByFaculty(facultyOptional.get().getFacultyId());
-        List<These> theses= theseRepository.findAllByFacultyOrderByTheseIdDesc(facultyOptional.get().getFacultyName().toUpperCase());
-        List<These> theses1= new ArrayList<>();
-        for (int i=0; i<optionses.size();i++){
-            for (These these:theses){
-                if (!these.getOptions().toUpperCase().equals(optionses.get(i).getOptionsName().toUpperCase())){
-                    theses1.add(these);
-                }
-            }
-        }
-        model.addAttribute("theses",theses1);
+        List<These> theses= theseRepository.findAllByFacultyOrderByTheseIdDesc(facultyOptional.get().getFacultyName());
+
+        model.addAttribute("theses",theses);
         model.addAttribute("faculty", facultyOptional.get());
         model.addAttribute("optionses", optionses);
         model.addAttribute("options",new Options());
@@ -535,14 +552,23 @@ public class ManagementController {
         session.setAttribute("userId", user.getUserId());
         List<Country> countries= countryRepository.findAll();
         model.addAttribute("countries", countries);
-        model.addAttribute("country", new Country());
         return "management/country/countries1";
+    }
+
+    @GetMapping("/countries/education")
+    public String findAllCountryForEducation(Model model, HttpSession session) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
+        session.setAttribute("userId", user.getUserId());
+        List<Country> countries= countryRepository.findAll();
+        model.addAttribute("countries", countries);
+        return "management/country/countries2";
     }
     @PostMapping("/country/form/save")
     public String save(Country country) {
         System.out.println(country.getCountryId());
         countryRepository.save(country);
-        return "redirect:/management/countries/parameter";
+        return "redirect:/management/countries/university";
     }
 
     @GetMapping("/country/university/{countryId}")
@@ -567,13 +593,23 @@ public class ManagementController {
         model.addAttribute("regions", regions);
         return "management/country/country1";
     }
+
+    @GetMapping("/country/education/{countryId}")
+    public String findCountryForEducation(Model model,@PathVariable Long countryId, HttpSession session) {
+        session.setAttribute("countryId",countryId);
+        Optional<Country> countryOptional=countryRepository.findById(countryId);
+        List<Region> regions= regionRepository.findAllByCountry(countryOptional.get().getCountryId());
+        model.addAttribute("country", countryOptional.get());
+        model.addAttribute("regions", regions);
+        return "management/country/country2";
+    }
     @GetMapping("/country/delete/{countryId}")
     public String deleteCountry(@PathVariable Long countryId, HttpSession session) {
 
         session.setAttribute("userId", (Long)session.getAttribute("userId"));
         countryRepository.deleteById(countryId);
 
-        return "redirect:/management/countries";
+        return "redirect:/management/countries/university";
     }
 
 

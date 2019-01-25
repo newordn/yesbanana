@@ -47,6 +47,8 @@ public class These implements Serializable{
     @Column
     private String theseDate;
     @Column
+    private Boolean status;
+    @Column
     private String country;
     @Column
     private ArrayList<String> libraries;
@@ -64,13 +66,14 @@ public class These implements Serializable{
     public These(String university, String faculty, String options, String level,
                  String subject, String resumes, String regions, String student, String profesor,
                  String workChief, String assistant, String bibliography, String library,
-                 Date created_at, String theseDate, String country, ArrayList<String> libraries, ArrayList<String> bibliographies) {
+                 Date created_at,Boolean status, String theseDate, String country, ArrayList<String> libraries, ArrayList<String> bibliographies) {
         this.university = university;
         this.faculty = faculty;
         this.options = options;
         this.level = level;
         this.bibliographies=bibliographies;
         this.subject = subject;
+        this.status=status;
         this.libraries=libraries;
         this.resumes = resumes;
         this.regions = regions;
@@ -117,6 +120,13 @@ public class These implements Serializable{
         this.country = country;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public User getUser() {
         return user;

@@ -528,7 +528,7 @@ public class GroupeController {
         model.addAttribute("userId", userId);
         model.addAttribute("these",new These());
         model.addAttribute("countries", countries);
-        model.addAttribute("theses", theseRepository.findByGroupeOrderByTheseIdDesc(groupeId));
+        model.addAttribute("theses", theseRepository.findByGroupeOrderByTheseIdDesc(groupe.getGroupeId()));
         model.addAttribute("groupeName",groupe.getGroupeName());
         Collection<Role> roles= roleRepository.findByUsers_UserId(user.getUserId());
         int p=0;

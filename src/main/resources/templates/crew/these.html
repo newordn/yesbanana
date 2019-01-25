@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <!-- Required meta tags-->
@@ -46,7 +46,48 @@
                 <div class="col-9 offset-3">
                     <div class="detailabstract"><h4>Sommaire</h4></div>
                     <div><img th:src="${these1.resumes}" id="detailAbstract" alt="sommaire"></div>
-                
+                    <div class="col-12 col-sm-12 col-lg-12 row">
+                        <div class="row mt-3" sec:authorize="hasRole('ROLE_ROOT')" style="padding-left: 15px;padding-right: 15px">
+                            <div class="col-12 col-sm-12 col-lg-4">
+                                <a class="btn btn-success" th:href="@{/these/publish/}+${these1.theseId}" style="width: 100%">Approuver et publier </a>
+                            </div>
+                            <div class="col-12 col-sm-12 col-lg-4">
+                                <a class="btn btn-warning" th:href="@{/these/unPublish/form/}+${these1.theseId}"  style="width: 100%">Renvoi pour modification</a>
+                                <div class="modal card modal-warning fade in" th:id="modal-warning+${these1.theseId}" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header text-center">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span></button>
+                                                <h5 class="modal-title">Envoi d'un message de correction d'une Thèse</h5>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="form-group">
+                                                    <label > Adresse email destinataire :</label>
+                                                    <input type="email" class="form-control" name="adresse">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label > Corps du message :</label>
+                                                    <textarea class="form-control" rows="10" name="contenue"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer text-center">
+                                                <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                                <a class="btn btn-danger" th:href="@{/these/unPublish/}+${these1.theseId}" ><i class="fa fa-check"></i>&nbsp;Envoye</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-lg-4">
+                                <a class="btn btn-secondary" th:href="@{/these/draft/}+${these1.theseId}" style="width: 100%">Approuve sans publier</a>
+                            </div>
+                        </div>
+
+                        <a  class="btn btn-success mt-3" sec:authorize="!hasRole('ROLE_USER')">
+                            Status <span class="badge badge-light"  th:text="${these1.status}">4</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

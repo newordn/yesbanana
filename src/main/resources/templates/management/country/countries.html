@@ -39,15 +39,10 @@
 <div class="row content mt-3">
     <div class="col-1  text-center crew mb-2" th:each="country : ${countries1}" style="padding:.5rem;">
         <div class="card">
-            <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
-                <div class="col-6 text-left" style="padding:0">
-                    <a th:href="@{/management/country/university/} + ${country.countryId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
-                        <i class="zmdi zmdi-eye" ></i>
-                    </a>
-                </div>
-                <div class="col-6 text-right" style="padding:0">
-                    <a th:href="@{/management/country/delete/} + ${country.countryId}" th:if="${session.userRole!='user'}" class="btn btn-danger  rounded-circle" >
-                        <i class="zmdi zmdi-close" ></i>
+            <div  style="position:absolute;z-index:1000;width:100%;margin:auto"    >
+                <div class="col-6 pull-right text-right" style="padding:0">
+                    <a  sec:authorize="!hasRole('ROLE_USER')" class="btn btn-danger  rounded-circle" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${country.countryId }">
+                        <i class="fa fa-trash-o"></i>
                     </a>
                 </div>
             </div>
@@ -55,10 +50,27 @@
                 <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
                     <span th:text="${country.countryName[0]}"> Yaounde</span>
                 </div>
-                <span th:text="${country.countryName}"> Yaounde</span>
+                <a th:text="${country.countryName}" th:href="@{/management/country/university/}+${country.countryId}">&nbsp;&nbsp;&nbsp; <i class="fa fa-eye"></i> Yaounde</a>
             </div>
         </div>
-
+        <div class="modal card modal-warning alert-warning fade in" th:id="modal-warning+${country.countryId}" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center alert-info">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                        <h5 class="modal-title">Suppression d'un Pays</h5>
+                    </div>
+                    <div class="modal-body text-center">
+                        <h3>Etes vous sure de vouloir supprimer définitivement ce Pays de la liste?</h3>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
+                        <a type="button" class="btn btn-danger" th:href="@{/management/country/delete/} + ${country.countryId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- add country button start-->

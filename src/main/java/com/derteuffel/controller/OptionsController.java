@@ -2,6 +2,7 @@ package com.derteuffel.controller;
 
 import com.derteuffel.data.Faculty;
 import com.derteuffel.data.Options;
+import com.derteuffel.data.These;
 import com.derteuffel.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,8 +50,18 @@ public class OptionsController {
     @GetMapping("/options/{optionsId}")
     public String findById(Model model, @PathVariable Long optionsId) {
         Optional<Options> optionsOptional= optionsRepository.findById(optionsId);
+        List<These> theses=theseRepository.findAllByStatus(true);
+        List<These> theses1=theseRepository.findAllByOptionsOrderByTheseIdDesc(optionsOptional.get().getOptionsName());
+        List<These> theses2= new ArrayList<>();
+        for (These  these : theses){
+            for (int i=0; i<theses1.size(); i++){
+                if (these.getTheseId().equals(theses1.get(i).getTheseId())){
+                    theses2.add(these);
+                }
+            }
+        }
         model.addAttribute("options", optionsOptional.get());
-        model.addAttribute("theses", theseRepository.findAllByOptionsOrderByTheseIdDesc(optionsOptional.get().getOptionsName().toLowerCase()));
+        model.addAttribute("theses", theses2);
         return "options/options";
     }
 

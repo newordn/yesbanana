@@ -7,6 +7,7 @@ import com.derteuffel.data.User;
 import com.derteuffel.repository.GroupeRepository;
 import com.derteuffel.repository.TheseRepository;
 import com.derteuffel.repository.UserRepository;
+import com.derteuffel.service.MailService;
 import com.derteuffel.service.TheseService;
 import com.itextpdf.text.*;
 import org.apache.catalina.Group;
@@ -428,7 +429,7 @@ public class TheseController {
 
     // for saving a these
     @PostMapping("/add/create")
-    public String save(These these, @RequestParam("file") MultipartFile file, HttpSession session) {
+    public String save(These these, @RequestParam("file") MultipartFile file, HttpSession session, String adresse, String contenue) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
         String fileName= fileUploadService.storeFile(file);
@@ -462,6 +463,12 @@ public class TheseController {
         these.setUser(user);
         these.setOptions(these.getOptions().toLowerCase());
         theseRepository.save(these);
+        MailService mail= new MailService();
+        mail.sendSimpleMessage(
+                adresse,
+                "Notification de enregistrement d'une Thèse",
+                user.getName()+" vous notifi celon le contenue suivant :"+ contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
+        );
         Collection<Role> roles=user.getRoles();
         int p=0;
         for (Role role : roles){
@@ -475,6 +482,54 @@ public class TheseController {
             return "redirect:/groupe/groupe/all/user/these";
         }
 
+    }
+
+    @GetMapping("/publish/{theseId}")
+    public String publishPeriod(@PathVariable Long theseId, HttpSession session){
+        These these= theseRepository.getOne(theseId);
+        these.setStatus(true);
+        theseRepository.save(these);
+        return "redirect:/groupe/groupe/"+ (Long)session.getAttribute("groupeId");
+    }
+
+    @GetMapping("/draft/{theseId}")
+    public String draftPeriod(@PathVariable Long theseId, HttpSession session){
+        These these= theseRepository.getOne(theseId);
+        these.setStatus(false);
+        theseRepository.save(these);
+        return "redirect:/groupe/groupe/"+(Long)session.getAttribute("groupeId");
+    }
+
+    @GetMapping("/unPublish/form/{theseId}")
+    public String unPublishForm(@PathVariable Long theseId, Model model,HttpSession session){
+        These these= theseRepository.getOne(theseId);
+        model.addAttribute("groupeId", (Long)session.getAttribute("groupeId"));
+        model.addAttribute("countries", countries);
+        model.addAttribute("these", these);
+        session.setAttribute("bibliographies", these.getBibliographies());
+        session.setAttribute("Libraries", these.getLibraries());
+        session.setAttribute("userId", these.getUser().getUserId());
+        session.setAttribute("country", these.getCountry());
+        return "crew/correction";
+    }
+    @PostMapping("/unPublish/{theseId}")
+    public String unPublishPeriod(These these, HttpSession session, String adresse, String contenue){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
+        these.setStatus(null);
+        these.setBibliographies((ArrayList<String>) session.getAttribute("bibliographies"));
+        these.setLibraries((ArrayList<String>) session.getAttribute("libraries"));
+        these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
+        these.setGroupe(groupeRepository.getOne((Long)session.getAttribute("groupeId")));
+        these.setCountry((String)session.getAttribute("country"));
+        theseRepository.save(these);
+        MailService backMessage= new MailService();
+        backMessage.sendSimpleMessage(
+                adresse,
+                "Notification de correction du contenu de cette Thèse",
+                user.getName()+" vous notifi celon le contenue suivant :"+contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
+        );
+        return "redirect:/groupe/groupe/"+(Long)session.getAttribute("groupeId");
     }
 
 
