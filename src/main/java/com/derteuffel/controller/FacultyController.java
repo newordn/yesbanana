@@ -49,7 +49,8 @@ public class FacultyController {
     */
 
     @GetMapping("/faculty/{facultyId}")
-    public String findById(Model model, @PathVariable Long facultyId) {
+    public String findById(Model model, @PathVariable Long facultyId, HttpSession session) {
+        session.setAttribute("facultyId",facultyId);
          Optional<Faculty> facultyOptional= facultyRepository.findById(facultyId);
         model.addAttribute("faculty", facultyOptional.get());
         model.addAttribute("optionses", optionsRepository.findAllByFaculty(facultyOptional.get().getFacultyId()));

@@ -33,7 +33,7 @@ $("#addButton").click(() => {
     $("#abstract_file").click();
 document.getElementById("abstract_file").addEventListener('change', handleImg, false);
 function handleImg() {
-    let img = this.files[0];
+    let img = this.files[i];
     console.log(img);
     $("#abstract").val(img.name);
 }

@@ -2,6 +2,10 @@
 
 <nav   xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="theseNavigationCrew"  id="element">
     <ul class="list-group">
+        <a th:href="@{/groupe/these/} + ${these1.theseId}" class="alert-info active theseNavigation" style="text-decoration: none; ">
+            <li class="list-group-item" >
+                Somaire
+            </li>
         <a th:href="@{/groupe/equipe/} + ${these1.theseId}" class="alert-info active theseNavigation" style="text-decoration: none; ">
         <li class="list-group-item" >
                         Etudiant et équipe directrice<span class="sr-only">(current)</span>
@@ -11,11 +15,6 @@
         <li class="list-group-item" >
                         Bibliothèques et Bibliographie
         </li>
-        </a>
-        <a th:href="@{/these/add/edit/crew/} + ${these1.theseId}" class="alert-info theseNavigation" style="text-decoration: none; ">
-            <li class="list-group-item" >
-                Modifier cette thèse?
-            </li>
         </a>
         <a th:href="@{/groupe/groupe/all/these}" class="alert-info theseNavigation" style="text-decoration: none; ">
             <li class="list-group-item">

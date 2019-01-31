@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Universite et autres services</title>
+    <title>Education Primaire</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
-    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
     <link th:href="@{/css/myStyle.css}" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
     <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
     <!-- Bootstrap CSS-->
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
@@ -16,58 +15,55 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 <br>
 
 <div style="height: 100%">
     <nav class="nav" style="width: 100%">
-        <a th:href="@{/deals}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
-        <h2 class="text-center col-11 offset-1" style="padding-top: 0.5rem;">Universite et autres services</h2>
+        <a th:href="@{/groupe/groupes}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+        <h2 class="text-center col-11 offset-1" style="padding-top: 0.5rem;">Education Primaire</h2>
     </nav>
     <br>
     <!-- Nav tabs -->
-    <ul class="nav nav-tabs sticky-top" role="tablist" style="height:auto; margin-top: 5rem;width: 100%">
-        <li class="nav-item">
-            <a class="nav-link active"  th:href="@{/external/secure/region/region/university/}+${region.regionId}">Universites</a>
+    <ul class="nav nav-tabs" role="tablist" style="height:auto; margin-top: 5rem;width: 100%">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Education</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" th:href="@{/management/region/civic/}+${session.regionId}">Civic</a>
+                <a class="dropdown-item" th:href="@{/management/region/primaire/courses/}+${session.regionId}">Primaire</a>
+                <a class="dropdown-item" th:href="@{/management/region/secondaire/courses/}+${session.regionId}">Secondaire</a>
+            </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link"  th:href="@{/external/secure/region/region/logement/}+${region.regionId}">Logements</a>
+            <a class="nav-link" th:href="@{/management/region/primaire/courses/}+${session.regionId}"> Cours d'appuie</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link"  th:href="@{/external/secure/region/region/transport/}+${region.regionId}">Transport</a>
+            <a class="nav-link" th:href="@{/management/region/primaire/langue/}+${session.regionId}">Anglais et/ou Francais</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/external/secure/region/region/approvisionnement/}+${region.regionId}">Approvisionnement</a>
+            <a class="nav-link active"  th:href="@{/management/region/primaire/colonie/}+${session.regionId}">Colonie des Vacances</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"  th:href="@{/management/region/primaire/jeux/}+${session.regionId}">Jeux éducatif</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link "  th:href="@{/management/region/primaire/transport/}+${session.regionId}">Transport</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link "  th:href="@{/management/region/primaire/bibliotheque/}+${session.regionId}">Bibliotheque</a>
         </li>
     </ul>
 
     <!-- Tab panes -->
-    <div class="tab-content" style="margin-top: 4.5rem; height: 100%; padding: 2rem;">
-        <div id="university" class="container tab-pane active" style="height: inherit"><br>
-            <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/post/other/form/housing/}+${session.regionId}" style="bottom: 5rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
-                <!-- Blog Entries Column -->
-                <div class="col-12 col-sm-12 col-lg-12">
-                        <h1 class="my-4 text-center ">Universités</h1>
-                        <table class="table table-hover " >
-                            <thead class="bg-primary">
-                            <tr>
-                                <th>#</th>
-                                <th>Nom de l'université</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="university : ${universities}">
-                                <td th:text="${university.universityName[0]}"></td>
-                                <td th:text="${university.universityName}"></td>
-                                <td>
-                                    <a th:href="@{/external/secure/university/university/} + ${university.universityId}" >Ouvrir &nbsp;<i class="fa fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                </div>
+    <div class="tab-content " style="margin-top: 4rem; height: inherit; padding: 2rem;">
+        <!-- PROTECTION  START -->
+        <div  class="container tab-pane active mt-3"><br>
+            <!-- HEADER TYPE TITLE START -->
+            <h3 class="my-4 text-center sticky-top">Colonie des vacances</h3>
+            <!-- HEADER TYPE TITLE END -->
+
             <!-- ##### Footer Area Start ##### -->
             <footer class="footer-area">
                 <!-- Top Footer Area -->
@@ -106,12 +102,12 @@
             </footer>
             <!-- ##### Footer Area End ##### -->
         </div>
+        <!-- PROTECTION  END -->
     </div>
 </div>
+
 <!-- navigation -->
 <script th:src="@{/js/dashboard.js}"></script>
 <!-- script -->
-<!-- ##### All Javascript Script ##### -->
-
 </body>
 </html>

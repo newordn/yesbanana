@@ -4,10 +4,7 @@
 package com.derteuffel.controller;
 
 import com.derteuffel.data.*;
-import com.derteuffel.repository.GroupeRepository;
-import com.derteuffel.repository.RoleRepository;
-import com.derteuffel.repository.TheseRepository;
-import com.derteuffel.repository.UserRepository;
+import com.derteuffel.repository.*;
 import com.derteuffel.service.RoleService;
 import com.derteuffel.service.TheseService;
 import com.derteuffel.service.UserService;
@@ -23,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import javax.persistence.EntityManager;
 
 import javax.persistence.EntityManagerFactory;
@@ -52,6 +52,10 @@ public class GroupeController {
     private TheseService theseService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    FileUploadService fileUploadService;
+    @Autowired
+    private BibliographyRepository bibliographyRepository;
     @Autowired
             private RoleRepository roleRepository;
 
@@ -601,52 +605,140 @@ public class GroupeController {
     }
 
     @GetMapping("/these/{theseId}")
-    public String get(Model model, @PathVariable Long theseId){
+    public String get(Model model, @PathVariable Long theseId, HttpSession session){
 
         Optional<These> optional= theseRepository.findById(theseId);
         model.addAttribute("these1",optional.get());
+        session.setAttribute("userId",optional.get().getUser().getUserId());
+        session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
+        session.setAttribute("university", optional.get().getUniversity());
+        session.setAttribute("faculty", optional.get().getFaculty());
+        session.setAttribute("options", optional.get().getOptions());
+        session.setAttribute("level", optional.get().getLevel());
+        session.setAttribute("subject", optional.get().getSubject());
+        session.setAttribute("theseDate", optional.get().getTheseDate());
+        session.setAttribute("country", optional.get().getCountry());
+        session.setAttribute("regions", optional.get().getRegions());
+        session.setAttribute("assistant", optional.get().getAssistant());
+        session.setAttribute("student", optional.get().getStudent());
+        session.setAttribute("professor", optional.get().getProfesor());
+        session.setAttribute("workChief", optional.get().getWorkChief());
+        session.setAttribute("libraries", optional.get().getLibraries());
 
             return "crew/these";
 
     }
 
+    // for saving a these
+    @PostMapping("/add/update/somaire")
+    public String update(These these, @RequestParam("files") MultipartFile[] files, HttpSession session) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(auth.getName());
+        List<FileUploadRespone> pieces = Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        ArrayList<String> filesPaths = new ArrayList<String>();
+        for (int i = 0; i < pieces.size(); i++) {
+            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        }
+        Long groupeId = (Long) session.getAttribute("groupeId");
+        these.setResumes(filesPaths);
+        Groupe groupe = groupeRepository.getOne(groupeId);
+        these.setGroupe(groupe);
+        these.setUser(userRepository.getOne((Long) session.getAttribute("userId")));
+        these.setUniversity((String) session.getAttribute("university"));
+        these.setFaculty((String) session.getAttribute("faculty"));
+        these.setOptions((String) session.getAttribute("options"));
+        these.setLevel((String) session.getAttribute("level"));
+        these.setSubject((String) session.getAttribute("subject"));
+        these.setTheseDate((String) session.getAttribute("theseDate"));
+        these.setCountry((String) session.getAttribute("country"));
+        these.setRegions((String) session.getAttribute("regions"));
+        these.setAssistant((String) session.getAttribute("assistant"));
+        these.setStudent((String) session.getAttribute("student"));
+        these.setProfesor((String) session.getAttribute("professor"));
+        these.setWorkChief((String) session.getAttribute("workChief"));
+        these.setLibraries((ArrayList<String>) session.getAttribute("libraries"));
+        theseRepository.save(these);
+        return "redirect:/groupe/these/"+these.getTheseId();
+    }
+
+    // for saving a these
+    @PostMapping("/add/update/equipe")
+    public String updateEquipe(These these, @RequestParam("files") MultipartFile[] files, HttpSession session) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
+        List<FileUploadRespone> pieces= Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        ArrayList<String> filesPaths = new ArrayList<String>();
+        for(int i=0;i<pieces.size();i++)
+        {
+            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        }
+        Long groupeId = (Long) session.getAttribute("groupeId");
+        these.setResumes(filesPaths);
+        Groupe groupe= groupeRepository.getOne(groupeId);
+        these.setGroupe(groupe);
+        these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
+        these.setUniversity((String)session.getAttribute("university"));
+        these.setFaculty((String)session.getAttribute("faculty"));
+        these.setOptions((String)session.getAttribute("options"));
+        these.setLevel((String)session.getAttribute("level"));
+        these.setSubject((String)session.getAttribute("subject"));
+        these.setTheseDate((String)session.getAttribute("theseDate"));
+        these.setCountry((String)session.getAttribute("country"));
+        these.setRegions((String)session.getAttribute("regions"));
+        these.setLibraries((ArrayList<String>)session.getAttribute("libraries"));
+        these.setResumes((ArrayList<String>)session.getAttribute("resumes"));
+        theseRepository.save(these);
+        return "redirect:/groupe/equipe/"+ these.getTheseId();
+
+    }
+    public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
+        String fileName = fileUploadService.storeFile(file);
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+
+        return new FileUploadRespone(fileName, fileDownloadUri);
+    }
     @GetMapping("/equipe/{theseId}")
-    public String getEquipe(Model model, @PathVariable Long theseId){
+    public String getEquipe(Model model, @PathVariable Long theseId, HttpSession session){
         Optional<These> optional= theseRepository.findById(theseId);
         model.addAttribute("these1",optional.get());
+        session.setAttribute("userId",optional.get().getUser().getUserId());
+        session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
+        session.setAttribute("university", optional.get().getUniversity());
+        session.setAttribute("faculty", optional.get().getFaculty());
+        session.setAttribute("options", optional.get().getOptions());
+        session.setAttribute("level", optional.get().getLevel());
+        session.setAttribute("subject", optional.get().getSubject());
+        session.setAttribute("theseDate", optional.get().getTheseDate());
+        session.setAttribute("country", optional.get().getCountry());
+        session.setAttribute("regions", optional.get().getRegions());
+        session.setAttribute("bibliographies", optional.get().getBibliographies());
+        session.setAttribute("libraries", optional.get().getLibraries());
+        session.setAttribute("resumes", optional.get().getResumes());
 
             return "crew/these1";
 
     }
 
     @GetMapping("/biblib/{theseId}")
-    public String getBibLib(Model model, @PathVariable Long theseId){
+    public String getBibLib(Model model, @PathVariable Long theseId, HttpSession session){
+        session.setAttribute("theseId",theseId);
         System.out.println("sdfffsfghjdg");
         These these= theseRepository.getOne(theseId);
         ArrayList<String> librairies= these.getLibraries();
-        ArrayList<String> bibliographies = these.getBibliographies();
-        System.out.println(bibliographies);
-        String[] bibliography_attributes= null;
-        ArrayList<String> authors= new ArrayList<>();
-        for (int p=0; p< bibliographies.size();p++){
-            String[] attribute= bibliographies.get(p).split(":");
-            authors.add(attribute[0]);
-
-        }
-        System.out.println("sdfffsfghjdg");
-
-        System.out.println(bibliographies);
-        //System.out.println(librairies);
-        System.out.println(authors);
-        for(int i=0; i<bibliographies.size();i++){
-            String[] attribute=bibliographies.get(i).split(":");
-            bibliography_attributes=attribute;
-        }
-        System.out.println(bibliography_attributes);
-        model.addAttribute("bibliography_attributes", bibliography_attributes);
         model.addAttribute("librairies",librairies);
-        model.addAttribute("authors",authors);
         model.addAttribute("these1",these);
+        model.addAttribute("bibliographies",bibliographyRepository.findAllByThese(these.getTheseId()));
+        model.addAttribute("bibliography", new Bibliography());
 
         return "crew/theseBibLib";
 

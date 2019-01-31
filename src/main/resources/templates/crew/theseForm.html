@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags-->
     <meta charset="UTF-8">
@@ -49,19 +49,19 @@
             <input type="number" name="groupeId" th:value="${session.groupeId}"  style="display:none">
             <!--groupeId-->
             <div class="row mb-4">
-                <div class="col-4">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="form-group">
                         <span class='error' id="universityError"></span>
                         <input type="text" th:field="*{university}" id="university" placeholder="Université/Ecole" />
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="form-group">
                         <span class='error' id="facultyError"></span>
                         <input type="text" th:field="*{faculty}" id="faculty" placeholder="Faculté/Discipline" />
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="form-group">
                         <span class='error' id="optionError"></span>
                         <input type="text" th:field="*{options}" id="option" placeholder="Option" />
@@ -69,19 +69,19 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="col-4">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="form-group">
                         <span class='error' id="levelError"></span>
                         <input type="text" th:field="*{level}" id="level" placeholder="Niveau" />
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="form-group">
                         <span class='error' id="subjectError"></span>
                         <input type="text" th:field="*{subject}" id="subject" placeholder="Sujet/Thème" />
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="form-group">
                         <span class='error' id="dateError"></span>
                         <input type="text" th:field="*{theseDate}" id="dateThese" placeholder="Date" />
@@ -89,22 +89,22 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="col-4">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="img-upload-div">
-                        <input class="img-input" type="text" name="file" id="abstract"  placeholder="Sommaire">
-                        <input type="file" name="file" id="abstract_file" style="display:none">
-                        <button class="img-upload" type="button" id="addButton">+</button>
+                        <div class="custom-file mb-3">
+                            <input type="file" multiple class="form-control-file border" id="customFile" name="files">
+                        </div>
                         <input class="img-input" type="text" th:field="*{resumes}"  style="display:none" placeholder="Sommaire">
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-6 col-lg-4">
                         <span class='error' id="countryError"></span>
-                        <select class="country" style="width: 100%" th:field="*{country}" id="countrySelect">
+                        <select class="form-control" style="width: 100%" th:field="*{country}" id="countrySelect">
                             <option value="">Selection pays</option>
                             <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
                         </select>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <div class="form-group">
                         <span class='error' id="regionError"></span>
                         <input type="text" th:field="*{regions}" id="region" placeholder="Région" />
@@ -112,25 +112,25 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="col-3">
+                <div class="col-12 col-sm-6 col-lg-3">
                     <div class="form-group">
                         <span class='error' id="assistantError"></span>
                         <input type="text" th:field="*{assistant}" id="assistant" placeholder="Nom de l'assistant" />
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-12 col-sm-6 col-lg-3">
                     <div class="form-group">
                         <span class='error' id="studentError"></span>
                         <input type="text" th:field="*{student}" id="student" placeholder="Nom de l'étudiant" />
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-12 col-sm-6 col-lg-3">
                     <div class="form-group ">
                         <span class='error' id="profError"></span>
                         <input type="text" th:field="*{profesor}" id="prof" placeholder="Nom de l'encadreur/prof" />
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-12 col-sm-6 col-lg-3">
                     <div class="form-group">
                         <span class='error' id="workChiefError"></span>
                         <input type="text" th:field="*{workChief}" id="workChief" placeholder="Nom du chef des travaux" />
@@ -138,19 +138,7 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="col-6">
-                    <div class="form-group row">
-                        <div class="col-12">
-                            <h4>Bibliographie</h4>
-                            <ul class="list-group" id="bibliographyList">
-                            </ul>
-                            <input type="text" value="" style="display:none;" th:field="*{bibliography}" id="bibliography" placeholder="Bibliographie" />
-                            <button style="width:100%"  data-toggle="modal" data-target="#addBibliography"
-                                    class="img-upload addBL" type="button" id="addBibliographyBtn">+</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
+                <div class="col-12 col-sm-6 col-lg-6">
                     <div class="form-group row">
                         <input type="text" value="" th:field="*{library}" style="display:none" id="library" placeholder="Bibliothèque" />
 
@@ -167,7 +155,7 @@
             </div>
             <div class="row mb-4">
                 <div class="col-12" style="text-align:center">
-                    <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'" style="width:25%;"   class="btn btn-success" >Valider</a>
+                    <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'" style="width:25%;"   class="btn btn-success" >Valider pour verfication</a>
                     <div class="modal card modal-warning fade in" th:id="modal-warning" >
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -194,6 +182,7 @@
                         </div>
                     </div>
                 </div>
+                <a style="width:25%;" type="submit"  class="btn btn-success" sec:authorize="hasRole('ROLE_ROOT')"  >Validé</a>
             </div>
         </form>
         <a style="width:25%;" th:href="@{/groupe/groupe/all/these}"  class="btn btn-warning" >Annuler</a>

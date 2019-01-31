@@ -41,39 +41,135 @@
                 </div>
                 <div class="col-8 offset-4">
             <h3 >Bibliothèques</h3>
-            <ul class="list-group">
-                <li class="list-group-item" th:each="bibliography : ${authors}" >
-                        <span th:text="${bibliography}"></span>
-                    <a th:attr="data-target='#showAuthor'+${bibliography}"   data-toggle="modal"  data-target="#showAuthor">
-                        <i class="zmdi zmdi-eye zmdi-hc-2x"></i>
-                    </a>
-                    <div class=" modal fade in" th:id="showAuthor+${bibliography}" role="dialog">
-                        <div class="modal-dialog modal-dialog-centered"  role="document">
-                            <div class="add-these-form modal-content card text-center">
-                                <div class="row pt-3" th:each="attribut : ${bibliography_attributes}">
-                                    <div class="card-img-top" style="width: 100%">
-                                        <span th:text="${attribut}" ></span>
+            <table class="list-group">
+                <tr th:each="bibliography : ${bibliographies}" >
+                    <div class="card ">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-lg-8">
+                                <h5 class="text-center" th:text="${bibliography.auteur}"></h5>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4 row pull-right">
+                            <div>
+                                <a  th:href="@{/bibliography/edit/}+${bibliography.bibliographyId}">
+                                    <i class="fa fa-pencil"></i>
+                                </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div>
+                                <a  data-toggle="modal" data-target="#modal-detail" th:attr="data-target='#modal-detail'+${bibliography.bibliographyId}">
+                                    <i class="fa fa-eye"></i>
+                                </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div>
+                                <a  data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${bibliography.bibliographyId}">
+                                    <i class="fa fa-trash"></i>
+                                </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="modal card modal-warning alert-warning fade in" th:id="modal-detail+${bibliography.bibliographyId}" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header text-center alert-info">
+                                    <h5 class="modal-title">Contenu d'un element</h5>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h3>Detail de la bibliothèque</h3>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="col-12 col-sm-6 col-lg-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control"  rows="1" style="height: 30px" th:text="${bibliography.auteur}" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                        <div class="form-group">
+                                            <textarea class="form-control"  rows="1" style="height: 30px" th:text="${bibliography.title}" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                        <div class="form-group ">
+                                            <textarea class="form-control"  rows="5" style="height: 100px" th:text="${bibliography.description}" disabled></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group form-button" style="width: 100%">
-                                    <div class="col-6" style="position: center;">
-                                        <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
-                                    </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${bibliography.bibliographyId}" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header text-center alert-info">
+                                    <h5 class="modal-title">Suppresion d'un element</h5>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h3>Voulez vous vraiment supprimer cet element?</h3>
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                    <a type="button" class="btn btn-success" th:href="@{/bibliography/delete/{bibliographyId}(bibliographyId=${bibliography.bibliographyId})}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
+            </table>
+                    <a class="btn btn-success rounded-circle mt-3"  data-toggle="modal" data-target="#modal-add" th:attr="data-target='#modal-add'">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <span>Ajouter</span>
+                    <div class="modal card modal-warning alert-warning fade in" th:id="modal-add" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header text-center alert-info">
+                                    <h5 class="modal-title">Ajouter un element de Bibliothèque</h5>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h5>Veuillez remplir s'il vous plait les trois champs suivans</h5>
+                                </div>
+                                <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/bibliography/save}" th:object="${bibliography}">
 
-                </li>
-            </ul>
-            <h3 class=" mt-3">Bibliographies</h3>
+                                    <div class="mb-4">
+                                        <div class="col-12 col-sm-6 col-lg-12">
+                                            <!--theseId-->
+                                            <input type="hidden" name="theseId" th:value="${session.theseId}"  >
+                                            <!--theseId-->
+                                            <div class="form-group">
+                                                <span class='error' id="assistantError"></span>
+                                                <input type="text" th:field="*{auteur}" id="assistant" class="form-control" placeholder="Nom de l'auteur" />
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                            <div class="form-group">
+                                                <span class='error' id="studentError"></span>
+                                                <input type="text" th:field="*{title}" id="student" class="form-control" placeholder="Titre du livre" />
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                            <div class="form-group ">
+                                                <span class='error' id="profError"></span>
+                                                <textarea class="form-control" id="description" rows="5" style="height: 100px" placeholder="Description " th:field="*{description}" type="text"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer text-center">
+                                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
+                                        <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class=" mt-3">Bibliographies</h3>
             <ul class="list-group">
                 <li class="list-group-item" th:each="librairy : ${librairies}" >
                     <a th:href="${librairy}" th:text="${librairy}"></a>
                 </li>
             </ul>
             <div class="text-right mt-4">
-            <a th:href="@{/groupe/these/}+${these1.theseId}" class="btn btn-primary ">Retour</a>
 
             </div>
             </div>

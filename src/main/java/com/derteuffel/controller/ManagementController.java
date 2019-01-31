@@ -451,6 +451,7 @@ public class ManagementController {
 
     @GetMapping("/region/primaire/courses/{regionId}")
     public String courses(Model model, @PathVariable Long regionId, HttpSession session) {
+        session.setAttribute("regionId",regionId);
 
         return "management/region/education/primary/course";
     }
@@ -473,7 +474,7 @@ public class ManagementController {
     @GetMapping("/region/primaire/langue/{regionId}")
     public String langue(Model model, @PathVariable Long regionId, HttpSession session) {
 
-        return "management/region/education/primary/langue";
+        return "management/region/education/primary/language";
     }
     @GetMapping("/region/primaire/bibliotheque/{regionId}")
     public String bibliotheque(Model model, @PathVariable Long regionId, HttpSession session) {
@@ -544,6 +545,18 @@ public class ManagementController {
         model.addAttribute("country", new Country());
         return "management/country/countries";
     }
+
+    @GetMapping("/countries/education")
+    public String findAllCountryForEduaction(Model model, HttpSession session) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
+        session.setAttribute("userId", user.getUserId());
+        List<Country> countries1= countryRepository.findAll();
+        model.addAttribute("countries1", countries1);
+        model.addAttribute("countries", countries);
+        model.addAttribute("country", new Country());
+        return "management/country/countries2";
+    }
     // country management methods
     @GetMapping("/countries/other")
     public String findAllCountry1(Model model, HttpSession session) {
@@ -555,15 +568,6 @@ public class ManagementController {
         return "management/country/countries1";
     }
 
-    @GetMapping("/countries/education")
-    public String findAllCountryForEducation(Model model, HttpSession session) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
-        session.setAttribute("userId", user.getUserId());
-        List<Country> countries= countryRepository.findAll();
-        model.addAttribute("countries", countries);
-        return "management/country/countries2";
-    }
     @PostMapping("/country/form/save")
     public String save(Country country) {
         System.out.println(country.getCountryId());

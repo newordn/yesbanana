@@ -38,9 +38,47 @@
                     </div>
                 </div>
                 <div class="col-9 offset-3" >
-                    <div class="detailabstract"><h2>Sommaire</h2></div>
-                    <div><img th:src="${these1.resumes}" id="detailAbstract" alt="sommaire"></div>
+                    <div class="detailabstract col-12 col-sm-12 col-lg-12"><h2>Sommaire</h2></div>
+                        <div class=" pull-right text-right" style="padding:0">
+                            <a class="btn btn-success rounded-circle"  data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${these1.theseId }">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <span>Editer</span>
+                        </div>
+                    <div th:each=" resume : ${these1.resumes}"><img  th:src="${resume}" id="detailAbstract" alt="sommaire"></div>
                 
+                </div>
+
+                <div class="modal card modal-warning alert-warning fade in" th:id="modal-warning+${these1.theseId}" >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header text-center alert-info">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                <h5 class="modal-title">Modification du somaire</h5>
+                            </div>
+                            <div class="modal-body text-center">
+                                <h3>Veuillez charger un nouveau somaire s'il vous plait</h3>
+                            </div>
+                            <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/these/add/update/somaire}" th:object="${these1}">
+
+                                <div class="custom-file mb-3">
+                                    <input type="file" multiple class="form-control-file border" id="customFile" name="files">
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
+                                </div>
+                                <div style="display: none;">
+                                    <div class="row mb-4">
+                                        <!--theseId-->
+                                        <input type="hidden" th:field="*{theseId}"  >
+                                        <!--theseId-->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

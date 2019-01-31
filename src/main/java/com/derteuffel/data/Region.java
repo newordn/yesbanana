@@ -34,16 +34,16 @@ public class Region implements Serializable {
     @OneToMany(mappedBy = "region")
     private List<Post> posts;
     @OneToMany(mappedBy = "region")
-    @OnDelete(action= OnDeleteAction.NO_ACTION)
+    @Cascade(CascadeType.ALL)
     private List<Event> events;
     @OneToMany(mappedBy = "region")
-    @OnDelete(action= OnDeleteAction.NO_ACTION)
+    @Cascade(CascadeType.ALL)
     private List<Primaire> primaires;
     @OneToMany(mappedBy = "region")
-    @OnDelete(action= OnDeleteAction.NO_ACTION)
+    @Cascade(CascadeType.ALL)
     private List<Secondary> secondaries;
     @OneToMany(mappedBy = "region")
-    @OnDelete(action= OnDeleteAction.NO_ACTION)
+    @Cascade(CascadeType.ALL)
     private List<Other> others;
 
 

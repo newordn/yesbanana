@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+
+    <!-- Title Page-->
+    <title>Contenu d'une thèse</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- thymeleaft -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+
+
+</head>
+
+<body>
+<div class=" card modal-warning alert-warning"  >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center alert-info">
+                <h5 class="modal-title">Modification d'un element de Bibliothèque</h5>
+            </div>
+            <div class="modal-body text-center">
+                <h5>Veuillez renseigner le champ a modifier s'il vous plait</h5>
+            </div>
+            <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/bibliography/update}" th:object="${bibliography}">
+
+                <div class="mb-4">
+                    <div class="col-12 col-sm-6 col-lg-12">
+                        <!--theseId-->
+                        <input type="hidden" name="theseId" th:value="${session.theseId}"  >
+                        <!--theseId-->
+                        <input type="hidden" th:field="*{bibliographyId}">
+                        <div class="form-group">
+                            <span class='error' id="assistantError"></span>
+                            <input type="text" th:field="*{auteur}" id="assistant" class="form-control" placeholder="Nom de l'auteur" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                        <div class="form-group">
+                            <span class='error' id="studentError"></span>
+                            <input type="text" th:field="*{title}" id="student" class="form-control" placeholder="Titre du livre" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                        <div class="form-group ">
+                            <span class='error' id="profError"></span>
+                            <textarea class="form-control" id="description" rows="5" style="height: 100px" placeholder="Description " th:field="*{description}" type="text"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer text-center">
+                    <a th:href="@{/groupe/biblib/}+${session.theseId}" class="btn btn-warning pull-left">Retour</a>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>                    </div>
+
+<!--vendor scripts -->
+<div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+<!--vendor scripts -->
+
+<!-- scripts-->
+<!-- js -->
+<script th:src="@{/js/js.js}"></script>
+
+</body>
+
+</html>

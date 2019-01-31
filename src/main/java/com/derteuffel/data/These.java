@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by derteuffel on 14/10/2018.
@@ -27,7 +29,7 @@ public class These implements Serializable{
     @Column
     private String subject;
     @Column
-    private String resumes;
+    private ArrayList<String> resumes;
     @Column
     private String regions;
     @Column
@@ -52,8 +54,9 @@ public class These implements Serializable{
     private String country;
     @Column
     private ArrayList<String> libraries;
-    @Column
-    private ArrayList<String> bibliographies;
+    @OneToMany(mappedBy = "these")
+    private List<Bibliography> bibliographies;
+
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -64,9 +67,9 @@ public class These implements Serializable{
     }
 
     public These(String university, String faculty, String options, String level,
-                 String subject, String resumes, String regions, String student, String profesor,
+                 String subject, ArrayList<String> resumes, String regions, String student, String profesor,
                  String workChief, String assistant, String bibliography, String library,
-                 Date created_at,Boolean status, String theseDate, String country, ArrayList<String> libraries, ArrayList<String> bibliographies) {
+                 Date created_at,Boolean status, String theseDate, String country, ArrayList<String> libraries, ArrayList<Bibliography> bibliographies) {
         this.university = university;
         this.faculty = faculty;
         this.options = options;
@@ -96,11 +99,11 @@ public class These implements Serializable{
         this.libraries = libraries;
     }
 
-    public ArrayList<String> getBibliographies() {
+    public List<Bibliography> getBibliographies() {
         return bibliographies;
     }
 
-    public void setBibliographies(ArrayList<String> bibliographies) {
+    public void setBibliographies(List<Bibliography> bibliographies) {
         this.bibliographies = bibliographies;
     }
 
@@ -184,11 +187,11 @@ public class These implements Serializable{
         this.subject = subject;
     }
 
-    public String getResumes() {
+    public ArrayList<String> getResumes() {
         return resumes;
     }
 
-    public void setResumes(String resumes) {
+    public void setResumes(ArrayList<String> resumes) {
         this.resumes = resumes;
     }
 

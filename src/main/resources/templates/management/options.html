@@ -49,8 +49,8 @@
                         <span th:text="${these.subject}"> Yaounde</span>
                     </td>
                     <td>
-                        <a th:href="@{/login/visitor/etudiant}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
-                            <i class="zmdi zmdi-eye" ></i>
+                        <a th:href="@{/groupe/these/}+${these.theseId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
+                            Ouvrir &nbsp;<i class="zmdi zmdi-eye" ></i>
                         </a>
                     </td>
                 </tr>

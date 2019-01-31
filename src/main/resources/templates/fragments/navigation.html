@@ -130,7 +130,11 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a  th:href="@{/management/countries/other}" >Autres</a></li>
+                                <li><a  href="#" >Autres</a>
+                                <ul class="dropdown">
+                                    <li><a  th:href="@{/management/countries/other}" >Autres services</a></li>
+                                    <li><a  th:href="@{/management/countries/education}" >Education</a></li>
+                                </ul>
                                 <li><a  th:href="@{/management/course/administration}" >Formations</a></li>
                             </ul>
                         </div>
