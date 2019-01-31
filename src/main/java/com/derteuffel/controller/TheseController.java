@@ -458,8 +458,6 @@ public class TheseController {
         }
         these.setLibraries(listLib);
         these.setLibrary(null);
-        String[] bibliographies1 = these.getBibliography().split(";");
-        System.out.println(bibliographies1);
         these.setBibliography(null);
         Long groupeId = (Long) session.getAttribute("groupeId");
         these.setResumes(filesPaths);

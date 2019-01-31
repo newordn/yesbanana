@@ -387,7 +387,7 @@ public class User implements Serializable{
     public void setRoles(Role role) {
         roles.add(role);
     }
-   /* public void addRole(Role role){
+        /* public void addRole(Role role){
         if (!this.roles.contains(role)){
             this.roles.add(role);
         }
