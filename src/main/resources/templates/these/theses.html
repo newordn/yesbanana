@@ -82,28 +82,28 @@
                 <ul class="pagination">
                     <li th:class="${theses.number == 0} ? disabled" class="page-item" ><a
                             class="page-link"
-                            th:href="@{/user(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            th:href="@{/these(pageSize=${selectedPageSize}, page=1)}">«</a>
                     </li>
                     <li th:class="${theses.number == 0} ? disabled" class="page-item" ><a
                             class="page-link"
-                            th:href="@{/user(pageSize=${selectedPageSize}, page=${theses.number})}">←</a>
+                            th:href="@{/these(pageSize=${selectedPageSize}, page=${theses.number})}">←</a>
                     </li>
                     <li
                             th:class="${theses.number == (page - 1)} ? 'active pointer-disabled'"
                             th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
                         <a class="page-link"
-                           th:href="@{/user(pageSize=${selectedPageSize}, page=${page})}"
+                           th:href="@{/these(pageSize=${selectedPageSize}, page=${page})}"
                            th:text="${page}"></a>
                     </li>
                     <li
                             th:class="${theses.number + 1 == theses.totalPages} ? disabled" class="page-item">
                         <a class="page-link"
-                           th:href="@{/user(pageSize=${selectedPageSize}, page=${theses.number + 2})}">→</a>
+                           th:href="@{/these(pageSize=${selectedPageSize}, page=${theses.number + 2})}">→</a>
                     </li>
                     <li
                             th:class="${theses.number + 1 == theses.totalPages} ? disabled" class="page-item">
                         <a class="page-link"
-                           th:href="@{/user(pageSize=${selectedPageSize}, page=${theses.totalPages})}">»</a>
+                           th:href="@{/these(pageSize=${selectedPageSize}, page=${theses.totalPages})}">»</a>
                     </li>
                 </ul>
             </div>
