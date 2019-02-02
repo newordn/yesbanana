@@ -308,14 +308,15 @@ public class UserController {
     }
 
     @GetMapping("/staffs/{userId}")
-    public String getUser(Model model, @PathVariable Long userId){
+    public String getUser(Model model, @PathVariable Long userId, HttpSession session){
+        session.setAttribute("userId",userId);
         User user= userService.getById(userId);
         model.addAttribute("user",user);
         AddUserRole form= new AddUserRole(roleService.listAll(), user);
         Set<Role> roles= roleService.findByGroupe(userId);
         model.addAttribute("form",form);
         model.addAttribute("roles", roles);
-        return "user/detail";
+        return "user/staffs";
     }
 
     @GetMapping("/view/{userId}")
@@ -357,9 +358,8 @@ public class UserController {
     }
 
 
-    @PostMapping("/role/save")
+    @PostMapping("/role/save1")
     public String role(Model model, AddUserRole form, HttpSession session){
-
         Long userId= (Long)session.getAttribute("userId");
         Role role= roleRepository.getOne(form.getRoleId());
         System.out.println(role.getRole());
@@ -367,7 +367,19 @@ public class UserController {
         System.out.println(user.getName());
         user.setRoles(role);
         userRepository.save(user);
-        return "redirect:/user/detail/"+userId;
+        return "redirect:/user/staffs/"+user.getUserId();
+    }
+
+    @PostMapping("/role/save")
+    public String roleProfilt(@PathVariable Long userId ,Model model, AddUserRole form, HttpSession session){
+
+        Role role= roleRepository.getOne(form.getRoleId());
+        System.out.println(role.getRole());
+        User user= userRepository.getOne(userId);
+        System.out.println(user.getName());
+        user.setRoles(role);
+        userRepository.save(user);
+        return "redirect:/user/staffs/"+user.getUserId();
     }
 
    /* @GetMapping("/updateRole")

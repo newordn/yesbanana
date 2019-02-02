@@ -517,6 +517,9 @@ public class GroupeController {
         model.addAttribute("these",new These());
         model.addAttribute("countries", countries);
         model.addAttribute("groupeName",groupe.getGroupeName());
+        Page<These> by_groupe=theseRepository.findByUserOrderByTheseIdDesc(user.getUserId(),new PageRequest(evalPage,evalPageSize));
+        Page<These> groupThese= theseRepository.findByGroupeOrderByTheseIdDesc(groupe.getGroupeId(), new PageRequest(evalPage,evalPageSize));
+
 
         Collection<Role> roles= roleRepository.findByUsers_UserId(user.getUserId());
         int p=0;
@@ -528,17 +531,6 @@ public class GroupeController {
         }
         }
         if (p==1){
-            Page<These> by_groupe=theseRepository.findByUserOrderByTheseIdDesc(user.getUserId(),new PageRequest(evalPage,evalPageSize));
-            PagerModel pager = new PagerModel(by_groupe.getTotalPages(),by_groupe.getNumber(),BUTTONS_TO_SHOW);// evaluate page size
-            model.addAttribute("selectedPageSize", evalPageSize);
-            // add pages size
-            model.addAttribute("pageSizes", PAGE_SIZES);
-            // add pager
-            model.addAttribute("pager", pager);
-            model.addAttribute("theses",by_groupe);
-            return "crew/theses";
-        }else {
-            Page<These> groupThese= theseRepository.findByGroupeOrderByTheseIdDesc(groupe.getGroupeId(), new PageRequest(evalPage,evalPageSize));
             PagerModel pager = new PagerModel(groupThese.getTotalPages(),groupThese.getNumber(),BUTTONS_TO_SHOW);// evaluate page size
             model.addAttribute("selectedPageSize", evalPageSize);
             // add pages size
@@ -547,6 +539,16 @@ public class GroupeController {
             model.addAttribute("pager", pager);
             model.addAttribute("theses",groupThese );
 
+            return "crew/theses";
+
+        }else {
+            PagerModel pager = new PagerModel(by_groupe.getTotalPages(),by_groupe.getNumber(),BUTTONS_TO_SHOW);// evaluate page size
+            model.addAttribute("selectedPageSize", evalPageSize);
+            // add pages size
+            model.addAttribute("pageSizes", PAGE_SIZES);
+            // add pager
+            model.addAttribute("pager", pager);
+            model.addAttribute("theses",by_groupe);
             return "crew/theses";
         }
 
