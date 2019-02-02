@@ -38,7 +38,7 @@
 <div class="col-11 offset-1 main">
     <!-- showing theses-->
     <div class="row content justify-content-center" style="margin-top: 5.5rem;">
-        <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/these/add/create}" th:object="${these}">
+        <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/these/add/save}" th:object="${these}">
             <!-- user id -->
             <input type="number" name="userId" th:value="${session.userId}" style="display:none">
             <!-- user id -->
@@ -137,86 +137,19 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="col-12" style="text-align:center">
-                    <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'" style="width:25%;"   class="btn btn-success" >Valider pour verfication</a>
-                    <div class="modal card modal-warning fade in" th:id="modal-warning" >
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header text-center">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span></button>
-                                    <h5 class="modal-title">Envoi d'un message de validation a l'administrateur pour activation d'une Thèse</h5>
-                                </div>
-                                <div class="modal-body text-center">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" name="adresse" placeholder="Adresse email destinataire :">
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea class="form-control" rows="10" name="contenue" placeholder="Corps du message :"></textarea>
-                                    </div>
-                                </div>
-                                <div class="modal-footer text-center">
-                                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
-                                    <button type="submit" class="btn btn-danger" ><i class="fa fa-check"></i>&nbsp;Envoye</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-12 col-sm-6 col-lg-6">
+                    <a style="width:25%;" th:href="@{/groupe/groupe/}+${session.groupeId}"  class="btn btn-warning" >Annuler</a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-6">
+                    <button style="width:25%;" type="submit"  class="btn btn-success" sec:authorize="hasRole('ROLE_ROOT')"  >Validé</button>
                 </div>
             </div>
         </form>
-        <a style="width:25%;" th:href="@{/groupe/groupe/}+${session.groupeId}"  class="btn btn-warning" >Annuler</a>
     </div>
 
 
 </div>
-<!-- addBibliography-->
-<div class=" modal fade" id="addBibliography" tabindex="-1" role="dialog">
-    <div class=" modal-dialog  modal-dialog-centered" style="box-sizing: content-box" role="document">
-        <form class="modal-content card " style="padding:2rem;">
-            <div class="form-group">
-                <input type="text" id="bibliographyAuthor" placeholder="Auteur" />
-            </div>
-            <div class="form-group">
-                <input type="text" id="bibliographyTitle" placeholder="Titre" />
-            </div>
-            <div class="form-group">
-                <input type="text" id="bibliographyContent" placeholder="Description" />
-            </div>
-            <div class="text-right">
-                <button type="button" class="btn btn-danger rounded-circle" style="width:3rem"
-                        data-dismiss="modal">
-                    <i class="zmdi zmdi-close"></i>
-                </button>
-                <button type="button" id="confirmBibliographyAdding" class="btn btn-primary rounded-circle" style="width:3rem">
-                    <i class="zmdi zmdi-check"></i>
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- addBibliography-->
 
-
-<!-- addLibrary-->
-<div class=" modal fade" id="addLibrary" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" style="box-sizing: content-box" role="document">
-        <form class="modal-content card " style="padding:2rem;">
-            <div class="form-group">
-                <input type="text" id="libraryContent" placeholder="Lien" />
-            </div>
-            <div class="text-right">
-                <button type="button" class="btn btn-danger rounded-circle" style="width:3rem" data-dismiss="modal">
-                    <i class="zmdi zmdi-close"></i>
-                </button>
-                <button type="button" id="confirmLibraryAdding" class="btn btn-primary rounded-circle" style="width:3rem">
-                    <i class="zmdi zmdi-check"></i>
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- addLibrary-->
 
 <!-- scripts-->
 <!--vendor scripts -->

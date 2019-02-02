@@ -486,9 +486,14 @@ public class GroupeController {
     }
 
 
-
     @GetMapping("/groupe/{groupeId}")
-    public String findById(@PathVariable Long groupeId,HttpSession session, Model model, @RequestParam("pageSize") Optional<Integer> pageSize,
+    public String get(@PathVariable Long groupeId, HttpSession session){
+        session.setAttribute("groupeId", groupeId);
+        return "redirect:/groupe/groupe";
+    }
+
+    @GetMapping("/groupe")
+    public String findById(HttpSession session, Model model, @RequestParam("pageSize") Optional<Integer> pageSize,
                            @RequestParam("page") Optional<Integer> page) {
         //
         // Evaluate page size. If requested parameter is null, return initial
@@ -499,9 +504,8 @@ public class GroupeController {
         // param. decreased by 1.
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
         // print repo
-        session.setAttribute("groupeId", groupeId);
         Long userId=(Long)session.getAttribute("userId");
-        Groupe groupe = groupeRepository.getOne(groupeId);
+        Groupe groupe = groupeRepository.getOne((Long)session.getAttribute("groupeId"));
         User user=userService.getById(userId);
         model.addAttribute("userId", userId);
         model.addAttribute("these",new These());

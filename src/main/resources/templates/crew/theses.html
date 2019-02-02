@@ -116,13 +116,13 @@
         </i>
     </a>
     <!-- add these button -->
-    <!-- print button-->
-    <a th:href="@{/these/createPdf/} + ${currentPage} " >
+    <!-- print button>
+    <a th:href="@{/these/createPdf/} + ${page} " >
         <button type="button" class="printButton btn btn-success ">
             Imprimer
         </button>
     </a>
-    <!-- print button-->
+    <print button-->
 
   </div>
     <!-- scripts-->
@@ -139,7 +139,7 @@
     });
     function changePageAndSize() {
         $('#pageSizeSelect').change(function(evt) {
-            window.location.replace("/groupe/groupe/"+ this.groupeId +"?pageSize=" + this.value + "&page=1");
+            window.location.replace("/groupe/groupe?pageSize=" + this.value + "&page=1");
         });
     }
     /*]]>*/

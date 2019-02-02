@@ -306,32 +306,28 @@ public class TheseController {
 
     @GetMapping("/add/form")
     public  String theseForm1(Model model){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
+        int p=0;
+
         model.addAttribute("these", new These());
         model.addAttribute("countries", countries);
-        return "crew/theseForm";
+        for (Role role : user.getRoles()){
+            if (role.getRole().equals("ROOT")){
+                p=1;
+            }
+        }
+        if (p==1){
+            return "crew/theseForm1";
+        }else {
+            return "crew/theseForm";
+        }
+
+
     }
 
-    // for update a these in a crew
-    @GetMapping("/add/edit/crew/{theseId}")
-    public  String editthese_groupe(Model model, @PathVariable Long theseId){
-        model.addAttribute("these",theseRepository.getOne(theseId));
-        model.addAttribute("countries", countries);
-        return "crew/theseUpdate";
-    }
 
-    // for update a these in a crew
-    @GetMapping("/add/edit/general/{theseId}")
-    public  String editthese_generale(Model model, @PathVariable Long theseId){
-        model.addAttribute("these",theseRepository.getOne(theseId));
-        model.addAttribute("userId", theseRepository.getOne(theseId).getUser().getUserId());
-        System.out.println(theseRepository.getOne(theseId).getUser().getUserId());
-        model.addAttribute("groupeId",theseRepository.getOne(theseId).getGroupe().getGroupeId());
-        model.addAttribute("countries", countries);
-        System.out.println(theseRepository.getOne(theseId).getGroupe().getGroupeId());
-        return "these/theseUpdate";
-    }
-
-    
     // a function which performs the create
     public String create(int currentPage,HSSFWorkbook workbook) throws FileNotFoundException, DocumentException, IOException
     {
@@ -466,13 +462,6 @@ public class TheseController {
             for (int i = 0; i < pieces.size(); i++) {
                 filesPaths.add(pieces.get(i).getFileDownloadUri());
             }
-            String[] libariries = these.getLibrary().split(";");
-            ArrayList<String> listLib = new ArrayList<>();
-            for (int i = 0; i < libariries.length; i++) {
-                listLib.add(libariries[i]);
-            }
-            these.setLibrary(null);
-            these.setBibliography(null);
             Long groupeId = (Long) session.getAttribute("groupeId");
             these.setResumes(filesPaths);
             Groupe groupe = groupeRepository.getOne(groupeId);
@@ -487,6 +476,50 @@ public class TheseController {
                 "Notification de enregistrement d'une Thèse",
                 user.getName()+" vous notifi celon le contenue suivant :"+ contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
+        Collection<Role> roles=user.getRoles();
+        int p=0;
+        for (Role role : roles){
+            if (!role.getRole().equals("USER")){
+                p=1;
+            }
+        }
+        if (p==1){
+            return "redirect:/groupe/groupe/"+(Long)session.getAttribute("groupeId");
+        }else {
+            return "redirect:/groupe/groupe/all/user/these";
+        }
+
+    }
+
+    // for saving a these
+    @PostMapping("/add/save")
+    public String create(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, Errors errors,Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
+        These these1= theseRepository.findBySubject(these.getSubject());
+        if (these1 != null){
+            errors.rejectValue("subject","these.error","il existe deja une reference avec ce titre");
+        }
+        if (errors.hasErrors()){
+            model.addAttribute("error","il existe deja une reference avec ce titre");
+            return "crew/theseForm1";
+        }else {
+            List<FileUploadRespone> pieces = Arrays.asList(files)
+                    .stream()
+                    .map(file -> uploadFile(file))
+                    .collect(Collectors.toList());
+            ArrayList<String> filesPaths = new ArrayList<String>();
+            for (int i = 0; i < pieces.size(); i++) {
+                filesPaths.add(pieces.get(i).getFileDownloadUri());
+            }
+            Long groupeId = (Long) session.getAttribute("groupeId");
+            these.setResumes(filesPaths);
+            Groupe groupe = groupeRepository.getOne(groupeId);
+            these.setGroupe(groupe);
+            these.setUser(user);
+            these.setOptions(these.getOptions().toLowerCase());
+            theseRepository.save(these);
+        }
         Collection<Role> roles=user.getRoles();
         int p=0;
         for (Role role : roles){
