@@ -26,18 +26,23 @@
     <!-- navigation -->
 
     <h2 class="text-center mt-5">Régions</h2>
-    <div class="row content mt-3" sec:authorize="hasRole('ROLE_ROOT')">
+    <div class="row content mt-3" >
         <div  class="col-3  text-center crew mb-2" th:each="crew : ${crews}" style="padding:.5rem;">
                 <div class="card">
-                    <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
-                        <div class="col-6 text-left" style="padding:0">
+                    <div  class=" row" style="position:absolute;z-index:1000;width:100%;margin:auto"    >
+                        <div class="col-4 text-left" style="padding:0">
                             <a th:href="@{/groupe/groupe/} + ${crew.groupeId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
                                 <i class="zmdi zmdi-eye" ></i>
                             </a>
                         </div>
-                        <div class="col-6 text-right" style="padding:0" sec:authorize="!hasRole('ROLE_USER')">
-                            <a th:href="@{/groupe/update/} + ${crew.groupeId}"  class="btn btn-danger  rounded-circle" >
+                        <div class="col-4 text-center" style="padding:0" sec:authorize="!hasRole('ROLE_USER')">
+                            <a th:href="@{/groupe/update/} + ${crew.groupeId}"  class="btn btn-warning  rounded-circle" >
                                 <i class="zmdi zmdi-edit" ></i>
+                            </a>
+                        </div>
+                        <div class="col-4 text-right" style="padding:0" sec:authorize="!hasRole('ROLE_USER')">
+                            <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn btn-danger  rounded-circle" >
+                                <i class="zmdi zmdi-close" ></i>
                             </a>
                         </div>
                     </div>
@@ -54,9 +59,27 @@
                         <div class="col-6"><span th:text="${crew.groupeRegion}">Extreme nord</span></div>
                     </div>
                 </div>
+            <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${crew.groupeId}" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-center alert-info">
+                            <h5 class="modal-title">Suppresion d'un element</h5>
+                        </div>
+                        <div class="modal-body text-center">
+                            <h3>Voulez vous vraiment supprimer cet element?</h3>
+                        </div>
+                        <div class="modal-footer text-center">
+                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                            <a  class="btn btn-success"  th:href="@{/groupe/delete/} + ${crew.groupeId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
+
+
 
     <button sec:authorize="!hasRole('ROLE_USER')" type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
         <i class="zmdi zmdi-plus zmdi-hc-2x"></i>

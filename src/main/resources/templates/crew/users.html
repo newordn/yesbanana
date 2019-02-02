@@ -20,6 +20,9 @@
     <!-- Bootstrap CSS-->
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
     <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <style>
+        .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+    </style>
 <body class="row">
 
 <!--navigation-->
@@ -51,7 +54,7 @@
                         <td th:text="${user.region}"></td>
                         <td th:text="${user.number}"></td>
                         <td>
-                            <a th:href="@{/user/staffs/}+${user.userId}"class=" btn btn-success" ><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a th:href="@{/user/staffs/}+${user.userId}"class=" btn btn-success" > Ouvrir <i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
                             <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${user.userId }" class="btn btn-danger" ><i class="fa fa-trash"></i></a>
                         </td>
                         <!-- Delete user modal -->
@@ -77,7 +80,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="row " style="padding-left:15px;bottom: 1rem;width: 100%; position: fixed">
+            <div class="row " style="bottom: 1rem;width: 100%;">
                 <div class="form-group col-12 col-sm-6 col-lg-3">
                     <select class="form-control pagination" id="pageSizeSelect">
                         <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
@@ -88,48 +91,34 @@
                 <div th:if="${users.totalPages != 1}"
                      class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
                     <ul class="pagination">
-                        <li th:class="${users.number == 0} ? disabled" ><a
-                                class="pageLink"
-                                th:href="@{/user(pageSize=${selectedPageSize}, page=1)}">«</a>
+                        <li th:class="${users.number == 0} ? disabled" class="page-item" ><a
+                                class="page-link"
+                                th:href="@{/groupe/users(pageSize=${selectedPageSize}, page=1)}">«</a>
                         </li>
-                        <li th:class="${users.number == 0} ? disabled" ><a
-                                class="pageLink"
-                                th:href="@{/user(pageSize=${selectedPageSize}, page=${users.number})}">←</a>
+                        <li th:class="${users.number == 0} ? disabled" class="page-item" ><a
+                                class="page-link"
+                                th:href="@{/groupe/users(pageSize=${selectedPageSize}, page=${users.number})}">←</a>
                         </li>
                         <li
                                 th:class="${users.number == (page - 1)} ? 'active pointer-disabled'"
-                                th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" >
-                            <a class="pageLink"
-                               th:href="@{/user(pageSize=${selectedPageSize}, page=${page})}"
+                                th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                            <a class="page-link"
+                               th:href="@{/groupe/users(pageSize=${selectedPageSize}, page=${page})}"
                                th:text="${page}"></a>
                         </li>
                         <li
-                                th:class="${users.number + 1 == users.totalPages} ? disabled" >
-                            <a class="pageLink"
-                               th:href="@{/user(pageSize=${selectedPageSize}, page=${users.number + 2})}">→</a>
+                                th:class="${users.number + 1 == users.totalPages} ? disabled" class="page-item">
+                            <a class="page-link"
+                               th:href="@{/groupe/users(pageSize=${selectedPageSize}, page=${users.number + 2})}">→</a>
                         </li>
                         <li
-                                th:class="${users.number + 1 == users.totalPages} ? disabled" >
-                            <a class="pageLink"
-                               th:href="@{/user(pageSize=${selectedPageSize}, page=${users.totalPages})}">»</a>
+                                th:class="${users.number + 1 == users.totalPages} ? disabled" class="page-item">
+                            <a class="page-link"
+                               th:href="@{/groupe/users(pageSize=${selectedPageSize}, page=${users.totalPages})}">»</a>
                         </li>
                     </ul>
                 </div>
             </div>
-            <!-- Delete user modal -->
-            <!--div class=" modal fade" id="confirmDeletion" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-dialog-centered" role=" document">
-
-                    <form class=" modal-content card text-center" style="padding:1rem;" method="get" id="updateRoleForm">
-                        <h4>Voulez vous supprimer cet utilisateur</h4>
-                        <div class='row'>
-                            <div class='col-6'><a class="btn btn-danger" type="submit" id="confirmDeletionBtn">Oui</a></div>
-                            <div class='col-6'><button class="btn btn-warning" data-dismiss="modal" type="button">Non</button></div>
-                        </div>
-                    </form>
-                </div>
-            </div-->
-
 
         </div>
         <button type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addUserIntoCrew">
@@ -162,28 +151,7 @@
         <!-- addUserIntoCrew-->
     </div>
     </div>
-<!-- update role-->
-<!--div class=" modal fade" id="updateRole" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role=" document">
-        <form class=" modal-content card text-center" th:action="@{/groupe/updateRole}" style="padding:1rem;" method="get" id="updateRoleForm">
-            <h5>Permissions</h5>
-            <input type="number" style="display:none" id="updateRoleUserId" name="userId">
-            <select name="role" class="custom-select">
-                <option value="root" id="root">Super Administrateur</option>
-                <option value="admin" id="admin" >Administrateur</option>
-                <option value="user" id="user">Utilisateur</option>
-            </select>
-            <div class="text-right">
-                <button class="btn btn-danger" type="button" data-dismiss="modal" >
-                    <i class="zmdi zmdi-close"></i>
-                </button>
-                <button class="btn btn-success" id="confirmRoleAdding">
-                    <i class="zmdi zmdi-check"></i>
-                </button>
-            </div>
-        </form>
-    </div>
-</div-->
+
 <!-- update role-->
     <!--vendor scripts -->
     <div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
@@ -193,6 +161,18 @@
 <script th:src="@{/vendor/bootstrap-4.1/bootstrap.min.js}"></script>
 <script th:src="@{/vendor/bootstrap-4.1/popper.min.js}"></script>
 <!-- ##### All Javascript Script ##### -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function() {
+        changePageAndSize();
+    });
+    function changePageAndSize() {
+        $('#pageSizeSelect').change(function(evt) {
+            window.location.replace("/groupe/users?pageSize=" + this.value + "&page=1");
+        });
+    }
+    /*]]>*/
+</script>
 <!-- jQuery-2.2.4 js -->
 <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
 <!-- Popper js -->

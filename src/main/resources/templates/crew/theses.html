@@ -17,6 +17,9 @@
     <!-- Bootstrap CSS-->
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
     <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <style>
+        .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+    </style>
     <!-- thymeleaft-->
 
 </head>
@@ -55,19 +58,56 @@
                 <td th:text="${these.options}"></td>
                 <td th:text="${these.subject}"></td>
                 <td>
-                     <a th:href="@{/groupe/these/} + ${these.theseId}"   class="detailLink" alt="detail">
+                     <a th:href="@{/groupe/these/} + ${these.theseId}"   class="detailLink btn" alt="detail">Ouvrir&nbsp;
                     <i class="zmdi zmdi-eye"></i>
                 </a>
+                    <a  th:href="@{/groupe/these/general/edit/}+${these.theseId}" class="btn">Editer&nbsp;
+                        <i class="fa fa-pencil"></i>
+                    </a>
                 </td>
             </tr>
             </tbody>
         </table>
 
-        <!--pagination-->
-        <div th:if="${theses.totalPages > 0}" class="pagination row justify-content-end" th:each="pageNumber : ${pageNumbers}">
-            <a th:href="@{/these(size=${theses.size}, page=${pageNumber})}" th:text=${pageNumber} th:class="${pageNumber==theses.number + 1} ? active"></a>
+    </div>
+    <div class="row " style="bottom: 1rem;width: 100%;">
+        <div class="form-group col-12 col-sm-6 col-lg-3">
+            <select class="form-control pagination" id="pageSizeSelect">
+                <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                        th:value="${pageSize}"
+                        th:selected="${pageSize} == ${selectedPageSize}"></option>
+            </select>
         </div>
-        <!--pagination-->
+        <div th:if="${theses.totalPages != 1}"
+             class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+            <ul class="pagination">
+                <li th:class="${theses.number == 0} ? disabled" class="page-item" ><a
+                        class="page-link"
+                        th:href="@{/groupe/groupe/{groupeId}(pageSize=${selectedPageSize}, page=1)}">«</a>
+                </li>
+                <li th:class="${theses.number == 0} ? disabled" class="page-item" ><a
+                        class="page-link"
+                        th:href="@{/groupe/groupe/{groupeId}(pageSize=${selectedPageSize}, page=${theses.number})}">←</a>
+                </li>
+                <li
+                        th:class="${theses.number == (page - 1)} ? 'active pointer-disabled'"
+                        th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                    <a class="page-link"
+                       th:href="@{/groupe/groupe/{groupeId}(pageSize=${selectedPageSize}, page=${page})}"
+                       th:text="${page}"></a>
+                </li>
+                <li
+                        th:class="${theses.number + 1 == theses.totalPages} ? disabled" class="page-item">
+                    <a class="page-link"
+                       th:href="@{/groupe/groupe/{groupeId}(pageSize=${selectedPageSize}, page=${theses.number + 2})}">→</a>
+                </li>
+                <li
+                        th:class="${theses.number + 1 == theses.totalPages} ? disabled" class="page-item">
+                    <a class="page-link"
+                       th:href="@{/groupe/groupe/{groupeId}(pageSize=${selectedPageSize}, page=${theses.totalPages})}">»</a>
+                </li>
+            </ul>
+        </div>
     </div>
     <!-- showing theses-->
     <!-- add these button -->
@@ -92,6 +132,18 @@
     <script th:src="@{/js/dashboard.js}"></script>
     <script th:src="@{/js/showTheses.js}"></script>
     <!-- scripts-->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function() {
+        changePageAndSize();
+    });
+    function changePageAndSize() {
+        $('#pageSizeSelect').change(function(evt) {
+            window.location.replace("/groupe/groupe/"+ this.groupeId +"?pageSize=" + this.value + "&page=1");
+        });
+    }
+    /*]]>*/
+</script>
 
 </body>
 

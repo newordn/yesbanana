@@ -57,10 +57,10 @@
                     </div>
                 </div>
                 <div class="col-9 offset-3">
-                    <h3 >Bibliothèques</h3>
+                    <h3 >Bibliographies</h3>
                     <table class="list-group">
                         <tr th:each="bibliography : ${bibliographies}" >
-                            <div class="card ">
+                            <div class="card mt-1">
                                 <div class="row">
                                     <div class="col-12 col-sm-6 col-lg-8">
                                         <h5 class="text-center" th:text="${bibliography.auteur}"></h5>
@@ -122,7 +122,7 @@
                                         </div>
                                         <div class="modal-footer text-center">
                                             <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
-                                            <a type="button" class="btn btn-success" th:href="@{/bibliography/delete/{bibliographyId}(bibliographyId=${bibliography.bibliographyId})}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                                            <a type="button" class="btn btn-success" th:href="@{/these/bibliography/delete/{bibliographyId}(bibliographyId=${bibliography.bibliographyId})}"><i class="fa fa-check"></i>&nbsp;Oui</a>
                                         </div>
                                     </div>
                                 </div>
@@ -142,7 +142,7 @@
                                 <div class="modal-body text-center">
                                     <h5>Veuillez remplir s'il vous plait les trois champs suivans</h5>
                                 </div>
-                                <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/bibliography/save}" th:object="${bibliography}">
+                                <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/these/bibliography/save}" th:object="${bibliography}">
 
                                     <div class="mb-4">
                                         <div class="col-12 col-sm-6 col-lg-12">
@@ -175,12 +175,75 @@
                             </div>
                         </div>
                     </div>
-                    <h3 class=" mt-3">Bibliographies</h3>
-                    <ul class="list-group">
-                        <li class="list-group-item" th:each="librairy : ${librairies}" >
-                            <a th:href="${librairy}" th:text="${librairy}"></a>
-                        </li>
-                    </ul>
+                    <h3 >Bibliothèques</h3>
+                    <table class="list-group">
+                        <tr  th:each="bibliotheque : ${bibliothequess}" >
+                            <div class="card mt-1">
+                                <div class="row">
+                                    <div class="col-12 col-sm-6 col-lg-8">
+                                        <a th:href="${bibliotheque.bibliotheques}" th:text="${bibliotheque.bibliotheques}"></a>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-lg-4 row pull-right">
+                                        <div>
+                                            <a  data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${bibliotheque.bibliothequeId}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${bibliotheque.bibliothequeId}" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center alert-info">
+                                            <h5 class="modal-title">Suppresion d'un element</h5>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <h3>Voulez vous vraiment supprimer cet element?</h3>
+                                        </div>
+                                        <div class="modal-footer text-center">
+                                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                            <a  class="btn btn-success" th:href="@{/these/bibliotheque/delete/{bibliothequeId}(bibliothequeId=${bibliotheque.bibliothequeId})}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                    </table>
+                    <a class="btn btn-success rounded-circle mt-3"  data-toggle="modal" data-target="#modal-add" th:attr="data-target='#modal-add1'">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <span>Ajouter</span>
+                    <div class="modal card modal-warning alert-warning fade in" th:id="modal-add1" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header text-center alert-info">
+                                    <h5 class="modal-title">Ajouter un element de Bibliothèque</h5>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h5>Veuillez remplir s'il vous plait le champ de donnée</h5>
+                                </div>
+                                <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/these/bibliotheque/save}" th:object="${bibliotheque}">
+
+                                    <div class="mb-4">
+                                        <div class="col-12 col-sm-6 col-lg-12">
+                                            <!--theseId-->
+                                            <input type="hidden" name="theseId" th:value="${session.theseId}"  >
+                                            <!--theseId-->
+                                            <div class="form-group">
+                                                <span class='error' id="assistantError"></span>
+                                                <input type="url" th:field="*{bibliotheques}" id="bibliotheque" class="form-control" placeholder="Renseigner votre lien ici" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer text-center">
+                                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
+                                        <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

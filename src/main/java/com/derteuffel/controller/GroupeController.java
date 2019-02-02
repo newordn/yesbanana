@@ -57,6 +57,8 @@ public class GroupeController {
     @Autowired
     private BibliographyRepository bibliographyRepository;
     @Autowired
+    private BibliothequeRepository bibliothequeRepository;
+    @Autowired
             private RoleRepository roleRepository;
 
     List<String> countries= Arrays.asList(
@@ -362,75 +364,44 @@ public class GroupeController {
     
     // all the theses for a particular user
     @GetMapping("/groupe/all/user/these")
-    public String findByUser(Model model, @RequestParam("page") Optional<Integer> page,
-                             @RequestParam("size")Optional<Integer>size, HttpSession session){
-        page.ifPresent(p->currentPage=p);
-        size.ifPresent(s->pageSize=s);
+    public String findByUser(Model model, @RequestParam("pageSize") Optional<Integer> pageSize,
+                             @RequestParam("page") Optional<Integer> page, HttpSession session){
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
-        List<These> by_groupe=theseRepository.findByUserOrderByTheseIdDesc(user.getUserId());
         Groupe groupe=groupeRepository.getOne((Long)session.getAttribute("groupeId"));
         if ((Long)session.getAttribute("groupeId") == null){
             return "redirect:/groupe/groupes";
         }else {
-            Page<These> thesePage = theseService.findAllByUser(PageRequest.of(currentPage - 1, pageSize));
-                for (These these:by_groupe){
-                    if (these.getGroupe().getGroupeId().equals((Long)session.getAttribute("groupeId"))){
-                        model.addAttribute("theses", thesePage);
-                    }
-                }
-            int totalPages = thesePage.getTotalPages();
-            if (totalPages > 0) {
-                List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                        .boxed()
-                        .collect(Collectors.toList());
-                model.addAttribute("pageNumbers", pageNumbers);
+            Page<These> by_groupe=theseRepository.findByUserOrderByTheseIdDesc(user.getUserId(),new PageRequest(evalPage,evalPageSize));
+            PagerModel pager = new PagerModel(by_groupe.getTotalPages(),by_groupe.getNumber(),BUTTONS_TO_SHOW);// evaluate page size
+            model.addAttribute("selectedPageSize", evalPageSize);
+            // add pages size
+            model.addAttribute("pageSizes", PAGE_SIZES);
+            // add pager
+            model.addAttribute("pager", pager);
+            model.addAttribute("theses",by_groupe);
 
             }
             // transmitting the current page number to the view
             model.addAttribute("groupeName", groupe.getGroupeName());
-            model.addAttribute("currentPage", currentPage);
             session.setAttribute("avatar", user.getImg());
             session.setAttribute("name", user.getName());
             model.addAttribute("these", new These());
             model.addAttribute("countries", countries);
             System.out.println();
             return "crew/theses";
-        }
+
     }
 
-    // all the theses for a crew
-    @GetMapping("/groupe/all/these")
-    public String findByGroupe(Model model, @RequestParam("page") Optional<Integer> page,
-                               @RequestParam("size")Optional<Integer>size, HttpSession session){
-        page.ifPresent(p->currentPage=p);
-        size.ifPresent(s->pageSize=s);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
-        Groupe groupe=groupeRepository.getOne((Long)session.getAttribute("groupeId"));
-        if ((Long)session.getAttribute("groupeId") == null){
-            return "redirect:/groupe/groupes";
-        }else {
-            Page<These> thesePage = theseService.findAllByGroupe(PageRequest.of(currentPage - 1, pageSize), groupe.getGroupeId());
-            model.addAttribute("theses", thesePage);
-            int totalPages = thesePage.getTotalPages();
-            if (totalPages > 0) {
-                List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                        .boxed()
-                        .collect(Collectors.toList());
-                model.addAttribute("pageNumbers", pageNumbers);
-
-            }
-
-            // transmitting the current page number to the view
-            model.addAttribute("groupe", groupe);
-            model.addAttribute("currentPage", currentPage);
-            session.setAttribute("avatar", user.getImg());
-            session.setAttribute("name", user.getName());
-            System.out.println();
-            return "crew/theses";
-        }
-    }
 
     // updating a crew
     @GetMapping("/update/{groupeId}")
@@ -445,22 +416,6 @@ public class GroupeController {
 
         return "crew/crew";
     }
-/*
-    //updating user role in groupe
-    @GetMapping("/updateRole")
-    public String updateRole(@RequestParam("userId") Long userId, @RequestParam("role") String role, HttpSession session) {
-        User user = userService.getById(userId);
-        Long groupeId = (Long) session.getAttribute("groupeId");
-        Role role1 = roleService.getById(user.getRole().getRoleId());
-        role1.setRole(role);
-        roleService.saveOrUpdate(role1);
-        user.setRole(role1);
-        userRepository.save(user);
-            return "redirect:/groupe/groupe/users/" + groupeId;
-
-
-    }
-    */
 
     @PostMapping("/add/users")
     public  String addGroupUser(UsersGroupe usersGroupe, HttpSession session){
@@ -489,9 +444,9 @@ public class GroupeController {
     private static final int INITIAL_PAGE_SIZE = 5;
     private static final int[] PAGE_SIZES = { 5,6,7,8};
 
-    @GetMapping("/groupe/users/{groupeId}")
-    public String groupeUser(Model model, @PathVariable Long groupeId,@RequestParam("pageSize") Optional<Integer> pageSize,
-                             @RequestParam("page") Optional<Integer> page){
+    @GetMapping("/groupe/users")
+    public String groupeUser(Model model,@RequestParam("pageSize") Optional<Integer> pageSize,
+                             @RequestParam("page") Optional<Integer> page, HttpSession session){
 
     //
     // Evaluate page size. If requested parameter is null, return initial
@@ -504,11 +459,11 @@ public class GroupeController {
     // print repo
 
         List<User> users1=userService.listAll();
-        Groupe groupe = groupeRepository.getOne(groupeId);
+        Groupe groupe = groupeRepository.getOne((Long)session.getAttribute("groupeId"));
         model.addAttribute("users1",users1);
         model.addAttribute("usersGroupe", new UsersGroupe());
         model.addAttribute("groupe",groupe);
-        Page<User> users = userRepository.findByGroupes_GroupeId(groupeId,new PageRequest(evalPage,evalPageSize));
+        Page<User> users = userRepository.findByGroupes_GroupeId((Long)session.getAttribute("groupeId"),new PageRequest(evalPage,evalPageSize));
     PagerModel pager = new PagerModel(users.getTotalPages(),users.getNumber(),BUTTONS_TO_SHOW);// evaluate page size
     model.addAttribute("selectedPageSize", evalPageSize);
     // add pages size
@@ -524,7 +479,17 @@ public class GroupeController {
 
 
     @GetMapping("/groupe/{groupeId}")
-    public String findById(@PathVariable Long groupeId,HttpSession session, Model model) {
+    public String findById(@PathVariable Long groupeId,HttpSession session, Model model, @RequestParam("pageSize") Optional<Integer> pageSize,
+                           @RequestParam("page") Optional<Integer> page) {
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
         session.setAttribute("groupeId", groupeId);
         Long userId=(Long)session.getAttribute("userId");
         Groupe groupe = groupeRepository.getOne(groupeId);
@@ -533,6 +498,7 @@ public class GroupeController {
         model.addAttribute("these",new These());
         model.addAttribute("countries", countries);
         model.addAttribute("groupeName",groupe.getGroupeName());
+
         Collection<Role> roles= roleRepository.findByUsers_UserId(user.getUserId());
         int p=0;
         for (Role role : roles){
@@ -543,11 +509,24 @@ public class GroupeController {
         }
         }
         if (p==1){
-            List<These> by_groupe=theseRepository.findByUserOrderByTheseIdDesc(user.getUserId());
+            Page<These> by_groupe=theseRepository.findByUserOrderByTheseIdDesc(user.getUserId(),new PageRequest(evalPage,evalPageSize));
+            PagerModel pager = new PagerModel(by_groupe.getTotalPages(),by_groupe.getNumber(),BUTTONS_TO_SHOW);// evaluate page size
+            model.addAttribute("selectedPageSize", evalPageSize);
+            // add pages size
+            model.addAttribute("pageSizes", PAGE_SIZES);
+            // add pager
+            model.addAttribute("pager", pager);
             model.addAttribute("theses",by_groupe);
             return "crew/theses";
         }else {
-            model.addAttribute("theses", theseRepository.findByGroupeOrderByTheseIdDesc(groupe.getGroupeId()));
+            Page<These> groupThese= theseRepository.findByGroupeOrderByTheseIdDesc(groupe.getGroupeId(), new PageRequest(evalPage,evalPageSize));
+            PagerModel pager = new PagerModel(groupThese.getTotalPages(),groupThese.getNumber(),BUTTONS_TO_SHOW);// evaluate page size
+            model.addAttribute("selectedPageSize", evalPageSize);
+            // add pages size
+            model.addAttribute("pageSizes", PAGE_SIZES);
+            // add pager
+            model.addAttribute("pager", pager);
+            model.addAttribute("theses",groupThese );
 
             return "crew/theses";
         }
@@ -562,6 +541,25 @@ public class GroupeController {
         return "redirect:/groupe/groupes";
     }
 
+    @GetMapping("/these/general/edit/{theseId}")
+    public String getGeneral(Model model, @PathVariable Long theseId, HttpSession session) {
+        Optional<These> optional = theseRepository.findById(theseId);
+        session.setAttribute("userId", optional.get().getUser().getUserId());
+        session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
+        session.setAttribute("resumes", optional.get().getResumes());
+        model.addAttribute("countries", countries);
+        model.addAttribute("these1", optional.get());
+        return "crew/general";
+    }
+
+    @PostMapping("/these/general/edit")
+    public String updateGeneral(These these, HttpSession session){
+        these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
+        these.setGroupe(groupeRepository.getOne((Long)session.getAttribute("groupeId")));
+        these.setResumes((ArrayList<String>)session.getAttribute("resumes"));
+        theseRepository.save(these);
+        return "redirect:/groupe/groupe/"+(Long)session.getAttribute("groupeId");
+    }
     @GetMapping("/")
     public String findAll(){
         return "crew/crews";
@@ -610,6 +608,7 @@ public class GroupeController {
         Optional<These> optional= theseRepository.findById(theseId);
         model.addAttribute("these1",optional.get());
         session.setAttribute("userId",optional.get().getUser().getUserId());
+        session.setAttribute("theseId", optional.get().getTheseId());
         session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
         session.setAttribute("university", optional.get().getUniversity());
         session.setAttribute("faculty", optional.get().getFaculty());
@@ -623,8 +622,6 @@ public class GroupeController {
         session.setAttribute("student", optional.get().getStudent());
         session.setAttribute("professor", optional.get().getProfesor());
         session.setAttribute("workChief", optional.get().getWorkChief());
-        session.setAttribute("libraries", optional.get().getLibraries());
-
             return "crew/these";
 
     }
@@ -659,7 +656,6 @@ public class GroupeController {
         these.setStudent((String) session.getAttribute("student"));
         these.setProfesor((String) session.getAttribute("professor"));
         these.setWorkChief((String) session.getAttribute("workChief"));
-        these.setLibraries((ArrayList<String>) session.getAttribute("libraries"));
         theseRepository.save(these);
         return "redirect:/groupe/these/"+these.getTheseId();
     }
@@ -691,7 +687,6 @@ public class GroupeController {
         these.setTheseDate((String)session.getAttribute("theseDate"));
         these.setCountry((String)session.getAttribute("country"));
         these.setRegions((String)session.getAttribute("regions"));
-        these.setLibraries((ArrayList<String>)session.getAttribute("libraries"));
         these.setResumes((ArrayList<String>)session.getAttribute("resumes"));
         theseRepository.save(these);
         return "redirect:/groupe/equipe/"+ these.getTheseId();
@@ -711,6 +706,7 @@ public class GroupeController {
     public String getEquipe(Model model, @PathVariable Long theseId, HttpSession session){
         Optional<These> optional= theseRepository.findById(theseId);
         model.addAttribute("these1",optional.get());
+        session.setAttribute("theseId", optional.get().getTheseId());
         session.setAttribute("userId",optional.get().getUser().getUserId());
         session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
         session.setAttribute("university", optional.get().getUniversity());
@@ -721,8 +717,6 @@ public class GroupeController {
         session.setAttribute("theseDate", optional.get().getTheseDate());
         session.setAttribute("country", optional.get().getCountry());
         session.setAttribute("regions", optional.get().getRegions());
-        session.setAttribute("bibliographies", optional.get().getBibliographies());
-        session.setAttribute("libraries", optional.get().getLibraries());
         session.setAttribute("resumes", optional.get().getResumes());
 
             return "crew/these1";
@@ -734,14 +728,21 @@ public class GroupeController {
         session.setAttribute("theseId",theseId);
         System.out.println("sdfffsfghjdg");
         These these= theseRepository.getOne(theseId);
-        ArrayList<String> librairies= these.getLibraries();
-        model.addAttribute("librairies",librairies);
+        session.setAttribute("theseId", these.getTheseId());
+        model.addAttribute("bibliothequess",bibliothequeRepository.findAllByThese(these.getTheseId()));
+        model.addAttribute("bibliotheque", new Bibliotheque());
         model.addAttribute("these1",these);
         model.addAttribute("bibliographies",bibliographyRepository.findAllByThese(these.getTheseId()));
         model.addAttribute("bibliography", new Bibliography());
 
         return "crew/theseBibLib";
 
+    }
+
+    @GetMapping("/delete/{groupeId}")
+    public String delete(@PathVariable Long groupeId){
+        groupeRepository.deleteById(groupeId);
+        return "redirect:/groupe/groupes";
     }
 
 

@@ -1,10 +1,7 @@
 package com.derteuffel.controller;
 
 import com.derteuffel.data.*;
-import com.derteuffel.repository.BibliographyRepository;
-import com.derteuffel.repository.GroupeRepository;
-import com.derteuffel.repository.TheseRepository;
-import com.derteuffel.repository.UserRepository;
+import com.derteuffel.repository.*;
 import com.derteuffel.service.MailService;
 import com.derteuffel.service.TheseService;
 import com.itextpdf.text.*;
@@ -20,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -58,6 +56,8 @@ public class TheseController {
     BibliographyRepository bibliographyRepository;
     @Autowired
     private GroupeRepository groupeRepository;
+    @Autowired
+    private BibliothequeRepository bibliothequeRepository;
 
     List<String> countries= Arrays.asList(
             "Afghanistan",
@@ -268,24 +268,28 @@ public class TheseController {
     @GetMapping("")
     public String findAllThese(Model model,
                          @RequestParam("page")Optional<Integer> page,
-                         @RequestParam("size")Optional<Integer> size, HttpSession session) {
-        page.ifPresent(p->currentPage=p);
-        size.ifPresent(s->pageSize=s);
+                         @RequestParam("size")Optional<Integer> pageSize, HttpSession session) {
 
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
         List<These> theses= theseRepository.findAll();
         System.out.println(theses);
-        Page<These> thesePage=theseService.findAllPaginated(PageRequest.of(currentPage-1, pageSize));
+        Page<These> thesePage=theseRepository.findAll(new PageRequest(evalPage,evalPageSize));
+        PagerModel pager = new PagerModel(thesePage.getTotalPages(),thesePage.getNumber(),BUTTONS_TO_SHOW);// evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        // add pager
+        model.addAttribute("pager", pager);
         model.addAttribute("theses", thesePage);
-        int totalPages=thesePage.getTotalPages();
-        if (totalPages>0){
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
 
-        }
-        // transmitting the current page number to the view 
-        model.addAttribute("currentPage",currentPage);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
         session.setAttribute("userId", user.getUserId());
@@ -293,6 +297,10 @@ public class TheseController {
         session.setAttribute("name", user.getName());
         return "these/theses";
     }
+    private static final int BUTTONS_TO_SHOW = 3;
+    private static final int INITIAL_PAGE = 0;
+    private static final int INITIAL_PAGE_SIZE = 5;
+    private static final int[] PAGE_SIZES = { 5,6,7,8};
 
     // for adding a these in a crew
 
@@ -327,7 +335,7 @@ public class TheseController {
     // a function which performs the create
     public String create(int currentPage,HSSFWorkbook workbook) throws FileNotFoundException, DocumentException, IOException
     {
-            Page<These> thesePage=theseService.findAllPaginated(PageRequest.of(currentPage-1, pageSize));
+            List<These> thesePage= theseRepository.findAll();
             FileOutputStream fileOutputStream=null;
            String filename=null;
            try
@@ -456,7 +464,6 @@ public class TheseController {
         for (int i=0;i<libariries.length;i++){
             listLib.add(libariries[i]);
         }
-        these.setLibraries(listLib);
         these.setLibrary(null);
         these.setBibliography(null);
         Long groupeId = (Long) session.getAttribute("groupeId");
@@ -480,7 +487,7 @@ public class TheseController {
             }
         }
         if (p==1){
-            return "redirect:/groupe/groupe/all/these/";
+            return "redirect:/groupe/groupe/"+(Long)session.getAttribute("groupeId");
         }else {
             return "redirect:/groupe/groupe/all/user/these";
         }
@@ -518,7 +525,6 @@ public class TheseController {
         these.setStudent((String)session.getAttribute("student"));
         these.setProfesor((String)session.getAttribute("professor"));
         these.setWorkChief((String) session.getAttribute("workChief"));
-        these.setLibraries((ArrayList<String>)session.getAttribute("libraries"));
         theseRepository.save(these);
         Collection<Role> roles=user.getRoles();
         return "redirect:/these/these/"+these.getTheseId();
@@ -552,7 +558,6 @@ public class TheseController {
         these.setTheseDate((String)session.getAttribute("theseDate"));
         these.setCountry((String)session.getAttribute("country"));
         these.setRegions((String)session.getAttribute("regions"));
-        these.setLibraries((ArrayList<String>)session.getAttribute("libraries"));
         these.setResumes((ArrayList<String>)session.getAttribute("resumes"));
         theseRepository.save(these);
         Collection<Role> roles=user.getRoles();
@@ -582,8 +587,6 @@ public class TheseController {
         model.addAttribute("groupeId", (Long)session.getAttribute("groupeId"));
         model.addAttribute("countries", countries);
         model.addAttribute("these", these);
-        session.setAttribute("bibliographies", these.getBibliographies());
-        session.setAttribute("Libraries", these.getLibraries());
         session.setAttribute("userId", these.getUser().getUserId());
         session.setAttribute("country", these.getCountry());
         return "crew/correction";
@@ -593,7 +596,6 @@ public class TheseController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
         these.setStatus(null);
-        these.setLibraries((ArrayList<String>) session.getAttribute("libraries"));
         these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
         these.setGroupe(groupeRepository.getOne((Long)session.getAttribute("groupeId")));
         these.setCountry((String)session.getAttribute("country"));
@@ -621,16 +623,6 @@ public class TheseController {
         model.addAttribute("countries", countries);
         return "these/theseUpdate";
     }
-    @GetMapping("/user/{userId}")
-    public List<These> findByUser(@PathVariable Long userId){
-
-        List<These> theses= theseRepository.findByUserOrderByTheseIdDesc(userId);
-
-        List<These> all= theseRepository.findAll();
-        //System.out.println(all);
-        System.out.println(theses);
-        return theses;
-    }
 
     @GetMapping("/these/{theseId}")
     public String get(Model model, @PathVariable Long theseId,HttpSession session){
@@ -639,6 +631,7 @@ public class TheseController {
         model.addAttribute("these1",optional.get());
         session.setAttribute("userId",optional.get().getUser().getUserId());
         session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
+        session.setAttribute("theseId", optional.get().getTheseId());
         session.setAttribute("university", optional.get().getUniversity());
         session.setAttribute("faculty", optional.get().getFaculty());
         session.setAttribute("options", optional.get().getOptions());
@@ -651,7 +644,6 @@ public class TheseController {
         session.setAttribute("student", optional.get().getStudent());
         session.setAttribute("professor", optional.get().getProfesor());
         session.setAttribute("workChief", optional.get().getWorkChief());
-        session.setAttribute("libraries", optional.get().getLibraries());
         return "these/these";
 
 
@@ -663,6 +655,7 @@ public class TheseController {
         session.setAttribute("userId",optional.get().getUser().getUserId());
         session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
         session.setAttribute("university", optional.get().getUniversity());
+        session.setAttribute("theseId", optional.get().getTheseId());
         session.setAttribute("faculty", optional.get().getFaculty());
         session.setAttribute("options", optional.get().getOptions());
         session.setAttribute("level", optional.get().getLevel());
@@ -670,8 +663,6 @@ public class TheseController {
         session.setAttribute("theseDate", optional.get().getTheseDate());
         session.setAttribute("country", optional.get().getCountry());
         session.setAttribute("regions", optional.get().getRegions());
-        session.setAttribute("bibliographies", optional.get().getBibliographies());
-        session.setAttribute("libraries", optional.get().getLibraries());
         session.setAttribute("resumes", optional.get().getResumes());
         model.addAttribute("these1",optional.get());
            return "these/these1";
@@ -679,18 +670,83 @@ public class TheseController {
 
     }
 
+    @GetMapping("/general/edit/{theseId}")
+    public String getGeneral(Model model, @PathVariable Long theseId, HttpSession session) {
+        Optional<These> optional = theseRepository.findById(theseId);
+        session.setAttribute("userId", optional.get().getUser().getUserId());
+        session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
+        session.setAttribute("resumes", optional.get().getResumes());
+        model.addAttribute("countries", countries);
+        model.addAttribute("these1", optional.get());
+        return "these/general";
+    }
+
+    @PostMapping("/general/edit")
+    public String updateGeneral(These these, HttpSession session){
+        these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
+        these.setGroupe(groupeRepository.getOne((Long)session.getAttribute("groupeId")));
+        these.setResumes((ArrayList<String>)session.getAttribute("resumes"));
+        theseRepository.save(these);
+        return "redirect:/these";
+    }
     @GetMapping("/biblib/{theseId}")
-    public String getBibLib(Model model, @PathVariable Long theseId){
+    public String getBibLib(Model model, @PathVariable Long theseId, HttpSession session){
         System.out.println("sdfffsfghjdg");
         These these= theseRepository.getOne(theseId);
-        ArrayList<String> librairies= these.getLibraries();
-        model.addAttribute("librairies",librairies);
+        session.setAttribute("theseId", these.getTheseId());
+        model.addAttribute("bibliothequess",bibliothequeRepository.findAllByThese(these.getTheseId()));
+        model.addAttribute("bibliotheque", new Bibliotheque());
         model.addAttribute("these1",these);
         model.addAttribute("bibliographies",bibliographyRepository.findAllByThese(these.getTheseId()));
         model.addAttribute("bibliography", new Bibliography());
 
         return "these/theseBibLib";
 
+    }
+
+    @GetMapping("/bibliotheque/delete/{bibliographyId}")
+    public String delete(@PathVariable Long bibliothequeId, HttpSession session){
+        bibliothequeRepository.deleteById(bibliothequeId);
+        return "redirect:/these/biblib/ "+ (Long)session.getAttribute("theseId");
+    }
+
+    @GetMapping("/bibliography/delete/{bibliographyId}")
+    public String deletebibliography(@PathVariable Long bibliographyId, HttpSession session){
+        bibliographyRepository.deleteById(bibliographyId);
+        return "redirect:/these/biblib/ "+ (Long)session.getAttribute("theseId");
+    }
+
+    @PostMapping("/bibliotheque/save")
+    public String save(Bibliotheque bibliotheque, Errors errors, Model model, HttpSession session){
+        Bibliotheque bibliotheque1= bibliothequeRepository.findByBibliotheques(bibliotheque.getBibliotheques());
+        if (bibliotheque1 != null){
+            errors.rejectValue("bibliotheque","bibliotheque.error","il existe deja une reference avec ce titre");
+        }
+        if (errors.hasErrors()){
+            model.addAttribute("error","il existe deja une reference avec ce titre");
+            return "crew/bibliotheque";
+        }else {
+            bibliotheque.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
+            bibliothequeRepository.save(bibliotheque);
+        }
+        return "redirect:/these/biblib/"+ (Long)session.getAttribute("theseId");
+    }
+
+    @PostMapping("/bibliogrqphy/save")
+    public String save(Bibliography bibliography, Errors errors, Model model, HttpSession session){
+
+        Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
+        if (bibliography1 != null){
+            errors.rejectValue("title","bibliography.error","il existe deja une reference avec ce titre");
+        }
+        if (errors.hasErrors()){
+            model.addAttribute("error","il existe deja une reference avec ce titre");
+            return "crew/editBiblio";
+        }else {
+            bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
+            bibliographyRepository.save(bibliography);
+        }
+        return "redirect:/these/biblib/"+ (Long)session.getAttribute("theseId");
     }
 
 

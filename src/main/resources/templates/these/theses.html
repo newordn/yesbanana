@@ -17,6 +17,9 @@
     <link th:href="@{/css/style1.css}" rel="stylesheet">
     <link th:href="@{/css/crew.css}" rel="stylesheet">
     <!--link th:href="@{/css/style.css}" rel="stylesheet"-->
+    <style>
+        .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+    </style>
     <!-- thymeleaft-->
 </head>
 <body class="row " >
@@ -55,20 +58,59 @@
                 <td th:text="${these.options}"></td>
                 <td th:text="${these.subject}"></td>
                 <td>
-                    <a th:href="@{/these/these/} + ${these.theseId}"   class="detailLink" alt="detail">
-                        <i class="zmdi zmdi-eye" data-toggle="modal" data-target="#detail"></i>
+                    <a th:href="@{/these/these/} + ${these.theseId}"   class="detailLink btn" alt="detail"> Ouvrir&nbsp;
+                        <i class="zmdi zmdi-eye"></i>
+                    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a  th:href="@{/these/general/edit/}+${these.theseId}" class="btn">Editer&nbsp;
+                        <i class="fa fa-pencil"></i>
                     </a>
                 </td>
             </tr>
             </tbody>
         </table>
-
         <!--pagination-->
-        <div th:if="${theses.totalPages > 0}" class="pagination row justify-content-end" th:each="pageNumber : ${pageNumbers}">
-            <a th:href="@{/these(size=${theses.size}, page=${pageNumber})}" th:text=${pageNumber} th:class="${pageNumber==theses.number + 1} ? active"></a>
+        <div class="row " style="bottom: 1rem;width: 100%;">
+            <div class="form-group col-12 col-sm-6 col-lg-3">
+                <select class="form-control pagination" id="pageSizeSelect">
+                    <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                            th:value="${pageSize}"
+                            th:selected="${pageSize} == ${selectedPageSize}"></option>
+                </select>
+            </div>
+            <div th:if="${theses.totalPages != 1}"
+                 class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+                <ul class="pagination">
+                    <li th:class="${theses.number == 0} ? disabled" class="page-item" ><a
+                            class="page-link"
+                            th:href="@{/user(pageSize=${selectedPageSize}, page=1)}">«</a>
+                    </li>
+                    <li th:class="${theses.number == 0} ? disabled" class="page-item" ><a
+                            class="page-link"
+                            th:href="@{/user(pageSize=${selectedPageSize}, page=${theses.number})}">←</a>
+                    </li>
+                    <li
+                            th:class="${theses.number == (page - 1)} ? 'active pointer-disabled'"
+                            th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                        <a class="page-link"
+                           th:href="@{/user(pageSize=${selectedPageSize}, page=${page})}"
+                           th:text="${page}"></a>
+                    </li>
+                    <li
+                            th:class="${theses.number + 1 == theses.totalPages} ? disabled" class="page-item">
+                        <a class="page-link"
+                           th:href="@{/user(pageSize=${selectedPageSize}, page=${theses.number + 2})}">→</a>
+                    </li>
+                    <li
+                            th:class="${theses.number + 1 == theses.totalPages} ? disabled" class="page-item">
+                        <a class="page-link"
+                           th:href="@{/user(pageSize=${selectedPageSize}, page=${theses.totalPages})}">»</a>
+                    </li>
+                </ul>
+            </div>
         </div>
         <!--pagination-->
     </div>
+
     <!-- showing theses-->
 
     <!-- print button-->
@@ -97,7 +139,18 @@
 <script th:src="@{/js/plugins/plugins.js}"></script>
 <!-- Active js -->
 <script th:src="@{/js/active.js}"></script>
-
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function() {
+        changePageAndSize();
+    });
+    function changePageAndSize() {
+        $('#pageSizeSelect').change(function(evt) {
+            window.location.replace("/these?pageSize=" + this.value + "&page=1");
+        });
+    }
+    /*]]>*/
+</script>
 </body>
 
 </html>

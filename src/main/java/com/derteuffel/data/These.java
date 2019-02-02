@@ -56,6 +56,8 @@ public class These implements Serializable{
     private ArrayList<String> libraries;
     @OneToMany(mappedBy = "these")
     private List<Bibliography> bibliographies;
+@OneToMany(mappedBy = "these")
+    private List<Bibliotheque> bibliotheques;
 
 
 
@@ -69,7 +71,7 @@ public class These implements Serializable{
     public These(String university, String faculty, String options, String level,
                  String subject, ArrayList<String> resumes, String regions, String student, String profesor,
                  String workChief, String assistant, String bibliography, String library,
-                 Date created_at,Boolean status, String theseDate, String country, ArrayList<String> libraries, ArrayList<Bibliography> bibliographies) {
+                 Date created_at,Boolean status, String theseDate, String country, ArrayList<Bibliotheque> bibliotheques, ArrayList<Bibliography> bibliographies) {
         this.university = university;
         this.faculty = faculty;
         this.options = options;
@@ -77,7 +79,7 @@ public class These implements Serializable{
         this.bibliographies=bibliographies;
         this.subject = subject;
         this.status=status;
-        this.libraries=libraries;
+        this.bibliotheques=bibliotheques;
         this.resumes = resumes;
         this.regions = regions;
         this.student = student;
@@ -91,12 +93,12 @@ public class These implements Serializable{
         this.country=country;
     }
 
-    public ArrayList<String> getLibraries() {
-        return libraries;
+    public List<Bibliotheque> getBibliotheques() {
+        return bibliotheques;
     }
 
-    public void setLibraries(ArrayList<String> libraries) {
-        this.libraries = libraries;
+    public void setBibliotheques(List<Bibliotheque> bibliotheques) {
+        this.bibliotheques = bibliotheques;
     }
 
     public List<Bibliography> getBibliographies() {

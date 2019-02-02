@@ -43,7 +43,7 @@ public class BibliographyController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "crew/theseBiblib";
+            return "crew/editBiblio";
         }else {
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
             bibliographyRepository.save(bibliography);
