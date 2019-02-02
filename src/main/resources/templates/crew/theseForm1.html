@@ -97,16 +97,15 @@
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="form-group">
                         <span class='error' id="countryError"></span>
-                        <select class="form-control" style="width: 100%" th:field="*{country}" id="countrySelect">
-                            <option value="">Selection pays</option>
-                            <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
-                        </select>
+                        <input type="text" name="country" id="country" th:value="${session.groupeCountry}" placeholder="Pays" />
+                    </div>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="form-group">
                         <span class='error' id="regionError"></span>
-                        <input type="text" th:field="*{regions}" id="region" placeholder="Région" />
+                        <input type="text" name="regions" id="region" th:value="${session.groupeRegion}" placeholder="Région" />
                     </div>
                 </div>
             </div>

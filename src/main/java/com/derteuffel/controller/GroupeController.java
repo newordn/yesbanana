@@ -510,6 +510,8 @@ public class GroupeController {
         // print repo
         Long userId=(Long)session.getAttribute("userId");
         Groupe groupe = groupeRepository.getOne((Long)session.getAttribute("groupeId"));
+        session.setAttribute("groupeCountry",groupe.getGroupeCountry());
+        session.setAttribute("groupeRegion",groupe.getGroupeRegion());
         User user=userService.getById(userId);
         model.addAttribute("userId", userId);
         model.addAttribute("these",new These());

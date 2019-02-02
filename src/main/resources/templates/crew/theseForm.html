@@ -97,16 +97,15 @@
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="form-group">
                         <span class='error' id="countryError"></span>
-                        <select class="form-control" style="width: 100%" th:field="*{country}" id="countrySelect">
-                            <option value="">Selection pays</option>
-                            <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
-                        </select>
+                        <input type="text" name="country" id="country" th:value="${session.groupeCountry}" placeholder="Pays" />
+                    </div>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="form-group">
                         <span class='error' id="regionError"></span>
-                        <input type="text" th:field="*{regions}" id="region" placeholder="Région" />
+                        <input type="text" name="regions" id="region" th:value="${session.groupeRegion}" placeholder="Région" />
                     </div>
                 </div>
             </div>
@@ -170,53 +169,7 @@
 
 
 </div>
-<!-- addBibliography-->
-<div class=" modal fade" id="addBibliography" tabindex="-1" role="dialog">
-    <div class=" modal-dialog  modal-dialog-centered" style="box-sizing: content-box" role="document">
-        <form class="modal-content card " style="padding:2rem;">
-            <div class="form-group">
-                <input type="text" id="bibliographyAuthor" placeholder="Auteur" />
-            </div>
-            <div class="form-group">
-                <input type="text" id="bibliographyTitle" placeholder="Titre" />
-            </div>
-            <div class="form-group">
-                <input type="text" id="bibliographyContent" placeholder="Description" />
-            </div>
-            <div class="text-right">
-                <button type="button" class="btn btn-danger rounded-circle" style="width:3rem"
-                        data-dismiss="modal">
-                    <i class="zmdi zmdi-close"></i>
-                </button>
-                <button type="button" id="confirmBibliographyAdding" class="btn btn-primary rounded-circle" style="width:3rem">
-                    <i class="zmdi zmdi-check"></i>
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- addBibliography-->
 
-
-<!-- addLibrary-->
-<div class=" modal fade" id="addLibrary" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" style="box-sizing: content-box" role="document">
-        <form class="modal-content card " style="padding:2rem;">
-            <div class="form-group">
-                <input type="text" id="libraryContent" placeholder="Lien" />
-            </div>
-            <div class="text-right">
-                <button type="button" class="btn btn-danger rounded-circle" style="width:3rem" data-dismiss="modal">
-                    <i class="zmdi zmdi-close"></i>
-                </button>
-                <button type="button" id="confirmLibraryAdding" class="btn btn-primary rounded-circle" style="width:3rem">
-                    <i class="zmdi zmdi-check"></i>
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- addLibrary-->
 
 <!-- scripts-->
 <!--vendor scripts -->
