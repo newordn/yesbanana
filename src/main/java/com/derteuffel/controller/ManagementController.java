@@ -324,7 +324,7 @@ public class ManagementController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "management/region";
+            return "management/region/region";
         }else {
             university.setRegion(region);
             university.setUniversityName(university.getUniversityName().toUpperCase());
@@ -513,7 +513,7 @@ public class ManagementController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "management/country";
+            return "management/country/country";
         }else {
             region.setCountry(countryRepository.getOne(countryId));
             region.setRegName(region.getRegName());
@@ -554,7 +554,7 @@ public class ManagementController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "management/universty";
+            return "management/university";
         }else {
             faculty.setUniversity(university);
             facultyRepository.save(faculty);
@@ -614,7 +614,7 @@ public class ManagementController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "management/countries";
+            return "management/country/countries";
         }else {
             System.out.println(country.getCountryId());
             countryRepository.save(country);
