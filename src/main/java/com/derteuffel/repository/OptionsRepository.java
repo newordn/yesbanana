@@ -16,4 +16,5 @@ public interface OptionsRepository extends JpaRepository<Options,Long> {
 
     @Query("select o from Options as o join o.faculty fo where fo.facultyId=:id order by o.optionsId desc")
     List<Options> findAllByFaculty(@Param("id") Long facultyId);
+    Options findByOptionsName(String optionsName);
 }

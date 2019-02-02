@@ -16,4 +16,6 @@ public interface UniversityRepository extends JpaRepository<University, Long> {
 
     @Query("select u from University as u join u.region ru where ru.regionId=:id order by u.universityId desc")
     List<University> findAllByRegion(@Param("id") Long regionId);
+
+    University findByUniversityName(String universityName);
 }

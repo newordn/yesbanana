@@ -447,32 +447,40 @@ public class TheseController {
 
     // for saving a these
     @PostMapping("/add/create")
-    public String save(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, String adresse, String contenue) {
+    public String save(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, String adresse, String contenue, Errors errors,Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        ArrayList<String> filesPaths = new ArrayList<String>();
-        for(int i=0;i<pieces.size();i++)
-        {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        These these1= theseRepository.findBySubject(these.getSubject());
+        if (these1 != null){
+            errors.rejectValue("title","these.error","il existe deja une reference avec ce titre");
         }
-        String[]libariries= these.getLibrary().split(";");
-        ArrayList<String> listLib=new ArrayList<>();
-        for (int i=0;i<libariries.length;i++){
-            listLib.add(libariries[i]);
+        if (errors.hasErrors()){
+            model.addAttribute("error","il existe deja une reference avec ce titre");
+            return "crew/theseForm";
+        }else {
+            List<FileUploadRespone> pieces = Arrays.asList(files)
+                    .stream()
+                    .map(file -> uploadFile(file))
+                    .collect(Collectors.toList());
+            ArrayList<String> filesPaths = new ArrayList<String>();
+            for (int i = 0; i < pieces.size(); i++) {
+                filesPaths.add(pieces.get(i).getFileDownloadUri());
+            }
+            String[] libariries = these.getLibrary().split(";");
+            ArrayList<String> listLib = new ArrayList<>();
+            for (int i = 0; i < libariries.length; i++) {
+                listLib.add(libariries[i]);
+            }
+            these.setLibrary(null);
+            these.setBibliography(null);
+            Long groupeId = (Long) session.getAttribute("groupeId");
+            these.setResumes(filesPaths);
+            Groupe groupe = groupeRepository.getOne(groupeId);
+            these.setGroupe(groupe);
+            these.setUser(user);
+            these.setOptions(these.getOptions().toLowerCase());
+            theseRepository.save(these);
         }
-        these.setLibrary(null);
-        these.setBibliography(null);
-        Long groupeId = (Long) session.getAttribute("groupeId");
-        these.setResumes(filesPaths);
-        Groupe groupe= groupeRepository.getOne(groupeId);
-        these.setGroupe(groupe);
-        these.setUser(user);
-        these.setOptions(these.getOptions().toLowerCase());
-        theseRepository.save(these);
         MailService mail= new MailService();
         mail.sendSimpleMessage(
                 adresse,

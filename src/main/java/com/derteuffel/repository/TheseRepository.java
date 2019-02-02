@@ -29,6 +29,8 @@ public interface TheseRepository extends JpaRepository<These,Long> {
     @Query("select t from These as t join t.groupe tg where tg.groupeId=:id order by t.theseId desc")
     List<These> findByGroupeOrderByTheseIdDesc( @Param("id") Long groupeId);
 
+    These findBySubject(String subject);
+
     List<These> findAllByStatus(Boolean status);
 
     List<These> findAllByOptionsOrderByTheseIdDesc(String options);

@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -274,11 +275,20 @@ public class ManagementController {
     private static final int[] PAGE_SIZES = { 5,6,7,8};
     // options management methods
     @PostMapping("/options/form/save")
-    public String save(Options options, Long facultyId) {
-        Faculty faculty=facultyRepository.getOne(facultyId);
-        options.setFaculty(faculty);
-        options.setOptionsName(options.getOptionsName());
-        optionsRepository.save(options);
+    public String save(Options options, Long facultyId, Errors errors, Model model) {
+        Faculty faculty = facultyRepository.getOne(facultyId);
+    Options options1= optionsRepository.findByOptionsName(options.getOptionsName());
+        if (options1 != null){
+            errors.rejectValue("optionsName","options.error","il existe deja une reference avec ce titre");
+        }
+        if (errors.hasErrors()){
+            model.addAttribute("error","il existe deja une reference avec ce titre");
+            return "management/faculty";
+        }else {
+            options.setFaculty(faculty);
+            options.setOptionsName(options.getOptionsName());
+            optionsRepository.save(options);
+        }
         return "redirect:/management/faculty/"+ faculty.getFacultyId();
     }
     @GetMapping("/options/{optionsId}")
@@ -306,11 +316,20 @@ public class ManagementController {
     }
 
     @PostMapping("/university/form/save")
-    public String save(University university, Long regionId) {
+    public String save(University university, Long regionId, Errors errors, Model model) {
         Region region= regionRepository.getOne(regionId);
-        university.setRegion(region);
-        university.setUniversityName(university.getUniversityName().toUpperCase());
-        universityRepository.save(university);
+        University university1= universityRepository.findByUniversityName(university.getUniversityName());
+        if (university1 != null){
+            errors.rejectValue("universityName","university.error","il existe deja une reference avec ce titre");
+        }
+        if (errors.hasErrors()){
+            model.addAttribute("error","il existe deja une reference avec ce titre");
+            return "management/region";
+        }else {
+            university.setRegion(region);
+            university.setUniversityName(university.getUniversityName().toUpperCase());
+            universityRepository.save(university);
+        }
         return "redirect:/management/region/university/"+ region.getRegionId();
     }
     @GetMapping("/university/{universityId}")
@@ -486,10 +505,19 @@ public class ManagementController {
 
 
     @PostMapping("/region/form/save")
-    public String saveRegion(Region region, HttpSession session) {
+    public String saveRegion(Region region, HttpSession session, Errors errors, Model model) {
         Long countryId=(Long) session.getAttribute("countryId");
-        region.setCountry(countryRepository.getOne(countryId));
-        region.setRegName(region.getRegName());
+        Region region1= regionRepository.findByRegName(region.getRegName());
+        if (region1 != null){
+            errors.rejectValue("regName","region.error","il existe deja une reference avec ce titre");
+        }
+        if (errors.hasErrors()){
+            model.addAttribute("error","il existe deja une reference avec ce titre");
+            return "management/country";
+        }else {
+            region.setCountry(countryRepository.getOne(countryId));
+            region.setRegName(region.getRegName());
+        }
         regionRepository.save(region);
         return "redirect:/management/country/university/"+ countryId;
     }
@@ -518,10 +546,19 @@ public class ManagementController {
     }
 
     @PostMapping("/faculty/form/save")
-    public String save(Faculty faculty, Long universityId) {
+    public String save(Faculty faculty, Long universityId, Errors errors, Model model) {
         University university= universityRepository.getOne(universityId);
-        faculty.setUniversity(university);
-        facultyRepository.save(faculty);
+        Faculty faculty1= facultyRepository.findByFacultyName(faculty.getFacultyName());
+        if (faculty1 != null){
+            errors.rejectValue("facultyName","faculty.error","il existe deja une reference avec ce titre");
+        }
+        if (errors.hasErrors()){
+            model.addAttribute("error","il existe deja une reference avec ce titre");
+            return "management/universty";
+        }else {
+            faculty.setUniversity(university);
+            facultyRepository.save(faculty);
+        }
         return "redirect:/management/university/"+ university.getUniversityId();
     }
 
@@ -569,9 +606,19 @@ public class ManagementController {
     }
 
     @PostMapping("/country/form/save")
-    public String save(Country country) {
-        System.out.println(country.getCountryId());
-        countryRepository.save(country);
+    public String save(Country country, Errors errors, Model model) {
+
+        Country country1= countryRepository.findByCountryName(country.getCountryName());
+        if (country1 != null){
+            errors.rejectValue("countryName","country.error","il existe deja une reference avec ce titre");
+        }
+        if (errors.hasErrors()){
+            model.addAttribute("error","il existe deja une reference avec ce titre");
+            return "management/countries";
+        }else {
+            System.out.println(country.getCountryId());
+            countryRepository.save(country);
+        }
         return "redirect:/management/countries/university";
     }
 

@@ -16,4 +16,6 @@ public interface FacultyRepository extends JpaRepository<Faculty, Long> {
 
     @Query("select f from Faculty as f join f.university uf where uf.universityId=:id order by f.facultyId desc")
     List<Faculty> findAllByUnniversity(@Param("id") Long universityId);
+
+    Faculty findByFacultyName(String facultyName);
 }
