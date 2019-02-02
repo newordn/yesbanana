@@ -283,7 +283,7 @@ public class ManagementController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "management/faculty";
+            return "redirect:/management/faculty/"+ faculty.getFacultyId();
         }else {
             options.setFaculty(faculty);
             options.setOptionsName(options.getOptionsName());
@@ -324,7 +324,7 @@ public class ManagementController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "management/region/region";
+            return "redirect:/management/region/university/"+ region.getRegionId();
         }else {
             university.setRegion(region);
             university.setUniversityName(university.getUniversityName().toUpperCase());
@@ -513,7 +513,7 @@ public class ManagementController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "management/country/country";
+            return "redirect:/management/country/university/"+ countryId;
         }else {
             region.setCountry(countryRepository.getOne(countryId));
             region.setRegName(region.getRegName());
@@ -554,7 +554,7 @@ public class ManagementController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "management/university";
+            return "redirect:/management/university/"+ university.getUniversityId();
         }else {
             faculty.setUniversity(university);
             facultyRepository.save(faculty);
@@ -614,7 +614,7 @@ public class ManagementController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "management/country/countries";
+            return "redirect:/management/countries/university";
         }else {
             System.out.println(country.getCountryId());
             countryRepository.save(country);
