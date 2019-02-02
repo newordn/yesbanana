@@ -325,11 +325,20 @@ public class GroupeController {
     
     // for saving a crew
     @PostMapping("/save")
-    public String save(Groupe groupe){
-        Groupe groupe1 = groupeRepository.saveAndFlush(groupe);
-        Long userId = Long.parseLong(groupe.getGroupChief());
-        Long groupeId = groupe1.getGroupeId();
-        return "redirect:/groupe/add1/"+ groupeId + "/"+ userId ;
+    public String save(Groupe groupe, Errors errors){
+        Groupe groupe2= groupeRepository.findByGroupeName(groupe.getGroupeName());
+        if (groupe2 != null){
+            errors.rejectValue("groupeName","groupe.error","il existe deja une reference avec ce titre");
+        }
+        if (errors.hasErrors()){
+            return "redirect:/groupe/groupes";
+        }else {
+            Groupe groupe1 = groupeRepository.saveAndFlush(groupe);
+            Long userId = Long.parseLong(groupe.getGroupChief());
+            Long groupeId = groupe1.getGroupeId();
+            return "redirect:/groupe/add1/"+ groupeId + "/"+ userId ;
+        }
+
     }
 
     // just to use it in the model for retrieving users ids
