@@ -453,6 +453,10 @@ public class GroupeController {
     private static final int INITIAL_PAGE_SIZE = 5;
     private static final int[] PAGE_SIZES = { 5,6,7,8};
 
+    @GetMapping("/groupe/users/{groupeId}")
+    public String getUsers(@PathVariable Long groupeId){
+        return "redirect:/groupe/groupe/users";
+    }
     @GetMapping("/groupe/users")
     public String groupeUser(Model model,@RequestParam("pageSize") Optional<Integer> pageSize,
                              @RequestParam("page") Optional<Integer> page, HttpSession session){
