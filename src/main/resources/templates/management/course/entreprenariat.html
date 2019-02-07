@@ -34,19 +34,19 @@
         <li class="nav-item">
             <a class="nav-link" th:href="@{/management/course/languages}">Anglais et/ou Francais</a>
         </li>
-        <li class="nav-item">
+        <!--li class="nav-item">
             <a class="nav-link"  th:href="@{/management/course/its}">IT</a>
         </li>
         <li class="nav-item">
             <a class="nav-link"  th:href="@{/management/course/logistiques}">Logistiques</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active"  th:href="@{/management/course/protections}">Protection</a>
-        </li>
+            <a class="nav-link"  th:href="@{/management/course/protections}">Protection</a>
+        </li-->
         <li class="nav-item">
             <a class="nav-link"  th:href="@{/management/course/resource}">Resources Humaines</a>
         </li>
-        <li class="nav-item">
+        <!--li class="nav-item">
             <a class="nav-link"  th:href="@{/management/course/leaderships}">Leadership</a>
         </li>
         <li class="nav-item">
@@ -54,22 +54,22 @@
         </li>
         <li class="nav-item">
             <a class="nav-link"  th:href="@{/management/course/washs}">Wash</a>
-        </li>
+        </li-->
         <li class="nav-item">
             <a class="nav-link"  th:href="@{/management/course/alphabetisations}">Alphabesation</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link"  th:href="@{/management/course/entreprenariats}">Entrepreneuriat</a>
+            <a class="nav-link active"  th:href="@{/management/course/entreprenariats}">Entrepreneuriat</a>
         </li>
     </ul>
 
     <!-- Tab panes -->
-    <div class="tab-content " style="margin-top: 4rem; height: inherit; padding: 2rem;">
-        <!-- PROTECTION  START -->
-        <div id="protection" class="container tab-pane active mt-3"><br>
+    <div class="tab-content" style="margin-top: 4rem; height: inherit; padding: 2rem;">
+        <!-- ADMINISTRATION FINANCES  START -->
+        <div id="finances" class="container tab-pane active mt-3" style="height: inherit; margin-bottom: inherit"><br>
             <!-- HEADER TYPE TITLE START -->
-            <h3 class="my-4 text-center sticky">Protection</h3>
-            <!-- HEADER TYPE TITLE END -->
+            <h3 class="my-4 text-center sticky">Entrepreneuriat</h3>
+            <!-- HEADER TYPE TITLE END-->
             <!-- EVENT RELEASES START-->
             <div class="row mb-4">
                 <div class="col-12 col-sm-6 col-lg-4">
@@ -85,7 +85,7 @@
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary" th:text="${listSize4}">89</span></h2>
+                            <h2><span class="counter text-primary" th:text="${listSize8}">89</span></h2>
                             <h5>Planifications des événements</h5>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                     <div class="card" style="height: 300px;">
                         <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
                         <div class="card-body text-center">
-                            <h2><span class="counter text-primary" th:text="${courses5Size}"></span></h2>
+                            <h2><span class="counter text-primary" th:text="${courses9Size}"></span></h2>
                             <h5>Cours disponibles</h5>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                 </div>
                 <div class="row my-2" >
                     <!-- Single Popular Course -->
-                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses5}">
+                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses9}">
                         <div class="card">
                             <div class=" row" style="margin-left: 0; margin-right: 0">
                                 <div class="col-lg-2" style="padding:20px">
@@ -131,21 +131,21 @@
                     </div><br>
                 </div>
                 <div class="pagination-div" style="display: none;">
-                    <span th:if="${courses5.hasPrevious()}">
-                        <a th:href="@{/management/course/all(courses3=${courses5.number-1},size=${courses5.size})}">Previous</a>
+                    <span th:if="${courses9.hasPrevious()}">
+                        <a th:href="@{/management/course/all(courses9=${courses9.number-1},size=${courses9.size})}">Previous</a>
                     </span>
-                    <th:block th:each="i: ${#numbers.sequence(0, courses5.totalPages - 1)}">
-                        <span th:if="${courses5.number == i}" class="selected">[[${i}+1]]</span>
-                        <span th:unless="${courses5.number == i}">
-                            <a th:href="@{/management/course/all(courses5=${i},size=${courses5.size})}">[[${i}+1]]</a>
+                    <th:block th:each="i: ${#numbers.sequence(0, courses9.totalPages - 1)}">
+                        <span th:if="${courses9.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${courses9.number == i}">
+                            <a th:href="@{/management/course/all(courses9=${i},size=${courses9.size})}">[[${i}+1]]</a>
                          </span>
                     </th:block>
-                    <span th:if="${courses5.hasNext()}">
-                        <a th:href="@{/management/course/all(courses5=${courses5.number+1},size=${courses5.size})}">Next</a>
+                    <span th:if="${courses9.hasNext()}">
+                        <a th:href="@{/management/course/all(courses9=${courses9.number+1},size=${courses9.size})}">Next</a>
                     </span>
                 </div>
                 <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
-                    <a class="btn btn-primary" th:href="@{/management/course/protection}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                    <a class="btn btn-primary" th:href="@{/management/course/entreprenariat}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
             </div>
             <!-- ONLINE COURSE END-->
@@ -160,28 +160,28 @@
                 </div>
                 <div class="row">
                     <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2" th:each=" admin : ${lists4}">
+                    <div class="col-12 col-md-6 col-lg-4 my-2" th:each=" admin : ${lists8}">
                         <div class="single-upcoming-events">
                             <!-- Events Thumb -->
                             <div class="events-thumb ">
-                                <img th:src="${admin.image}" class="card-image-top" style="height: 240px" alt="">
-                                <h6 class="event-date" th:text="${admin.releaseDate}">Date de l'événement</h6>
-                                <h4 class="event-title" th:text="${admin.title}">Titre de l'événement</h4>
+                                <img th:src="${admin?.image}" class="card-image-top" alt="" style="height: 240px">
+                                    <h6 class="event-date" th:text="${admin?.releaseDate}">Date de l'événement</h6>
+                                    <h4 class="event-title" th:text="${admin?.title}">Titre de l'événement</h4>
                             </div>
                             <!-- Date & Fee -->
                             <div class="date-fee d-flex justify-content-between">
                                 <div class="date">
-                                    <p th:text="${admin.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    <p th:text="${admin?.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
                                 </div>
                                 <div class="events-fee">
-                                    <a href="#" th:text="'$'+${admin.price}"></a>
+                                    <a href="#" th:text="'$'+${admin?.price}"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
-                    <a class="btn btn-primary" th:href="@{/management/event/protection}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                    <a class="btn btn-primary" th:href="@{/management/event/entreprenariat}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                 </div>
                 <div class="row " style="bottom: 1rem;width: 100%;display: none">
                     <div class="form-group col-12 col-sm-6 col-lg-3">
@@ -191,78 +191,41 @@
                                     th:selected="${pageSize} == ${selectedPageSize}"></option>
                         </select>
                     </div>
-                    <div th:if="${lists4.totalPages != 1}"
+                    <div th:if="${lists8.totalPages != 1}"
                          class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
                         <ul class="pagination">
-                            <li th:class="${lists4.number == 0} ? disabled" class="page-item" ><a
+                            <li th:class="${lists8.number == 0} ? disabled" class="page-item" ><a
                                     class="page-link"
                                     th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
                             </li>
-                            <li th:class="${lists4.number == 0} ? disabled" class="page-item" ><a
+                            <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
                                     class="page-link"
-                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists4.number})}">←</a>
+                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists8.number})}">←</a>
                             </li>
                             <li
-                                    th:class="${lists4.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:class="${lists8.number == (page - 1)} ? 'active pointer-disabled'"
                                     th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
                                 <a class="page-link"
                                    th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${page})}"
                                    th:text="${page}"></a>
                             </li>
                             <li
-                                    th:class="${lists4.number + 1 == lists4.totalPages} ? disabled" class="page-item">
+                                    th:class="${lists8.number + 1 == lists8.totalPages} ? disabled" class="page-item">
                                 <a class="page-link"
-                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists4.number + 2})}">→</a>
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists8.number + 2})}">→</a>
                             </li>
                             <li
-                                    th:class="${lists4.number + 1 == lists4.totalPages} ? disabled" class="page-item">
+                                    th:class="${lists8.number + 1 == lists8.totalPages} ? disabled" class="page-item">
                                 <a class="page-link"
-                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists4.totalPages})}">»</a>
+                                   th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${lists8.totalPages})}">»</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <!-- AVAILABLE EVENTS END-->
-            <!-- ##### Footer Area Start ##### -->
-            <footer class="footer-area">
-                <!-- Top Footer Area -->
-                <div class="top-footer-area">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <!-- Footer Logo -->
-                                <div class="footer-logo">
-                                    <a th:href="@{/}"><img th:src="@{/img/core-img/yesb.png}" alt=""></a>
-                                </div>
-                                <!-- Copywrite -->
-                                <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bottom Footer Area -->
-                <div class="bottom-footer-area d-flex justify-content-between align-items-center">
-                    <!-- Contact Info -->
-                    <div class="contact-info">
-                        <a href="#"><span>Phone:</span> +237 694 126 158</a>
-                        <a href="#"><span>Email:</span> admin@yesbanana.org</a>
-                    </div>
-                    <!-- Follow Us -->
-                    <div class="follow-us">
-                        <span>Suivez-nous</span>
-                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    </div>
-                </div>
-            </footer>
-            <!-- ##### Footer Area End ##### -->
         </div>
-        <!-- PROTECTION  END -->
+        <!-- ADMINISTRATION FINANCES  END -->
     </div>
 </div>
 

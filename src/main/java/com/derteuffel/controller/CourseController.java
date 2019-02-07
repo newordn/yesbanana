@@ -236,6 +236,54 @@ public class CourseController {
         return "course/one/leaderships";
     }
 
+    @GetMapping("/alphabetisation")
+    public String alphabetisation(@RequestParam("pageSize") Optional<Integer> pageSize,
+                             @RequestParam("page") Optional<Integer> page, Model model){
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        // courses leadership
+        Page<Course> alphabetisation= courseRepository.findAllByDomainOrderByCourseIdDesc("alphabetisation", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager6 = new PagerModel(alphabetisation.getTotalPages(),alphabetisation.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("courses", alphabetisation);
+        model.addAttribute("pager", pager6);
+        return "course/one/alphabetisation";
+    }
+
+    @GetMapping("/entreprenariat")
+    public String entreprenariat(@RequestParam("pageSize") Optional<Integer> pageSize,
+                                  @RequestParam("page") Optional<Integer> page, Model model){
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        // courses leadership
+        Page<Course> entreprenariat= courseRepository.findAllByDomainOrderByCourseIdDesc("entreprenariat", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager6 = new PagerModel(entreprenariat.getTotalPages(),entreprenariat.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("courses", entreprenariat);
+        model.addAttribute("pager", pager6);
+        return "course/one/entreprenariat";
+    }
+
     @GetMapping("/management")
     public String management(@RequestParam("pageSize") Optional<Integer> pageSize,
                              @RequestParam("page") Optional<Integer> page, Model model){
@@ -556,6 +604,68 @@ public class CourseController {
         model.addAttribute("pager", pager9);
         model.addAttribute("listSize8", list8.getTotalElements());
         return "course/wash";
+    }
+
+    @GetMapping("/alphabetisations")
+    public String courseAlphabetisation(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
+                                   @RequestParam("page") Optional<Integer> page){
+
+        // courses managements
+        Page<Course> courses8= courseRepository.findAllByDomainOrderByCourseIdDesc("alphabetisation", pageable);
+
+        model.addAttribute("courses8", courses8);
+        model.addAttribute("courses8Size", courses8.getTotalElements());
+
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", 3);
+
+        Page<Event> list7= eventRepository.findAllByType("alphabetisation", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager8 = new PagerModel(list7.getTotalPages(),list7.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("lists7", list7);
+        model.addAttribute("pager", pager8);
+        model.addAttribute("listSize7", list7.getTotalElements());
+        return "course/alphabetisation";
+
+    }
+
+
+    @GetMapping("/entreprenariats")
+    public String findEntreprenariat( Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
+                            @RequestParam("page") Optional<Integer> page) {
+        // courses wash
+        Page<Course> courses9= courseRepository.findAllByDomainOrderByCourseIdDesc("entreprenariat", pageable);
+
+        model.addAttribute("courses9", courses9);
+        model.addAttribute("courses9Size", courses9.getTotalElements());
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", 3);
+        Page<Event> list8= eventRepository.findAllByType("entreprenariat", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager9 = new PagerModel(list8.getTotalPages(),list8.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("lists8", list8);
+        model.addAttribute("pager", pager9);
+        model.addAttribute("listSize8", list8.getTotalElements());
+        return "course/entreprenariat";
     }
 
 

@@ -25,8 +25,8 @@
 <body>
 <div style="height: 100%">
     <nav class="nav" style="width: 100%">
-        <a th:href="@{/management/course/all}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
-        <h2 class="text-center col-11 offset-1" style="padding-top: 0.5rem;">Formation professionnelle</h2>
+        <a th:href="@{/management/course/managements}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+        <h2 class="text-center col-11 offset-1" style="padding-top: 0.5rem;">Péparation à l'emploi et Formation professionnelle</h2>
     </nav>
     <div class="container" style="padding: 2rem; margin-top: 3rem;">
 
@@ -69,28 +69,28 @@
                         <ul class="pagination">
                             <li th:class="${courses.number == 0} ? disabled" class="page-item" ><a
                                     class="page-link"
-                                    th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=1)}">«</a>
+                                    th:href="@{/management/course/management(pageSize=${selectedPageSize}, page=1)}">«</a>
                             </li>
                             <li th:class="${courses.number == 0} ? disabled" class="page-item" ><a
                                     class="page-link"
-                                    th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=${courses.number})}">←</a>
+                                    th:href="@{/management/course/management(pageSize=${selectedPageSize}, page=${courses.number})}">←</a>
                             </li>
                             <li
                                     th:class="${courses.number == (page - 1)} ? 'active pointer-disabled'"
                                     th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
                                 <a class="page-link"
-                                   th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:href="@{/management/course/management(pageSize=${selectedPageSize}, page=${page})}"
                                    th:text="${page}"></a>
                             </li>
                             <li
                                     th:class="${courses.number + 1 == courses.totalPages} ? disabled" class="page-item">
                                 <a class="page-link"
-                                   th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=${courses.number + 2})}">→</a>
+                                   th:href="@{/management/course/management(pageSize=${selectedPageSize}, page=${courses.number + 2})}">→</a>
                             </li>
                             <li
                                     th:class="${courses.number + 1 == courses.totalPages} ? disabled" class="page-item">
                                 <a class="page-link"
-                                   th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=${courses.totalPages})}">»</a>
+                                   th:href="@{/management/course/management(pageSize=${selectedPageSize}, page=${courses.totalPages})}">»</a>
                             </li>
                         </ul>
                     </div>

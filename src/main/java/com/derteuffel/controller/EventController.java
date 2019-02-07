@@ -84,6 +84,55 @@ public class EventController {
         return "event/course/one/managements";
     }
 
+    @GetMapping("/alphabetisation")
+    public String alphabetisationEvents(@RequestParam("pageSize") Optional<Integer> pageSize,
+                                   @RequestParam("page") Optional<Integer> page, Model model){
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        // courses managements
+        Page<Event> events= eventRepository.findAllByType("alphabetisation", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager7 = new PagerModel(events.getTotalPages(),events.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("events", events);
+        model.addAttribute("pager", pager7);
+        return "event/course/one/alphabetisation";
+    }
+
+    @GetMapping("/entreprenariat")
+    public String entreprenariatEvents(@RequestParam("pageSize") Optional<Integer> pageSize,
+                                        @RequestParam("page") Optional<Integer> page, Model model){
+        //
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        // courses managements
+        Page<Event> events= eventRepository.findAllByType("entreprenariat", new PageRequest(evalPage, evalPageSize));
+        PagerModel pager7 = new PagerModel(events.getTotalPages(),events.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("events", events);
+        model.addAttribute("pager", pager7);
+        return "event/course/one/entreprenariat";
+    }
+
+
 
     @GetMapping("/leadership")
     public String leadershipEvents(@RequestParam("pageSize") Optional<Integer> pageSize,
