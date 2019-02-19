@@ -31,28 +31,28 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Education</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" th:href="@{/management/region/civic/}+${session.regionId}">Civic</a>
-                <a class="dropdown-item" th:href="@{/management/region/primaire/courses/}+${session.regionId}">Primaire</a>
-                <a class="dropdown-item" th:href="@{/management/region/secondaire/courses/}+${session.regionId}">Secondaire</a>
+                <a class="dropdown-item" th:href="@{/management/region/civic/}+${region.regionId}">Civic</a>
+                <a class="dropdown-item" th:href="@{/management/region/primaire/colonie/}+${region.regionId}">Primaire</a>
+                <a class="dropdown-item" th:href="@{/management/region/secondaire/colonie/}+${region.regionId}">Secondaire</a>
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/management/region/primaire/courses/}+${session.regionId}"> Cours d'appuie</a>
+            <a class="nav-link" th:href="@{/management/region/primaire/courses/}+${region.regionId}"> Cours d'appuie</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/management/region/primaire/langue/}+${session.regionId}">Anglais et/ou Francais</a>
+            <a class="nav-link" th:href="@{/management/region/primaire/langue/}+${region.regionId}">Anglais et/ou Francais</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link "  th:href="@{/management/region/primaire/colonie/}+${session.regionId}">Colonie des Vacances</a>
+            <a class="nav-link "  th:href="@{/management/region/primaire/colonie/}+${region.regionId}">Colonie des Vacances</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active"  th:href="@{/management/region/primaire/jeux/}+${session.regionId}">Jeux éducatif</a>
+            <a class="nav-link active"  th:href="@{/management/region/primaire/jeux/}+${region.regionId}">Jeux éducatif</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link "  th:href="@{/management/region/primaire/transport/}+${session.regionId}">Transport</a>
+            <a class="nav-link "  th:href="@{/management/region/primaire/transport/}+${region.regionId}">Transport</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link "  th:href="@{/management/region/primaire/bibliotheque/}+${session.regionId}">Bibliotheque</a>
+            <a class="nav-link "  th:href="@{/management/region/primaire/bibliotheque/}+${region.regionId}">Bibliotheque</a>
         </li>
     </ul>
 

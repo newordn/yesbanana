@@ -41,10 +41,6 @@ public class These implements Serializable{
     @Column
     private String assistant;
     @Column
-    private String bibliography;
-    @Column
-    private String library;
-    @Column
     private Date created_at= new Date();
     @Column
     private String theseDate;
@@ -52,8 +48,7 @@ public class These implements Serializable{
     private Boolean status;
     @Column
     private String country;
-    @Column
-    private ArrayList<String> libraries;
+    private String fileType;
     @OneToMany(mappedBy = "these")
     private List<Bibliography> bibliographies;
 @OneToMany(mappedBy = "these")
@@ -70,8 +65,8 @@ public class These implements Serializable{
 
     public These(String university, String faculty, String options, String level,
                  String subject, ArrayList<String> resumes, String regions, String student, String profesor,
-                 String workChief, String assistant, String bibliography, String library,
-                 Date created_at,Boolean status, String theseDate, String country, ArrayList<Bibliotheque> bibliotheques, ArrayList<Bibliography> bibliographies) {
+                 String workChief, String assistant,Date created_at,Boolean status, String theseDate, String country,
+                 ArrayList<Bibliotheque> bibliotheques, ArrayList<Bibliography> bibliographies, String fileType) {
         this.university = university;
         this.faculty = faculty;
         this.options = options;
@@ -86,11 +81,19 @@ public class These implements Serializable{
         this.profesor = profesor;
         this.workChief = workChief;
         this.assistant = assistant;
-        this.bibliography = bibliography;
-        this.library = library;
         this.created_at = created_at;
         this.theseDate=theseDate;
         this.country=country;
+        this.fileType=fileType;
+    }
+
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     public List<Bibliotheque> getBibliotheques() {
@@ -237,22 +240,6 @@ public class These implements Serializable{
         this.assistant = assistant;
     }
 
-    public String getBibliography() {
-        return bibliography;
-    }
-
-    public void setBibliography(String bibliography) {
-        this.bibliography = bibliography;
-    }
-
-    public String getLibrary() {
-        return library;
-    }
-
-    public void setLibrary(String library) {
-        this.library = library;
-    }
-
     public Date getCreated_at() {
         return created_at;
     }
@@ -284,8 +271,6 @@ public class These implements Serializable{
                 ", profesor='" + profesor + '\'' +
                 ", workChief='" + workChief + '\'' +
                 ", assistant='" + assistant + '\'' +
-                ", bibliography=" + bibliography +
-                ", library=" + library +
                 ", created_at=" + created_at +
                 '}';
     }

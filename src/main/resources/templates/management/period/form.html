@@ -16,8 +16,8 @@
     <h2 class="text-center">Formulaire d'ajout d'une periode d'une formation professionnelle</h2>
     <form th:action="@{/management/period/save}" th:object="${period}" method="post">
         <div class="form-group">
-            <label for="usr">Niveau de la Periode de formation:</label>
-            <input type="text" class="form-control" id="usr" th:field="*{title}">
+            <label for="usr">Interval de la Periode de formation:</label>
+            <input type="text" class="form-control" id="usr" th:field="*{title}" placeholder="Vous devez entrer sous la forme: juin-juillet">
             <input type="hidden" class="form-control"  name="courseId" th:value="${courseId}">
         </div>
         <div class="form-group">

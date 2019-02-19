@@ -7,6 +7,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Created by derteuffel on 27/12/2018.
@@ -20,8 +21,8 @@ public class Primaire extends Education implements Serializable {
 
     public Primaire() {
     }
-    public Primaire(String title, String description, Long likes, ArrayList<String> pieces, String type) {
-        super(title, description, likes, pieces, type);
+    public Primaire(String title, String description, int likes, Date realeseDate, ArrayList<String> pieces, String type,Boolean status, String fileType) {
+        super(title, description, likes, pieces, type,status, realeseDate,fileType);
     }
 
     public Region getRegion() {

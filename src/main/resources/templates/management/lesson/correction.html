@@ -31,6 +31,8 @@
             <p style="display: none">Fichiers de la leçon:</p>
             <div class="custom-file mb-3" style="display: none">
                 <input type="file" multiple class="custom-file-input" id="customFile" name="files">
+                <input type="text"  class="custom-file-input"  th:field="*{pieces}">
+                <input type="text"  class="custom-file-input"  th:field="*{fileType}">
                 <label class="custom-file-label" for="customFile">Charger vos fichiers</label>
             </div>
             <div class="form-group">

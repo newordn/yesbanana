@@ -1,8 +1,12 @@
 package com.derteuffel.data;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by derteuffel on 27/12/2018.
@@ -19,22 +23,40 @@ public class Education implements Serializable {
     @Column
     private String description;
     @Column
-    private Long likes;
+    private int likes;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date realeseDate;
+    @Autowired
+    private Boolean status;
     @Column
     private ArrayList<String> pieces=new ArrayList<>();
     @Column
     private String type;
+    @Column
+    private String fileType;
 
 
     public Education() {
     }
 
-    public Education(String title, String description, Long likes, ArrayList<String> pieces, String type) {
+    public Education(String title, String description, int likes, ArrayList<String> pieces, String type, Boolean status, Date realeseDate, String fileType) {
         this.title = title;
         this.description = description;
         this.likes = likes;
+        this.realeseDate=realeseDate;
         this.pieces = pieces;
         this.type = type;
+        this.status=status;
+        this.fileType=fileType;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     public Long getEducationId() {
@@ -61,11 +83,11 @@ public class Education implements Serializable {
         this.description = description;
     }
 
-    public Long getLikes() {
+    public int getLikes() {
         return likes;
     }
 
-    public void setLikes(Long likes) {
+    public void setLikes(int likes) {
         this.likes = likes;
     }
 
@@ -83,5 +105,21 @@ public class Education implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Date getRealeseDate() {
+        return realeseDate;
+    }
+
+    public void setRealeseDate(Date realeseDate) {
+        this.realeseDate = realeseDate;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }

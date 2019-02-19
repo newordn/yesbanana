@@ -66,6 +66,10 @@ public class ManagementController {
     private PostRepository postRepository;
     @Autowired
     private OtherRepository otherRepository;
+    @Autowired
+     private PrimaireRepository primaireRepository;
+    @Autowired
+     private SecondaryRepository secondaryRepository;
     List<String> countries= Arrays.asList(
             "Afghanistan",
             "Albania",
@@ -481,9 +485,90 @@ public class ManagementController {
         return "management/region/education/primary/jeu";
     }
     @GetMapping("/region/primaire/colonie/{regionId}")
-    public String colonie(Model model, @PathVariable Long regionId, HttpSession session) {
+    public String colonie(Model model, @PathVariable Long regionId, HttpSession session,@RequestParam("pageSize") Optional<Integer> pageSize,
+                          @RequestParam("page") Optional<Integer> page, Pageable pageable) {
+
+        session.setAttribute("regionId",regionId);
+// Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        Region region= regionRepository.getOne(regionId);
+        model.addAttribute("region",region);
+        Page<Event> events= eventRepository.findAllByRegionAndType(region.getRegionId(),"colonie de vacances",pageable);
+        Page<Primaire> primaires= primaireRepository.findAllByType("colonie de vacances",new PageRequest(evalPage,evalPageSize));
+        PagerModel pager1 = new PagerModel(primaires.getTotalPages(),primaires.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("pager", pager1);
+        model.addAttribute("events",events);
+        model.addAttribute("primaires",primaires);
 
         return "management/region/education/primary/colonie";
+    }
+
+    @GetMapping("/region/primaire/one/colonie")
+    public String colonieOne(Model model, HttpSession session,@RequestParam("pageSize") Optional<Integer> pageSize,
+                          @RequestParam("page") Optional<Integer> page) {
+// Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        Region region= regionRepository.getOne((Long)session.getAttribute("regionId"));
+        model.addAttribute("region",region);
+        Page<Primaire> primaires= primaireRepository.findAllByType("colonie de vacances",new PageRequest(evalPage,evalPageSize));
+        PagerModel pager1 = new PagerModel(primaires.getTotalPages(),primaires.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("pager", pager1);
+        model.addAttribute("primaires",primaires);
+        return "management/region/education/primary/one/colonie";
+    }
+
+    @GetMapping("/region/primaire/event/colonie")
+    public String colonieEvents(Model model, @PathVariable Long regionId, HttpSession session,@RequestParam("pageSize") Optional<Integer> pageSize,
+                          @RequestParam("page") Optional<Integer> page, Pageable pageable) {
+// Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo
+        // evaluate page size
+        model.addAttribute("selectedPageSize", evalPageSize);
+        // add pages size
+        model.addAttribute("pageSizes", PAGE_SIZES);
+        Region region= regionRepository.getOne(regionId);
+        model.addAttribute("region",region);
+        Page<Event> events= eventRepository.findAllByRegionAndType(region.getRegionId(),"colonie de vacances",pageable);
+        PagerModel pager1 = new PagerModel(events.getTotalPages(),events.getNumber(),BUTTONS_TO_SHOW);
+        model.addAttribute("pager", pager1);
+        model.addAttribute("events",events);
+        return "management/region/education/primary/event/colonie";
+    }
+
+
+    @GetMapping("/like/colonie/{educationId}")
+    public String likesColonie(@PathVariable Long educationId){
+        Primaire primaire= primaireRepository.getOne(educationId);
+        int n=primaire.getLikes();
+        primaire.setLikes(n++);
+        primaireRepository.save(primaire);
+        return "redirect:/management/region/primaire/colonie/"+primaire.getRegion().getRegionId();
     }
     @GetMapping("/region/primaire/transport/{regionId}")
     public String transportSecurise(Model model, @PathVariable Long regionId, HttpSession session) {
@@ -1646,6 +1731,12 @@ public class ManagementController {
     public String findOneCourse(Model model,@PathVariable Long courseId, HttpSession session) {
         session.setAttribute("courseId",courseId);
         Optional<Course> optional= courseRepository.findById(courseId);
+        int likes=optional.get().getViews();
+        likes++;
+        System.out.println(likes);
+        optional.get().setViews(likes++);
+        System.out.println(optional.get().getViews());
+        courseRepository.save(optional.get());
         List<Period> periods= periodRepository.findAllByCourses(optional.get().getCourseId());
         List<Lesson> lessons= new ArrayList<>();
         for (Period period: periods){
@@ -1687,6 +1778,27 @@ public class ManagementController {
         model.addAttribute("period",new Period());
         return "management/period/form";
     }
+
+    @GetMapping("/period/edit/{periodId}")
+    public String editROOT(@PathVariable Long periodId, Model model){
+        Period period=periodRepository.getOne(periodId);
+        model.addAttribute("period",period);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
+        int p=0;
+        for (Role role : user.getRoles()){
+            if (role.getRole().equals("ROOT")){
+                p=1;
+            }
+        }
+
+        if (p==1){
+            return "management/period/editR";
+        }else {
+            return "management/period/edit";
+        }
+
+    }
     @PostMapping("/period/save")
     public String periodSaved(Period period, HttpSession session, String adresse, String contenue){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -1701,6 +1813,34 @@ public class ManagementController {
         mail.sendSimpleMessage(
                 adresse,
                 "Notification de enregistrement d'une periode de formation",
+                user.getName()+" vous notifi celon le contenue suivant :"+ contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
+        );
+        return "redirect:/management/course/get/"+ courseId;
+    }
+
+    @PostMapping("/period/edit/root/{periodId}")
+    public String periodEditROOT(Period period, HttpSession session){
+        Long courseId= (Long)session.getAttribute("courseId");
+        Optional<Course> course= courseRepository.findById(courseId);
+        period.setCourse(course.get());
+        periodRepository.save(period);
+        return "redirect:/management/course/get/"+ courseId;
+    }
+
+    @PostMapping("/period/edit/admin/{periodId}")
+    public String periodEditADMIN(Period period, HttpSession session, String adresse, String contenue){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
+        Long courseId= (Long)session.getAttribute("courseId");
+        Optional<Course> course= courseRepository.findById(courseId);
+        period.setCourse(course.get());
+        periodRepository.save(period);
+        System.out.println(adresse);
+        System.out.println(contenue);
+        MailService mail= new MailService();
+        mail.sendSimpleMessage(
+                adresse,
+                "Notification de modification d'une periode de formation",
                 user.getName()+" vous notifi celon le contenue suivant :"+ contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
         return "redirect:/management/course/get/"+ courseId;
@@ -1733,6 +1873,7 @@ public class ManagementController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
         period.setStatus(null);
+        period.setCourse(courseRepository.findById((Long)session.getAttribute("courseId")).get());
         periodRepository.save(period);
         MailService backMessage= new MailService();
         backMessage.sendSimpleMessage(
@@ -1764,8 +1905,74 @@ public class ManagementController {
         return "management/lesson/form";
     }
 
+    @GetMapping("/lesson/edit/{lessonId}")
+    public  String updateLesson(@PathVariable Long lessonId, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
+        Lesson lesson = lessonRepository.getOne(lessonId);
+        model.addAttribute("lesson", lesson);
+        int p=0;
+        for (Role role:user.getRoles()){
+            if (role.getRole().equals("ROOT")){
+                p=1;
+            }
+        }
+        if (p==1){
+            return "management/lesson/editR";
+        }else {
+            return "management/lesson/edit";
+        }
+
+    }
+
+    @PostMapping("/lesson/edit/root/{lessonId}")
+    public String editLessonROOT(Lesson lesson, HttpSession session, @RequestParam("files") MultipartFile[] files){
+        List<FileUploadRespone> pieces= Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        ArrayList<String> filesPaths = new ArrayList<String>();
+        for(int i=0;i<pieces.size();i++)
+        {
+            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        }
+
+        lesson.setPieces(filesPaths);
+        lesson.setPeriod(periodRepository.getOne((Long)session.getAttribute("periodId")));
+        lessonRepository.save(lesson);
+        return "redirect:/management/period/get/"+(Long)session.getAttribute("periodId");
+
+    }
+    @PostMapping("/lesson/edit/admin/{lessonId}")
+    public String editLessonADMIN(Lesson lesson, HttpSession session, @RequestParam("files") MultipartFile[] files, String adresse, String contenue){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
+        List<FileUploadRespone> pieces= Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        ArrayList<String> filesPaths = new ArrayList<String>();
+        for(int i=0;i<pieces.size();i++)
+        {
+            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        }
+
+        lesson.setPieces(filesPaths);
+        lesson.setPeriod(periodRepository.getOne((Long)session.getAttribute("periodId")));
+        lessonRepository.save(lesson);
+        MailService mail= new MailService();
+        mail.sendSimpleMessage(
+                adresse,
+                "Notification de enregistrement d'une leçon",
+                user.getName()+" vous notifi celon le contenue suivant :"+ contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
+        );
+        return "redirect:/management/period/get/"+(Long)session.getAttribute("periodId");
+
+    }
+
     @PostMapping(value = "/lesson/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String lessonSave(Lesson lesson, HttpSession session, @RequestParam("files") MultipartFile files,  String adresse, String contenue){
+    public String lessonSave(Lesson lesson, HttpSession session, @RequestParam("files") MultipartFile[] files,  String adresse, String contenue){
+
         List<FileUploadRespone> pieces= Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
@@ -1787,7 +1994,7 @@ public class ManagementController {
         MailService mail= new MailService();
         mail.sendSimpleMessage(
                 adresse,
-                "Notification de enregistrement d'une periode de formation",
+                "Notification de enregistrement d'une Leçon",
                 user.getName()+" vous notifi celon le contenue suivant :"+ contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
         return "redirect:/management/period/get/"+(Long)session.getAttribute("periodId");
@@ -1822,6 +2029,7 @@ public class ManagementController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userRepository.findByEmail(auth.getName());
         lesson.setStatus(null);
+        lesson.setPeriod(periodRepository.getOne((Long)session.getAttribute("periodId")));
         lessonRepository.save(lesson);
         MailService backMessage= new MailService();
         backMessage.sendSimpleMessage(
@@ -1935,6 +2143,52 @@ public class ManagementController {
 
 
     // Event management method end
+
+    // Primary management method Start
+    @GetMapping("/primary/form")
+    public String primaryForm(Model model){
+    model.addAttribute("primary", new Primaire());
+        return "management/region/education/primary/form";
+    }
+
+    @PostMapping("/primary/save")
+    public String primarySave(Primaire primaire,Errors errors, HttpSession session, Model model, @RequestParam("files") MultipartFile[] files, String adresse, String contenue){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userRepository.findByEmail(auth.getName());
+        List<FileUploadRespone> pieces= Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        ArrayList<String> filesPaths = new ArrayList<String>();
+        for(int i=0;i<pieces.size();i++)
+        {
+            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        }
+
+Primaire primaire1=primaireRepository.findByTitle(primaire.getTitle());
+        if (primaire1 != null){
+            errors.rejectValue("title","primaire.error","Il existe de un element avec ce titre");
+        }
+        if (errors.hasErrors()){
+            model.addAttribute("errors","Il existe deja un element avec ce titre");
+            return "management/region/education/primary/form";
+        }else {
+            primaire.setPieces(filesPaths);
+            primaire.setRegion(regionRepository.getOne((Long)session.getAttribute("regionId")));
+            primaire.setStatus(null);
+            primaire.setType(primaire.getType().toLowerCase());
+            primaireRepository.save(primaire);
+            MailService mail= new MailService();
+            mail.sendSimpleMessage(
+                    adresse,
+                    "Notification de enregistrement d'un element dans le module Education Primaire",
+                    user.getName()+" vous notifi celon le contenue suivant :"+ contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
+            );
+
+            return "redirect:/management/primary/colonie";
+        }
+    }
 }
 
 

@@ -22,7 +22,7 @@
 </head>
 <body>
 <nav class="nav row" style="height: 5rem;width: 100%" >
-    <a th:href="@{/management/course/all}" class="btn home col-12 col-sm-4 col-lg-1" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+    <a th:href="@{/management/course/administration}" class="btn home col-12 col-sm-4 col-lg-1" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
     <div class="col-12 col-sm-8 col-lg-11 text-center"  style="left: 0;">
         <h3 class=" text-center " th:text="${course.title}" > Titre de la formation ici </h3>
     </div>
@@ -43,8 +43,8 @@
             <p><strong>Cout de la formation</strong></p>
             <p >$<span th:text="${course.price}"></span></p>
             <hr class="style14">
-            <p><strong>Nombre de vues </strong><i class="fa fa-eye"></i></p>
-            <p th:text="${course.views}"></p>
+            <p><strong>Nombre de vues </strong></p>
+            <p ><i class="fa fa-eye"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${course.views}"></span></p>
         </div>
         <div class="col-12 col-sm-12 col-lg-5" style="padding: 1rem">
             <p><strong>Description de la formation</strong></p>
@@ -68,16 +68,16 @@
                 </div>
                 <div class="col-12 col-sm-6 col-lg-12 mt-3" style="padding-left: 15px;padding-right: 15px">
                     <a  class="btn btn-success mb-3" sec:authorize="!hasRole('ROLE_USER')">
-                        Status <span class="badge badge-light"  th:text="${period.status}">4</span>
+                        Visibilité <span class="badge badge-light" th:text="${period.status}">Activé</span>
                     </a>
                     <a class="btn btn-primary" th:href="@{/management/period/get/}+${period.periodId}" style="width: 100%">Suivre les leçons</a>
                 </div>
                 <div class="row mt-3" sec:authorize="hasRole('ROLE_ROOT')" style="padding-left: 15px;padding-right: 15px">
-                    <div class="col-12 col-sm-12 col-lg-4">
-                        <a class="btn btn-success" th:href="@{/management/period/publish/}+${period.periodId}" style="width: 100%">Approuver et publier </a>
+                    <div class="col-12 col-sm-12 col-lg-3">
+                        <a class="btn btn-success" th:href="@{/management/period/publish/}+${period.periodId}" style="width: 100%">Appr et publier </a>
                     </div>
-                    <div class="col-12 col-sm-12 col-lg-4">
-                        <a class="btn btn-warning" th:href="@{/management/period/unPublish/form/}+${period.periodId}"  style="width: 100%">Renvoi pour modification</a>
+                    <div class="col-12 col-sm-12 col-lg-3">
+                        <a class="btn btn-danger" th:href="@{/management/period/unPublish/form/}+${period.periodId}"  style="width: 100%">Renvoi pour modif</a>
                         <div class="modal card modal-warning fade in" th:id="modal-warning+${period.periodId}" >
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -92,7 +92,7 @@
                                             <input type="email" class="form-control" name="adresse">
                                         </div>
                                         <div class="form-group">
-                                            <label > Corps du message :</label>
+                                            <label > Corps du message, </label>
                                             <textarea class="form-control" rows="10" name="contenue"></textarea>
                                         </div>
                                     </div>
@@ -104,8 +104,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-12 col-lg-4">
-                        <a class="btn btn-secondary" th:href="@{/management/period/draft/}+${period.periodId}" style="width: 100%">Approuve sans publier</a>
+                    <div class="col-12 col-sm-12 col-lg-3">
+                        <a class="btn btn-secondary" th:href="@{/management/period/draft/}+${period.periodId}" style="width: 100%">Appr sans publier</a>
+                    </div>
+                    <div class="col-12 col-sm-12 col-lg-3">
+                        <a class="btn btn-warning" th:href="@{/management/period/edit/}+${period.periodId}" style="width: 100%">Modifier</a>
                     </div>
                      </div>
             </div>

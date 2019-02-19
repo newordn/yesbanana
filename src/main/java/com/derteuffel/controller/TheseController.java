@@ -407,8 +407,6 @@ public class TheseController {
                 aRow.createCell(7).setCellValue(these1.getWorkChief());
                 aRow.createCell(8).setCellValue(these1.getProfesor());
                 aRow.createCell(9).setCellValue(these1.getAssistant());
-                aRow.createCell(10).setCellValue(these1.getBibliography());
-                aRow.createCell(11).setCellValue(these1.getLibrary());
             }
             filename = pathToDownloadFileServer + "theses" + currentPage + ".xls";
             fileOutputStream = new FileOutputStream(filename);

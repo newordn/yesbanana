@@ -1,19 +1,18 @@
 /**
  * Created by derteuffel on 29/11/2018.
  */
+//get the input and UL list
+var input = document.getElementById('files');
+var list = document.getElementById('fileList');
+//empty list for now...
+while (list.hasChildNodes()) {
+    list.removeChild(ul.firstChild);
+}
 
-let sel1=$("#sel1");
-sel1.change(()=>{
-    if(sel1.val() == "Education civique"){
-    $("#niveau").val(parseInt("3"));
+//for every file...
+for (var x = 0; x < input.files.length; x++) {
+    //add to list
+    var li = document.createElement('li');
+    li.innerHTML = 'File ' + (x + 1) + ':  ' + input.files[x].name;
+    list.append(li);
 }
-else if (sel1.val() == "Education primaire"){
-    $("#niveau").val(parseInt("1"));
-}
-else if (sel1.val() == "Education secondaire"){
-    $("#niveau").val(parseInt("2"));
-}
-else (sel1.val() == "Autres services"){
-    $("#niveau").val(parseInt("4"));
-}
-});

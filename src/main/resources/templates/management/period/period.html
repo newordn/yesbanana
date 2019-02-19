@@ -36,20 +36,97 @@
                 <div class="col-12 col-sm-6 col-lg-12 text-center">
                     <p th:text="${period?.title}">Première période</p><br>
                     <!--img  th:src="${lesson.pieces[0]}" class="rounded card-image-top"-->
-                    <video width="400" height="280" controls>
-                        <source th:src="${lesson.pieces[0]}">
-                    </video>
+                    <div th:switch="${lesson.fileType}">
+                        <div th:case="'DOCUMENT PDF'">
+                            <div class="col-12 col-sm-6 col-lg-8">
+                                <img style="width: 400px;height: 400px" th:src="@{/images/pdf1.png}">
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4" style="padding-top: 8rem;padding-bottom: 5rem">
+                                <button type="button" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'" class="btn btn-primary rounded-circle" ><i class="fa fa-info-circle"></i></button>
+                                <br>
+                                <p>Voir tous les fichiers (<span th:text="${#lists.size(lesson.pieces)}"></span>) fichiers</p>
+                            </div>
+                        </div>
+                        <div class="row" th:case="'DOCUMENT WORD'">
+                            <div class="col-12 col-sm-6 col-lg-8">
+                                <img style="width: 400px;height: 400px" th:src="@{/images/word.jpeg}">
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4" style="padding-top: 8rem;padding-bottom: 5rem">
+                               <button type="button" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'" class="btn btn-primary rounded-circle" ><i class="fa fa-info-circle"></i></button>
+                                <br>
+                                <p>Voir tous les fichiers (<span th:text="${#lists.size(lesson.pieces)}"></span>) fichiers</p>
+                            </div>
+
+                        </div>
+                        <div class="row" th:case="'DOCUMENT EXCEL'">
+                            <div class="col-12 col-sm-6 col-lg-8">
+                                <img style="width: 400px;height: 400px" th:src="@{/images/excel.png}">
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4" style="padding-top: 8rem;padding-bottom: 5rem">
+                               <button type="button" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'" class="btn btn-primary rounded-circle" ><i class="fa fa-info-circle"></i></button>
+                                <br>
+                                <p>Voir tous les fichiers (<span th:text="${#lists.size(lesson.pieces)}"></span>) fichiers</p>
+                            </div>
+
+                        </div>
+                        <div class="row" th:case="'DOCUMENT POWER POINT'">
+                            <div class="col-12 col-sm-6 col-lg-8">
+                                <img style="width: 400px;height: 400px" th:src="@{/images/ppt.jpeg}">
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4" style="padding-top: 8rem;padding-bottom: 5rem">
+                               <button type="button" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'" class="btn btn-primary rounded-circle" ><i class="fa fa-info-circle"></i></button>
+                                <br>
+                                <p>Voir tous les fichiers (<span th:text="${#lists.size(lesson.pieces)}"></span>) fichiers</p>
+                            </div>
+
+                        </div>
+                        <div class="row" th:case="'VIDEO'">
+                            <div class="col-12 col-sm-6 col-lg-8">
+                                <video style="width: 400px" controls>
+                                    <source th:src="${lesson.pieces[0]}">
+                                </video>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4" style="padding-top: 8rem;padding-bottom: 5rem">
+                               <button type="button" data-toggle="modal" data-target="#modal-warning-video" th:attr="data-target='#modal-warning-video'" class="btn btn-primary rounded-circle" ><i class="fa fa-info-circle"></i></button>
+                                <br>
+                                <p>Voir toutes les videos (<span th:text="${#lists.size(lesson.pieces)}"></span>) videos</p>
+                            </div>
+
+                        </div>
+                        <div class="row" th:case="'AUDIO'">
+                            <div class="col-12 col-sm-6 col-lg-8">
+                                <audio controls>
+                                    <source th:src="${lesson.pieces[0]}">
+                                </audio>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4" style="padding-top: 8rem;padding-bottom: 5rem">
+                               <button type="button" data-toggle="modal" data-target="#modal-warning-video" th:attr="data-target='#modal-warning-video'" class="btn btn-primary rounded-circle" ><i class="fa fa-info-circle"></i></button>
+                                <br>
+                                <p>Voir tout les fichiers audio (<span th:text="${#lists.size(lesson.pieces)}"></span>) audios</p>
+                            </div>
+
+                        </div>
+                        <!--div th:case="'DOCUMENT EXCEL'">
+                            <object style="width: 400px;height: 400px" th:data="${lesson.pieces[0]}"></object>
+                        </div>
+                        <div th:case="'DOCUMENT WORD'">
+                            <object style="width: 400px;height: 400px" th:data="${lesson.pieces[0]}"></object>
+                        </div>
+                        <div th:case="'DOCUMENT WORD'">
+                            <object style="width: 400px;height: 400px" th:data="${lesson.pieces[0]}"></object>
+                        </div-->
+                    </div>
                     <div class="card-body mt-3" style="width: 750px; margin-left: 8.5rem;">
                         <p th:text="${lesson.resumes}">With Safari, you learn the way you learn best. Get unlimited access to videos, live online training, learning paths, books, interactive tutorials, and more.
                         </p><br>
                         <a class="btn btn-warning" th:href="@{#}" ><i class="fa fa-eye"></i>&nbsp;&nbsp;Commencer la leçon</a><br>
                             <span style="color: #9fcdff">Carte de credit necessaire</span>
                         <div class="row mt-3" sec:authorize="hasRole('ROLE_ROOT')" style="padding-left: 15px;padding-right: 15px">
-                            <div class="col-12 col-sm-12 col-lg-4">
-                                <a class="btn btn-success" th:href="@{/management/lesson/publish/}+${lesson.lessonId}" style="width: 100%">Approuver et publier </a>
+                            <div class="col-12 col-sm-6 col-lg-3">
+                                <a class="btn btn-success" th:href="@{/management/lesson/publish/}+${lesson.lessonId}" style="width: 100%">App et publier </a>
                             </div>
-                            <div class="col-12 col-sm-12 col-lg-4">
-                                <a class="btn btn-warning" th:href="@{/management/lesson/unPublish/form/}+${lesson.lessonId}"  style="width: 100%">Renvoi pour modification</a>
+                            <div class="col-12 col-sm-6 col-lg-3">
+                                <a class="btn btn-danger" th:href="@{/management/lesson/unPublish/form/}+${lesson.lessonId}"  style="width: 100%">Renvoi pour modif</a>
                                 <div class="modal card modal-warning fade in" th:id="modal-warning+${lesson.lessonId}" >
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -76,8 +153,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-12 col-lg-4">
-                                <a class="btn btn-secondary" th:href="@{/management/lesson/draft/}+${lesson.lessonId}" style="width: 100%">Approuve sans publier</a>
+                            <div class="col-12 col-sm-6 col-lg-3">
+                                <a class="btn btn-secondary" th:href="@{/management/lesson/draft/}+${lesson.lessonId}" style="width: 100%">App sans publier</a>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-3">
+                                <a class="btn btn-warning" th:href="@{/management/lesson/edit/}+${lesson.lessonId}" style="width: 100%">Modifier</a>
                             </div>
                         </div>
 
@@ -88,6 +168,74 @@
                 </div>
             </div >
                 <hr class="style14">
+            <div class="modal card modal-warning fade in" th:id="modal-warning" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <button type="button" class="pull-left close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span></button>
+                            <h5 class="modal-title">Liste des fichers de la leçon</h5>
+                        </div>
+                        <div class="modal-body text-center">
+                            <ul th:each="piece : ${lesson.pieces}">
+                                <li>
+                                    <a th:href="${piece}" th:text="${piece}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer text-center">
+                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal card modal-warning fade in" th:id="modal-warning-video" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <button type="button" class="pull-left close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span></button>
+                            <h5 class="modal-title">Liste des Videos de la leçon</h5>
+                        </div>
+                        <div class="modal-body text-center">
+                            <ul th:each="piece : ${lesson.pieces}">
+                                <li>
+                                    <video style="width: 400px;">
+                                        <source th:src="${piece}">
+                                    </video>
+                                    <hr class="style14">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer text-center">
+                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal card modal-warning fade in" th:id="modal-warning-audio" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <button type="button" class="pull-left close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span></button>
+                            <h5 class="modal-title">Liste des fichiers Audios de la leçon</h5>
+                        </div>
+                        <div class="modal-body text-center">
+                            <ul th:each="piece : ${lesson.pieces}">
+                                <li>
+                                    <audio>
+                                        <source th:src="${piece}">
+                                    </audio>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer text-center">
+                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <a sec:authorize="!hasRole('ROLE_USER')" class="btn addButton btn-primary rounded-circle" th:href="@{/management/lesson/form}" style="bottom: 3rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
     <!-- ##### Footer Area Start ##### -->

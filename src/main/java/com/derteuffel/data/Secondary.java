@@ -7,6 +7,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Created by derteuffel on 27/12/2018.
@@ -23,8 +24,8 @@ public class Secondary extends Education implements Serializable {
     }
 
 
-    public Secondary(String title, String description, Long likes, ArrayList<String> pieces, String type, Collection<Event> events) {
-        super(title, description, likes, pieces, type);
+    public Secondary(String title, String description, int likes, ArrayList<String> pieces,Boolean status, String type, Date realeseDate, Collection<Event> events, String fileType) {
+        super(title, description, likes, pieces, type,status, realeseDate,fileType);
     }
 
 

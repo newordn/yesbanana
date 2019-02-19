@@ -27,20 +27,20 @@
 
     <h2 class="text-center mt-5">Régions</h2>
     <div class="row content mt-3" >
-        <div  class="col-3  text-center crew mb-2" th:each="crew : ${crews}" style="padding:.5rem;">
+        <div  class="col-12 col-sm-6 col-lg-3  text-center crew mb-2" th:each="crew : ${crews}" style="padding:.5rem;">
                 <div class="card">
                     <div  class=" row" style="position:absolute;z-index:1000;width:100%;margin:auto"    >
-                        <div class="col-4 text-left" style="padding:0">
+                        <div class="col-12 col-sm-6 col-lg-4 text-left" style="padding:0">
                             <a th:href="@{/groupe/groupe/} + ${crew.groupeId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
                                 <i class="zmdi zmdi-eye" ></i>
                             </a>
                         </div>
-                        <div class="col-4 text-center" style="padding:0" sec:authorize="!hasRole('ROLE_USER')">
+                        <div class="col-12 col-sm-6 col-lg-4 text-center" style="padding:0" sec:authorize="!hasRole('ROLE_USER')">
                             <a th:href="@{/groupe/update/} + ${crew.groupeId}"  class="btn btn-warning  rounded-circle" >
                                 <i class="zmdi zmdi-edit" ></i>
                             </a>
                         </div>
-                        <div class="col-4 text-right" style="padding:0" sec:authorize="!hasRole('ROLE_USER')">
+                        <div class="col-12 col-sm-6 col-lg-4 text-right" style="padding:0" sec:authorize="!hasRole('ROLE_USER')">
                             <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn btn-danger  rounded-circle" >
                                 <i class="zmdi zmdi-close" ></i>
                             </a>
@@ -55,8 +55,8 @@
                     <strong th:if="${#arrays.length(crew.users) > 0}" th:text="${crew.users[0].name}">Maurice Kamto</strong>
                     <hr style="margin:.2rem">
                     <div class="row">
-                        <div class="col-6"><span th:text="${crew.groupeCountry}">Cameroun</span></div>
-                        <div class="col-6"><span th:text="${crew.groupeRegion}">Extreme nord</span></div>
+                        <div class="col-12 col-sm-6 col-lg-6"><span th:text="${crew.groupeCountry}">Cameroun</span></div>
+                        <div class="col-12 col-sm-6 col-lg-4"><span th:text="${crew.groupeRegion}">Extreme nord</span></div>
                     </div>
                 </div>
             <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${crew.groupeId}" >

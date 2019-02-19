@@ -214,10 +214,10 @@
 .top-footer-area p {
     margin-bottom: 0;
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.2);
+    color:  #61ba6d;
     font-family: "Open Sans", sans-serif; }
 .top-footer-area p a {
-    color: rgba(255, 255, 255, 0.2);
+    color:  #61ba6d;
     font-size: 12px;
     font-family: "Open Sans", sans-serif; }
 .top-footer-area p a:hover, .top-footer-area p a:focus {
@@ -242,7 +242,7 @@
     height: 40px;
     padding: 0 30px;
     line-height: 40px;
-    color: rgba(255, 255, 255, 0.2);
+    color:  #61ba6d;
     font-size: 12px;
     border-right: 1px solid #4c4c4c; }
 .bottom-footer-area .contact-info a span {
@@ -275,7 +275,7 @@
     height: 40px;
     padding: 0 20px;
     line-height: 40px;
-    color: rgba(255, 255, 255, 0.2);
+    color:  #61ba6d;
     font-size: 12px;
     text-transform: uppercase; }
 .bottom-footer-area .follow-us a {
@@ -283,13 +283,13 @@
     height: 40px;
     padding: 0 20px;
     line-height: 40px;
-    color: rgba(255, 255, 255, 0.2);
+    color:  #61ba6d;
     font-size: 12px;
     border-left: 1px solid #4c4c4c; }
 .bottom-footer-area .follow-us a span {
     text-transform: uppercase; }
 .bottom-footer-area .follow-us a:hover, .bottom-footer-area .follow-us a:focus {
-    color: #ffffff; }
+    color:  #61ba6d; }
 
 .content{
     height: 100%;
@@ -316,7 +316,7 @@
 /* Set black background color, white text and some padding */
 footer {
     background-color: #555;
-    color: white;
+    color:  #61ba6d;;
 }
 
 /* On small screens, set height to 'auto' for sidenav and grid */

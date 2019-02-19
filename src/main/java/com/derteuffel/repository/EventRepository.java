@@ -17,6 +17,9 @@ import java.util.List;
 public interface EventRepository extends PagingAndSortingRepository<Event, Long> {
     @Query("select e from Event as e join e.region er where er.regionId=:id order by e.eventId desc")
     List<Event> findAllByRegion(@Param("id") Long regionId);
+    @Query("select e from Event as e join e.region er where er.regionId=:id and e.type=:type order by e.eventId desc")
+    Page<Event> findAllByRegionAndType(@Param("id") Long educationId, @Param("type") String type, Pageable pageable);
     Page<Event> findAllByType(String type, Pageable pageable);
     List<Event> findAllByType(String type);
+
 }

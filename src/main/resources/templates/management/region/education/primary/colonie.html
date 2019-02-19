@@ -31,79 +31,306 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Education</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" th:href="@{/management/region/civic/}+${session.regionId}">Civic</a>
-                <a class="dropdown-item" th:href="@{/management/region/primaire/courses/}+${session.regionId}">Primaire</a>
-                <a class="dropdown-item" th:href="@{/management/region/secondaire/courses/}+${session.regionId}">Secondaire</a>
+                <a class="dropdown-item" th:href="@{/management/region/civic/}+${region.regionId}">Civic</a>
+                <a class="dropdown-item" th:href="@{/management/region/primaire/colonie/}+${region.regionId}">Primaire</a>
+                <a class="dropdown-item" th:href="@{/management/region/secondaire/colonie/}+${region.regionId}">Secondaire</a>
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/management/region/primaire/courses/}+${session.regionId}"> Cours d'appuie</a>
+            <a class="nav-link" th:href="@{/management/region/primaire/courses/}+${region.regionId}"> Cours d'appuie</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/management/region/primaire/langue/}+${session.regionId}">Anglais et/ou Francais</a>
+            <a class="nav-link" th:href="@{/management/region/primaire/langue/}+${region.regionId}">Anglais et/ou Francais</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active"  th:href="@{/management/region/primaire/colonie/}+${session.regionId}">Colonie des Vacances</a>
+            <a class="nav-link active"  th:href="@{/management/region/primaire/colonie/}+${region.regionId}">Colonie des Vacances</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link"  th:href="@{/management/region/primaire/jeux/}+${session.regionId}">Jeux éducatif</a>
+            <a class="nav-link"  th:href="@{/management/region/primaire/jeux/}+${region.regionId}">Jeux éducatif</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link "  th:href="@{/management/region/primaire/transport/}+${session.regionId}">Transport</a>
+            <a class="nav-link "  th:href="@{/management/region/primaire/transport/}+${region.regionId}">Transport</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link "  th:href="@{/management/region/primaire/bibliotheque/}+${session.regionId}">Bibliotheque</a>
+            <a class="nav-link "  th:href="@{/management/region/primaire/bibliotheque/}+${region.regionId}">Bibliotheque</a>
         </li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content " style="margin-top: 4rem; height: inherit; padding: 2rem;">
-        <!-- PROTECTION  START -->
-        <div  class="container tab-pane active mt-3"><br>
-            <!-- HEADER TYPE TITLE START -->
-            <h3 class="my-4 text-center sticky-top">Colonie des vacances</h3>
-            <!-- HEADER TYPE TITLE END -->
 
-            <!-- ##### Footer Area Start ##### -->
-            <footer class="footer-area">
-                <!-- Top Footer Area -->
-                <div class="top-footer-area">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <!-- Footer Logo -->
-                                <div class="footer-logo">
-                                    <a th:href="@{/}"><img th:src="@{/img/core-img/yesb.png}" alt=""></a>
-                                </div>
-                                <!-- Copywrite -->
-                                <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            <!-- COLONIE DE VACANCES  START -->
+            <div id="finances" class="container tab-pane active mt-3" style="height: inherit; margin-bottom: inherit"><br>
+                <!-- HEADER TYPE TITLE START -->
+                <h3 class="my-4 text-center sticky">Colonie de vacances</h3>
+                <!-- HEADER TYPE TITLE END-->
+                <!-- EVENT RELEASES START-->
+                <div class="row mb-4">
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="card " style="height: 300px;">
+                            <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
+                            <div class="card-body text-center">
+                                <h2><span class="counter text-primary">1912</span></h2>
+                                <h5>Evenements historiques</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="card" style="height: 300px;">
+                            <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
+                            <div class="card-body text-center">
+                                <h2><span class="counter text-primary" th:text="${0}">89</span></h2>
+                                <h5>Planifications des événements</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="card" style="height: 300px;">
+                            <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
+                            <div class="card-body text-center">
+                                <h2><span class="counter text-primary" th:text="${0}"></span></h2>
+                                <h5>Cours disponibles</h5>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Bottom Footer Area -->
-                <div class="bottom-footer-area d-flex justify-content-between align-items-center">
-                    <!-- Contact Info -->
-                    <div class="contact-info">
-                        <a href="#"><span>Phone:</span> +237 694 126 158</a>
-                        <a href="#"><span>Email:</span> admin@yesbanana.org</a>
+                <!-- EVENT RELEASES END-->
+                <!-- ONLINE COURSE START-->
+                <div class="container" style="padding-top: 30px;">
+                    <div class="row">
+                        <div class="col-12 card bg-dark">
+                            <div class="section-heading">
+                                <h3 class="text-white" style="padding-top: 1.5rem;">Cours en ligne</h3>
+                            </div>
+                        </div>
                     </div>
-                    <!-- Follow Us -->
-                    <div class="follow-us">
-                        <span>Suivez-nous</span>
-                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <div class="row my-2" >
+                        <!-- Single Popular Course -->
+                        <!--div class="col-12 col-sm-6 col-lg-4 my-2" th:each="primaire : ${primaires}"-->
+                        <div class="col-12 col-sm-6 col-lg-4 my-2" >
+                            <div class="single-upcoming-events">
+                                <!-- Events Thumb -->
+                                <div class="events-thumb ">
+                                    <!--img th:src="${primaire?.pieces[0]}" class="card-image-top" alt="" style="height: 240px"-->
+                                    <img th:src="@{/images/pdf.png}" class="card-image-top" alt="" style="height: 240px">
+                                    <!--h6 class="event-date" th:text="${primaire?.releaseDate}">Date de l'événement</h6-->
+                                    <h6 class="event-date">Date de l'événement</h6>
+                                    <!--h4 class="event-title" th:text="${primaire?.title}">Titre de l'événement</h4-->
+                                    <h4 class="event-title" >Titre de l'événement</h4>
+                                </div>
+                                <!-- Date & Fee -->
+                                <div class="date-fee d-flex justify-content-between">
+                                    <div class="date">
+                                        <p ><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    </div>
+                                    <div class="events-fee">
+                                        <a href="#" th:text="${primaire?.likes}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="col-12 col-sm-6 col-lg-4 my-2" >
+                            <div class="single-upcoming-events">
+                                <!-- Events Thumb -->
+                                <div class="events-thumb ">
+                                    <!--img th:src="${primaire?.pieces[0]}" class="card-image-top" alt="" style="height: 240px"-->
+                                    <img th:src="@{/images/pdf.png}" class="card-image-top" alt="" style="height: 240px">
+                                    <!--h6 class="event-date" th:text="${primaire?.releaseDate}">Date de l'événement</h6-->
+                                    <h6 class="event-date">Date de l'événement</h6>
+                                    <!--h4 class="event-title" th:text="${primaire?.title}">Titre de l'événement</h4-->
+                                    <h4 class="event-title" >Titre de l'événement</h4>
+                                </div>
+                                <!-- Date & Fee -->
+                                <div class="date-fee d-flex justify-content-between">
+                                    <div class="date">
+                                        <p ><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    </div>
+                                    <div class="events-fee">
+                                        <a href="#" th:text="${primaire?.likes}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="col-12 col-sm-6 col-lg-4 my-2" >
+                            <div class="single-upcoming-events">
+                                <!-- Events Thumb -->
+                                <div class="events-thumb ">
+                                    <!--img th:src="${primaire?.pieces[0]}" class="card-image-top" alt="" style="height: 240px"-->
+                                    <img th:src="@{/images/pdf.png}" class="card-image-top" alt="" style="height: 240px">
+                                    <!--h6 class="event-date" th:text="${primaire?.releaseDate}">Date de l'événement</h6-->
+                                    <h6 class="event-date">Date de l'événement</h6>
+                                    <!--h4 class="event-title" th:text="${primaire?.title}">Titre de l'événement</h4-->
+                                    <h4 class="event-title" >Titre de l'événement</h4>
+                                </div>
+                                <!-- Date & Fee -->
+                                <div class="date-fee d-flex justify-content-between">
+                                    <div class="date">
+                                        <p ><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    </div>
+                                    <div class="events-fee">
+                                        <a href="#" th:text="${primaire?.likes}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="col-12 col-sm-6 col-lg-4 my-2" >
+                            <div class="single-upcoming-events">
+                                <!-- Events Thumb -->
+                                <div class="events-thumb ">
+                                    <!--img th:src="${primaire?.pieces[0]}" class="card-image-top" alt="" style="height: 240px"-->
+                                    <img th:src="@{/images/pdf.png}" class="card-image-top" alt="" style="height: 240px">
+                                    <!--h6 class="event-date" th:text="${primaire?.releaseDate}">Date de l'événement</h6-->
+                                    <h6 class="event-date">Date de l'événement</h6>
+                                    <!--h4 class="event-title" th:text="${primaire?.title}">Titre de l'événement</h4-->
+                                    <h4 class="event-title" >Titre de l'événement</h4>
+                                </div>
+                                <!-- Date & Fee -->
+                                <div class="date-fee d-flex justify-content-between">
+                                    <div class="date">
+                                        <p ><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    </div>
+                                    <div class="events-fee">
+                                        <a href="#" th:text="${primaire?.likes}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br>
+                    </div>
+                    <div class="pagination-div" style="display: none;">
+                    <span th:if="${primaires.hasPrevious()}">
+                        <a th:href="@{/management/course/all(primaires=${primaires.number-1},size=${primaires.size})}">Previous</a>
+                    </span>
+                        <th:block th:each="i: ${#numbers.sequence(0, primaires.totalPages - 1)}">
+                            <span th:if="${primaires.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${primaires.number == i}">
+                            <a th:href="@{/management/course/all(primaires=${i},size=${primaires.size})}">[[${i}+1]]</a>
+                         </span>
+                        </th:block>
+                    <span th:if="${primaires.hasNext()}">
+                        <a th:href="@{/management/course/all(primaires=${primaires.number+1},size=${primaires.size})}">Next</a>
+                    </span>
+                    </div>
+                    <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                        <a class="btn btn-primary" th:href="@{/management/region/primaire/one/colonie}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
                     </div>
                 </div>
-            </footer>
-            <!-- ##### Footer Area End ##### -->
+                <!-- ONLINE COURSE END-->
+                <!-- AVAILABLE EVENTS START-->
+                <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
+                    <div class="row">
+                        <div class="col-12 bg-secondary card ">
+                            <div class="section-heading">
+                                <h3 class="text-center text-white" style="padding-top: 1.5rem;">Planning des événement avenir</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Single Upcoming Events -->
+                        <div class="col-12 col-md-6 col-lg-4 my-2" th:each=" event : ${events}">
+                            <div class="single-upcoming-events">
+                                <!-- Events Thumb -->
+                                <div class="events-thumb ">
+                                    <img th:src="${admin?.image}" class="card-image-top" alt="" style="height: 240px">
+                                    <h6 class="event-date" th:text="${admin?.releaseDate}">Date de l'événement</h6>
+                                    <h4 class="event-title" th:text="${admin?.title}">Titre de l'événement</h4>
+                                </div>
+                                <!-- Date & Fee -->
+                                <div class="date-fee d-flex justify-content-between">
+                                    <div class="date">
+                                        <p th:text="${admin?.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    </div>
+                                    <div class="events-fee">
+                                        <a href="#" th:text="'$'+${admin?.price}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
+                        <a class="btn btn-primary" th:href="@{/management/region/primaire/event/colonie}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                    </div>
+                    <div class="row " style="bottom: 1rem;width: 100%;display: none">
+                        <div class="form-group col-12 col-sm-6 col-lg-3">
+                            <select class="form-control pagination" id="pageSizeSelect">
+                                <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                        th:value="${pageSize}"
+                                        th:selected="${pageSize} == ${selectedPageSize}"></option>
+                            </select>
+                        </div>
+                        <div th:if="${events.totalPages != 1}"
+                             class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+                            <ul class="pagination">
+                                <li th:class="${events.number == 0} ? disabled" class="page-item" ><a
+                                        class="page-link"
+                                        th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+                                </li>
+                                <li th:class="${events.number == 0} ? disabled" class="page-item" ><a
+                                        class="page-link"
+                                        th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${events.number})}">←</a>
+                                </li>
+                                <li
+                                        th:class="${events.number == (page - 1)} ? 'active pointer-disabled'"
+                                        th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                                    <a class="page-link"
+                                       th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                                       th:text="${page}"></a>
+                                </li>
+                                <li
+                                        th:class="${events.number + 1 == events.totalPages} ? disabled" class="page-item">
+                                    <a class="page-link"
+                                       th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${events.number + 2})}">→</a>
+                                </li>
+                                <li
+                                        th:class="${events.number + 1 == events.totalPages} ? disabled" class="page-item">
+                                    <a class="page-link"
+                                       th:href="@{/management/event/it(pageSize=${selectedPageSize}, page=${events.totalPages})}">»</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- AVAILABLE EVENTS END-->
+                <!-- ##### Footer Area Start ##### -->
+                <footer class="footer-area">
+                    <!-- Top Footer Area -->
+                    <div class="top-footer-area">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <!-- Footer Logo -->
+                                    <div class="footer-logo">
+                                        <a th:href="@{/}"><img th:src="@{/img/core-img/yesb.png}" alt=""></a>
+                                    </div>
+                                    <!-- Copywrite -->
+                                    <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
+                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Footer Area -->
+                    <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+                        <!-- Contact Info -->
+                        <div class="contact-info">
+                            <a href="#"><span>Phone:</span> +237 694 126 158</a>
+                            <a href="#"><span>Email:</span> admin@yesbanana.org</a>
+                        </div>
+                        <!-- Follow Us -->
+                        <div class="follow-us">
+                            <span>Suivez-nous</span>
+                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </footer>
+                <!-- ##### Footer Area End ##### -->
+            </div>
+            <!-- COLONIE DE VACANCES  END -->
+
         </div>
-        <!-- PROTECTION  END -->
-    </div>
 </div>
 
 <!-- navigation -->
