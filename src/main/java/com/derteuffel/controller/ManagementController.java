@@ -1931,13 +1931,21 @@ public class ManagementController {
                 .stream()
                 .map(file -> uploadFile(file))
                 .collect(Collectors.toList());
+        if (pieces.size() == 0) {
+            lesson.setPieces(lesson.getPieces());
+        }else {
         ArrayList<String> filesPaths = new ArrayList<String>();
         for(int i=0;i<pieces.size();i++)
         {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+                filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+        }
+            lesson.setPieces(filesPaths);
+
         }
 
-        lesson.setPieces(filesPaths);
+
         lesson.setPeriod(periodRepository.getOne((Long)session.getAttribute("periodId")));
         lessonRepository.save(lesson);
         return "redirect:/management/period/get/"+(Long)session.getAttribute("periodId");
@@ -1951,13 +1959,20 @@ public class ManagementController {
                 .stream()
                 .map(file -> uploadFile(file))
                 .collect(Collectors.toList());
-        ArrayList<String> filesPaths = new ArrayList<String>();
-        for(int i=0;i<pieces.size();i++)
-        {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        if (pieces.size() == 0) {
+            lesson.setPieces(lesson.getPieces());
+        }else {
+            ArrayList<String> filesPaths = new ArrayList<String>();
+            for(int i=0;i<pieces.size();i++)
+            {
+
+                filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+            }
+            lesson.setPieces(filesPaths);
+
         }
 
-        lesson.setPieces(filesPaths);
         lesson.setPeriod(periodRepository.getOne((Long)session.getAttribute("periodId")));
         lessonRepository.save(lesson);
         MailService mail= new MailService();
@@ -1977,10 +1992,14 @@ public class ManagementController {
                 .stream()
                 .map(file -> uploadFile(file))
                 .collect(Collectors.toList());
+
         ArrayList<String> filesPaths = new ArrayList<String>();
+
         for(int i=0;i<pieces.size();i++)
         {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+                filesPaths.add(pieces.get(i).getFileDownloadUri());
+
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
