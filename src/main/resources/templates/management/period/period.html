@@ -22,7 +22,7 @@
 
 <div class="container">
     <nav class="nav col-12 row" style="height: 5rem;" >
-        <a th:href="@{/groupe/groupes}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+        <a th:href="@{/management/course/get/}+${session.courseId}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
         <div class="col-11 offset-1 text-center"  style="left: 0;">
             <h3 class=" text-center " th:text="${period.periodName}"> Sous Titre de la formation ici celon la periode </h3>
         </div>
