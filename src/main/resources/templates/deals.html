@@ -1,256 +1,309 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Yesbanana</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 
-    <!-- Title -->
-    <title>yesbanana</title>
+  </head>
+  <body>
+    
+	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
+	    <div class="container">
+	      <a class="navbar-brand" th:href="@{/}"><span>Yes</span>banana</a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
 
-    <!-- Favicon -->
-    <link rel="icon" th:src="@{/core-img/logo-1.png}">
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item "><a th:href="@{/}" class="nav-link ">Accueil</a></li>
+	          <li class="nav-item active"><a th:href="@{/deals}" class="nav-link ">Commencez avec nous?</a></li></li>
+	  
+	          <li class="nav-item dropdown"><a th:href="#" class="nav-link " data-toggle="dropdown">Travailler avec nous</a>
+	          	<ul class="dropdown-menu">
 
-    <!-- Core Stylesheet -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style1.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/myStyle.css}">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+                                            <li class="dropdown-item" id="ender3">
+                                            	<a th:href="@{/visitor/student}" >Etudiant</a>
+                                            </li>
 
-</head>
+                                            <li class="dropdown-item" id="ender4"><a  th:href="@{/user/visitor/form}">Publication</a></li>
+                                            <li class="dropdown-item" id="starter1" ><a th:href="#" >Expert</a>
+                                                <ul id="hide1" >
+                                                    <li class="dropdown-item"><a class="black" th:href="@{/visitor/expert/universitory}">Universitaire</a></li>
+                                                    <li class="dropdown-item"><a class="black" th:href="@{/visitor/expert/professional}" id="ender1">Professionnel</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-item " id="starter2"><a th:href="#">Enseignant</a>
+                                                <ul id="hide2">
+                                                    <li class="dropdown-item"><a class="black" th:href="@{/visitor/teacher/primaire}">Primaire</a></li>
+                                                    <li class="dropdown-item" id="ender2"><a  class="black" th:href="@{/visitor/teacher/secondaire}">Secondaire</a></li>
+                                                </ul>
+                                            </li>
+                </ul>
+	          </li>
+	          <li class="nav-item nav-link" style="position:relative;right:-50px;"><a href="#" class="btn btn-primary">solutioneducationafrique@gmail.com</a></li>
 
-<body>
-<!-- ##### Preloader ##### -->
-<div id="preloader">
-    <i class="circle-preloader"></i>
-</div>
-
-<!-- ##### Header Area Start ##### -->
-<header class="header-area">
-
-    <!-- Top Header Area -->
-    <div class="top-header">
-        <div class="container h-100">
-            <div class="row h-100">
-                <div class="col-12 h-100">
-                    <div class="header-content h-100 d-flex align-items-center justify-content-between">
-                        <div class="academy-logo">
-                            <a th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+    <!-- END nav -->
+    
+      <section class="ftco-section testimony-section">
+      <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 text-center heading-section ftco-animate">
+          	
+            <h2 class="mb-4"><span>Nos</span> Services</h2>
+          </div>
         </div>
+        <div class="row ftco-animate">
+          <div class="col-md-12">
+            <div class="carousel-testimony owl-carousel ftco-owl">
+              <div class="item">
+                <div class="testimony-wrap text-center py-4 pb-5">
+                  <a th:href="@{/course/administration}">
+                  <div class="user-img mb-4" style="background-image: url(images/book.jfif)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                  </div>
+              		</a>
+                  <div class="text">
+                    <p class="mb-4">Administration et finances, Anglais <br> et/ou francais, IT, Wash, Resources <br>
+                        Humaines, Leadership, Management<br> Logistique<br></p>
+                    <h3 class="name">Formation professionnelle</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="testimony-wrap text-center py-4 pb-5">
+                   <a th:href="@{/external/secure/country/countries}">
+                   <div class="user-img mb-4" style="background-image: url(images/book.jfif)">
+                    	<span class="quote d-flex align-items-center justify-content-center">
+                      	<i class="icon-quote-left"></i>
+                    	</span>
+                  	</div>
+              		</a>
+                  <div class="text">
+                    <p class="mb-4">Sujets, Logement, Transport, Approvisionnement</p>
+                    <br><br>
+                    <p class="name">Université</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="item">
+                <div class="testimony-wrap text-center py-4 pb-5">
+                	<a th:href="@{/school/project}">
+                  <div class="user-img mb-4" style="background-image: url(images/book.jfif)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                  </div>
+              		</a>
+                  <div class="text">
+                    <p class="mb-4">Concours de projets, Conseils,<br>Accompagnement d'un expert<br><br><br></p>
+                    <h3 class="name">Concours des talents et projets</h3>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="item">
+                <div class="testimony-wrap text-center py-4 pb-5">
+                	<a th:href="@{/other/services}">
+                  <div class="user-img mb-4" style="background-image: url(images/book.jfif)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                  </div>
+              </a>
+                  <div class="text">
+                    <p class="mb-4">Petits jobs et stages pour etudiants <br>
+                        pendant de courtes périodes.</p><br><br>
+                    <p class="name">Jobs et Stages</p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="testimony-wrap text-center py-4 pb-5">
+                  <a th:href="@{/other/markets}">
+                  <div class="user-img mb-4" style="background-image: url(images/food.jfif)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                  </div>
+              		</a>
+                  <div class="text">
+
+                    <p class="mb-4"><br>faite vos achats directement sur notre plateforme.</p><br>
+                    <p class="name">Super marché en ligne</p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="testimony-wrap text-center py-4 pb-5">
+                  <a th:href="@{/education}" class="btn">
+                  	<div class="user-img mb-4" style="background-image: url(images/book.jfif)">
+                    	<span class="quote d-flex align-items-center justify-content-center">
+                      	<i class="icon-quote-left"></i>
+                    	</span>
+                 	 </div>
+              		</a>
+                  <div class="text">
+                    <p class="mb-4">Cours d'appui, Transport sécurisé, colonie des vacances, jeu<br>éducatif, Cours d'anglais et/ou<br>francais, Bibliothèque en ligne</p>
+                    <p class="name">Education Primaire et secondaires</p>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     </div>
 
-    <!-- Navbar Area -->
-    <div class="academy-main-menu">
-        <div class="classy-nav-container breakpoint-off">
-            <div class="container">
-                <!-- Menu -->
-                <nav class="classy-navbar justify-content-between" id="academyNav">
+    	
 
-                    <!-- Navbar Toggler -->
-                    <div class="classy-navbar-toggler">
-                        <span class="navbarToggler"><span></span><span></span><span></span></span>
-                    </div>
-
-                    <!-- Menu -->
-                    <div class="classy-menu">
-
-                        <!-- close btn -->
-                        <div class="classycloseIcon">
-                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                        </div>
-
-                        <!-- Nav Start -->
-                        <div class="classynav">
-                            <ul>
-                                <li><a th:href="@{/}">Acceuil</a></li>
-                                <li><a th:href="@{/deals}">Commencez avec nous?</a></li>
-                                <li><a href="#">Travailler avec nous</a>
-                                    <ul class="dropdown">
-                                        <li><a href="#">Expert</a>
-                                            <ul class="dropdown">
-                                                <li><a th:href="@{/visitor/expert/universitory}">Universitaire</a></li>
-                                                <li><a th:href="@{/visitor/expert/professional}">Professionnel</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a th:href="@{/visitor/student}">Etudiant</a></li>
-                                        <li><a href="#">Enseignant</a>
-                                            <ul class="dropdown">
-                                                <li><a th:href="@{/visitor/teacher/primaire}">Primaire</a></li>
-                                                <li><a th:href="@{/visitor/teacher/secondaire}">Secondaire</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a th:href="@{/user/visitor/form}">Publication</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Nav End -->
-                    </div>
-
-                    <!-- Calling Info -->
-                    <div class="calling-info">
-                        <div class="call-center">
-                            <a href="#"> <span>solutioneducationafrique@gmail.com</span></a>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </div>
-</header>
-<!-- ##### Header Area End ##### -->
-
-
-<!-- ##### Course Area Start ##### -->
-<div class="academy-courses-area section-padding-100-0">
-    <div class="container">
-        <div class="row">
-            <!-- Single Course Area -->
-            <div class="col-12 col-sm-6 col-lg-4" style="padding: 0.5rem;">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp card" data-wow-delay="300ms" style="height: 300px;">
-                    <a th:href="@{/external/secure/country/countries}">
-                    <div class="course-icon">
-                        <i class="icon-id-card"></i>
-                    </div>
-                    <div class="course-content">
-                        <h4>Université</h4>
-                        <p>Sujets, Logement, Transport, Approvi-<br>sionnement</p>
-                    </div>
-                </a>
-                </div>
-            </div>
-            <!-- Single Course Area -->
-            <!--div class="col-12 col-sm-6 col-lg-4" style="padding: 0.5rem;">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp card" data-wow-delay="400ms" style="height: 300px;">
-                    <a th:href="@{/education}" class="btn">
-                    <div class="course-icon">
-                        <i class="icon-worldwide"></i>
-                    </div>
-                    <div class="course-content">
-                        <h5>Education Primaire et <br>secondaire</h5>
-                        <p>Cours d'appui, Transport sécu-<br>risé, colonie des vacances, jeu<br>éducatif, Cours d'anglais et/ou<br>francais, Bibliothèque en ligne</p>
-                    </div>
-                    </a>
-                </div>
-            </div-->
-            <!-- Single Course Area -->
-            <!--div class="col-12 col-sm-6 col-lg-4" style="padding: 0.5rem;">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp card" data-wow-delay="500ms" style="height: 300px;">
-                    <a th:href="@{/school/project}">
-                    <div class="course-icon">
-                        <i class="icon-map"></i>
-                    </div>
-                    <div class="course-content">
-                        <h5>Concours des talents et<br> projets</h5>
-                        <p>Concours de projets, Conseils,<br>Accompagnement d'un expert</p>
-                    </div>
-                    </a>
-                </div>
-            </div-->
-            <!-- Single Course Area -->
-            <div class="col-12 col-sm-6 col-lg-4" style="padding: 0.5rem;">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp card" data-wow-delay="600ms" style="height: 300px;">
-                    <a th:href="@{/course/administration}">
-                    <div class="course-icon">
-                        <i class="icon-like"></i>
-                    </div>
-                    <div class="course-content">
-                         <h5>Formation professionnelle</h5>
-                        <p>Administration et finances, Anglais <br> et/ou francais, IT, Wash, Resources <br>
-                        Humaines, Leadership, Management<br> Logistique</p>
-                    </div>
-                    </a>
-                </div>
-            </div>
-            <!-- Single Course Area -->
-            <!--div class="col-12 col-sm-6 col-lg-4" style="padding: 0.5rem;">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp card" data-wow-delay="700ms" style="height: 300px;">
-                    <a th:href="@{/other/services}">
-                    <div class="course-icon">
-                        <i class="icon-responsive"></i>
-                    </div>
-                    <div class="course-content">
-                        <h4>Jobs et Stages</h4>
-                        <p>Petits jobs et stages pour etudiants <br>
-                        pendant de courtes périodes</p>
-                    </div>
-                    </a>
-                </div>
-            </div>
-            <!-- Single Course Area -->
-            <!--div class="col-12 col-sm-6 col-lg-4" style="padding: 0.5rem;">
-                <div class="single-course-area d-flex align-items-center mb-100 wow fadeInUp card" data-wow-delay="800ms" style="height: 300px;">
-                    <a th:href="@{/other/markets}">
-                    <div class="course-icon">
-                        <i class="icon-message"></i>
-                    </div>
-                    <div class="course-content">
-                         <h4>Super marché en ligne</h4>
-                    </div>
-                    </a>
-                </div>
-            </div-->
-        </div>
-    </div>
-</div>
-<!-- ##### Course Area End ##### -->
-
-<!-- ##### Footer Area Start ##### -->
-<footer class="footer-area">
-    <!-- Top Footer Area -->
-    <div class="top-footer-area">
+		<section class="ftco-section-parallax">
+      <div class="parallax-img d-flex align-items-center">
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <!-- Footer Logo -->
-                    <div class="footer-logo">
-                        <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a>
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+              <h2>Souscrivez a notre  Newsletter</h2>
+              <p>Restez informer en souscrivant a notre service de messagerie.</p>
+              <div class="row d-flex justify-content-center mt-4 mb-4">
+                <div class="col-md-8">
+                  <form action="#" class="subscribe-form">
+                    <div class="form-group d-flex">
+                      <input type="text" class="form-control" placeholder="Entrer votre adresse email">
+                      <input type="submit" value="Souscrire" class="submit px-3">
                     </div>
-                    <!-- Copywrite -->
-                    <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                  </form>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
 
-    <!-- Bottom Footer Area -->
-    <div class="bottom-footer-area d-flex justify-content-between align-items-center">
-        <!-- Contact Info -->
-        <div class="contact-info">
-            <a href="#"><span>Phone:</span> +237 694 126 158</a>
-            <a href="#"><span>Email:</span> admin@yesbanana.org</a>
+    
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Yesbanana</h2>
+              <p>Votre plateforme digitale qui vous ouvre les portes du savoir dans toute son entiereté et sa rigueur.</p>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-5">
+              <h2 class="ftco-heading-2">Liens Utiles</h2>
+              <ul class="list-unstyled">
+                <li><a href="#" class="py-2 d-block">Nos services</a></li>
+                <li><a href="#" class="py-2 d-block">autres informations</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+             <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Confidentialité</h2>
+              <ul class="list-unstyled">
+                <li><a href="#" class="py-2 d-block">A propos</a></li>
+                <li><a href="#" class="py-2 d-block">Conditions d'utilisations</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+            	<h2 class="ftco-heading-2">Des Questions?</h2>
+            	<div class="block-23 mb-3">
+	              <ul>
+	                <li><span class="icon icon-map-marker"></span><span class="text">Congo Kinshasa</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+237694126158 +23793063228</span></a></li>
+	                <li><span></span><span class="text"></span></a></li>
+	              </ul>
+	            </div>
+            </div>
+          </div>
         </div>
-        <!-- Follow Us -->
-        <div class="follow-us">
-            <span>Suivez-nous</span>
-            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-        </div>
-    </div>
-</footer>
-<!-- ##### Footer Area End ##### -->
+      </div>
+    </footer>
+    
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-<!-- ##### All Javascript Script ##### -->
-<!-- jQuery-2.2.4 js -->
-<script src="js/jquery/jquery-2.2.4.min.js"></script>
-<!-- Popper js -->
-<script src="js/bootstrap/popper.min.js"></script>
-<!-- Bootstrap js -->
-<script src="js/bootstrap/bootstrap.min.js"></script>
-<!-- All Plugins js -->
-<script src="js/plugins/plugins.js"></script>
-<!-- Active js -->
-<script src="js/active.js"></script>
-</body>
 
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+  <script src="js/jquery.timepicker.min.js"></script>
+  <script src="js/scrollax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="js/google-map.js"></script>
+  <script src="js/main.js"></script>
+   <script type="text/javascript">
+   	$("#hide1").css("display","none");
+   	$("#hide2").css("display","none");
+   	$("#starter1").hover(function(){
+   		$("#hide1").css("display","block");
+   		
+   		$("#hide2").css("display","none");
+   	})
+   	$("#starter2").hover(function(){
+   		$("#hide2").css("display","block");
+   		$("#hide1").css("display","none");
+   		
+   	})
+
+   	$("#ender1").hover(function(){
+   	},function(){
+   		$("#hide1").css("display","none");
+
+   	})
+
+   	$("#ender3").hover(function(){
+   		$("#hide1").css("display","none");
+   		$("#hide2").css("display","none");
+   	},function(){})
+   	$("#ender4").hover(
+   		function(){
+   			$("#hide1").css("display","none");
+   		$("#hide2").css("display","none");},
+   		function(){})
+   </script>
+  </body>
 </html>
