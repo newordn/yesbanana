@@ -128,7 +128,7 @@
 
         </div>
     </div>
-    <div  style="text-align: center">
+    <div class="mt-3" style="text-align: center">
         <a class="btn btn-primary" th:href="@{/event/admin}">voir plus <i class="fa fa-long-arrow-right"></i></a>
     </div>
     <div class="row " style="bottom: 1rem;width: 100%;display: none">
@@ -250,59 +250,6 @@
         </div>
     </div>
 </section>
-<div class="pagination-div" style="display: none;">
-                    <span th:if="${courses.hasPrevious()}">
-                        <a th:href="@{/course/all(courses1=${courses.number-1},size=${courses.size})}">Previous</a>
-                    </span>
-                    <th:block th:each="i: ${#numbers.sequence(0, courses.totalPages - 1)}">
-                        <span th:if="${courses.number == i}" class="selected">[[${i}+1]]</span>
-                        <span th:unless="${courses.number == i}">
-                            <a th:href="@{/course/all(courses=${i},size=${courses.size})}">[[${i}+1]]</a>
-                         </span>
-                    </th:block>
-                    <span th:if="${courses.hasNext()}">
-                        <a th:href="@{/course/all(courses=${courses.number+1},size=${courses.size})}">Next</a>
-                    </span>
-                </div>
- <div class="row " style="bottom: 1rem;width: 100%;display: none">
-                    <div class="form-group col-12 col-sm-6 col-lg-3">
-                        <select class="form-control pagination" id="pageSizeSelect">
-                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
-                                    th:value="${pageSize}"
-                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
-                        </select>
-                    </div>
-                    <div th:if="${lists.totalPages != 1}"
-                         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
-                        <ul class="pagination">
-                            <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
-                                    class="page-link"
-                                    th:href="@{/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
-                            </li>
-                            <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
-                                    class="page-link"
-                                    th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.number})}">←</a>
-                            </li>
-                            <li
-                                    th:class="${lists.number == (page - 1)} ? 'active pointer-disabled'"
-                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
-                                <a class="page-link"
-                                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${page})}"
-                                   th:text="${page}"></a>
-                            </li>
-                            <li
-                                    th:class="${lists.number + 1 == lists.totalPages} ? disabled" class="page-item">
-                                <a class="page-link"
-                                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.number + 2})}">→</a>
-                            </li>
-                            <li
-                                    th:class="${lists.number + 1 == lists.totalPages} ? disabled" class="page-item">
-                                <a class="page-link"
-                                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.totalPages})}">»</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
 <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">
         <div class="row mb-5">
