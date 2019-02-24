@@ -103,7 +103,7 @@
         <div class="row d-flex">
 
             <div class="col-md-4 d-flex ftco-animate" th:each=" admin : ${lists}" style="height:600px">
-                <a th:href="@{/event/get/}+${admin.eventId}">
+                <a th:href="@{/event/get/}+${admin.eventId}" style="color:black">
                     <div class="blog-entry justify-content-end">
                         <span  class="block-20" style="background-image: url('images/image_1.jpg');" th:style="'background-image:url(' + @{${admin?.image}} + ');'">
                         </span>
@@ -113,7 +113,7 @@
                                     <span class="day" th:text="'$'+${admin?.price}">$14</span>
                                 </div>
                             </div>
-                            <h3 class="heading mt-2"><a href="#" th:text="${admin?.title}"> Conférence autour de l'énergie.</a></h3>
+                            <h3 class="heading mt-2"><span href="#" th:text="${admin?.title}"> Conférence autour de l'énergie.</span></h3>
                             <p th:text="${admin.description}"></p>
                             mise en ligne le : 
                             <p th:text="${admin?.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
