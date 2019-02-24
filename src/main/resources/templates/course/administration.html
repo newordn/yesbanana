@@ -65,8 +65,8 @@
                         <span class="price"><sup>$</sup> <span class="number" th:text="${course.price}">100</span></span>
                         <span class="excerpt d-block">par formation</span>
                         <p th:text="${course.description}">c'est un module permettant de maitriser le monde des affaires.<br><br><br>
-                            <a th:href="@{/course/get/}+${course.courseId}" class="btn btn-primary d-block" style="position: relative">Details</a>
                         </p>
+                        <a th:href="@{/course/get/}+${course.courseId}" class="btn btn-primary d-block" style="position: relative">Details</a>
                     </div>
                 </div>
             </div>
