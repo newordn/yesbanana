@@ -40,7 +40,7 @@
                 <li class="nav-item"><a th:href="@{/course/resource}" class="nav-link " data-toggle="dropdown">Resources Humaines</a>
 
                 </li>
-                <li class="nav-item"><a th:href="@{/course/alphabetisations}" class="nav-link">Alphabetisation</a></li>
+                <li class="nav-item"><a th:href="@{/course/alphabetisations}" class="nav-link">Alphabétisation</a></li>
                 <li class="nav-item"><a th:href="@{/course/entreprenariats}" class="nav-link">Entrepreneuriat</a></li>
 
             </ul>
@@ -58,8 +58,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 ftco-animate">
-                <div class="block-7" style="height: 400px;" th:each="course : ${courses1}">
+            <div class="col-md-4 ftco-animate" th:each="course : ${courses1}">
+                <div class="block-7" style="height: 400px;" >
                     <div class="text-center">
                         <h2 class="heading"><span th:text="${course.title}">Gestion des affaires</span></h2>
                         <span class="price"><sup>$</sup> <span class="number" th:text="${course.price}">100</span></span>
