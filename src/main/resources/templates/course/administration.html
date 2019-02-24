@@ -64,7 +64,7 @@
                         <h2 class="heading"><span th:text="${course.title}">Gestion des affaires</span></h2>
                         <span class="price"><sup>$</sup> <span class="number" th:text="${course.price}">100</span></span>
                         <span class="excerpt d-block">par formation</span>
-                        <p th:text="${course.description}">c'est un module permettant de maitriser le monde des affaires.<br><br><br>
+                        <p th:text="${course.description}">c'est un module permettant de maitriser le monde des affaires.<br>
                             <a href="#" class="btn btn-primary d-block" style="position: relative">details</a>
                         </p>
                     </div>
@@ -88,7 +88,6 @@
         </div>
         <div class="row d-flex">
             <div class="col-md-4 d-flex ftco-animate" th:each=" admin : ${lists}" style="height:600px">
-                <a th:href="@{/event/get/} + ${admin.eventId}">
                     <div class="blog-entry justify-content-end">
                         <a href="blog-single.html" class="block-20" th:style="'background-image:url(' + @{${admin?.image}} + ');'">
                         </a>
@@ -99,14 +98,14 @@
                                 </div>
                             </div>
                             <h3 class="heading mt-2"><a href="#" th:text="${admin?.title}"> Conférence autour de l'énergie.</a></h3>
-                            date de mise en ligne : 
+                            mise en ligne le : 
                             <p th:text="${admin?.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                            <br>
-                            date d'écheance :  
+                            
+                            date de début:  
                             <span th:text="${admin?.releaseDate}">12/18/2019</span>
                         </div>
                     </div>
-                </a>
+                
             </div>
 
         </div>
@@ -196,7 +195,20 @@
         </div>
     </div>
 </section>
-
+<div class="pagination-div" style="display: none;">
+                    <span th:if="${courses.hasPrevious()}">
+                        <a th:href="@{/course/all(courses1=${courses.number-1},size=${courses.size})}">Previous</a>
+                    </span>
+                    <th:block th:each="i: ${#numbers.sequence(0, courses.totalPages - 1)}">
+                        <span th:if="${courses.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${courses.number == i}">
+                            <a th:href="@{/course/all(courses=${i},size=${courses.size})}">[[${i}+1]]</a>
+                         </span>
+                    </th:block>
+                    <span th:if="${courses.hasNext()}">
+                        <a th:href="@{/course/all(courses=${courses.number+1},size=${courses.size})}">Next</a>
+                    </span>
+                </div>
  <div class="row " style="bottom: 1rem;width: 100%;display: none">
                     <div class="form-group col-12 col-sm-6 col-lg-3">
                         <select class="form-control pagination" id="pageSizeSelect">
