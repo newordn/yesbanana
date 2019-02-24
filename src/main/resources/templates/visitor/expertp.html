@@ -132,14 +132,102 @@
                     <div class="form-group">
                         <input type="text" class="form-control" name="faculty" id="faculty" placeholder="Votre Faculté" >
                     </div>
+                    <p>Photo:</p>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Subject">
+                        <input type="file" class="form-control-file border" name="file" id="avatar" placeholder="Votre photo de photo" >
+                    </div>
+                    <span class='error' id="anotherError"></span>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="anotherDetail" placeholder="Autres Informations sur vous">
                     </div>
                     <div class="form-group">
-                        <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                        <select  class="form-control" name="diplom" id="diplom">
+                            <option value="">Selectionner votre diplome</option>
+                            <option value="">choisir un niveau</option>
+                            <option value="Master1&2">Master1&2</option>
+                            <option value="Phd/Doctorat">Phd/Doctorat</option>
+                        </select>
+                    </div>
+                    <p>CV:</p>
+                    <div class="form-group">
+                        <input type="file" class="form-control-file border" name="file" id="cv" placeholder="Votre photo de photo" >
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+                        <table class="table table-bordered table-striped table-highlight">
+                            <thead>
+                            <tr>
+                                <th>Année</th>
+                                <th>Master1&2</th>
+                                <th>Phd/Doctorat</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>2 à 3 ans</td>
+                                <td>
+                                    <input type="checkbox" name="amount" th:checked="${amount}"
+                                           th:value="${100}" th:text="${100}" />
+                                    <input type="text" name="experienceYear" value="2 à 3 ans"
+                                           style="display: none" />
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="amount" th:checked="${amount}"
+                                           th:value="${150}" th:text="${150}" />
+                                    <input type="text" name="experienceYear" value="2 à 3 ans"
+                                           style="display: none" />
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4 à 8 ans</td>
+                                <td>
+                                    <input type="checkbox" name="amount" th:checked="${amount}"
+                                           th:value="${200}" th:text="${200}" />
+                                    <input type="text" name="experienceYear" value="4 à 8 ans"
+                                           style="display: none" />
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="amount" th:checked="${amount}"
+                                           th:value="${250}" th:text="${250}" />
+                                    <input type="text" name="experienceYear" value="4 à 8 ans"
+                                           style="display: none" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>9 à 12 ans</td>
+                                <td>
+                                    <input type="checkbox" name="amount" th:checked="${amount}"
+                                           th:value="${300}" th:text="${300}" />
+                                    <input type="text" name="experienceYear" value="9 à 12 ans"
+                                           style="display: none" />
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="amount" th:checked="${amount}"
+                                           th:value="${350}" th:text="${350}" />
+                                    <input type="text" name="experienceYear" value="9 à 12 ans"
+                                           style="display: none" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>12 ans à +</td>
+                                <td>
+                                    <input type="checkbox" name="amount" th:checked="${amount}"
+                                           th:value="${500}" th:text="${500}" />
+                                    <input type="text" name="experienceYear" value="12 ans et +"
+                                           style="display: none" />
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="amount" th:checked="${amount}"
+                                           th:value="${600}" th:text="${600}" />
+                                    <input type="text" name="experienceYear" value="12 ans et +"
+                                           style="display: none" />
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Validé" class="btn btn-primary py-3 px-5">
                     </div>
                 </form>
 
