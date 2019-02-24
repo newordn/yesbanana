@@ -37,15 +37,16 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a th:href="@{/course/administration}" class="nav-link ">Administration et Finances <i class="ion-ios-arrow-forward"></i></a></li>
+                <!--li class="nav-item active"><a th:href="@{/course/administration}" class="nav-link ">Administration et Finances <i class="ion-ios-arrow-forward"></i></a></li>
                 <li class="nav-item "><a href="#" class="nav-link ">Voir plus</a></li>
-                <!--li class="nav-item "><a th:href="@{/course/languages}" class="nav-link ">Anglais et/ou Francais</a></li></li>
+                <li class="nav-item "><a th:href="@{/course/languages}" class="nav-link ">Anglais et/ou Francais</a></li></li>
 
                 <li class="nav-item"><a th:href="@{/course/resource}" class="nav-link " data-toggle="dropdown">Resources Humaines</a>
 
-                </li>
-                <li class="nav-item"><a th:href="@{/course/alphabetisations}" class="nav-link">Alphabétisation</a></li>
-                <li class="nav-item"><a th:href="@{/course/entreprenariats}" class="nav-link">Entrepreneuriat</a></li-->
+                </li-->
+                <li class="nav-item"><a th:href="@{/course/alphabetisations}" class="nav-link">Alphabétisation <i class="ion-ios-arrow-forward"></i></a></li>
+                <li class="nav-item "><a href="#" class="nav-link ">Voir plus</a></li>
+                <!--li class="nav-item"><a th:href="@{/course/entreprenariats}" class="nav-link">Entrepreneuriat</a></li-->
 
             </ul>
         </div>
@@ -57,7 +58,7 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 heading-section ftco-animate text-center">
-                <h3 >Administration et Finances <i class="ion-ios-arrow-forward"></i> Voir plus</h3>
+                <h3 >Alphabetisation <i class="ion-ios-arrow-forward"></i> Voir plus</h3>
                 <h3 class="mb-1">Cours en ligne</h3>
             </div>
         </div>
@@ -90,25 +91,25 @@
             <ul class="pagination">
                 <li th:class="${courses.number == 0} ? disabled" class="page-item" ><a
                         class="page-link"
-                        th:href="@{/course/admin(pageSize=${selectedPageSize}, page=1)}">«</a>
+                        th:href="@{/course/alphabetisation(pageSize=${selectedPageSize}, page=1)}">«</a>
                 </li>
 
                 <li
                         th:class="${courses.number == (page - 1)} ? 'active pointer-disabled'"
                         th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
                     <a class="page-link"
-                       th:href="@{/course/admin(pageSize=${selectedPageSize}, page=${page})}"
+                       th:href="@{/course/alphabetisation(pageSize=${selectedPageSize}, page=${page})}"
                        th:text="${page}"></a>
                 </li>
                 <li
                         th:class="${courses.number + 1 == courses.totalPages} ? disabled" class="page-item">
                     <a class="page-link"
-                       th:href="@{/course/admin(pageSize=${selectedPageSize}, page=${courses.number + 2})}">→</a>
+                       th:href="@{/course/alphabetisation(pageSize=${selectedPageSize}, page=${courses.number + 2})}">→</a>
                 </li>
                 <li
                         th:class="${courses.number + 1 == courses.totalPages} ? disabled" class="page-item">
                     <a class="page-link"
-                       th:href="@{/course/admin(pageSize=${selectedPageSize}, page=${courses.totalPages})}">»</a>
+                       th:href="@{/course/alphabetisation(pageSize=${selectedPageSize}, page=${courses.totalPages})}">»</a>
                 </li>
             </ul>
         </div>
@@ -246,7 +247,7 @@
     });
     function changePageAndSize() {
         $('#pageSizeSelect').change(function(evt) {
-            window.location.replace("/course/admin?pageSize=" + this.value + "&page=1");
+            window.location.replace("/course/alphabetisation?pageSize=" + this.value + "&page=1");
         });
     }
     /*]]>*/
