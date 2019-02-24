@@ -34,13 +34,13 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a th:href="@{/course/administration}" class="nav-link ">Administration et Finances</a></li>
-                <li class="nav-item "><a th:href="@{/course/languages}" class="nav-link ">Anglais et/ou Francais</a></li></li>
+                <li class="nav-item"><a th:href="@{/course/administration}" class="nav-link ">Administration et Finances</a></li>
+                <li class="nav-item"><a th:href="@{/course/languages}" class="nav-link ">Anglais et/ou Francais</a></li></li>
 
-                <li class="nav-item"><a th:href="@{/course/resource}" class="nav-link " data-toggle="dropdown">Resources Humaines</a>
+                <li class="nav-item"><a th:href="@{/course/resource}" class="nav-link ">Resources Humaines</a>
 
                 </li>
-                <li class="nav-item"><a th:href="@{/course/alphabetisations}" class="nav-link">Alphabétisation</a></li>
+                <li class="nav-item active"><a th:href="@{/course/alphabetisations}" class="nav-link">Alphabétisation</a></li>
                 <li class="nav-item"><a th:href="@{/course/entreprenariats}" class="nav-link">Entrepreneuriat</a></li>
 
             </ul>
@@ -53,21 +53,20 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 heading-section ftco-animate text-center">
-                <h2 >Administration et Finances</h2>
+                <h2 >Alphabétisation</h2>
                 <h3 class="mb-1">Cours en ligne</h3>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4 ftco-animate" th:each="course : ${courses}">
-
                 <div class="block-7" style="height: 400px;" >
                     <div class="text-center">
                         <h2 class="heading"><span th:text="${course.title}">Gestion des affaires</span></h2>
                         <span class="price"><sup>$</sup> <span class="number" th:text="${course.price}">100</span></span>
                         <span class="excerpt d-block">par formation</span>
                         <p th:text="${course.description}">c'est un module permettant de maitriser le monde des affaires.<br><br><br>
-                            <a href="#" class="btn btn-primary d-block" style="position: relative">details</a>
                         </p>
+                        <a th:href="@{/course/get/}+${course.courseId}" class="btn btn-primary d-block" style="position: relative">Details</a>
                     </div>
                 </div>
             </div>
@@ -75,7 +74,7 @@
         </div>
     </div>
     <div  style="text-align: center">
-        <a class="btn btn-primary" th:href="@{/course/admin}">voir plus <i class="fa fa-long-arrow-right"></i></a>
+        <a class="btn btn-primary" th:href="@{/course/alphabetisation}">voir plus <i class="fa fa-long-arrow-right"></i></a>
     </div>
     <div class="pagination-div" style="display: none;">
                     <span th:if="${courses.hasPrevious()}">
@@ -102,32 +101,35 @@
             </div>
         </div>
         <div class="row d-flex">
+
             <div class="col-md-4 d-flex ftco-animate" th:each=" admin : ${lists}" style="height:600px">
-                <a th:href="@{/event/get/} + ${admin.eventId}">
+                <a th:href="@{/event/get/}+${admin.eventId}" style="color:black">
                     <div class="blog-entry justify-content-end">
-                        <a href="blog-single.html" class="block-20" th:style="'background-image:url(' + @{${admin?.image}} + ');'">
-                        </a>
+                        <span  class="block-20" style="background-image: url('images/image_1.jpg');" th:style="'background-image:url(' + @{${admin?.image}} + ');'">
+                        </span>
                         <div class="text p-4 float-right d-block">
                             <div class="d-flex align-items-center pt-2 mb-4">
                                 <div class="one">
                                     <span class="day" th:text="'$'+${admin?.price}">$14</span>
                                 </div>
                             </div>
-                            <h3 class="heading mt-2"><a href="#" th:text="${admin?.title}"> Conférence autour de l'énergie.</a></h3>
-                            date de mise en ligne :
+                            <h3 class="heading mt-2"><span href="#" th:text="${admin?.title}"> Conférence autour de l'énergie.</span></h3>
+                            <p th:text="${admin.description}"></p>
+                            mise en ligne le : 
                             <p th:text="${admin?.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                            <br>
-                            date d'écheance :
+                            
+                            date de début:  
                             <span th:text="${admin?.releaseDate}">12/18/2019</span>
                         </div>
                     </div>
                 </a>
+                
             </div>
 
         </div>
     </div>
     <div  style="text-align: center">
-        <a class="btn btn-primary" th:href="@{/event/admin}">voir plus <i class="fa fa-long-arrow-right"></i></a>
+        <a class="btn btn-primary" th:href="@{/event/alphabetisation}">voir plus <i class="fa fa-long-arrow-right"></i></a>
     </div>
     <div class="row " style="bottom: 1rem;width: 100%;display: none">
         <div class="form-group col-12 col-sm-6 col-lg-3">
@@ -171,7 +173,6 @@
     </div>
 </section>
 
-</div>
 
 <section class="ftco-counter img" id="section-counter">
     <div class="container">
@@ -249,46 +250,59 @@
         </div>
     </div>
 </section>
-
-<div class="row " style="bottom: 1rem;width: 100%;display: none">
-    <div class="form-group col-12 col-sm-6 col-lg-3">
-        <select class="form-control pagination" id="pageSizeSelect">
-            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
-                    th:value="${pageSize}"
-                    th:selected="${pageSize} == ${selectedPageSize}"></option>
-        </select>
-    </div>
-    <div th:if="${lists.totalPages != 1}"
-         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
-        <ul class="pagination">
-            <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
-                    class="page-link"
-                    th:href="@{/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
-            </li>
-            <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
-                    class="page-link"
-                    th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.number})}">←</a>
-            </li>
-            <li
-                    th:class="${lists.number == (page - 1)} ? 'active pointer-disabled'"
-                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
-                <a class="page-link"
-                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${page})}"
-                   th:text="${page}"></a>
-            </li>
-            <li
-                    th:class="${lists.number + 1 == lists.totalPages} ? disabled" class="page-item">
-                <a class="page-link"
-                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.number + 2})}">→</a>
-            </li>
-            <li
-                    th:class="${lists.number + 1 == lists.totalPages} ? disabled" class="page-item">
-                <a class="page-link"
-                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.totalPages})}">»</a>
-            </li>
-        </ul>
-    </div>
-</div>
+<div class="pagination-div" style="display: none;">
+                    <span th:if="${courses.hasPrevious()}">
+                        <a th:href="@{/course/all(courses1=${courses.number-1},size=${courses.size})}">Previous</a>
+                    </span>
+                    <th:block th:each="i: ${#numbers.sequence(0, courses.totalPages - 1)}">
+                        <span th:if="${courses.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${courses.number == i}">
+                            <a th:href="@{/course/all(courses=${i},size=${courses.size})}">[[${i}+1]]</a>
+                         </span>
+                    </th:block>
+                    <span th:if="${courses.hasNext()}">
+                        <a th:href="@{/course/all(courses=${courses.number+1},size=${courses.size})}">Next</a>
+                    </span>
+                </div>
+ <div class="row " style="bottom: 1rem;width: 100%;display: none">
+                    <div class="form-group col-12 col-sm-6 col-lg-3">
+                        <select class="form-control pagination" id="pageSizeSelect">
+                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                    th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${lists.totalPages != 1}"
+                         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+                        <ul class="pagination">
+                            <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            </li>
+                            <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.number})}">←</a>
+                            </li>
+                            <li
+                                    th:class="${lists.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                                <a class="page-link"
+                                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li
+                                    th:class="${lists.number + 1 == lists.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.number + 2})}">→</a>
+                            </li>
+                            <li
+                                    th:class="${lists.number + 1 == lists.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.totalPages})}">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">
         <div class="row mb-5">
