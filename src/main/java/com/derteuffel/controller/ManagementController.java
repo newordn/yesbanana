@@ -2069,11 +2069,39 @@ public class ManagementController {
     // Event management methods start
 
     @GetMapping("/event/get/{eventId}")
-    public String event(Model model, @PathVariable Long eventId){
-
+    public String event(Model model, @PathVariable Long eventId, HttpSession session){
+    session.setAttribute("eventId", eventId);
         Optional<Event> optional= eventRepository.findById(eventId);
         model.addAttribute("event", optional.get());
         return "management/event/course/event";
+    }
+
+    String[] typePaiement= {"Carte Bancaire","Orange Money","Mobile Money","PayPal"};
+    @GetMapping("/event/reserve/form/{eventId}")
+    public String eventReservation(@PathVariable Long eventId, Model model, HttpSession session){
+
+        Optional<Event> event= eventRepository.findById(eventId);
+        session.setAttribute("regionId", event.get().getRegion().getRegionId());
+        model.addAttribute("typePaiements",typePaiement);
+        model.addAttribute("event",event.get());
+
+        return "management/event/course/reserve";
+    }
+
+    @PostMapping("/event/course/reserve/{eventId}")
+    public String reserve(Event event, String typePaiement, String adresse, HttpSession session){
+
+        event.setRegion(regionRepository.getOne((Long)session.getAttribute("regionId")));
+        eventRepository.save(event);
+
+        MailService mailService= new MailService();
+       // mailService.sendSimpleMessage("solutioneducationafrique@gmail.com",
+        mailService.sendSimpleMessage("derteuffel0@gmail.com",
+                "Notification de reservation d'un Cours dans formation Professionnelle",
+                "Vous avez une nouvelle reservation sur la formation: "+ event.getTitle()+ " dans le Module : "+event.getType().toUpperCase()
+                +" Veuillez vous connecter pour prendre le controle de ce client qui souhaite effectuer un paiement à partir de "+typePaiement+" et son adresse Email "+ adresse
+                );
+        return "redirect:/management/event/get/"+event.getEventId();
     }
 
     @GetMapping("/event/course/form")
@@ -2116,6 +2144,40 @@ public class ManagementController {
 
         }else {
             return "redirect:/management/event/wash";
+
+        }
+    }
+
+
+    @GetMapping("/course/all")
+    public String getGeneralEvent(HttpSession session){
+
+       Optional<Event>  event= eventRepository.findById((Long)session.getAttribute("eventId"));
+        if (event.get().getType().equals("administration et finance")){
+            return "redirect:/management/course/administration";
+        }else if (event.get().getType().equals("protection")){
+            return "redirect:/management/course/protection";
+
+        }else if (event.get().getType().equals("resources humaines")){
+            return "redirect:/management/course/resources";
+
+        }else if (event.get().getType().equals("anglais et/ou francais")){
+            return "redirect:/management/course/language";
+
+        }else if (event.get().getType().equals("it")){
+            return "redirect:/management/course/it";
+
+        }else if (event.get().getType().equals("leadership")){
+            return "redirect:/management/course/leadership";
+
+        }else if (event.get().getType().equals("logistiques")){
+            return "redirect:/management/course/logistique";
+
+        }else if (event.get().getType().equals("management")){
+            return "redirect:/management/course/management";
+
+        }else {
+            return "redirect:/management/course/wash";
 
         }
     }

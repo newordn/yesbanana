@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulaire d'ajout d'une reservation d'un evenement</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-3 ">
+    <div class="card card-body alert-info" style="height: 80%; width: 80%;margin-left: 100px; padding-right: 80px; padding-left: 80px">
+    <h2 class="text-center">Formulaire d'ajout d'une reservation d'un événement</h2>
+        <br>
+    <form th:action="@{/management/event/course/reserve/{eventId}(eventId=${event.eventId})}" th:object="${event}" method="post" enctype="multipart/form-data">
+        <div style="display:none">
+        <div class="form-group">
+            <label for="title">Titre de l'événement:</label>
+            <input type="text" class="form-control" id="title" th:field="*{title}">
+        </div>
+        <div class="form-group">
+            <label for="releaseDate">Date de l'événement:</label>
+            <input type="date" class="form-control" id="releaseDate" th:field="*{releaseDate}">
+        </div>
+        <div class="form-group">
+            <label for="price">Prix :</label>
+            <input type="number" class="form-control" id="price" th:field="*{price}">
+        </div>
+        <div class="form-group">
+            <label for="sel1">Choisir un type de formation:</label>
+            <select class="form-control" id="sel1" th:field="*{type}">
+                <option value="Administration et Finance">Administration et Finance</option>
+                <option value="Anglais et/ou Francais">Anglais et/ou Francais</option>
+                <option value="IT">IT</option>
+                <option value="Logistiques">Logistiques</option>
+                <option value="Protection">Protection</option>
+                <option value="Resources Humaines">Resources Humaines</option>
+                <option value="Leadership">Leadership</option>
+                <option value="Management">Management</option>
+                <option value="Wash">Wash</option>
+                <option value="Alphabetisation">Alphabetisation</option>
+                <option value="Entreprenariat">Entrepreneuriat</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <!-- loop over available  region -->
+            <label for="region">Région de déroulement de l'événement:</label>
+            <input type="hidden" name="regionId" th:value="${event.region.regionId}" id="region" />
+            <input type="text" name="status" th:value="${event.status}"  />
+
+        </div>
+        <div class="form-group">
+            <label for="description">Description de l'événement :</label>
+            <textarea class="form-control" rows="100" id="description" th:field="*{description}" style="height: 200px"></textarea>
+        </div>
+        <label for="customFile">Fichiers de l'événement:</label>
+        <div class="custom-file mb-3">
+            <input type="text"  class="form-control-file border" id="customFile" th:field="*{image}">
+        </div>
+        </div>
+        <div class="form-group mt-3 card p-3 alert-info">
+            <!-- loop over available  region -->
+            <label for="typePaiement">Par comment voulez vous payer pour faire votre reservation:</label>
+            <select class="form-control" name="typePaiement" id="typePaiement">
+                <option value="">Selectionnez un type de paiement</option>
+                <option th:each="typePaiement : ${typePaiements}" th:value="${typePaiement}" th:text="${typePaiement}">Côte d'ivoire</option>
+            </select>
+        </div>
+        <div class="form-group mt-3 card p-3 alert-info">
+            <label for="title">Entrez Votre adrese Email ou vous allez reçevoir les directives a suivre:</label>
+            <input type="email" class="form-control" id="adresse" name="adresse">
+        </div>
+        <div class="mt-3 " style=" width: 100%; padding-left: 15px">
+            <div class="col-12 col-sm-12 col-lg-12" style="width: 100%;padding-left: 20px;padding-right: 20px">
+                <button type="submit" class="btn btn-primary" style="width: 100%">Validé</button>
+            </div>
+        </div>
+    </form>
+        </div>
+</div>
+
+</body>
+</html>

@@ -29,7 +29,7 @@
     <div class="container" style="padding: 2rem; margin-top: 3rem;">
         <br>
         <div class="card col-12 col-sm-12 col-lg-12 alert-info" style="padding-right: 0;padding-left: 0">
-            <img th:src="${event.image}"class="card-img-top" style="height: 400px">
+            <img th:src="${event.image}"class="card-img-top rounded" style="height: 400px">
             <div class="card-body row">
                 <div class="col-12 col-sm-12 col-lg-6 my-2">
                     <p class="text-center"><strong>Titre de l'événement</strong></p>
@@ -56,10 +56,14 @@
                 </div>
             </div>
         </div>
-            <div class="col-12 col-sm-12 col-lg-12 mt-3 " style=" padding-left: 150px; padding-right: 150px">
-                <a sec:authorize="!hasRole('ROLE_USER')" th:href="@{/management/event/update/}+${event.eventId}" class="btn btn-success" style="width: 100%;">Modifier  <i class="fa fa-pencil"></i></a>
-                <a  th:href="@{#}" class="btn btn-success" style="width: 100%;">Participer  <i class="fa fa-check"></i></a>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-lg-6 mt-3 " style=" padding-left: 150px; padding-right: 150px">
+                <a sec:authorize="!hasRole('ROLE_USER')" th:href="@{/management/event/update/}+${event.eventId}" class="btn btn-warning" style="width: 100%;">Modifier  <i class="fa fa-pencil"></i></a>
             </div>
+            <div class="col-12 col-sm-6 col-lg-6 mt-3 " style=" padding-left: 150px; padding-right: 150px">
+                <a  th:href="@{/management/event/reserve/form/}+${event.eventId}" class="btn btn-success" style="width: 100%;">Participer  <i class="fa fa-check"></i></a>
+            </div>
+        </div>
     </div>
 </div>
 

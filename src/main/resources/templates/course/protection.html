@@ -1,285 +1,391 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Formation professionnel</title>
+    <title>Yesbanana</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
-    <link th:href="@{/css/myStyle.css}" rel="stylesheet">
-    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
-    <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
-    <!-- Bootstrap CSS-->
-    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
 </head>
 <body>
-<br>
 
-<div style="height: 100%">
-    <nav class="nav" style="width: 100%">
-        <a th:href="@{/deals}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
-        <h2 class="text-center col-11 offset-1" style="padding-top: 0.5rem;">Péparation à l'emploi et Formation professionnelle</h2>
-    </nav>
-        <br>
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist" style="height:auto; margin-top: 5rem;width: 100%">
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/course/administration}">Administration et Finance</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/course/languages}">Anglais et/ou Francais</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"  th:href="@{/course/its}">IT</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"  th:href="@{/course/logistiques}">Logistiques</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active"  th:href="@{/course/protections}">Protection</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"  th:href="@{/course/resource}">Resources Humaines</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"  th:href="@{/course/leaderships}">Leadership</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"  th:href="@{/course/managements}">Management</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"  th:href="@{/course/washs}">Wash</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link "  th:href="@{/course/alphabetisations}">Alphabetisation</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"  th:href="@{/course/entreprenariats}">Entrepreneuriat</a>
-        </li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
 
-    <!-- Tab panes -->
-    <div class="tab-content " style="margin-top: 4rem; height: inherit; padding: 2rem;">
-        <!-- PROTECTION  START -->
-        <div id="protection" class="container tab-pane active mt-3"><br>
-            <!-- HEADER TYPE TITLE START -->
-            <h3 class="my-4 text-center sticky">Protection</h3>
-            <!-- HEADER TYPE TITLE END -->
-            <!-- EVENT RELEASES START-->
-            <div class="row mb-4">
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="card " style="height: 300px;">
-                        <img class="card-img-top" th:src="@{/img/core-img/docs.png}"   alt="Card image cap">
-                        <div class="card-body text-center">
-                            <h2><span class="counter text-primary">1912</span></h2>
-                            <h5>Evenements historiques</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="card" style="height: 300px;">
-                        <img class="card-img-top"  th:src="@{/img/core-img/events.png}" alt="Card image cap">
-                        <div class="card-body text-center">
-                            <h2><span class="counter text-primary" th:text="${listSize4}">89</span></h2>
-                            <h5>Planifications des événements</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="card" style="height: 300px;">
-                        <img class="card-img-top" th:src="@{/img/core-img/earth.png}"  alt="Card image cap">
-                        <div class="card-body text-center">
-                            <h2><span class="counter text-primary" th:text="${courses5Size}"></span></h2>
-                            <h5>Cours disponibles</h5>
-                        </div>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a th:href="@{/course/administration}" class="nav-link ">Administration et Finances</a></li>
+                <li class="nav-item "><a th:href="@{/course/languages}" class="nav-link ">Anglais et/ou Francais</a></li></li>
+
+                <li class="nav-item"><a th:href="@{/course/resource}" class="nav-link " data-toggle="dropdown">Resources Humaines</a>
+
+                </li>
+                <li class="nav-item"><a th:href="@{/course/alphabetisations}" class="nav-link">Alphabétisation</a></li>
+                <li class="nav-item"><a th:href="@{/course/entreprenariats}" class="nav-link">Entrepreneuriat</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END nav -->
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section ftco-animate text-center">
+                <h2 >Administration et Finances</h2>
+                <h3 class="mb-1">Cours en ligne</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 ftco-animate" th:each="course : ${courses}">
+                <div class="block-7" style="height: 400px;" >
+                    <div class="text-center">
+                        <h2 class="heading"><span th:text="${course.title}">Gestion des affaires</span></h2>
+                        <span class="price"><sup>$</sup> <span class="number" th:text="${course.price}">100</span></span>
+                        <span class="excerpt d-block">par formation</span>
+                        <p th:text="${course.description}">c'est un module permettant de maitriser le monde des affaires.<br><br><br>
+                            <a href="#" class="btn btn-primary d-block" style="position: relative">details</a>
+                        </p>
                     </div>
                 </div>
             </div>
-            <!-- EVENT RELEASES END-->
-            <!-- ONLINE COURSE START-->
-            <div class="container" style="padding-top: 30px;">
-                <div class="row">
-                    <div class="col-12 card bg-dark">
-                        <div class="section-heading">
-                            <h3 class="text-white" style="padding-top: 1.5rem;">Cours en ligne</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="row my-2" >
-                    <!-- Single Popular Course -->
-                    <div class="col-12 col-sm-6 col-lg-6 my-2" th:each="course : ${courses5}">
-                        <div class="card">
-                            <div class=" row" style="margin-left: 0; margin-right: 0">
-                                <div class="col-lg-2" style="padding:20px">
-                                    <div  style="background-color:forestgreen; height: 30px; width: 30px; border-radius: 50%"></div>
-                                </div>
-                                <div class="col-lg-8" style="padding:10px">
-                                    <span th:text="${course.title}"></span>
-                                </div>
-                                <div class="col-lg-2" style="padding: 10px">
-                                    <a  th:href="@{/course/get/}+${course.courseId}" style="padding: 0">
-                                        <span class="badge" style="line-height:2rem;font-size:2rem;width:100%;height: inherit; "><i class="fa fa-chevron-right"></i></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div><br>
-                </div>
-                <div class="pagination-div" style="display: none;">
-                    <span th:if="${courses5.hasPrevious()}">
-                        <a th:href="@{/course/all(courses3=${courses5.number-1},size=${courses5.size})}">Previous</a>
+
+        </div>
+    </div>
+    <div  style="text-align: center">
+        <a class="btn btn-primary" th:href="@{/course/admin}">voir plus <i class="fa fa-long-arrow-right"></i></a>
+    </div>
+    <div class="pagination-div" style="display: none;">
+                    <span th:if="${courses.hasPrevious()}">
+                        <a th:href="@{/course/all(courses=${courses.number-1},size=${courses.size})}">Previous</a>
                     </span>
-                    <th:block th:each="i: ${#numbers.sequence(0, courses5.totalPages - 1)}">
-                        <span th:if="${courses5.number == i}" class="selected">[[${i}+1]]</span>
-                        <span th:unless="${courses5.number == i}">
-                            <a th:href="@{/course/all(courses5=${i},size=${courses5.size})}">[[${i}+1]]</a>
+        <th:block th:each="i: ${#numbers.sequence(0, courses.totalPages - 1)}">
+            <span th:if="${courses.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${courses.number == i}">
+                            <a th:href="@{/course/all(courses=${i},size=${courses.size})}">[[${i}+1]]</a>
                          </span>
-                    </th:block>
-                    <span th:if="${courses5.hasNext()}">
-                        <a th:href="@{/course/all(courses5=${courses5.number+1},size=${courses5.size})}">Next</a>
+        </th:block>
+                    <span th:if="${courses.hasNext()}">
+                        <a th:href="@{/course/all(courses=${courses.number+1},size=${courses.size})}">Next</a>
                     </span>
+    </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2>Planning des évènements</h2>
+            </div>
+        </div>
+        <div class="row d-flex">
+            <div class="col-md-4 d-flex ftco-animate" th:each=" admin : ${lists}" style="height:600px">
+                <a th:href="@{/event/get/} + ${admin.eventId}">
+                    <div class="blog-entry justify-content-end">
+                        <a href="blog-single.html" class="block-20" th:style="'background-image:url(' + @{${admin?.image}} + ');'">
+                        </a>
+                        <div class="text p-4 float-right d-block">
+                            <div class="d-flex align-items-center pt-2 mb-4">
+                                <div class="one">
+                                    <span class="day" th:text="'$'+${admin?.price}">$14</span>
+                                </div>
+                            </div>
+                            <h3 class="heading mt-2"><a href="#" th:text="${admin?.title}"> Conférence autour de l'énergie.</a></h3>
+                            date de mise en ligne :
+                            <p th:text="${admin?.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                            <br>
+                            date d'écheance :
+                            <span th:text="${admin?.releaseDate}">12/18/2019</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <div  style="text-align: center">
+        <a class="btn btn-primary" th:href="@{/event/admin}">voir plus <i class="fa fa-long-arrow-right"></i></a>
+    </div>
+    <div class="row " style="bottom: 1rem;width: 100%;display: none">
+        <div class="form-group col-12 col-sm-6 col-lg-3">
+            <select class="form-control pagination" id="pageSizeSelect">
+                <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                        th:value="${pageSize}"
+                        th:selected="${pageSize} == ${selectedPageSize}"></option>
+            </select>
+        </div>
+        <div th:if="${lists.totalPages != 1}"
+             class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+            <ul class="pagination">
+                <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
+                        class="page-link"
+                        th:href="@{/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+                </li>
+                <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
+                        class="page-link"
+                        th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.number})}">←</a>
+                </li>
+                <li
+                        th:class="${lists.number == (page - 1)} ? 'active pointer-disabled'"
+                        th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                    <a class="page-link"
+                       th:href="@{/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                       th:text="${page}"></a>
+                </li>
+                <li
+                        th:class="${lists.number + 1 == lists.totalPages} ? disabled" class="page-item">
+                    <a class="page-link"
+                       th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.number + 2})}">→</a>
+                </li>
+                <li
+                        th:class="${lists.number + 1 == lists.totalPages} ? disabled" class="page-item">
+                    <a class="page-link"
+                       th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.totalPages})}">»</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+</section>
+
+</div>
+
+<section class="ftco-counter img" id="section-counter">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-md-6 d-flex">
+                <div class="img d-flex align-self-stretch" th:style="'background-image:url(' + @{/images/insight.png} + ');'"></div>
+            </div>
+            <div class="col-md-6 pl-md-5 py-5">
+                <div class="row justify-content-start pb-3">
+                    <div class="col-md-12 heading-section ftco-animate">
+                        <h2 class="mb-4" style="text-align: center">Statistiques</h2>
+
+                    </div>
                 </div>
-                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
-                    <a class="btn btn-primary" th:href="@{/course/protection}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+                <div class="row">
+                    <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center py-4 bg-light mb-4">
+                            <div class="text">
+                                <div class="icon d-flex justify-content-center align-items-center">
+                                    <span class="flaticon-guest"></span>
+                                </div>
+                                <strong>0</strong>
+                                <span>Evenements historiques</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center py-4 bg-light mb-4">
+                            <div class="text">
+                                <div class="icon d-flex justify-content-center align-items-center">
+                                    <span class="flaticon-handshake"></span>
+                                </div>
+                                <strong th:text="${coursesSize}">0</strong>
+                                <span>Planification des évènements</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center py-4 bg-light mb-4">
+                            <div class="text">
+                                <div class="icon d-flex justify-content-center align-items-center">
+                                    <span class="flaticon-chair"></span>
+                                </div>
+                                <strong th:text="${listSize}">0</strong>
+                                <span>Cours disponibles</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- ONLINE COURSE END-->
-            <!-- AVAILABLE EVENTS START-->
-            <div class="container" style="padding-top: 30px; padding-bottom: 3rem;">
-                <div class="row">
-                    <div class="col-12 bg-secondary card ">
-                        <div class="section-heading">
-                            <h3 class="text-center text-white" style="padding-top: 1.5rem;">Planning des événement avenir</h3>
+        </div>
+    </div>
+</section>
+
+
+<section class="ftco-section-parallax">
+    <div class="parallax-img d-flex align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+                    <h2>Souscrivez a notre  Newsletter</h2>
+                    <p>Restez informer en souscrivant a notre service de messagerie.</p>
+                    <div class="row d-flex justify-content-center mt-4 mb-4">
+                        <div class="col-md-8">
+                            <form action="#" class="subscribe-form">
+                                <div class="form-group d-flex">
+                                    <input type="text" class="form-control" placeholder="Entrer votre adresse email">
+                                    <input type="submit" value="Souscrire" class="submit px-3">
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <!-- Single Upcoming Events -->
-                    <div class="col-12 col-md-6 col-lg-4 my-2" th:each=" admin : ${lists4}">
-                        <div class="single-upcoming-events">
-                            <!-- Events Thumb -->
-                            <div class="events-thumb ">
-                                <img th:src="${admin.image}" class="card-image-top" style="height: 240px" alt="">
-                                <h6 class="event-date" th:text="${admin.releaseDate}">Date de l'événement</h6>
-                                <h4 class="event-title" th:text="${admin.title}">Titre de l'événement</h4>
-                            </div>
-                            <!-- Date & Fee -->
-                            <div class="date-fee d-flex justify-content-between">
-                                <div class="date">
-                                    <p th:text="${admin.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-                                </div>
-                                <div class="events-fee">
-                                    <a href="#" th:text="'$'+${admin.price}"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="row " style="bottom: 1rem;width: 100%;display: none">
+    <div class="form-group col-12 col-sm-6 col-lg-3">
+        <select class="form-control pagination" id="pageSizeSelect">
+            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                    th:value="${pageSize}"
+                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+        </select>
+    </div>
+    <div th:if="${lists.totalPages != 1}"
+         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+        <ul class="pagination">
+            <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
+                    class="page-link"
+                    th:href="@{/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+            </li>
+            <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
+                    class="page-link"
+                    th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.number})}">←</a>
+            </li>
+            <li
+                    th:class="${lists.number == (page - 1)} ? 'active pointer-disabled'"
+                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                <a class="page-link"
+                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                   th:text="${page}"></a>
+            </li>
+            <li
+                    th:class="${lists.number + 1 == lists.totalPages} ? disabled" class="page-item">
+                <a class="page-link"
+                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.number + 2})}">→</a>
+            </li>
+            <li
+                    th:class="${lists.number + 1 == lists.totalPages} ? disabled" class="page-item">
+                <a class="page-link"
+                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.totalPages})}">»</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<footer class="ftco-footer ftco-bg-dark ftco-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Yesbanana</h2>
+                    <p>Votre plateforme digitale qui vous ouvre les portes du savoir dans toute son entiereté et sa rigueur.</p>
+                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                    </ul>
                 </div>
-                <div class="mt-3" style="padding-right: 200px;padding-left: 200px">
-                    <a class="btn btn-primary" th:href="@{/event/protection}" style="width: 100%">Voir plus <i class="fa fa-long-arrow-right"></i> </a>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4 ml-md-5">
+                    <h2 class="ftco-heading-2">Liens Utiles</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">Nos services</a></li>
+                        <li><a href="#" class="py-2 d-block">autres informations</a></li>
+                    </ul>
                 </div>
-                <div class="row " style="bottom: 1rem;width: 100%;display: none">
-                    <div class="form-group col-12 col-sm-6 col-lg-3">
-                        <select class="form-control pagination" id="pageSizeSelect">
-                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
-                                    th:value="${pageSize}"
-                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
-                        </select>
-                    </div>
-                    <div th:if="${lists4.totalPages != 1}"
-                         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
-                        <ul class="pagination">
-                            <li th:class="${lists4.number == 0} ? disabled" class="page-item" ><a
-                                    class="page-link"
-                                    th:href="@{/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
-                            </li>
-                            <li th:class="${lists4.number == 0} ? disabled" class="page-item" ><a
-                                    class="page-link"
-                                    th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists4.number})}">←</a>
-                            </li>
-                            <li
-                                    th:class="${lists4.number == (page - 1)} ? 'active pointer-disabled'"
-                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
-                                <a class="page-link"
-                                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${page})}"
-                                   th:text="${page}"></a>
-                            </li>
-                            <li
-                                    th:class="${lists4.number + 1 == lists4.totalPages} ? disabled" class="page-item">
-                                <a class="page-link"
-                                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists4.number + 2})}">→</a>
-                            </li>
-                            <li
-                                    th:class="${lists4.number + 1 == lists4.totalPages} ? disabled" class="page-item">
-                                <a class="page-link"
-                                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists4.totalPages})}">»</a>
-                            </li>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Confidentialité</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">A propos</a></li>
+                        <li><a href="#" class="py-2 d-block">Conditions d'utilisations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Des Questions?</h2>
+                    <div class="block-23 mb-3">
+                        <ul>
+                            <li><span class="icon icon-map-marker"></span><span class="text">Congo Kinshasa</span></li>
+                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+237694126158 +23793063228</span></a></li>
+                            <li><span></span><span class="text"></span></a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <!-- AVAILABLE EVENTS END-->
-            <!-- ##### Footer Area Start ##### -->
-            <footer class="footer-area">
-                <!-- Top Footer Area -->
-                <div class="top-footer-area">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <!-- Footer Logo -->
-                                <div class="footer-logo">
-                                    <a th:href="@{/}"><img th:src="@{/img/core-img/yesb.png}" alt=""></a>
-                                </div>
-                                <!-- Copywrite -->
-                                <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bottom Footer Area -->
-                <div class="bottom-footer-area d-flex justify-content-between align-items-center">
-                    <!-- Contact Info -->
-                    <div class="contact-info">
-                        <a href="#"><span>Phone:</span> +237 694 126 158</a>
-                        <a href="#"><span>Email:</span> admin@yesbanana.org</a>
-                    </div>
-                    <!-- Follow Us -->
-                    <div class="follow-us">
-                        <span>Suivez-nous</span>
-                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    </div>
-                </div>
-            </footer>
-            <!-- ##### Footer Area End ##### -->
         </div>
-        <!-- PROTECTION  END -->
     </div>
-</div>
+</footer>
 
-<!-- navigation -->
-<script th:src="@{/js/dashboard.js}"></script>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    $(document).ready(function() {
-        changePageAndSize();
-    });
-    function changePageAndSize() {
-        $('#pageSizeSelect').change(function(evt) {
-            window.location.replace("/event/it?pageSize=" + this.value + "&page=1");
-        });
-    }
-    /*]]>*/
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.stellar.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/js/jquery.timepicker.min.js}"></script>
+<script th:src="@{/js/scrollax.min.js}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script th:src="@{/js/google-map.js}"></script>
+<script th:src="@{/js/main1.js}"></script>
+<script type="text/javascript">
+    $("#hide1").css("display","none");
+    $("#hide2").css("display","none");
+    $("#starter1").hover(function(){
+        $("#hide1").css("display","block");
+
+        $("#hide2").css("display","none");
+    })
+    $("#starter2").hover(function(){
+        $("#hide2").css("display","block");
+        $("#hide1").css("display","none");
+
+    })
+
+    $("#ender1").hover(function(){
+    },function(){
+        $("#hide1").css("display","none");
+
+    })
+
+    $("#ender3").hover(function(){
+        $("#hide1").css("display","none");
+        $("#hide2").css("display","none");
+    },function(){})
+    $("#ender4").hover(
+            function(){
+                $("#hide1").css("display","none");
+                $("#hide2").css("display","none");},
+            function(){})
 </script>
-<!-- script -->
 </body>
 </html>

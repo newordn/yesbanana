@@ -164,17 +164,17 @@
                         <div class="single-upcoming-events">
                             <!-- Events Thumb -->
                             <div class="events-thumb ">
-                                <img th:src="${admin?.image}" class="card-image-top" alt="" style="height: 240px">
-                                    <h6 class="event-date" th:text="${admin?.releaseDate}">Date de l'événement</h6>
+                                <img th:src="${admin?.image}" class="card-image-top rounded" alt="" style="height: 240px">
+                                    <h6 class="event-date" th:text="'Debut le '+${admin?.releaseDate}">Date de l'événement</h6>
                                     <h4 class="event-title" th:text="${admin?.title}">Titre de l'événement</h4>
                             </div>
                             <!-- Date & Fee -->
                             <div class="date-fee d-flex justify-content-between">
                                 <div class="date">
-                                    <p th:text="${admin?.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
+                                    <p th:text="'Ajouté le '+${admin?.creationDate}"><i class="fa fa-clock-o"></i>  26 Aout @ 9:00</p>
                                 </div>
                                 <div class="events-fee">
-                                    <a href="#" th:text="'$'+${admin?.price}"></a>
+                                    <a th:href="@{/management/event/get/}+${admin.eventId}" th:text="'$ '+${admin?.price}"></a>
                                 </div>
                             </div>
                         </div>

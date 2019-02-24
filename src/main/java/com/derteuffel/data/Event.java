@@ -40,6 +40,8 @@ public class Event implements Serializable {
 
     private int likes=0;
 
+    private  Boolean status;
+
     @ManyToOne
     private Region region;
 
@@ -47,8 +49,9 @@ public class Event implements Serializable {
     }
 
     public Event(String title,String type, String description,String image, Date creationDate,ArrayList<String> pieces,
-                 Date releaseDate, Double price, int likes, Region region) {
+                 Date releaseDate, Double price, int likes, Region region, Boolean status) {
         this.title = title;
+        this.status=status;
         this.type=type;
         this.description = description;
         this.image=image;
@@ -58,6 +61,14 @@ public class Event implements Serializable {
         this.price = price;
         this.likes = likes;
         this.region = region;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public Long getEventId() {
