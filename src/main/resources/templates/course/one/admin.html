@@ -21,6 +21,9 @@
     <link rel="stylesheet" th:href="@{/css/flaticon.css}">
     <link rel="stylesheet" th:href="@{/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+    </style>
 
 </head>
 <body>
@@ -34,14 +37,15 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a th:href="@{/course/administration}" class="nav-link ">Administration et Finances</a></li>
-                <li class="nav-item "><a th:href="@{/course/languages}" class="nav-link ">Anglais et/ou Francais</a></li></li>
+                <li class="nav-item active"><a th:href="@{/course/administration}" class="nav-link ">Administration et Finances <i class="ion-ios-arrow-forward"></i></a></li>
+                <li class="nav-item "><a href="#" class="nav-link ">Voir plus</a></li>
+                <!--li class="nav-item "><a th:href="@{/course/languages}" class="nav-link ">Anglais et/ou Francais</a></li></li>
 
                 <li class="nav-item"><a th:href="@{/course/resource}" class="nav-link " data-toggle="dropdown">Resources Humaines</a>
 
                 </li>
                 <li class="nav-item"><a th:href="@{/course/alphabetisations}" class="nav-link">Alphabétisation</a></li>
-                <li class="nav-item"><a th:href="@{/course/entreprenariats}" class="nav-link">Entrepreneuriat</a></li>
+                <li class="nav-item"><a th:href="@{/course/entreprenariats}" class="nav-link">Entrepreneuriat</a></li-->
 
             </ul>
         </div>
@@ -53,7 +57,7 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 heading-section ftco-animate text-center">
-                <h2 >Administration et Finances <i class="ion-ios-arrow-forward"></i> Voir plus</h2>
+                <h3 >Administration et Finances <i class="ion-ios-arrow-forward"></i> Voir plus</h3>
                 <h3 class="mb-1">Cours en ligne</h3>
             </div>
         </div>
@@ -66,7 +70,7 @@
                         <span class="excerpt d-block">par formation</span>
                         <p th:text="${course.description}">c'est un module permettant de maitriser le monde des affaires.<br>
                         </p>
-                        <a th:href="@{/course/get}+${course.courseId}" class="btn btn-primary d-block" style="position: relative">Details</a>
+                        <a th:href="@{/course/get/}+${course.courseId}" class="btn btn-primary d-block" style="position: relative">Details</a>
                     </div>
                 </div>
             </div>
