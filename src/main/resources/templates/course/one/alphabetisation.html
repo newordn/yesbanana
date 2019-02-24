@@ -92,10 +92,7 @@
                         class="page-link"
                         th:href="@{/course/admin(pageSize=${selectedPageSize}, page=1)}">«</a>
                 </li>
-                <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
-                        class="page-link"
-                        th:href="@{/course/admin(pageSize=${selectedPageSize}, page=${courses.number})}">←</a>
-                </li>
+
                 <li
                         th:class="${courses.number == (page - 1)} ? 'active pointer-disabled'"
                         th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >

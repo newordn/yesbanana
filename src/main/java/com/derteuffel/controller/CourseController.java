@@ -207,7 +207,7 @@ public class CourseController {
         // courses resource humaine
         Page<Course> res_hum= courseRepository.findAllByDomainOrderByCourseIdDesc("resources humaines", new PageRequest(evalPage,evalPageSize));
         PagerModel pager5 = new PagerModel(res_hum.getTotalPages(),res_hum.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("courses2", res_hum);
+        model.addAttribute("courses", res_hum);
         model.addAttribute("pager", pager5);
         return "course/one/resources";
     }
@@ -609,7 +609,6 @@ public class CourseController {
     @GetMapping("/alphabetisations")
     public String courseAlphabetisation(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
                                    @RequestParam("page") Optional<Integer> page){
-
         // courses managements
         Page<Course> courses8= courseRepository.findAllByDomainOrderByCourseIdDesc("alphabetisation", pageable);
 
