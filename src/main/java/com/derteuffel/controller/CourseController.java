@@ -338,8 +338,8 @@ public class CourseController {
                               @RequestParam("page") Optional<Integer> page){
 
         Page<Course> courses1= courseRepository.findAllByDomainOrderByCourseIdDesc("administration et finance",pageable);
-        model.addAttribute("courses1", courses1);
-        model.addAttribute("courses1Size", courses1.getTotalElements());
+        model.addAttribute("courses", courses1);
+        model.addAttribute("coursesSize", courses1.getTotalElements());
         //
         // Evaluate page size. If requested parameter is null, return initial
         // page size
