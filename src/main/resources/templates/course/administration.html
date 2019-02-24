@@ -90,7 +90,7 @@
             <div class="col-md-4 d-flex ftco-animate" th:each=" admin : ${lists}" style="height:600px">
                 <a th:href="@{/event/get/} + ${admin.eventId}">
                     <div class="blog-entry justify-content-end">
-                        <a href="blog-single.html" class="block-20" th:style="'background-image:' + @{${admin?.image}}" style="background-image: url('images/image_1.jpg');">
+                        <a href="blog-single.html" class="block-20" th:style="'background-image:url(' + @{${admin?.image}} + ');'">
                         </a>
                         <div class="text p-4 float-right d-block">
                             <div class="d-flex align-items-center pt-2 mb-4">
@@ -99,8 +99,10 @@
                                 </div>
                             </div>
                             <h3 class="heading mt-2"><a href="#" th:text="${admin?.title}"> Conférence autour de l'énergie.</a></h3>
+                            date de mise en ligne : 
                             <p th:text="${admin?.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-
+                            <br>
+                            date d'écheance :  
                             <span th:text="${admin?.releaseDate}">12/18/2019</span>
                         </div>
                     </div>
@@ -195,7 +197,45 @@
     </div>
 </section>
 
-
+ <div class="row " style="bottom: 1rem;width: 100%;display: none">
+                    <div class="form-group col-12 col-sm-6 col-lg-3">
+                        <select class="form-control pagination" id="pageSizeSelect">
+                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                    th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+                        </select>
+                    </div>
+                    <div th:if="${lists.totalPages != 1}"
+                         class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
+                        <ul class="pagination">
+                            <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+                            </li>
+                            <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
+                                    class="page-link"
+                                    th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.number})}">←</a>
+                            </li>
+                            <li
+                                    th:class="${lists.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
+                                <a class="page-link"
+                                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li
+                                    th:class="${lists.number + 1 == lists.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.number + 2})}">→</a>
+                            </li>
+                            <li
+                                    th:class="${lists.number + 1 == lists.totalPages} ? disabled" class="page-item">
+                                <a class="page-link"
+                                   th:href="@{/event/it(pageSize=${selectedPageSize}, page=${lists.totalPages})}">»</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">
         <div class="row mb-5">
