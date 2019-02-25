@@ -21,7 +21,9 @@
     <link rel="stylesheet" th:href="@{/css/flaticon.css}">
     <link rel="stylesheet" th:href="@{/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-
+    <style>
+        .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+    </style>
 </head>
 <body>
 
@@ -34,7 +36,7 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a th:href="@{/course/administration}" class="nav-link ">Administration et Finances <i class="ion-ios-arrow-forward"></i></a></li>
+                <li class="nav-item active"><a th:href="@{/course/resource}" class="nav-link ">Ressources Humaines <i class="ion-ios-arrow-forward"></i></a></li>
                 <li class="nav-item "><a href="#" class="nav-link ">Voir plus</a></li>
             </ul>
         </div>
@@ -90,28 +92,28 @@
             <ul class="pagination">
                 <li th:class="${events.number == 0} ? disabled" class="page-item" ><a
                         class="page-link"
-                        th:href="@{/event/it(pageSize=${selectedPageSize}, page=1)}">«</a>
+                        th:href="@{/event/resources(pageSize=${selectedPageSize}, page=1)}">«</a>
                 </li>
                 <li th:class="${events.number == 0} ? disabled" class="page-item" ><a
                         class="page-link"
-                        th:href="@{/event/it(pageSize=${selectedPageSize}, page=${events.number})}">←</a>
+                        th:href="@{/event/resources(pageSize=${selectedPageSize}, page=${events.number})}">←</a>
                 </li>
                 <li
                         th:class="${events.number == (page - 1)} ? 'active pointer-disabled'"
                         th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
                     <a class="page-link"
-                       th:href="@{/event/it(pageSize=${selectedPageSize}, page=${page})}"
+                       th:href="@{/event/resources(pageSize=${selectedPageSize}, page=${page})}"
                        th:text="${page}"></a>
                 </li>
                 <li
-                        th:class="${events.number + 1 == lists.totalPages} ? disabled" class="page-item">
+                        th:class="${events.number + 1 == events.totalPages} ? disabled" class="page-item">
                     <a class="page-link"
-                       th:href="@{/event/it(pageSize=${selectedPageSize}, page=${events.number + 2})}">→</a>
+                       th:href="@{/event/resources(pageSize=${selectedPageSize}, page=${events.number + 2})}">→</a>
                 </li>
                 <li
-                        th:class="${events.number + 1 == lists.totalPages} ? disabled" class="page-item">
+                        th:class="${events.number + 1 == events.totalPages} ? disabled" class="page-item">
                     <a class="page-link"
-                       th:href="@{/event/it(pageSize=${selectedPageSize}, page=${events.totalPages})}">»</a>
+                       th:href="@{/event/resources(pageSize=${selectedPageSize}, page=${events.totalPages})}">»</a>
                 </li>
             </ul>
         </div>
@@ -246,7 +248,7 @@
     });
     function changePageAndSize() {
         $('#pageSizeSelect').change(function(evt) {
-            window.location.replace("/event/admin?pageSize=" + this.value + "&page=1");
+            window.location.replace("/event/resources?pageSize=" + this.value + "&page=1");
         });
     }
     /*]]>*/
