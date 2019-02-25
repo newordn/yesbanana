@@ -1731,10 +1731,6 @@ public class ManagementController {
     public String findOneCourse(Model model,@PathVariable Long courseId, HttpSession session) {
         session.setAttribute("courseId",courseId);
         Optional<Course> optional= courseRepository.findById(courseId);
-        int likes=optional.get().getViews();
-        likes++;
-        System.out.println(likes);
-        optional.get().setViews(likes++);
         System.out.println(optional.get().getViews());
         courseRepository.save(optional.get());
         List<Period> periods= periodRepository.findAllByCourses(optional.get().getCourseId());
