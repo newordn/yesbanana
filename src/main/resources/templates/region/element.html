@@ -1,63 +1,67 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Universite et autres services</title>
+    <title>Yesbanana</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
-    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
-    <link th:href="@{/css/myStyle.css}" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
-    <!-- Bootstrap CSS-->
-    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
 </head>
 <body>
-<br>
 
-<div style="height: 100%">
-    <nav class="nav" style="width: 100%">
-        <a th:href="@{/deals}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
-        <h2 class="text-center col-11 offset-1" style="padding-top: 0.5rem;">Universite et autres services</h2>
-    </nav>
-    <br>
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs sticky-top" role="tablist" style="height:auto; margin-top: 5rem;width: 100%">
-        <li class="nav-item">
-            <a class="nav-link active"  th:href="@{/external/secure/region/region/university/}+${region.regionId}">Universites</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"  th:href="@{/external/secure/region/region/logement/}+${region.regionId}">Logements</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link"  th:href="@{/external/secure/region/region/transport/}+${region.regionId}">Transport</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/external/secure/region/region/approvisionnement/}+${region.regionId}">Approvisionnement</a>
-        </li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
 
-    <!-- Tab panes -->
-    <div class="tab-content" style="margin-top: 4.5rem; height: 100%; padding: 2rem;">
-        <div id="university" class="container tab-pane active" style="height: inherit"><br>
-            <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/post/other/form/housing/}+${session.regionId}" style="bottom: 5rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
-                <!-- Blog Entries Column -->
-                <div class="col-12 col-sm-12 col-lg-12">
-                        <h1 class="my-4 text-center ">Universités</h1>
-                        <table class="table table-hover " >
-                            <thead class="bg-primary">
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a th:href="@{/external/secure/region/region/university/}+${region.regionId}" class="nav-link ">Universités</a></li>
+                <li class="nav-item "><a th:href="@{/external/secure/region/region/logement/}+${region.regionId}" class="nav-link ">Logements</a></li></li>
+                <li class="nav-item"><a th:href="@{/external/secure/region/region/transport/}+${region.regionId}" class="nav-link " >Transport</a>
+                </li>
+                <li class="nav-item"><a th:href="@{/external/secure/region/region/approvisionnement/}+${region.regionId}" class="nav-link">Approvisionnement</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END nav -->
+
+<section class="ftco-section testimony-section">
+      <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 text-center heading-section ftco-animate">
+            <h1 >Universités</h1>
+          </div>
+        </div>
+        <div class="row ftco-animate">
+              <table class="table table-hover text-white" >
+                            <thead style="background-color:rgb(0,0,100);">
                             <tr>
                                 <th>#</th>
                                 <th>Nom de l'université</th>
                                 <th class="bg-success">Facultés</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="color:black">
                             <tr th:each="university : ${universities}">
                                 <td th:text="${university.universityName[0]}"></td>
                                 <td th:text="${university.universityName}"></td>
@@ -67,51 +71,134 @@
                             </tr>
                             </tbody>
                         </table>
-                </div>
-            <!-- ##### Footer Area Start ##### -->
-            <footer class="footer-area">
-                <!-- Top Footer Area -->
-                <div class="top-footer-area">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <!-- Footer Logo -->
-                                <div class="footer-logo">
-                                    <a th:href="@{/}"><img th:src="@{/img/core-img/yesb.png}" alt=""></a>
+
+        </div>
+      </div>
+    </section>
+
+
+
+
+<section class="ftco-section-parallax">
+    <div class="parallax-img d-flex align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+                    <h2>Souscrivez a notre  Newsletter</h2>
+                    <p>Restez informer en souscrivant a notre service de messagerie.</p>
+                    <div class="row d-flex justify-content-center mt-4 mb-4">
+                        <div class="col-md-8">
+                            <form action="#" class="subscribe-form">
+                                <div class="form-group d-flex">
+                                    <input type="text" class="form-control" placeholder="Entrer votre adresse email">
+                                    <input type="submit" value="Souscrire" class="submit px-3">
                                 </div>
-                                <!-- Copywrite -->
-                                <p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous les droits sont réservés | cette page faite <i class="fa fa-heart-o" aria-hidden="true"></i> par <a href="https://yesbanana.org" target="_blank">Yesbanana</a>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-
-                <!-- Bottom Footer Area -->
-                <div class="bottom-footer-area d-flex justify-content-between align-items-center">
-                    <!-- Contact Info -->
-                    <div class="contact-info">
-                        <a href="#"><span>Phone:</span> +237 694 126 158</a>
-                        <a href="#"><span>Email:</span> admin@yesbanana.org</a>
-                    </div>
-                    <!-- Follow Us -->
-                    <div class="follow-us">
-                        <span>Suivez-nous</span>
-                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    </div>
-                </div>
-            </footer>
-            <!-- ##### Footer Area End ##### -->
+            </div>
         </div>
     </div>
-</div>
-<!-- navigation -->
-<script th:src="@{/js/dashboard.js}"></script>
-<!-- script -->
-<!-- ##### All Javascript Script ##### -->
+</section>
+<footer class="ftco-footer ftco-bg-dark ftco-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Yesbanana</h2>
+                    <p>Votre plateforme digitale qui vous ouvre les portes du savoir dans toute son entiereté et sa rigueur.</p>
+                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4 ml-md-5">
+                    <h2 class="ftco-heading-2">Liens Utiles</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">Nos services</a></li>
+                        <li><a href="#" class="py-2 d-block">autres informations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Confidentialité</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">A propos</a></li>
+                        <li><a href="#" class="py-2 d-block">Conditions d'utilisations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Des Questions?</h2>
+                    <div class="block-23 mb-3">
+                        <ul>
+                            <li><span class="icon icon-map-marker"></span><span class="text">Congo Kinshasa</span></li>
+                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+237694126158 +23793063228</span></a></li>
+                            <li><span></span><span class="text"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.stellar.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/js/jquery.timepicker.min.js}"></script>
+<script th:src="@{/js/scrollax.min.js}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script th:src="@{/js/google-map.js}"></script>
+<script th:src="@{/js/main1.js}"></script>
+<script type="text/javascript">
+    $("#hide1").css("display","none");
+    $("#hide2").css("display","none");
+    $("#starter1").hover(function(){
+        $("#hide1").css("display","block");
+
+        $("#hide2").css("display","none");
+    })
+    $("#starter2").hover(function(){
+        $("#hide2").css("display","block");
+        $("#hide1").css("display","none");
+
+    })
+
+    $("#ender1").hover(function(){
+    },function(){
+        $("#hide1").css("display","none");
+
+    })
+
+    $("#ender3").hover(function(){
+        $("#hide1").css("display","none");
+        $("#hide2").css("display","none");
+    },function(){})
+    $("#ender4").hover(
+            function(){
+                $("#hide1").css("display","none");
+                $("#hide2").css("display","none");},
+            function(){})
+</script>
 </body>
 </html>
