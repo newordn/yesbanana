@@ -54,6 +54,7 @@ public class RegionController {
 
         model.addAttribute("region",regionOptional.get());
         model.addAttribute("universities", universities);
+        session.setAttribute("regionId",regionOptional.get().getRegionId());
 
         return "region/element";
     }
