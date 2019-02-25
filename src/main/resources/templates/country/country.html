@@ -25,28 +25,47 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+
+      <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
+        <div class="container">
+          <a class="navbar-brand" th:href="@{/}"><span>Yes</span>banana</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
-        </button>
+          </button>
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
+          <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a th:href="@{/course/administration}" class="nav-link ">Administration et Finances</a></li>
-                <li class="nav-item "><a th:href="@{/course/languages}" class="nav-link ">Anglais et/ou Francais</a></li></li>
+              <li class="nav-item "><a href="@{/}" class="nav-link ">Accueil</a></li>
+              <li class="nav-item active"><a href="@{/deals}" class="nav-link ">Commencez avec nous?</a></li></li>
+      
+              <li class="nav-item dropdown"><a href="#" class="nav-link " data-toggle="dropdown">Travailler avec nous</a>
+                <ul class="dropdown-menu">
 
-                <li class="nav-item"><a th:href="@{/course/resource}" class="nav-link " >Resources Humaines</a>
+                                            <li class="dropdown-item" id="ender3">
+                                                <a th:href="@{/visitor/student}" >Etudiant</a>
+                                            </li>
 
-                </li>
-                <li class="nav-item"><a th:href="@{/course/alphabetisations}" class="nav-link">Alphabétisation</a></li>
-                <li class="nav-item"><a th:href="@{/course/entreprenariats}" class="nav-link">Entrepreneuriat</a></li>
+                                            <li class="dropdown-item" id="ender4"><a  th:href="@{/user/visitor/form}">Publication</a></li>
+                                            <li class="dropdown-item" id="starter1" ><a href="#" >Expert</a>
+                                                <ul id="hide1" >
+                                                    <li class="dropdown-item"><a class="black" th:href="@{/visitor/expert/universitory}">Universitaire</a></li>
+                                                    <li class="dropdown-item"><a class="black" th:href="@{/visitor/expert/professional}" id="ender1">Professionnel</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-item " id="starter2"><a href="#">Enseignant</a>
+                                                <ul id="hide2">
+                                                    <li class="dropdown-item"><a class="black" th:href="@{/visitor/teacher/primaire}">Primaire</a></li>
+                                                    <li class="dropdown-item" id="ender2"><a  class="black" th:href="@{/visitor/teacher/secondaire}">Secondaire</a></li>
+                                                </ul>
+                                            </li>
+                </ul>
+              </li>
+              <li class="nav-item nav-link" style="position:relative;right:-50px;"><a href="#" class="btn btn-primary">solutioneducationafrique@gmail.com</a></li>
 
             </ul>
+          </div>
         </div>
-    </div>
-</nav>
+      </nav>
 <!-- END nav -->
 
 <section class="ftco-section testimony-section">
