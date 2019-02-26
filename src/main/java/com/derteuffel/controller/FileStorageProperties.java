@@ -1,5 +1,6 @@
 package com.derteuffel.controller;
 
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
