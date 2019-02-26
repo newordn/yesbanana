@@ -217,6 +217,9 @@ input[type=checkbox]:not(old):checked + label > span:before {
 .term-service {
   color: #222; }
 
+.home{
+  background: #FFFF99;
+}
 .submit {
   width: auto;
   background: #4966b1;
