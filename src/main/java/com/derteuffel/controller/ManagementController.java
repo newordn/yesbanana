@@ -662,8 +662,7 @@ public class ManagementController {
         User user=userRepository.findByEmail(auth.getName());
         session.setAttribute("userId", user.getUserId());
         List<Country> countries1= countryRepository.findAll();
-        model.addAttribute("countries1", countries1);
-        model.addAttribute("countries", countries);
+        model.addAttribute("countries", countries1);
         model.addAttribute("country", new Country());
         return "management/country/countries";
     }
