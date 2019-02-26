@@ -47,7 +47,7 @@ public class CourseController {
     private static final int[] PAGE_SIZES = { 5,6,7,8};
 
     @GetMapping("/get/{courseId}")
-    public String findOneCourse(Model model,@PathVariable Long courseId, HttpSession session) {
+    public String findOneCourse(Model model, @PathVariable Long courseId, HttpSession session) {
         session.setAttribute("courseId",courseId);
         Optional<Course> optional= courseRepository.findById(courseId);
         int likes=optional.get().getViews();

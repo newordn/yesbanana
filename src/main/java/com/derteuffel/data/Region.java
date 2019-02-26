@@ -3,12 +3,10 @@ package com.derteuffel.data;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.validator.constraints.CodePointLength;
-
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Entity;
 
 /**
  * Created by derteuffel on 02/12/2018.
