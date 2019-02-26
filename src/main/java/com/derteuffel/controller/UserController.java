@@ -496,9 +496,9 @@ public class UserController {
         return "user/visitor";
     }
     @PostMapping(value = "/create/visitor", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String createVisitor(@Valid User user, Model model, @RequestParam("file") MultipartFile file, BindingResult bindingResult, String role) {
+    public String createVisitor(@Valid User user, Model model, @RequestParam("file") MultipartFile file, @RequestParam("cvFile") MultipartFile cvFile, BindingResult bindingResult, String role) {
         String fileName = fileUploadServices.storeFile(file);
-        String fileNameCv= fileUploadService.storeFile(file);
+        String fileNameCv= fileUploadService.storeFile(cvFile);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(fileName)

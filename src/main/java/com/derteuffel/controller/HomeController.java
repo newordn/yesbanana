@@ -403,6 +403,12 @@ public String otherRegion(Model model, @PathVariable Long countryId){
         return "visitor/teachers";
     }
 
+    @GetMapping("/visitor/post/form")
+    public String getPostForm(Model model){
+        model.addAttribute("post",new Post());
+        return "visitor/post";
+    }
+
     @PostMapping("/visitor/post/save")
     public String save(Post post, @RequestParam("files") MultipartFile[] files) {
         List<FileUploadRespone> pieces= Arrays.asList(files)
