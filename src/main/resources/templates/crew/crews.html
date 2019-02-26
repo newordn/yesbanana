@@ -18,6 +18,8 @@
     <link rel="stylesheet" th:href="@{/css/flaticon.css}">
     <link rel="stylesheet" th:href="@{/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
     <link th:href="@{/css/crew.css} " rel="stylesheet">
 
 </head>
@@ -65,6 +67,21 @@
                     </ul>
                 </li>
                 <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" >Formations</a></li>
+                <li class="nav-item dropdown text-center">
+                            <!-- insert the profile image-->
+                    <a href="#">
+                        <img class="profile-img"  th:src="@{/images/country.png}" alt="avatar">
+                    </a>
+                    <ul class="dropdown-menu">
+                            <!-- insert the profile image-->
+                       <li class="nav-item"><a data-toggle="dropdown" class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
+                    <li class="nav-item">
+                        <a class="black nav-link" th:href="@{/logout}" sec:authorize="isFullyAuthenticated()">Deconnexion</a>
+                        </li>
+                    </ul>
+                </li>
+                    </ul>
+                </div>
             </ul>
         </div>
     </div>
