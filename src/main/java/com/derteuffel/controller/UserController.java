@@ -354,7 +354,7 @@ public class UserController {
         System.out.println(countries);
         model.addAttribute("user", new User());
         model.addAttribute("countries", countries);
-        return "user/userForm";
+        return "user/inscription";
     }
 
 
