@@ -29,8 +29,11 @@
             </div>
             <div class="form-submit mt-3" sec:authorize="!isFullyAuthenticated()">
                 <a th:href="@{/password/forgot}" class="signup-image-link mb-3 mt-3">Mot de Passe Oublier?</a>
-                <input type="submit" name="submit" id="submit" class="submit mt-3 mb-3" value="Validé" />
-                <a th:href="@{/user/registration}" class="btn btn-success mt-3">S'inscrire</a>
+                    <input type="submit" name="submit" id="submit" class="submit mt-3 mb-3" style="width:80%;margin:auto" value="Validé" />
+
+                <a th:href="@{/user/registration}"   >
+                <input type="button" class="submit bg-success mt-3 mb-3" value="S'inscrire" style="width:80%;margin:auto">
+                </a>
             </div>
         </form>
     </div>
