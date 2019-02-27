@@ -53,5 +53,15 @@ public class CountryController {
         return "country/country";
     }
 
+    @GetMapping("/education/{countryId}")
+    public String findByIdEducation(Model model,@PathVariable Long countryId) {
+        Optional<Country> countryOptional=countryRepository.findById(countryId);
+        List<Region> regions= regionRepository.findAllByCountry(countryOptional.get().getCountryId());
+        model.addAttribute("country", countryOptional.get());
+        model.addAttribute("regions", regions);
+
+        return "country/education";
+    }
+
 
 }

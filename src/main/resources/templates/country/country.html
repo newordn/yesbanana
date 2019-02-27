@@ -36,7 +36,7 @@
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item "><a href="@{/}" class="nav-link ">Accueil</a></li>
-              <li class="nav-item active"><a href="@{/deals}" class="nav-link ">Commencez avec nous?</a></li></li>
+              <li class="nav-item active"><a href="@{/deals}" class="nav-link ">Nos Services</a></li></li>
       
               <li class="nav-item dropdown"><a href="#" class="nav-link " data-toggle="dropdown">Travailler avec nous</a>
                 <ul class="dropdown-menu">
@@ -77,7 +77,7 @@
           </div>
         </div>
         <div class="row ftco-animate">
-              <div class="item col-2" th:each="region : ${regions}">
+              <div class="item col-md-2" th:each="region : ${regions}">
                 <a th:href="@{/external/secure/region/region/university/} + ${region.regionId}">
                 <div class="testimony-wrap text-center py-4 pb-5">
                   <div class="user-img mb-4" th:style="'background-image: url(' + @{/images/country.png} + ');'">

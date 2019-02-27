@@ -23,7 +23,6 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
     <link th:href="@{/css/addTheses.css}" rel="stylesheet">
-    <link th:href="@{/css/crew.css} " rel="stylesheet">
 
 </head>
 <body>
@@ -98,7 +97,7 @@
             </div>
         </div>
         <div class="row ftco-animate">
-            <div class="item col-2" th:each="region : ${regions}">
+            <div class="item col-md-2" th:each="region : ${regions}">
                 <div class="testimony-wrap text-center py-4 pb-5">
                     <a  th:href="@{/management/region/university/} + ${region.regionId}">
                         <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">

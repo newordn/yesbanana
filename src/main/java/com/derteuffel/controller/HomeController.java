@@ -336,7 +336,7 @@ public class HomeController {
     public  String education(Model model){
         List<Country> countries=countryRepository.findAll();
         model.addAttribute("countries", countries);
-        return "country/education";
+        return "country/educations";
     }
     @GetMapping("/education/region/{countryId}")
     public String region(Model model, @PathVariable Long countryId){

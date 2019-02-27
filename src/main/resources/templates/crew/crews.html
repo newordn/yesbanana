@@ -96,20 +96,20 @@
             </div>
         </div>
         <div class="row ftco-animate">
-            <div  class="col-4  text-center crew mb-2" th:each="crew : ${crews}" >
+            <div  class="col-md-4  text-center crew mb-2" th:each="crew : ${crews}" >
                 <div class="testimony-wrap text-center py-4 pb-5">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-4">
                     <a th:href="@{/groupe/update/} + ${crew.groupeId}"  class="btn btn-warning  rounded-circle" >
                         <i class="zmdi zmdi-edit" ></i>
                     </a>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4">
                     <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
                         <span th:text="${crew.groupeName[0]}"> Yaounde</span>
                     </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4">
                     <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn btn-danger  rounded-circle" >
                         <i class="zmdi zmdi-close" ></i>
                     </a>
@@ -164,16 +164,11 @@
             </div>
 
         </div>
-                    </div>
-
-            </div>
-        </div>
     </div>
 </section>
 
 <button sec:authorize="!hasRole('ROLE_USER')" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
     <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
-    </i>
 </button>
 
 

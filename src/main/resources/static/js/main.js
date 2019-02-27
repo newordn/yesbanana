@@ -310,7 +310,7 @@ else if (countrySelect.val() == "Congo")
 {
     $("#number").val("+242");
 }
-else if (countrySelect.val() == "Congo, The Democratic Republic of the Congo")
+else if (countrySelect.val() == "Democratic Republic of the Congo")
 {
     $("#number").val("+243");
 }
