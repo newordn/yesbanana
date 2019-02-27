@@ -1,82 +1,244 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Yesbanana</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Title -->
-    <title>yesbanana</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
-    <!-- Favicon -->
-    <link rel="icon" th:src="@{/core-img/yesb.png}">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
-    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
     <link th:href="@{/css/addTheses.css}" rel="stylesheet">
     <link th:href="@{/css/crew.css} " rel="stylesheet">
 
-    <!-- Core Stylesheet -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style1.css}">
-
 </head>
-
 <body>
 
 
-<!-- ##### Header Area Start ##### -->
-<!--navigation-->
-<div th:replace="~{../templates/fragments/navigation :: navigation}">
-</div>
-<!-- navigation -->
-<!-- ##### Header Area End ##### -->
-<h2 class="text-center mt-5">Liste Pays</h2>
-<div class="row content mt-3">
-    <div class="col-1  text-center crew mb-2" th:each="country : ${countries1}" style="padding:.5rem;">
-        <div class="card">
-            <div style="background-color:whitesmoke; color:black">
-                <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                    <span th:text="${country.countryName[0]}"> Yaounde</span>
-                </div>
-                <a th:text="${country.countryName}" th:href="@{/management/country/education/} + ${country.countryId}"> Yaounde</a>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<!-- ##### Footer Area Start ##### -->
-<!--div class="bottom-footer-area" style=" position: fixed;left: 0;bottom: 0;width: 100%;">
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <div class="row">
-            <div class="col-12"-->
-                <!-- p>< Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. >
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This site is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Yesbanana</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. ></p>
+        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item "><a th:href="@{/groupe/groupes}" class="nav-link ">Régions</a></li>
+                <li class="nav-item "><a th:href="@{/user}" class="nav-link ">Staffs</a></li>
+                <li class="nav-item "><a th:href="@{/stats}" class="nav-link ">Statistiques</a></li>
+                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link ">Universités</a></li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link" data-toggle="dropdown">Travailler avec nous</a>
+                    <ul class="dropdown-menu">
+
+                        <li class="dropdown-item" id="ender3">
+                            <a th:href="@{/management/student}" class="black nav-link" >Etudiant</a>
+                        </li>
+
+                        <li class="dropdown-item" id="ender4"><a  th:href="@{/user/visitor/form}" class=" black nav-link">Publication</a></li>
+                        <li class="dropdown-item" id="starter1" ><a href="#" class="black nav-link">Expert universitaires et professionnels</a>
+                            <ul id="hide1">
+                                <li class="nav-item"><a th:href="@{/management/chiefs}" class="black nav-link">Chef des travaux</a></li>
+                                <li class="nav-item"><a th:href="@{/management/professeurs}" class="black nav-link">Professeurs</a></li>
+                                <li class="nav-item"><a th:href="@{/management/assistants}" class="black nav-link">Assistant</a></li>
+                                <li class="nav-item"><a th:href="@{/management/master}" class="black nav-link">Master1&2</a></li>
+                                <li class="nav-item"><a th:href="@{/management/doctorat}" class="black nav-link" id="ender1">Phd/Doctorat</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item active dropdown">
+                    <a  href="#" class="nav-link" data-toggle="dropdown" >Educations et Autres</a>
+                    <ul class="dropdown-menu">
+                        <li><a  th:href="@{/management/countries/other}" class="black nav-link" >Autres services</a></li>
+                        <li class="nav-item active"><a  th:href="@{/management/countries/education}" class="black nav-link">Education</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" >Formations</a></li>
+                <li class="nav-item dropdown text-center">
+                    <!-- insert the profile image-->
+                    <a href="#">
+                        <img class="profile-img" th:src="${session.avatar}" alt="avatar">
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- insert the profile image-->
+                        <li class="nav-item"><a data-toggle="dropdown" class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
+                        <li class="nav-item">
+                            <a class="black nav-link" th:href="@{/logout}" sec:authorize="isFullyAuthenticated()">Deconnexion</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        </ul>
+    </div>
+    </div>
+</nav>
+<section class="ftco-section testimony-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 text-center heading-section ftco-animate">
+                <h1>Education</h1>
+                <h2 class="subheading"><span>Selectionner un pays</span></h2>
+            </div>
+        </div>
+        <div class="row ftco-animate">
+            <div class="item col-2" th:each="country : ${countries}">
+                <div class="testimony-wrap text-center py-4 pb-5">
+                    <a   th:href="@{/management/country/education/} + ${country.countryId}">
+
+                        <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
+                            <span th:text="${country.countryName[0]}"> Yaounde</span>
+                        </div></a>
+                    <div class="text">
+                        <a  th:href="@{/management/country/education/} + ${country.countryId}">
+                            <p class="name" th:text="${country.countryName}">Cameroun</p></a>
+
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+</section>
+<section class="ftco-section-parallax">
+    <div class="parallax-img d-flex align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+                    <h2>Souscrivez a notre  Newsletter</h2>
+                    <p>Restez informer en souscrivant a notre service de messagerie.</p>
+                    <div class="row d-flex justify-content-center mt-4 mb-4">
+                        <div class="col-md-8">
+                            <form action="#" class="subscribe-form">
+                                <div class="form-group d-flex">
+                                    <input type="text" class="form-control" placeholder="Entrer votre adresse email">
+                                    <input type="submit" value="Souscrire" class="submit px-3">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div-->
+</section>
+<footer class="ftco-footer ftco-bg-dark ftco-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Yesbanana</h2>
+                    <p>Votre plateforme digitale qui vous ouvre les portes du savoir dans toute son entiereté et sa rigueur.</p>
+                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4 ml-md-5">
+                    <h2 class="ftco-heading-2">Liens Utiles</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">Nos services</a></li>
+                        <li><a href="#" class="py-2 d-block">autres informations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Confidentialité</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">A propos</a></li>
+                        <li><a href="#" class="py-2 d-block">Conditions d'utilisations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Des Questions?</h2>
+                    <div class="block-23 mb-3">
+                        <ul>
+                            <li><span class="icon icon-map-marker"></span><span class="text">Congo Kinshasa</span></li>
+                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+237694126158 +23793063228</span></a></li>
+                            <li><span></span><span class="text"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 
-<!-- ##### Footer Area Start ##### -->
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-<!-- ##### All Javascript Script ##### -->
-<!-- jQuery-2.2.4 js -->
-<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
-<!-- Popper js -->
-<script th:src="@{/js/bootstrap/popper.min.js}"></script>
-<!-- Bootstrap js -->
-<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
-<!-- All Plugins js -->
-<script th:src="@{/js/plugins/plugins.js}"></script>
-<!-- Active js -->
-<script th:src="@{/js/active.js}"></script>
-<script th:src="@{/js/main.js}"></script>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.stellar.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/js/jquery.timepicker.min.js}"></script>
+<script th:src="@{/js/scrollax.min.js}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script th:src="@{/js/google-map.js}"></script>
+<script th:src="@{/js/main1.js}"></script>
+<script th:src="@{/js/crew.js}"></script>
+<script type="text/javascript">
+    $("#hide1").css("display","none");
+    $("#hide2").css("display","none");
+    $("#starter1").hover(function(){
+        $("#hide1").css("display","block");
+
+        $("#hide2").css("display","none");
+    })
+    $("#starter2").hover(function(){
+        $("#hide2").css("display","block");
+        $("#hide1").css("display","none");
+
+    })
+
+    $("#ender1").hover(function(){
+    },function(){
+        $("#hide1").css("display","none");
+
+    })
+
+    $("#ender3").hover(function(){
+        $("#hide1").css("display","none");
+        $("#hide2").css("display","none");
+    },function(){})
+    $("#ender4").hover(
+            function(){
+                $("#hide1").css("display","none");
+                $("#hide2").css("display","none");},
+            function(){})
+</script>
 </body>
-
 </html>
