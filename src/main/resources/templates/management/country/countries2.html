@@ -101,22 +101,20 @@
             <div class="item col-2" th:each="country : ${countries}">
                 <div class="testimony-wrap text-center py-4 pb-5">
                     <a   th:href="@{/management/country/education/} + ${country.countryId}">
-
-                        <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                            <span th:text="${country.countryName[0]}"> Yaounde</span>
-                        </div></a>
+                        <div class="user-img mb-4" th:style="'background-image: url(' + @{/images/country.png} + ');'">
+                        </div>
                     <div class="text">
                         <a  th:href="@{/management/country/education/} + ${country.countryId}">
                             <p class="name" th:text="${country.countryName}">Cameroun</p></a>
 
-                        </a>
+
                     </div>
                 </div>
 
             </div>
 
         </div>
-
+</div>
 </section>
 <section class="ftco-section-parallax">
     <div class="parallax-img d-flex align-items-center">
