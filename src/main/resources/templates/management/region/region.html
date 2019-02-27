@@ -97,43 +97,54 @@
                 <h2 class="subheading"><span>Liste des universités</span></h2>
             </div>
         </div>
+
         <div class="row ftco-animate">
-            <div class="item col-2"th:each="university : ${universities}">
-                <div class="testimony-wrap text-center py-4 pb-5">
-                    <a  th:href="@{/management/university/} + ${university.universityId}">
-                        <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                            <span th:text="${university.universityName[0]}"> Yaounde</span>
-                        </div>
-                    </a>
-                    <div class="text">
-                        <a th:href="@{/management/university/} + ${university.universityId}">
-                            <p class="name" th:text="${university.universityName}">Cameroun</p></a>
+            <table class="table table-hover text-white" >
+                <thead style="background-color:rgb(0,0,100);">
+                <tr>
 
-                    </div>
-                    <a sec:authorize="!hasRole('ROLE_USER')" class="btn btn-danger  rounded-circle" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${university.universityId }">
-                        <i class="fa fa-trash-o"></i>
-                    </a>
-                </div>
+                    <th>Nom de l'université</th>
+                    <th class="bg-success">Facultés</th>
+                </tr>
+                </thead>
+                <tbody style="color:black">
+                <tr th:each="university : ${universities}">
+                    <td th:text="${university.universityName}"></td>
+                    <td>
 
-                <div class="modal card modal-warning alert-warning fade in" th:id="modal-warning+${university.universityId}" >
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header text-center alert-info">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span></button>
-                                <h5 class="modal-title">Suppression d'une Universtié</h5>
-                            </div>
-                            <div class="modal-body text-center">
-                                <h3>Etes vous sure de vouloir supprimer définitivement cet Université de la liste?</h3>
-                            </div>
-                            <div class="modal-footer text-center">
-                                <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
-                                <a type="button" class="btn btn-danger" th:href="@{/management/delete/university/} + ${university.universityId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                        <a th:href="@{/management/university/} + ${university.universityId}" >Ouvrir &nbsp;<i class="fa fa-eye"></i></a>
+
+                        <a sec:authorize="!hasRole('ROLE_USER')" class="text-danger" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${university.universityId }">
+                           Supprimer <i class="fa fa-trash-o"></i>
+                        </a>
+                    </td>
+                    <div class="modal card modal-warning alert-warning fade in" th:id="modal-warning+${university.universityId}" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header text-center alert-info">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span></button>
+                                    <h5 class="modal-title">Suppression d'une Universtié</h5>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h3>Etes vous sure de vouloir supprimer définitivement cet Université de la liste?</h3>
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
+                                    <a type="button" class="btn btn-danger" th:href="@{/management/delete/university/} + ${university.universityId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+
 
         </div>
     </div>
