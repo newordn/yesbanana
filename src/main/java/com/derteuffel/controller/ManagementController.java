@@ -298,6 +298,7 @@ public class ManagementController {
     @GetMapping("/options/{optionsId}")
     public String findById(Model model, @PathVariable Long optionsId) {
         Optional<Options> optionsOptional= optionsRepository.findById(optionsId);
+        model.addAttribute("option", optionsOptional.get().getOptionsName());
         model.addAttribute("theses", theseRepository.findAllByOptionsOrderByTheseIdDesc(optionsOptional.get().getOptionsName()));
         return "management/options";
     }
@@ -673,8 +674,7 @@ public class ManagementController {
         User user=userRepository.findByEmail(auth.getName());
         session.setAttribute("userId", user.getUserId());
         List<Country> countries1= countryRepository.findAll();
-        model.addAttribute("countries1", countries1);
-        model.addAttribute("countries", countries);
+        model.addAttribute("countries", countries1);
         model.addAttribute("country", new Country());
         return "management/country/countries2";
     }

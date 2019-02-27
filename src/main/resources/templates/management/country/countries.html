@@ -99,9 +99,11 @@
         </div>
         <div class="row ftco-animate">
             <div class="item col-2" th:each="country : ${countries}">
-                <a th:href="@{/external/secure/country/country/} + ${country.countryId}">
+                <a th:href="@{/management/country/university/} + ${country.countryId}">
                     <div class="testimony-wrap text-center py-4 pb-5">
-                        <div class="user-img mb-4" th:style="'background-image: url(' + @{/images/country.png} + ');'">
+
+                        <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
+                            <span th:text="${country.countryName[0]}"> Yaounde</span>
                         </div>
                         <div class="text">
                             <p class="name" th:text="${country.countryName}">Cameroun</p>
@@ -110,28 +112,12 @@
                 </a>
             </div>
 
-            <div class="modal card modal-warning alert-warning fade in" th:id="modal-warning+${country.countryId}" >
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header text-center alert-info">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span></button>
-                            <h5 class="modal-title">Suppression d'un Pays</h5>
-                        </div>
-                        <div class="modal-body text-center">
-                            <h3>Etes vous sure de vouloir supprimer définitivement ce Pays de la liste?</h3>
-                        </div>
-                        <div class="modal-footer text-center">
-                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
-                            <a type="button" class="btn btn-danger" th:href="@{/management/country/delete/} + ${country.countryId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
-                        </div>
-                    </div>
-                </div>
-        </div>
     </div>
+        </div>
+
 </section>
 <!-- add country button start-->
-<button sec:authorize="!hasRole('ROLE_USER')" type="button" style="position:fixed; right:10px;bottom:10px;z-index:404982450" class="addButton btn btn-success= rounded-circle" data-toggle="modal" data-target="#addCountry">
+<button sec:authorize="!hasRole('ROLE_USER')" type="button" style="position:fixed; right:10px;bottom:10px;z-index:404982450" class="addButton btn btn-success rounded-circle" data-toggle="modal" data-target="#addCountry">
     <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
 </button>
 
@@ -144,7 +130,7 @@
                 <!-- loop over available  country -->
                 <select class="form-control" th:field="*{countryName}" id="countrySelect" style="width: 100%">
                     <option value="">Selection pays</option>
-                    <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
+                    <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel.countryName}">Côte d'ivoire</option>
                 </select>
                 <div class="form-group mt-3" style="width: 100%">
                     <span class='error' id="countryStreetError"></span>
