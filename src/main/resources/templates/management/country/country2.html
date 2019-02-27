@@ -100,8 +100,7 @@
             <div class="item col-md-2" th:each="region : ${regions}">
                 <div class="testimony-wrap text-center py-4 pb-5">
                     <a  th:href="@{/management/region/primaire/colonie/} + ${region.regionId}">
-                        <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
-                            <span th:text="${region.regName[0]}"> Yaounde</span>
+                        <div class="user-img mb-4" th:style="'background-image: url(' + @{/images/country.png} + ');'">
                         </div>
                     </a>
                     <div class="text">
