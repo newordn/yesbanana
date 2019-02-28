@@ -842,7 +842,7 @@ public class ManagementController {
         PagerModel pager1 = new PagerModel(list1.getTotalPages(),list1.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("pager", pager1);
         model.addAttribute("events", list1);
-        return "management/event/course/one/alphabetisation";
+        return "management/course/one/alphabetisation";
     }
     @GetMapping("/course/alphabetisation")
     public String alphabetisation(@RequestParam("pageSize") Optional<Integer> pageSize,

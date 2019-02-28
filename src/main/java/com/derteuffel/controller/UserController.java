@@ -2,6 +2,7 @@ package com.derteuffel.controller;
 
 
 import com.derteuffel.data.*;
+import com.derteuffel.repository.AddUserRoleRepository;
 import com.derteuffel.repository.GroupeRepository;
 import com.derteuffel.repository.RoleRepository;
 import com.derteuffel.repository.UserRepository;
@@ -44,6 +45,8 @@ public class UserController {
     private RoleService roleService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private AddUserRoleRepository addUserRoleRepository;
 
     @Autowired
     private GroupeRepository groupeRepository;
@@ -295,15 +298,20 @@ public class UserController {
     }
 
     @GetMapping("/detail/{userId}")
-    public String user(Model model, @PathVariable Long userId){
+    public String user(Model model, @PathVariable Long userId, HttpSession session){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
         model.addAttribute("user",user);
-        AddUserRole form= new AddUserRole(roleService.listAll(), user);
+        AddUserRole form= new AddUserRole();
+
+        AddUserRole editForm= addUserRoleRepository.findByUserId(user.getUserId());
         Set<Role> roles= roleService.findByGroupe(userId);
+        List<Role> roles1= roleRepository.findAll();
         model.addAttribute("form",form);
+        model.addAttribute("update",editForm);
         model.addAttribute("roles", roles);
+        model.addAttribute("roles1", roles1);
         return "user/detail";
     }
 
@@ -312,10 +320,14 @@ public class UserController {
         session.setAttribute("userId",userId);
         User user= userService.getById(userId);
         model.addAttribute("user",user);
-        AddUserRole form= new AddUserRole(roleService.listAll(), user);
+        AddUserRole form= new AddUserRole();
+        AddUserRole editForm= addUserRoleRepository.findByUserId(user.getUserId());
         Set<Role> roles= roleService.findByGroupe(userId);
+        List<Role> roles1= roleRepository.findAll();
         model.addAttribute("form",form);
+        model.addAttribute("update",editForm);
         model.addAttribute("roles", roles);
+        model.addAttribute("roles1", roles1);
         return "user/staffs";
     }
 
@@ -366,6 +378,8 @@ public class UserController {
         User user= userRepository.getOne(userId);
         System.out.println(user.getName());
         user.setRoles(role);
+        form.setUserId(user.getUserId());
+        addUserRoleRepository.save(form);
         userRepository.save(user);
         return "redirect:/user/staffs/"+user.getUserId();
     }
@@ -378,6 +392,38 @@ public class UserController {
         User user= userRepository.getOne(userId);
         System.out.println(user.getName());
         user.setRoles(role);
+        form.setUserId(user.getUserId());
+        addUserRoleRepository.save(form);
+        userRepository.save(user);
+        return "redirect:/user/staffs/"+user.getUserId();
+    }
+
+    @PostMapping("/role/update/{userId}")
+    public String updateRole(AddUserRole addUserRole, @PathVariable Long userId){
+        Role role= roleRepository.getOne(addUserRole.getRoleId());
+        User user= userRepository.getOne(userId);
+        for (int i=0;i<user.getRoles().size();i++){
+            user.removeRelation(user.getRoles().get(i));
+        }
+        user.setRoles(role);
+        addUserRole.setUserId(user.getUserId());
+        addUserRoleRepository.save(addUserRole);
+        userRepository.save(user);
+        return "redirect:/user/staffs/"+user.getUserId();
+    }
+    @PostMapping("/role/update1/{userId}")
+    public String updateRole1(AddUserRole addUserRole, @PathVariable Long userId){
+        Role role= roleRepository.getOne(addUserRole.getRoleId());
+        User user= userRepository.getOne(userId);
+        System.out.println(user.getName());
+        System.out.println(user.getRoles());
+        for (int i=0;i<user.getRoles().size();i++){
+            user.removeRelation(user.getRoles().get(i));
+        }
+
+        user.setRoles(role);
+        addUserRole.setUserId(user.getUserId());
+        addUserRoleRepository.save(addUserRole);
         userRepository.save(user);
         return "redirect:/user/staffs/"+user.getUserId();
     }

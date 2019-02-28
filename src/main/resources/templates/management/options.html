@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Yesbanana</title>
     <meta charset="utf-8">
@@ -12,6 +12,8 @@
 
     <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/animate.css}">
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
     <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
@@ -28,7 +30,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+        <a class="navbar-brand" th:href="@{/groupe/groupes}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
@@ -82,8 +84,6 @@
                 </li>
             </ul>
         </div>
-        </ul>
-    </div>
     </div>
 </nav>
 <!-- END nav -->

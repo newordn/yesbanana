@@ -1,6 +1,11 @@
 package com.derteuffel.data;
 
 import javax.mail.search.SearchTerm;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -8,20 +13,21 @@ import java.util.Set;
 /**
  * Created by derteuffel on 27/10/2018.
  */
-public class AddUserRole {
+@Entity
+public class AddUserRole implements Serializable{
 
+    @Id
+    @GeneratedValue
+    private Long addUserRoleId;
     private Long userId;
     private Long roleId;
-
-    private List<Role> roles;
-    private User user;
 
     public AddUserRole() {
     }
 
-    public AddUserRole(List<Role> roles, User user) {
-        this.roles = roles;
-        this.user = user;
+    public AddUserRole(Long userId, Long roleId) {
+        this.userId = userId;
+        this.roleId = roleId;
     }
 
     public Long getUserId() {
@@ -40,19 +46,11 @@ public class AddUserRole {
         this.roleId = roleId;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public Long getAddUserRoleId() {
+        return addUserRoleId;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setAddUserRoleId(Long addUserRoleId) {
+        this.addUserRoleId = addUserRoleId;
     }
 }
