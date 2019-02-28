@@ -422,13 +422,18 @@ public class UserController {
 
 
         User user1 = userService.findByEmail(user.getEmail());
+        User user2= userService.findByName(user.getName());
         if (user1 != null) {
 
             bindingResult.rejectValue("email", "user.error", "There is already a user registered with the email provided");
         }
+        if (user2 != null){
+            bindingResult.rejectValue("name", "user.error", "There is already a user registered with the name provided");
+
+        }
         if (bindingResult.hasErrors()) {
-            model.addAttribute("error", "Il existe un utilisateur avec le même email.");
-            return "user/userForm";
+            model.addAttribute("error", "Il existe un utilisateur avec le même email ou alors le meme nom d'utilisateur.");
+            return "user/inscription";
         } else {
             userService.saveOrUpdate(user);
 
