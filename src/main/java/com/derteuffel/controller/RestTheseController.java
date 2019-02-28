@@ -24,7 +24,9 @@ public class RestTheseController{
     private TheseRepository theseRepository;
 
     @Autowired
-    private UserService userRepository;
+    private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private GroupeRepository groupeRepository;
@@ -46,7 +48,7 @@ public class RestTheseController{
 
     @GetMapping("/user/get/{userId}")
     public User findOne(@PathVariable Long userId){
-       return userRepository.getById(userId);
+       return userService.getById(userId);
     }
 
     @GetMapping("/groupes")
