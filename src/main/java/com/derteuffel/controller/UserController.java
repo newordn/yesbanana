@@ -298,7 +298,7 @@ public class UserController {
     public String user(Model model, @PathVariable Long userId){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         model.addAttribute("user",user);
         AddUserRole form= new AddUserRole(roleService.listAll(), user);
         Set<Role> roles= roleService.findByGroupe(userId);
@@ -422,13 +422,18 @@ public class UserController {
 
 
         User user1 = userService.findByEmail(user.getEmail());
+        User user2= userService.findByName(user.getName());
         if (user1 != null) {
 
             bindingResult.rejectValue("email", "user.error", "There is already a user registered with the email provided");
         }
+        if (user2 != null){
+            bindingResult.rejectValue("name", "user.error", "There is already a user registered with the name provided");
+
+        }
         if (bindingResult.hasErrors()) {
-            model.addAttribute("error", "Il existe un utilisateur avec le même email.");
-            return "user/userForm";
+            model.addAttribute("error", "Il existe un utilisateur avec le même email ou alors le meme nom d'utilisateur.");
+            return "user/inscription";
         } else {
             userService.saveOrUpdate(user);
 
@@ -539,7 +544,7 @@ public class UserController {
     public String update(Model model, HttpSession session) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByName(auth.getName());
+        User user = userService.findByName(auth.getName());
         session.setAttribute("avatar", user.getImg());
         session.setAttribute("name", user.getName());
         User user1=userService.getById(user.getUserId());
@@ -580,7 +585,7 @@ public class UserController {
 
         if (user.getPassword().isEmpty()){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user1 = userRepository.findByName(auth.getName());
+        User user1 = userService.findByName(auth.getName());
         System.out.println(user1.getPassword());
             user.setPassword(user1.getPassword());
             user.setActive(true);
@@ -636,7 +641,7 @@ public class UserController {
 
         if (user.getPassword().isEmpty()){
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            User user1 = userRepository.findByName(auth.getName());
+            User user1 = userService.findByName(auth.getName());
             System.out.println(user1.getPassword());
             user.setPassword(user1.getPassword());
             user.setActive(true);

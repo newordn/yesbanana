@@ -6,6 +6,7 @@ import com.derteuffel.data.User;
 import com.derteuffel.repository.PostRepository;
 import com.derteuffel.repository.RegionRepository;
 import com.derteuffel.repository.UserRepository;
+import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,6 +40,9 @@ public class PostController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserService userService;
+
 
     public List<Post> findAll() {
         return postRepository.findAll();
@@ -48,7 +52,7 @@ public class PostController {
     @GetMapping("/other/form/procurements/{regionId}")
     public String other_procurements(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String procurements="Approvisionnement";
         model.addAttribute("procurements", procurements);
         model.addAttribute("userId",user.getUserId());
@@ -59,7 +63,7 @@ public class PostController {
     @GetMapping("/other/form/housing/{regionId}")
     public String other_housing(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String housing="Logements";
         model.addAttribute("housing", housing);
         model.addAttribute("userId",user.getUserId());
@@ -69,7 +73,7 @@ public class PostController {
     @GetMapping("/other/form/transport/{regionId}")
     public String other_transport(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String transport="Transport";
         model.addAttribute("transport", transport);
         model.addAttribute("userId",user.getUserId());
@@ -101,7 +105,7 @@ public class PostController {
     @GetMapping("/secondary/form/languages/{regionId}")
     public String secondary_languages(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String languages="Cours d'anglais et/ou francais";
         model.addAttribute("languages", languages);
         model.addAttribute("userId",user.getUserId());
@@ -111,7 +115,7 @@ public class PostController {
     @GetMapping("/secondary/form/courses/{regionId}")
     public String secondary_courses(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String courses= "Cours d'appui";
         model.addAttribute("courses", courses);
         model.addAttribute("userId",user.getUserId());
@@ -121,7 +125,7 @@ public class PostController {
     @GetMapping("/secondary/form/library/{regionId}")
     public String secondary_library(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String library= "Bibliotheque en ligne";
         model.addAttribute("library", library);
         model.addAttribute("userId",user.getUserId());
@@ -131,7 +135,7 @@ public class PostController {
     @GetMapping("/secondary/form/exam/{regionId}")
     public String secondary_exam(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String exam= "Préparation au baccalauréat";
         model.addAttribute("exam", exam);
         model.addAttribute("userId",user.getUserId());
@@ -141,7 +145,7 @@ public class PostController {
     @GetMapping("/secondary/form/games/{regionId}")
     public String secondary_games(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String games= "Jeux educatif";
         model.addAttribute("games", games);
         model.addAttribute("userId",user.getUserId());
@@ -151,7 +155,7 @@ public class PostController {
     @GetMapping("/secondary/form/framing/{regionId}")
     public String secondary_framing(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String framing="Encadrement";
         model.addAttribute("framing", framing);
         model.addAttribute("userId",user.getUserId());
@@ -162,7 +166,7 @@ public class PostController {
     public String secondary_transport(Model model){
         String transport= "Transport securise";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         model.addAttribute("userId",user.getUserId());
         model.addAttribute("transport", transport);
         model.addAttribute("post", new Post());
@@ -172,7 +176,7 @@ public class PostController {
     @GetMapping("/primary/form/transport/{regionId}")
     public String primary_transport(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String transport= "Transport securise";
         model.addAttribute("transport", transport);
         model.addAttribute("userId",user.getUserId());
@@ -184,7 +188,7 @@ public class PostController {
     @GetMapping("/primary/form/library/{regionId}")
     public String primary_library(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String library= "Bibliotheque en ligne";
         model.addAttribute("library", library);
         model.addAttribute("userId",user.getUserId());
@@ -195,7 +199,7 @@ public class PostController {
     @GetMapping("/primary/form/languages/{regionId}")
     public String primary_languages(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String languages= "Cours d'anglais et/ou francais";
         model.addAttribute("languages", languages);
         model.addAttribute("userId",user.getUserId());
@@ -206,7 +210,7 @@ public class PostController {
     @GetMapping("/primary/form/hollidays/{regionId}")
     public String primary_hollidays(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String hollidays="Colonie de vacances";
         model.addAttribute("hollidays", hollidays);
         model.addAttribute("userId",user.getUserId());
@@ -217,7 +221,7 @@ public class PostController {
     @GetMapping("/primary/form/games/{regionId}")
     public String primary_games(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String games="Jeux educatif";
         model.addAttribute("games", games);
         model.addAttribute("userId",user.getUserId());
@@ -228,7 +232,7 @@ public class PostController {
     @GetMapping("/primary/form/courses/{regionId}")
     public String primary_courses(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         String courses= "Cours d'appui";
         model.addAttribute("courses", courses);
         model.addAttribute("userId",user.getUserId());

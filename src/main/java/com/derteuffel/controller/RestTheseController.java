@@ -24,7 +24,9 @@ public class RestTheseController{
     private TheseRepository theseRepository;
 
     @Autowired
-    private UserService userRepository;
+    private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private GroupeRepository groupeRepository;
@@ -46,7 +48,7 @@ public class RestTheseController{
 
     @GetMapping("/user/get/{userId}")
     public User findOne(@PathVariable Long userId){
-       return userRepository.getById(userId);
+       return userService.getById(userId);
     }
 
     @GetMapping("/groupes")
@@ -68,7 +70,7 @@ public List<Groupe> findAll(){
     @GetMapping("/{password}")
     public boolean update( @PathVariable String password){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         if (bCryptPasswordEncoder.matches(password, user.getPassword())){
             return true;
 

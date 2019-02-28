@@ -25,21 +25,6 @@ public class UserService implements UserInterface {
     @Autowired
     private BCryptPasswordEncoder strongPasswordEncryptor;
 
-
-
-
-
-
-    @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    @Override
-    public User findByName(String name) {
-        return userRepository.findByName(name);
-    }
-
     @Override
     public List<User> listAll() {
         List<User> users = new ArrayList<>();
@@ -59,6 +44,16 @@ public class UserService implements UserInterface {
             user.setPassword(strongPasswordEncryptor.encode(user.getPassword()));
         }
         return userRepository.save(user);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public User findByName(String name) {
+        return userRepository.findByName(name);
     }
 
     @Override
