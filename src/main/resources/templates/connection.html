@@ -24,7 +24,7 @@
         <form method="POST"  th:action="@{/login}" class="appointment-form" id="appointment-form">
             <h2>Connexion d'un Staff</h2>
             <div class="form-group-1">
-                <input type="email" name="email"  placeholder="Votre Adresse Email" id="email" required />
+                <input type="text" name="name"  placeholder="Votre Nom d'utilisateur" id="name" required />
                  <input type="password" name="password" id="password" placeholder="Mot de Passe" required />
             </div>
             <div class="form-submit mt-3" sec:authorize="!isFullyAuthenticated()">
