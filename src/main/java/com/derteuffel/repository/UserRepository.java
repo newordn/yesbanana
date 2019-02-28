@@ -23,6 +23,7 @@ import java.util.Set;
 public interface UserRepository extends JpaRepository<User, Long> {
     Collection<User> findAllByOrderByUserIdDesc();
     User findByEmail(String email);
+    User findByName(String name);
 
     Page<User> findAllByActiveOrderByUserIdDesc(Boolean active,Pageable pageable);
     List<User> findAllByActiveOrderByUserIdDesc(Boolean active);

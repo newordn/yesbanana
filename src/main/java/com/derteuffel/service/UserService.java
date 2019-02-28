@@ -36,6 +36,11 @@ public class UserService implements UserInterface {
     }
 
     @Override
+    public User findByName(String name) {
+        return userRepository.findByName(name);
+    }
+
+    @Override
     public List<User> listAll() {
         List<User> users = new ArrayList<>();
         userRepository.findAll().forEach(users::add); //fun with Java 8

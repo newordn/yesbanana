@@ -291,7 +291,7 @@ public class TheseController {
         model.addAttribute("theses", thesePage);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
+        User user=userRepository.findByName(auth.getName());
         session.setAttribute("userId", user.getUserId());
         session.setAttribute("avatar", user.getImg());
         session.setAttribute("name", user.getName());
@@ -308,7 +308,7 @@ public class TheseController {
     public  String theseForm1(Model model){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
+        User user=userRepository.findByName(auth.getName());
         int p=0;
 
         model.addAttribute("these", new These());
@@ -443,7 +443,7 @@ public class TheseController {
     @PostMapping("/add/create")
     public String save(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, String adresse, String contenue, Errors errors,Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
+        User user=userRepository.findByName(auth.getName());
         These these1= theseRepository.findBySubject(these.getSubject());
         if (these1 != null){
             errors.rejectValue("title","these.error","il existe deja une reference avec ce titre");
@@ -493,7 +493,7 @@ public class TheseController {
     @PostMapping("/add/save")
     public String create(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, Errors errors,Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
+        User user=userRepository.findByName(auth.getName());
         These these1= theseRepository.findBySubject(these.getSubject());
         if (these1 != null){
             errors.rejectValue("subject","these.error","il existe deja une reference avec ce titre");
@@ -537,7 +537,7 @@ public class TheseController {
     @PostMapping("/add/update/somaire")
     public String update(These these, @RequestParam("files") MultipartFile[] files, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
+        User user=userRepository.findByName(auth.getName());
         List<FileUploadRespone> pieces= Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
@@ -574,7 +574,7 @@ public class TheseController {
     @PostMapping("/add/update/equipe")
     public String updateEquipe(These these, @RequestParam("files") MultipartFile[] files, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
+        User user=userRepository.findByName(auth.getName());
         List<FileUploadRespone> pieces= Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
@@ -633,7 +633,7 @@ public class TheseController {
     @PostMapping("/unPublish/{theseId}")
     public String unPublishPeriod(These these, HttpSession session, String adresse, String contenue){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
+        User user=userRepository.findByName(auth.getName());
         these.setStatus(null);
         these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
         these.setGroupe(groupeRepository.getOne((Long)session.getAttribute("groupeId")));

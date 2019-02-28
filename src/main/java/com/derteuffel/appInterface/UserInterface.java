@@ -12,6 +12,8 @@ public interface UserInterface extends crudInterface<User> {
 
     User findByEmail(String email);
 
+    User findByName(String name);
+
     User update(User user);
 
     List<User> findByCategory(String category);

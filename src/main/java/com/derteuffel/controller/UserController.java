@@ -298,7 +298,7 @@ public class UserController {
     public String user(Model model, @PathVariable Long userId){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
+        User user=userRepository.findByName(auth.getName());
         model.addAttribute("user",user);
         AddUserRole form= new AddUserRole(roleService.listAll(), user);
         Set<Role> roles= roleService.findByGroupe(userId);
@@ -539,7 +539,7 @@ public class UserController {
     public String update(Model model, HttpSession session) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findByEmail(auth.getName());
+        User user = userRepository.findByName(auth.getName());
         session.setAttribute("avatar", user.getImg());
         session.setAttribute("name", user.getName());
         User user1=userService.getById(user.getUserId());
@@ -580,7 +580,7 @@ public class UserController {
 
         if (user.getPassword().isEmpty()){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user1 = userService.findByEmail(auth.getName());
+        User user1 = userRepository.findByName(auth.getName());
         System.out.println(user1.getPassword());
             user.setPassword(user1.getPassword());
             user.setActive(true);
@@ -636,7 +636,7 @@ public class UserController {
 
         if (user.getPassword().isEmpty()){
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            User user1 = userService.findByEmail(auth.getName());
+            User user1 = userRepository.findByName(auth.getName());
             System.out.println(user1.getPassword());
             user.setPassword(user1.getPassword());
             user.setActive(true);

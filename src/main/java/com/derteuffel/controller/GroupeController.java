@@ -271,7 +271,7 @@ public class GroupeController {
     @GetMapping("/groupes")
     public String findAllByParentOrderByGroupeIdDesc(Model model, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
+        User user=userRepository.findByName(auth.getName());
         session.setAttribute("userId",user.getUserId());
         session.setAttribute("avatar",user.getImg());
         session.setAttribute("name", user.getName());
@@ -385,7 +385,7 @@ public class GroupeController {
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
         // print repo
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
+        User user=userRepository.findByName(auth.getName());
         Groupe groupe=groupeRepository.getOne((Long)session.getAttribute("groupeId"));
         if ((Long)session.getAttribute("groupeId") == null){
             return "redirect:/groupe/groupes";
@@ -651,7 +651,7 @@ public class GroupeController {
     @PostMapping("/add/update/somaire")
     public String update(These these, @RequestParam("files") MultipartFile[] files, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByEmail(auth.getName());
+        User user = userRepository.findByName(auth.getName());
         List<FileUploadRespone> pieces = Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
@@ -685,7 +685,7 @@ public class GroupeController {
     @PostMapping("/add/update/equipe")
     public String updateEquipe(These these, @RequestParam("files") MultipartFile[] files, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByEmail(auth.getName());
+        User user=userRepository.findByName(auth.getName());
         List<FileUploadRespone> pieces= Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
