@@ -660,7 +660,7 @@ public class ManagementController {
     @GetMapping("/countries/university")
     public String findAllCountry(Model model, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         session.setAttribute("userId", user.getUserId());
         List<Country> countries1= countryRepository.findAll();
         model.addAttribute("countries", countries1);
@@ -671,7 +671,7 @@ public class ManagementController {
     @GetMapping("/countries/education")
     public String findAllCountryForEduaction(Model model, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         session.setAttribute("userId", user.getUserId());
         List<Country> countries1= countryRepository.findAll();
         model.addAttribute("countries", countries1);
@@ -682,7 +682,7 @@ public class ManagementController {
     @GetMapping("/countries/other")
     public String findAllCountry1(Model model, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         session.setAttribute("userId", user.getUserId());
         List<Country> countries= countryRepository.findAll();
         model.addAttribute("countries", countries);
@@ -777,7 +777,7 @@ public class ManagementController {
         }
         other.setPieces(filesPaths);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         other.setUser(user);
         Region region=regionRepository.getOne((Long)session.getAttribute("regionId"));
         other.setRegion(region);
@@ -799,7 +799,7 @@ public class ManagementController {
         }
         other.setPieces(filesPaths);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         other.setUser(user);
         Region region=regionRepository.getOne((Long)session.getAttribute("regionId"));
         other.setRegion(region);
@@ -1779,7 +1779,7 @@ public class ManagementController {
         Period period=periodRepository.getOne(periodId);
         model.addAttribute("period",period);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         int p=0;
         for (Role role : user.getRoles()){
             if (role.getRole().equals("ROOT")){
@@ -1797,7 +1797,7 @@ public class ManagementController {
     @PostMapping("/period/save")
     public String periodSaved(Period period, HttpSession session, String adresse, String contenue){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         Long courseId= (Long)session.getAttribute("courseId");
         Optional<Course> course= courseRepository.findById(courseId);
         period.setCourse(course.get());
@@ -1825,7 +1825,7 @@ public class ManagementController {
     @PostMapping("/period/edit/admin/{periodId}")
     public String periodEditADMIN(Period period, HttpSession session, String adresse, String contenue){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         Long courseId= (Long)session.getAttribute("courseId");
         Optional<Course> course= courseRepository.findById(courseId);
         period.setCourse(course.get());
@@ -1866,7 +1866,7 @@ public class ManagementController {
     @PostMapping("/period/unPublish/{periodId}")
     public String unPublishPeriod(Period period, HttpSession session, String adresse, String contenue){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         period.setStatus(null);
         period.setCourse(courseRepository.findById((Long)session.getAttribute("courseId")).get());
         periodRepository.save(period);
@@ -1903,7 +1903,7 @@ public class ManagementController {
     @GetMapping("/lesson/edit/{lessonId}")
     public  String updateLesson(@PathVariable Long lessonId, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         Lesson lesson = lessonRepository.getOne(lessonId);
         model.addAttribute("lesson", lesson);
         int p=0;
@@ -1949,7 +1949,7 @@ public class ManagementController {
     @PostMapping("/lesson/edit/admin/{lessonId}")
     public String editLessonADMIN(Lesson lesson, HttpSession session, @RequestParam("files") MultipartFile[] files, String adresse, String contenue){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         List<FileUploadRespone> pieces= Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
@@ -1998,7 +1998,7 @@ public class ManagementController {
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         System.out.println(filesPaths);
         lesson.setPieces(filesPaths);
 
@@ -2041,7 +2041,7 @@ public class ManagementController {
     @PostMapping("/lesson/unPublish/{lessonId}")
     public String unPublishLesson(Lesson lesson, HttpSession session, String adresse, String contenue){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         lesson.setStatus(null);
         lesson.setPeriod(periodRepository.getOne((Long)session.getAttribute("periodId")));
         lessonRepository.save(lesson);
@@ -2231,7 +2231,7 @@ public class ManagementController {
     public String primarySave(Primaire primaire,Errors errors, HttpSession session, Model model, @RequestParam("files") MultipartFile[] files, String adresse, String contenue){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         List<FileUploadRespone> pieces= Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))

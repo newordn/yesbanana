@@ -70,7 +70,7 @@ public List<Groupe> findAll(){
     @GetMapping("/{password}")
     public boolean update( @PathVariable String password){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userRepository.findByName(auth.getName());
+        User user=userService.findByName(auth.getName());
         if (bCryptPasswordEncoder.matches(password, user.getPassword())){
             return true;
 
