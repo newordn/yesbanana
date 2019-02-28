@@ -2051,7 +2051,8 @@ public class ManagementController {
                 "Notification de correction du contenu de cette lesson",
                 user.getName()+" vous notifi celon le contenue suivant :"+contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
-        return "redirect:/management/period/get/"+(Long)session.getAttribute("periodId");
+        return "redirect:/management/period/get/"+(
+                Long)session.getAttribute("periodId");
     }
 
     @DeleteMapping("/lesson/delete/{lessonId}")
