@@ -111,10 +111,10 @@
                     <td th:text="${faculty.facultyName}"></td>
                     <td>
 
-                        <a th:href="@{/management/faculty/} + ${faculty.facultyId}" >Ouvrir &nbsp;<i class="fa fa-eye"></i></a>
+                        <a th:href="@{/management/faculty/} + ${faculty.facultyId}" >Ouvrir &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                         <a sec:authorize="!hasRole('ROLE_USER')" class="text-danger" data-toggle="modal" th:attr="data-target='#modal-warning'+${faculty.facultyId}">
-                            Supprimer <i class="fa fa-trash-o"></i>
+                            Supprimer&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-trash-o"></i>
                         </a>
                     </td>
                     <div class="modal card modal-warning alert-warning fade in" th:id="modal-warning+${faculty.facultyId}" >
