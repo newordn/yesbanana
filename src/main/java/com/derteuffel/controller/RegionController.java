@@ -3,6 +3,8 @@ package com.derteuffel.controller;
 import com.derteuffel.data.*;
 import com.derteuffel.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,8 @@ public class RegionController {
     private PostRepository postRepository;
     @Autowired
     private OtherRepository otherRepository;
+    @Autowired
+    private PrimaireRepository primaireRepository;
 
     //region crud methods
 /*
@@ -115,6 +119,15 @@ public class RegionController {
         model.addAttribute("transports", others2);
         return "region/other/transport";
     }
+
+   /* @GetMapping("region/primaire/colonie/{regionId}")
+    public String colonie(Model model, @PathVariable Long regionId, HttpSession session, Pageable pageable){
+
+        Region region= regionRepository.getOne(regionId);
+        session.setAttribute("regionId",regionId);
+        Page<Primaire> primaireList= primaireRepository.findAllByRegion(region.getRegionId(),pageable);
+        Page<Primaire> primaireList1= primaireRepository.findAllByTypeAndStatus("Colonie de vacances",true, pageable);
+    }*/
 
 
 }

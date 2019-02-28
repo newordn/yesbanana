@@ -158,7 +158,7 @@
                         <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
                             <div class="border"></div>
                             <span>STAFFS</span>&nbsp;&nbsp;
-                            <a th:href="@{/groupe/groupes}">Retour</a>
+                            <a th:href="@{/user}">Retour</a>
                         </div>
                     </div>
 
@@ -177,9 +177,16 @@
                                 <ul th:each=" role : ${roles}">
                                     <li> <p th:text="${role.role}"></p></li>
                                 </ul>
-                                <button sec:authorize="hasRole('ROLE_ROOT')" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#addRole">
-                                    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
-                                </button>
+                                <div  th:if="${#lists.size(user.roles)==0}">
+                                    <button sec:authorize="hasRole('ROLE_ROOT')" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#addRole">
+                                        <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+                                    </button>
+                                </div>
+                                <div  th:unless="${#lists.size(user.roles)==0}">
+                                    <button sec:authorize="hasRole('ROLE_ROOT')" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#addRole" disabled>
+                                        <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+                                    </button>
+                                </div>
                                 <div sec:authorize="hasRole('ROLE_ROOT')" class=" modal fade" id="addRole" tabindex="-1" role="dialog" data-keyboard="false">
                                     <div class="modal-dialog modal-dialog-centered"  role="document">
                                         <form class="add-these-form modal-content card text-center" th:object="${form}" method="post" th:action="@{/user/role/save1}">

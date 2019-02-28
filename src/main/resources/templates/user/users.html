@@ -113,7 +113,8 @@
                     <td th:text="${user.country}"></td>
                     <td th:text="${user.region}"></td>
                     <td th:text="${user.number}"></td>
-                    <td th:text="${user.roles[0].role}">
+                    <td th:each="role : ${user.roles}">
+                        <span th:text="${role.role}"></span>
                     </td>
                     <td>
                         <a sec:authorize="!hasRole('ROLE_USER')" th:href="@{/user/staffs/}+${user.userId}"class=" btn btn-success" ><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
