@@ -33,12 +33,11 @@
 <div th:replace="~{../templates/fragments/sidebar :: sidebar}">
 </div>
 <!-- sidebar-->
-<div class="col-11 offset-1 main">
+<div class="col-md-11 offset-1 main">
     <div class="row justify-content-center content" style="margin-top: 5.5rem;">
-        <h3 class="col-12 text-center mt-3">Utilisateurs de la région</h3>
-        <div class="col-12 col-sm-12 col-lg-12" >
-            <table  class="table table-bordered table-hover table-lg display">
-                <thead class="thead-light">
+        <h3 class="text-center mt-3">Utilisateurs de la région</h3>
+            <table  class="table text-center table-hover  table-lg display">
+                <thead class="text-white bg-secondary">
                     <th>Nom</th>
                     <th>Email</th>
                     <th>Pays</th>
@@ -119,11 +118,8 @@
                     </ul>
                 </div>
             </div>
-
-        </div>
         <button type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addUserIntoCrew">
             <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
-            </i>
         </button>
         <!--addUserIntoCrew-->
         <div class=" modal fade" id="addUserIntoCrew" tabindex="-1" role="dialog">

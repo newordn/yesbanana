@@ -407,7 +407,7 @@ public class User implements Serializable{
         role.getUsers().remove(this);
     }
 
-    @JsonIgnore
+
     public List<These> getTheses() {
         return theses;
     }

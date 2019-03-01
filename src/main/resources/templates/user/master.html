@@ -29,11 +29,13 @@
 
 
 <body>
-<div class="col-12 col-sm-12 col-lg-12">
-    <nav class="nav col-12 row" style="height: 5rem;" >
-        <a th:href="@{/groupe/groupes}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
-        <div class="col-11 offset-1 text-center"  style="left: 0;">
-            <h3 class=" text-center " > Tous les experts en master 1&2 </h3>
+<div class="main">
+    <nav class="nav row" style="height: 5rem;" >
+        <div class="col-md-2">
+            <a th:href="@{/groupe/groupes}" class="btn bg-success" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+        </div>
+        <div class="col-md-10 offset-1 text-center"  style="left: 0;">
+            <h3 class=" text-center " > Tous les experts assistant </h3>
         </div>
     </nav>
     <br>
@@ -44,8 +46,8 @@
                 <h3 class="text-center" >Liste des utilisateurs</h3>
             </div>
             <div class="card-body">
-                <table id="master" class="table table-bordered table-hover table-lg display">
-                    <thead class="thead-light">
+                <table id="master" class="table text-center table-hover bg-secondary table-lg display">
+                    <thead class="text-white">
                         <th>Nom</th>
                         <th>Email</th>
                         <th>Pays</th>

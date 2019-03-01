@@ -111,7 +111,7 @@ public class These implements Serializable{
     public void setBibliographies(List<Bibliography> bibliographies) {
         this.bibliographies = bibliographies;
     }
-
+    @JsonIgnore
     public Groupe getGroupe() {
         return groupe;
     }
@@ -135,7 +135,7 @@ public class These implements Serializable{
     public void setStatus(Boolean status) {
         this.status = status;
     }
-
+    @JsonIgnore
     public User getUser() {
         return user;
     }

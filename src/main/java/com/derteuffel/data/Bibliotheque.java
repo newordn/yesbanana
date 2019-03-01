@@ -1,5 +1,7 @@
 package com.derteuffel.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -44,6 +46,7 @@ public class Bibliotheque implements Serializable {
         this.bibliotheques = bibliotheques;
     }
 
+    @JsonIgnore
     public These getThese() {
         return these;
     }
