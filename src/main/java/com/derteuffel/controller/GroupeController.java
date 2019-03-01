@@ -453,38 +453,18 @@ public class GroupeController {
     private static final int INITIAL_PAGE_SIZE = 5;
     private static final int[] PAGE_SIZES = { 5,6,7,8};
 
-    @GetMapping("/users/{groupeId}")
+    @GetMapping("/groupe/users/{groupeId}")
     public String getUsers(@PathVariable Long groupeId){
         return "redirect:/groupe/groupe/users";
     }
     @GetMapping("/groupe/users")
-    public String groupeUser(Model model,@RequestParam("pageSize") Optional<Integer> pageSize,
-                             @RequestParam("page") Optional<Integer> page, HttpSession session){
-
-    //
-    // Evaluate page size. If requested parameter is null, return initial
-    // page size
-    int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-    // Evaluate page. If requested parameter is null or less than 0 (to
-    // prevent exception), return initial size. Otherwise, return value of
-    // param. decreased by 1.
-    int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-    // print repo
+    public String groupeUser(Model model, HttpSession session){
 
         List<User> users1=userService.listAll();
         Groupe groupe = groupeRepository.getOne((Long)session.getAttribute("groupeId"));
         model.addAttribute("users1",users1);
         model.addAttribute("usersGroupe", new UsersGroupe());
         model.addAttribute("groupe",groupe);
-        Page<User> users = userRepository.findByGroupes_GroupeId((Long)session.getAttribute("groupeId"),new PageRequest(evalPage,evalPageSize));
-    PagerModel pager = new PagerModel(users.getTotalPages(),users.getNumber(),BUTTONS_TO_SHOW);// evaluate page size
-    model.addAttribute("selectedPageSize", evalPageSize);
-    // add pages size
-    model.addAttribute("pageSizes", PAGE_SIZES);
-    // add pager
-    model.addAttribute("pager", pager);
-    System.out.println(users);
-        model.addAttribute("users",users);
         return "crew/users";
 
     }

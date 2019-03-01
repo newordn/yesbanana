@@ -3,7 +3,7 @@
      xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="sidebar-items" sec:authorize="!hasRole('ROLE_USER')">
         <a th:href="@{/groupe/groupe/} + ${session.groupeId}"><button id="thesesButton"><i class="zmdi zmdi-graduation-cap zmdi-hc-2x"></i><br>Thèses</button></a>
-        <a  th:href="@{/groupe/users/} + ${session.groupeId}"><button id="usersLink"><i class="zmdi zmdi-account zmdi-hc-2x"></i><br>Utilisateurs</button></a>
+        <a  th:href="@{/groupe/groupe/users/} + ${session.groupeId}"><button id="usersLink"><i class="zmdi zmdi-account zmdi-hc-2x"></i><br>Utilisateurs</button></a>
         <a  th:href="@{/groupe/stats/}"><button id="statsLink"><i class="zmdi zmdi-trending-down zmdi-hc-2x"></i><br>Statistiques</button></a>
         <a  th:href="@{/groupe/training/}+ ${session.groupeId}"><button id="groupTeamLink"><i class="zmdi zmdi-group-work zmdi-hc-2x"></i><br>Accompa...</button></a>
     </div>
