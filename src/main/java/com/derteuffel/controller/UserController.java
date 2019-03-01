@@ -628,6 +628,11 @@ public class UserController {
             user.setCv(user.getCv());
         }
 
+        AddUserRole addUserRole= addUserRoleRepository.findByUserId(user.getUserId());
+        Role role= roleRepository.getOne(addUserRole.getRoleId());
+        System.out.println(role.getRole());
+
+
 
         if (user.getPassword().isEmpty()){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -635,6 +640,9 @@ public class UserController {
         System.out.println(user1.getPassword());
             user.setPassword(user1.getPassword());
             user.setActive(true);
+            user.addRoles(user1.getRoles());
+            user.setGroupes(user1.getGroupes());
+            addUserRole.setUserId(user.getUserId());
             userService.update(user);
             MailService mailService = new MailService();
 

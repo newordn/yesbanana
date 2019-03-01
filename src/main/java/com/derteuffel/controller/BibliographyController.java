@@ -48,19 +48,19 @@ public class BibliographyController {
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
             bibliographyRepository.save(bibliography);
         }
-        return "redirect:/groupe/biblib/"+ (Long)session.getAttribute("theseId");
+        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
     }
 
     @PostMapping("/update")
     public String update(Bibliography bibliography, Model model, HttpSession session){
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
             bibliographyRepository.save(bibliography);
-        return "redirect:/groupe/biblib/"+ (Long)session.getAttribute("theseId");
+        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
     }
 
     @GetMapping("/delete/{bibliographyId}")
     public String delete(@PathVariable Long bibliographyId, HttpSession session){
         bibliographyRepository.deleteById(bibliographyId);
-        return "redirect:/groupe/biblib/ "+ (Long)session.getAttribute("theseId");
+        return "redirect:/groupe/groupe/biblib/ "+ (Long)session.getAttribute("theseId");
     }
 }

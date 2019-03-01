@@ -36,43 +36,43 @@
             <form method="post" enctype="multipart/form-data" id="register-form" th:action="@{/user/modofier}" th:object="${user}" class=" profil-form card">
                 <div class="row">
                     <input type="hidden" th:field="*{userId}" id="userId" />
-                    <div class="col-6">
+                    <div class="col-md-6 form-group">
                         <span class='error' id="nameError"></span>
-                        <input type="text" th:field="*{name}" id="name" placeholder="Votre Nom" />
+                        <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Votre Nom" />
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-6 form-group">
                         <span class='error' id="emailError"></span>
-                        <input type="email" th:field="*{email}" id="email" placeholder="Votre Email" />
+                        <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="Votre Email" />
                     </div>
                 </div>
                 <div class="row">
-                    <div class=" col-6">
-                        <div class="country">
-                            <select th:field="*{country}" id="countrySelect">
+                    <div class=" col-md-6">
+                        <div class="form-group">
+                            <select th:field="*{country}" class="form-control" id="countrySelect">
                                 <option value="">Selection pays</option>
                                 <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
                             </select>
-                            <input type="text" th:field="*{number}" id="number" placeholder="Votre Numéro"  />
+                            <input type="text" th:field="*{number}" class="form-control" id="number" placeholder="Votre Numéro"  />
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-6 form-group">
                         <span class='error' id="regionError"></span>
-                        <input type="text" th:field="*{region}" id="region" placeholder="Votre Région" />
+                        <input type="text" class="form-control" th:field="*{region}" id="region" placeholder="Votre Région" />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-md-6 form-group">
                         <span class='error' id="universityError"></span>
-                        <input type="text" th:field="*{university}" id="university" placeholder="Votre Université" />
+                        <input type="text" class="form-control" th:field="*{university}" id="university" placeholder="Votre Université" />
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-6 form-group">
                         <span class='error' id="facultyError"></span>
-                        <input type="text" th:field="*{faculty}" id="faculty" placeholder="Votre Faculté" />
+                        <input type="text" class="form-control" th:field="*{faculty}" id="faculty" placeholder="Votre Faculté" />
                     </div>
                     <input  th:field="*{role.roleId}" id="role" placeholder="Votre Faculté" style="display: none"/>
                     <input  th:field="*{autorization}" id="autorization" placeholder="autorisation" style="display: none"/>
                 </div>
-                <div class="col-7 p-0 justify-content-left">
+                <div class="col-md-7 p-0 justify-content-left">
                     <input type="checkbox" class="form-check-input" id="passwordToggle">
                     <label class="form-check-label" for="passwordToggle">
                         <strong>Modifier Votre Mot de passe</strong>
@@ -80,10 +80,10 @@
 
                 </div>
                 <div class="row mt-2" id="passwordInputs" style="display:none">
-                    <div class="col-6">
+                    <div class="col-md-6 form-group">
                         <span class='error' id="passwordError"></span>
-                        <input type="password" autocomplete="" name="password" id="password" placeholder="Mot de Passe" />
-                        <input autocomplete="" type="password" id="repass" placeholder="Confirmation Mot de Passe" />
+                        <input type="password" class="form-control" autocomplete="" name="password" id="password" placeholder="Mot de Passe" />
+                        <input autocomplete="" type="password" class="form-control" id="repass" placeholder="Confirmation Mot de Passe" />
                     </div>
                 </div>
                 <input type="text"  th:field="*{img}" style="display: none">

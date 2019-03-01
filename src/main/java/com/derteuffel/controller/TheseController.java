@@ -268,7 +268,7 @@ public class TheseController {
     private String pathToDownloadFileServer = "/home3/banana/jvm/apache-tomcat-8.5.30/domains/yesbanana.org/ROOT/WEB-INF/classes/static/downloadFile/";
     
 // for getting all theses
-    @GetMapping("")
+    @GetMapping("/all")
     public String findAllThese(Model model,
                          @RequestParam("page")Optional<Integer> page,
                          @RequestParam("size")Optional<Integer> pageSize, HttpSession session) {
@@ -746,7 +746,7 @@ public class TheseController {
 
     }
 
-    @GetMapping("/bibliotheque/delete/{bibliographyId}")
+    @GetMapping("/these/bibliotheque/delete/{bibliographyId}")
     public String delete(@PathVariable Long bibliothequeId, HttpSession session){
         bibliothequeRepository.deleteById(bibliothequeId);
         return "redirect:/these/biblib/ "+ (Long)session.getAttribute("theseId");
