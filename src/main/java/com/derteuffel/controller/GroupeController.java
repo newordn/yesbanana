@@ -454,22 +454,13 @@ public class GroupeController {
     private static final int[] PAGE_SIZES = { 5,6,7,8};
 
     @GetMapping("/groupe/users/{groupeId}")
-    public String getUsers(@PathVariable Long groupeId){
-        return "redirect:/groupe/groupe/users";
-    }
-    @GetMapping("/groupe/users")
-    public String groupeUser(Model model, HttpSession session){
-
+    public String getUsers(Model model, @PathVariable Long groupeId){
         List<User> users1=userService.listAll();
-        Groupe groupe = groupeRepository.getOne((Long)session.getAttribute("groupeId"));
         model.addAttribute("users1",users1);
         model.addAttribute("usersGroupe", new UsersGroupe());
-        model.addAttribute("groupe",groupe);
+        model.addAttribute("groupe",groupeRepository.getOne(groupeId));
         return "crew/users";
-
     }
-
-
     @GetMapping("/groupe/{groupeId}")
     public String get(@PathVariable Long groupeId, HttpSession session){
         session.setAttribute("groupeId", groupeId);
