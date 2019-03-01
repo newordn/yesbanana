@@ -27,7 +27,7 @@ $(document).ready( function () {
         ]
     })
     var groupeUsers = $('#users').DataTable({
-        "sAjaxSource": "/user/groupe",
+        "sAjaxSource": "/users/groupe",
         "sAjaxDataProp": "",
         "order": [[ 0, "asc" ]],
         language: {
