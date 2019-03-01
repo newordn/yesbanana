@@ -38,7 +38,16 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item "><a th:href="@{/groupe/groupes}" class="nav-link ">Régions</a></li>
+                <li class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item" id="ender3">
+                            <a th:href="@{/groupe/groupes}" class="black nav-link" >Regions</a>
+                        </li>
+                        <li class="dropdown-item" id="ender3">
+                            <a th:href="@{/these/all}" class="black nav-link" >Theses Générales</a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item "><a th:href="@{/user}" class="nav-link ">Staffs</a></li>
                 <li class="nav-item "><a th:href="@{/stats}" class="nav-link ">Statistiques</a></li>
                 <li class="nav-item active"><a th:href="@{/management/countries/university}" class="nav-link ">Universités</a></li>
