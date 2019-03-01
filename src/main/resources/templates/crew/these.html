@@ -63,7 +63,7 @@
                             <h4 class="alert-success">Videos Relatives</h4>
                             <ul th:each=" resume : ${these1.resumes}">
                                 <li>
-                                    <video style="width: 400px;height: 300px">
+                                    <video controls style="width: 400px;height: 300px">
                                         <source th:src="${resume}">
                                     </video>
                                     <br>
@@ -71,7 +71,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-12 col-lg-12 row">
+                    <div class="col-12 col-sm-12 col-lg-12 row justify-content-center">
                         <div class="row mt-3" sec:authorize="hasRole('ROLE_ROOT')" style="padding-left: 15px;padding-right: 15px">
                             <div class="col-12 col-sm-12 col-lg-4">
                                 <a class="btn btn-success" th:href="@{/these/publish/}+${these1.theseId}" style="width: 100%">Appr et publier </a>

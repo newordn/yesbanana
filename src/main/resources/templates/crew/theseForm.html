@@ -89,23 +89,31 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="col-12 col-sm-6 col-lg-4">
+                <div class="form-group col-12 col-sm-6 col-lg-3">
+                    <select class="form-control" th:field="*{fileType}">
+                        <option value="">Selectionner un type de fichiers</option>
+                        <option value="DOCUMENT">DOCUMENTS</option>
+                        <option value="IMAGE">IMAGE</option>
+                        <option value="VIDEO">VIDEO</option>
+                    </select>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
                     <div class="img-upload-div">
                         <div class="custom-file mb-3">
                             <input type="file" multiple class="form-control-file border" id="customFile" name="files">
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-4">
+                <div class="col-12 col-sm-6 col-lg-3">
                     <div class="form-group">
                         <span class='error' id="countryError"></span>
-                        <input type="text" class="form-control" name="country" id="country" th:value="${session.groupeCountry}" placeholder="Pays" />
+                        <input type="text" name="country" id="country" class="form-control" th:value="${session.groupeCountry}" placeholder="Pays" />
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-4">
+                <div class="col-12 col-sm-6 col-lg-3">
                     <div class="form-group">
                         <span class='error' id="regionError"></span>
-                        <input type="text" class="form-control" name="regions" id="region" th:value="${session.groupeRegion}" placeholder="Région" />
+                        <input type="text" name="regions" id="region" class="form-control" th:value="${session.groupeRegion}" placeholder="Région" />
                     </div>
                 </div>
             </div>
