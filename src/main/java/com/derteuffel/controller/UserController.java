@@ -732,20 +732,5 @@ public class UserController {
             return "redirect:/logout";
 
         }
-
-
-
     }
-
-
-
-
-    @GetMapping("/users/{groupeId}")
-    public String findAllByGroupe(Model model, Long groupeId) {
-        model.addAttribute("users", userRepository.findByGroupes_GroupeId(groupeId));
-        return "user/users";
-
-    }
-
-
 }
