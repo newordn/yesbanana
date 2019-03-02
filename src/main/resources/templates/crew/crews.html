@@ -126,7 +126,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="crew : ${crews}">
+                    <div th:each="crew : ${crews}">
                         <td th:text="${crew.groupeName}"></td>
                         <td th:text="${crew.groupChief}"></td>
                         <td th:text="${crew.groupeCountry}"></td>
@@ -156,7 +156,7 @@
                                 </div>
                             </div>
                         </div>
-                    </tr>
+                    </div>
                     </tbody>
                 </table>
 
