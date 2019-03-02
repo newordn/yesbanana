@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/animate.css}">
     
@@ -73,7 +73,11 @@
           </div>
         </div>
         <div class="row ftco-animate">
-          <div class="col-md-12">
+          <div class="col-md-1">
+
+            <a href="#" class="btn btn-large" id="previous" style="font-size:5rem"><i class="fa fa-angle-double-left"></i></a>
+          </div>
+          <div class="col-md-10">
             <div class="carousel-testimony owl-carousel ftco-owl">
               <a th:href="@{/course/administration}" style="color:black">
               <div class="item">
@@ -172,6 +176,9 @@
               </div>
               </a>
             </div>
+          </div>
+          <div class="col-md-1">
+            <a href="#" class="btn btn-large" id="next" style="font-size:5rem"><i class="fa fa-angle-double-right"></i></a>
           </div>
         </div>
       </div>
@@ -298,6 +305,17 @@
    			$("#hide1").css("display","none");
    		$("#hide2").css("display","none");},
    		function(){})
+
+
+    var owl = $('.owl-carousel');
+    $('#previous').click(function() {
+
+      owl.trigger('next.owl.carousel');
+    })
+    // Go to the previous item
+    $('#next').click(function() {
+      owl.trigger('prev.owl.carousel', [300]);
+    })
    </script>
   </body>
 </html>
