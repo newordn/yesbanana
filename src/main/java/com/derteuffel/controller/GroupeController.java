@@ -463,17 +463,23 @@ public class GroupeController {
     }
     @GetMapping("/groupe/{groupeId}")
     public String get(@PathVariable Long groupeId, HttpSession session){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        session.setAttribute("roles", user.getRoles());
         session.setAttribute("groupeId", groupeId);
         return "redirect:/groupe/groupe";
     }
 
     @GetMapping("/groupe")
     public String findById(HttpSession session, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        session.setAttribute("roles", user.getRoles());
         Long userId=(Long)session.getAttribute("userId");
         Groupe groupe = groupeRepository.getOne((Long)session.getAttribute("groupeId"));
         session.setAttribute("groupeCountry",groupe.getGroupeCountry());
         session.setAttribute("groupeRegion",groupe.getGroupeRegion());
-        User user=userService.getById(userId);
+        User user1=userService.getById(userId);
         model.addAttribute("userId", userId);
         model.addAttribute("these",new These());
         model.addAttribute("countries", countries);
@@ -539,7 +545,10 @@ public class GroupeController {
     }
 
     @GetMapping("/training/{groupeId}")
-    public String encadrement(Model model, @PathVariable Long groupeId){
+    public String encadrement(Model model, @PathVariable Long groupeId, HttpSession session){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        session.setAttribute("roles", user.getRoles());
         Groupe groupe=groupeRepository.getOne(groupeId);
         model.addAttribute("groupeName", groupe.getGroupeName());
         model.addAttribute("groupe",groupe);
