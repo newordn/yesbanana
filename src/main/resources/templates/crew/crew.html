@@ -27,10 +27,7 @@
     <!-- update crew form -->
     <h3 class="text-center mt-5">Modifier les informations du groupe</h3>
     <div class="row justify-content-center mt-3" >
-        <form class=" card text-center p-5" style="width:40rem;" th:object="${groupe}" th:action="@{/groupe/save}" method="post">
-            <!--groupeId-->
-            <input type="hidden" th:field="*{groupeId}" id="groupeId" />
-            <!--groupeId-->
+        <form class=" card text-center p-5" style="width:40rem;" th:object="${groupe}" th:action="@{/groupe/update/{groupeId}(groupeId=${groupe.groupeId})}" method="post">
             <div class="form-group" >
                 <span class='error' id="nameError"></span>
                 <input type="text" th:field="*{groupeName}" id="groupeName" class="form-control" placeholder="Nom du groupe" />

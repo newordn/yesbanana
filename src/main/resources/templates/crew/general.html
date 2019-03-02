@@ -30,7 +30,7 @@
             <div class="modal-body text-center">
                 <h5>Veuillez renseigner le champ a modifier s'il vous plait</h5>
             </div>
-            <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/groupe/these/general/edit}" th:object="${these1}">
+            <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/groupe/groupe/these/general/edit}" th:object="${these1}">
 
                 <div class="mb-4">
                     <div class="col-12 col-sm-6 col-lg-12">
@@ -124,7 +124,7 @@
 
                 </div>
                 <div class="modal-footer text-center">
-                    <a th:href="@{/groupe/groupe/}+${session.groupId}" class="btn btn-warning pull-left">Retour</a>
+                    <a th:href="@{/groupe/groupe/}+${session.groupeId}" class="btn btn-warning pull-left">Retour</a>
                     <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
                 </div>
             </form>

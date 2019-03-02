@@ -382,6 +382,9 @@ public class User implements Serializable{
     public List<Role> getRoles() {
         return roles;
     }
+    public void  addRoles(List<Role> roles){
+        this.roles=roles;
+    }
 
     public void setRoles(Role role) {
         roles.add(role);
@@ -399,7 +402,12 @@ public class User implements Serializable{
         role.getUsers().remove(this);
     }*/
 
-    @JsonIgnore
+    public void removeRelation(Role role){
+        roles.remove(role);
+        role.getUsers().remove(this);
+    }
+
+
     public List<These> getTheses() {
         return theses;
     }

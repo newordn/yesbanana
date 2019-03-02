@@ -43,7 +43,7 @@
                         <div th:replace="~{../templates/fragments/theseNavigationCrew :: theseNavigationCrew}"></div>
                     </div>
                 </div>
-                <div class="col-9 offset-3">
+                <div class="col-md-9 offset-3 pt-3 pb-3">
                     <div class="detailabstract col-12 col-sm-12 col-lg-12"><h2>Sommaire</h2></div>
                     <div class=" pull-right text-right" style="padding:0">
                         <a class="btn btn-success rounded-circle"  data-toggle="modal" data-target="#modal-edit" th:attr="data-target='#modal-edit'+${these1.theseId }">
@@ -51,14 +51,33 @@
                         </a>
                         <span>Editer</span>
                     </div>
-                    <div th:each=" resume : ${these1.resumes}"><img  th:src="${resume}" id="detailAbstract" alt="sommaire"></div>
-                    <div class="col-12 col-sm-12 col-lg-12 row">
+                    <div th:switch="${these1.fileType}">
+                        <div class="pr-3 pl-3" th:case="'IMAGE'" th:each=" resume : ${these1.resumes}"><img  th:src="${resume}" id="detailAbstract" alt="sommaire"></div>
+                        <div th:case="'DOCUMENT'" class="pr-3 pl-3">
+                            <h4 class="alert-success">Documents Relatifs</h4>
+                            <ul th:each=" resume : ${these1.resumes}">
+                                <li><a th:href="${resume}" th:text="${resume}"></a></li>
+                            </ul>
+                        </div>
+                        <div th:case="'VIDEO'" class="pr-3 pl-3" >
+                            <h4 class="alert-success">Videos Relatives</h4>
+                            <ul th:each=" resume : ${these1.resumes}">
+                                <li>
+                                    <video controls style="width: 400px;height: 300px">
+                                        <source th:src="${resume}">
+                                    </video>
+                                    <br>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-lg-12 row justify-content-center">
                         <div class="row mt-3" sec:authorize="hasRole('ROLE_ROOT')" style="padding-left: 15px;padding-right: 15px">
                             <div class="col-12 col-sm-12 col-lg-4">
-                                <a class="btn btn-success" th:href="@{/these/publish/}+${these1.theseId}" style="width: 100%">Approuver et publier </a>
+                                <a class="btn btn-success" th:href="@{/these/publish/}+${these1.theseId}" style="width: 100%">Appr et publier </a>
                             </div>
                             <div class="col-12 col-sm-12 col-lg-4">
-                                <a class="btn btn-warning" th:href="@{/these/unPublish/form/}+${these1.theseId}"  style="width: 100%">Renvoi pour modification</a>
+                                <a class="btn btn-warning" th:href="@{/these/unPublish/form/}+${these1.theseId}"  style="width: 100%">Renvoi pour modif</a>
                                 <div class="modal card modal-warning fade in" th:id="modal-warning+${these1.theseId}" >
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -86,7 +105,7 @@
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 col-lg-4">
-                                <a class="btn btn-secondary" th:href="@{/these/draft/}+${these1.theseId}" style="width: 100%">Approuve sans publier</a>
+                                <a class="btn btn-secondary" th:href="@{/these/draft/}+${these1.theseId}" style="width: 100%">Appr sans publier</a>
                             </div>
                         </div>
 
@@ -106,8 +125,16 @@
                             <div class="modal-body text-center">
                                 <h3>Veuillez charger un nouveau somaire s'il vous plait</h3>
                             </div>
-                            <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/groupe/add/update/somaire}" th:object="${these1}">
-
+                            <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/groupe/groupe/add/update/somaire}" th:object="${these1}">
+                                <div class="form-group">
+                                    <label > Type de fichiers a téléchargé :</label>
+                                    <select class="form-control" th:field="*{fileType}">
+                                        <option value="">Selectionner un type de fichiers</option>
+                                        <option value="DOCUMENT">DOCUMENTS</option>
+                                        <option value="IMAGE">IMAGE</option>
+                                        <option value="VIDEO">VIDEO</option>
+                                    </select>
+                                </div>
                                 <div class="custom-file mb-3">
                                     <input type="file" multiple class="form-control-file border" id="customFile" name="files">
                                 </div>

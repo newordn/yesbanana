@@ -1,5 +1,7 @@
 package com.derteuffel.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -60,6 +62,7 @@ public class Bibliography implements Serializable{
         this.description = description;
     }
 
+    @JsonIgnore
     public These getThese() {
         return these;
     }

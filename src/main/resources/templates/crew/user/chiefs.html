@@ -24,7 +24,7 @@
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
     <link th:href="@{/css/user.css}" rel="stylesheet">
     <!-- Bootstrap CSS-->
-<body class="row">
+<body>
 
 <!--navigation-->
 <div th:replace="~{../templates/fragments/navigationcrew :: navigationcrew}">
@@ -34,12 +34,11 @@
 <div th:replace="~{../templates/fragments/sidebar :: sidebar}">
 </div>
 <!-- sidebar-->
-<div class="col-11 offset-1 main">
-    <div class="row justify-content-center content" style="margin-top: 5.5rem;">
-        <h3 class="col-12 text-center mt-3">Chef des Travaux</h3>
-        <div class="col-12 col-sm-12 col-lg-12" >
-            <table id="chiefs" class="table table-bordered table-hover table-lg display">
-                <thead class="thead-light">
+<div class="col-md-11 offset-1 main">
+    <div class="justify-content-center content" style="margin-top: 5.5rem;">
+        <h3 class="text-center mt-3">Chef des Travaux</h3>
+            <table id="chiefs" class="table text-center table-hover bg-secondary table-lg display">
+                <thead class="text-white">
                 <th>Nom</th>
                 <th>Email</th>
                 <th>Pays</th>
@@ -49,7 +48,6 @@
                 <th>Actions</th>
                 </thead>
             </table>
-        </div>
     </div>
 </div>
 

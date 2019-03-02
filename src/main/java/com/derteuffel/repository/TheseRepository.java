@@ -21,10 +21,10 @@ public interface TheseRepository extends JpaRepository<These,Long> {
     List<These> findAllByFacultyOrderByTheseIdDesc(String faculty);
 
     @Query("select t from These as t join t.user tu where tu.userId=:id order by t.theseId desc")
-    Page<These> findByUserOrderByTheseIdDesc( @Param("id") Long userId, Pageable pageable);
+    List<These> findByUserOrderByTheseIdDesc( @Param("id") Long userId);
 
     @Query("select t from These as t join t.groupe tg where tg.groupeId=:id order by t.theseId desc")
-    Page<These> findByGroupeOrderByTheseIdDesc( @Param("id") Long groupeId, Pageable pageable);
+    List<These> findByGroupeOrderByTheseIdDesc( @Param("id") Long groupeId, Pageable pageable);
 
     @Query("select t from These as t join t.groupe tg where tg.groupeId=:id order by t.theseId desc")
     List<These> findByGroupeOrderByTheseIdDesc( @Param("id") Long groupeId);

@@ -18,4 +18,6 @@ public interface GroupeRepository extends JpaRepository<Groupe, Long> {
     List<Groupe> findByUsers_UserId( Long userId);
 
     Groupe findByGroupeName(String groupeName);
+
+    List<Groupe> findAllByStatus(Boolean status);
 }

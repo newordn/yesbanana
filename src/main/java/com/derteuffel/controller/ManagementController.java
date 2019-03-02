@@ -842,7 +842,7 @@ public class ManagementController {
         PagerModel pager1 = new PagerModel(list1.getTotalPages(),list1.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("pager", pager1);
         model.addAttribute("events", list1);
-        return "management/event/course/one/alphabetisation";
+        return "management/course/one/alphabetisation";
     }
     @GetMapping("/course/alphabetisation")
     public String alphabetisation(@RequestParam("pageSize") Optional<Integer> pageSize,
@@ -2051,7 +2051,8 @@ public class ManagementController {
                 "Notification de correction du contenu de cette lesson",
                 user.getName()+" vous notifi celon le contenue suivant :"+contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
-        return "redirect:/management/period/get/"+(Long)session.getAttribute("periodId");
+        return "redirect:/management/period/get/"+(
+                Long)session.getAttribute("periodId");
     }
 
     @DeleteMapping("/lesson/delete/{lessonId}")

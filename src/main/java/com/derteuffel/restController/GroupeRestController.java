@@ -28,7 +28,7 @@ public class GroupeRestController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/user/groupe")
+    @GetMapping("/users/groupe")
     public List<User> findByGroupes_GroupeId(HttpSession session) {
         return userRepository.findByGroupes_GroupeId((Long)session.getAttribute("groupeId"));
     }

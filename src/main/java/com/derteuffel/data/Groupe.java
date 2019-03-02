@@ -24,6 +24,7 @@ public class Groupe implements Serializable{
     private String groupeName;
 
     private String groupChief;
+    private Boolean status;
 
     private String groupeCountry;
     private  String groupeRegion;
@@ -35,15 +36,17 @@ public class Groupe implements Serializable{
     @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<These> theses;
 
-    public Groupe(String groupeName, String groupChief, String groupeRegion, String groupeCountry) {
+    public Groupe(String groupeName, String groupChief, String groupeRegion, String groupeCountry,Boolean status) {
         this.groupeName = groupeName;
         this.groupChief=groupChief;
+        this.status=status;
         this.groupeCountry=groupeCountry;
         this.groupeRegion=groupeRegion;
     }
-    public Groupe(String groupeName, String groupChief, String groupeRegion, String groupeCountry, List<User> users) {
+    public Groupe(String groupeName, String groupChief, String groupeRegion,Boolean status, String groupeCountry, List<User> users) {
         this.groupeName = groupeName;
         this.groupChief=groupChief;
+        this.status=status;
         this.groupeCountry=groupeCountry;
         this.groupeRegion=groupeRegion;
         this.users=users;
@@ -52,6 +55,16 @@ public class Groupe implements Serializable{
     public Groupe() {
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void saveUsers(List<User> users){
+        this.users=users;
+    }
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public Long getGroupeId() {
         return groupeId;

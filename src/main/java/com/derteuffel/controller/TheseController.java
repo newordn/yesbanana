@@ -268,31 +268,8 @@ public class TheseController {
     private String pathToDownloadFileServer = "/home3/banana/jvm/apache-tomcat-8.5.30/domains/yesbanana.org/ROOT/WEB-INF/classes/static/downloadFile/";
     
 // for getting all theses
-    @GetMapping("")
-    public String findAllThese(Model model,
-                         @RequestParam("page")Optional<Integer> page,
-                         @RequestParam("size")Optional<Integer> pageSize, HttpSession session) {
-
-        //
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-        List<These> theses= theseRepository.findAll();
-        System.out.println(theses);
-        Page<These> thesePage=theseRepository.findAll(new PageRequest(evalPage,evalPageSize));
-        PagerModel pager = new PagerModel(thesePage.getTotalPages(),thesePage.getNumber(),BUTTONS_TO_SHOW);// evaluate page size
-        model.addAttribute("selectedPageSize", evalPageSize);
-        // add pages size
-        model.addAttribute("pageSizes", PAGE_SIZES);
-        // add pager
-        model.addAttribute("pager", pager);
-        model.addAttribute("theses", thesePage);
-
+    @GetMapping("/all")
+    public String findAllThese(HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
         session.setAttribute("userId", user.getUserId());
@@ -746,7 +723,7 @@ public class TheseController {
 
     }
 
-    @GetMapping("/bibliotheque/delete/{bibliographyId}")
+    @GetMapping("/these/bibliotheque/delete/{bibliographyId}")
     public String delete(@PathVariable Long bibliothequeId, HttpSession session){
         bibliothequeRepository.deleteById(bibliothequeId);
         return "redirect:/these/biblib/ "+ (Long)session.getAttribute("theseId");
