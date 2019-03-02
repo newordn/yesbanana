@@ -276,45 +276,24 @@ public class GroupeController {
         session.setAttribute("avatar",user.getImg());
         session.setAttribute("name", user.getName());
         model.addAttribute("groupe", new Groupe());
+        session.setAttribute("roles",user.getRoles());
+        List<Role> roles= (List<Role>)session.getAttribute("roles");
+        System.out.println(roles);
         model.addAttribute("countries", countries);
         Collection<User> users1 = userRepository.findByRoles_Role("ADMIN");
         List<Groupe> groupes= groupeRepository.findAllByStatus(true);
         List<Groupe> crews= groupeRepository.findByUsers_UserId(user.getUserId());
-        List<Groupe> crews1= new ArrayList<>();
         Collection<User> users= new ArrayList<>();
         users1.addAll(userRepository.findByRoles_Role("ROOT"));
+        users1.addAll(userRepository.findByRoles_Role("ROOT_MASTER"));
+        users1.addAll(userRepository.findByRoles_Role("ADMIN_MASTER"));
+        users.addAll(users1);
         System.out.println(users1);
-        int p=0;
-        for(Role role : user.getRoles()){
-            if (role.getRole().equals("ROOT")){
-                users.addAll(users1);
-                    p=1;
-            }else {
-                for (Groupe groupe:groupes){
-                    for (int i=0; i<crews.size(); i++){
-                        if (groupe.getGroupeId().equals(crews.get(i).getGroupeId())){
-                            crews1.add(groupe);
-                        }
-                    }
 
-                }
-            }
-        }
-        System.out.println(users);
-
-        if (p==1){
             model.addAttribute("crews",groupes);
             model.addAttribute("users",users);
-            System.out.println(p);
-            return "crew/crews";
-        }else {
-            model.addAttribute("crews1",crews1);
-            model.addAttribute("users",users);
-            System.out.println(p);
-            return "crew/crews1";
-        }
-
-
+            model.addAttribute("crews1",crews);
+        return "crew/crews";
     }
 
     // for adding a user into one crew
