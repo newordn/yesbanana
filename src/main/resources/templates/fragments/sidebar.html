@@ -1,5 +1,5 @@
 <!-- sidebar-->
-<div class="col-md-1 sidebar" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="sidebar"
+<div class="col-12 col-sm-6 col-lg-1 sidebar" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="sidebar"
      xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="sidebar-items" sec:authorize="!hasRole('ROLE_USER')">
         <a th:href="@{/groupe/groupe/} + ${session.groupeId}"><button id="thesesButton"><i class="zmdi zmdi-graduation-cap zmdi-hc-2x"></i><br>Thèses</button></a>

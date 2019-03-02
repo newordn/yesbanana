@@ -20,7 +20,7 @@
     <script th:src="@{/js/dataTable/users.js}" type="text/javascript"></script>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link th:href="@{/css/addTheses.css}" rel="stylesheet">
-<body>
+<body class="row">
 
 <!--navigation-->
 <div th:replace="~{../templates/fragments/navigationcrew :: navigationcrew}">
@@ -31,7 +31,7 @@
 </div>
 <!-- sidebar-->
 <div class="col-md-11 offset-1 main">
-    <div class=" justify-content-center content" style="margin-top: 5.5rem;">
+    <div class=" content" style="margin-top: 5.5rem;">
         <h3 class="text-center mt-3">Utilisateurs de la région</h3>
             <table  class="table text-center table-hover  table-lg display" id="users">
                 <thead class="text-white bg-secondary">

@@ -82,6 +82,7 @@
                     <!-- insert the profile image-->
                     <a href="#">
                         <img class="profile-img" th:src="${session.avatar}" alt="avatar">
+                        <span th:text="${session.name}"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- insert the profile image-->
@@ -93,8 +94,6 @@
                 </li>
             </ul>
         </div>
-        </ul>
-    </div>
     </div>
 </nav>
 <section class="ftco-section testimony-section">
@@ -125,7 +124,7 @@
 <section class="ftco-section-parallax">
     <div class="parallax-img d-flex align-items-center">
         <div class="container">
-            <div class="row d-flex justify-content-center">
+            <div class=" d-flex justify-content-center">
                 <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
                     <h2>Souscrivez a notre  Newsletter</h2>
                     <p>Restez informer en souscrivant a notre service de messagerie.</p>

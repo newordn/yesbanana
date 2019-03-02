@@ -26,13 +26,13 @@
 <div th:replace="~{../templates/fragments/sidebar :: sidebar}">
 </div>
 <!-- sidebar-->
-<div class="col-11 offset-1 main" style="margin-top: 5.5rem">
+<div class="col-md-11 offset-1 main" style="margin-top: 5.5rem">
     <h2 class="text-center mt-3">Equipe d'accompagnement</h2>
     <div class="row content mt-3" >
-        <div class="col-3  text-center crew mb-2"  style="padding:.5rem;">
+        <div class="col-md-3  text-center crew mb-2"  style="padding:.5rem;">
             <div class="card">
-                <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
-                    <div class="col-6 text-left" style="padding:0">
+                <div  class=" deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
+                    <div class=" text-left" style="padding:0">
                         <a th:href="@{/groupe/encadrement/chef/} + ${groupe.groupeId}" class="btn btn-success rounded-circle" sec:authorize="!hasRole('ROLE_USER')" style="color:black;cursor: pointer;text-decoration:none">
                             <i class="zmdi zmdi-eye" ></i>
                         </a>
@@ -49,10 +49,10 @@
             </div>
 
         </div>
-        <div class="col-3  text-center crew mb-2"  style="padding:.5rem;">
+        <div class="col-md-3  text-center crew mb-2"  style="padding:.5rem;">
             <div class="card">
-                <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
-                    <div class="col-6 text-left" style="padding:0">
+                <div  class="deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
+                    <div class="text-left" style="padding:0">
                         <a th:href="@{/groupe/encadrement/assistant/} + ${groupe.groupeId}" class="btn btn-success rounded-circle" sec:authorize="!hasRole('ROLE_USER')" style="color:black;cursor: pointer;text-decoration:none">
                             <i class="zmdi zmdi-eye" ></i>
                         </a>
@@ -67,10 +67,10 @@
                 <hr style="margin:.2rem">
             </div>
         </div>
-        <div class="col-3  text-center crew mb-2"  style="padding:.5rem;">
+        <div class="col-md-3  text-center crew mb-2"  style="padding:.5rem;">
                 <div class="card">
-                    <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
-                        <div class="col-6 text-left" style="padding:0">
+                    <div  class="deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
+                        <div class="text-left" style="padding:0">
                             <a th:href="@{/groupe/encadrement/encadreur/} + ${groupe.groupeId}" class="btn btn-success rounded-circle" sec:authorize="!hasRole('ROLE_USER')" style="color:black;cursor: pointer;text-decoration:none">
                                 <i class="zmdi zmdi-eye" ></i>
                             </a>
@@ -85,10 +85,10 @@
                     <hr style="margin:.2rem">
                 </div>
         </div>
-        <div class="col-3  text-center crew mb-2"  style="padding:.5rem;">
+        <div class="col-md-3  text-center crew mb-2"  style="padding:.5rem;">
             <div class="card">
-                <div  class=" row deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
-                    <div class="col-6 text-left" style="padding:0">
+                <div  class="deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
+                    <div class="text-left" style="padding:0">
                         <a th:href="@{/groupe/encadrement/etudiant/} + ${groupe.groupeId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
                             <i class="zmdi zmdi-eye" ></i>
                         </a>

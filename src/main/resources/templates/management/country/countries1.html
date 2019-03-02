@@ -83,6 +83,7 @@
                     <!-- insert the profile image-->
                     <a href="#">
                         <img class="profile-img" th:src="${session.avatar}" alt="avatar">
+                        <span th:text="${session.name}"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- insert the profile image-->
@@ -94,8 +95,6 @@
                 </li>
             </ul>
         </div>
-        </ul>
-    </div>
     </div>
 </nav>
 <section class="ftco-section testimony-section">
@@ -107,7 +106,7 @@
             </div>
         </div>
         <div class="row ftco-animate">
-            <div class="item col-2" th:each="country : ${countries}">
+            <div class="item col-md-2" th:each="country : ${countries}">
                     <div class="testimony-wrap text-center py-4 pb-5">
                         <a th:href="@{/management/country/other/} + ${country.countryId}">
                             <div class="user-img mb-4" th:style="'background-image: url(' + @{/images/country.png} + ');'">

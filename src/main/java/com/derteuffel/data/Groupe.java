@@ -66,6 +66,10 @@ public class Groupe implements Serializable{
         this.status = status;
     }
 
+    public void removeUser(User user){
+users.remove(user);
+        user.getGroupes().remove(this);
+    }
     public Long getGroupeId() {
         return groupeId;
     }

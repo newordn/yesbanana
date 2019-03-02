@@ -383,9 +383,11 @@ public class GroupeController {
         }else {
             List<User> users = userRepository.findByGroupes_GroupeId(groupeId);
             List<These> theses = theseRepository.findByGroupeOrderByTheseIdDesc(groupeId);
+            Groupe groupe= groupeRepository.getOne(groupeId);
+            model.addAttribute("groupeName",groupe.getGroupeName());
             model.addAttribute("usersSize", users.size());
             model.addAttribute("thesesSize", theses.size());
-            model.addAttribute("groupe", groupeRepository.getOne(groupeId));
+            model.addAttribute("groupe", groupe);
             return "crew/stats";
         }
     }
@@ -419,17 +421,25 @@ public class GroupeController {
         model.addAttribute("groupeName", groupe.getGroupeName());
         model.addAttribute("groupe",groupe);
         model.addAttribute("countries", countries);
-        Collection<User> users= userRepository.findByRoles_Role("user");
+        Collection<User> users= userRepository.findByRoles_Role("ADMIN");
+        users.addAll(userRepository.findByRoles_Role("ROOT"));
         System.out.println(users);
         model.addAttribute("users", users);
 
         return "crew/crew";
     }
+   /* // updating a crew
+    @PostMapping("/update/{groupeId}")
+    public String edit(Groupe groupe){
+        groupeRepository.save(groupe);
+        return "redirect:/groupe/groupes";
+    }*/
 
     @PostMapping("/add/users")
     public  String addGroupUser(UsersGroupe usersGroupe, HttpSession session){
         Long groupeId = (Long)session.getAttribute("groupeId");
         Groupe groupe= groupeRepository.getOne(groupeId);
+        Collection<Groupe> groupes= groupeRepository.findAll();
         String[] usersIds = usersGroupe.getUsersIds().split(",");
         ArrayList<Long> usersIdsLong = new ArrayList<>();
 
@@ -438,11 +448,19 @@ public class GroupeController {
             if(!usersIds[i].isEmpty())
             usersIdsLong.add(Long.parseLong(usersIds[i]));
         }
-        System.out.println(usersIdsLong);
-        for ( Long id: usersIdsLong)
-        {
-            groupe.setUsers(userService.getById(id));
+        for (Groupe groupe1: groupes){
+            List<User> users= groupe1.getUsers();
+            for (Long id : usersIdsLong) {
+                for(int p=0; p<users.size();p++) {
+                    if (users.get(p).getUserId().equals(id)){
+                        groupe1.removeUser(users.get(p));
+                    }
+                }
+                groupe.setUsers(userRepository.getOne(id));
+            }
         }
+        System.out.println(usersIdsLong);
+
         groupeRepository.save(groupe);
         return "redirect:/groupe/groupe/users/"+ groupeId;
 
@@ -454,11 +472,14 @@ public class GroupeController {
     private static final int[] PAGE_SIZES = { 5,6,7,8};
 
     @GetMapping("/groupe/users/{groupeId}")
-    public String getUsers(Model model, @PathVariable Long groupeId){
+    public String getUsers(Model model, @PathVariable Long groupeId,HttpSession session){
+        session.setAttribute("groupeId",groupeId);
         List<User> users1=userService.listAll();
+        Groupe groupe = groupeRepository.getOne(groupeId);
         model.addAttribute("users1",users1);
         model.addAttribute("usersGroupe", new UsersGroupe());
-        model.addAttribute("groupe",groupeRepository.getOne(groupeId));
+        model.addAttribute("groupeName", groupe.getGroupeName());
+        model.addAttribute("groupe",groupe);
         return "crew/users";
     }
     @GetMapping("/groupe/{groupeId}")
@@ -468,17 +489,7 @@ public class GroupeController {
     }
 
     @GetMapping("/groupe")
-    public String findById(HttpSession session, Model model, @RequestParam("pageSize") Optional<Integer> pageSize,
-                           @RequestParam("page") Optional<Integer> page) {
-        //
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
+    public String findById(HttpSession session, Model model) {
         Long userId=(Long)session.getAttribute("userId");
         Groupe groupe = groupeRepository.getOne((Long)session.getAttribute("groupeId"));
         session.setAttribute("groupeCountry",groupe.getGroupeCountry());
@@ -551,6 +562,7 @@ public class GroupeController {
     @GetMapping("/training/{groupeId}")
     public String encadrement(Model model, @PathVariable Long groupeId){
         Groupe groupe=groupeRepository.getOne(groupeId);
+        model.addAttribute("groupeName", groupe.getGroupeName());
         model.addAttribute("groupe",groupe);
         return "crew/encadrement";
     }

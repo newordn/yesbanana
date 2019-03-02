@@ -82,6 +82,7 @@
                     <!-- insert the profile image-->
                     <a href="#">
                         <img class="profile-img" th:src="${session.avatar}" alt="avatar">
+                        <span th:text="${session.name}"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- insert the profile image-->
@@ -93,13 +94,11 @@
                 </li>
             </ul>
         </div>
-        </ul>
-    </div>
     </div>
 </nav>
 <section class="ftco-section testimony-section">
     <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
+        <div class="justify-content-center mb-5 pb-3">
             <div class="col-md-7 text-center heading-section ftco-animate">
                 <h1 th:text="${country.countryName}">Cameroun</h1>
                 <h2 class="subheading"><span>Selectionner une région</span></h2>

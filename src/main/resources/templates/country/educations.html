@@ -65,8 +65,6 @@
 
             </ul>
         </div>
-        </ul>
-    </div>
     </div>
 </nav>
 <section class="ftco-section testimony-section">
@@ -77,7 +75,7 @@
                 <h2 class="subheading"><span>Selectionner un pays</span></h2>
             </div>
         </div>
-        <div class="row ftco-animate">
+        <div class=" ftco-animate">
             <div class="item col-md-2" th:each="country : ${countries}">
                 <div class="testimony-wrap text-center py-4 pb-5">
                     <a   th:href="@{/external/secure/country/education/} + ${country.countryId}">
