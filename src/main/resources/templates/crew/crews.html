@@ -29,8 +29,10 @@
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script th:src="@{/js/dataTable/crews.js}" type="text/javascript"></script>
 
-
 </head>
+<style>
+    .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+</style>
 <body>
 
 
@@ -85,21 +87,23 @@
                 </li>
                 <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" >Formations</a></li>
                 <li class="nav-item dropdown text-center" sec:authorize="isFullyAuthenticated()">
-                            <!-- insert the profile image-->
+                    <!-- insert the profile image-->
                     <a href="#">
                         <img class="profile-img" th:src="${session.avatar}" alt="avatar">
                     </a>
                     <ul class="dropdown-menu">
-                            <!-- insert the profile image-->
-                       <li class="nav-item"><a   class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
-                    <li class="nav-item">
-                        <a class="black nav-link" th:href="@{/logout}" >Deconnexion</a>
+                        <!-- insert the profile image-->
+                        <li class="nav-item"><a   class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
+                        <li class="nav-item">
+                            <a class="black nav-link" th:href="@{/logout}" >Deconnexion</a>
                         </li>
                     </ul>
                 </li>
-                    </ul>
-                </div>
+            </ul>
         </div>
+        </ul>
+    </div>
+    </div>
 </nav>
 <!-- END nav -->
 
@@ -110,53 +114,54 @@
                 <h1>Groupes</h1>
                 <h2 class="subheading"><span>Choisir un groupe</span></h2>
             </div>
-        </div>
-        <div class="col-12 ftco-animate">
-            <table class="table text-center table-hover table-bordered table-lg display " id="crews">
-                <thead class="">
-                <tr>
-                    <th>Nom du groupe</th>
-                    <th>Chef de groupe</th>
-                    <th>Pays</th>
-                    <th>Région</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="crew : ${crews}">
-                    <td th:text="${crew.groupeName}"></td>
-                    <td th:text="${crew.groupChief}"></td>
-                    <td th:text="${crew.groupeCountry}"></td>
-                    <td th:text="${crew.groupeRegion}"></td>
-                    <td>
-                        <a th:href="@{'/groupe/groupe/'+${crew.groupeId}}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-eye"></i></a>
-                        <a th:href="@{'/groupe/update/'+${crew.groupeId}}" class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
-                        <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn" >Supprimer
-                            <i class="zmdi zmdi-close" ></i>
-                        </a>
 
-                    </td>
+            <div class="col-12 ftco-animate">
+                <table class="table text-center table-hover table-bordered table-lg display " id="crews">
+                    <thead class="">
+                    <tr>
+                        <th>Nom du groupe</th>
+                        <th>Chef de groupe</th>
+                        <th>Pays</th>
+                        <th>Région</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="crew : ${crews}">
+                        <td th:text="${crew.groupeName}"></td>
+                        <td th:text="${crew.groupChief}"></td>
+                        <td th:text="${crew.groupeCountry}"></td>
+                        <td th:text="${crew.groupeRegion}"></td>
+                        <td>
+                            <a th:href="@{'/groupe/groupe/'+${crew.groupeId}}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-eye"></i></a>
+                            <a th:href="@{'/groupe/update/'+${crew.groupeId}}" class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
+                            <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn" >Supprimer
+                                <i class="zmdi zmdi-close" ></i>
+                            </a>
 
-                    <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${crew.groupeId}" >
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header text-center alert-info">
-                                    <h5 class="modal-title">Suppresion d'un element</h5>
-                                </div>
-                                <div class="modal-body text-center">
-                                    <h3>Voulez vous vraiment supprimer cet element?</h3>
-                                </div>
-                                <div class="modal-footer text-center">
-                                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
-                                    <a  class="btn btn-success"  th:href="@{/groupe/delete/} + ${crew.groupeId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                        </td>
+
+                        <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${crew.groupeId}" >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center alert-info">
+                                        <h5 class="modal-title">Suppresion d'un element</h5>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <h3>Voulez vous vraiment supprimer cet element?</h3>
+                                    </div>
+                                    <div class="modal-footer text-center">
+                                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                        <a  class="btn btn-success"  th:href="@{/groupe/delete/} + ${crew.groupeId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                                    </div>
                                 </div>
                             </div>
-                   </div>
                         </div>
-                </tr>
-                </tbody>
+                    </tr>
+                    </tbody>
                 </table>
 
+            </div>
         </div>
     </div>
 </section>
@@ -287,7 +292,6 @@
 
 <!--script-->
 
-<script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
