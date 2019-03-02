@@ -128,7 +128,7 @@
                     <div class="text">
                         <span th:text="${crew.groupeName}"> Yaounde</span>
                         <hr style="margin:.2rem">
-                        <strong th:if="${#arrays.length(crew.users) > 0}" th:text="${crew.groupChief}">Maurice Kamto</strong>
+                        <strong th:if="${#arrays.length(crew.users) > 0}" th:text="${crew.users[0].name}">Maurice Kamto</strong>
                         <hr style="margin:.2rem">
                         <div class="row">
                             <div class="col-12 col-sm-6 col-lg-6"><span th:text="${crew.groupeCountry}">Cameroun</span></div>
