@@ -310,7 +310,6 @@ public class GroupeController {
     {
         Groupe groupe = groupeRepository.getOne(groupeId);
         if (userId.equals("null")){
-            groupe.setUsers(null);
         }else {
             User user = userService.getById(Long.parseLong(userId));
             groupe.setUsers(user);
@@ -351,7 +350,7 @@ public class GroupeController {
             groupe.setStatus(true);
             Groupe groupe1 = groupeRepository.saveAndFlush(groupe);
             Long userId;
-            if (groupe1.getGroupChief() == ""){
+            if (groupe1.getGroupChief()== ""){
                  userId=null;
             }else {
                 userId = Long.parseLong(groupe.getGroupChief());
