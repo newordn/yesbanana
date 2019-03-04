@@ -288,8 +288,12 @@ public class GroupeController {
         users1.addAll(userRepository.findByRoles_Role("ROOT_MASTER"));
         users1.addAll(userRepository.findByRoles_Role("ADMIN_MASTER"));
         users.addAll(users1);
+        List<User> users2= new ArrayList<>();
+        for (Groupe groupe : groupes){
+            users2.add(userRepository.getOne(Long.parseLong(groupe.getGroupChief())));
+        }
         System.out.println(users1);
-
+            model.addAttribute("users2",users2);
             model.addAttribute("crews",groupes);
             model.addAttribute("users",users);
             model.addAttribute("crews1",crews);

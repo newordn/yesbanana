@@ -157,9 +157,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:if="${session.roles[0].role == 'ROOT'}" th:each="crew : ${crews}" >
+                    <tr th:if="${session.roles[0].role == 'ROOT'}" th:each="crew,i : ${crews}" >
                         <td th:text="${crew.groupeName}"></td>
-                        <td th:text="${crew.groupChief}"></td>
+                        <td th:text="${users2[i.index].name}"></td>
                         <td th:text="${crew.groupeCountry}"></td>
                         <td th:text="${crew.groupeRegion}"></td>
                         <td>
@@ -188,9 +188,9 @@
                             </div>
                         </div>
                     </tr>
-                    <tr th:if="${session.roles[0].role == 'ROOT_MASTER'}" th:each="crew : ${crews}" >
+                    <tr th:if="${session.roles[0].role == 'ROOT_MASTER'}" th:each="crew,i : ${crews}" >
                         <td th:text="${crew.groupeName}"></td>
-                        <td th:text="${crew.groupChief}"></td>
+                        <td th:text="${users2[i.index].name}"></td>
                         <td th:text="${crew.groupeCountry}"></td>
                         <td th:text="${crew.groupeRegion}"></td>
                         <td>
@@ -219,9 +219,9 @@
                             </div>
                         </div>
                     </tr>
-                    <tr th:if="${session.roles[0].role == 'ADMIN_MASTER'}" th:each="crew : ${crews}" >
+                    <tr th:if="${session.roles[0].role == 'ADMIN_MASTER'}" th:each="crew,i : ${crews}" >
                         <td th:text="${crew.groupeName}"></td>
-                        <td th:text="${crew.groupChief}"></td>
+                        <td th:text="${users2[i.index].name}"></td>
                         <td th:text="${crew.groupeCountry}"></td>
                         <td th:text="${crew.groupeRegion}"></td>
                         <td>
@@ -250,9 +250,9 @@
                             </div>
                         </div>
                     </tr>
-                    <tr th:if="${session.roles[0].role == 'ADMIN'}" th:each="crew : ${crews1}" >
+                    <tr th:if="${session.roles[0].role == 'ADMIN'}" th:each="crew,i : ${crews1}" >
                         <td th:text="${crew.groupeName}"></td>
-                        <td th:text="${crew.groupChief}"></td>
+                        <td th:text="${users2[i.index].name}"></td>
                         <td th:text="${crew.groupeCountry}"></td>
                         <td th:text="${crew.groupeRegion}"></td>
                         <td>
@@ -281,9 +281,9 @@
                             </div>
                         </div>
                     </tr>
-                    <tr th:if="${session.roles[0].role == 'USER'}" th:each="crew : ${crews1}" >
+                    <tr th:if="${session.roles[0].role == 'USER'}" th:each="crew,i : ${crews1}" >
                         <td th:text="${crew.groupeName}"></td>
-                        <td th:text="${crew.groupChief}"></td>
+                        <td th:text="${users2[i.index].name}"></td>
                         <td th:text="${crew.groupeCountry}"></td>
                         <td th:text="${crew.groupeRegion}"></td>
                         <td>
