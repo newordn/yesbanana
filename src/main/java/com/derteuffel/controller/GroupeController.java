@@ -290,7 +290,11 @@ public class GroupeController {
         users.addAll(users1);
         List<User> users2= new ArrayList<>();
         for (Groupe groupe : groupes){
-            users2.add(userRepository.getOne(Long.parseLong(groupe.getGroupChief())));
+            if (groupe.getGroupChief() != null) {
+                users2.add(userRepository.getOne(Long.parseLong(groupe.getGroupChief())));
+            }else {
+                users2.add(null);
+            }
         }
         System.out.println(users1);
             model.addAttribute("users2",users2);
@@ -338,7 +342,7 @@ public class GroupeController {
             Groupe groupe1 = groupeRepository.saveAndFlush(groupe);
             Long userId = Long.parseLong(groupe.getGroupChief());
             Long groupeId = groupe1.getGroupeId();
-            return "redirect:/groupe/add1/"+ groupeId + "/"+ userId ;
+            return "redirect:/groupe/groupe/"+ groupeId + "/"+ userId ;
         }
 
     }

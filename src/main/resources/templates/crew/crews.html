@@ -159,8 +159,8 @@
                     <tbody>
                     <tr th:if="${session.roles[0].role == 'ROOT'}" th:each="crew,i : ${crews}" >
                         <td th:text="${crew.groupeName}"></td>
-                        <td th:text="${users2[i.index].name}"></td>
-                        <td th:text="${crew.groupeCountry}"></td>
+                        <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
+                        <td th:unless="${users2[i.index]!= null}">Non défini</td>                        <td th:text="${crew.groupeCountry}"></td>
                         <td th:text="${crew.groupeRegion}"></td>
                         <td>
                             <a th:href="@{'/groupe/groupe/'+${crew.groupeId}}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-eye"></i></a>
@@ -190,8 +190,8 @@
                     </tr>
                     <tr th:if="${session.roles[0].role == 'ROOT_MASTER'}" th:each="crew,i : ${crews}" >
                         <td th:text="${crew.groupeName}"></td>
-                        <td th:text="${users2[i.index].name}"></td>
-                        <td th:text="${crew.groupeCountry}"></td>
+                        <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
+                        <td th:unless="${users2[i.index]!= null}">Non défini</td>                        <td th:text="${crew.groupeCountry}"></td>
                         <td th:text="${crew.groupeRegion}"></td>
                         <td>
                             <a th:href="@{'/groupe/groupe/'+${crew.groupeId}}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-eye"></i></a>
@@ -221,8 +221,8 @@
                     </tr>
                     <tr th:if="${session.roles[0].role == 'ADMIN_MASTER'}" th:each="crew,i : ${crews}" >
                         <td th:text="${crew.groupeName}"></td>
-                        <td th:text="${users2[i.index].name}"></td>
-                        <td th:text="${crew.groupeCountry}"></td>
+                        <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
+                        <td th:unless="${users2[i.index]!= null}">Non défini</td>                        <td th:text="${crew.groupeCountry}"></td>
                         <td th:text="${crew.groupeRegion}"></td>
                         <td>
                             <a th:href="@{'/groupe/groupe/'+${crew.groupeId}}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-eye"></i></a>
@@ -252,8 +252,8 @@
                     </tr>
                     <tr th:if="${session.roles[0].role == 'ADMIN'}" th:each="crew,i : ${crews1}" >
                         <td th:text="${crew.groupeName}"></td>
-                        <td th:text="${users2[i.index].name}"></td>
-                        <td th:text="${crew.groupeCountry}"></td>
+                        <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
+                        <td th:unless="${users2[i.index]!= null}">Non défini</td>                        <td th:text="${crew.groupeCountry}"></td>
                         <td th:text="${crew.groupeRegion}"></td>
                         <td>
                             <a th:href="@{'/groupe/groupe/'+${crew.groupeId}}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-eye"></i></a>
@@ -283,7 +283,8 @@
                     </tr>
                     <tr th:if="${session.roles[0].role == 'USER'}" th:each="crew,i : ${crews1}" >
                         <td th:text="${crew.groupeName}"></td>
-                        <td th:text="${users2[i.index].name}"></td>
+                        <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
+                        <td th:unless="${users2[i.index]!= null}">Non défini</td>
                         <td th:text="${crew.groupeCountry}"></td>
                         <td th:text="${crew.groupeRegion}"></td>
                         <td>
@@ -354,6 +355,7 @@
                 <div class="form-group" style="width: 100%">
                     <strong>Chef du groupe : </strong>
                     <select name="groupChief" class="form-control" style="width: 100%">
+                        <option value="">Choisissez un Chef de Groupe</option>
                         <option th:each="user : ${users}" class="form-control" th:value="${user.userId}" th:text="${user.name}">Nounamo Patrick</option>
                     </select>
 
