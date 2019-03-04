@@ -119,7 +119,11 @@
             </ul>
         </div>
     </div>
-    <a sec:authorize="!hasRole('ROLE_USER')" class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/event/course/form}">
+    <a th:if="${session.roles[0].role == 'ROOT'}" class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/event/course/form}">
+        <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
+    <a th:if="${session.roles[0].role == 'ROOT_MASTER'}" class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/event/course/form}">
+        <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
+    <a th:if="${session.roles[0].role == 'ADMIN_MASTER'}" class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/event/course/form}">
         <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
 </section>
 <section class="ftco-section-parallax">
@@ -250,7 +254,7 @@
     });
     function changePageAndSize() {
         $('#pageSizeSelect').change(function(evt) {
-            window.location.replace("/management/event/alphabetisations?pageSize=" + this.value + "&page=1");
+            window.location.replace("/management/event/alphabetisation?pageSize=" + this.value + "&page=1");
         });
     }
     /*]]>*/

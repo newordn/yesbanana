@@ -152,7 +152,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center" >
                         <a class="btn btn-success btn-block follow" sec:authorize="isAuthenticated()" th:href="@{/user/update}" >Modifier<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><i class="fa fa-pencil"></i></a>
-                        <a class="btn btn-danger btn-block follow" sec:authorize="!hasRole('ROLE_USER')" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${user.userId }">Supprimer<span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"></i></a>
+                        <a class="btn btn-danger btn-block follow" th:if="${session.roles[0].role == 'ROOT'}" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${user.userId }">Supprimer<span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"></i></a>
+                        <a class="btn btn-danger btn-block follow" th:if="${session.roles[0].role == 'ROOT_MASTER'}" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${user.userId }">Supprimer<span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"></i></a>
                     </div>
                     <div class="row user-detail-row">
                         <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
@@ -178,10 +179,10 @@
                                     <li> <p th:text="${role.role}"></p></li>
                                 </ul>
                                 <div  th:if="${#lists.size(user.roles)==0}">
-                                    <button sec:authorize="hasRole('ROLE_ROOT')" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#addRole">
+                                    <button th:if="${session.roles[0].role == 'ROOT'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#addRole">
                                         <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
                                     </button>
-                                    <div sec:authorize="hasRole('ROLE_ROOT')" class=" modal fade" id="addRole" tabindex="-1" role="dialog" data-keyboard="false">
+                                    <div th:if="${session.roles[0].role == 'ROOT'}" class=" modal fade" id="addRole" tabindex="-1" role="dialog" data-keyboard="false">
                                         <div class="modal-dialog modal-dialog-centered"  role="document">
                                             <form class="add-these-form modal-content card text-center" th:object="${form}" method="post" th:action="@{/user/role/save1}">
                                                 <div class=" pt-3 pl-1 pr-1 pb-3">
@@ -203,12 +204,64 @@
                                             </form>
                                         </div>
                                     </div>
+                                    <button th:if="${session.roles[0].role == 'ROOT_MASTER'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#addRole">
+                                        <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+                                    </button>
+                                    <div th:if="${session.roles[0].role == 'ROOT_MASTER'}" class=" modal fade" id="addRole" tabindex="-1" role="dialog" data-keyboard="false">
+                                        <div class="modal-dialog modal-dialog-centered"  role="document">
+                                            <form class="add-these-form modal-content card text-center" th:object="${form}" method="post" th:action="@{/user/role/save1}">
+                                                <div class=" pt-3 pl-1 pr-1 pb-3">
+                                                    <span class='error' id="nameError"></span>
+                                                    <!-- loop over available  country -->
+                                                    <select class="form-control" th:field="*{roleId}"  style="width: 100%">
+                                                        <option value="">Choisissez un role a attribuer</option>
+                                                        <option th:each="role : ${roles1}" th:value="${role.roleId}" th:text="${role.role}">Côte d'ivoire</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group row form-button" style="width: 100%">
+                                                    <div class="col-6">
+                                                        <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div  th:unless="${#lists.size(user.roles)==0}">
-                                    <button sec:authorize="hasRole('ROLE_ROOT')" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#editRole" >
+                                    <button th:if="${session.roles[0].role == 'ROOT'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#editRole" >
                                         <i class="zmdi zmdi-edit zmdi-hc-2x"></i>
                                     </button>
-                                    <div sec:authorize="hasRole('ROLE_ROOT')" class=" modal fade" id="editRole" tabindex="-1" role="dialog" data-keyboard="false">
+                                    <button th:if="${session.roles[0].role == 'ROOT_MASTER'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#editRole" >
+                                        <i class="zmdi zmdi-edit zmdi-hc-2x"></i>
+                                    </button>
+                                    <div th:if="${session.roles[0].role == 'ROOT'}" class=" modal fade" id="editRole" tabindex="-1" role="dialog" data-keyboard="false">
+                                        <div class="modal-dialog modal-dialog-centered"  role="document">
+                                            <form class="add-these-form modal-content card text-center" th:object="${update}" method="post" th:action="@{/user/role/update1/{userId}(userId=${user.userId})}">
+                                                <div class=" pt-3 pl-1 pr-1 pb-3">
+                                                    <span class='error' id="nameError"></span>
+                                                    <input type="hidden" name="addUserRoleId" th:value="${update.addUserRoleId}">
+                                                    <!-- loop over available  country -->
+                                                    <select class="form-control" th:field="*{roleId}"  style="width: 100%">
+                                                        <option value="">Choisissez un role a attribuer</option>
+                                                        <option th:each="role : ${roles1}" th:value="${role.roleId}" th:text="${role.role}">Côte d'ivoire</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group row form-button" style="width: 100%">
+                                                    <div class="col-6">
+                                                        <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <button type="submit"  style="width:100%;"  class="btn btn-success">Valider</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div th:if="${session.roles[0].role == 'ROOT_MASTER'}" class=" modal fade" id="editRole" tabindex="-1" role="dialog" data-keyboard="false">
                                         <div class="modal-dialog modal-dialog-centered"  role="document">
                                             <form class="add-these-form modal-content card text-center" th:object="${update}" method="post" th:action="@{/user/role/update1/{userId}(userId=${user.userId})}">
                                                 <div class=" pt-3 pl-1 pr-1 pb-3">
@@ -459,4 +512,4 @@
 <!-- Delete user modal -->
 </body>
 
-</html>S
+</html>

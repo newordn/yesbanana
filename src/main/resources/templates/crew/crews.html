@@ -320,10 +320,15 @@
     </div>
 </section>
 
-<button sec:authorize="!hasRole('ROLE_USER')" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
+<button th:if="${session.roles[0].role == 'ROOT'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
     <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
 </button>
-
+<button th:if="${session.roles[0].role == 'ROOT_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
+    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+</button>
+<button th:if="${session.roles[0].role == 'ADMIN_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
+    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+</button>
 
 <!--addCrew-->
 <div  class=" modal fade" id="addCrew" tabindex="-1" role="dialog" data-keyboard="false">

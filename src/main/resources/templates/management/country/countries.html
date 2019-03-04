@@ -31,7 +31,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+        <a class="navbar-brand" th:href="@{/groupe/groupes}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
@@ -142,7 +142,13 @@
 
 </section>
 <!-- add country button start-->
-<button sec:authorize="!hasRole('ROLE_USER')" type="button" style="position:fixed; right:10px;bottom:10px;z-index:404982450" class="addButton btn btn-success rounded-circle" data-toggle="modal" data-target="#addCountry">
+<button th:if="${session.roles[0].role == 'ROOT'}" type="button" style="position:fixed; right:10px;bottom:10px;z-index:404982450" class="addButton btn btn-success rounded-circle" data-toggle="modal" data-target="#addCountry">
+    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+</button>
+<button th:if="${session.roles[0].role == 'ROOT_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;z-index:404982450" class="addButton btn btn-success rounded-circle" data-toggle="modal" data-target="#addCountry">
+    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+</button>
+<button th:if="${session.roles[0].role == 'ADMIN_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;z-index:404982450" class="addButton btn btn-success rounded-circle" data-toggle="modal" data-target="#addCountry">
     <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
 </button>
 

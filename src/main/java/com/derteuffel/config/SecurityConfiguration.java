@@ -65,7 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/create/visitor").permitAll()
                 .antMatchers("/password/**").permitAll()
                 .antMatchers("/groupe/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER")
-                .antMatchers("/management/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER")
+                .antMatchers("/management/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER")
                 .antMatchers("/these/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER")
                 .antMatchers("/period/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER")
                 .antMatchers("/event/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER")

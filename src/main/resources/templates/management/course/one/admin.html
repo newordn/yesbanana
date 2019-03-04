@@ -112,7 +112,11 @@
         </div>
     </div>
     </div>
-    <a sec:authorize="!hasRole('ROLE_USER')" class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/course/form}">
+    <a th:if="${session.roles[0].role == 'ROOT'}" class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/course/form}">
+        <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
+    <a th:if="${session.roles[0].role == 'ROOT_MASTER'}" class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/course/form}">
+        <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
+    <a th:if="${session.roles[0].role == 'ADMIN_MASTER'}" class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/course/form}">
         <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
 </section>
 </div>

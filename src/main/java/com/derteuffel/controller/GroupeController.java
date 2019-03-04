@@ -453,8 +453,12 @@ public class GroupeController {
     @GetMapping("/groupe/users/{groupeId}")
     public String getUsers(Model model, @PathVariable Long groupeId,HttpSession session){
         session.setAttribute("groupeId",groupeId);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        session.setAttribute("name",user.getName());
         List<User> users1=userService.listAll();
         Groupe groupe = groupeRepository.getOne(groupeId);
+        session.setAttribute("roles", user.getRoles());
         model.addAttribute("users1",users1);
         model.addAttribute("usersGroupe", new UsersGroupe());
         model.addAttribute("groupeName", groupe.getGroupeName());
