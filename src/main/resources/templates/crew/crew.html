@@ -45,6 +45,7 @@
             <div class="form-group">
                 <strong>Chef du groupe : </strong>
                 <select th:field="*{groupChief}">
+                    <option value=""></option>
                     <option th:each="user : ${users}" class="form-control" th:value="${user.userId}" th:text="${user.name}">Nounamo Patrick</option>
                 </select>
 

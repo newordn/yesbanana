@@ -290,7 +290,7 @@ public class GroupeController {
         users.addAll(users1);
         List<User> users2= new ArrayList<>();
         for (Groupe groupe : groupes){
-            if (groupe.getGroupChief() != null) {
+            if (!groupe.getGroupChief().isEmpty()) {
                 users2.add(userRepository.getOne(Long.parseLong(groupe.getGroupChief())));
             }else {
                 users2.add(null);
@@ -306,11 +306,15 @@ public class GroupeController {
 
     // for adding a user into one crew
     @GetMapping("/add1/{groupeId}/{userId}")
-    public String add( @PathVariable Long groupeId, @PathVariable Long userId)
+    public String add( @PathVariable Long groupeId, @PathVariable String userId)
     {
         Groupe groupe = groupeRepository.getOne(groupeId);
-        User user = userService.getById(userId);
-        groupe.setUsers(user);
+        if (userId.equals("null")){
+            groupe.setUsers(null);
+        }else {
+            User user = userService.getById(Long.parseLong(userId));
+            groupe.setUsers(user);
+        }
         groupeRepository.save(groupe);
         System.out.println("ddf");
         return "redirect:/groupe/groupes";
@@ -323,7 +327,12 @@ public class GroupeController {
         Groupe groupe2=groupeRepository.getOne(groupeId);
         groupe.saveUsers(groupe2.getUsers());
             Groupe groupe1 = groupeRepository.saveAndFlush(groupe);
-            Long userId = Long.parseLong(groupe.getGroupChief());
+        Long userId;
+        if (groupe1.getGroupChief() == ""){
+            userId=null;
+        }else {
+            userId = Long.parseLong(groupe.getGroupChief());
+        }
             Long groupeId1 = groupe1.getGroupeId();
             return "redirect:/groupe/add1/"+ groupeId1 + "/"+ userId ;
 
@@ -339,10 +348,16 @@ public class GroupeController {
         if (errors.hasErrors()){
             return "redirect:/groupe/groupes";
         }else {
+            groupe.setStatus(true);
             Groupe groupe1 = groupeRepository.saveAndFlush(groupe);
-            Long userId = Long.parseLong(groupe.getGroupChief());
+            Long userId;
+            if (groupe1.getGroupChief() == ""){
+                 userId=null;
+            }else {
+                userId = Long.parseLong(groupe.getGroupChief());
+            }
             Long groupeId = groupe1.getGroupeId();
-            return "redirect:/groupe/groupe/"+ groupeId + "/"+ userId ;
+            return "redirect:/groupe/add1/"+ groupeId + "/"+ userId ;
         }
 
     }
