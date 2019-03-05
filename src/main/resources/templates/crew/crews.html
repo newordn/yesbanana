@@ -145,7 +145,7 @@
                 <h2 class="subheading"><span>Choisir un groupe</span></h2>
             </div>
 
-            <div class="col-12 ftco-animate">
+            <div class="col-12 ">
                 <table class="table text-center table-hover  table-lg display" id="crews">
                     <thead class="text-white bg-secondary">
                     <tr>
@@ -169,9 +169,7 @@
                             <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn" >Supprimer
                                 <i class="zmdi zmdi-close" ></i>
                             </a>
-
                         </td>
-
                         <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${crew.groupeId}" >
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -200,25 +198,23 @@
                             <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn" >Supprimer
                                 <i class="zmdi zmdi-close" ></i>
                             </a>
-
-                        </td>
-
-                        <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${crew.groupeId}" >
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header text-center alert-info">
-                                        <h5 class="modal-title">Suppresion d'un element</h5>
-                                    </div>
-                                    <div class="modal-body text-center">
-                                        <h3>Voulez vous vraiment supprimer cet element?</h3>
-                                    </div>
-                                    <div class="modal-footer text-center">
-                                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
-                                        <a  class="btn btn-success"  th:href="@{/groupe/delete/} + ${crew.groupeId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                            <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${crew.groupeId}" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center alert-info">
+                                            <h5 class="modal-title">Suppresion d'un element</h5>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <h3>Voulez vous vraiment supprimer cet element?</h3>
+                                        </div>
+                                        <div class="modal-footer text-center">
+                                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                            <a  class="btn btn-success"  th:href="@{/groupe/delete/} + ${crew.groupeId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </td>
                     </tr>
                     <tr th:if="${session.roles[0].role == 'ADMIN_MASTER'}" th:each="crew,i : ${crews}" >
                         <td th:text="${crew.groupeName}"></td>
@@ -231,25 +227,24 @@
                             <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn" >Supprimer
                                 <i class="zmdi zmdi-close" ></i>
                             </a>
-
-                        </td>
-
-                        <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${crew.groupeId}" >
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header text-center alert-info">
-                                        <h5 class="modal-title">Suppresion d'un element</h5>
-                                    </div>
-                                    <div class="modal-body text-center">
-                                        <h3>Voulez vous vraiment supprimer cet element?</h3>
-                                    </div>
-                                    <div class="modal-footer text-center">
-                                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
-                                        <a  class="btn btn-success"  th:href="@{/groupe/delete/} + ${crew.groupeId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                            <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${crew.groupeId}" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center alert-info">
+                                            <h5 class="modal-title">Suppresion d'un element</h5>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <h3>Voulez vous vraiment supprimer cet element?</h3>
+                                        </div>
+                                        <div class="modal-footer text-center">
+                                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                            <a  class="btn btn-success"  th:href="@{/groupe/delete/} + ${crew.groupeId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </td>
+
                     </tr>
                     <tr th:if="${session.roles[0].role == 'ADMIN'}" th:each="crew,i : ${crews1}" >
                         <td th:text="${crew.groupeName}"></td>
@@ -259,28 +254,8 @@
                         <td>
                             <a th:href="@{'/groupe/groupe/'+${crew.groupeId}}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-eye"></i></a>
                             <a th:href="@{'/groupe/update/'+${crew.groupeId}}" class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
-                            <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn" >Supprimer
-                                <i class="zmdi zmdi-close" ></i>
-                            </a>
-
                         </td>
 
-                        <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${crew.groupeId}" >
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header text-center alert-info">
-                                        <h5 class="modal-title">Suppresion d'un element</h5>
-                                    </div>
-                                    <div class="modal-body text-center">
-                                        <h3>Voulez vous vraiment supprimer cet element?</h3>
-                                    </div>
-                                    <div class="modal-footer text-center">
-                                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
-                                        <a  class="btn btn-success"  th:href="@{/groupe/delete/} + ${crew.groupeId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </tr>
                     <tr th:if="${session.roles[0].role == 'USER'}" th:each="crew,i : ${crews1}" >
                         <td th:text="${crew.groupeName}"></td>
@@ -290,29 +265,7 @@
                         <td th:text="${crew.groupeRegion}"></td>
                         <td>
                             <a th:href="@{'/groupe/groupe/'+${crew.groupeId}}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-eye"></i></a>
-                            <a th:href="@{'/groupe/update/'+${crew.groupeId}}" class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
-                            <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn" >Supprimer
-                                <i class="zmdi zmdi-close" ></i>
-                            </a>
-
                         </td>
-
-                        <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${crew.groupeId}" >
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header text-center alert-info">
-                                        <h5 class="modal-title">Suppresion d'un element</h5>
-                                    </div>
-                                    <div class="modal-body text-center">
-                                        <h3>Voulez vous vraiment supprimer cet element?</h3>
-                                    </div>
-                                    <div class="modal-footer text-center">
-                                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
-                                        <a  class="btn btn-success"  th:href="@{/groupe/delete/} + ${crew.groupeId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </tr>
                     </tbody>
                 </table>
