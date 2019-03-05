@@ -488,30 +488,19 @@ public class GroupeController {
         return "crew/users";
     }
     @GetMapping("/groupe/{groupeId}")
-    public String get(@PathVariable Long groupeId, HttpSession session){
+    public String get(@PathVariable Long groupeId, HttpSession session, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
         session.setAttribute("roles", user.getRoles());
+        Groupe groupe = groupeRepository.getOne(groupeId);
         session.setAttribute("groupeId", groupeId);
-        return "redirect:/groupe/groupe";
-    }
-
-    @GetMapping("/groupe")
-    public String findById(HttpSession session, Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userService.findByName(auth.getName());
-        session.setAttribute("roles", user.getRoles());
-        Long userId=(Long)session.getAttribute("userId");
-        Groupe groupe = groupeRepository.getOne((Long)session.getAttribute("groupeId"));
         session.setAttribute("groupeCountry",groupe.getGroupeCountry());
         session.setAttribute("groupeRegion",groupe.getGroupeRegion());
-        User user1=userService.getById(userId);
-        model.addAttribute("userId", userId);
         model.addAttribute("these",new These());
         model.addAttribute("countries", countries);
         model.addAttribute("groupeName",groupe.getGroupeName());
 
-            return "crew/theses";
+        return "crew/theses";
     }
 
     @DeleteMapping("/delete/{groupeId}")
