@@ -29,17 +29,9 @@ public class BibliothequeController {
 
     @PostMapping("/save")
     public String save(Bibliotheque bibliotheque, Errors errors, Model model, HttpSession session){
-        Bibliotheque bibliotheque1= bibliothequeRepository.findByBibliotheques(bibliotheque.getBibliotheques());
-        if (bibliotheque1 != null){
-            errors.rejectValue("bibliotheque","bibliotheque.error","il existe deja une reference avec ce titre");
-        }
-        if (errors.hasErrors()){
-            model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "crew/bibliotheque";
-        }else {
+
             bibliotheque.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
             bibliothequeRepository.save(bibliotheque);
-        }
         return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
     }
 

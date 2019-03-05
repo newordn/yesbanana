@@ -46,17 +46,12 @@
                     <div class="card mt-1">
                         <div class="row">
                             <div class="col-12 col-sm-6 col-lg-8">
-                                <h5 class="text-center" th:text="${bibliography.auteur}"></h5>
+                                <a class="text-center" data-toggle="modal" data-target="#modal-detail" th:attr="data-target='#modal-detail'+${bibliography.bibliographyId}"  th:text="${bibliography.title}"></a>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4 row pull-right">
                             <div>
                                 <a  th:href="@{/bibliography/edit/}+${bibliography.bibliographyId}">
                                     <i class="fa fa-pencil"></i>
-                                </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <div>
-                                <a  data-toggle="modal" data-target="#modal-detail" th:attr="data-target='#modal-detail'+${bibliography.bibliographyId}">
-                                    <i class="fa fa-eye"></i>
                                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                             <div>

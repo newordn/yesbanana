@@ -644,9 +644,11 @@ public class TheseController {
 
     @GetMapping("/these/{theseId}")
     public String get(Model model, @PathVariable Long theseId,HttpSession session){
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
         Optional<These> optional= theseRepository.findById(theseId);
         model.addAttribute("these1",optional.get());
+        model.addAttribute("roles",user.getRoles());
         session.setAttribute("userId",optional.get().getUser().getUserId());
         session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
         session.setAttribute("theseId", optional.get().getTheseId());
