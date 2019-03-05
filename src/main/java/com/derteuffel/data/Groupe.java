@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,12 +22,14 @@ public class Groupe implements Serializable{
     @GeneratedValue
     private Long groupeId;
     @Column
+    @NotEmpty
     private String groupeName;
 
     private String groupChief;
     private Boolean status;
-
+    @NotEmpty
     private String groupeCountry;
+    @NotEmpty
     private  String groupeRegion;
 
     @ManyToMany
