@@ -16,6 +16,7 @@ $(document).ready( function () {
             { "mData": "university" },
             { "mData": "faculty" },
             { "mData": "options" },
+            { "mData": "status" },
             { "mData": "subject" },
             { "mData": "theseId",
                 mRender: function (mData,type,row){

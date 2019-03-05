@@ -589,7 +589,7 @@ public class TheseController {
         These these= theseRepository.getOne(theseId);
         these.setStatus(true);
         theseRepository.save(these);
-        return "redirect:/groupe/groupe/"+ (Long)session.getAttribute("groupeId");
+        return "redirect:/these/these/"+theseId;
     }
 
     @GetMapping("/draft/{theseId}")
@@ -597,8 +597,7 @@ public class TheseController {
         These these= theseRepository.getOne(theseId);
         these.setStatus(false);
         theseRepository.save(these);
-        return "redirect:/groupe/groupe/"+(Long)session.getAttribute("groupeId");
-    }
+        return "redirect:/these/these/"+theseId;    }
 
     @GetMapping("/unPublish/form/{theseId}")
     public String unPublishForm(@PathVariable Long theseId, Model model,HttpSession session){
@@ -611,7 +610,7 @@ public class TheseController {
         return "crew/correction";
     }
     @PostMapping("/unPublish/{theseId}")
-    public String unPublishPeriod(These these, HttpSession session, String adresse, String contenue){
+    public String unPublishPeriod(These these, HttpSession session, String adresse, String contenue, @PathVariable Long theseId){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
         these.setStatus(null);
@@ -625,7 +624,7 @@ public class TheseController {
                 "Notification de correction du contenu de cette Thèse",
                 user.getName()+" vous notifi celon le contenue suivant :"+contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
-        return "redirect:/groupe/groupe/"+(Long)session.getAttribute("groupeId");
+        return "redirect:/these/these/"+theseId;
     }
 
 
