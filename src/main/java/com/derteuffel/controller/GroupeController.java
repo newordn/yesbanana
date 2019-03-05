@@ -505,7 +505,9 @@ public class GroupeController {
 
     @DeleteMapping("/delete/{groupeId}")
     public String deleteById(@PathVariable Long groupeId) {
-        groupeRepository.deleteById(groupeId);
+        Groupe groupe= groupeRepository.getOne(groupeId);
+        groupe.setStatus(false);
+        groupeRepository.save(groupe);
         return "redirect:/groupe/groupes";
     }
 
