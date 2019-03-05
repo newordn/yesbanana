@@ -309,20 +309,6 @@ public class HomeController {
         return "other";
     }
 
-    @GetMapping("/school/detail/{postId}")
-    public String findById(Model model,@PathVariable Long postId) {
-        Optional<Post> optional=postRepository.findById(postId);
-        int postLike=0;
-                int i=optional.get().getLikes();
-        i++;
-        postLike =i;
-        System.out.println(postLike);
-        optional.get().setLikes(postLike);
-        postRepository.save(optional.get());
-        model.addAttribute("post", optional.get());
-        return "region/post";
-    }
-
     @GetMapping("/school/lesson/trial")
     public String oneLesson(){
         return "training/detail/one";
@@ -400,10 +386,16 @@ public String otherRegion(Model model, @PathVariable Long countryId){
         return "visitor/teachers";
     }
 
-    @GetMapping("/visitor/post/form")
-    public String getPostForm(Model model){
+    @GetMapping("/visitor/publish/book/form")
+    public String bookForm(Model model){
         model.addAttribute("post",new Post());
-        return "visitor/post";
+        return "visitor/book";
+    }
+
+    @GetMapping("/visitor/publish/sylabus/form")
+    public String sylabusForm(Model model){
+        model.addAttribute("post",new Post());
+        return "visitor/sylabus";
     }
 
     @PostMapping("/visitor/post/save")
@@ -420,20 +412,11 @@ public String otherRegion(Model model, @PathVariable Long countryId){
 
         System.out.println(filesPaths);
         post.setPieces(filesPaths);
-        if (post.getCategory().equals("Education civique")){
-            post.setNiveau(3);
-        }else if (post.getCategory().equals("Education primaire")){
-            post.setNiveau(1);
-        }else if (post.getCategory().equals("Education secondaire")){
-            post.setNiveau(2);
-        }else {
-            post.setNiveau(4);
-        }
         postRepository.save(post);
         MailService mailService = new MailService();
         mailService.sendSimpleMessage(
-                /*"solutioneducationafrique@gmail.com"*/
-                "derteuffel0@gmail.com",
+                "solutioneducationafrique@gmail.com",
+               // "derteuffel0@gmail.com",
                 "YesBanana: Notification création d'une publication",
                 "cette publication est encore en suspend veuillez bien vous connecter pour lui attribuer un status "+
         "ou veiller cliquer sur le lien pour etre rediriger vers la page "+"http:localhost:8080/school/detail/"+post.getPostId());
