@@ -450,22 +450,18 @@ public class GroupeController {
             if(!usersIds[i].isEmpty())
             usersIdsLong.add(Long.parseLong(usersIds[i]));
         }
+        User tmp;
+        for(Long id : usersIdsLong )
+        {
+            tmp=userRepository.getOne(id);
+            List<Groupe> crews= groupeRepository.findByUsers_UserId(id);
+            for(Groupe crew : crews)
+            {
+                crew.removeUser(tmp);
 
-        for (Groupe groupe1: groupes){
-            List<User> users= groupe1.getUsers();
-            for (Long id : usersIdsLong) {
-                System.out.println(usersIdsLong);
-                for(int p=0; p<users.size();p++) {
-                    if (users.get(p).getUserId().equals(id)){
-                        groupe1.removeUser(users.get(p));
-                        groupe.setUsers(userRepository.getOne(id));
-                    }
-                    else
-                        groupe.setUsers(userRepository.getOne(id));
-                }
             }
+            groupe.setUsers(tmp);
         }
-
         System.out.println(usersIdsLong);
 
         groupeRepository.save(groupe);
