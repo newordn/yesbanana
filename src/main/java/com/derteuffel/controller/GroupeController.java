@@ -442,6 +442,7 @@ public class GroupeController {
         Groupe groupe= groupeRepository.getOne(groupeId);
         Collection<Groupe> groupes= groupeRepository.findAll();
         String[] usersIds = usersGroupe.getUsersIds().split(",");
+        System.out.println(usersIds[0]);
         ArrayList<Long> usersIdsLong = new ArrayList<>();
 
         for(int i=0;i<usersIds.length;i++)
@@ -449,17 +450,22 @@ public class GroupeController {
             if(!usersIds[i].isEmpty())
             usersIdsLong.add(Long.parseLong(usersIds[i]));
         }
+
         for (Groupe groupe1: groupes){
             List<User> users= groupe1.getUsers();
             for (Long id : usersIdsLong) {
+                System.out.println(usersIdsLong);
                 for(int p=0; p<users.size();p++) {
                     if (users.get(p).getUserId().equals(id)){
                         groupe1.removeUser(users.get(p));
+                        groupe.setUsers(userRepository.getOne(id));
                     }
+                    else
+                        groupe.setUsers(userRepository.getOne(id));
                 }
-                groupe.setUsers(userRepository.getOne(id));
             }
         }
+
         System.out.println(usersIdsLong);
 
         groupeRepository.save(groupe);
