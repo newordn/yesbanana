@@ -541,7 +541,7 @@ public class GroupeController {
         return "crew/theses";
     }
 
-    @DeleteMapping("/delete/these/{theseId}")
+    @GetMapping("/delete/these/{theseId}")
     public String deleteThese(@PathVariable Long theseId, HttpSession session){
 
         These these=theseRepository.getOne(theseId);
