@@ -47,6 +47,8 @@ public class These implements Serializable{
     @Column
     private Boolean status;
     @Column
+    private Boolean states;
+    @Column
     private String country;
     private String fileType;
     @OneToMany(mappedBy = "these")
@@ -65,7 +67,7 @@ public class These implements Serializable{
 
     public These(String university, String faculty, String options, String level,
                  String subject, ArrayList<String> resumes, String regions, String student, String profesor,
-                 String workChief, String assistant,Date created_at,Boolean status, String theseDate, String country,
+                 String workChief, String assistant,Date created_at,Boolean status,Boolean states, String theseDate, String country,
                  ArrayList<Bibliotheque> bibliotheques, ArrayList<Bibliography> bibliographies, String fileType) {
         this.university = university;
         this.faculty = faculty;
@@ -74,6 +76,7 @@ public class These implements Serializable{
         this.bibliographies=bibliographies;
         this.subject = subject;
         this.status=status;
+        this.states=states;
         this.bibliotheques=bibliotheques;
         this.resumes = resumes;
         this.regions = regions;
@@ -87,6 +90,14 @@ public class These implements Serializable{
         this.fileType=fileType;
     }
 
+
+    public Boolean getStates() {
+        return states;
+    }
+
+    public void setStates(Boolean states) {
+        this.states = states;
+    }
 
     public String getFileType() {
         return fileType;

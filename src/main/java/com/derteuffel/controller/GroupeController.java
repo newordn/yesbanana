@@ -502,7 +502,52 @@ public class GroupeController {
         model.addAttribute("countries", countries);
         model.addAttribute("groupeName",groupe.getGroupeName());
 
+        Collection<Role> roles= roleRepository.findByUsers_UserId(user.getUserId());
+        List<These> theses= theseRepository.findAllByStates(true);
+        List<These> allTheses= new ArrayList<>();
+        int p=0;
+
+        for (Role role : roles){
+            if (!role.getRole().equals("USER")){
+                p=1;
+            }else {
+                p=2;
+            }
+        }
+        if (p==1){
+
+            List<These> groupeTheses =theseRepository.findByGroupeOrderByTheseIdDesc(groupe.getGroupeId());
+            for (These these : theses){
+                for (int i=0; i<groupeTheses.size();i++){
+                    if (these.getTheseId().equals(groupeTheses.get(i).getTheseId())){
+                        allTheses.add(these);
+                    }
+                }
+            }
+            model.addAttribute("theses", allTheses);
+        }else {
+
+            List<These> userTheses= theseRepository.findByUserOrderByTheseIdDesc(user.getUserId());
+            for (These these : theses){
+                for (int j=0; j<userTheses.size();j++){
+                    if (these.getTheseId().equals(userTheses.get(j).getTheseId())){
+                        allTheses.add(these);
+                    }
+                }
+            }
+            model.addAttribute("theses",allTheses);
+        }
+
         return "crew/theses";
+    }
+
+    @DeleteMapping("/delete/these/{theseId}")
+    public String deleteThese(@PathVariable Long theseId, HttpSession session){
+
+        These these=theseRepository.getOne(theseId);
+        these.setStates(false);
+        theseRepository.save(these);
+        return "redirect:/groupe/groupe/"+ (Long)session.getAttribute("groupeId");
     }
 
     @DeleteMapping("/delete/{groupeId}")
@@ -529,6 +574,7 @@ public class GroupeController {
         these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
         these.setGroupe(groupeRepository.getOne((Long)session.getAttribute("groupeId")));
         these.setResumes((ArrayList<String>)session.getAttribute("resumes"));
+        these.setStates(true);
         theseRepository.save(these);
         return "redirect:/groupe/groupe/"+(Long)session.getAttribute("groupeId");
     }
@@ -628,6 +674,7 @@ public class GroupeController {
         these.setStudent((String) session.getAttribute("student"));
         these.setProfesor((String) session.getAttribute("professor"));
         these.setWorkChief((String) session.getAttribute("workChief"));
+        these.setStates(true);
         theseRepository.save(these);
         return "redirect:/groupe/groupe/these/"+these.getTheseId();
     }
@@ -660,6 +707,7 @@ public class GroupeController {
         these.setCountry((String)session.getAttribute("country"));
         these.setRegions((String)session.getAttribute("regions"));
         these.setResumes((ArrayList<String>)session.getAttribute("resumes"));
+        these.setStates(true);
         theseRepository.save(these);
         return "redirect:/groupe/groupe/equipe/"+ these.getTheseId();
 

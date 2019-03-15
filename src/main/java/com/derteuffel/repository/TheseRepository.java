@@ -32,6 +32,7 @@ public interface TheseRepository extends JpaRepository<These,Long> {
     These findBySubject(String subject);
 
     List<These> findAllByStatus(Boolean status);
+    List<These> findAllByStates(Boolean states);
 
     List<These> findAllByOptionsOrderByTheseIdDesc(String options);
     List<These> findAllByCountryOrderByTheseIdDesc(String country);

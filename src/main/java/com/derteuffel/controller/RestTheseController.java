@@ -73,6 +73,7 @@ public class RestTheseController{
             }
         }
         if (p==1){
+
             return theseRepository.findByGroupeOrderByTheseIdDesc(groupe.getGroupeId());
         }else {
             return theseRepository.findByUserOrderByTheseIdDesc(user.getUserId());
