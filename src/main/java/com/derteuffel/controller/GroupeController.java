@@ -564,6 +564,7 @@ public class GroupeController {
         session.setAttribute("userId", optional.get().getUser().getUserId());
         session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
         session.setAttribute("resumes", optional.get().getResumes());
+        session.setAttribute("anotherSommaire", optional.get().getAnotherSommaire());
         model.addAttribute("countries", countries);
         model.addAttribute("these1", optional.get());
         return "crew/general";
@@ -574,7 +575,9 @@ public class GroupeController {
         these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
         these.setGroupe(groupeRepository.getOne((Long)session.getAttribute("groupeId")));
         these.setResumes((ArrayList<String>)session.getAttribute("resumes"));
+        these.setAnotherSommaire((String)session.getAttribute("anotherSommaire"));
         these.setStates(true);
+        these.setStatus(false);
         theseRepository.save(these);
         return "redirect:/groupe/groupe/"+(Long)session.getAttribute("groupeId");
     }
@@ -675,6 +678,7 @@ public class GroupeController {
         these.setProfesor((String) session.getAttribute("professor"));
         these.setWorkChief((String) session.getAttribute("workChief"));
         these.setStates(true);
+        these.setStatus(false);
         theseRepository.save(these);
         return "redirect:/groupe/groupe/these/"+these.getTheseId();
     }
@@ -707,7 +711,9 @@ public class GroupeController {
         these.setCountry((String)session.getAttribute("country"));
         these.setRegions((String)session.getAttribute("regions"));
         these.setResumes((ArrayList<String>)session.getAttribute("resumes"));
+        these.setAnotherSommaire((String)session.getAttribute("anotherSommaire"));
         these.setStates(true);
+        these.setStatus(false);
         theseRepository.save(these);
         return "redirect:/groupe/groupe/equipe/"+ these.getTheseId();
 
@@ -738,6 +744,7 @@ public class GroupeController {
         session.setAttribute("country", optional.get().getCountry());
         session.setAttribute("regions", optional.get().getRegions());
         session.setAttribute("resumes", optional.get().getResumes());
+        session.setAttribute("anotherSommaire", optional.get().getAnotherSommaire());
 
             return "crew/these1";
 

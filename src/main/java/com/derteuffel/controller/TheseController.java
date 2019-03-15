@@ -62,7 +62,7 @@ public class TheseController {
     @Autowired
     private BibliothequeRepository bibliothequeRepository;
 
-    List<String> countries= Arrays.asList(
+    List<String> countries = Arrays.asList(
             "Afghanistan",
             "Albania",
             "Algeria",
@@ -263,44 +263,45 @@ public class TheseController {
             "Zimbabwe"
 
     );
-    private static int currentPage=1;
-    private static int pageSize=6;
+    private static int currentPage = 1;
+    private static int pageSize = 6;
     private String pathToDownloadFileServer = "/home3/banana/jvm/apache-tomcat-8.5.30/domains/yesbanana.org/ROOT/WEB-INF/classes/static/downloadFile/";
-    
-// for getting all theses
+
+    // for getting all theses
     @GetMapping("/all")
     public String findAllThese(HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userService.findByName(auth.getName());
+        User user = userService.findByName(auth.getName());
         session.setAttribute("userId", user.getUserId());
         session.setAttribute("avatar", user.getImg());
         session.setAttribute("name", user.getName());
         return "these/theses";
     }
+
     private static final int BUTTONS_TO_SHOW = 3;
     private static final int INITIAL_PAGE = 0;
     private static final int INITIAL_PAGE_SIZE = 5;
-    private static final int[] PAGE_SIZES = { 5,6,7,8};
+    private static final int[] PAGE_SIZES = {5, 6, 7, 8};
 
     // for adding a these in a crew
 
     @GetMapping("/add/form")
-    public  String theseForm1(Model model){
+    public String theseForm1(Model model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userService.findByName(auth.getName());
-        int p=0;
+        User user = userService.findByName(auth.getName());
+        int p = 0;
 
         model.addAttribute("these", new These());
         model.addAttribute("countries", countries);
-        for (Role role : user.getRoles()){
-            if (role.getRole().equals("ROOT")){
-                p=1;
+        for (Role role : user.getRoles()) {
+            if (role.getRole().equals("ROOT")) {
+                p = 1;
             }
         }
-        if (p==1){
+        if (p == 1) {
             return "crew/theseForm1";
-        }else {
+        } else {
             return "crew/theseForm";
         }
 
@@ -309,15 +310,13 @@ public class TheseController {
 
 
     // a function which performs the create
-    public String create(int currentPage,HSSFWorkbook workbook) throws FileNotFoundException, DocumentException, IOException
-    {
-            List<These> thesePage= theseRepository.findAll();
-            FileOutputStream fileOutputStream=null;
-           String filename=null;
-           try
-           {
-        // Obtain a workbook from the excel file
-            HSSFSheet sheet=workbook.createSheet("thseses sheets");
+    public String create(int currentPage, HSSFWorkbook workbook) throws FileNotFoundException, DocumentException, IOException {
+        List<These> thesePage = theseRepository.findAll();
+        FileOutputStream fileOutputStream = null;
+        String filename = null;
+        try {
+            // Obtain a workbook from the excel file
+            HSSFSheet sheet = workbook.createSheet("thseses sheets");
             sheet.setDefaultColumnWidth(30);
 
             // create style for header cells
@@ -370,7 +369,7 @@ public class TheseController {
             header.createCell(12).setCellValue("SOMMAIRE");
             header.getCell(12).setCellStyle(style);
 
-            header.setHeight((short)-1);
+            header.setHeight((short) -1);
 
             // create data rows
             int rowCount = 1;
@@ -401,13 +400,14 @@ public class TheseController {
 
 
     // for the creation of excel docs, don't mind the name 
-    @GetMapping(value = "/createPdf/{currentPage}",produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    @ResponseBody   
-    public  FileSystemResource createPdf(@PathVariable("currentPage") int currentPage,HSSFWorkbook workbook, HttpServletResponse response) throws DocumentException, IOException  {
-            response.setContentType("application/xls");      
-            response.setHeader("Content-Disposition", "attachment; filename=" + "theses" + currentPage + ".xls");
+    @GetMapping(value = "/createPdf/{currentPage}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @ResponseBody
+    public FileSystemResource createPdf(@PathVariable("currentPage") int currentPage, HSSFWorkbook workbook, HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/xls");
+        response.setHeader("Content-Disposition", "attachment; filename=" + "theses" + currentPage + ".xls");
         return new FileSystemResource(create(currentPage, workbook));
     }
+
     public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
         String fileName = fileUploadService.storeFile(file);
 
@@ -421,17 +421,17 @@ public class TheseController {
 
     // for saving a these
     @PostMapping("/add/create")
-    public String save(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, String adresse, String contenue, Errors errors,Model model) {
+    public String save(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, String adresse, String contenue, Errors errors, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userService.findByName(auth.getName());
-        These these1= theseRepository.findBySubject(these.getSubject());
-        if (these1 != null){
-            errors.rejectValue("title","these.error","il existe deja une reference avec ce titre");
+        User user = userService.findByName(auth.getName());
+        These these1 = theseRepository.findBySubject(these.getSubject());
+        if (these1 != null) {
+            errors.rejectValue("title", "these.error", "il existe deja une reference avec ce titre");
         }
-        if (errors.hasErrors()){
-            model.addAttribute("error","il existe deja une reference avec ce titre");
+        if (errors.hasErrors()) {
+            model.addAttribute("error", "il existe deja une reference avec ce titre");
             return "crew/theseForm";
-        }else {
+        } else {
             List<FileUploadRespone> pieces = Arrays.asList(files)
                     .stream()
                     .map(file -> uploadFile(file))
@@ -449,22 +449,22 @@ public class TheseController {
             these.setOptions(these.getOptions().toLowerCase());
             theseRepository.save(these);
         }
-        MailService mail= new MailService();
+        MailService mail = new MailService();
         mail.sendSimpleMessage(
                 adresse,
                 "Notification de enregistrement d'une Thèse",
-                user.getName()+" vous notifi celon le contenue suivant :"+ contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
+                user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
-        Collection<Role> roles=user.getRoles();
-        int p=0;
-        for (Role role : roles){
-            if (!role.getRole().equals("USER")){
-                p=1;
+        Collection<Role> roles = user.getRoles();
+        int p = 0;
+        for (Role role : roles) {
+            if (!role.getRole().equals("USER")) {
+                p = 1;
             }
         }
-        if (p==1){
-            return "redirect:/groupe/groupe/"+(Long)session.getAttribute("groupeId");
-        }else {
+        if (p == 1) {
+            return "redirect:/groupe/groupe/" + (Long) session.getAttribute("groupeId");
+        } else {
             return "redirect:/groupe/groupe/all/user/these";
         }
 
@@ -472,17 +472,17 @@ public class TheseController {
 
     // for saving a these
     @PostMapping("/add/save")
-    public String create(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, Errors errors,Model model) {
+    public String create(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, Errors errors, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userService.findByName(auth.getName());
-        These these1= theseRepository.findBySubject(these.getSubject());
-        if (these1 != null){
-            errors.rejectValue("subject","these.error","il existe deja une reference avec ce titre");
+        User user = userService.findByName(auth.getName());
+        These these1 = theseRepository.findBySubject(these.getSubject());
+        if (these1 != null) {
+            errors.rejectValue("subject", "these.error", "il existe deja une reference avec ce titre");
         }
-        if (errors.hasErrors()){
-            model.addAttribute("error","il existe deja une reference avec ce titre");
+        if (errors.hasErrors()) {
+            model.addAttribute("error", "il existe deja une reference avec ce titre");
             return "crew/theseForm1";
-        }else {
+        } else {
             List<FileUploadRespone> pieces = Arrays.asList(files)
                     .stream()
                     .map(file -> uploadFile(file))
@@ -497,19 +497,20 @@ public class TheseController {
             these.setGroupe(groupe);
             these.setUser(user);
             these.setStatus(false);
+            these.setStates(true);
             these.setOptions(these.getOptions().toLowerCase());
             theseRepository.save(these);
         }
-        Collection<Role> roles=user.getRoles();
-        int p=0;
-        for (Role role : roles){
-            if (!role.getRole().equals("USER")){
-                p=1;
+        Collection<Role> roles = user.getRoles();
+        int p = 0;
+        for (Role role : roles) {
+            if (!role.getRole().equals("USER")) {
+                p = 1;
             }
         }
-        if (p==1){
-            return "redirect:/groupe/groupe/"+(Long)session.getAttribute("groupeId");
-        }else {
+        if (p == 1) {
+            return "redirect:/groupe/groupe/" + (Long) session.getAttribute("groupeId");
+        } else {
             return "redirect:/groupe/groupe/all/user/these";
         }
 
@@ -519,36 +520,36 @@ public class TheseController {
     @PostMapping("/add/update/somaire")
     public String update(These these, @RequestParam("files") MultipartFile[] files, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userService.findByName(auth.getName());
-        List<FileUploadRespone> pieces= Arrays.asList(files)
+        User user = userService.findByName(auth.getName());
+        List<FileUploadRespone> pieces = Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
                 .collect(Collectors.toList());
         ArrayList<String> filesPaths = new ArrayList<String>();
-        for(int i=0;i<pieces.size();i++)
-        {
+        for (int i = 0; i < pieces.size(); i++) {
             filesPaths.add(pieces.get(i).getFileDownloadUri());
         }
         Long groupeId = (Long) session.getAttribute("groupeId");
         these.setResumes(filesPaths);
-        Groupe groupe= groupeRepository.getOne(groupeId);
+        Groupe groupe = groupeRepository.getOne(groupeId);
         these.setGroupe(groupe);
-        these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
-        these.setUniversity((String)session.getAttribute("university"));
-        these.setFaculty((String)session.getAttribute("faculty"));
-        these.setOptions((String)session.getAttribute("options"));
-        these.setLevel((String)session.getAttribute("level"));
-        these.setSubject((String)session.getAttribute("subject"));
-        these.setTheseDate((String)session.getAttribute("theseDate"));
-        these.setCountry((String)session.getAttribute("country"));
-        these.setRegions((String)session.getAttribute("regions"));
-        these.setAssistant((String)session.getAttribute("assistant"));
-        these.setStudent((String)session.getAttribute("student"));
-        these.setProfesor((String)session.getAttribute("professor"));
+        these.setUser(userRepository.getOne((Long) session.getAttribute("userId")));
+        these.setUniversity((String) session.getAttribute("university"));
+        these.setFaculty((String) session.getAttribute("faculty"));
+        these.setOptions((String) session.getAttribute("options"));
+        these.setLevel((String) session.getAttribute("level"));
+        these.setSubject((String) session.getAttribute("subject"));
+        these.setTheseDate((String) session.getAttribute("theseDate"));
+        these.setCountry((String) session.getAttribute("country"));
+        these.setRegions((String) session.getAttribute("regions"));
+        these.setAssistant((String) session.getAttribute("assistant"));
+        these.setStudent((String) session.getAttribute("student"));
+        these.setProfesor((String) session.getAttribute("professor"));
         these.setWorkChief((String) session.getAttribute("workChief"));
+        these.setStates(true);
         theseRepository.save(these);
-        Collection<Role> roles=user.getRoles();
-        return "redirect:/these/these/"+these.getTheseId();
+        Collection<Role> roles = user.getRoles();
+        return "redirect:/these/these/" + these.getTheseId();
 
     }
 
@@ -556,77 +557,82 @@ public class TheseController {
     @PostMapping("/add/update/equipe")
     public String updateEquipe(These these, @RequestParam("files") MultipartFile[] files, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userService.findByName(auth.getName());
-        List<FileUploadRespone> pieces= Arrays.asList(files)
+        User user = userService.findByName(auth.getName());
+        List<FileUploadRespone> pieces = Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
                 .collect(Collectors.toList());
         ArrayList<String> filesPaths = new ArrayList<String>();
-        for(int i=0;i<pieces.size();i++)
-        {
+        for (int i = 0; i < pieces.size(); i++) {
             filesPaths.add(pieces.get(i).getFileDownloadUri());
         }
         Long groupeId = (Long) session.getAttribute("groupeId");
         these.setResumes(filesPaths);
-        Groupe groupe= groupeRepository.getOne(groupeId);
+        Groupe groupe = groupeRepository.getOne(groupeId);
         these.setGroupe(groupe);
-        these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
-        these.setUniversity((String)session.getAttribute("university"));
-        these.setFaculty((String)session.getAttribute("faculty"));
-        these.setOptions((String)session.getAttribute("options"));
-        these.setLevel((String)session.getAttribute("level"));
-        these.setSubject((String)session.getAttribute("subject"));
-        these.setTheseDate((String)session.getAttribute("theseDate"));
-        these.setCountry((String)session.getAttribute("country"));
-        these.setRegions((String)session.getAttribute("regions"));
-        these.setResumes((ArrayList<String>)session.getAttribute("resumes"));
+        these.setUser(userRepository.getOne((Long) session.getAttribute("userId")));
+        these.setUniversity((String) session.getAttribute("university"));
+        these.setFaculty((String) session.getAttribute("faculty"));
+        these.setOptions((String) session.getAttribute("options"));
+        these.setLevel((String) session.getAttribute("level"));
+        these.setSubject((String) session.getAttribute("subject"));
+        these.setTheseDate((String) session.getAttribute("theseDate"));
+        these.setCountry((String) session.getAttribute("country"));
+        these.setRegions((String) session.getAttribute("regions"));
+        these.setResumes((ArrayList<String>) session.getAttribute("resumes"));
+        these.setStates(true);
         theseRepository.save(these);
-        Collection<Role> roles=user.getRoles();
-       return "redirect:/these/equipe/"+ these.getTheseId();
+        Collection<Role> roles = user.getRoles();
+        return "redirect:/these/equipe/" + these.getTheseId();
 
     }
 
     @GetMapping("/publish/{theseId}")
-    public String publishPeriod(@PathVariable Long theseId, HttpSession session){
-        These these= theseRepository.getOne(theseId);
+    public String publishPeriod(@PathVariable Long theseId, HttpSession session) {
+        These these = theseRepository.getOne(theseId);
         these.setStatus(true);
+        these.setStates(true);
         theseRepository.save(these);
-        return "redirect:/these/these/"+theseId;
+        return "redirect:/these/these/" + theseId;
     }
 
     @GetMapping("/draft/{theseId}")
-    public String draftPeriod(@PathVariable Long theseId, HttpSession session){
-        These these= theseRepository.getOne(theseId);
+    public String draftPeriod(@PathVariable Long theseId, HttpSession session) {
+        These these = theseRepository.getOne(theseId);
         these.setStatus(false);
+        these.setStates(true);
         theseRepository.save(these);
-        return "redirect:/these/these/"+theseId;    }
+        return "redirect:/these/these/" + theseId;
+    }
 
     @GetMapping("/unPublish/form/{theseId}")
-    public String unPublishForm(@PathVariable Long theseId, Model model,HttpSession session){
-        These these= theseRepository.getOne(theseId);
-        model.addAttribute("groupeId", (Long)session.getAttribute("groupeId"));
+    public String unPublishForm(@PathVariable Long theseId, Model model, HttpSession session) {
+        These these = theseRepository.getOne(theseId);
+        model.addAttribute("groupeId", (Long) session.getAttribute("groupeId"));
         model.addAttribute("countries", countries);
         model.addAttribute("these", these);
         session.setAttribute("userId", these.getUser().getUserId());
         session.setAttribute("country", these.getCountry());
         return "crew/correction";
     }
+
     @PostMapping("/unPublish/{theseId}")
-    public String unPublishPeriod(These these, HttpSession session, String adresse, String contenue, @PathVariable Long theseId){
+    public String unPublishPeriod(These these, HttpSession session, String adresse, String contenue, @PathVariable Long theseId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userService.findByName(auth.getName());
-        these.setStatus(null);
-        these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
-        these.setGroupe(groupeRepository.getOne((Long)session.getAttribute("groupeId")));
-        these.setCountry((String)session.getAttribute("country"));
+        User user = userService.findByName(auth.getName());
+        these.setStatus(false);
+        these.setUser(userRepository.getOne((Long) session.getAttribute("userId")));
+        these.setGroupe(groupeRepository.getOne((Long) session.getAttribute("groupeId")));
+        these.setCountry((String) session.getAttribute("country"));
+        these.setStates(true);
         theseRepository.save(these);
-        MailService backMessage= new MailService();
+        MailService backMessage = new MailService();
         backMessage.sendSimpleMessage(
                 adresse,
                 "Notification de correction du contenu de cette Thèse",
-                user.getName()+" vous notifi celon le contenue suivant :"+contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
+                user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
-        return "redirect:/these/these/"+theseId;
+        return "redirect:/these/these/" + theseId;
     }
 
 
@@ -636,22 +642,21 @@ public class TheseController {
     }
 
 
-
     @GetMapping("/update/{theseId}")
-    public  String update(Model model, @PathVariable Long theseId){
+    public String update(Model model, @PathVariable Long theseId) {
         model.addAttribute("these", theseRepository.getOne(theseId));
         model.addAttribute("countries", countries);
         return "these/theseUpdate";
     }
 
     @GetMapping("/these/{theseId}")
-    public String get(Model model, @PathVariable Long theseId,HttpSession session){
+    public String get(Model model, @PathVariable Long theseId, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userService.findByName(auth.getName());
-        Optional<These> optional= theseRepository.findById(theseId);
-        model.addAttribute("these1",optional.get());
-        model.addAttribute("roles",user.getRoles());
-        session.setAttribute("userId",optional.get().getUser().getUserId());
+        User user = userService.findByName(auth.getName());
+        Optional<These> optional = theseRepository.findById(theseId);
+        model.addAttribute("these1", optional.get());
+        model.addAttribute("roles", user.getRoles());
+        session.setAttribute("userId", optional.get().getUser().getUserId());
         session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
         session.setAttribute("theseId", optional.get().getTheseId());
         session.setAttribute("university", optional.get().getUniversity());
@@ -672,9 +677,9 @@ public class TheseController {
     }
 
     @GetMapping("/equipe/{theseId}")
-    public String getEquipe(Model model, @PathVariable Long theseId, HttpSession session){
-        Optional<These> optional= theseRepository.findById(theseId);
-        session.setAttribute("userId",optional.get().getUser().getUserId());
+    public String getEquipe(Model model, @PathVariable Long theseId, HttpSession session) {
+        Optional<These> optional = theseRepository.findById(theseId);
+        session.setAttribute("userId", optional.get().getUser().getUserId());
         session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
         session.setAttribute("university", optional.get().getUniversity());
         session.setAttribute("theseId", optional.get().getTheseId());
@@ -686,8 +691,9 @@ public class TheseController {
         session.setAttribute("country", optional.get().getCountry());
         session.setAttribute("regions", optional.get().getRegions());
         session.setAttribute("resumes", optional.get().getResumes());
-        model.addAttribute("these1",optional.get());
-           return "these/these1";
+        session.setAttribute("anotherSommaire", optional.get().getAnotherSommaire());
+        model.addAttribute("these1", optional.get());
+        return "these/these1";
 
 
     }
@@ -698,28 +704,31 @@ public class TheseController {
         session.setAttribute("userId", optional.get().getUser().getUserId());
         session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
         session.setAttribute("resumes", optional.get().getResumes());
+        session.setAttribute("anotherSommaire", optional.get().getAnotherSommaire());
         model.addAttribute("countries", countries);
         model.addAttribute("these1", optional.get());
         return "these/general";
     }
 
     @PostMapping("/general/edit")
-    public String updateGeneral(These these, HttpSession session){
-        these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
-        these.setGroupe(groupeRepository.getOne((Long)session.getAttribute("groupeId")));
-        these.setResumes((ArrayList<String>)session.getAttribute("resumes"));
+    public String updateGeneral(These these, HttpSession session) {
+        these.setUser(userRepository.getOne((Long) session.getAttribute("userId")));
+        these.setGroupe(groupeRepository.getOne((Long) session.getAttribute("groupeId")));
+        these.setResumes((ArrayList<String>) session.getAttribute("resumes"));
+        these.setAnotherSommaire((String) session.getAttribute("anotherSommaire"));
         theseRepository.save(these);
         return "redirect:/these";
     }
+
     @GetMapping("/biblib/{theseId}")
-    public String getBibLib(Model model, @PathVariable Long theseId, HttpSession session){
+    public String getBibLib(Model model, @PathVariable Long theseId, HttpSession session) {
         System.out.println("sdfffsfghjdg");
-        These these= theseRepository.getOne(theseId);
+        These these = theseRepository.getOne(theseId);
         session.setAttribute("theseId", these.getTheseId());
-        model.addAttribute("bibliothequess",bibliothequeRepository.findAllByThese(these.getTheseId()));
+        model.addAttribute("bibliothequess", bibliothequeRepository.findAllByThese(these.getTheseId()));
         model.addAttribute("bibliotheque", new Bibliotheque());
-        model.addAttribute("these1",these);
-        model.addAttribute("bibliographies",bibliographyRepository.findAllByThese(these.getTheseId()));
+        model.addAttribute("these1", these);
+        model.addAttribute("bibliographies", bibliographyRepository.findAllByThese(these.getTheseId()));
         model.addAttribute("bibliography", new Bibliography());
 
         return "these/theseBibLib";
@@ -727,50 +736,47 @@ public class TheseController {
     }
 
     @GetMapping("/these/bibliotheque/delete/{bibliographyId}")
-    public String delete(@PathVariable Long bibliothequeId, HttpSession session){
+    public String delete(@PathVariable Long bibliothequeId, HttpSession session) {
         bibliothequeRepository.deleteById(bibliothequeId);
-        return "redirect:/these/biblib/ "+ (Long)session.getAttribute("theseId");
+        return "redirect:/these/biblib/ " + (Long) session.getAttribute("theseId");
     }
 
     @GetMapping("/bibliography/delete/{bibliographyId}")
-    public String deletebibliography(@PathVariable Long bibliographyId, HttpSession session){
+    public String deletebibliography(@PathVariable Long bibliographyId, HttpSession session) {
         bibliographyRepository.deleteById(bibliographyId);
-        return "redirect:/these/biblib/ "+ (Long)session.getAttribute("theseId");
+        return "redirect:/these/biblib/ " + (Long) session.getAttribute("theseId");
     }
 
     @PostMapping("/bibliotheque/save")
-    public String save(Bibliotheque bibliotheque, Errors errors, Model model, HttpSession session){
-        Bibliotheque bibliotheque1= bibliothequeRepository.findByBibliotheques(bibliotheque.getBibliotheques());
-        if (bibliotheque1 != null){
-            errors.rejectValue("bibliotheque","bibliotheque.error","il existe deja une reference avec ce titre");
+    public String save(Bibliotheque bibliotheque, Errors errors, Model model, HttpSession session) {
+        Bibliotheque bibliotheque1 = bibliothequeRepository.findByBibliotheques(bibliotheque.getBibliotheques());
+        if (bibliotheque1 != null) {
+            errors.rejectValue("bibliotheque", "bibliotheque.error", "il existe deja une reference avec ce titre");
         }
-        if (errors.hasErrors()){
-            model.addAttribute("error","il existe deja une reference avec ce titre");
+        if (errors.hasErrors()) {
+            model.addAttribute("error", "il existe deja une reference avec ce titre");
             return "crew/bibliotheque";
-        }else {
-            bibliotheque.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
+        } else {
+            bibliotheque.setThese(theseRepository.getOne((Long) session.getAttribute("theseId")));
             bibliothequeRepository.save(bibliotheque);
         }
-        return "redirect:/these/biblib/"+ (Long)session.getAttribute("theseId");
+        return "redirect:/these/biblib/" + (Long) session.getAttribute("theseId");
     }
 
     @PostMapping("/bibliogrqphy/save")
-    public String save(Bibliography bibliography, Errors errors, Model model, HttpSession session){
+    public String save(Bibliography bibliography, Errors errors, Model model, HttpSession session) {
 
-        Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
-        if (bibliography1 != null){
-            errors.rejectValue("title","bibliography.error","il existe deja une reference avec ce titre");
+        Bibliography bibliography1 = bibliographyRepository.findByTitle(bibliography.getTitle());
+        if (bibliography1 != null) {
+            errors.rejectValue("title", "bibliography.error", "il existe deja une reference avec ce titre");
         }
-        if (errors.hasErrors()){
-            model.addAttribute("error","il existe deja une reference avec ce titre");
+        if (errors.hasErrors()) {
+            model.addAttribute("error", "il existe deja une reference avec ce titre");
             return "crew/editBiblio";
-        }else {
-            bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
+        } else {
+            bibliography.setThese(theseRepository.getOne((Long) session.getAttribute("theseId")));
             bibliographyRepository.save(bibliography);
         }
-        return "redirect:/these/biblib/"+ (Long)session.getAttribute("theseId");
+        return "redirect:/these/biblib/" + (Long) session.getAttribute("theseId");
     }
-
-
 }
-

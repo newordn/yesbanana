@@ -90,6 +90,7 @@
             </div>
             <div class="row mb-4">
                 <div class="form-group col-12 col-sm-6 col-lg-3">
+                    <p class="mb-0">Type de fichier pour le sommaire:</p>
                     <select class="form-control" th:field="*{fileType}">
                         <option value="">Selectionner un type de fichiers</option>
                         <option value="DOCUMENT">DOCUMENTS</option>
@@ -100,6 +101,7 @@
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="img-upload-div">
                         <div class="custom-file mb-3">
+                            <p class="mb-0">Fichiers du Sommaire:</p>
                             <input type="file" multiple class="form-control-file border" id="customFile" name="files">
                         </div>
                     </div>
@@ -140,6 +142,15 @@
                     <div class="form-group">
                         <span class='error' id="workChiefError"></span>
                         <input type="text" th:field="*{workChief}" id="workChief" class="form-control" placeholder="Nom du chef des travaux" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-12 col-sm-6 col-lg-6">
+                    <div class="form-group">
+                        <span class='error' id="anotherSommairetError"></span>
+                        <p>Autre Sommaire:</p>
+                        <textarea th:field="*{anotherSommaire}" cols="60" rows="5"></textarea>
                     </div>
                 </div>
             </div>
