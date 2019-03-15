@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -42,9 +39,9 @@ public class BibliothequeController {
         return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
     }
 
-    @GetMapping("/delete/{bibliographyId}")
+    @GetMapping("/delete/{bibliothequeId}")
     public String delete(@PathVariable Long bibliothequeId, HttpSession session){
         bibliothequeRepository.deleteById(bibliothequeId);
-        return "redirect:/groupe/groupe/biblib/ "+ (Long)session.getAttribute("theseId");
+        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
     }
 }
