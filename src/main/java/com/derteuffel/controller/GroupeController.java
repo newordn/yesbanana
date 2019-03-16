@@ -770,6 +770,11 @@ public class GroupeController {
     public String delete(@PathVariable Long groupeId){
         Groupe groupe= groupeRepository.getOne(groupeId);
         groupe.setStatus(false);
+        groupe.setGroupChief(groupe.getGroupChief());
+        groupe.setGroupeCountry(groupe.getGroupeCountry());
+        groupe.setGroupeRegion(groupe.getGroupeRegion());
+                    groupe.setGroupeName(groupe.getGroupeName());
+        groupeRepository.save(groupe);
         return "redirect:/groupe/groupes";
     }
 
