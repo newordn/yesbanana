@@ -469,6 +469,7 @@ public class UserController {
 
         User user1 = userService.findByEmail(user.getEmail());
         User user2= userService.findByName(user.getName());
+        model.addAttribute("countries", countries);
         if (user1 != null) {
 
             bindingResult.rejectValue("email", "user.error", "There is already a user registered with the email provided");
@@ -519,11 +520,17 @@ public class UserController {
 
             bindingResult.rejectValue("email", "user.error", "There is already a user registered with the email provided");
         }
+        User user2 = userService.findByName(user.getName());
+        if (user2 != null) {
+
+            bindingResult.rejectValue("name", "user.error", "There is already a user registered with the name provided");
+        }
+        model.addAttribute("countries", countries);
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", "Il existe un utilisateur avec le même email.");
             return "user/visitor";
         } else {
-            User user2=
+            User user3=
             userService.saveOrUpdate(user);
 
             MailService mailService = new MailService();
@@ -534,9 +541,9 @@ public class UserController {
                             user.getEmail()+ "  Vient de s'inscrire et a ajouté une publication qui est en suspend " +
                             "sur la plateforme YesBanana. Veuillez vous connectez pour apprecier et traiter sa publication.");
 
-            session.setAttribute("userId",userService.findByEmail(user2.getEmail()).getUserId());
+            session.setAttribute("userId",userService.findByEmail(user3.getEmail()).getUserId());
             model.addAttribute("post",new Post());
-            return "visitor/post";
+            return "visitor/book";
         }
     }
 
@@ -549,16 +556,12 @@ public class UserController {
     @PostMapping(value = "/create/visitor", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String createVisitor(@Valid User user, Model model, @RequestParam("file") MultipartFile file, @RequestParam("cvFile") MultipartFile cvFile, BindingResult bindingResult, String role) {
         String fileName = fileUploadServices.storeFile(file);
-        String fileNameCv= fileUploadService.storeFile(cvFile);
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-/*
-            FileUploadRespone fileUploadRespone = new FileUploadRespone(fileName, fileDownloadUri);*/
         user.setImg("/downloadFile/" + fileName);
+        if (!cvFile.isEmpty()) {
+            String fileNameCv = fileUploadService.storeFile(cvFile);
 
-            user.setCv("/downloadFile/"+fileNameCv);
+            user.setCv("/downloadFile/" + fileNameCv);
+        }
 
         //user.setActive(true);
 
@@ -566,6 +569,11 @@ public class UserController {
         if (user1 != null) {
 
             bindingResult.rejectValue("email", "user.error", "There is already a user registered with the email provided");
+        }
+        User user2 = userService.findByName(user.getName());
+        if (user2 != null) {
+
+            bindingResult.rejectValue("name", "user.error", "There is already a user registered with the name provided");
         }
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", "Il existe un utilisateur avec le même email.");
