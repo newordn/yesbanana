@@ -90,6 +90,12 @@
                                             <textarea class="form-control"  rows="5" style="height: 100px" th:text="${bibliography.description}" disabled></textarea>
                                         </div>
                                     </div>
+                                    <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                        <div class="form-group ">
+                                            <p class="mt-2 mb-2">Lien de téléchargement:</p>
+                                            <a   th:text="${bibliography.link}" th:href="${bibliography.link}"></a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer text-center">
                                     <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
@@ -126,7 +132,7 @@
                                     <h5 class="modal-title">Ajouter un Livre</h5>
                                 </div>
                                 <div class="modal-body text-center">
-                                    <h5>Veuillez remplir s'il vous plait les champs suivans</h5>
+                                    <h5>Veuillez remplir s'il vous plait les champs suivant</h5>
                                 </div>
                                 <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/bibliography/save}" th:object="${bibliography}">
 
@@ -150,6 +156,12 @@
                                             <div class="form-group ">
                                                 <span class='error' id="profError"></span>
                                                 <textarea class="form-control" id="description" rows="5" style="height: 100px" placeholder="Description " th:field="*{description}" type="text"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                            <div class="form-group">
+                                                <span class='error' id="linkError"></span>
+                                                <input type="url" th:field="*{link}" id="link" class="form-control" placeholder="Lien de telechargement du livre" />
                                             </div>
                                         </div>
                                     </div>

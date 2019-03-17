@@ -16,6 +16,7 @@ public class Bibliography implements Serializable{
     private String auteur;
     private String title;
     private String description;
+    private String link;
 
     @ManyToOne
     private These these;
@@ -23,11 +24,20 @@ public class Bibliography implements Serializable{
     public Bibliography() {
     }
 
-    public Bibliography(String auteur, String title, String description, These these) {
+    public Bibliography(String auteur, String title, String description, These these, String link) {
         this.auteur = auteur;
         this.title = title;
         this.description = description;
+        this.link=link;
         this.these = these;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public Long getBibliographyId() {
