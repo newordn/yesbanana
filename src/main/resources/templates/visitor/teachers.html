@@ -104,6 +104,7 @@
         </div>
         <div class="row block-9">
             <div class="col-md-6 order-md-last d-flex">
+                <div style="font-size:1.2rem;text-align: center;"><i th:if="${error}" th:text="${error}" style="color:red;"></i> </div>
                 <form method="POST" enctype="multipart/form-data" th:object="${user}"
                       th:action="@{/user/create/visitor}" class="bg-light p-5 contact-form">
                     <span class='error' id="nameError"></span>

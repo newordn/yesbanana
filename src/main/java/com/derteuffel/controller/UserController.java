@@ -569,7 +569,20 @@ public class UserController {
         }
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", "Il existe un utilisateur avec le même email.");
+            model.addAttribute("countries",countries);
+            if (user.getCategory().equals("Assistant")|user.getCategory().equals("Professeur")|user.getCategory().equals("Chef des travaux")){
+                return "visitor/expertu";
+            }else if (user.getDiplom() !=null && user.getDiplom().equals("Master1&2")|user.getDiplom().equals("Phd/Doctorat")){
+                return "visitor/expertp";
+            }else if (user.getCategory().equals("Primaire")){
+                return "visitor/teacher";
+            }else if (user.getCategory().equals("Secondaire")){
+                return "visitor/teachers";
+            }else if (user.getCategory().equals("Etudiant")){
+                return "visitor/student";
+            }
             return "user/userForm";
+
         } else {
             userService.saveOrUpdate(user);
 
