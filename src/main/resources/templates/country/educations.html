@@ -46,7 +46,12 @@
                             <a th:href="@{/visitor/student}" >Etudiant</a>
                         </li>
 
-                        <li class="dropdown-item" id="ender4"><a  th:href="@{/visitor/post/form}">Publication</a></li>
+                        <li class="dropdown-item" id="ender"><a  href="#">Publication</a>
+                            <ul id="hide">
+                                <li class="dropdown-item"><a class="black" th:href="@{/visitor/publish/book/form}">Livre</a></li>
+                                <li class="dropdown-item"><a class="black" th:href="@{/visitor/publish/sylabus/form}" >Sylabus</a></li>
+                            </ul>
+                        </li>
                         <li class="dropdown-item" id="starter1" ><a href="#" >Expert</a>
                             <ul id="hide1" >
                                 <li class="dropdown-item"><a class="black" th:href="@{/visitor/expert/universitory}">Universitaire</a></li>
@@ -65,8 +70,6 @@
 
             </ul>
         </div>
-        </ul>
-    </div>
     </div>
 </nav>
 <section class="ftco-section testimony-section">
@@ -77,7 +80,7 @@
                 <h2 class="subheading"><span>Selectionner un pays</span></h2>
             </div>
         </div>
-        <div class="row ftco-animate">
+        <div class=" ftco-animate">
             <div class="item col-md-2" th:each="country : ${countries}">
                 <div class="testimony-wrap text-center py-4 pb-5">
                     <a   th:href="@{/external/secure/country/education/} + ${country.countryId}">
@@ -192,15 +195,24 @@
 <script th:src="@{/js/crew.js}"></script>
 <script type="text/javascript">
     $("#hide1").css("display","none");
+    $("#hide").css("display","none");
     $("#hide2").css("display","none");
     $("#starter1").hover(function(){
         $("#hide1").css("display","block");
 
         $("#hide2").css("display","none");
+        $("#hide").css("display","none");
+    })
+    $("#ender").hover(function(){
+        $("#hide").css("display","block");
+
+        $("#hide2").css("display","none");
+        $("#hide2").css("display","none");
     })
     $("#starter2").hover(function(){
         $("#hide2").css("display","block");
         $("#hide1").css("display","none");
+        $("#hide").css("display","none");
 
     })
 
@@ -219,6 +231,17 @@
                 $("#hide1").css("display","none");
                 $("#hide2").css("display","none");},
             function(){})
+
+
+    var owl = $('.owl-carousel');
+    $('#previous').click(function() {
+
+        owl.trigger('next.owl.carousel');
+    })
+    // Go to the previous item
+    $('#next').click(function() {
+        owl.trigger('prev.owl.carousel', [300]);
+    })
 </script>
 </body>
 </html>

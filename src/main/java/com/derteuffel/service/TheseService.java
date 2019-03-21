@@ -49,7 +49,9 @@ public class TheseService {
     }
 
     public void delete(Long theseId){
-        theseRepository.deleteById(theseId);
+        These these= theseRepository.getOne(theseId);
+        these.setStatus(false);
+        theseRepository.save(these);
     }
 
 

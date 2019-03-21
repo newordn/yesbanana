@@ -27,7 +27,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+        <a class="navbar-brand" th:href="@{/groupe/groupes}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
@@ -81,8 +81,6 @@
                 </li>
             </ul>
         </div>
-        </ul>
-    </div>
     </div>
 </nav>
 <!-- END nav -->
@@ -124,7 +122,9 @@
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-6 col-lg-6 mt-3 " style=" padding-left: 150px; padding-right: 150px">
-                        <a sec:authorize="!hasRole('ROLE_USER')" th:href="@{/management/event/update/}+${event.eventId}" class="btn btn-warning" style="width: 100%;">Modifier  <i class="fa fa-pencil"></i></a>
+                        <a th:if="${session.roles[0].role == 'ROOT'}" th:href="@{/management/event/update/}+${event.eventId}" class="btn btn-warning" style="width: 100%;">Modifier  <i class="fa fa-pencil"></i></a>
+                        <a th:if="${session.roles[0].role == 'ROOT_MASTER'}" th:href="@{/management/event/update/}+${event.eventId}" class="btn btn-warning" style="width: 100%;">Modifier  <i class="fa fa-pencil"></i></a>
+                        <a th:if="${session.roles[0].role == 'ADMIN_MASTER'}" th:href="@{/management/event/update/}+${event.eventId}" class="btn btn-warning" style="width: 100%;">Modifier  <i class="fa fa-pencil"></i></a>
                     </div>
                     <div class="col-12 col-sm-6 col-lg-6 mt-3 " style=" padding-left: 150px; padding-right: 150px">
                         <a  th:href="@{/management/event/reserve/form/}+${event.eventId}" class="btn btn-success" style="width: 100%;">Participer  <i class="fa fa-check"></i></a>

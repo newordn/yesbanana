@@ -37,29 +37,34 @@
             <ul class="navbar-nav ml-auto">
               <li class="nav-item "><a th:href="@{/}" class="nav-link ">Accueil</a></li>
               <li class="nav-item active"><a th:href="@{/deals}" class="nav-link ">Nos Services</a></li></li>
-      
-              <li class="nav-item dropdown"><a href="#" class="nav-link " data-toggle="dropdown">Travailler avec nous</a>
-                <ul class="dropdown-menu">
 
-                                            <li class="dropdown-item" id="ender3">
-                                                <a th:href="@{/visitor/student}" >Etudiant</a>
-                                            </li>
+                <li class="nav-item dropdown"><a href="#" class="nav-link " data-toggle="dropdown">Travailler avec nous</a>
+                    <ul class="dropdown-menu">
 
-                                            <li class="dropdown-item" id="ender4"><a  th:href="@{/visitor/post/form}">Publication</a></li>
-                                            <li class="dropdown-item" id="starter1" ><a href="#" >Expert</a>
-                                                <ul id="hide1" >
-                                                    <li class="dropdown-item"><a class="black" th:href="@{/visitor/expert/universitory}">Universitaire</a></li>
-                                                    <li class="dropdown-item"><a class="black" th:href="@{/visitor/expert/professional}" id="ender1">Professionnel</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="dropdown-item " id="starter2"><a href="#">Enseignant</a>
-                                                <ul id="hide2">
-                                                    <li class="dropdown-item"><a class="black" th:href="@{/visitor/teacher/primaire}">Primaire</a></li>
-                                                    <li class="dropdown-item" id="ender2"><a  class="black" th:href="@{/visitor/teacher/secondaire}">Secondaire</a></li>
-                                                </ul>
-                                            </li>
-                </ul>
-              </li>
+                        <li class="dropdown-item" id="ender3">
+                            <a th:href="@{/visitor/student}" >Etudiant</a>
+                        </li>
+
+                        <li class="dropdown-item" id="ender"><a  href="#">Publication</a>
+                            <ul id="hide">
+                                <li class="dropdown-item"><a class="black" th:href="@{/visitor/publish/book/form}">Livre</a></li>
+                                <li class="dropdown-item"><a class="black" th:href="@{/visitor/publish/sylabus/form}" >Sylabus</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-item" id="starter1" ><a href="#" >Expert</a>
+                            <ul id="hide1" >
+                                <li class="dropdown-item"><a class="black" th:href="@{/visitor/expert/universitory}">Universitaire</a></li>
+                                <li class="dropdown-item"><a class="black" th:href="@{/visitor/expert/professional}" id="ender1">Professionnel</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-item " id="starter2"><a href="#">Enseignant</a>
+                            <ul id="hide2">
+                                <li class="dropdown-item"><a class="black" th:href="@{/visitor/teacher/primaire}">Primaire</a></li>
+                                <li class="dropdown-item" id="ender2"><a  class="black" th:href="@{/visitor/teacher/secondaire}">Secondaire</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
               <li class="nav-item nav-link" style="position:relative;right:-50px;"><a href="#" class="btn btn-primary">solutioneducationafrique@gmail.com</a></li>
 
             </ul>
@@ -70,7 +75,7 @@
 
 <section class="ftco-section testimony-section">
       <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
+        <div class=" justify-content-center mb-5 pb-3">
           <div class="col-md-7 text-center heading-section ftco-animate">
             <h1 th:text="${country.countryName}">Cameroun</h1>
             <h2 class="subheading"><span>Choisir une région</span></h2>
@@ -186,35 +191,55 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script th:src="@{/js/google-map.js}"></script>
 <script th:src="@{/js/main1.js}"></script>
-<script type="text/javascript">
-    $("#hide1").css("display","none");
-    $("#hide2").css("display","none");
-    $("#starter1").hover(function(){
-        $("#hide1").css("display","block");
+      <script type="text/javascript">
+          $("#hide1").css("display","none");
+          $("#hide").css("display","none");
+          $("#hide2").css("display","none");
+          $("#starter1").hover(function(){
+              $("#hide1").css("display","block");
 
-        $("#hide2").css("display","none");
-    })
-    $("#starter2").hover(function(){
-        $("#hide2").css("display","block");
-        $("#hide1").css("display","none");
+              $("#hide2").css("display","none");
+              $("#hide").css("display","none");
+          })
+          $("#ender").hover(function(){
+              $("#hide").css("display","block");
 
-    })
+              $("#hide2").css("display","none");
+              $("#hide2").css("display","none");
+          })
+          $("#starter2").hover(function(){
+              $("#hide2").css("display","block");
+              $("#hide1").css("display","none");
+              $("#hide").css("display","none");
 
-    $("#ender1").hover(function(){
-    },function(){
-        $("#hide1").css("display","none");
+          })
 
-    })
+          $("#ender1").hover(function(){
+          },function(){
+              $("#hide1").css("display","none");
 
-    $("#ender3").hover(function(){
-        $("#hide1").css("display","none");
-        $("#hide2").css("display","none");
-    },function(){})
-    $("#ender4").hover(
-            function(){
-                $("#hide1").css("display","none");
-                $("#hide2").css("display","none");},
-            function(){})
-</script>
+          })
+
+          $("#ender3").hover(function(){
+              $("#hide1").css("display","none");
+              $("#hide2").css("display","none");
+          },function(){})
+          $("#ender4").hover(
+                  function(){
+                      $("#hide1").css("display","none");
+                      $("#hide2").css("display","none");},
+                  function(){})
+
+
+          var owl = $('.owl-carousel');
+          $('#previous').click(function() {
+
+              owl.trigger('next.owl.carousel');
+          })
+          // Go to the previous item
+          $('#next').click(function() {
+              owl.trigger('prev.owl.carousel', [300]);
+          })
+      </script>
 </body>
 </html>

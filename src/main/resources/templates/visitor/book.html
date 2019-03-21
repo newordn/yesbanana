@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
@@ -76,8 +75,8 @@
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
             <div class="col-xl-10 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
                 <h1 class="mb-4 " data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"> <span class="white">Yesbanana </span><br><span>Le savoir est à vous.</span></h1>
-                <p class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 4 }" style="color: #0b0b0b">Formulaire d'inscription en tant que.<br>Enseignant du Secondaire.
-                <p class="breadcrumbs"><span class="mr-2"><a th:href="@{/}">Travailler avec nous? <i class="ion-ios-arrow-forward"></i></a></span> <span>Publication <i class="ion-ios-arrow-forward"></i></span></p>
+                <p class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 4 }" style="color: #0b0b0b">Formulaire de publication.<br>d'un livre.
+                <p class="breadcrumbs"><span class="mr-2"><a th:href="@{/}">Travailler avec nous? <i class="ion-ios-arrow-forward"></i></a></span> <span>Publication <i class="ion-ios-arrow-forward"></i></span><span>Livre <i class="ion-ios-arrow-forward"></i></span></p>
             </div>
         </div>
     </div>
@@ -104,49 +103,43 @@
         </div>
         <div class="row block-9">
             <div class="col-md-6 order-md-last d-flex">
-                <div style="font-size:1.2rem;text-align: center;"><i th:if="${error}" th:text="${error}" style="color:red;"></i> </div>
-                <form method="POST" enctype="multipart/form-data" th:object="${user}"
-                      th:action="@{/user/visitor/create/post}" class="bg-light p-5 contact-form">
+                <form th:action="@{/visitor/post/save}" th:object="${post}" method="post" enctype="multipart/form-data" class="bg-light p-5 contact-form">
                     <span class='error' id="nameError"></span>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Votre Nom" >
+                        <input type="text" class="form-control" name="publisherName" id="publisherName" placeholder="Veillez renseigner votre nom" >
                     </div>
-
-                    <span class='error' id="emailError"></span>
+                    <span class='error' id="titleError"></span>
                     <div class="form-group">
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Votre Email">
+                        <input type="text" class="form-control" name="title" id="title" placeholder="Le titre de Votre Publication" >
                     </div>
-                    <span class='error' id="countryError"></span>
+                    <span class='error' id="promotionError"></span>
                     <div class="form-group">
-                        <select  class="form-control" name="country" id="countrySel">
-                            <option value="">Selectionner un pays</option>
-                            <option th:each="countrySel : ${countries}" th:value="${countrySel}"
-                                    th:text="${countrySel}">Selectionner un pays</option>
+                        <input type="text" class="form-control" name="promotion" id="promotion" placeholder="Veillez renseigner une promotion" >
+                    </div>
+                    <span class='error' id="faculteError"></span>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="faculty" id="faculty" placeholder="Veillez renseigner une faculté" >
+                    </div>
+                    <span class='error' id="descriptionError"></span>
+                    <div class="form-group">
+                        <textarea class="form-control" cols="30" rows="10" id="description" th:field="*{description}"></textarea>
+                    </div>
+                    <p>Fichiers:</p>
+                    <div class="form-group">
+                        <input type="file" multiple class="form-control-file border" name="files" id="avatar" placeholder="Votre photo de photo" >
+                    </div>
+                    <span class='error' id="priceError"></span>
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="publishPlace" id="publishPlace" placeholder="Veillez renseigner le prix de vente de votre livre" >
+                    </div>
+                    <div class="form-group">
+                        <select  class="form-control" name="category" id="category">
+                            <option value="">Veillez choisir un domaine</option>
+                            <option value="Education Universitaire">Education Universitaire</option>
+                            <option value="Education primaire">Education primaire</option>
+                            <option value="Education secondaire">Education secondaire</option>
+                            <option value="Autres services">Autres</option>
                         </select>
-                    </div>
-                    <span class='error' id="numberError"></span>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="number" id="number" placeholder="Votre Numero" >
-                    </div>
-                    <span class='error' id="regionError"></span>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="region" id="region" placeholder="Votre Region" >
-                    </div>
-                    <span class='error' id="universityError"></span>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="university" id="university" placeholder="Votre université" >
-                    </div>
-                    <span class='error' id="facultyError"></span>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="faculty" id="faculty" placeholder="Votre Faculté" >
-                    </div>
-                    <p>Photo:</p>
-                    <div class="form-group">
-                        <input type="file" class="form-control-file border" name="file" id="avatar" placeholder="Votre photo de photo" >
-                    </div>
-                    <span class='error' id="anotherError"></span>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="anotherDetail" placeholder="Vos Motivations">
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Validé" class="btn btn-primary py-3 px-5">
@@ -242,6 +235,7 @@
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/goole-map/map-active.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/jquery.easing.1.3.js}"></script>
 <script th:src="@{/js/jquery.waypoints.min.js}"></script>

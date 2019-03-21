@@ -30,47 +30,73 @@
 
     <div>
         <!-- these detail -->
-        <div class=" col text-center"  >
+        <div class=" text-center"  >
             <div class="row content mt-5" >
-                <div class="col-3" style="position:fixed !important;" >
+                <div class="col-4" style="position:fixed !important;" >
                     <div class="card mt-6">
                         <div th:replace="~{../templates/fragments/theseNavigation :: theseNavigation}"></div>
                     </div>
                 </div>
-                <div class="col-md-9 offset-3 pt-3 pb-3">
-                    <div class="detailabstract col-12 col-sm-12 col-lg-12"><h2>Sommaire</h2></div>
-                    <div class=" pull-right text-right" style="padding:0">
-                        <a class="btn btn-success rounded-circle"  data-toggle="modal" data-target="#modal-edit" th:attr="data-target='#modal-edit'+${these1.theseId }">
-                            <i class="fa fa-pencil"></i>
-                        </a>
-                        <span>Editer</span>
-                    </div>
-                    <div th:switch="${these1.fileType}">
-                        <div class="pr-3 pl-3" th:case="'IMAGE'" th:each=" resume : ${these1.resumes}"><img  th:src="${resume}" id="detailAbstract" alt="sommaire"></div>
-                        <div th:case="'DOCUMENT'" class="pr-3 pl-3">
-                            <h4 class="alert-success">Documents Relatifs</h4>
-                            <ul th:each=" resume : ${these1.resumes}">
-                                <li><a th:href="${resume}" th:text="${resume}"></a></li>
-                            </ul>
+                <div class="col-8 offset-4 pt-3 pb-3">
+                    <div class="detailabstract col-12" style="padding:0" ><h2>Sommaire</h2>
+                        <div class=" pull-right text-right" style="padding:0">
+                            <a class="btn btn-success rounded-circle"  data-toggle="modal" data-target="#modal-edit" th:attr="data-target='#modal-edit'+${these1.theseId }">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <span>Editer</span>
                         </div>
-                        <div th:case="'VIDEO'" class="pr-3 pl-3" >
-                            <h4 class="alert-success">Videos Relatives</h4>
-                            <ul th:each=" resume : ${these1.resumes}">
-                                <li>
-                                    <video controls style="width: 400px;height: 300px">
-                                        <source th:src="${resume}">
-                                    </video>
-                                    <br>
-                                </li>
-                            </ul>
+                        <div th:switch="${these1.fileType}" class="justify-content-center">
+                            <div class="card" th:case="'IMAGE'" >
+                                <div class="card-header alert-success">
+                                    <h4>Images Relatives</h4>
+                                </div>
+                                <div class="card-body pr-3 pl-3" th:each=" resume : ${these1.resumes}">
+                                    <img  th:src="${resume}" id="detailAbstract" width="300" height="250" alt="sommaire">
+                                </div>
+                            </div>
+                            <div th:case="'DOCUMENT'" class="card">
+                                <div class="card-header alert-success">
+                                    <h4>Documents Relatifs</h4>
+                                </div>
+                                <div class="card-body pr-3 pl-3">
+                                    <ul th:each=" resume : ${these1.resumes}">
+                                        <li><a th:href="${resume}" th:text="${resume}"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div th:case="'VIDEO'" class="card" >
+                                <div class="card-header alert-success">
+                                    <h4>Videos Relatives</h4>
+                                </div>
+                                <div class="card-body pr-3 pl-3">
+                                    <ul th:each=" resume : ${these1.resumes}">
+                                        <li>
+                                            <video controls style="width: 400px;height: 300px">
+                                                <source th:src="${resume}">
+                                            </video>
+                                            <br>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-12 col-lg-12 row justify-content-center">
-                        <div class="row mt-3" sec:authorize="hasRole('ROLE_ROOT')" style="padding-left: 15px;padding-right: 15px">
-                            <div class="col-12 col-sm-12 col-lg-4">
+                    <br><br>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Autre Sommaire</h4>
+                        </div>
+                        <div class="card-body">
+                            <p th:text="${these1.anotherSommaire}"></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-12 justify-content-center">
+                        <div class="row mt-3" th:if="${roles[0].role == 'ROOT'}">
+                            <div class="col-12 col-sm-6 col-lg-4">
                                 <a class="btn btn-success" th:href="@{/these/publish/}+${these1.theseId}" style="width: 100%">Appr et publier </a>
                             </div>
-                            <div class="col-12 col-sm-12 col-lg-4">
+                            <div class="col-12 col-sm-6 col-lg-4">
                                 <a class="btn btn-warning" th:href="@{/these/unPublish/form/}+${these1.theseId}"  style="width: 100%">Renvoi pour modif</a>
                                 <div class="modal card modal-warning fade in" th:id="modal-warning+${these1.theseId}" >
                                     <div class="modal-dialog">
@@ -98,14 +124,106 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-12 col-lg-4">
+                            <div class="col-12 col-sm-6 col-lg-4">
                                 <a class="btn btn-secondary" th:href="@{/these/draft/}+${these1.theseId}" style="width: 100%">Appr sans publier</a>
                             </div>
                         </div>
-
-                        <a  class="btn btn-success mt-3" sec:authorize="!hasRole('ROLE_USER')">
-                            Status <span class="badge badge-light"  th:text="${these1.status}">4</span>
-                        </a>
+                        <div class="row mt-3" th:if="${roles[0].role == 'ADMIN_MASTER'}">
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <a class="btn btn-success" th:href="@{/these/publish/}+${these1.theseId}" style="width: 100%">Appr et publier </a>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <a class="btn btn-warning" th:href="@{/these/unPublish/form/}+${these1.theseId}"  style="width: 100%">Renvoi pour modif</a>
+                                <div class="modal card modal-warning fade in" th:id="modal-warning+${these1.theseId}" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header text-center">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span></button>
+                                                <h5 class="modal-title">Envoi d'un message de correction d'une Thèse</h5>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="form-group">
+                                                    <label > Adresse email destinataire :</label>
+                                                    <input type="email" class="form-control" name="adresse">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label > Corps du message :</label>
+                                                    <textarea class="form-control" rows="10" name="contenue"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer text-center">
+                                                <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                                <a class="btn btn-danger" th:href="@{/these/unPublish/}+${these1.theseId}" ><i class="fa fa-check"></i>&nbsp;Envoye</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <a class="btn btn-secondary" th:href="@{/these/draft/}+${these1.theseId}" style="width: 100%">Appr sans publier</a>
+                            </div>
+                        </div>
+                        <div class="row mt-3" th:if="${roles[0].role == 'ROOT_MASTER'}">
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <a class="btn btn-success" th:href="@{/these/publish/}+${these1.theseId}" style="width: 100%">Appr et publier </a>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <a class="btn btn-warning" th:href="@{/these/unPublish/form/}+${these1.theseId}"  style="width: 100%">Renvoi pour modif</a>
+                                <div class="modal card modal-warning fade in" th:id="modal-warning+${these1.theseId}" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header text-center">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span></button>
+                                                <h5 class="modal-title">Envoi d'un message de correction d'une Thèse</h5>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="form-group">
+                                                    <label > Adresse email destinataire :</label>
+                                                    <input type="email" class="form-control" name="adresse">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label > Corps du message :</label>
+                                                    <textarea class="form-control" rows="10" name="contenue"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer text-center">
+                                                <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                                <a class="btn btn-danger" th:href="@{/these/unPublish/}+${these1.theseId}" ><i class="fa fa-check"></i>&nbsp;Envoye</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <a class="btn btn-secondary" th:href="@{/these/draft/}+${these1.theseId}" style="width: 100%">Appr sans publier</a>
+                            </div>
+                        </div>
+                        <div th:if="${roles[0].role == 'ROOT'}" >
+                            <a  class="btn btn-success mt-3"  th:if="${these1.status == 'true'}">
+                                Status <span class="badge badge-light">Publier</span>
+                            </a>
+                            <a  class="btn btn-success mt-3"  th:unless="${these1.status == 'true'}">
+                                Status <span class="badge badge-light">Draft</span>
+                            </a>
+                        </div>
+                        <div th:if="${roles[0].role == 'ADMIN_MASTER'}">
+                            <a  class="btn btn-success mt-3"  th:if="${these1.status == 'true'}">
+                                Status <span class="badge badge-light">Publier</span>
+                            </a>
+                            <a  class="btn btn-success mt-3"  th:unless="${these1.status == 'true'}">
+                                Status <span class="badge badge-light">Draft</span>
+                            </a>
+                        </div>
+                        <div th:if="${roles[0].role == 'ROOT_MASTER'}">
+                            <a  class="btn btn-success mt-3"  th:if="${these1.status == 'true'}">
+                                Status <span class="badge badge-light">Publier</span>
+                            </a>
+                            <a  class="btn btn-success mt-3"  th:unless="${these1.status == 'true'}">
+                                Status <span class="badge badge-light">Draft</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="modal card modal-warning alert-warning fade in" th:id="modal-edit+${these1.theseId}" >
@@ -128,6 +246,10 @@
                                         <option value="IMAGE">IMAGE</option>
                                         <option value="VIDEO">VIDEO</option>
                                     </select>
+                                </div>
+                                <div class="form-group ">
+                                    <p>Autre Sommaire:</p>
+                                    <textarea th:field="*{anotherSommaire}" cols="60" rows="5"></textarea>
                                 </div>
                                 <div class="custom-file mb-3">
                                     <input type="file" multiple class="form-control-file border" id="customFile" name="files">

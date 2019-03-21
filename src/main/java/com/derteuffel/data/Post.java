@@ -18,6 +18,9 @@ public class Post implements Serializable {
     private Long postId;
     @Column
     private String title;
+    private String promotion;
+    private String faculty;
+    private String publisherName;
     @Column
     private String description;
     @Column
@@ -26,9 +29,9 @@ public class Post implements Serializable {
     private ArrayList<String> pieces;
     @Column
     private Date creationDate=new Date();
-    private int niveau;
+    private double publishPrice;
+    private String niveau;
 
-    private int likes=0;
 
     @ManyToOne
     private Region region;
@@ -39,11 +42,14 @@ public class Post implements Serializable {
     public Post() {
     }
 
-    public Post(String title,int niveau,int likes, User user, String description, String category, ArrayList<String> pieces, Date creationDate, Region region) {
+    public Post(String title,String niveau, double publishPrice, User user, String description,String promotion, String faculty, String publisherName, String category, ArrayList<String> pieces, Date creationDate, Region region) {
         this.title = title;
-        this.likes=likes;
         this.description = description;
         this.niveau=niveau;
+        this.publishPrice=publishPrice;
+        this.promotion= promotion;
+        this.faculty=faculty;
+        this.publisherName=publisherName;
         this.category = category;
         this.pieces = pieces;
         this.creationDate = creationDate;
@@ -51,20 +57,44 @@ public class Post implements Serializable {
         this.user=user;
     }
 
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
-    public int getNiveau() {
+    public String getNiveau() {
         return niveau;
     }
 
-    public void setNiveau(int niveau) {
+    public void setNiveau(String niveau) {
         this.niveau = niveau;
+    }
+
+    public String getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(String promotion) {
+        this.promotion = promotion;
+    }
+
+    public String getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public String getPublisherName() {
+        return publisherName;
+    }
+
+    public void setPublisherName(String publisherName) {
+        this.publisherName = publisherName;
+    }
+
+    public double getPublishPrice() {
+        return publishPrice;
+    }
+
+    public void setPublishPrice(double publishPrice) {
+        this.publishPrice = publishPrice;
     }
 
     public User getUser() {

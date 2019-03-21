@@ -61,6 +61,6 @@ public class BibliographyController {
     @GetMapping("/delete/{bibliographyId}")
     public String delete(@PathVariable Long bibliographyId, HttpSession session){
         bibliographyRepository.deleteById(bibliographyId);
-        return "redirect:/groupe/groupe/biblib/ "+ (Long)session.getAttribute("theseId");
+        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
     }
 }

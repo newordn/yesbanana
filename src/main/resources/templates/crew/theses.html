@@ -38,28 +38,70 @@
 </div>
 <!-- sidebar-->
 
-<div class="col-11 offset-1 main">
+<div class="col-10 offset-2 main" style="padding-right: 15px">
     <!-- showing theses-->
-    <div class="row content" style="margin-top: 5.5rem;">
-        <h3 class="col-12 text-center mt-3">Thèses du groupe</h3>
-        <table class="table text-center table-hover bg-secondary table-lg display" id="these">
-            <thead class="text-white">
+    <div  style="margin-top: 5.5rem;">
+        <h3 class="text-center mt-3">Thèses du groupe</h3>
+        <table class="table text-center table-hover  table-lg display" id="these">
+            <thead class="text-white bg-secondary">
             <tr>
                 <th>Pays</th>
                 <th>Région</th>
                 <th>Université</th>
                 <th>Faculté</th>
                 <th>Option</th>
+                <th>Niveau</th>
+                <th>Status</th>
                 <th>Sujet</th>
                 <th>Action</th>
             </tr>
             </thead>
+            <tbody>
+            <tr th:each="these : ${theses}">
+                <td th:text="${these.country}"></td>
+                <td th:text="${these.regions}"></td>
+                <td th:text="${these.university}"></td>
+                <td th:text="${these.faculty}"></td>
+                <td th:text="${these.options}"></td>
+                <td th:text="${these.level}"></td>
+                <td th:if="${these.status =='true'}" >
+                    <span>Public</span>
+                </td>
+                <td th:unless="${these.status =='true'}" >
+                    <span>Suspendus</span>
+                </td>
+                <td th:text="${these.subject}"></td>
+                <td>
+                    <a th:href="@{/groupe/groupe/these/}+${these.theseId}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+                    <a th:href="@{/groupe/groupe/these/general/edit/}+${these.theseId}" class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
+                    <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${these.theseId}"  class="btn" >Supprimer
+                        <i class="zmdi zmdi-close" ></i>
+                    </a>
+                </td>
+                <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${these.theseId}" >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header text-center alert-info">
+                                <h5 class="modal-title">Suppresion d'un element</h5>
+                            </div>
+                            <div class="modal-body text-center">
+                                <h3>Voulez vous vraiment supprimer cet element?</h3>
+                            </div>
+                            <div class="modal-footer text-center">
+                                <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                <a  class="btn btn-success"  th:href="@{/groupe/delete/these/} + ${these.theseId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tr>
+            </tbody>
         </table>
 
     </div>
 
     <!-- add these button -->
-        <a th:href="@{/these/add/form}" class="addButton btn btn-primary rounded-circle">
+        <a  th:href="@{/these/add/form}" class="addButton btn btn-primary rounded-circle">
         <i class="zmdi zmdi-plus"></i>
     </a>
     <!-- add these button -->
@@ -72,8 +114,6 @@
     <print button-->
 
   </div>
-    <script th:src="@{/js/dashboard.js}"></script>
-    <script th:src="@{/js/showTheses.js}"></script>
     <!-- scripts-->
 </body>
 

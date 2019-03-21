@@ -40,24 +40,27 @@
                         <input type="hidden" th:field="*{bibliographyId}">
                         <div class="form-group">
                             <span class='error' id="assistantError"></span>
+                            <p class="mt-2 mb-2">Auteur:</p>
                             <input type="text" th:field="*{auteur}" id="assistant" class="form-control" placeholder="Nom de l'auteur" />
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 col-lg-12 mt-3">
                         <div class="form-group">
                             <span class='error' id="studentError"></span>
+                            <p class="mt-2 mb-2">Titre:</p>
                             <input type="text" th:field="*{title}" id="student" class="form-control" placeholder="Titre du livre" />
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 col-lg-12 mt-3">
                         <div class="form-group ">
                             <span class='error' id="profError"></span>
+                            <p class="mt-2 mb-2">Description:</p>
                             <textarea class="form-control" id="description" rows="5" style="height: 100px" placeholder="Description " th:field="*{description}" type="text"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer text-center">
-                    <a th:href="@{/groupe/biblib/}+${session.theseId}" class="btn btn-warning pull-left">Retour</a>
+                    <a th:href="@{/groupe/groupe/biblib/}+${session.theseId}" class="btn btn-warning pull-left">Retour</a>
                     <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
                 </div>
             </form>

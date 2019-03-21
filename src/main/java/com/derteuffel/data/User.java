@@ -120,7 +120,7 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 

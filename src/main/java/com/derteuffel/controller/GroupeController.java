@@ -276,54 +276,44 @@ public class GroupeController {
         session.setAttribute("avatar",user.getImg());
         session.setAttribute("name", user.getName());
         model.addAttribute("groupe", new Groupe());
+        session.setAttribute("roles",user.getRoles());
+        List<Role> roles= (List<Role>)session.getAttribute("roles");
+        System.out.println(roles);
         model.addAttribute("countries", countries);
         Collection<User> users1 = userRepository.findByRoles_Role("ADMIN");
         List<Groupe> groupes= groupeRepository.findAllByStatus(true);
         List<Groupe> crews= groupeRepository.findByUsers_UserId(user.getUserId());
-        List<Groupe> crews1= new ArrayList<>();
         Collection<User> users= new ArrayList<>();
         users1.addAll(userRepository.findByRoles_Role("ROOT"));
-        System.out.println(users1);
-        int p=0;
-        for(Role role : user.getRoles()){
-            if (role.getRole().equals("ROOT")){
-                users.addAll(users1);
-                    p=1;
+        users1.addAll(userRepository.findByRoles_Role("ROOT_MASTER"));
+        users1.addAll(userRepository.findByRoles_Role("ADMIN_MASTER"));
+        users.addAll(users1);
+        List<User> users2= new ArrayList<>();
+        for (Groupe groupe : groupes){
+            if (!groupe.getGroupChief().isEmpty()) {
+                users2.add(userRepository.getOne(Long.parseLong(groupe.getGroupChief())));
             }else {
-                for (Groupe groupe:groupes){
-                    for (int i=0; i<crews.size(); i++){
-                        if (groupe.getGroupeId().equals(crews.get(i).getGroupeId())){
-                            crews1.add(groupe);
-                        }
-                    }
-
-                }
+                users2.add(null);
             }
         }
-        System.out.println(users);
-
-        if (p==1){
+        System.out.println(users1);
+            model.addAttribute("users2",users2);
             model.addAttribute("crews",groupes);
             model.addAttribute("users",users);
-            System.out.println(p);
-            return "crew/crews";
-        }else {
-            model.addAttribute("crews1",crews1);
-            model.addAttribute("users",users);
-            System.out.println(p);
-            return "crew/crews1";
-        }
-
-
+            model.addAttribute("crews1",crews);
+        return "crew/crews";
     }
 
     // for adding a user into one crew
     @GetMapping("/add1/{groupeId}/{userId}")
-    public String add( @PathVariable Long groupeId, @PathVariable Long userId)
+    public String add( @PathVariable Long groupeId, @PathVariable String userId)
     {
         Groupe groupe = groupeRepository.getOne(groupeId);
-        User user = userService.getById(userId);
-        groupe.setUsers(user);
+        if (userId.equals("null")){
+        }else {
+            User user = userService.getById(Long.parseLong(userId));
+            groupe.setUsers(user);
+        }
         groupeRepository.save(groupe);
         System.out.println("ddf");
         return "redirect:/groupe/groupes";
@@ -336,7 +326,12 @@ public class GroupeController {
         Groupe groupe2=groupeRepository.getOne(groupeId);
         groupe.saveUsers(groupe2.getUsers());
             Groupe groupe1 = groupeRepository.saveAndFlush(groupe);
-            Long userId = Long.parseLong(groupe.getGroupChief());
+        Long userId;
+        if (groupe1.getGroupChief() == ""){
+            userId=null;
+        }else {
+            userId = Long.parseLong(groupe.getGroupChief());
+        }
             Long groupeId1 = groupe1.getGroupeId();
             return "redirect:/groupe/add1/"+ groupeId1 + "/"+ userId ;
 
@@ -352,8 +347,14 @@ public class GroupeController {
         if (errors.hasErrors()){
             return "redirect:/groupe/groupes";
         }else {
+            groupe.setStatus(true);
             Groupe groupe1 = groupeRepository.saveAndFlush(groupe);
-            Long userId = Long.parseLong(groupe.getGroupChief());
+            Long userId;
+            if (groupe1.getGroupChief()== ""){
+                 userId=null;
+            }else {
+                userId = Long.parseLong(groupe.getGroupChief());
+            }
             Long groupeId = groupe1.getGroupeId();
             return "redirect:/groupe/add1/"+ groupeId + "/"+ userId ;
         }
@@ -383,9 +384,11 @@ public class GroupeController {
         }else {
             List<User> users = userRepository.findByGroupes_GroupeId(groupeId);
             List<These> theses = theseRepository.findByGroupeOrderByTheseIdDesc(groupeId);
+            Groupe groupe= groupeRepository.getOne(groupeId);
+            model.addAttribute("groupeName",groupe.getGroupeName());
             model.addAttribute("usersSize", users.size());
             model.addAttribute("thesesSize", theses.size());
-            model.addAttribute("groupe", groupeRepository.getOne(groupeId));
+            model.addAttribute("groupe", groupe);
             return "crew/stats";
         }
     }
@@ -419,18 +422,27 @@ public class GroupeController {
         model.addAttribute("groupeName", groupe.getGroupeName());
         model.addAttribute("groupe",groupe);
         model.addAttribute("countries", countries);
-        Collection<User> users= userRepository.findByRoles_Role("user");
+        Collection<User> users= userRepository.findByRoles_Role("ADMIN");
+        users.addAll(userRepository.findByRoles_Role("ROOT"));
         System.out.println(users);
         model.addAttribute("users", users);
 
         return "crew/crew";
     }
+   /* // updating a crew
+    @PostMapping("/update/{groupeId}")
+    public String edit(Groupe groupe){
+        groupeRepository.save(groupe);
+        return "redirect:/groupe/groupes";
+    }*/
 
     @PostMapping("/add/users")
     public  String addGroupUser(UsersGroupe usersGroupe, HttpSession session){
         Long groupeId = (Long)session.getAttribute("groupeId");
         Groupe groupe= groupeRepository.getOne(groupeId);
+        Collection<Groupe> groupes= groupeRepository.findAll();
         String[] usersIds = usersGroupe.getUsersIds().split(",");
+        System.out.println(usersIds[0]);
         ArrayList<Long> usersIdsLong = new ArrayList<>();
 
         for(int i=0;i<usersIds.length;i++)
@@ -438,11 +450,20 @@ public class GroupeController {
             if(!usersIds[i].isEmpty())
             usersIdsLong.add(Long.parseLong(usersIds[i]));
         }
-        System.out.println(usersIdsLong);
-        for ( Long id: usersIdsLong)
+        User tmp;
+        for(Long id : usersIdsLong )
         {
-            groupe.setUsers(userService.getById(id));
+            tmp=userRepository.getOne(id);
+            List<Groupe> crews= groupeRepository.findByUsers_UserId(id);
+            for(Groupe crew : crews)
+            {
+                crew.removeUser(tmp);
+
+            }
+            groupe.setUsers(tmp);
         }
+        System.out.println(usersIdsLong);
+
         groupeRepository.save(groupe);
         return "redirect:/groupe/groupe/users/"+ groupeId;
 
@@ -454,47 +475,86 @@ public class GroupeController {
     private static final int[] PAGE_SIZES = { 5,6,7,8};
 
     @GetMapping("/groupe/users/{groupeId}")
-    public String getUsers(Model model, @PathVariable Long groupeId){
+    public String getUsers(Model model, @PathVariable Long groupeId,HttpSession session){
+        session.setAttribute("groupeId",groupeId);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        session.setAttribute("name",user.getName());
         List<User> users1=userService.listAll();
+        Groupe groupe = groupeRepository.getOne(groupeId);
+        session.setAttribute("roles", user.getRoles());
         model.addAttribute("users1",users1);
         model.addAttribute("usersGroupe", new UsersGroupe());
-        model.addAttribute("groupe",groupeRepository.getOne(groupeId));
+        model.addAttribute("groupeName", groupe.getGroupeName());
+        model.addAttribute("groupe",groupe);
         return "crew/users";
     }
     @GetMapping("/groupe/{groupeId}")
-    public String get(@PathVariable Long groupeId, HttpSession session){
+    public String get(@PathVariable Long groupeId, HttpSession session, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        session.setAttribute("roles", user.getRoles());
+        Groupe groupe = groupeRepository.getOne(groupeId);
         session.setAttribute("groupeId", groupeId);
-        return "redirect:/groupe/groupe";
-    }
-
-    @GetMapping("/groupe")
-    public String findById(HttpSession session, Model model, @RequestParam("pageSize") Optional<Integer> pageSize,
-                           @RequestParam("page") Optional<Integer> page) {
-        //
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-        Long userId=(Long)session.getAttribute("userId");
-        Groupe groupe = groupeRepository.getOne((Long)session.getAttribute("groupeId"));
         session.setAttribute("groupeCountry",groupe.getGroupeCountry());
         session.setAttribute("groupeRegion",groupe.getGroupeRegion());
-        User user=userService.getById(userId);
-        model.addAttribute("userId", userId);
         model.addAttribute("these",new These());
         model.addAttribute("countries", countries);
         model.addAttribute("groupeName",groupe.getGroupeName());
 
-            return "crew/theses";
+        Collection<Role> roles= roleRepository.findByUsers_UserId(user.getUserId());
+        List<These> theses= theseRepository.findAllByStates(true);
+        List<These> allTheses= new ArrayList<>();
+        int p=0;
+
+        for (Role role : roles){
+            if (!role.getRole().equals("USER")){
+                p=1;
+            }else {
+                p=2;
+            }
+        }
+        if (p==1){
+
+            List<These> groupeTheses =theseRepository.findByGroupeOrderByTheseIdDesc(groupe.getGroupeId());
+            for (These these : theses){
+                for (int i=0; i<groupeTheses.size();i++){
+                    if (these.getTheseId().equals(groupeTheses.get(i).getTheseId())){
+                        allTheses.add(these);
+                    }
+                }
+            }
+            model.addAttribute("theses", allTheses);
+        }else {
+
+            List<These> userTheses= theseRepository.findByUserOrderByTheseIdDesc(user.getUserId());
+            for (These these : theses){
+                for (int j=0; j<userTheses.size();j++){
+                    if (these.getTheseId().equals(userTheses.get(j).getTheseId())){
+                        allTheses.add(these);
+                    }
+                }
+            }
+            model.addAttribute("theses",allTheses);
+        }
+
+        return "crew/theses";
+    }
+
+    @GetMapping("/delete/these/{theseId}")
+    public String deleteThese(@PathVariable Long theseId, HttpSession session){
+
+        These these=theseRepository.getOne(theseId);
+        these.setStates(false);
+        theseRepository.save(these);
+        return "redirect:/groupe/groupe/"+ (Long)session.getAttribute("groupeId");
     }
 
     @DeleteMapping("/delete/{groupeId}")
     public String deleteById(@PathVariable Long groupeId) {
-        groupeRepository.deleteById(groupeId);
+        Groupe groupe= groupeRepository.getOne(groupeId);
+        groupe.setStatus(false);
+        groupeRepository.save(groupe);
         return "redirect:/groupe/groupes";
     }
 
@@ -504,6 +564,7 @@ public class GroupeController {
         session.setAttribute("userId", optional.get().getUser().getUserId());
         session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
         session.setAttribute("resumes", optional.get().getResumes());
+        session.setAttribute("anotherSommaire", optional.get().getAnotherSommaire());
         model.addAttribute("countries", countries);
         model.addAttribute("these1", optional.get());
         return "crew/general";
@@ -514,6 +575,9 @@ public class GroupeController {
         these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
         these.setGroupe(groupeRepository.getOne((Long)session.getAttribute("groupeId")));
         these.setResumes((ArrayList<String>)session.getAttribute("resumes"));
+        these.setAnotherSommaire((String)session.getAttribute("anotherSommaire"));
+        these.setStates(true);
+        these.setStatus(false);
         theseRepository.save(these);
         return "redirect:/groupe/groupe/"+(Long)session.getAttribute("groupeId");
     }
@@ -549,8 +613,12 @@ public class GroupeController {
     }
 
     @GetMapping("/training/{groupeId}")
-    public String encadrement(Model model, @PathVariable Long groupeId){
+    public String encadrement(Model model, @PathVariable Long groupeId, HttpSession session){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        session.setAttribute("roles", user.getRoles());
         Groupe groupe=groupeRepository.getOne(groupeId);
+        model.addAttribute("groupeName", groupe.getGroupeName());
         model.addAttribute("groupe",groupe);
         return "crew/encadrement";
     }
@@ -609,6 +677,8 @@ public class GroupeController {
         these.setStudent((String) session.getAttribute("student"));
         these.setProfesor((String) session.getAttribute("professor"));
         these.setWorkChief((String) session.getAttribute("workChief"));
+        these.setStates(true);
+        these.setStatus(false);
         theseRepository.save(these);
         return "redirect:/groupe/groupe/these/"+these.getTheseId();
     }
@@ -641,6 +711,9 @@ public class GroupeController {
         these.setCountry((String)session.getAttribute("country"));
         these.setRegions((String)session.getAttribute("regions"));
         these.setResumes((ArrayList<String>)session.getAttribute("resumes"));
+        these.setAnotherSommaire((String)session.getAttribute("anotherSommaire"));
+        these.setStates(true);
+        these.setStatus(false);
         theseRepository.save(these);
         return "redirect:/groupe/groupe/equipe/"+ these.getTheseId();
 
@@ -671,6 +744,7 @@ public class GroupeController {
         session.setAttribute("country", optional.get().getCountry());
         session.setAttribute("regions", optional.get().getRegions());
         session.setAttribute("resumes", optional.get().getResumes());
+        session.setAttribute("anotherSommaire", optional.get().getAnotherSommaire());
 
             return "crew/these1";
 
@@ -696,6 +770,7 @@ public class GroupeController {
     public String delete(@PathVariable Long groupeId){
         Groupe groupe= groupeRepository.getOne(groupeId);
         groupe.setStatus(false);
+        groupeRepository.save(groupe);
         return "redirect:/groupe/groupes";
     }
 
