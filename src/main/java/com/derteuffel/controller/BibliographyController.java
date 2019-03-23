@@ -72,6 +72,7 @@ public class BibliographyController {
             bibliography.setDisponibility(true);
         }
         bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
+        bibliography.setPagePrice(0.0);
         bibliographyRepository.save(bibliography);
         return "redirect:/groupe/groupe/biblib/"+(Long)session.getAttribute("theseId");
     }
