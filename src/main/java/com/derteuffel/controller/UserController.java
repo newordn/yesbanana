@@ -263,29 +263,8 @@ public class UserController {
     private static final int INITIAL_PAGE_SIZE = 5;
     private static final int[] PAGE_SIZES = { 5,6,7,8};
     @GetMapping("")
-    public String allUsers(Model model, @RequestParam("pageSize") Optional<Integer> pageSize,
-                           @RequestParam("page") Optional<Integer> page) {
-        if (userRepository.count()!=0){
-            ;//pass
-        }
-        //
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-
-        Page<User> users = userRepository.findAllByActiveOrderByUserIdDesc(true,new PageRequest(evalPage,evalPageSize));
-        PagerModel pager = new PagerModel(users.getTotalPages(),users.getNumber(),BUTTONS_TO_SHOW);// evaluate page size
-        model.addAttribute("selectedPageSize", evalPageSize);
-        // add pages size
-        model.addAttribute("pageSizes", PAGE_SIZES);
-        // add pager
-        model.addAttribute("pager", pager);
-
+    public String allUsers(Model model) {
+        List<User> users = userRepository.findAllByActiveOrderByUserIdDesc(true);
         model.addAttribute("users", users);
         String avatar = "";
         for (User user : users) {
