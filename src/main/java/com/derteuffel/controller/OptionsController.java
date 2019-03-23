@@ -61,13 +61,23 @@ public class OptionsController {
         return "options/options";
     }
 
-    @GetMapping("/buy/{theseId}")
+    @GetMapping("/buy/pages/{theseId}")
+    public String buyBooksPages(@PathVariable Long theseId, Model model){
+
+        These these= theseRepository.getOne(theseId);
+
+        model.addAttribute("these",these);
+        return "options/buy/pages";
+
+    }
+
+    @GetMapping("/buy/livres/{theseId}")
     public String buyBooks(@PathVariable Long theseId, Model model){
 
         These these= theseRepository.getOne(theseId);
 
         model.addAttribute("these",these);
-        return "options/buy";
+        return "options/buy/books";
 
     }
 

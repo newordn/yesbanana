@@ -48,34 +48,62 @@
 <section class="ftco-section testimony-section">
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 text-center heading-section ftco-animate">
-            <h1 >Les sujets</h1>
+            <h1 >Commander des livres</h1>
           </div>
         </div>
-            <div class="row justify-content-center ftco-animate">
-                <div class="col-md-5 card bg-light text-black mr-3 mb-3" th:each="these : ${theses}" style="padding-left: 0;padding-right: 0">
+            <div class="container justify-content-center ftco-animate">
+              <div class="col-md-12 card bg-light text-black mr-3 mb-3" style="padding-left: 0;padding-right: 0">
                     <div class="card-header">
                         <h5>SUJET:</h5>
                         <p class="card-text" th:text="${these.subject}">i want to marry you</p>
                     </div>
-                     <div class="card-body" style="padding: 0">
+                     <div class="card-body text-center" style="padding: 0">
                         <table class="table table-hover table-bordered ">
                             <thead>
                                     <th>Livre</th>
                                     <th>Titre</th>
                                     <th>Auteur</th>
                                     <th>Prix</th>
+                                    <th>Page(s) Importante(s)</th>
                             </thead>
                             <tbody>
                                 <tr th:each="livre, i : ${these.bibliographies}" th:if="${livre.disponibility} == true" >
                                     <td th:text="${i.index+1}"></td>
                                     <td th:text="${livre.title}" ></td>
                                     <td th:text="${livre.auteur}" ></td>
-                                    <td th:text="'$'+${livre.price}" ></td>
+                                    <td >
+                                        <input type="checkbox" name="price" th:checked="${price}"
+                                               th:value="${livre.price}" th:text="'$'+${livre.price}" />
+                                    </td>
+                                    <td style="padding:0">
+                                        <table style="width: 100%">
+                                            <tr>
+                                            <td>Nbre</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>3</td>
+                                            <td>5</td>
+                                            <td>10</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cout</td>
+                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
+                                                           th:value="${1}" th:text="'$'+${1}" /></td>
+                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
+                                                           th:value="${2}" th:text="'$'+${2}" /></td>
+                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
+                                                           th:value="${2.9}" th:text="'$'+${2.9}" /></td>
+                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
+                                                           th:value="${4.7}" th:text="'$'+${4.7}" /></td>
+                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
+                                                           th:value="${8.6}" th:text="'$'+${8.6}" /></td>
+                                            </tr>
+                                        </table>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <a th:href="@{/external/secure/options/buy/livres/}+${these.theseId}" class="btn btn-primary mb-2 ml-1">Commander un Livre &nbsp;&nbsp;<i class="fa fa-book"></i></a> Ou
-                        <a th:href="@{/external/secure/options/buy/pages/} + ${these.theseId}" class="btn">Consulter les Pages Importantes &nbsp;&nbsp;<i class="fa fa-leanpub"></i></a>
+                        <a th:href="@{/payment/form/}" class="btn btn-primary">Valider &nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
                </div>
                   <div class="card-footer">
                       <h5>SOMMAIRE:</h5>
