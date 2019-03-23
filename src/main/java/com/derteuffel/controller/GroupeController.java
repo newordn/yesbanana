@@ -483,8 +483,10 @@ public class GroupeController {
         session.setAttribute("name",user.getName());
         List<User> users1=userService.listAll();
         Groupe groupe = groupeRepository.getOne(groupeId);
+        List<User> userGroup= userRepository.findByGroupes_GroupeId(groupe.getGroupeId());
         session.setAttribute("roles", user.getRoles());
         model.addAttribute("users1",users1);
+        model.addAttribute("users", userGroup);
         model.addAttribute("usersGroupe", new UsersGroupe());
         model.addAttribute("groupeName", groupe.getGroupeName());
         model.addAttribute("groupe",groupe);

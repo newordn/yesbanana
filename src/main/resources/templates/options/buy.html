@@ -71,7 +71,10 @@
                                     <td th:text="${i.index+1}"></td>
                                     <td th:text="${livre.title}" ></td>
                                     <td th:text="${livre.auteur}" ></td>
-                                    <td th:text="'$'+${livre.price}" ></td>
+                                    <td >
+                                        <input type="checkbox" name="price" th:checked="${price}"
+                                               th:value="${livre.price}" th:text="'$'+${livre.price}" />
+                                    </td>
                                     <td style="padding:0">
                                         <table style="width: 100%">
                                             <tr>
