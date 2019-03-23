@@ -99,10 +99,10 @@
                     <div class="col-12 justify-content-center">
                         <div class="row mt-3" th:if="${session.roles[0].role == 'ROOT'}" >
                             <div class="col-12 col-sm-6 col-lg-4 mt-3">
-                                <a class="btn btn-success" th:href="@{/these/publish/}+${these1.theseId}" style="width: 100%">Appr et publier </a>
+                                <a class="btn btn-success" th:href="@{/groupe/these/publish/}+${these1.theseId}" style="width: 100%">Appr et publier </a>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4 mt-3">
-                                <a class="btn btn-warning" th:href="@{/these/unPublish/form/}+${these1.theseId}"  style="width: 100%">Renvoi pour modif</a>
+                                <a class="btn btn-warning" th:href="@{/groupe/these/unPublish/form/}+${these1.theseId}"  style="width: 100%">Renvoi pour modif</a>
                                 <div class="modal card modal-warning fade in" th:id="modal-warning+${these1.theseId}" >
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -123,22 +123,22 @@
                                             </div>
                                             <div class="modal-footer text-center">
                                                 <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
-                                                <a class="btn btn-danger" th:href="@{/these/unPublish/}+${these1.theseId}" ><i class="fa fa-check"></i>&nbsp;Envoye</a>
+                                                <a class="btn btn-danger" th:href="@{/groupe/these/unPublish/}+${these1.theseId}" ><i class="fa fa-check"></i>&nbsp;Envoye</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4 mt-3">
-                                <a class="btn btn-secondary" th:href="@{/these/draft/}+${these1.theseId}" style="width: 100%">Appr sans publier</a>
+                                <a class="btn btn-secondary" th:href="@{/groupe/these/draft/}+${these1.theseId}" style="width: 100%">Appr sans publier</a>
                             </div>
                         </div>
                         <div class="row mt-3" th:if="${session.roles[0].role == 'ROOT_MASTER'}">
                             <div class="col-12 col-sm-6 col-lg-4 mt-3">
-                                <a class="btn btn-success" th:href="@{/these/publish/}+${these1.theseId}" style="width: 100%">Appr et publier </a>
+                                <a class="btn btn-success" th:href="@{/groupe/these/publish/}+${these1.theseId}" style="width: 100%">Appr et publier </a>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4 mt-3">
-                                <a class="btn btn-warning" th:href="@{/these/unPublish/form/}+${these1.theseId}"  style="width: 100%">Renvoi pour modif</a>
+                                <a class="btn btn-warning" th:href="@{/groupe/these/unPublish/form/}+${these1.theseId}"  style="width: 100%">Renvoi pour modif</a>
                                 <div class="modal card modal-warning fade in" th:id="modal-warning+${these1.theseId}" >
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -159,22 +159,22 @@
                                             </div>
                                             <div class="modal-footer text-center">
                                                 <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
-                                                <a class="btn btn-danger" th:href="@{/these/unPublish/}+${these1.theseId}" ><i class="fa fa-check"></i>&nbsp;Envoye</a>
+                                                <a class="btn btn-danger" th:href="@{/groupe/these/unPublish/}+${these1.theseId}" ><i class="fa fa-check"></i>&nbsp;Envoye</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4 mt-3">
-                                <a class="btn btn-secondary" th:href="@{/these/draft/}+${these1.theseId}" style="width: 100%">Appr sans publier</a>
+                                <a class="btn btn-secondary" th:href="@{/goupe/these/draft/}+${these1.theseId}" style="width: 100%">Appr sans publier</a>
                             </div>
                         </div>
                         <div class="row mt-3" th:if="${session.roles[0].role == 'ADMIN_MASTER'}" >
                             <div class="col-12 col-sm-6 col-lg-4 mt-3">
-                                <a class="btn btn-success" th:href="@{/these/publish/}+${these1.theseId}" style="width: 100%">Appr et publier </a>
+                                <a class="btn btn-success" th:href="@{/groupe/these/publish/}+${these1.theseId}" style="width: 100%">Appr et publier </a>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4 mt-3">
-                                <a class="btn btn-warning" th:href="@{/these/unPublish/form/}+${these1.theseId}"  style="width: 100%">Renvoi pour modif</a>
+                                <a class="btn btn-warning" th:href="@{/groupe/these/unPublish/form/}+${these1.theseId}"  style="width: 100%">Renvoi pour modif</a>
                                 <div class="modal card modal-warning fade in" th:id="modal-warning+${these1.theseId}" >
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -202,31 +202,31 @@
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4 mt-3">
-                                <a class="btn btn-secondary" th:href="@{/these/draft/}+${these1.theseId}" style="width: 100%">Appr sans publier</a>
+                                <a class="btn btn-secondary" th:href="@{/groupe/these/draft/}+${these1.theseId}" style="width: 100%">Appr sans publier</a>
                             </div>
                         </div>
                         <div th:if="${session.roles[0].role == 'ROOT'}" >
-                            <a  class="btn btn-success mt-3"  th:if="${these1.status == 'true'}">
+                            <a  class="btn btn-success mt-3" th:if="${these1.status} == true" >
                                 Status <span class="badge badge-light">Publier</span>
                             </a>
-                            <a  class="btn btn-success mt-3"  th:unless="${these1.status == 'true'}">
-                                Status <span class="badge badge-light">Draft</span>
+                            <a  class="btn btn-success mt-3" th:unless="${these1.status} == true" >
+                                Status <span class="badge badge-light">Pendding</span>
                             </a>
                         </div>
                         <div th:if="${session.roles[0].role == 'ADMIN_MASTER'}">
-                            <a  class="btn btn-success mt-3"  th:if="${these1.status == 'true'}">
+                            <a  class="btn btn-success mt-3" th:if="${these1.status} == true" >
                                 Status <span class="badge badge-light">Publier</span>
                             </a>
-                            <a  class="btn btn-success mt-3"  th:unless="${these1.status == 'true'}">
-                                Status <span class="badge badge-light">Draft</span>
+                            <a  class="btn btn-success mt-3" th:unless="${these1.status} == true" >
+                                Status <span class="badge badge-light">Pendding</span>
                             </a>
                         </div>
                         <div th:if="${session.roles[0].role == 'ROOT_MASTER'}">
-                            <a  class="btn btn-success mt-3"  th:if="${these1.status == 'true'}">
+                            <a  class="btn btn-success mt-3" th:if="${these1.status} == true" >
                                 Status <span class="badge badge-light">Publier</span>
                             </a>
-                            <a  class="btn btn-success mt-3"  th:unless="${these1.status == 'true'}">
-                                Status <span class="badge badge-light">Draft</span>
+                            <a  class="btn btn-success mt-3" th:unless="${these1.status} == true" >
+                                Status <span class="badge badge-light">Pendding</span>
                             </a>
                         </div>
                     </div>

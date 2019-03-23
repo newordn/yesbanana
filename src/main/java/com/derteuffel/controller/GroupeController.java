@@ -5,6 +5,7 @@ package com.derteuffel.controller;
 
 import com.derteuffel.data.*;
 import com.derteuffel.repository.*;
+import com.derteuffel.service.MailService;
 import com.derteuffel.service.RoleService;
 import com.derteuffel.service.TheseService;
 import com.derteuffel.service.UserService;
@@ -752,19 +753,80 @@ public class GroupeController {
 
     @GetMapping("/groupe/biblib/{theseId}")
     public String getBibLib(Model model, @PathVariable Long theseId, HttpSession session){
-        session.setAttribute("theseId",theseId);
         System.out.println("sdfffsfghjdg");
         These these= theseRepository.getOne(theseId);
+        List<Bibliography>bibliographies=bibliographyRepository.findAllByThese(these.getTheseId());
+        List<Bibliography> bibliographiesDispo= bibliographyRepository.findAllByDisponibility(true);
+        List<Bibliography> bibliographies1=new ArrayList<>();
+        for (Bibliography  bibliography : bibliographies){
+            for (int i=0;i<bibliographiesDispo.size();i++){
+                if (bibliography.getBibliographyId().equals(bibliographiesDispo.get(i).getBibliographyId())){
+                    bibliographies1.add(bibliography);
+                }
+            }
+        }
+        model.addAttribute("disponibles", bibliographies1);
         session.setAttribute("theseId", these.getTheseId());
         model.addAttribute("bibliothequess",bibliothequeRepository.findAllByThese(these.getTheseId()));
         model.addAttribute("bibliotheque", new Bibliotheque());
         model.addAttribute("these1",these);
-        model.addAttribute("bibliographies",bibliographyRepository.findAllByThese(these.getTheseId()));
+        model.addAttribute("bibliographies",bibliographies);
         model.addAttribute("bibliography", new Bibliography());
 
         return "crew/theseBibLib";
 
     }
+
+    @GetMapping("/these/publish/{theseId}")
+    public String publishThese(@PathVariable Long theseId, HttpSession session) {
+        These these = theseRepository.getOne(theseId);
+        these.setStatus(true);
+        these.setStates(true);
+        System.out.print(these.getStatus());
+        System.out.print("blablabla");
+        theseRepository.save(these);
+        return "redirect:/groupe/groupe/these/" + theseId;
+    }
+
+    @GetMapping("/these/draft/{theseId}")
+    public String draftThese(@PathVariable Long theseId, HttpSession session) {
+        These these = theseRepository.getOne(theseId);
+        these.setStatus(false);
+        these.setStates(true);
+        theseRepository.save(these);
+        return "redirect:/groupe/groupe/these/" + theseId;
+    }
+
+    @GetMapping("/these/unPublish/form/{theseId}")
+    public String unPublishForm(@PathVariable Long theseId, Model model, HttpSession session) {
+        These these = theseRepository.getOne(theseId);
+        model.addAttribute("groupeId", (Long) session.getAttribute("groupeId"));
+        model.addAttribute("countries", countries);
+        model.addAttribute("these", these);
+        session.setAttribute("userId", these.getUser().getUserId());
+        session.setAttribute("country", these.getCountry());
+        return "crew/correction";
+    }
+
+    @PostMapping("/these/unPublish/{theseId}")
+    public String unPublishPeriod(These these, HttpSession session, String adresse, String contenue, @PathVariable Long theseId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByName(auth.getName());
+        these.setStatus(false);
+        these.setUser(userRepository.getOne((Long) session.getAttribute("userId")));
+        these.setGroupe(groupeRepository.getOne((Long) session.getAttribute("groupeId")));
+        these.setCountry((String) session.getAttribute("country"));
+        these.setStates(true);
+        theseRepository.save(these);
+        MailService backMessage = new MailService();
+        backMessage.sendSimpleMessage(
+                adresse,
+                "Notification de correction du contenu de cette Thèse",
+                user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
+        );
+        return "redirect:/groupe/groupe/these/" + theseId;
+    }
+
 
     @GetMapping("/delete/{groupeId}")
     public String delete(@PathVariable Long groupeId){

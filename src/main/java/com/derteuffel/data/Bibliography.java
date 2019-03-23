@@ -17,6 +17,9 @@ public class Bibliography implements Serializable{
     private String title;
     private String description;
     private String link;
+    private Boolean disponibility;
+    private Double price;
+    private Double pagePrice;
 
     @ManyToOne
     private These these;
@@ -24,12 +27,39 @@ public class Bibliography implements Serializable{
     public Bibliography() {
     }
 
-    public Bibliography(String auteur, String title, String description, These these, String link) {
+    public Bibliography(String auteur, String title, String description, These these, String link,Boolean disponibility,Double pagePrice, Double price) {
         this.auteur = auteur;
         this.title = title;
+        this.price=price;
+        this.pagePrice=pagePrice;
+        this.disponibility=disponibility;
         this.description = description;
         this.link=link;
         this.these = these;
+    }
+
+    public Double getPagePrice() {
+        return pagePrice;
+    }
+
+    public void setPagePrice(Double pagePrice) {
+        this.pagePrice = pagePrice;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Boolean getDisponibility() {
+        return disponibility;
+    }
+
+    public void setDisponibility(Boolean disponibility) {
+        this.disponibility = disponibility;
     }
 
     public String getLink() {

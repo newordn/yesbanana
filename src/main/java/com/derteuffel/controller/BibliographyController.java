@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by derteuffel on 30/01/2019.
@@ -46,6 +47,8 @@ public class BibliographyController {
             return "crew/editBiblio";
         }else {
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
+            bibliography.setPrice(0.0);
+            bibliography.setDisponibility(false);
             bibliographyRepository.save(bibliography);
         }
         return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
@@ -56,6 +59,21 @@ public class BibliographyController {
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
             bibliographyRepository.save(bibliography);
         return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
+    }
+
+    @PostMapping("/disponibility/{bibliographyId}")
+    public String changeDisponibility(Bibliography bibliography,HttpSession session,@PathVariable Long bibliographyId){
+
+        System.out.println(bibliography.getDisponibility());
+        System.out.println(bibliography.getDescription());
+        if (bibliography.getDisponibility() == true){
+            bibliography.setDisponibility(false);
+        }else {
+            bibliography.setDisponibility(true);
+        }
+        bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
+        bibliographyRepository.save(bibliography);
+        return "redirect:/groupe/groupe/biblib/"+(Long)session.getAttribute("theseId");
     }
 
     @GetMapping("/delete/{bibliographyId}")

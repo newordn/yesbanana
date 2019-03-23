@@ -200,28 +200,28 @@
                                 <a class="btn btn-secondary" th:href="@{/these/draft/}+${these1.theseId}" style="width: 100%">Appr sans publier</a>
                             </div>
                         </div>
-                        <div th:if="${roles[0].role == 'ROOT'}" >
-                            <a  class="btn btn-success mt-3"  th:if="${these1.status == 'true'}">
+                        <div th:if="${session.roles[0].role == 'ROOT'}" >
+                            <a  class="btn btn-success mt-3" th:if="${these1.status} == true" >
                                 Status <span class="badge badge-light">Publier</span>
                             </a>
-                            <a  class="btn btn-success mt-3"  th:unless="${these1.status == 'true'}">
-                                Status <span class="badge badge-light">Draft</span>
+                            <a  class="btn btn-success mt-3" th:unless="${these1.status} == true" >
+                                Status <span class="badge badge-light">Pendding</span>
                             </a>
                         </div>
-                        <div th:if="${roles[0].role == 'ADMIN_MASTER'}">
-                            <a  class="btn btn-success mt-3"  th:if="${these1.status == 'true'}">
+                        <div th:if="${session.roles[0].role == 'ADMIN_MASTER'}">
+                            <a  class="btn btn-success mt-3" th:if="${these1.status} == true" >
                                 Status <span class="badge badge-light">Publier</span>
                             </a>
-                            <a  class="btn btn-success mt-3"  th:unless="${these1.status == 'true'}">
-                                Status <span class="badge badge-light">Draft</span>
+                            <a  class="btn btn-success mt-3" th:unless="${these1.status} == true" >
+                                Status <span class="badge badge-light">Pendding</span>
                             </a>
                         </div>
-                        <div th:if="${roles[0].role == 'ROOT_MASTER'}">
-                            <a  class="btn btn-success mt-3"  th:if="${these1.status == 'true'}">
+                        <div th:if="${session.roles[0].role == 'ROOT_MASTER'}">
+                            <a  class="btn btn-success mt-3" th:if="${these1.status} == true" >
                                 Status <span class="badge badge-light">Publier</span>
                             </a>
-                            <a  class="btn btn-success mt-3"  th:unless="${these1.status == 'true'}">
-                                Status <span class="badge badge-light">Draft</span>
+                            <a  class="btn btn-success mt-3" th:unless="${these1.status} == true" >
+                                Status <span class="badge badge-light">Pendding</span>
                             </a>
                         </div>
                     </div>

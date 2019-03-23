@@ -17,4 +17,5 @@ public interface BibliographyRepository extends JpaRepository<Bibliography,Long>
     @Query("select b from Bibliography as b join b.these bt where bt.theseId=:id order by b.bibliographyId desc")
     List<Bibliography> findAllByThese(@Param("id") Long theseId);
     Bibliography findByTitle(String title);
+    List<Bibliography> findAllByDisponibility(Boolean disponibility);
 }

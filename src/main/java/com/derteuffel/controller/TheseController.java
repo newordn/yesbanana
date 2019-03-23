@@ -446,6 +446,7 @@ public class TheseController {
             these.setGroupe(groupe);
             these.setUser(user);
             these.setStatus(false);
+            these.setStates(true);
             these.setOptions(these.getOptions().toLowerCase());
             theseRepository.save(these);
         }
@@ -613,7 +614,7 @@ public class TheseController {
         model.addAttribute("these", these);
         session.setAttribute("userId", these.getUser().getUserId());
         session.setAttribute("country", these.getCountry());
-        return "crew/correction";
+        return "these/correction";
     }
 
     @PostMapping("/unPublish/{theseId}")

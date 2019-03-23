@@ -46,20 +46,44 @@
 <!-- END nav -->
 
 <section class="ftco-section testimony-section">
-      <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 text-center heading-section ftco-animate">
             <h1 >Les sujets</h1>
           </div>
         </div>
-        <div class="row ftco-animate">
-              <div class="col-md-4 card bg-light text-black mr-3" th:each="these : ${theses}" style="width: 18rem;">
-                     <div class="card-body">
-                     <p class="card-text" th:text="${these.subject}">i want to marry you</p>
-                        <a th:href="@{/these/these/} + ${these.theseId}" class="btn btn-primary">Ouvrir &nbsp;<i class="fa fa-eye"></i></a>
+            <div class="row justify-content-center ftco-animate">
+              <div class="col-md-5 card bg-light text-black mr-3 mb-3" th:each="these : ${theses}" style="padding-left: 0;padding-right: 0">
+                    <div class="card-header">
+                        <h5>SUJET:</h5>
+                        <p class="card-text" th:text="${these.subject}">i want to marry you</p>
+                    </div>
+                     <div class="card-body" style="padding: 0">
+                        <table class="table table-hover table-bordered ">
+                            <thead>
+                                    <th>Livre</th>
+                                    <th>Titre</th>
+                                    <th>Auteur</th>
+                                    <th>Prix</th>
+                            </thead>
+                            <tbody>
+                                <tr th:each="livre, i : ${these.bibliographies}" th:if="${livre.disponibility} == true" >
+                                    <td th:text="${i.index+1}"></td>
+                                    <td th:text="${livre.title}" ></td>
+                                    <td th:text="${livre.auteur}" ></td>
+                                    <td th:text="'$'+${livre.price}" ></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a th:href="@{/external/secure/options/buy/} + ${these.theseId}" class="btn btn-primary">Commander &nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
                </div>
+                  <div class="card-footer">
+                      <h5>SOMMAIRE:</h5>
+                      <p th:text="${these.resumes}"></p>
+                      <h5>AUTRE SOMMAIRE:</h5>
+                      <p th:text="${these.anotherSommaire}"></p>
+                  </div>
+            </div>
         </div>
-      </div>
     </section>
 
 

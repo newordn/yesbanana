@@ -1,6 +1,7 @@
 package com.derteuffel.controller;
 
 import com.derteuffel.data.Country;
+import com.derteuffel.data.Faculty;
 import com.derteuffel.data.Region;
 import com.derteuffel.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +39,9 @@ public class CountryController {
 
     @GetMapping("/countries")
     public String findAll(Model model) {
-        List<Country> countries= countryRepository.findAll();
-        model.addAttribute("countries", countries);
-        return "country/countries";
+        List<Faculty> faculties= facultyRepository.findAll();
+        model.addAttribute("faculties",faculties);
+        return "university/university";
     }
 
     @GetMapping("/country/{countryId}")

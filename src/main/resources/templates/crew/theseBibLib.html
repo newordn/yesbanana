@@ -32,7 +32,7 @@
 
 <div class="col-10 offset-2 main">
         <!-- these detail -->
-        <div class=" col text-center" style="width:100%;  ">
+        <div class=" text-center" style="width:100%;  ">
                <div class="row content" style="margin-top: 5.5rem;">
                 <div class="col-3" style="position:fixed !important;">
                     <div class="card mt-6">
@@ -45,10 +45,10 @@
                 <tr th:each="bibliography : ${bibliographies}" >
                     <div class="card mt-1">
                         <div class="row">
-                            <div class="col-12 col-sm-6 col-lg-8">
+                            <div class="col-12 col-sm-6 col-lg-6">
                                 <a class="text-center" data-toggle="modal" data-target="#modal-detail" th:attr="data-target='#modal-detail'+${bibliography.bibliographyId}"  th:text="${bibliography.title}"></a>
                             </div>
-                            <div class="col-12 col-sm-6 col-lg-4 row pull-right">
+                            <div class="col-12 col-sm-6 col-lg-6 row pull-right">
                             <div>
                                 <a  th:href="@{/bibliography/edit/}+${bibliography.bibliographyId}">
                                     <i class="fa fa-pencil"></i>
@@ -59,6 +59,14 @@
                                     <i class="fa fa-trash"></i>
                                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
+                                <div th:if="${bibliography.disponibility} == true">
+                                    <span><a   data-toggle="modal" data-target="#modal-desactivation" th:attr="data-target='#modal-desactivation'+${bibliography.bibliographyId}" class="btn btn-success rounded-circle"></a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                                <div th:unless="${bibliography.disponibility} == true">
+                                    <span><a  data-toggle="modal" data-target="#modal-activation" th:attr="data-target='#modal-activation'+${bibliography.bibliographyId}" class="btn btn-danger rounded-circle">
+                                    </a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+
                         </div>
                         </div>
                     </div>
@@ -92,6 +100,12 @@
                                     </div>
                                     <div class="col-12 col-sm-6 col-lg-12 mt-3">
                                         <div class="form-group ">
+                                            <p class="mt-2 mb-2">Prix:</p>
+                                            <textarea class="form-control" rows="1"  style="height: 30px" th:text="${bibliography.price}" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                        <div class="form-group ">
                                             <p class="mt-2 mb-2">Lien de téléchargement:</p>
                                             <a   th:text="${bibliography.link}" th:href="${bibliography.link}"></a>
                                         </div>
@@ -100,6 +114,128 @@
                                 <div class="modal-footer text-center">
                                     <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal card modal-warning alert-warning fade in" th:id="modal-activation+${bibliography.bibliographyId}" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header text-center alert-info">
+                                    <h5 class="modal-title">Publication d'un livre</h5>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h3>Vous etes entrain de vouloir rendre publique ce livre voulez vous continuer?</h3>
+                                    <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/bibliography/disponibility/{bibliographyId}(bibliographyId=${bibliography.bibliographyId})}" th:object="${bibliography}">
+
+                                        <div class="mb-4">
+                                            <div class="col-12 col-sm-6 col-lg-12">
+                                                <!--theseId-->
+                                                <input type="hidden" name="theseId" th:value="${bibliography.these.theseId}"  >
+                                                <!--theseId-->
+                                                <!--input type="hidden" th:field="*{bibliographyId}"-->
+                                                <div class="form-group" style="display: none">
+                                                    <span class='error' id="assistantError"></span>
+                                                    <p class="mt-2 mb-2">Auteur:</p>
+                                                    <input type="text" name="auteur" th:value="${bibliography.auteur}" id="assistant" class="form-control" placeholder="Nom de l'auteur" />
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                                <div class="form-group" style="display: none">
+                                                    <span class='error' id="studentError"></span>
+                                                    <p class="mt-2 mb-2">Titre:</p>
+                                                    <input type="text" name="title" th:value="${bibliography.title}"  class="form-control" placeholder="Titre du livre" />
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                                <div class="form-group " style=" display: none">
+                                                    <span class='error' id="profError"></span>
+                                                    <p class="mt-2 mb-2">Description:</p>
+                                                    <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                                        <div class="form-group">
+                                                            <span class='error' id="linkError"></span>
+                                                            <input type="url" name="link" th:value="${bibliography.link}" id="link" class="form-control" placeholder="Lien de telechargement du livre" />
+                                                        </div>
+                                                    </div>
+                                                    <textarea class="form-control" type="text" id="description" rows="5" style="height: 100px;" placeholder="Description " name="description" th:value="${bibliography.description}" ></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                                <div class="form-group ">
+                                                    <span class='error' id="priceError"></span>
+                                                    <p class="mt-2 mb-2">Prix:</p>
+                                                    <input class="form-control" id="price"  placeholder="Entrer le prix du livre " th:field="*{price}" type="number"></input>
+                                                    <input class="form-control" id="disponibility"   name="disponibility" th:value="${bibliography.disponibility}" type="text" style="display: none"></input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer text-center">
+                                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                            <button  class="btn btn-success" type="submit"><i class="fa fa-check"></i>&nbsp;Oui</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal card modal-warning alert-warning fade in" th:id="modal-desactivation+${bibliography.bibliographyId}" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header text-center alert-info">
+                                    <h5 class="modal-title">Publication d'un livre</h5>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h3>Vous etes entrain de vouloir rendre publique ce livre voulez vous continuer?</h3>
+                                    <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/bibliography/disponibility/{bibliographyId}(bibliographyId=${bibliography.bibliographyId})}" th:object="${bibliography}">
+
+                                        <div class="mb-4">
+                                            <div class="col-12 col-sm-6 col-lg-12">
+                                                <!--theseId-->
+                                                <input type="hidden" name="theseId" th:value="${bibliography.these.theseId}"  >
+                                                <!--theseId-->
+                                                <!--input type="hidden" th:field="*{bibliographyId}"-->
+                                                <div class="form-group" style="display: none">
+                                                    <span class='error' id="assistantError"></span>
+                                                    <p class="mt-2 mb-2">Auteur:</p>
+                                                    <input type="text" name="auteur" th:value="${bibliography.auteur}" id="assistant" class="form-control" placeholder="Nom de l'auteur" />
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                                <div class="form-group" style="display: none">
+                                                    <span class='error' id="studentError"></span>
+                                                    <p class="mt-2 mb-2">Titre:</p>
+                                                    <input type="text" name="title" th:value="${bibliography.title}"  class="form-control" placeholder="Titre du livre" />
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                                <div class="form-group " style=" display: none">
+                                                    <span class='error' id="profError"></span>
+                                                    <p class="mt-2 mb-2">Description:</p>
+                                                    <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                                        <div class="form-group">
+                                                            <span class='error' id="linkError"></span>
+                                                            <input type="url" name="link" th:value="${bibliography.link}" id="link" class="form-control" placeholder="Lien de telechargement du livre" />
+                                                        </div>
+                                                    </div>
+                                                    <textarea class="form-control" type="text" id="description" rows="5" style="height: 100px;" placeholder="Description " name="description" th:value="${bibliography.description}" ></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                                <div class="form-group ">
+                                                    <span class='error' id="priceError"></span>
+                                                    <p class="mt-2 mb-2">Prix:</p>
+                                                    <input class="form-control" id="price"  placeholder="Entrer le prix du livre " th:field="*{price}" type="number"></input>
+                                                    <input class="form-control" id="disponibility"   name="disponibility" th:value="${bibliography.disponibility}" type="text" style="display: none"></input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer text-center">
+                                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                            <button  class="btn btn-success" type="submit"><i class="fa fa-check"></i>&nbsp;Oui</button>
+                                        </div>
+                                    </form>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -155,7 +291,7 @@
                                         <div class="col-12 col-sm-6 col-lg-12 mt-3">
                                             <div class="form-group ">
                                                 <span class='error' id="profError"></span>
-                                                <textarea class="form-control" id="description" rows="5" style="height: 100px" placeholder="Description " th:field="*{description}" type="text"></textarea>
+                                                <textarea class="form-control" id="description" rows="5" style="height: 100px" type="text" th:field="*{description}"  placeholder="Description " ></textarea>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-6 col-lg-12 mt-3">
@@ -248,8 +384,70 @@
                         </div>
                     </div>
             </div>
+                   <br>
+
             </div>
         <!-- these detail-->
+<br>
+            <div class="container">
+                <h3 class="text-center">Livres Disponibles</h3>
+                <hr>
+                <table class="list-group">
+                    <tr th:each="disponible : ${disponibles}" >
+                        <div class="card mt-1">
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-lg-6">
+                                    <a class="text-center" data-toggle="modal" data-target="#modal-detail" th:attr="data-target='#modal-detail'+${disponible.bibliographyId}"  th:text="${disponible.title}"></a>
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-6 row pull-right">
+                                    <span th:text="'$'+${disponible.price}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal card modal-warning alert-warning fade in" th:id="modal-detail+${disponible.bibliographyId}" >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center alert-info">
+                                        <h5 class="modal-title">Contenu d'un element</h5>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <h3>Detail d'un Livre</h3>
+                                    </div>
+                                    <div class="mb-4">
+                                        <div class="col-12 col-sm-6 col-lg-12">
+                                            <div class="form-group">
+                                                <p class="mt-2 mb-2">Auteur:</p>
+                                                <textarea class="form-control"  rows="1" style="height: 30px" th:text="${disponible.auteur}" disabled></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                            <div class="form-group">
+                                                <p class="mt-2 mb-2">Titre:</p>
+                                                <textarea class="form-control"  rows="1" style="height: 30px" th:text="${disponible.title}" disabled></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                            <div class="form-group ">
+                                                <p class="mt-2 mb-2">Description:</p>
+                                                <textarea class="form-control"  rows="5" style="height: 100px" th:text="${disponible.description}" disabled></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                            <div class="form-group ">
+                                                <p class="mt-2 mb-2">Lien de téléchargement:</p>
+                                                <a   th:text="${disponible.link}" th:href="${disponible.link}"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer text-center">
+                                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tr>
+                </table>
+            </div>
 
     </div>
 </div>

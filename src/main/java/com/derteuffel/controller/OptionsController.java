@@ -61,4 +61,14 @@ public class OptionsController {
         return "options/options";
     }
 
+    @GetMapping("/buy/{theseId}")
+    public String buyBooks(@PathVariable Long theseId, Model model){
+
+        These these= theseRepository.getOne(theseId);
+
+        model.addAttribute("these",these);
+        return "options/buy";
+
+    }
+
 }
