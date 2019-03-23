@@ -48,6 +48,7 @@ public class BibliographyController {
         }else {
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
             bibliography.setPrice(0.0);
+            bibliography.setPagePrice(0.0);
             bibliography.setDisponibility(false);
             bibliographyRepository.save(bibliography);
         }
