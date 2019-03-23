@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Yesbanana</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}"><span>Yes</span>banana</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item "><a href="/" class="nav-link ">Accueil</a></li>
+                <li class="nav-item active"><a href="/" class="nav-link ">Paiement</a></li>
+                <li class="nav-item">
+                    <a  href="/" class="nav-link">Mes transactions</a>
+                </li>
+                <li class="nav-item dropdown text-center" sec:authorize="isFullyAuthenticated()">
+
+                    <!-- insert the profile image-->
+                    <a href="#">
+                        <img class="profile-img" th:src="${session.avatar}" alt="avatar">
+                    </a>
+                    <!-- insert the profile image-->
+                    <ul class="dropdown-menu">
+                        <li class="nav-item"><a   class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
+                        <li class="nav-item">
+                            <a class="black nav-link" th:href="@{/logout}" >Deconnexion</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END nav -->
+
+<section class="ftco-section testimony-section">
+
+    <div class="container">
+        <div class="row justify-content-center  pb-3">
+            <div class="col-md-7 text-center heading-section ftco-animate">
+                <h2 class="mb-1"><span>Effectuer un paiement</span></h2>
+            </div>
+        </div>
+            <div class="row d-flex text-center heading-section mb-5 justify-content-between" >
+                <div class="col-4">
+                    <input type="radio" name="pay_method" id="creditCardTrigger" value="creditcard" checked="">Credit Card(MasterCard/Visa)
+                </div>
+                <div class="col-4">
+                    <span><input type="radio"  id="payPalTrigger" name="pay_method" value="paypal"> PayPal</span>
+                </div>
+                <div class="col-4">
+                    <span><input type="radio" id="mobileTrigger" name="pay_method" value="mobile" > Mobile Money</span>
+                </div>
+            </div>
+
+        <div class="row justify-content-center" id="mobile">
+        <form action="#" class="subscribe-form mt-2" >
+            <div class="form-group d-flex ">
+                <div class="col-md-4 form-group">
+                    <select class="custom-select">
+                        <option>Opérateurs</option>
+                        <option value="om" required>Orange Money</option>
+                        <option value="momo">Mtn Money</option>
+                        <option value="airtel">Airtel Money</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" style="width:100%;padding-left:4rem;" placeholder="Entrer votre numéro de téléphone">
+                </div>
+                <div class="col-md-3">
+                    <button type="submit"  onClick="pay()" class="btn btn-primary " style="width:100%">Valider</button>
+                </div>
+            </div>
+        </form>
+        </div>
+        <div class="row justify-content-center" id="creditCard">
+            <div class="form-group col-6" >
+                Name on the Card<font color="red">*</font>:<br>
+                <input type="text" name="x_Card_Name" style="width:100%;padding-left:4rem" value="" maxlength="255" placeholder="eg. Johnny Bravo">
+            </div>
+            <div class="form-group col-6">
+                Credit Card Number<font color="red">*</font>:<br>
+                <input type="text" name="x_Card_Num" style="width:100%;padding-left:4rem" value="" maxlength="255" placeholder="################">
+                <br>
+            </div>
+            <div class="form-group col-6">
+                Security Code: <span class="tooltip redtxt tooltipstered" style="font-size:12px;">(What's This?)</span><br>
+                <input size="6" maxlength="4" style="width:100%;padding-left:4rem" name="x_Card_Code" value="" placeholder="###" type="text">
+            </div>
+            <div class="form-group col-6">
+                Expiration Date<font color="red">*</font>:<br>
+                <input type="text" name="exp_month" style="width: 50%"  maxlength="255" placeholder="08">
+                /
+                <input type="text" name="exp_year" style="width: 46%"  maxlength="255" placeholder="2021">
+
+            </div>
+
+        </div>
+
+        <div class=" row justify-content-end">
+            <button class="btn btn-primary btn-lg" ><i class="fa fa-check"></i></button>
+        </div>
+        <div class="row justify-content-center" id="payPal">
+            <div class="text-center" >
+                <button class="btn btn-primary">Pay By Paypal</button>
+            </div>
+        </div>
+    </div>
+
+</section>
+<section class="ftco-section-parallax">
+    <div class="parallax-img d-flex align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+                    <h2>Souscrivez a notre  Newsletter</h2>
+                    <p>Restez informer en souscrivant a notre service de messagerie.</p>
+                    <div class="row d-flex justify-content-center mt-4 mb-4">
+                        <div class="col-md-8">
+                            <form action="#" class="subscribe-form">
+                                <div class="form-group d-flex">
+                                    <input type="text" class="form-control" placeholder="Entrer votre adresse email">
+                                    <input type="submit" value="Souscrire" class="submit px-3">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer class="ftco-footer ftco-bg-dark ftco-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Yesbanana</h2>
+                    <p>Votre plateforme digitale qui vous ouvre les portes du savoir dans toute son entiereté et sa rigueur.</p>
+                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4 ml-md-5">
+                    <h2 class="ftco-heading-2">Liens Utiles</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">Nos services</a></li>
+                        <li><a href="#" class="py-2 d-block">autres informations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Confidentialité</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">A propos</a></li>
+                        <li><a href="#" class="py-2 d-block">Conditions d'utilisations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Des Questions?</h2>
+                    <div class="block-23 mb-3">
+                        <ul>
+                            <li><span class="icon icon-map-marker"></span><span class="text">Congo Kinshasa</span></li>
+                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+237694126158 +23793063228</span></a></li>
+                            <li><span></span><span class="text"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.stellar.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/js/scrollax.min.js}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script th:src="@{/js/google-map.js}"></script>
+<script th:src="@{/js/main1.js}"></script>
+<script th:src="@{/js/PaymentScripts/payment.js}"></script>
+<script type="text/javascript">
+    $("#payPal").css("display","none");
+    $("#mobile").css("display","none");
+
+        // Go to the previous item
+    $('#mobileTrigger').click(function() {
+        $("#mobile").css("display","block");
+        $("#creditCard").css("display","none");
+        $("#payPal").css("display","none");
+    });
+
+    $('#payPalTrigger').click(function() {
+        $("#payPal").css("display","block");
+        $("#creditCard").css("display","none");
+        $("#mobile").css("display","none");
+    });
+    $('#creditCardTrigger').click(function() {
+        $("#creditCard").css("display","flex");
+        $("#mobile").css("display","none");
+        $("#payPal").css("display","none");
+    })
+</script>
+</body>
+</html>

@@ -128,7 +128,7 @@
                     <tbody>
                     <div th:each="crew : ${crews}">
                         <td th:text="${crew.groupeName}"></td>
-                        <td th:text="${crew.groupChief}"></td>
+                        <td th:text="${crew.users[0].name}"></td>
                         <td th:text="${crew.groupeCountry}"></td>
                         <td th:text="${crew.groupeRegion}"></td>
                         <td>

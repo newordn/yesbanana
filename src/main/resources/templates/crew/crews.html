@@ -159,6 +159,7 @@
                     <tbody>
                     <tr th:if="${session.roles[0].role == 'ROOT'}" th:each="crew,i : ${crews}" >
                         <td th:text="${crew.groupeName}"></td>
+
                         <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
                         <td th:unless="${users2[i.index]!= null}">Non défini</td>
                         <td th:text="${crew.groupeCountry}"></td>
