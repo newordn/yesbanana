@@ -163,7 +163,7 @@
                                                 <div class="form-group ">
                                                     <span class='error' id="priceError"></span>
                                                     <p class="mt-2 mb-2">Prix:</p>
-                                                    <input class="form-control" id="price"  placeholder="Entrer le prix du livre " th:field="*{price}" type="number"></input>
+                                                    <input class="form-control" id="price"  placeholder="Entrer le prix du livre " name="prix" type="text"></input>
                                                     <input class="form-control" id="disponibility"   name="disponibility" th:value="${bibliography.disponibility}" type="text" style="display: none"></input>
                                                 </div>
                                             </div>
@@ -185,7 +185,7 @@
                                     <h5 class="modal-title">Publication d'un livre</h5>
                                 </div>
                                 <div class="modal-body text-center">
-                                    <h3>Vous etes entrain de vouloir rendre publique ce livre voulez vous continuer?</h3>
+                                    <h3>Vous etes entrain de vouloir desactiver la visibilte de ce livre voulez vous continuer?</h3>
                                     <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/bibliography/disponibility/{bibliographyId}(bibliographyId=${bibliography.bibliographyId})}" th:object="${bibliography}">
 
                                         <div class="mb-4">
@@ -223,8 +223,7 @@
                                             <div class="col-12 col-sm-6 col-lg-12 mt-3">
                                                 <div class="form-group ">
                                                     <span class='error' id="priceError"></span>
-                                                    <p class="mt-2 mb-2">Prix:</p>
-                                                    <input class="form-control" id="price"  placeholder="Entrer le prix du livre " th:field="*{price}" type="number"></input>
+                                                    <input class="form-control" id="price"  placeholder="Entrer le prix du livre " th:field="*{price}" style="display: none"></input>
                                                     <input class="form-control" id="disponibility"   name="disponibility" th:value="${bibliography.disponibility}" type="text" style="display: none"></input>
                                                 </div>
                                             </div>

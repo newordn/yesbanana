@@ -1,0 +1,28 @@
+<!--navigation -->
+
+<nav   xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="theseNavigationUser" id="element">
+    <ul class="list-group">
+        <a th:href="@{/user/these/} + ${these1.theseId}" class="alert-info active theseNavigation" style="text-decoration: none; ">
+            <li class="list-group-item" >
+                Somaire
+            </li>
+            </a>
+        <a th:href="@{/user/equipe/} + ${these1.theseId}" class="alert-info active theseNavigation" style="text-decoration: none; ">
+        <li class="list-group-item" >
+                        Etudiant et équipe directrice<span class="sr-only">(current)</span>
+        </li>
+        </a>
+        <a th:href="@{/user/biblib/} + ${these1.theseId}" class="alert-info theseNavigation" style="text-decoration: none; ">
+        <li class="list-group-item" >
+                        Bibliothèques et Bibliographie
+        </li>
+        </a>
+        <a th:href="@{/user/detail/}+${session.userId}" class="alert-info theseNavigation" style="text-decoration: none; ">
+            <li class="list-group-item">
+                Retour
+            </li>
+        </a>
+    </ul>
+    
+</nav>
+<!-- navigation -->
