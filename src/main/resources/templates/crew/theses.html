@@ -64,10 +64,10 @@
                 <td th:text="${these.faculty}"></td>
                 <td th:text="${these.options}"></td>
                 <td th:text="${these.level}"></td>
-                <td th:if="${these.status =='true'}" >
+                <td th:if="${these.status} ==true" >
                     <span>Public</span>
                 </td>
-                <td th:unless="${these.status =='true'}" >
+                <td th:unless="${these.status} ==true" >
                     <span>Suspendus</span>
                 </td>
                 <td th:text="${these.subject}"></td>
