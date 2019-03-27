@@ -34,8 +34,8 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item "><a href="/" class="nav-link ">Accueil</a></li>
-                <li class="nav-item active"><a href="/" class="nav-link ">Paiement</a></li>
-                <li class="nav-item">
+                <li class="nav-item"><a href="/" class="nav-link ">Paiement</a></li>
+                <li class="nav-item active">
                     <a  href="/payment/transactions" class="nav-link">Mes transactions</a>
                 </li>
                 <li class="nav-item dropdown text-center" sec:authorize="isFullyAuthenticated()">
@@ -62,78 +62,20 @@
 <section class="ftco-section testimony-section">
 
     <div class="container">
-        <div class="row justify-content-center  pb-3">
-            <div class="col-md-7 text-center heading-section ftco-animate">
-                <h2 class="mb-1"><span>Effectuer un paiement</span></h2>
-            </div>
-        </div>
-            <div class="row d-flex text-center heading-section mb-5 justify-content-between" >
-                <div class="col-4">
-                    <input type="radio" name="pay_method" id="creditCardTrigger" value="creditcard" checked="">Credit Card(MasterCard/Visa)
-                </div>
-                <div class="col-4">
-                    <span><input type="radio"  id="payPalTrigger" name="pay_method" value="paypal"> PayPal</span>
-                </div>
-                <div class="col-4">
-                    <span><input type="radio" id="mobileTrigger" name="pay_method" value="mobile" > Mobile Money</span>
-                </div>
-            </div>
-
-        <div class="row justify-content-center" id="mobile">
-        <form action="#" class="subscribe-form mt-2" >
-            <div class="form-group d-flex ">
-                <div class="col-md-4 form-group">
-                    <select class="custom-select">
-                        <option>Opérateurs</option>
-                        <option value="om" required>Orange Money</option>
-                        <option value="momo">Mtn Money</option>
-                        <option value="airtel">Airtel Money</option>
-                    </select>
-                </div>
-                <div class="col-md-5">
-                    <input type="text" style="width:100%;padding-left:4rem;" placeholder="Entrer votre numéro de téléphone">
-                </div>
-                <div class="col-md-3">
-                    <button type="submit"  onClick="pay()" class="btn btn-primary " style="width:100%">Valider</button>
-                </div>
-            </div>
-        </form>
-        </div>
-        <div class="row justify-content-center" id="creditCard">
-            <div class="form-group col-6" >
-                Name on the Card<font color="red">*</font>:<br>
-                <input type="text" name="x_Card_Name" style="width:100%;padding-left:4rem" value="" maxlength="255" placeholder="eg. Johnny Bravo">
-            </div>
-            <div class="form-group col-6">
-                Credit Card Number<font color="red">*</font>:<br>
-                <input type="text" name="x_Card_Num" style="width:100%;padding-left:4rem" value="" maxlength="255" placeholder="################">
-                <br>
-            </div>
-            <div class="form-group col-6">
-                Security Code: <span class="tooltip redtxt tooltipstered" style="font-size:12px;">(What's This?)</span><br>
-                <input size="6" maxlength="4" style="width:100%;padding-left:4rem" name="x_Card_Code" value="" placeholder="###" type="text">
-            </div>
-            <div class="form-group col-6">
-                Expiration Date<font color="red">*</font>:<br>
-                <input type="text" name="exp_month" style="width: 50%"  maxlength="255" placeholder="08">
-                /
-                <input type="text" name="exp_year" style="width: 46%"  maxlength="255" placeholder="2021">
-
-            </div>
-
-            <div class=" row justify-content-end">
-                <button class="btn btn-primary btn-lg" ><i class="fa fa-check"></i></button>
-            </div>
-
-        </div>
-
-        <div class="row justify-content-center" id="payPal">
-
-            <div id="paypal-button-container" class="row justify-content-center">
-
-            </div>
-
-        </div>
+        <table class="table bordered" style="color:black">
+            <thead>
+                <th>Identifiant de la transaction</th>
+                <th>Items</th>
+                <th>Montant</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>88858585885ddd</td>
+                <td>cours d'anglais</td>
+                <td>5 $</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 </section>
@@ -230,12 +172,11 @@
 <script th:src="@{/js/main1.js}"></script>
 <script th:src="@{/js/PaymentScripts/paymentMobile.js}"></script>
 <script th:src="@{/js/PaymentScripts/paymentVisa.js}"></script>
-<script th:src="@{/js/PaymentScripts/paymentPayPal.js}"></script>
 <script type="text/javascript">
     $("#payPal").css("display","none");
     $("#mobile").css("display","none");
 
-        // Go to the previous item
+    // Go to the previous item
     $('#mobileTrigger').click(function() {
         $("#mobile").css("display","block");
         $("#creditCard").css("display","none");

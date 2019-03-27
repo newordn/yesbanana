@@ -17,4 +17,9 @@ public class PaymentController {
     {
         return "payment/paymentForm";
     }
+    @GetMapping("/transactions")
+    public String getTransactions()
+    {
+        return "payment/transactions";
+    }
 }
