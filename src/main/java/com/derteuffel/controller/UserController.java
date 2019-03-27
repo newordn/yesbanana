@@ -2,10 +2,7 @@ package com.derteuffel.controller;
 
 
 import com.derteuffel.data.*;
-import com.derteuffel.repository.AddUserRoleRepository;
-import com.derteuffel.repository.GroupeRepository;
-import com.derteuffel.repository.RoleRepository;
-import com.derteuffel.repository.UserRepository;
+import com.derteuffel.repository.*;
 import com.derteuffel.service.MailService;
 import com.derteuffel.service.RoleService;
 import com.derteuffel.service.UserService;
@@ -47,6 +44,13 @@ public class UserController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private AddUserRoleRepository addUserRoleRepository;
+
+    @Autowired
+    private TheseRepository theseRepository;
+    @Autowired
+    private BibliothequeRepository bibliothequeRepository;
+    @Autowired
+    private BibliographyRepository bibliographyRepository;
 
     @Autowired
     private GroupeRepository groupeRepository;
@@ -284,6 +288,7 @@ public class UserController {
         model.addAttribute("user",user);
         AddUserRole form= new AddUserRole();
 
+        session.setAttribute("userId", user.getUserId());
         AddUserRole editForm= addUserRoleRepository.findByUserId(user.getUserId());
         Set<Role> roles= roleService.findByGroupe(userId);
         List<Role> roles1= roleRepository.findAll();
@@ -733,4 +738,48 @@ public class UserController {
 
         }
     }
+
+    @GetMapping("/these/{theseId}")
+    public String get(Model model, @PathVariable Long theseId){
+
+        Optional<These> optional= theseRepository.findById(theseId);
+        model.addAttribute("these1",optional.get());
+        return "user/these/these";
+
+    }
+
+    @GetMapping("/equipe/{theseId}")
+    public String getEquipe(Model model, @PathVariable Long theseId, HttpSession session){
+        Optional<These> optional= theseRepository.findById(theseId);
+        model.addAttribute("these1",optional.get());
+        return "user/these/these1";
+
+    }
+
+    @GetMapping("/biblib/{theseId}")
+    public String getBibLib(Model model, @PathVariable Long theseId, HttpSession session){
+        System.out.println("sdfffsfghjdg");
+        These these= theseRepository.getOne(theseId);
+        List<Bibliography>bibliographies=bibliographyRepository.findAllByThese(these.getTheseId());
+        List<Bibliography> bibliographiesDispo= bibliographyRepository.findAllByDisponibility(true);
+        List<Bibliography> bibliographies1=new ArrayList<>();
+        for (Bibliography  bibliography : bibliographies){
+            for (int i=0;i<bibliographiesDispo.size();i++){
+                if (bibliography.getBibliographyId().equals(bibliographiesDispo.get(i).getBibliographyId())){
+                    bibliographies1.add(bibliography);
+                }
+            }
+        }
+        model.addAttribute("disponibles", bibliographies1);
+        session.setAttribute("theseId", these.getTheseId());
+        model.addAttribute("bibliothequess",bibliothequeRepository.findAllByThese(these.getTheseId()));
+        model.addAttribute("bibliotheque", new Bibliotheque());
+        model.addAttribute("these1",these);
+        model.addAttribute("bibliographies",bibliographies);
+        model.addAttribute("bibliography", new Bibliography());
+
+        return "user/these/theseBibLib";
+
+    }
+
 }

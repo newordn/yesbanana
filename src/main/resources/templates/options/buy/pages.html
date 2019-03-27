@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Yesbanana</title>
     <meta charset="utf-8">
@@ -21,126 +21,103 @@
     <link rel="stylesheet" th:href="@{/css/flaticon.css}">
     <link rel="stylesheet" th:href="@{/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
-    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
-    <link th:href="@{/css/crew.css} " rel="stylesheet">
 
 </head>
 <body>
 
-
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/groupe/groupes}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li  class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-item" id="ender3">
-                            <a th:href="@{/groupe/groupes}" class="black nav-link" >Regions</a>
-                        </li>
-                        <li class="dropdown-item"  th:if="${session.roles[0].role == 'ROOT'}">
-                            <a th:href="@{/these/all}" class="black nav-link"  >Theses Générales</a>
-                        </li>
-                        <li class="dropdown-item"  th:if="${session.roles[0].role == 'ROOT_MASTER'}">
-                            <a th:href="@{/these/all}" class="black nav-link"  >Theses Générales</a>
-                        </li>
-                        <li class="dropdown-item"  th:if="${session.roles[0].role == 'ADMIN_MASTER'}">
-                            <a th:href="@{/these/all}" class="black nav-link"  >Theses Générales</a>
-                        </li>
-                    </ul>
+                <li class="nav-item active"><a th:href="@{/external/secure/region/region/university/}+${session.regionId}" class="nav-link ">Universités</a></li>
+                <li class="nav-item "><a th:href="@{/external/secure/region/region/logement/}+${session.regionId}" class="nav-link ">Logements</a></li></li>
+                <li class="nav-item"><a th:href="@{/external/secure/region/region/transport/}+${session.regionId}" class="nav-link " >Transport</a>
                 </li>
-                <li class="nav-item "><a th:href="@{/user}" class="nav-link " th:if="${session.roles[0].role == 'ROOT'}" >Staffs</a></li>
-                <li class="nav-item "><a th:href="@{/user}" class="nav-link " th:if="${session.roles[0].role == 'ROOT_MASTER'}" >Staffs</a></li>
-                <li class="nav-item "><a th:href="@{/stats}" class="nav-link " th:if="${session.roles[0].role == 'ROOT_MASTER'}" >Statistiques</a></li>
-                <li class="nav-item "><a th:href="@{/stats}" class="nav-link " th:if="${session.roles[0].role == 'ROOT'}" >Statistiques</a></li>
-                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${session.roles[0].role == 'ROOT'}" >Universités</a></li>
-                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${session.roles[0].role == 'ROOT_MASTER'}" >Universités</a></li>
-                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${session.roles[0].role == 'ADMIN_MASTER'}" >Universités</a></li>
-                <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ROOT')">
-                    <a href="#" class="nav-link" data-toggle="dropdown">Travailler avec nous</a>
-                    <ul class="dropdown-menu">
-
-                        <li class="dropdown-item" id="ender3">
-                            <a th:href="@{/management/student}" class="black nav-link" >Etudiant</a>
-                        </li>
-
-                        <li class="dropdown-item" id="ender4"><a  th:href="@{/user/visitor/form}" class=" black nav-link">Publication</a></li>
-                        <li class="dropdown-item" id="starter1" ><a href="#" class="black nav-link">Expert universitaires et professionnels</a>
-                            <ul id="hide1">
-                                <li class="nav-item"><a th:href="@{/management/chiefs}" class="black nav-link">Chef des travaux</a></li>
-                                <li class="nav-item"><a th:href="@{/management/professeurs}" class="black nav-link">Professeurs</a></li>
-                                <li class="nav-item"><a th:href="@{/management/assistants}" class="black nav-link">Assistant</a></li>
-                                <li class="nav-item"><a th:href="@{/management/master}" class="black nav-link">Master1&2</a></li>
-                                <li class="nav-item"><a th:href="@{/management/doctorat}" class="black nav-link" id="ender1">Phd/Doctorat</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown" th:if="${session.roles[0].role == 'ROOT'}">
-                    <a  href="#" class="nav-link" data-toggle="dropdown" >Educations et Autres</a>
-                    <ul class="dropdown-menu">
-                        <li><a  th:href="@{/management/countries/other}" class="black nav-link" >Autres services</a></li>
-                        <li><a  th:href="@{/management/countries/education}" class="black nav-link">Education</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown" th:if="${session.roles[0].role == 'ROOT_MASTER'}">
-                    <a  href="#" class="nav-link" data-toggle="dropdown" >Educations et Autres</a>
-                    <ul class="dropdown-menu">
-                        <li><a  th:href="@{/management/countries/other}" class="black nav-link" >Autres services</a></li>
-                        <li><a  th:href="@{/management/countries/education}" class="black nav-link">Education</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if="${session.roles[0].role == 'ROOT'}" >Formations</a></li>
-                <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if="${session.roles[0].role == 'ROOT_MASTER'}" >Formations</a></li>
-                <li class="nav-item dropdown text-center" sec:authorize="isFullyAuthenticated()">
-                    <!-- insert the profile image-->
-                    <a href="#">
-                        <img class="profile-img" th:src="${session.avatar}" alt="avatar">
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!-- insert the profile image-->
-                        <li class="nav-item"><a   class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
-                        <li class="nav-item">
-                            <a class="black nav-link" th:href="@{/logout}" >Deconnexion</a>
-                        </li>
-                    </ul>
-                </li>
+                <li class="nav-item"><a th:href="@{/external/secure/region/region/approvisionnement/}+${session.regionId}" class="nav-link">Approvisionnement</a></li>
             </ul>
         </div>
     </div>
 </nav>
+<!-- END nav -->
+
 <section class="ftco-section testimony-section">
-    <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
-            <div class="col-md-12 text-center heading-section ftco-animate">
-                <h1>Education</h1>
-                <h2 class="subheading"><span>Selectionner un pays</span></h2>
-            </div>
+          <div class="col-md-7 text-center heading-section ftco-animate">
+            <h1 >Commander des livres</h1>
+          </div>
         </div>
-        <div class="row ftco-animate">
-            <div class="item col-md-2" th:each="country : ${countries}">
-                <div class="testimony-wrap text-center py-4 pb-5">
-                    <a   th:href="@{/management/country/education/} + ${country.countryId}">
-                        <div class="user-img mb-4" th:style="'background-image: url(' + @{/images/country.png} + ');'">
-                        </div>
-                    <div class="text">
-                        <a  th:href="@{/management/country/education/} + ${country.countryId}">
-                            <p class="name" th:text="${country.countryName}">Cameroun</p></a>
-
-
+            <div class="container justify-content-center ftco-animate">
+              <div class="col-md-12 card bg-light text-black mr-3 mb-3" style="padding-left: 0;padding-right: 0">
+                    <div class="card-header">
+                        <h5>SUJET:</h5>
+                        <p class="card-text" th:text="${these.subject}">i want to marry you</p>
                     </div>
-                        </a>
-                </div>
+                     <div class="card-body text-center" style="padding: 0">
+                        <table class="table table-hover table-bordered ">
+                            <thead>
+                                    <th>Livre</th>
+                                    <th>Titre</th>
+                                    <th>Auteur</th>
+                                    <th>Prix</th>
+                                    <th>Page(s) Importante(s)</th>
+                            </thead>
+                            <tbody>
+                                <tr th:each="livre, i : ${these.bibliographies}" th:if="${livre.disponibility} == true" >
+                                    <td th:text="${i.index+1}"></td>
+                                    <td th:text="${livre.title}" ></td>
+                                    <td th:text="${livre.auteur}" ></td>
+                                    <td >
+                                        <input type="checkbox" name="price" th:checked="${price}"
+                                               th:value="${livre.price}" th:text="'$'+${livre.price}" />
+                                    </td>
+                                    <td style="padding:0">
+                                        <table style="width: 100%">
+                                            <tr>
+                                            <td>Nbre</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>3</td>
+                                            <td>5</td>
+                                            <td>10</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cout</td>
+                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
+                                                           th:value="${1}" th:text="'$'+${1}" /></td>
+                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
+                                                           th:value="${2}" th:text="'$'+${2}" /></td>
+                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
+                                                           th:value="${2.9}" th:text="'$'+${2.9}" /></td>
+                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
+                                                           th:value="${4.7}" th:text="'$'+${4.7}" /></td>
+                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
+                                                           th:value="${8.6}" th:text="'$'+${8.6}" /></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a th:href="@{/payment/form/}" class="btn btn-primary">Valider &nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+               </div>
+                  <div class="card-footer">
+                      <h5>SOMMAIRE:</h5>
+                      <a th:text="${these.resumes}" th:href="${these.resumes}"></a>
+                      <h5>AUTRE SOMMAIRE:</h5>
+                      <p th:text="${these.anotherSommaire}"></p>
+                  </div>
             </div>
-
         </div>
-</div>
-</section>
+    </section>
+
+
+
+
 <section class="ftco-section-parallax">
     <div class="parallax-img d-flex align-items-center">
         <div class="container">
@@ -232,7 +209,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script th:src="@{/js/google-map.js}"></script>
 <script th:src="@{/js/main1.js}"></script>
-<script th:src="@{/js/crew.js}"></script>
 <script type="text/javascript">
     $("#hide1").css("display","none");
     $("#hide2").css("display","none");

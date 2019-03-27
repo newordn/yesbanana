@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+
+    <!-- Title Page-->
+    <title>Contenu d'une thèse</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- thymeleaft -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+
+</head>
+
+<body class="row">
+<!--navigation-->
+<div th:replace="~{../templates/fragments/navigationcrewthese :: navigationcrewthese}">
+</div>
+<!-- navigation -->
+<!-- sidebar-->
+<!-- sidebar-->
+
+<div class="col-10 offset-2 main">
+
+    <div>
+        <!-- these detail -->
+        <div class=" col text-center" style="width:100%;">
+            <div class="row content" style="margin-top: 5.5rem;">
+                <div class="col-3" style="position:fixed !important;">
+                    <div class="card mt-6">
+                        <div th:replace="~{../templates/fragments/theseNavigationUser :: theseNavigationUser}"></div>
+                    </div>
+                </div>
+                <div class="col-8 offset-4">
+            <div class="mt-4">
+
+                <div class="card">
+                    <table class="table">
+                        <thead class="bg-light">
+                        <h4 >Etudiant</h4>
+                        </thead>
+                        <tbody>
+                        <td id="detailStudent" th:text="${these1.student}"></td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <div class="card">
+                    <table class="table">
+                        <thead class="bg-light">
+                        <h4>Encadreur</h4>
+                        </thead>
+                        <tbody>
+                        <td id="detailProf" th:text="${these1.profesor}"></td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="card">
+                    <table class="table">
+                        <thead class="bg-light">
+                        <h4>Chef de travaux/Charge de cours</h4>
+                        </thead>
+                        <tbody>
+                        <td id="detailChiefOfWork" th:text="${these1.workChief}"></td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="card">
+                    <table class="table">
+                        <thead class="bg-light">
+                        <h4 >Assistant</h4>
+                        </thead>
+                        <tbody>
+                        <td id="detailAssistant" th:text="${these1.assistant}"></td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+            </div>
+        </div>
+        </div>
+
+
+        <!-- these detail-->
+
+    </div>
+</div>
+<!-- scripts-->
+<!--vendor scripts -->
+<div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+<!--vendor scripts -->
+
+<!-- scripts-->
+<!-- js -->
+<script th:src="@{/js/js.js}"></script>
+
+</body>
+
+</html>

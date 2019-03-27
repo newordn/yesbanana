@@ -13,6 +13,9 @@
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script th:src="@{/js/dataTable/theses.js}" type="text/javascript"></script>
 
     <style>
         body{
@@ -485,6 +488,50 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <hr>
+            <br>
+            <div class="container">
+                <h3 class="text-center"><i>Mes Theses</i></h3>
+                <i class="text-center">Nombres: <span th:text="${#lists.size(user.theses)}"></span></i>
+                <div>
+                    <table class="table text-center table-hover  table-lg display" id="these">
+                        <thead class="text-white bg-secondary">
+                        <tr>
+                            <th>Pays</th>
+                            <th>Région</th>
+                            <th>Université</th>
+                            <th>Faculté</th>
+                            <th>Option</th>
+                            <th>Niveau</th>
+                            <th>Status</th>
+                            <th>Sujet</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="these : ${user.theses}">
+                            <td th:text="${these.country}"></td>
+                            <td th:text="${these.regions}"></td>
+                            <td th:text="${these.university}"></td>
+                            <td th:text="${these.faculty}"></td>
+                            <td th:text="${these.options}"></td>
+                            <td th:text="${these.level}"></td>
+                            <td th:if="${these.status} ==true" >
+                                <span>Public</span>
+                            </td>
+                            <td th:unless="${these.status} ==true" >
+                                <span>Suspendus</span>
+                            </td>
+                            <td th:text="${these.subject}"></td>
+                            <td>
+                                <a th:href="@{/user/these/}+${these.theseId}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

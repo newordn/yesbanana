@@ -99,7 +99,7 @@
 <section class="ftco-section testimony-section">
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
-            <div class="col-md-7 text-center heading-section ftco-animate">
+            <div class="col-md-12 text-center heading-section ftco-animate">
                 <h1 th:text="${university.universityName}">Cameroun</h1>
                 <h2 class="subheading"><span>Liste des facultés</span></h2>
             </div>
@@ -142,7 +142,7 @@
                                 </div>
                             </div>
                         </div>
-
+</div>
                 </tr>
                 </tbody>
             </table>
@@ -160,7 +160,7 @@
 
 
 <!-- add university button start-->
-<button sec:authorize="!hasRole('ROLE_USER')" style="position:fixed; right:10px;bottom:10px;z-index:404982450" type="button" class="addButton btn btn-success rounded-circle" data-toggle="modal" data-target="#addfaculty">
+<button  style="position:fixed; right:10px;bottom:10px;z-index:404982450" type="button" class="addButton btn btn-success rounded-circle" data-toggle="modal" data-target="#addfaculty">
     <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
 </button>
 <!-- add university button end-->

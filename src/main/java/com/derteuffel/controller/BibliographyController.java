@@ -48,6 +48,7 @@ public class BibliographyController {
         }else {
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
             bibliography.setPrice(0.0);
+            bibliography.setPagePrice(0.0);
             bibliography.setDisponibility(false);
             bibliographyRepository.save(bibliography);
         }
@@ -55,14 +56,15 @@ public class BibliographyController {
     }
 
     @PostMapping("/update")
-    public String update(Bibliography bibliography, Model model, HttpSession session){
+    public String update(Bibliography bibliography, Model model, HttpSession session, String prix){
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
+        bibliography.setPrice(Double.parseDouble(prix));
             bibliographyRepository.save(bibliography);
         return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
     }
 
     @PostMapping("/disponibility/{bibliographyId}")
-    public String changeDisponibility(Bibliography bibliography,HttpSession session,@PathVariable Long bibliographyId){
+    public String changeDisponibility(Bibliography bibliography,HttpSession session,@PathVariable Long bibliographyId, String prix,String description){
 
         System.out.println(bibliography.getDisponibility());
         System.out.println(bibliography.getDescription());
@@ -72,6 +74,9 @@ public class BibliographyController {
             bibliography.setDisponibility(true);
         }
         bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
+        bibliography.setDescription(description);
+        bibliography.setPrice(Double.parseDouble(prix));
+        bibliography.setPagePrice(0.0);
         bibliographyRepository.save(bibliography);
         return "redirect:/groupe/groupe/biblib/"+(Long)session.getAttribute("theseId");
     }

@@ -52,7 +52,7 @@
           </div>
         </div>
             <div class="row justify-content-center ftco-animate">
-              <div class="col-md-5 card bg-light text-black mr-3 mb-3" th:each="these : ${theses}" style="padding-left: 0;padding-right: 0">
+                <div class="col-md-5 card bg-light text-black mr-3 mb-3" th:each="these : ${theses}" style="padding-left: 0;padding-right: 0">
                     <div class="card-header">
                         <h5>SUJET:</h5>
                         <p class="card-text" th:text="${these.subject}">i want to marry you</p>
@@ -74,11 +74,12 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <a th:href="@{/external/secure/options/buy/} + ${these.theseId}" class="btn btn-primary">Commander &nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+                        <a th:href="@{/external/secure/options/buy/livres/}+${these.theseId}" class="btn btn-primary mb-2 ml-1">Commander un Livre &nbsp;&nbsp;<i class="fa fa-book"></i></a> Ou
+                        <a th:href="@{/external/secure/options/buy/pages/} + ${these.theseId}" class="btn">Consulter les Pages Importantes &nbsp;&nbsp;<i class="fa fa-leanpub"></i></a>
                </div>
                   <div class="card-footer">
                       <h5>SOMMAIRE:</h5>
-                      <p th:text="${these.resumes}"></p>
+                      <a th:text="${these.resumes}" th:href="${these.resumes}"></a>
                       <h5>AUTRE SOMMAIRE:</h5>
                       <p th:text="${these.anotherSommaire}"></p>
                   </div>
