@@ -46,6 +46,7 @@ var options = {
     data:  JSON.stringify(body) , // Our valid JSON string
     success: function( data, status, xhr ) {
         console.log(data);
+
     },
     error: function( xhr, status, error ) {
         console.log(error);
