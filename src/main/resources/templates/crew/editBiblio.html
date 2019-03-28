@@ -33,7 +33,7 @@
             <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/bibliography/update}" th:object="${bibliography}">
 
                 <div class="mb-4">
-                    <div class="col-12 col-sm-6 col-lg-12">
+                    <div class="col-md-6">
                         <!--theseId-->
                         <input type="hidden" name="theseId" th:value="${session.theseId}"  >
                         <!--theseId-->
@@ -44,27 +44,27 @@
                             <input type="text" th:field="*{auteur}" id="assistant" class="form-control" placeholder="Nom de l'auteur" />
                         </div>
                     </div>
-                    <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                    <div class="col-md-6 mt-3">
                         <div class="form-group">
                             <span class='error' id="studentError"></span>
                             <p class="mt-2 mb-2">Titre:</p>
                             <input type="text" th:field="*{title}" id="student" class="form-control" placeholder="Titre du livre" />
                         </div>
                     </div>
-                    <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                    <div class="col-md-6 mt-3">
                         <div class="form-group ">
                             <span class='error' id="profError"></span>
                             <p class="mt-2 mb-2">Description:</p>
                             <textarea class="form-control" id="description" rows="5" style="height: 100px" placeholder="Description " th:field="*{description}" type="text"></textarea>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                    <div class="col-md-6 mt-3">
                         <div class="form-group">
                             <span class='error' id="linkError"></span>
                             <input type="url" th:field="*{link}"  id="link" class="form-control" placeholder="Lien de telechargement du livre" />
                         </div>
                     </div>
-                    <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                    <div class="col-md-6 mt-3">
                         <div class="form-group ">
                             <span class='error' id="price"></span>
                             <p class="mt-2 mb-2">Prix:</p>

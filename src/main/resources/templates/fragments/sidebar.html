@@ -1,30 +1,30 @@
 <!-- sidebar-->
-<div class="col-2 sidebar" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="sidebar"
+<nav id="sidebar" th:if="${session.roles[0].role == 'USER'}" class="bg-light"  xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="sidebar"
      xmlns:sec="http://www.w3.org/1999/xhtml">
-    <div class="sidebar-items" th:if="${session.roles[0].role == 'ROOT'}">
-        <a th:href="@{/groupe/groupe/} + ${session.groupeId}"><button id="thesesButton"><i class="zmdi zmdi-graduation-cap zmdi-hc-2x"></i><br>Thèses</button></a>
-        <a th:href="@{/groupe/groupe/users/} + ${session.groupeId}"><button id="usersLink"><i class="zmdi zmdi-account zmdi-hc-2x"></i><br>Utilisateurs</button></a>
-         <a th:href="@{/groupe/stats/}"><button id="statsLink"><i class="zmdi zmdi-trending-down zmdi-hc-2x"></i><br>Statistiques</button></a>
-        <a th:href="@{/groupe/training/}+ ${session.groupeId}"><button id="groupTeamLink"><i class="zmdi zmdi-group-work zmdi-hc-2x"></i><br>Accompa...</button></a>
+    <div class="sidebar-header">
+        <a th:href="@{/groupe/groupes}" class="btn text-success" ><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
     </div>
-    <div class="sidebar-items" th:if="${session.roles[0].role == 'ADMIN'}">
-        <a th:href="@{/groupe/groupe/} + ${session.groupeId}"><button id="thesesButton"><i class="zmdi zmdi-graduation-cap zmdi-hc-2x"></i><br>Thèses</button></a>
-         <a th:href="@{/groupe/groupe/users/} + ${session.groupeId}"><button id="usersLink"><i class="zmdi zmdi-account zmdi-hc-2x"></i><br>Utilisateurs</button></a>
-        <a th:href="@{/groupe/stats/}"><button id="statsLink"><i class="zmdi zmdi-trending-down zmdi-hc-2x"></i><br>Statistiques</button></a>
-         <a th:href="@{/groupe/training/}+ ${session.groupeId}"><button id="groupTeamLink"><i class="zmdi zmdi-group-work zmdi-hc-2x"></i><br>Accompa...</button></a>
-    </div>
-    <div class="sidebar-items" th:if="${session.roles[0].role == 'ADMIN_MASTER'}">
-        <a th:href="@{/groupe/groupe/} + ${session.groupeId}"><button id="thesesButton"><i class="zmdi zmdi-graduation-cap zmdi-hc-2x"></i><br>Thèses</button></a>
-       <a  th:href="@{/groupe/groupe/users/} + ${session.groupeId}"><button id="usersLink"><i class="zmdi zmdi-account zmdi-hc-2x"></i><br>Utilisateurs</button></a>
-         <a  th:href="@{/groupe/stats/}"><button id="statsLink"><i class="zmdi zmdi-trending-down zmdi-hc-2x"></i><br>Statistiques</button></a>
-       <a  th:href="@{/groupe/training/}+ ${session.groupeId}"><button id="groupTeamLink"><i class="zmdi zmdi-group-work zmdi-hc-2x"></i><br>Accompa...</button></a>
-    </div>
-    <div class="sidebar-items" th:if="${session.roles[0].role == 'ROOT_MASTER'}">
-        <a th:href="@{/groupe/groupe/} + ${session.groupeId}"><button id="thesesButton"><i class="zmdi zmdi-graduation-cap zmdi-hc-2x"></i><br>Thèses</button></a>
-         <a  th:href="@{/groupe/groupe/users/} + ${session.groupeId}"><button id="usersLink"><i class="zmdi zmdi-account zmdi-hc-2x"></i><br>Utilisateurs</button></a>
-        <a  th:href="@{/groupe/stats/}"><button id="statsLink"><i class="zmdi zmdi-trending-down zmdi-hc-2x"></i><br>Statistiques</button></a>
-         <a  th:href="@{/groupe/training/}+ ${session.groupeId}"><button id="groupTeamLink"><i class="zmdi zmdi-group-work zmdi-hc-2x"></i><br>Accompa...</button></a>
-    </div>
+
     <span style="color:white;font-size:.7rem;position:absolute;bottom: 0;left:0">@neword,@derteuffel</span>
-</div>
+</nav>
+<!-- sidebar-->
+
+<!-- sidebar-->
+<nav id="sidebar" class="bg-light fixed-top active"  th:unless="${session.roles[0].role == 'USER'}"  xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="sidebar"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+
+    <div class="sidebar-header">
+        <button  class="btn text-white" id="back" ><i class="fa fa-arrow-left"></i><br><span>Retour</span></button>
+    </div>
+    <ul class="list-unstyled components">
+       <li> <a th:href="@{/groupe/groupe/} + ${session.groupeId}" class="btn text-success"><i class="zmdi zmdi-graduation-cap zmdi-hc-2x"></i><br>Thèses</a></li>
+        <li> <a th:href="@{/groupe/groupe/users/} + ${session.groupeId}" class="btn text-success"><i class="zmdi zmdi-account zmdi-hc-2x"></i><br>Utilisateurs</a></li>
+        <li> <a th:href="@{/groupe/stats/}" class=" btn text-success"><i class="zmdi zmdi-trending-down zmdi-hc-2x"></i><br>Statistiques</a></li>
+        <li> <a th:href="@{/groupe/training/}+ ${session.groupeId}" class=" btn text-success"><i class="zmdi zmdi-group-work zmdi-hc-2x"></i><br>Accompa...</a></li>
+    </ul>
+    <br>
+    <h4>
+    <span style="color:white;font-size:.7rem;left:0">@neword,@derteuffel</span>
+    </h4>
+</nav>
 <!-- sidebar-->
