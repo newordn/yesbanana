@@ -80,18 +80,24 @@
             </div>
 
         <div class="row justify-content-center" id="mobile">
-        <form action="#" class="subscribe-form mt-2" method="post" >
+        <form action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
+            <div style="margin-left:1rem">
+               <label for="amount">Montant &nbsp;</label>
+                <input type="text" id="amount" class="input-field" style="padding-left:1rem" name="amount">
+                <strong>Fcfa</strong>
+            </div>
             <div class="form-group d-flex ">
                 <div class="col-md-4 form-group">
-                    <select class="custom-select">
-                        <option>Opérateurs</option>
-                        <option value="om" required>Orange Money</option>
-                        <option value="momo">Vodacom Money</option>
+                    <select class="custom-select" id="operatorSelection">
+                        <option value="undefined">Opérateurs</option>
+                        <option value="CM_ORANGEMONEY" >Orange Money</option>
+                        <option value="CM_MTNMOBILEMONEY" >Mtn Mobile Money</option>
+                        <option value="vodacom">Vodacom Money</option>
                         <option value="airtel">Airtel Money</option>
                     </select>
                 </div>
                 <div class="col-md-5">
-                    <input type="text" id="phone_number" style="width:100%;padding-left:4rem;" placeholder="Votre numéro de téléphone ex: 237693063228">
+                    <input type="text" id="phone_number" name="phone" style="width:100%;padding-left:4rem;" placeholder="Votre numéro de téléphone ex: 237693063228">
                 </div>
                 <div class="col-md-3">
                     <button type="button"  onClick="pay()" class="btn btn-primary " style="width:100%">Valider</button>
