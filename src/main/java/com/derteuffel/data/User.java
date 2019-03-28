@@ -108,6 +108,7 @@ public class User implements Serializable{
     private String classe;
     @Column
     private  String experienceYear="0";
+     private Boolean status;
 
 
     @Column
@@ -136,7 +137,8 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod,
                 String dayWorkBeginning, String dayWorkEnd, String studentNumber, Boolean numberOfWorkers,
-                String anotherDetail, String classe, String experienceYear, List<Post> posts, String cv, List<These> theses, List<Role> roles, List<Groupe> groupes, Boolean autorization, String amount) {
+                String anotherDetail, String classe, String experienceYear, List<Post> posts, String cv, List<These> theses,
+                Boolean status, List<Role> roles, List<Groupe> groupes, Boolean autorization, String amount) {
         this.name = name;
         this.email = email;
         this.experienceYear= experienceYear;
@@ -153,6 +155,7 @@ public class User implements Serializable{
         this.active = active;
         this.category = category;
         this.diplom = diplom;
+        this.status=status;
         this.expertDomain = expertDomain;
         this.beginningPeriod = beginningPeriod;
         this.endPeriod = endPeriod;
@@ -223,6 +226,14 @@ public class User implements Serializable{
         this.theses = theses;
         this.roles = roles;
         this.groupes = groupes;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public String getExperienceYear() {

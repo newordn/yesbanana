@@ -269,7 +269,13 @@ public class UserController {
     @GetMapping("")
     public String allUsers(Model model) {
         List<User> users = userRepository.findAllByActiveOrderByUserIdDesc(true);
-        model.addAttribute("users", users);
+        List<User> users1= new ArrayList<>();
+        for (int i=0;i<users.size();i++){
+            if (users.get(i).getStatus() == true){
+                users1.add(users.get(i));
+            }
+        }
+        model.addAttribute("users", users1);
         String avatar = "";
         for (User user : users) {
             avatar = user.getImg();
@@ -341,7 +347,11 @@ public class UserController {
 
     @GetMapping("/delete/{userId}")
     public String deleteUser(@PathVariable Long userId) {
-        userService.delete(userId);
+
+        User user=userRepository.getOne(userId);
+        user.setStatus(false);
+        user.setActive(false);
+        userRepository.save(user);
         return "redirect:/user";
     }
 
