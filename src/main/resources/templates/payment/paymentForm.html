@@ -105,32 +105,22 @@
             </div>
         </form>
         </div>
+        <h4 class="text-center">Visa/Mastercard</h4><br>
         <div class="row justify-content-center" id="creditCard">
-            <div class="form-group col-6" >
-                Name on the Card<font color="red">*</font>:<br>
-                <input type="text" name="x_Card_Name" style="width:100%;padding-left:4rem" value="" maxlength="255" placeholder="eg. Johnny Bravo">
-            </div>
-            <div class="form-group col-6">
-                Credit Card Number<font color="red">*</font>:<br>
-                <input type="text" name="x_Card_Num" style="width:100%;padding-left:4rem" value="" maxlength="255" placeholder="################">
-                <br>
-            </div>
-            <div class="form-group col-6">
-                Security Code: <span class="tooltip redtxt tooltipstered" style="font-size:12px;">(What's This?)</span><br>
-                <input size="6" maxlength="4" style="width:100%;padding-left:4rem" name="x_Card_Code" value="" placeholder="###" type="text">
-            </div>
-            <div class="form-group col-6">
-                Expiration Date<font color="red">*</font>:<br>
-                <input type="text" name="exp_month" style="width: 50%"  maxlength="255" placeholder="08">
-                /
-                <input type="text" name="exp_year" style="width: 46%"  maxlength="255" placeholder="2021">
 
-            </div>
-
-            <div class=" row justify-content-end">
-                <button class="btn btn-primary btn-lg" ><i class="fa fa-check"></i></button>
-            </div>
-
+            <form th:action="@{/payment/payBy/card}" method="POST">
+                <script
+                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="pk_test_9e0Inb5HJwLZIXFRgGtn23Ne00eX4BMe9E"
+                        data-amount="999"
+                        data-name="Yesbanana"
+                        data-description="Charging for goods"
+                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                        data-locale="auto"
+                        data-zip-code="true"
+                >
+                </script>
+            </form>
         </div>
 
         <div class="row justify-content-center" id="payPal">
