@@ -35,6 +35,11 @@ public class PaymentController {
         model.addAttribute("user",user.get());
         return "payment/paymentForm";
     }
+    @GetMapping("/panier")
+    public String getPanier()
+    {
+        return "payment/panier";
+    }
     @GetMapping("/transactions")
     public String getTransactions()
     {
