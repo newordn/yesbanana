@@ -1,7 +1,3 @@
-
-
-
-
 $.each(document.getElementsByClassName("user-item"), (i, v) => {
     v.addEventListener("click", () => {
     if (v.getAttribute("style") =="background-color:#2286c3; color:white;")

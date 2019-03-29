@@ -338,6 +338,16 @@ public class GroupeController {
 
     }
 
+    @GetMapping("/user/delete/{userId}")
+    public String deleteUser(@PathVariable Long userId,HttpSession session) {
+
+        User user=userRepository.getOne(userId);
+        user.setStatus(false);
+        user.setActive(false);
+        userRepository.save(user);
+        return "redirect:/groupe/groupe/users/"+ (Long)session.getAttribute("groupeId");
+    }
+
     // for saving a crew
     @PostMapping("/save")
     public String save(Groupe groupe, Errors errors){
@@ -482,11 +492,25 @@ public class GroupeController {
         User user=userService.findByName(auth.getName());
         session.setAttribute("name",user.getName());
         List<User> users1=userService.listAll();
+        List<User> users= new ArrayList<>();
+        for (int i=0;i<users1.size();i++){
+            if (users1.get(i).getStatus()== true & users1.get(i).getActive()!= null){
+                users.add(users1.get(i));
+            }
+        }
+        System.out.println(users);
         Groupe groupe = groupeRepository.getOne(groupeId);
         List<User> userGroup= userRepository.findByGroupes_GroupeId(groupe.getGroupeId());
+        List<User> usersGroup= new ArrayList<>();
+        for (int j=0;j<userGroup.size();j++){
+            if (userGroup.get(j).getStatus()== true & userGroup.get(j).getActive()!= null){
+                usersGroup.add(userGroup.get(j));
+            }
+        }
         session.setAttribute("roles", user.getRoles());
-        model.addAttribute("users1",users1);
-        model.addAttribute("users", userGroup);
+        model.addAttribute("users1",users);
+        model.addAttribute("users", usersGroup);
+        System.out.println(usersGroup);
         model.addAttribute("usersGroupe", new UsersGroupe());
         model.addAttribute("groupeName", groupe.getGroupeName());
         model.addAttribute("groupe",groupe);
