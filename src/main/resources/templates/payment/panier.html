@@ -34,8 +34,8 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item "><a href="/" class="nav-link ">Accueil</a></li>
-                <li class="nav-item active"><a href="/payment/form" class="nav-link ">Paiement</a></li>
-                <li class="nav-item"><a href="/payment/panier" class="nav-link">Votre panier</a></li>
+                <li class="nav-item"><a href="/payment/form" class="nav-link ">Paiement</a></li>
+                <li class="nav-item active"><a href="/payment/panier" class="nav-link">Votre panier</a></li>
                 <li class="nav-item ">
                     <a  href="/payment/transactions" class="nav-link">Mes transactions</a>
                 </li>
@@ -59,99 +59,27 @@
     </div>
 </nav>
 <!-- END nav -->
-<!--payment form -->
+
 <section class="ftco-section testimony-section">
 
     <div class="container">
-        <div class="row justify-content-center  pb-3">
-            <div class="col-md-7 text-center heading-section ftco-animate">
-                <h2 class="mb-1"><span>Effectuer un paiement</span></h2>
-            </div>
-        </div>
-            <div class="row d-flex text-center heading-section mb-5 justify-content-between" >
-                <div class="col-4">
-                    <input type="radio" name="pay_method" id="creditCardTrigger" value="creditcard" checked="">Credit Card(MasterCard/Visa)
-                </div>
-                <div class="col-4">
-                    <span><input type="radio"  id="payPalTrigger" name="pay_method" value="paypal"> PayPal</span>
-                </div>
-                <div class="col-4">
-                    <span><input type="radio" id="mobileTrigger" name="pay_method" value="mobile" > Mobile Money</span>
-                </div>
-            </div>
-
-        <div class="row justify-content-center" id="mobile">
-        <form action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
-            <div style="margin-left:1rem">
-               <label for="amount">Montant &nbsp;</label>
-                <input type="text" id="amount" class="input-field" style="padding-left:1rem" name="amount">
-                <strong>Fcfa</strong>
-            </div>
-            <div class="form-group d-flex ">
-                <div class="col-md-4 form-group">
-                    <select class="custom-select" id="operatorSelection">
-                        <option value="undefined">Opérateurs</option>
-                        <option value="CM_ORANGEMONEY" >Orange Money</option>
-                        <option value="CM_MTNMOBILEMONEY" >Mtn Mobile Money</option>
-                        <option value="vodacom">Vodacom Money</option>
-                        <option value="airtel">Airtel Money</option>
-                    </select>
-                </div>
-                <div class="col-md-5">
-                    <input type="text" id="phone_number" name="phone" style="width:100%;padding-left:4rem;" placeholder="Votre numéro de téléphone ex: 237693063228">
-                </div>
-                <div class="col-md-3">
-                    <button type="button"  onClick="pay()" class="btn btn-primary " style="width:100%">Valider</button>
-                </div>
-            </div>
-        </form>
-        </div>
-        <h4 class="text-center">Visa/Mastercard</h4><br>
-        <div class="row justify-content-center" id="creditCard">
-
-            <form th:action="@{/payment/payBy/card}" method="POST">
-                <script
-                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="pk_test_9e0Inb5HJwLZIXFRgGtn23Ne00eX4BMe9E"
-                        data-amount="999"
-                        data-name="Yesbanana"
-                        data-description="Charging for goods"
-                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                        data-locale="auto"
-                        data-zip-code="true"
-                >
-                </script>
-            </form>
-        </div>
-
-        <div class="row justify-content-center" id="payPal">
-
-            <div id="paypal-button-container" class="row justify-content-center">
-
-            </div>
-
-        </div>
+        <table class="table bordered" style="color:black">
+            <thead>
+            <th>Produits</th>
+            <th>Montant</th>
+            <th>Enlever</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Cours d'anglais</td>
+                <td>25$</td>
+                <td><button class="btn btn-danger"><i class="fa fa-close"></i></button></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 </section>
-<!-- payment form -->
-
-<div style="opacity:0">
-<!-- success button -->
-<a th:href="@{/payment/transactions}" id="transaction_success"><span>sucess</span></a>
-<!-- success button -->
-
-
-<!-- error button -->
-<a th:href="@{/payment/error}" id="transaction_error"><span>error</span></a>
-<!-- error button -->
-</div>
-
-<!-- payment value -->
-<input type="hidden" th:value="${user.email}" id="user_email">
-<input type="hidden" th:value="${user.name}" id="user_name">
-<input type="hidden" th:value="${user.country}" id="user_country">
-<!-- payment value -->
 <section class="ftco-section-parallax">
     <div class="parallax-img d-flex align-items-center">
         <div class="container">
@@ -243,29 +171,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script th:src="@{/js/google-map.js}"></script>
 <script th:src="@{/js/main1.js}"></script>
-<script th:src="@{/js/PaymentScripts/paymentMobileOrange.js}"></script>
-<script th:src="@{/js/PaymentScripts/paymentPayPal.js}"></script>
-<script type="text/javascript">
-    $("#payPal").css("display","none");
-    $("#mobile").css("display","none");
 
-        // Go to the previous item
-    $('#mobileTrigger').click(function() {
-        $("#mobile").css("display","block");
-        $("#creditCard").css("display","none");
-        $("#payPal").css("display","none");
-    });
-
-    $('#payPalTrigger').click(function() {
-        $("#payPal").css("display","block");
-        $("#creditCard").css("display","none");
-        $("#mobile").css("display","none");
-    });
-    $('#creditCardTrigger').click(function() {
-        $("#creditCard").css("display","flex");
-        $("#mobile").css("display","none");
-        $("#payPal").css("display","none");
-    })
-</script>
 </body>
 </html>
