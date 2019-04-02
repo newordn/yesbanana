@@ -27,7 +27,7 @@ import java.util.Optional;
 public class PaymentController {
 
     @Autowired
-    UserRepository userRepository;
+   private UserRepository userRepository;
     @GetMapping("/form")
     public String getForm(HttpSession session, Model model)
     {
