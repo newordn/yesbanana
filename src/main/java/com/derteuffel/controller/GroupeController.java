@@ -29,6 +29,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.http.HttpSession;
+import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -61,6 +63,8 @@ public class GroupeController {
     private BibliothequeRepository bibliothequeRepository;
     @Autowired
             private RoleRepository roleRepository;
+    @Autowired
+            private PanierRepository panierRepository;
 
     List<String> countries= Arrays.asList(
             "Afghanistan",
@@ -302,6 +306,9 @@ public class GroupeController {
             model.addAttribute("crews",groupes);
             model.addAttribute("users",users);
             model.addAttribute("crews1",crews);
+        long time = System.currentTimeMillis();
+        Panier panier = new Panier(new Date(time),null,user,0.0);
+        panierRepository.save(panier);
         return "crew/crews";
     }
 

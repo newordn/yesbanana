@@ -10,6 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/animate.css}">
     <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
     <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
@@ -61,18 +62,20 @@
 <!-- END nav -->
 
 <section class="ftco-section testimony-section">
-
-    <div class="container">
+    <h4 class="text-center">L'historique de vos transactions</h4>
+    <div class="container" th:each="panier : ${paniers}">
+        <h4 class="text-center"> Date :  <span th:text="${panier.date}"></span></h4>
+        <h4>Montant total : <span th:text="${panier.count}" class="text-center"></span> $ </h4>
         <table class="table bordered" style="color:black">
-            <thead>
-            <th>Produits</th>
-            <th>Montant</th>
-            <th>Enlever</th>
+                <thead>
+                <th>Produits</th>
+                <th>Montant</th>
+                <th>Enlever</th>
             </thead>
             <tbody>
-            <tr>
-                <td>Cours d'anglais</td>
-                <td>25$</td>
+            <tr th:each="article : ${panier.articles}">
+                <td th:text="${article.name}">Cours d'anglais</td>
+                <td th:text="${article.prix}">25$</td>
                 <td><button class="btn btn-danger"><i class="fa fa-close"></i></button></td>
             </tr>
             </tbody>
