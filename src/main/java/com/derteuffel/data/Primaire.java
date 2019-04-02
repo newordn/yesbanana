@@ -16,20 +16,12 @@ import java.util.Date;
 @PrimaryKeyJoinColumn(name = "educationId")
 public class Primaire extends Education implements Serializable {
 
-    @ManyToOne
-    private Region region;
+
 
     public Primaire() {
     }
-    public Primaire(String title, String description, int likes, Date realeseDate, ArrayList<String> pieces, String type,Boolean status, String fileType) {
-        super(title, description, likes, pieces, type,status, realeseDate,fileType);
+    public Primaire(String title,Double price, String description, int likes, Date realeseDate, ArrayList<String> pieces, String type,Boolean status, String couverture) {
+        super(title,price, description, likes, pieces, type,status, realeseDate,couverture);
     }
 
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
-    }
 }

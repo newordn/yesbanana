@@ -1,8 +1,8 @@
 <!-- sidebar-->
-<nav id="sidebar" th:if="${session.roles[0].role == 'USER'}" class="bg-light"  xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="sidebar"
+<nav id="sidebar" class="bg-light fixed-top active" th:if="${session.roles[0].role == 'USER'}"   xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="sidebar"
      xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="sidebar-header">
-        <a th:href="@{/groupe/groupes}" class="btn text-success" ><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+        <button  class="btn text-white" id="back" ><i class="fa fa-arrow-left"></i><br><span>Retour</span></button>
     </div>
 
     <span style="color:white;font-size:.7rem;position:absolute;bottom: 0;left:0">@neword,@derteuffel</span>

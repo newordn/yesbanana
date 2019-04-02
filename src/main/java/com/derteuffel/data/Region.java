@@ -36,10 +36,7 @@ public class Region implements Serializable {
     private List<Event> events;
     @OneToMany(mappedBy = "region")
     @Cascade(CascadeType.ALL)
-    private List<Primaire> primaires;
-    @OneToMany(mappedBy = "region")
-    @Cascade(CascadeType.ALL)
-    private List<Secondary> secondaries;
+    private List<Education> educations;
     @OneToMany(mappedBy = "region")
     @Cascade(CascadeType.ALL)
     private List<Other> others;
@@ -55,21 +52,12 @@ public class Region implements Serializable {
     }
 
     @JsonIgnore
-    public List<Primaire> getPrimaires() {
-        return primaires;
+    public List<Education> getEducations() {
+        return educations;
     }
 
-    public void setPrimaires(List<Primaire> primaires) {
-        this.primaires = primaires;
-    }
-
-    @JsonIgnore
-    public List<Secondary> getSecondaries() {
-        return secondaries;
-    }
-
-    public void setSecondaries(List<Secondary> secondaries) {
-        this.secondaries = secondaries;
+    public void setEducations(List<Education> educations) {
+        this.educations = educations;
     }
 
     @JsonIgnore

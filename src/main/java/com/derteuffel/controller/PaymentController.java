@@ -33,14 +33,12 @@ import java.util.*;
 public class PaymentController {
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     private UserService userService;
     @Autowired
     PanierRepository panierRepository;
     @Autowired
     ArticleRepository articleRepository;
+   private UserRepository userRepository;
     @GetMapping("/form")
     public String getForm(HttpSession session, Model model)
     {
