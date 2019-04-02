@@ -24,8 +24,8 @@ public class Secondary extends Education implements Serializable {
     }
 
 
-    public Secondary(String title, String description, int likes, ArrayList<String> pieces,Boolean status, String type, Date realeseDate, Collection<Event> events, String fileType) {
-        super(title, description, likes, pieces, type,status, realeseDate,fileType);
+    public Secondary(String title,Double price, String description, int likes, ArrayList<String> pieces,Boolean status, String type, Date realeseDate, Collection<Event> events, String fileType) {
+        super(title, price, description, likes, pieces, type,status, realeseDate,fileType);
     }
 
 

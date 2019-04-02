@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +20,7 @@ public class Education implements Serializable {
     @GeneratedValue
     private Long educationId;
     @Column
+    @NotEmpty
     private String title;
     @Column
     private String description;
@@ -27,36 +29,58 @@ public class Education implements Serializable {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date realeseDate;
-    @Autowired
-    private Boolean status;
+    @Column
+    private Boolean status=false;
     @Column
     private ArrayList<String> pieces=new ArrayList<>();
     @Column
     private String type;
     @Column
-    private String fileType;
+    private String couverture;
+
+    private Double price;
+
+    @ManyToOne
+    private Region region;
 
 
     public Education() {
     }
 
-    public Education(String title, String description, int likes, ArrayList<String> pieces, String type, Boolean status, Date realeseDate, String fileType) {
+    public Education(String title,Double price, String description, int likes, ArrayList<String> pieces, String type, Boolean status, Date realeseDate, String couverture) {
         this.title = title;
         this.description = description;
         this.likes = likes;
+        this.price=price;
         this.realeseDate=realeseDate;
         this.pieces = pieces;
         this.type = type;
         this.status=status;
-        this.fileType=fileType;
+        this.couverture=couverture;
     }
 
-    public String getFileType() {
-        return fileType;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public String getCouverture() {
+        return couverture;
+    }
+
+    public void setCouverture(String couverture) {
+        this.couverture = couverture;
     }
 
     public Long getEducationId() {

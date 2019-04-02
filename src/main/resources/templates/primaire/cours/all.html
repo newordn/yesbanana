@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Yesbanana</title>
     <meta charset="utf-8">
@@ -21,12 +21,22 @@
     <link rel="stylesheet" th:href="@{/css/flaticon.css}">
     <link rel="stylesheet" th:href="@{/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script th:src="@{/js/dataTable/colonie.js}" type="text/javascript"></script>
+    <link th:href="@{/css/dataTablesResponsive.css}" rel="stylesheet">
+    <script th:src="@{/js/dataTablesResponsive.js}"></script>
+
     <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+
+
 
 </head>
 <body>
-
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
@@ -37,112 +47,59 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li  class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-item" id="ender3">
-                            <a th:href="@{/groupe/groupes}" class="black nav-link" >Regions</a>
-                        </li>
-                        <li class="dropdown-item"  th:if="${session.roles[0].role == 'ROOT'}">
-                            <a th:href="@{/these/all}" class="black nav-link"  >Theses Générales</a>
-                        </li>
-                        <li class="dropdown-item"  th:if="${session.roles[0].role == 'ROOT_MASTER'}">
-                            <a th:href="@{/these/all}" class="black nav-link"  >Theses Générales</a>
-                        </li>
-                        <li class="dropdown-item"  th:if="${session.roles[0].role == 'ADMIN_MASTER'}">
-                            <a th:href="@{/these/all}" class="black nav-link"  >Theses Générales</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item "><a th:href="@{/user}" class="nav-link " th:if="${session.roles[0].role == 'ROOT'}" >Staffs</a></li>
-                <li class="nav-item "><a th:href="@{/user}" class="nav-link " th:if="${session.roles[0].role == 'ROOT_MASTER'}" >Staffs</a></li>
-                <li class="nav-item "><a th:href="@{/stats}" class="nav-link " th:if="${session.roles[0].role == 'ROOT_MASTER'}" >Statistiques</a></li>
-                <li class="nav-item "><a th:href="@{/stats}" class="nav-link " th:if="${session.roles[0].role == 'ROOT'}" >Statistiques</a></li>
-                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${session.roles[0].role == 'ROOT'}" >Universités</a></li>
-                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${session.roles[0].role == 'ROOT_MASTER'}" >Universités</a></li>
-                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${session.roles[0].role == 'ADMIN_MASTER'}" >Universités</a></li>
-                <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ROOT')">
-                    <a href="#" class="nav-link" data-toggle="dropdown">Travailler avec nous</a>
-                    <ul class="dropdown-menu">
+                <li class="nav-item "><a th:href="@{/primaire/primaires/colonie/}+${region.regionId}" class="nav-link ">Colonie de vacances</a></li>
+                <li class="nav-item "><a th:href="@{/primaire/primaires/langue/}+${region.regionId}" class="nav-link ">Anglais et/ou Francais</a></li></li>
 
-                        <li class="dropdown-item" id="ender3">
-                            <a th:href="@{/management/student}" class="black nav-link" >Etudiant</a>
-                        </li>
+                <li class="nav-item active"><a th:href="@{/primaire/primaires/cours/}+${region.regionId}" class="nav-link " >Cours d'appui</a>
 
-                        <li class="dropdown-item" id="ender4"><a  th:href="@{/user/visitor/form}" class=" black nav-link">Publication</a></li>
-                        <li class="dropdown-item" id="starter1" ><a href="#" class="black nav-link">Expert universitaires et professionnels</a>
-                            <ul id="hide1">
-                                <li class="nav-item"><a th:href="@{/management/chiefs}" class="black nav-link">Chef des travaux</a></li>
-                                <li class="nav-item"><a th:href="@{/management/professeurs}" class="black nav-link">Professeurs</a></li>
-                                <li class="nav-item"><a th:href="@{/management/assistants}" class="black nav-link">Assistant</a></li>
-                                <li class="nav-item"><a th:href="@{/management/master}" class="black nav-link">Master1&2</a></li>
-                                <li class="nav-item"><a th:href="@{/management/doctorat}" class="black nav-link" id="ender1">Phd/Doctorat</a></li>
-                            </ul>
-                        </li>
-                    </ul>
                 </li>
-                <li class="nav-item dropdown" th:if="${session.roles[0].role == 'ROOT'}">
-                    <a  href="#" class="nav-link" data-toggle="dropdown" >Educations et Autres</a>
-                    <ul class="dropdown-menu">
-                        <li><a  th:href="@{/management/countries/other}" class="black nav-link" >Autres services</a></li>
-                        <li><a  th:href="@{/management/countries/education}" class="black nav-link">Education</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown" th:if="${session.roles[0].role == 'ROOT_MASTER'}">
-                    <a  href="#" class="nav-link" data-toggle="dropdown" >Educations et Autres</a>
-                    <ul class="dropdown-menu">
-                        <li><a  th:href="@{/management/countries/other}" class="black nav-link" >Autres services</a></li>
-                        <li><a  th:href="@{/management/countries/education}" class="black nav-link">Education</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if="${session.roles[0].role == 'ROOT'}" >Formations</a></li>
-                <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if="${session.roles[0].role == 'ROOT_MASTER'}" >Formations</a></li>
-                <li class="nav-item dropdown text-center" sec:authorize="isFullyAuthenticated()">
-                    <!-- insert the profile image-->
-                    <a href="#">
-                        <img class="profile-img" th:src="${session.avatar}" alt="avatar">
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!-- insert the profile image-->
-                        <li class="nav-item"><a   class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
-                        <li class="nav-item">
-                            <a class="black nav-link" th:href="@{/logout}" >Deconnexion</a>
-                        </li>
-                    </ul>
-                </li>
+                <li class="nav-item"><a th:href="@{/primaire/primaires/bibliotheque/}+${region.regionId}" class="nav-link">Bibliothèque en ligne</a></li>
+                <li class="nav-item"><a th:href="@{/primaire/primaires/games/}+${region.regionId}" class="nav-link">Jeux éducatif</a></li>
+                <li class="nav-item"><a th:href="@{/primaire/primaires/transport/}+${region.regionId}" class="nav-link">Transport sécurisé</a></li>
+
             </ul>
         </div>
     </div>
 </nav>
-<section class="ftco-section testimony-section">
+<!-- END nav -->
+
+<section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
-            <div class="col-md-12 text-center heading-section ftco-animate">
-                <h1 th:text="${country.countryName}">Cameroun</h1>
-                <h2 class="subheading"><span>Selectionner une région</span></h2>
+            <div class="col-md-7 heading-section ftco-animate text-center">
+                <h2 >Cours d'appui</h2>
+                <h3 class="mb-1">Evénements passés</h3>
             </div>
         </div>
-        <div class="row ftco-animate">
-            <div class="item col-md-2" th:each="region : ${regions}">
-                <div class="testimony-wrap text-center py-4 pb-5">
-                    <a  th:href="@{/primaire/primaires/colonie/} + ${region.regionId}">
-                        <div class="user-img mb-4" th:style="'background-image: url(' + @{/images/country.png} + ');'">
-                        </div>
-                    </a>
-                    <div class="text">
-                        <a th:href="@{/management/region/primaire/colonie/} + ${region.regionId}">
-                            <p class="name" th:text="${region.regName}">Cameroun</p></a>
-
-                    </div>
-                </div>
-
+        <div>
+            <h3 class="text-center mt-3">Tableau recapitulatif</h3>
+            <table  class="table text-center table-hover dt-responsive table-lg display" id="colonie">
+                <thead class="text-white bg-secondary">
+                <th>Titre</th>
+                <th>Prix</th>
+                <th>Date de l'événement</th>
+                <th>Couverture</th>
+                </thead>
+                <tbody>
+                <tr th:each="primaire: ${primaires}">
+                    <td th:text="${primaire.title}"></td>
+                    <td>$ <span th:text="${primaire.price}"></span></td>
+                    <td th:text="${primaire.realeseDate}"></td>
+                    <td><a th:href="@{/primaire/cours/}+${primaire.educationId}"><img height="100" width="100" th:src="${primaire.couverture}"></a></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-</div>
-        </div>
+    </div>
+    <div  style="text-align: center">
+        <a class="btn btn-primary" th:href="@{/primaire/primaires/cours/}+${region.regionId}"><i class="fa fa-long-arrow-left"></i>&nbsp;&nbsp;Retour </a>
+    </div>
 </section>
+<!-- add these button -->
 <section class="ftco-section-parallax">
     <div class="parallax-img d-flex align-items-center">
         <div class="container">
-            <div class=" d-flex justify-content-center">
+            <div class="row d-flex justify-content-center">
                 <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
                     <h2>Souscrivez a notre  Newsletter</h2>
                     <p>Restez informer en souscrivant a notre service de messagerie.</p>
@@ -213,7 +170,6 @@
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-<script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
@@ -230,7 +186,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script th:src="@{/js/google-map.js}"></script>
 <script th:src="@{/js/main1.js}"></script>
-<script th:src="@{/js/crew.js}"></script>
 <script type="text/javascript">
     $("#hide1").css("display","none");
     $("#hide2").css("display","none");

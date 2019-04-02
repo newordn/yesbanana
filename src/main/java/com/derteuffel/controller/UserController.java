@@ -458,6 +458,7 @@ public class UserController {
 /*
             FileUploadRespone fileUploadRespone = new FileUploadRespone(fileName, fileDownloadUri);*/
         user.setImg("/downloadFile/" + fileName);
+        user.setStatus(true);
         //user.setActive(true);
 
 
@@ -508,6 +509,7 @@ public class UserController {
 /*
             FileUploadRespone fileUploadRespone = new FileUploadRespone(fileName, fileDownloadUri);*/
         user.setImg("/downloadFile/" + fileName);
+        user.setStatus(true);
         //user.setActive(true);
         User user1 = userService.findByEmail(user.getEmail());
         if (user1 != null) {
@@ -556,7 +558,7 @@ public class UserController {
 
             user.setCv("/downloadFile/" + fileNameCv);
         }
-
+        user.setStatus(true);
         //user.setActive(true);
 
         User user1 = userService.findByEmail(user.getEmail());
@@ -655,6 +657,7 @@ public class UserController {
         System.out.println(user1.getPassword());
             user.setPassword(user1.getPassword());
             user.setActive(true);
+            user.setStatus(true);
             user.addRoles(user1.getRoles());
             user.setGroupes(user1.getGroupes());
             addUserRole.setUserId(user.getUserId());
@@ -714,6 +717,7 @@ public class UserController {
             System.out.println(user1.getPassword());
             user.setPassword(user1.getPassword());
             user.setActive(true);
+            user.setStatus(true);
             userService.update(user);
             MailService mailService = new MailService();
 
@@ -733,6 +737,7 @@ public class UserController {
         else {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             user.setActive(true);
+            user.setStatus(true);
             userService.update(user);
             MailService mailService = new MailService();
             mailService.sendSimpleMessage(
