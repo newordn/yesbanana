@@ -7,7 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
-
+import com.derteuffel.data.Panier;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
@@ -125,6 +125,17 @@ public class User implements Serializable{
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
+    public List<Panier> getPaniers() {
+        return paniers;
+    }
+
+    public void setPaniers(List<Panier> paniers) {
+        this.paniers = paniers;
+    }
+
+    @OneToMany(mappedBy = "user")
+    @OnDelete(action= OnDeleteAction.NO_ACTION)
+    private List<Panier> paniers;
 
     @ManyToMany(mappedBy="users")
     private List<Groupe> groupes;
