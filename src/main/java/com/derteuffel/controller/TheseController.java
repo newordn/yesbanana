@@ -41,7 +41,7 @@ import org.springframework.http.MediaType;
  */
 @Controller
 @RequestMapping("/these")
-public class TheseController {
+public class    TheseController {
 
     // attributes
     @Autowired

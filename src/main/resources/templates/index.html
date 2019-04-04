@@ -16,6 +16,8 @@
     <link rel="stylesheet" th:href="@{/css/flaticon.css}">
     <link rel="stylesheet" th:href="@{/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
 
   </head>
   <body>
@@ -58,6 +60,10 @@
                     </ul>
                   </li>
                 </ul>
+              </li>
+              <li class="nav-item">
+                <div th:replace="~{../templates/payment/panierWidget :: panierWidgetFragment}">
+                </div>
               </li>
 	          <li class="nav-item nav-link" style="position:relative;right:-50px;"><a href="#" class="btn btn-primary">solutioneducationafrique@gmail.com</a></li>
 

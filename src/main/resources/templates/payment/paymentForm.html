@@ -84,8 +84,8 @@
         <form action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
             <div style="margin-left:1rem">
                <label for="amount">Montant &nbsp;</label>
-                <input type="text" id="amount" class="input-field" style="padding-left:1rem" name="amount">
-                <strong>Fcfa</strong>
+                <input type="text" id="amount" class="input-field" th:value="${amount}" style="padding-left:1rem" name="amount" disabled>
+                <strong>$</strong>
             </div>
             <div class="form-group d-flex ">
                 <div class="col-md-4 form-group">
@@ -106,9 +106,7 @@
             </div>
         </form>
         </div>
-        <h4 class="text-center">Visa/Mastercard</h4><br>
         <div class="row justify-content-center" id="creditCard">
-
             <form th:action="@{/payment/payBy/card}" method="POST">
                 <script
                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"

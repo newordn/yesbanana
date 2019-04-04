@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -39,11 +40,14 @@ public class PaymentController {
     @Autowired
     ArticleRepository articleRepository;
    private UserRepository userRepository;
-    @GetMapping("/form")
-    public String getForm(HttpSession session, Model model)
+    @GetMapping("/form/{amount}")
+    public String getForm(HttpSession session, Model model, @PathVariable String amount)
     {
-        Optional<User> user = userRepository.findById((Long)session.getAttribute("userId"));
-        model.addAttribute("user",user.get());
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByName(auth.getName());
+        model.addAttribute("user",user);
+        model.addAttribute("amount", Double.parseDouble(amount));
         return "payment/paymentForm";
     }
     @GetMapping("/panier")
@@ -51,15 +55,21 @@ public class PaymentController {
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
-        List<Panier> paniers = new ArrayList<Panier>();
         List<Panier> paniers1 = user.getPaniers();
-        for(int i= paniers1.size()-1;i>=0;i--)
-        {
-            if(paniers1.get(i).getCount()!=0.0)
-            paniers.add(paniers1.get(i));
-        }
-        model.addAttribute("paniers",paniers);
+        model.addAttribute("panier",paniers1.get(paniers1.size()-1));
         return "payment/panier";
+    }
+    @GetMapping("/delete/article/{articleId}")
+    public String deleteArticle(@PathVariable Long articleId )
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByName(auth.getName());
+        List<Panier> paniers1 = user.getPaniers();
+        Panier panier = paniers1.get(paniers1.size()-1);
+        panier.setCount(panier.getCount()-articleRepository.findById(articleId).get().getPrix());
+        articleRepository.deleteById(articleId);
+        panierRepository.save(panier);
+        return "redirect:/payment/panier";
     }
     @PostMapping("/article/panier")
     public String addArticle(HttpServletRequest request)
@@ -75,8 +85,19 @@ public class PaymentController {
         return "redirect:/payment/panier";
     }
     @GetMapping("/transactions")
-    public String getTransactions()
+    public String getTransactions( Model model)
     {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByName(auth.getName());
+        List<Panier> paniers = new ArrayList<Panier>();
+        List<Panier> paniers1 = user.getPaniers();
+        for(int i= paniers1.size()-1;i>=0;i--)
+        {
+            if(paniers1.get(i).getCount()!=0.0)
+                paniers.add(paniers1.get(i));
+        }
+        model.addAttribute("paniers",paniers);
         return "payment/transactions";
     }
     @GetMapping("/error")

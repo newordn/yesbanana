@@ -39,6 +39,10 @@
                 <li class="nav-item"><a th:href="@{/external/secure/region/region/transport/}+${session.regionId}" class="nav-link " >Transport</a>
                 </li>
                 <li class="nav-item"><a th:href="@{/external/secure/region/region/approvisionnement/}+${session.regionId}" class="nav-link">Approvisionnement</a></li>
+                <li class="nav-item">
+                    <div th:replace="~{../templates/payment/panierWidget :: panierWidgetFragment}">
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

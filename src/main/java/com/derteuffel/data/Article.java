@@ -16,7 +16,11 @@ public class Article {
     @GeneratedValue
     Long id;
 
-   private String name;
+    public Long getId() {
+        return id;
+    }
+
+    private String name;
 
     public Article() {
     }

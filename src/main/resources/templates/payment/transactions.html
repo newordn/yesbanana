@@ -10,6 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/animate.css}">
     <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
     <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
@@ -35,7 +36,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item "><a href="/" class="nav-link ">Accueil</a></li>
                 <li class="nav-item"><a href="/payment/form" class="nav-link ">Paiement</a></li>
-                <li class="nav-item"><a href="/payment/panier" class="nav-link">Votre panier</a></li>
+                <li class="nav-item "><a href="/payment/panier" class="nav-link">Votre panier</a></li>
                 <li class="nav-item active">
                     <a  href="/payment/transactions" class="nav-link">Mes transactions</a>
                 </li>
@@ -61,19 +62,25 @@
 <!-- END nav -->
 
 <section class="ftco-section testimony-section">
-
-    <div class="container">
-        <table class="table bordered" style="color:black">
+    <h4 class="text-center"><strong>L'historique de vos transactions</strong></h4>
+    <div class="container mb-3 card p-5" th:each="panier : ${paniers}">
+        <div class="row">
+           <div class="col-md-6">
+               <h4 class="text-left"> Date :  <span th:text="${panier.date}"></span></h4>
+           </div>
+            <div class="col-md-6">
+                <h4 class="text-right">Montant total : <span th:text="${panier.count}" class="text-center"></span> $ </h4>
+            </div>
+        </div>
+            <table class="table bordered" style="color:black">
             <thead>
-                <th>Identifiant de la transaction</th>
-                <th>Items</th>
-                <th>Montant</th>
+             <th>Produits</th>
+             <th>Montant</th>
             </thead>
             <tbody>
-            <tr>
-                <td>88858585885ddd</td>
-                <td>cours d'anglais</td>
-                <td>5 $</td>
+            <tr th:each="article : ${panier.articles}">
+                <td th:text="${article.name}">Cours d'anglais</td>
+                <td th:text="${article.prix}">25$</td>
             </tr>
             </tbody>
         </table>
@@ -171,29 +178,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script th:src="@{/js/google-map.js}"></script>
 <script th:src="@{/js/main1.js}"></script>
-<script th:src="@{/js/PaymentScripts/paymentMobileOrange.js}"></script>
-<script th:src="@{/js/PaymentScripts/paymentVisa.js}"></script>
-<script type="text/javascript">
-    $("#payPal").css("display","none");
-    $("#mobile").css("display","none");
 
-    // Go to the previous item
-    $('#mobileTrigger').click(function() {
-        $("#mobile").css("display","block");
-        $("#creditCard").css("display","none");
-        $("#payPal").css("display","none");
-    });
-
-    $('#payPalTrigger').click(function() {
-        $("#payPal").css("display","block");
-        $("#creditCard").css("display","none");
-        $("#mobile").css("display","none");
-    });
-    $('#creditCardTrigger').click(function() {
-        $("#creditCard").css("display","flex");
-        $("#mobile").css("display","none");
-        $("#payPal").css("display","none");
-    })
-</script>
 </body>
 </html>

@@ -34,14 +34,18 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link ">Administration et Finances</a></li>
-                <li class="nav-item"><a th:href="@{/management/course/languages}" class="nav-link ">Anglais et/ou Francais</a></li></li>
+                <li class="nav-item"><a th:href="@{/course/administration}" class="nav-link ">Administration et Finances</a></li>
+                <li class="nav-item"><a th:href="@{/course/languages}" class="nav-link ">Anglais et/ou Francais</a></li></li>
 
-                <li class="nav-item"><a th:href="@{/management/course/resource}" class="nav-link ">Resources Humaines</a>
+                <li class="nav-item"><a th:href="@{/course/resource}" class="nav-link ">Resources Humaines</a>
 
                 </li>
-                <li class="nav-item active"><a th:href="@{/management/course/alphabetisations}" class="nav-link">Alphabétisation</a></li>
-                <li class="nav-item"><a th:href="@{/management/course/entreprenariats}" class="nav-link">Entrepreneuriat</a></li>
+                <li class="nav-item active"><a th:href="@{/course/alphabetisations}" class="nav-link">Alphabétisation</a></li>
+                <li class="nav-item"><a th:href="@{/course/entreprenariats}" class="nav-link">Entrepreneuriat</a></li>
+                <li class="nav-item">
+                    <div th:replace="~{../templates/payment/panierWidget :: panierWidgetFragment}">
+                    </div>
+                </li>
 
             </ul>
         </div>
@@ -66,7 +70,7 @@
                         <span class="excerpt d-block">par formation</span>
                         <p th:text="${course.description}">c'est un module permettant de maitriser le monde des affaires.<br><br><br>
                         </p>
-                        <a th:href="@{/management/course/get/}+${course.courseId}" class="btn btn-primary d-block" style="position: relative">Details</a>
+                        <a th:href="@{/course/get/}+${course.courseId}" class="btn btn-primary d-block" style="position: relative">Details</a>
                     </div>
                 </div>
             </div>
@@ -74,7 +78,7 @@
         </div>
     </div>
     <div  style="text-align: center">
-        <a class="btn btn-primary" th:href="@{/management/course/alphabetisation}">voir plus <i class="fa fa-long-arrow-right"></i></a>
+        <a class="btn btn-primary" th:href="@{/course/alphabetisation}">voir plus <i class="fa fa-long-arrow-right"></i></a>
     </div>
     <div class="pagination-div" style="display: none;">
                     <span th:if="${courses.hasPrevious()}">
@@ -129,7 +133,7 @@
         </div>
     </div>
     <div  style="text-align: center">
-        <a class="btn btn-primary" th:href="@{/management/event/alphabetisation}">voir plus <i class="fa fa-long-arrow-right"></i></a>
+        <a class="btn btn-primary" th:href="@{/event/alphabetisation}">voir plus <i class="fa fa-long-arrow-right"></i></a>
     </div>
     <div class="row " style="bottom: 1rem;width: 100%;display: none">
         <div class="form-group col-12 col-sm-6 col-lg-3">
