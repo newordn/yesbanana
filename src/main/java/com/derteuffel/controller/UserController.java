@@ -797,4 +797,37 @@ public class UserController {
 
     }
 
+
+    @GetMapping("/visitor/buy/form")
+    public String visitorForm(Model model){
+        model.addAttribute("countries", countries );
+        model.addAttribute("visitor", new User());
+        return "user/visitorForm";
+
+    }
+
+    public String visitorSave(User user, Errors errors, Model model){
+        User user1= userRepository.findByEmail(user.getEmail());
+        if (user1 != null){
+            errors.rejectValue("email", "user.error", "There is already a user registered with the email provided");
+        }
+
+        User user2= userRepository.findByName(user.getName());
+        if (user2 != null){
+            errors.rejectValue("nom", "user.error", "There is already a user registered with the email provided");
+
+        }
+
+
+
+        user.setActive(false);
+        user.setStatus(true);
+        user.setAutorization(false);
+        user.setNumberOfWorkers(false);
+
+        userRepository.save(user);
+
+        return "redirect:/";
+    }
+
 }

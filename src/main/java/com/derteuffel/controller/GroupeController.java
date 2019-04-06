@@ -62,9 +62,9 @@ public class GroupeController {
     @Autowired
     private BibliothequeRepository bibliothequeRepository;
     @Autowired
-            private RoleRepository roleRepository;
+    private RoleRepository roleRepository;
     @Autowired
-            private PanierRepository panierRepository;
+    private PanierRepository panierRepository;
 
     List<String> countries= Arrays.asList(
             "Afghanistan",
@@ -421,10 +421,13 @@ public class GroupeController {
         }else {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             User user = userService.findByName(auth.getName());
+
+            List<These> theses=theseRepository.findByUserOrderByTheseIdDesc(user.getUserId());
             // transmitting the current page number to the view
             model.addAttribute("groupeName", groupe.getGroupeName());
             session.setAttribute("avatar", user.getImg());
             session.setAttribute("name", user.getName());
+            model.addAttribute("theses",theses);
             model.addAttribute("these", new These());
             model.addAttribute("countries", countries);
             System.out.println();
