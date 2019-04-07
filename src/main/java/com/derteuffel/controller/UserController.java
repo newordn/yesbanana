@@ -396,8 +396,8 @@ public class UserController {
     public String updateRole(AddUserRole addUserRole, @PathVariable Long userId){
         Role role= roleRepository.getOne(addUserRole.getRoleId());
         User user= userRepository.getOne(userId);
-        for (int i=0;i<user.getRoles().size();i++){
-            user.removeRelation(user.getRoles().get(i));
+        for (Role role1 : user.getRoles()){
+            user.removeRelation(role1);
         }
         user.setRoles(role);
         addUserRole.setUserId(user.getUserId());
@@ -411,8 +411,9 @@ public class UserController {
         User user= userRepository.getOne(userId);
         System.out.println(user.getName());
         System.out.println(user.getRoles());
-        for (int i=0;i<user.getRoles().size();i++){
-            user.removeRelation(user.getRoles().get(i));
+
+        for (Role role1 : user.getRoles()){
+            user.removeRelation(role1);
         }
 
         user.setRoles(role);
@@ -806,6 +807,7 @@ public class UserController {
 
     }
 
+    @PostMapping("/visitor/buy/save")
     public String visitorSave(User user, Errors errors, Model model){
         User user1= userRepository.findByEmail(user.getEmail());
         if (user1 != null){
@@ -818,7 +820,17 @@ public class UserController {
 
         }
 
+        Role role=roleRepository.findByRole("VISITOR");
 
+        if (role != null){
+
+            user.addRoles((new HashSet<Role>(Arrays.asList(role))));
+
+        }else {
+            Role role1=new Role("VISITOR");
+            roleRepository.save(role1);
+            user.addRoles(new HashSet<Role>(Arrays.asList(role1)));
+        }
 
         user.setActive(false);
         user.setStatus(true);
@@ -827,7 +839,7 @@ public class UserController {
 
         userRepository.save(user);
 
-        return "redirect:/";
+        return "redirect:/login/visitor";
     }
 
 }

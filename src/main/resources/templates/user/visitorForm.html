@@ -20,7 +20,7 @@
         <a th:href="@{/}" class="btn btn-light" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc"></i><br><span>Acceuil</span></a>
         <div class="container">
         	                <div style="font-size:1.2rem;text-align: center;"><i th:if="${error}" th:text="${error}" style="color:red;"></i> </div>
-            <form method="POST" enctype="multipart/form-data" th:object="${user}" th:action="@{/user/create}" class="appointment-form" id="appointment-form">
+            <form method="POST" enctype="multipart/form-data" th:object="${user}" th:action="@{/user/visitor/buy/save}" class="appointment-form" id="appointment-form">
                 <h2>Inscription en tant que Visiteur</h2>
                 <div class="form-group-1">
                     <input  type="text" name="name" id="name" placeholder="Votre Nom"  />
