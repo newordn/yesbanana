@@ -253,6 +253,12 @@ public class HomeController {
             return "connection";
         }
 
+    @GetMapping("/login/visitor")
+    public String loginVisitor()
+    {
+        return "loginVisitor";
+    }
+
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request){
