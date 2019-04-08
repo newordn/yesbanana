@@ -61,12 +61,16 @@
 <!-- END nav -->
 <!--payment form -->
 <section class="ftco-section testimony-section">
-
     <div class="container">
         <div class="row justify-content-center  pb-3">
             <div class="col-md-7 text-center heading-section ftco-animate">
                 <h2 class="mb-1"><span>Effectuer un paiement</span></h2>
             </div>
+        </div>
+        <div style="margin-left:1rem">
+            <label for="amount">Montant &nbsp;</label>
+            <input type="text" id="amount" class="input-field" th:value="${amount}" style="padding-left:1rem" name="amount" disabled>
+            <strong>$</strong>
         </div>
             <div class="row d-flex text-center heading-section mb-5 justify-content-between" >
                 <div class="col-4">
@@ -82,11 +86,7 @@
 
         <div class="row justify-content-center" id="mobile">
         <form action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
-            <div style="margin-left:1rem">
-               <label for="amount">Montant &nbsp;</label>
-                <input type="text" id="amount" class="input-field" th:value="${amount}" style="padding-left:1rem" name="amount" disabled>
-                <strong>$</strong>
-            </div>
+
             <div class="form-group d-flex ">
                 <div class="col-md-4 form-group">
                     <select class="custom-select" id="operatorSelection">
