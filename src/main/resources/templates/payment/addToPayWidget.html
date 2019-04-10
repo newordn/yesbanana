@@ -1,14 +1,43 @@
 <div xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="pay (cours,prix)">
-    <form method="post" th:action="@{/payment/article/panier}">
+    <form method="post" onsubmit="requestFormDataAjax(this,'@{/payment/article/panier}')">
         <input type="hidden" name="name" th:value="${cours}">
         <input type="hidden" name="prix" th:value="${prix}">
-        <button type="submit" style="cursor:hand" class="btn btn-primary" ><i class="fa fa-shopping-cart"></i></button>
+        <button  style="cursor:hand" class="btn btn-primary" ><i class="fa fa-shopping-cart"></i></button>
     </form>
+
+    <script>
+        // sending form data with ajax
+        // submit a form data with a file usign ajax jquery
+        let requestFormDataAjax = (form,url) =>
+        {
+            var fd = new FormData(form);
+            $.ajax(
+                    {
+                        type: 'POST',
+                        crossOrigin:true,
+                        url: url,
+                        data: fd,
+                        cache: false,
+                        processData: false,
+                        contentType: false
+                    }
+            ).done(
+                    (response)=>{
+                console.log(response);
+            alert("Article ajouter");
+        }
+        ).fail(
+                (error)=>{
+            console.log(error);
+        }
+        )
+        }
+    </script>
 </div>
 
 <!-- how to call it in views
 <div th:replace="fragments/addToPayWidget.html
-      :: pay(cours=' le nom du cours', value='prix ')">
+          :: pay(cours=' le nom du cours', value='prix ')">
     </div>
 -->
 
