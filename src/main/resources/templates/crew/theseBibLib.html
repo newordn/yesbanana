@@ -58,17 +58,47 @@
                                     <i class="fa fa-pencil"></i>
                                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
-                            <div class="col-md-4">
-                                <a   data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${bibliography.bibliographyId}">
-                                    <i class="fa fa-trash"></i>
-                                </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
+                                <div th:if="${session.roles[0].role=='ROOT'}">
+                                <div class="col-md-4" >
+                                    <a   data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${bibliography.bibliographyId}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                                    <div th:if="${bibliography.disponibility} == true" class="col-md-4">
+                                        <span><a   data-toggle="modal" data-target="#modal-desactivation" th:attr="data-target='#modal-desactivation'+${bibliography.bibliographyId}" class="btn btn-success rounded-circle"></a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    <div th:unless="${bibliography.disponibility} == true " class="col-md-4">
+                                        <span><a  data-toggle="modal" data-target="#modal-activation" th:attr="data-target='#modal-activation'+${bibliography.bibliographyId}" class="btn btn-danger rounded-circle">
+                                        </a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                </div>
+                                <div th:if="${session.roles[0].role=='ADMIN_MASTER'}">
+                                    <div class="col-md-4" >
+                                        <a   data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${bibliography.bibliographyId}">
+                                            <i class="fa fa-trash"></i>
+                                        </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    <div th:if="${bibliography.disponibility} == true" class="col-md-4" >
+                                        <span><a   data-toggle="modal" data-target="#modal-desactivation" th:attr="data-target='#modal-desactivation'+${bibliography.bibliographyId}" class="btn btn-success rounded-circle"></a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    <div th:unless="${bibliography.disponibility} == true" class="col-md-4" >
+                                        <span><a  data-toggle="modal" data-target="#modal-activation" th:attr="data-target='#modal-activation'+${bibliography.bibliographyId}" class="btn btn-danger rounded-circle">
+                                        </a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                </div>
+                                <div th:if="${session.roles[0].role=='ROOT_MASTER'}">
+                                <div class="col-md-4" >
+                                    <a   data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${bibliography.bibliographyId}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
                                 <div th:if="${bibliography.disponibility} == true" class="col-md-4">
                                     <span><a   data-toggle="modal" data-target="#modal-desactivation" th:attr="data-target='#modal-desactivation'+${bibliography.bibliographyId}" class="btn btn-success rounded-circle"></a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </div>
                                 <div th:unless="${bibliography.disponibility} == true" class="col-md-4">
                                     <span><a  data-toggle="modal" data-target="#modal-activation" th:attr="data-target='#modal-activation'+${bibliography.bibliographyId}" class="btn btn-danger rounded-circle">
                                     </a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
                                 </div>
 
                         </div>

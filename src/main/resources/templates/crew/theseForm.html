@@ -157,7 +157,10 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <div style="text-align:center">
+                <div class="col-md-6">
+                    <a th:href="@{/groupe/groupe/}+${session.groupeId}"  class="btn btn-warning" >Annuler</a>
+                </div>
+                <div class="col-md-6" style="text-align:center">
                     <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'" style="width:25%;"   class="btn btn-success" >Valider pour verfication</a>
                     <div class="modal card modal-warning fade in" th:id="modal-warning" >
                         <div class="modal-dialog">
@@ -185,7 +188,6 @@
                 </div>
             </div>
         </form>
-        <a style="width:25%;" th:href="@{/groupe/groupe/}+${session.groupeId}"  class="btn btn-warning" >Annuler</a>
     </div>
 
 
