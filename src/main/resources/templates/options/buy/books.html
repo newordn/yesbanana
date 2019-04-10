@@ -68,52 +68,29 @@
                                     <th>Titre</th>
                                     <th>Auteur</th>
                                     <th>Prix</th>
-                                    <th>Page(s) Importante(s)</th>
                             </thead>
                             <tbody>
                                 <tr th:each="livre, i : ${these.bibliographies}" th:if="${livre.disponibility} == true" >
                                     <td th:text="${i.index+1}"></td>
                                     <td th:text="${livre.title}" ></td>
                                     <td th:text="${livre.auteur}" ></td>
-                                    <td >
-                                        <input type="checkbox" name="price" th:checked="${price}"
-                                               th:value="${livre.price}" th:text="'$'+${livre.price}" />
-                                    </td>
-                                    <td style="padding:0">
-                                        <table style="width: 100%">
-                                            <tr>
-                                            <td>Nbre</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>3</td>
-                                            <td>5</td>
-                                            <td>10</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cout</td>
-                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
-                                                           th:value="${1}" th:text="'$'+${1}" /></td>
-                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
-                                                           th:value="${2}" th:text="'$'+${2}" /></td>
-                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
-                                                           th:value="${2.9}" th:text="'$'+${2.9}" /></td>
-                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
-                                                           th:value="${4.7}" th:text="'$'+${4.7}" /></td>
-                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
-                                                           th:value="${8.6}" th:text="'$'+${8.6}" /></td>
-                                            </tr>
-                                        </table>
+                                    <td  th:value="${livre.price}" th:text="'$'+${livre.price}">
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                </div>
                   <div class="card-footer">
-                      <h5>SOMMAIRE:</h5>
-                      <a th:text="${these.resumes}" th:href="${these.resumes}"></a>
-                      <h5>AUTRE SOMMAIRE:</h5>
-                      <p th:text="${these.anotherSommaire}"></p>
-                  </div>
+                      <div class="row">
+                          <div class="col-md-8">
+                              <h5>AUTRE SOMMAIRE:</h5>
+                              <p th:text="${these.anotherSommaire}"></p>
+                          </div>
+                          <div class="col-md-4">
+                              <div th:replace="~{../templates/payment/addToPayWidget :: pay(cours,prix)}"></div>
+                          </div>
+                      </div>
+                      </div>
             </div>
         </div>
     </section>

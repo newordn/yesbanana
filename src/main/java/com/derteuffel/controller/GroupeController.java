@@ -280,36 +280,41 @@ public class GroupeController {
         session.setAttribute("userId",user.getUserId());
         session.setAttribute("avatar",user.getImg());
         session.setAttribute("name", user.getName());
-        model.addAttribute("groupe", new Groupe());
-        session.setAttribute("roles",user.getRoles());
-        List<Role> roles= (List<Role>)session.getAttribute("roles");
-        System.out.println(roles);
-        model.addAttribute("countries", countries);
-        Collection<User> users1 = userRepository.findByRoles_Role("ADMIN");
-        List<Groupe> groupes= groupeRepository.findAllByStatus(true);
-        List<Groupe> crews= groupeRepository.findByUsers_UserId(user.getUserId());
-        Collection<User> users= new ArrayList<>();
-        users1.addAll(userRepository.findByRoles_Role("ROOT"));
-        users1.addAll(userRepository.findByRoles_Role("ROOT_MASTER"));
-        users1.addAll(userRepository.findByRoles_Role("ADMIN_MASTER"));
-        users.addAll(users1);
-        List<User> users2= new ArrayList<>();
-        for (Groupe groupe : groupes){
-            if (!groupe.getGroupChief().isEmpty()) {
-                users2.add(userRepository.getOne(Long.parseLong(groupe.getGroupChief())));
-            }else {
-                users2.add(null);
+
+        if (user.getRoles().contains("VISITOR")){
+            return "redirect:/";
+        }else {
+            model.addAttribute("groupe", new Groupe());
+            session.setAttribute("roles", user.getRoles());
+            List<Role> roles = (List<Role>) session.getAttribute("roles");
+            System.out.println(roles);
+            model.addAttribute("countries", countries);
+            Collection<User> users1 = userRepository.findByRoles_Role("ADMIN");
+            List<Groupe> groupes = groupeRepository.findAllByStatus(true);
+            List<Groupe> crews = groupeRepository.findByUsers_UserId(user.getUserId());
+            Collection<User> users = new ArrayList<>();
+            users1.addAll(userRepository.findByRoles_Role("ROOT"));
+            users1.addAll(userRepository.findByRoles_Role("ROOT_MASTER"));
+            users1.addAll(userRepository.findByRoles_Role("ADMIN_MASTER"));
+            users.addAll(users1);
+            List<User> users2 = new ArrayList<>();
+            for (Groupe groupe : groupes) {
+                if (!groupe.getGroupChief().isEmpty()) {
+                    users2.add(userRepository.getOne(Long.parseLong(groupe.getGroupChief())));
+                } else {
+                    users2.add(null);
+                }
             }
+            System.out.println(users1);
+            model.addAttribute("users2", users2);
+            model.addAttribute("crews", groupes);
+            model.addAttribute("users", users);
+            model.addAttribute("crews1", crews);
+            long time = System.currentTimeMillis();
+            Panier panier = new Panier(new Date(time), null, user, 0.0);
+            panierRepository.save(panier);
+            return "crew/crews";
         }
-        System.out.println(users1);
-            model.addAttribute("users2",users2);
-            model.addAttribute("crews",groupes);
-            model.addAttribute("users",users);
-            model.addAttribute("crews1",crews);
-        long time = System.currentTimeMillis();
-        Panier panier = new Panier(new Date(time),null,user,0.0);
-        panierRepository.save(panier);
-        return "crew/crews";
     }
 
     // for adding a user into one crew
