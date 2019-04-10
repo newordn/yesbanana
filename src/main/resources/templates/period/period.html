@@ -40,7 +40,7 @@
 <section class="ftco-section ftco-degree-bg alert-warning">
     <div class="container">
         <div class="col-md-12 ">
-                <h3 class="mb-3 text-center" style="color: #ffffff">Poursuive votre formation pour préparer votre parcours professionnel et devenir un futur expert</h3>
+                <h3 class="mb-3 text-center text-success">Poursuive votre formation pour préparer votre parcours professionnel et devenir un futur expert</h3>
             </div> <!-- .col-md-8 -->
         </div><br>
         <h2 class="mb-3 text-center">Suivez toutes vos leçons</h2>
@@ -156,7 +156,7 @@
                 <div class="card-body mt-3 pl-1 pr-1" style="width: 750px;">
                     <p th:text="${lesson.resumes}">With Safari, you learn the way you learn best. Get unlimited access to videos, live online training, learning paths, books, interactive tutorials, and more.
                     </p><br>
-                    <a class="btn btn-warning" th:href="@{#}" ><i class="fa fa-eye"></i>&nbsp;&nbsp;Commencer la leçon</a><br>
+                    <div th:replace="~{../templates/payment/addToPayWidget :: pay(cours,prix)}"></div><br>
                     <span style="color: #9fcdff">Carte de credit necessaire</span>
                 </div>
             <br>

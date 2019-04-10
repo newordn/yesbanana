@@ -78,10 +78,10 @@
         </div>
         <div class="row">
             <div class="col-12 col-sm-6 col-lg-6 mt-3 " style=" padding-left: 150px; padding-right: 150px">
-                <a  th:href="@{/event/all}" class="btn btn-danger" style="width: 100%;"><i class="fa fa-arrow-left"></i> Retour</a>
+                <a  th:href="@{/course/administration}" class="btn btn-danger" style="width: 100%;"><i class="fa fa-arrow-left"></i> Retour</a>
             </div>
-            <div class="col-12 col-sm-6 col-lg-6 mt-3 " style=" padding-left: 150px; padding-right: 150px">
-                <a  th:href="@{#}" class="btn btn-success" style="width: 100%;">Participer  <i class="fa fa-check"></i></a>
+            <div class="col-md-6 mt-3 ">
+                <div th:replace="~{../templates/payment/addToPayWidget :: pay(cours,prix)}"></div>
             </div>
         </div>
 
