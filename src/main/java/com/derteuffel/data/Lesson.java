@@ -14,6 +14,7 @@ public class Lesson implements Serializable {
     private Long lessonId;
     private Boolean status;
     private String title;
+    private Double price;
     @Column
     private ArrayList<String> pieces= new ArrayList<>();
     @Column
@@ -27,15 +28,23 @@ public class Lesson implements Serializable {
     public Lesson() {
     }
 
-    public Lesson(String title, ArrayList<String> pieces, String resumes, String elapsedTime, Boolean status, String fileType) {
+    public Lesson(String title, ArrayList<String> pieces, String resumes,Double price, String elapsedTime, Boolean status, String fileType) {
         this.title = title;
         this.status=status;
         this.pieces = pieces;
         this.fileType=fileType;
         this.resumes = resumes;
+        this.price=price;
         this.elapsedTime = elapsedTime;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
     public String getFileType() {
         return fileType;

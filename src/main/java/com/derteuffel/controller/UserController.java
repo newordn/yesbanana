@@ -831,8 +831,8 @@ public class UserController {
             roleRepository.save(role1);
             user.addRoles(new HashSet<Role>(Arrays.asList(role1)));
         }
-
-        user.setActive(false);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setActive(true);
         user.setStatus(true);
         user.setAutorization(false);
         user.setNumberOfWorkers(false);
