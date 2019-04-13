@@ -71,15 +71,16 @@ public class PaymentController {
         panierRepository.save(panier);
         return "redirect:/payment/panier";
     }
-    @PostMapping("/article/panier")
-    public String addArticle(HttpServletRequest request)
+    @GetMapping("/article/panier/{cours}/{prix}")
+    public String addArticle(@PathVariable String cours, @PathVariable String prix)
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         List<Panier> paniers = user.getPaniers();
         Panier panier = paniers.get(paniers.size()-1);
-        Article article  = new Article(request.getParameter("name"),Double.parseDouble(request.getParameter("prix")),panier);
+        Article article  = new Article(cours,Double.parseDouble(prix),panier);
         panier.setCount(article.getPrix() + panier.getCount());
+        System.out.println("asfsdf");
         articleRepository.save(article);
         panierRepository.save(panier);
         return "redirect:/payment/panier";

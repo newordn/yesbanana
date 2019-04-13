@@ -1,23 +1,19 @@
 <div xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="pay (cours,prix)">
-    <form method="post" onsubmit="requestFormDataAjax(this,'@{/payment/article/panier}')">
-        <input type="hidden" name="name" th:value="${cours}">
-        <input type="hidden" name="prix" th:value="${prix}">
-        <button  style="cursor:hand" class="btn btn-primary" ><i class="fa fa-shopping-cart"></i></button>
 
-    </form>
+        <a onclick="event.preventDefault();addToPanier(this)" th:href="@{/payment/article/panier/} + ${cours} + '/' + ${prix}"  style="cursor:hand" class="btn btn-primary" ><i class="fa fa-shopping-cart"></i></a>
 
-    <script>
+    <script type="text/javascript">
         // sending form data with ajax
         // submit a form data with a file usign ajax jquery
-        let requestFormDataAjax = (form,url) =>
+        let addToPanier = (link) =>
         {
-            var fd = new FormData(form);
+            url = link.href;
+            console.log(url);
             $.ajax(
                     {
-                        type: 'POST',
+                        type: 'GET',
                         crossOrigin:true,
                         url: url,
-                        data: fd,
                         cache: false,
                         processData: false,
                         contentType: false
