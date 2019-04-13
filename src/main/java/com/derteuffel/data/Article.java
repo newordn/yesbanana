@@ -22,6 +22,10 @@ public class Article {
 
     private String name;
 
+    private Double prix;
+    @ManyToOne
+    private Panier panier;
+
     public Article() {
     }
 
@@ -55,8 +59,6 @@ public class Article {
         this.panier = panier;
     }
 
-    private Double prix;
-    @ManyToOne
-    private Panier panier;
+
 
 }

@@ -281,9 +281,6 @@ public class GroupeController {
         session.setAttribute("avatar",user.getImg());
         session.setAttribute("name", user.getName());
 
-        if (user.getRoles().contains("VISITOR")){
-            return "redirect:/";
-        }else {
             model.addAttribute("groupe", new Groupe());
             session.setAttribute("roles", user.getRoles());
             List<Role> roles = (List<Role>) session.getAttribute("roles");
@@ -313,8 +310,10 @@ public class GroupeController {
             long time = System.currentTimeMillis();
             Panier panier = new Panier(new Date(time), null, user, 0.0);
             panierRepository.save(panier);
+
+            System.out.println("je suis visiteur");
             return "crew/crews";
-        }
+
     }
 
     // for adding a user into one crew
