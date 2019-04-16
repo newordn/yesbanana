@@ -107,7 +107,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                         <div th:replace="~{../templates/payment/addToPayWidget :: pay(livre,pagePrice)}"></div>               </div>
+                         <div th:replace="~{../templates/payment/addToPayWidget :: pay(${livre.title},${livre.pagePrice})}"></div>               </div>
                   <div class="card-footer">
                       <h5>AUTRE SOMMAIRE:</h5>
                       <p th:text="${these.anotherSommaire}"></p>

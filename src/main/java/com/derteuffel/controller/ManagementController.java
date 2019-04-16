@@ -340,9 +340,14 @@ public class ManagementController {
     @GetMapping("/university/{universityId}")
     public String findOneUniversity(Model model, @PathVariable Long universityId, HttpSession session) {
         Optional<University> universityOptional=universityRepository.findById(universityId);
-        List<These> theses=theseRepository.findAllByUniversityOrderByTheseIdDesc(universityOptional.get().getUniversityName());
+        List<These> thesesFaculty=theseRepository.findAllByUniversityOrderByTheseIdDesc(universityOptional.get().getUniversityName());
         List<Faculty> faculties=facultyRepository.findAllByUnniversity(universityOptional.get().getUniversityId());
-        model.addAttribute("theses", theses);
+        List<String> theses=new ArrayList<>();
+        for (These these : thesesFaculty){
+
+            theses.add(these.getFaculty());
+        }
+        model.addAttribute("theses", removeDuplicates(theses));
         session.setAttribute("universityId",universityId);
         model.addAttribute("university", universityOptional.get());
         model.addAttribute("faculties", faculties);
@@ -397,16 +402,44 @@ public class ManagementController {
         return "user/doctorat";
     }
 
+
+    public List<String> removeDuplicates(List<String> list)
+    {
+        if (list == null){
+            return new ArrayList<>();
+        }
+
+        // Create a new ArrayList
+        List<String> newList = new ArrayList<String>();
+        // Traverse through the first list
+        for (String element : list) {
+
+            // If this element is not present in newList
+            // then add it
+
+            if (element !=null && !newList.contains(element) && !element.isEmpty()) {
+
+                newList.add(element);
+            }
+        }
+        // return the new list
+        return newList;
+    }
+
     // region management methods
     @GetMapping("/region/university/{regionId}")
     public String university(Model model, @PathVariable Long regionId, HttpSession session) {
         Optional<Region> regionOptional=regionRepository.findById(regionId);
         session.setAttribute("regionId", regionId);
         List<University> universities=universityRepository.findAllByRegion(regionOptional.get().getRegionId());
-        List<These> theses=theseRepository.findAllByRegionsOrderByTheseIdDesc(regionOptional.get().getRegName());
+        List<These> thesesUniversity=theseRepository.findAllByRegionsOrderByTheseIdDesc(regionOptional.get().getRegName());
+        List<String> theses=new ArrayList<>();
+        for (These these : thesesUniversity){
+            theses.add(these.getUniversity());
+        }
         System.out.println(theses);
         System.out.println(universities);
-        model.addAttribute("theses", theses);
+        model.addAttribute("theses", removeDuplicates(theses));
         model.addAttribute("region",regionOptional.get());
         model.addAttribute("universities", universities);
         model.addAttribute("university", new University());
@@ -537,9 +570,14 @@ public class ManagementController {
         session.setAttribute("facultyId", facultyId);
         Optional<Faculty> facultyOptional= facultyRepository.findById(facultyId);
         List<Options> optionses=optionsRepository.findAllByFaculty(facultyOptional.get().getFacultyId());
-        List<These> theses= theseRepository.findAllByFacultyOrderByTheseIdDesc(facultyOptional.get().getFacultyName());
+        List<These> thesesOptions= theseRepository.findAllByFacultyOrderByTheseIdDesc(facultyOptional.get().getFacultyName());
 
-        model.addAttribute("theses",theses);
+        List<String> theses= new ArrayList<>();
+
+        for (These these : thesesOptions){
+            theses.add(these.getOptions());
+        }
+        model.addAttribute("theses",removeDuplicates(theses));
         model.addAttribute("faculty", facultyOptional.get());
         model.addAttribute("optionses", optionses);
         model.addAttribute("options",new Options());

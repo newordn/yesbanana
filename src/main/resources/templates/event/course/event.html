@@ -81,7 +81,7 @@
                 <a  th:href="@{/course/administration}" class="btn btn-danger" style="width: 100%;"><i class="fa fa-arrow-left"></i> Retour</a>
             </div>
             <div class="col-md-6 mt-3 ">
-                <div th:replace="~{../templates/payment/addToPayWidget :: pay(event,prix)}"></div>
+                <div th:replace="~{../templates/payment/addToPayWidget :: pay(${event.title},${event.price})}"></div>
             </div>
         </div>
 

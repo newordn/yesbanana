@@ -283,8 +283,13 @@ public class GroupeController {
 
             model.addAttribute("groupe", new Groupe());
             session.setAttribute("roles", user.getRoles());
-            List<Role> roles = (List<Role>) session.getAttribute("roles");
-            System.out.println(roles);
+        long time = System.currentTimeMillis();
+        Panier panier = new Panier(new Date(time), null, user, 0.0);
+        panierRepository.save(panier);
+        Role role= roleRepository.findByRole("VISITOR");
+
+        if (!user.getRoles().containsAll(new HashSet<Role>(Arrays.asList(role)))) {
+            System.out.println("je suis dedans" );
             model.addAttribute("countries", countries);
             Collection<User> users1 = userRepository.findByRoles_Role("ADMIN");
             List<Groupe> groupes = groupeRepository.findAllByStatus(true);
@@ -307,12 +312,12 @@ public class GroupeController {
             model.addAttribute("crews", groupes);
             model.addAttribute("users", users);
             model.addAttribute("crews1", crews);
-            long time = System.currentTimeMillis();
-            Panier panier = new Panier(new Date(time), null, user, 0.0);
-            panierRepository.save(panier);
-
-            System.out.println("je suis visiteur");
             return "crew/crews";
+        }else {
+            System.out.println("je suis visiteur");
+            return "redirect:/";
+        }
+
 
     }
 

@@ -87,7 +87,7 @@
                               <p th:text="${these.anotherSommaire}"></p>
                           </div>
                           <div class="col-md-4">
-                              <div th:replace="~{../templates/payment/addToPayWidget :: pay(cours,prix)}"></div>
+                              <div th:replace="~{../templates/payment/addToPayWidget :: pay(${livre.title},${livre.price})}"></div>
                           </div>
                       </div>
                       </div>

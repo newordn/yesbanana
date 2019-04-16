@@ -21,7 +21,7 @@
     <div class="container">
         <div style="font-size:1.2rem;text-align: center;"><i th:if="${error}" th:text="${error}" style="color:red;"></i> </div>
         <div style="font-size:1.2rem;text-align: center;"><i th:if="${success}" th:text="${success}" style="color:green;"></i> </div>
-        <form method="POST"  th:action="@{/login_visitor}" class="appointment-form" id="appointment-form">
+        <form method="POST"  th:action="@{/login}" class="appointment-form" id="appointment-form">
             <h2>Connexion d'un Visiteur</h2>
             <div class="form-group-1">
                 <input type="text" name="name"  placeholder="Votre Nom d'utilisateur" id="name" required />
