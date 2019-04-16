@@ -75,10 +75,12 @@
                                     <td th:text="${livre.title}" ></td>
                                     <td th:text="${livre.auteur}" ></td>
                                     <td th:text="'$'+${livre.price}" ></td>
+
+                                    <div th:replace="~{../templates/payment/addToPayWidget :: pay(${livre.title},${livre.price})}"></div>
                                 </tr>
                             </tbody>
                         </table>
-                         <div th:replace="~{../templates/payment/addToPayWidget :: pay(cours='livre',prix='20.0')}"></div>
+
                          <a th:href="@{/external/secure/options/buy/pages/} + ${these.theseId}" class="btn">Consulter les Pages Importantes &nbsp;&nbsp;<i class="fa fa-leanpub"></i></a>
                </div>
                   <div class="card-footer">

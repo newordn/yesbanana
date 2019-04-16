@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 
 /**
@@ -77,7 +78,23 @@ public class PaymentController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         List<Panier> paniers = user.getPaniers();
-        Panier panier = paniers.get(paniers.size()-1);
+        Panier panier =null;
+        for(Panier panier1 : paniers)
+        {
+            if(panier1.getStatus()==true)
+            {
+                panier= panier1;
+            }
+        }
+        if(panier==null)
+        {
+
+            long time = System.currentTimeMillis();
+            panier = new Panier(true,new Date(time), 0.0, null, user);
+            panierRepository.save(panier);
+
+        }
+
         Article article  = new Article(cours,Double.parseDouble(prix),panier);
         panier.setCount(article.getPrix() + panier.getCount());
         System.out.println("asfsdf");
