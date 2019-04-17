@@ -67,7 +67,7 @@
                                         <!-- insert the profile image-->
                                     </li>
                                     <li><a class="dropdown-item" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
-                                    <li sec:authorize="isFullyAuthenticated()"><a class="dropdown-item" th:href="@{/logout}">Deconnexion</a></li>
+                                    <li sec:authorize="isFullyAuthenticated()"><a class="dropdown-item" th:href="@{/perform_logout}">Deconnexion</a></li>
                                 </ul>
                         </div>
                     </div>

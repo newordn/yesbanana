@@ -50,7 +50,7 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li th:if="${session.roles[0].role == 'ROOT'}" class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
+                <li th:if="${roles[0].role == 'ROOT'}" class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item" id="ender3">
                             <a th:href="@{/groupe/groupes}" class="black nav-link" >Regions</a>
@@ -60,7 +60,7 @@
                         </li>
                     </ul>
                 </li>
-                <li th:if="${session.roles[0].role == 'ROOT_MASTER'}" class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
+                <li th:if="${roles[0].role == 'ROOT_MASTER'}" class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item" id="ender3">
                             <a th:href="@{/groupe/groupes}" class="black nav-link" >Regions</a>
@@ -70,7 +70,7 @@
                         </li>
                     </ul>
                 </li>
-                <li th:if="${session.roles[0].role == 'ADMIN_MASTER'}" class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
+                <li th:if="${roles[0].role == 'ADMIN_MASTER'}" class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item" id="ender3">
                             <a th:href="@{/groupe/groupes}" class="black nav-link" >Regions</a>
@@ -80,13 +80,13 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item "><a th:href="@{/user}" class="nav-link " th:if="${session.roles[0].role == 'ROOT'}" >Staffs</a></li>
-                <li class="nav-item "><a th:href="@{/user}" class="nav-link " th:if="${session.roles[0].role == 'ROOT_MASTER'}" >Staffs</a></li>
-                <li class="nav-item "><a th:href="@{/stats}" class="nav-link " th:if="${session.roles[0].role == 'ROOT_MASTER'}" >Statistiques</a></li>
-                <li class="nav-item "><a th:href="@{/stats}" class="nav-link " th:if="${session.roles[0].role == 'ROOT'}" >Statistiques</a></li>
-                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${session.roles[0].role == 'ROOT'}" >Universités</a></li>
-                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${session.roles[0].role == 'ROOT_MASTER'}" >Universités</a></li>
-                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${session.roles[0].role == 'ADMIN_MASTER'}" >Universités</a></li>
+                <li class="nav-item "><a th:href="@{/user}" class="nav-link " th:if="${roles[0].role == 'ROOT'}" >Staffs</a></li>
+                <li class="nav-item "><a th:href="@{/user}" class="nav-link " th:if="${roles[0].role == 'ROOT_MASTER'}" >Staffs</a></li>
+                <li class="nav-item "><a th:href="@{/stats}" class="nav-link " th:if="${roles[0].role == 'ROOT_MASTER'}" >Statistiques</a></li>
+                <li class="nav-item "><a th:href="@{/stats}" class="nav-link " th:if="${roles[0].role == 'ROOT'}" >Statistiques</a></li>
+                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${roles[0].role == 'ROOT'}" >Universités</a></li>
+                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${roles[0].role == 'ROOT_MASTER'}" >Universités</a></li>
+                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${roles[0].role == 'ADMIN_MASTER'}" >Universités</a></li>
                 <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ROOT')">
                     <a href="#" class="nav-link" data-toggle="dropdown">Travailler avec nous</a>
                     <ul class="dropdown-menu">
@@ -107,22 +107,22 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown" th:if="${session.roles[0].role == 'ROOT'}">
+                <li class="nav-item dropdown" th:if="${roles[0].role == 'ROOT'}">
                     <a  href="#" class="nav-link" data-toggle="dropdown" >Educations et Autres</a>
                     <ul class="dropdown-menu">
                         <li><a  th:href="@{/management/countries/other}" class="black nav-link" >Autres services</a></li>
                         <li><a  th:href="@{/management/countries/education}" class="black nav-link">Education</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown" th:if="${session.roles[0].role == 'ROOT_MASTER'}">
+                <li class="nav-item dropdown" th:if="${roles[0].role == 'ROOT_MASTER'}">
                     <a  href="#" class="nav-link" data-toggle="dropdown" >Educations et Autres</a>
                     <ul class="dropdown-menu">
                         <li><a  th:href="@{/management/countries/other}" class="black nav-link" >Autres services</a></li>
                         <li><a  th:href="@{/management/countries/education}" class="black nav-link">Education</a></li>
                     </ul>
                 </li>
-                <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if="${session.roles[0].role == 'ROOT'}" >Formations</a></li>
-                <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if="${session.roles[0].role == 'ROOT_MASTER'}" >Formations</a></li>
+                <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if="${roles[0].role == 'ROOT'}" >Formations</a></li>
+                <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if="${roles[0].role == 'ROOT_MASTER'}" >Formations</a></li>
                 <li class="nav-item dropdown text-center" sec:authorize="isFullyAuthenticated()">
                     <!-- insert the profile image-->
                     <a href="#">
@@ -162,7 +162,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:if="${session.roles[0].role == 'ROOT'}" th:each="crew,i : ${crews}" >
+                    <tr th:if="${roles[0].role == 'ROOT'}" th:each="crew,i : ${crews}" >
                         <td th:text="${crew.groupeName}"></td>
 
                         <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
@@ -193,7 +193,7 @@
                             </div>
                         </div>
                     </tr>
-                    <tr th:if="${session.roles[0].role == 'ROOT_MASTER'}" th:each="crew,i : ${crews}" >
+                    <tr th:if="${roles[0].role == 'ROOT_MASTER'}" th:each="crew,i : ${crews}" >
                         <td th:text="${crew.groupeName}"></td>
                         <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
                         <td th:unless="${users2[i.index]!= null}">Non défini</td>
@@ -223,7 +223,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr th:if="${session.roles[0].role == 'ADMIN_MASTER'}" th:each="crew,i : ${crews}" >
+                    <tr th:if="${roles[0].role == 'ADMIN_MASTER'}" th:each="crew,i : ${crews}" >
                         <td th:text="${crew.groupeName}"></td>
                         <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
                         <td th:unless="${users2[i.index]!= null}">Non défini</td>                        <td th:text="${crew.groupeCountry}"></td>
@@ -253,7 +253,7 @@
                         </td>
 
                     </tr>
-                    <tr th:if="${session.roles[0].role == 'ADMIN'}" th:each="crew,i : ${crews1}" >
+                    <tr th:if="${roles[0].role == 'ADMIN'}" th:each="crew,i : ${crews1}" >
                         <td th:text="${crew.groupeName}"></td>
                         <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
                         <td th:unless="${users2[i.index]!= null}">Non défini</td>                        <td th:text="${crew.groupeCountry}"></td>
@@ -264,7 +264,7 @@
                         </td>
 
                     </tr>
-                    <tr th:if="${session.roles[0].role == 'USER'}" th:each="crew,i : ${crews1}" >
+                    <tr th:if="${roles[0].role == 'USER'}" th:each="crew,i : ${crews1}" >
                         <td th:text="${crew.groupeName}"></td>
                         <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
                         <td th:unless="${users2[i.index]!= null}">Non défini</td>
@@ -282,13 +282,13 @@
     </div>
 </section>
 
-<button th:if="${session.roles[0].role == 'ROOT'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
+<button th:if="${roles[0].role == 'ROOT'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
     <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
 </button>
-<button th:if="${session.roles[0].role == 'ROOT_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
+<button th:if="${roles[0].role == 'ROOT_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
     <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
 </button>
-<button th:if="${session.roles[0].role == 'ADMIN_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
+<button th:if="${roles[0].role == 'ADMIN_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
     <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
 </button>
 

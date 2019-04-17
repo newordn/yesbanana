@@ -510,7 +510,7 @@ public class ManagementController {
     public String courses(Model model, @PathVariable Long regionId, HttpSession session) {
         session.setAttribute("regionId",regionId);
 
-        return "management/region/education/primary/course";
+            return "management/region/education/primary/course";
     }
 
     @GetMapping("/region/primaire/jeux/{regionId}")

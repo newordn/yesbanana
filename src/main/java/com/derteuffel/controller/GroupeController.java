@@ -282,10 +282,9 @@ public class GroupeController {
         session.setAttribute("name", user.getName());
 
             model.addAttribute("groupe", new Groupe());
-            session.setAttribute("roles", user.getRoles());
-        long time = System.currentTimeMillis();
-        Panier panier = new Panier(new Date(time), null, user, 0.0);
-        panierRepository.save(panier);
+            session.setAttribute("roles", roleRepository.findByUsers_UserId(user.getUserId()));
+        model.addAttribute("roles",roleRepository.findByUsers_UserId(user.getUserId()));
+
         Role role= roleRepository.findByRole("VISITOR");
 
         if (!user.getRoles().containsAll(new HashSet<Role>(Arrays.asList(role)))) {

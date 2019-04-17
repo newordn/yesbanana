@@ -5,6 +5,8 @@ import com.derteuffel.repository.*;
 import com.derteuffel.service.MailService;
 import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +46,9 @@ public class HomeController {
     private PostRepository postRepository;
     @Autowired
     private FileUploadService fileUploadService;
+    @Autowired
+    private PanierRepository panierRepository;
+
 
     List<String> countries= Arrays.asList(
             "Afghanistan",
@@ -260,12 +265,27 @@ public class HomeController {
     }
 
 
-    @GetMapping("/logout")
+    @GetMapping("/perform_logout")
     public String logout(HttpServletRequest request){
-        System.out.println("je suis deconnecter");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByName(auth.getName());
+        List<Panier> paniers = user.getPaniers();
+        Panier panier =null;
+        for(Panier panier1 : paniers)
+        {
+            if(panier1.getStatus())
+            {
+                panier= panier1;
+            }
+        }
+        if(panier!=null) {
+            panier.setStatus(false);
+            panierRepository.save(panier);
+        }
         HttpSession session = request.getSession();
         session.invalidate();
-        return "redirect:/login";
+
+        return "redirect:/logout";
     }
 
     @GetMapping("/stats")

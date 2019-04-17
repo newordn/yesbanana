@@ -28,15 +28,25 @@ public class Panier {
     public Double getCount() {
         return count;
     }
+    public Boolean status;
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public Panier() {
     }
 
-    public Panier(Date date, List<Article> articles, User user, Double count) {
+    public Panier(Boolean status, Date date, Double count, List<Article> articles, User user) {
+        this.status = status;
         this.date = date;
+        this.count = count;
         this.articles = articles;
         this.user = user;
-        this.count = count;
     }
 
     public void setCount(Double count) {
