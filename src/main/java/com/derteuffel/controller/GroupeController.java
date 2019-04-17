@@ -525,7 +525,7 @@ public class GroupeController {
                 usersGroup.add(userGroup.get(j));
             }
         }
-        session.setAttribute("roles", user.getRoles());
+        session.setAttribute("roles", roleRepository.findByUsers_UserId(user.getUserId()));
         model.addAttribute("users1",users);
         model.addAttribute("users", usersGroup);
         System.out.println(usersGroup);
@@ -663,7 +663,7 @@ public class GroupeController {
     public String encadrement(Model model, @PathVariable Long groupeId, HttpSession session){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
-        session.setAttribute("roles", user.getRoles());
+        session.setAttribute("roles", roleRepository.findByUsers_UserId(user.getUserId()));
         Groupe groupe=groupeRepository.getOne(groupeId);
         model.addAttribute("groupeName", groupe.getGroupeName());
         model.addAttribute("groupe",groupe);
