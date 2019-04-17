@@ -282,7 +282,8 @@ public class GroupeController {
         session.setAttribute("name", user.getName());
 
             model.addAttribute("groupe", new Groupe());
-            session.setAttribute("roles", user.getRoles());
+            session.setAttribute("roles", roleRepository.findByUsers_UserId(user.getUserId()));
+        model.addAttribute("roles",roleRepository.findByUsers_UserId(user.getUserId()));
 
         Role role= roleRepository.findByRole("VISITOR");
 

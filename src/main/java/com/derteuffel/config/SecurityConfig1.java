@@ -72,7 +72,7 @@ public class SecurityConfig1 extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/create/visitor").permitAll()
                 .antMatchers("/password/**").permitAll()
                 .antMatchers("/groupe/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER","VISITOR")
-                .antMatchers("/management/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER")
+                .antMatchers("/management**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER")
                 .antMatchers("/these/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER")
                 .antMatchers("/bibliotheque/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER")
                 .antMatchers("/bibliography/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER")

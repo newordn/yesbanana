@@ -282,7 +282,6 @@ public class HomeController {
             panier.setStatus(false);
             panierRepository.save(panier);
         }
-        System.out.println("je suis deconnecter");
         HttpSession session = request.getSession();
         session.invalidate();
 

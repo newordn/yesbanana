@@ -123,7 +123,7 @@ public class User implements Serializable{
 
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<Role> roles;
+    private Set<Role> roles;
 
     public List<Panier> getPaniers() {
         return paniers;
@@ -149,7 +149,7 @@ public class User implements Serializable{
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod,
                 String dayWorkBeginning, String dayWorkEnd, String studentNumber, Boolean numberOfWorkers,
                 String anotherDetail, String classe, String experienceYear, List<Post> posts, String cv, List<These> theses,
-                Boolean status, Collection<Role> roles, List<Groupe> groupes, Boolean autorization, String amount) {
+                Boolean status, Set<Role> roles, List<Groupe> groupes, Boolean autorization, String amount) {
         this.name = name;
         this.email = email;
         this.experienceYear= experienceYear;
@@ -206,7 +206,7 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod, String dayWorkBeginning,
                 String dayWorkEnd, String studentNumber, Boolean numberOfWorkers, String numberInGroupe, String anotherDetail, String cv,
-                List<These> theses,String classe, String experienceYear, List<Post> posts, Collection<Role> roles, List<Groupe> groupes, Boolean autorization) {
+                List<These> theses,String classe, String experienceYear, List<Post> posts, Set<Role> roles, List<Groupe> groupes, Boolean autorization) {
         this.name = name;
         this.posts=posts;
         this.autorization=autorization;
@@ -401,10 +401,10 @@ public class User implements Serializable{
         groupes.add(groupe);
     }
 
-    public Collection<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
-    public void  addRoles(Collection<Role> roles){
+    public void  addRoles(Set<Role> roles){
         this.roles=roles;
     }
 
