@@ -1,5 +1,5 @@
 <!-- sidebar-->
-<nav id="sidebar" class="bg-light fixed-top active" th:if="${roles[0].role == 'USER'}"   xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="sidebar"
+<nav id="sidebar" class="bg-light fixed-top active" th:if="${session.roles[0].role == 'USER'}"   xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="sidebar"
      xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="sidebar-header">
         <button  class="btn text-white" id="back" ><i class="fa fa-arrow-left"></i><br><span>Retour</span></button>
@@ -10,7 +10,7 @@
 <!-- sidebar-->
 
 <!-- sidebar-->
-<nav id="sidebar" class="bg-light fixed-top active"  th:unless="${roles[0].role == 'USER'}"  xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="sidebar"
+<nav id="sidebar" class="bg-light fixed-top active"  th:unless="${session.roles[0].role == 'USER'}"  xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="sidebar"
      xmlns:sec="http://www.w3.org/1999/xhtml">
 
     <div class="sidebar-header">

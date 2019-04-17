@@ -297,7 +297,7 @@ public class    TheseController {
         model.addAttribute("these", new These());
         model.addAttribute("countries", countries);
         for (Role role : roleRepository.findByUsers_UserId(user.getUserId())) {
-            if (role.getRole().equals("ROOT")) {
+            if (role.getRole().equals("ROOT")|| role.getRole().equals("ROOT_MASTER") || role.getRole().equals("ADMIN_MASTER") ) {
                 p = 1;
             }
         }
