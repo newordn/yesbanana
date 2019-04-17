@@ -540,11 +540,11 @@ public class GroupeController {
         session.setAttribute("roles", user.getRoles());
         Groupe groupe = groupeRepository.getOne(groupeId);
         session.setAttribute("groupeId", groupeId);
+        model.addAttribute("groupe",groupe);
         session.setAttribute("groupeCountry",groupe.getGroupeCountry());
         session.setAttribute("groupeRegion",groupe.getGroupeRegion());
         model.addAttribute("these",new These());
         model.addAttribute("countries", countries);
-        model.addAttribute("groupeName",groupe.getGroupeName());
 
         Collection<Role> roles= roleRepository.findByUsers_UserId(user.getUserId());
         List<These> theses= theseRepository.findAllByStates(true);
@@ -602,28 +602,29 @@ public class GroupeController {
         return "redirect:/groupe/groupes";
     }
 
-    @GetMapping("/groupe/these/general/edit/{theseId}")
-    public String getGeneral(Model model, @PathVariable Long theseId, HttpSession session) {
+    @GetMapping("/groupe/these/general/edit/{theseId}/{groupeId}")
+    public String getGeneral(Model model, @PathVariable Long theseId,@PathVariable Long groupeId, HttpSession session) {
         Optional<These> optional = theseRepository.findById(theseId);
         session.setAttribute("userId", optional.get().getUser().getUserId());
-        session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
+        Groupe groupe= groupeRepository.getOne(groupeId);
         session.setAttribute("resumes", optional.get().getResumes());
         session.setAttribute("anotherSommaire", optional.get().getAnotherSommaire());
+        model.addAttribute("groupe", groupe);
         model.addAttribute("countries", countries);
         model.addAttribute("these1", optional.get());
         return "crew/general";
     }
 
     @PostMapping("/groupe/these/general/edit")
-    public String updateGeneral(These these, HttpSession session){
+    public String updateGeneral(These these, HttpSession session, Long groupeId){
         these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
-        these.setGroupe(groupeRepository.getOne((Long)session.getAttribute("groupeId")));
+        these.setGroupe(groupeRepository.getOne(groupeId));
         these.setResumes((ArrayList<String>)session.getAttribute("resumes"));
         these.setAnotherSommaire((String)session.getAttribute("anotherSommaire"));
         these.setStates(true);
         these.setStatus(false);
         theseRepository.save(these);
-        return "redirect:/groupe/groupe/"+(Long)session.getAttribute("groupeId");
+        return "redirect:/groupe/groupe/"+groupeId;
     }
 
     @GetMapping("/encadrement/chef/{groupeId}")
@@ -667,11 +668,12 @@ public class GroupeController {
         return "crew/encadrement";
     }
 
-    @GetMapping("/groupe/these/{theseId}")
-    public String get(Model model, @PathVariable Long theseId, HttpSession session){
+    @GetMapping("/groupe/these/{theseId}/{groupeId}")
+    public String get(Model model, @PathVariable Long theseId,@PathVariable Long groupeId, HttpSession session){
 
         Optional<These> optional= theseRepository.findById(theseId);
         model.addAttribute("these1",optional.get());
+        model.addAttribute("groupe",groupeRepository.getOne(groupeId));
         session.setAttribute("userId",optional.get().getUser().getUserId());
         session.setAttribute("theseId", optional.get().getTheseId());
         session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
@@ -693,7 +695,7 @@ public class GroupeController {
 
     // for saving a these
     @PostMapping("/groupe/add/update/somaire")
-    public String update(These these, @RequestParam("files") MultipartFile[] files, HttpSession session) {
+    public String update(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, Long groupeId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         List<FileUploadRespone> pieces = Arrays.asList(files)
@@ -704,7 +706,6 @@ public class GroupeController {
         for (int i = 0; i < pieces.size(); i++) {
             filesPaths.add(pieces.get(i).getFileDownloadUri());
         }
-        Long groupeId = (Long) session.getAttribute("groupeId");
         these.setResumes(filesPaths);
         Groupe groupe = groupeRepository.getOne(groupeId);
         these.setGroupe(groupe);
@@ -772,13 +773,13 @@ public class GroupeController {
 
         return new FileUploadRespone(fileName, fileDownloadUri);
     }
-    @GetMapping("/groupe/equipe/{theseId}")
-    public String getEquipe(Model model, @PathVariable Long theseId, HttpSession session){
+    @GetMapping("/groupe/equipe/{theseId}/{groupeId}")
+    public String getEquipe(Model model, @PathVariable Long theseId,@PathVariable Long groupeId, HttpSession session){
         Optional<These> optional= theseRepository.findById(theseId);
         model.addAttribute("these1",optional.get());
         session.setAttribute("theseId", optional.get().getTheseId());
         session.setAttribute("userId",optional.get().getUser().getUserId());
-        session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
+        model.addAttribute("groupe", groupeRepository.getOne(groupeId));
         session.setAttribute("university", optional.get().getUniversity());
         session.setAttribute("faculty", optional.get().getFaculty());
         session.setAttribute("options", optional.get().getOptions());
@@ -794,9 +795,10 @@ public class GroupeController {
 
     }
 
-    @GetMapping("/groupe/biblib/{theseId}")
-    public String getBibLib(Model model, @PathVariable Long theseId, HttpSession session){
+    @GetMapping("/groupe/biblib/{theseId}/{groupeId}")
+    public String getBibLib(Model model, @PathVariable Long theseId,@PathVariable Long groupeId, HttpSession session){
         System.out.println("sdfffsfghjdg");
+        Groupe groupe= groupeRepository.getOne(groupeId);
         These these= theseRepository.getOne(theseId);
         List<Bibliography>bibliographies=bibliographyRepository.findAllByThese(these.getTheseId());
         List<Bibliography> bibliographiesDispo= bibliographyRepository.findAllByDisponibility(true);
@@ -809,6 +811,7 @@ public class GroupeController {
             }
         }
         model.addAttribute("disponibles", bibliographies1);
+        model.addAttribute("groupe",groupe);
         session.setAttribute("theseId", these.getTheseId());
         model.addAttribute("bibliothequess",bibliothequeRepository.findAllByThese(these.getTheseId()));
         model.addAttribute("bibliotheque", new Bibliotheque());
@@ -840,10 +843,12 @@ public class GroupeController {
         return "redirect:/groupe/groupe/these/" + theseId;
     }
 
-    @GetMapping("/these/unPublish/form/{theseId}")
-    public String unPublishForm(@PathVariable Long theseId, Model model, HttpSession session) {
+    @GetMapping("/these/unPublish/form/{theseId}/{groupeId}")
+    public String unPublishForm(@PathVariable Long theseId,@PathVariable Long groupeId, Model model, HttpSession session) {
         These these = theseRepository.getOne(theseId);
-        model.addAttribute("groupeId", (Long) session.getAttribute("groupeId"));
+        Groupe groupe= groupeRepository.getOne(groupeId);
+
+        model.addAttribute("groupe",groupe);
         model.addAttribute("countries", countries);
         model.addAttribute("these", these);
         session.setAttribute("userId", these.getUser().getUserId());
@@ -852,12 +857,12 @@ public class GroupeController {
     }
 
     @PostMapping("/these/unPublish/{theseId}")
-    public String unPublishPeriod(These these, HttpSession session, String adresse, String contenue, @PathVariable Long theseId) {
+    public String unPublishPeriod(These these, HttpSession session, String adresse, String contenue, @PathVariable Long theseId, Long groupeId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         these.setStatus(false);
         these.setUser(userRepository.getOne((Long) session.getAttribute("userId")));
-        these.setGroupe(groupeRepository.getOne((Long) session.getAttribute("groupeId")));
+        these.setGroupe(groupeRepository.getOne(groupeId));
         these.setCountry((String) session.getAttribute("country"));
         these.setStates(true);
         theseRepository.save(these);

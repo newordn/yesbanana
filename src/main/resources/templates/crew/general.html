@@ -36,6 +36,7 @@
                     <div class="col-12 col-sm-6 col-lg-12">
                         <!--theseId-->
                         <input type="hidden" th:field="*{theseId}"  >
+                        <input type="hidden" name="groupeId" th:value="${groupe.groupeId}"  >
                         <!--theseId-->
                         <div class=" mb-4">
                             <div class="col-12 col-sm-6 col-lg-12">
@@ -124,7 +125,7 @@
 
                 </div>
                 <div class="modal-footer text-center">
-                    <a th:href="@{/groupe/groupe/}+${session.groupeId}" class="btn btn-warning pull-left">Retour</a>
+                    <a th:href="@{/groupe/groupe/}+${groupe.groupeId}" class="btn btn-warning pull-left">Retour</a>
                     <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
                 </div>
             </form>

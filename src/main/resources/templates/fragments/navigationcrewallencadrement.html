@@ -1,5 +1,5 @@
 <!--navigation -->
-<div class="sticky-top" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navigationcrew">
+<div class="sticky-top" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navigationcrewallencadrement">
 
             <!--Navbar -->
             <nav class=" navbar navbar-expand-lg navbar-expand-md navbar-light bg-light">
@@ -24,7 +24,7 @@
                                 <a class="dropdown-item" href="#"></a>
                                 <a class="dropdown-item" th:text="${session.name}">Profil</a>
                                 <a class="dropdown-item" th:href="@{/user/detail/}+${session.userId}">Profil</a>
-                                <a class="dropdown-item" th:href="@{/perform_logout}">Deconnexion</a>
+                                <a class="dropdown-item" th:href="@{/logout}">Deconnexion</a>
                             </div>
                         </li>
                     </ul>
@@ -33,7 +33,7 @@
             <!--/.Navbar -->
 <!-- navigation -->
     <div class="sticky-top text-center">
-        <h3 class="bg-light"><i th:text="${groupeName}"></i></h3>
+        <h3 class="bg-light"><i th:text="${groupeName}"></i>&nbsp;&nbsp;<i class="ion-ios-arrow-forward"></i>&nbsp;&nbsp;<i th:text="${groupe.groupeCountry}"></i>&nbsp;&nbsp;<i class="ion-ios-arrow-forward"></i>&nbsp;&nbsp;<i class="text-primary">Equipe d'accompagnement</i></h3>
     </div>
 </div>
 

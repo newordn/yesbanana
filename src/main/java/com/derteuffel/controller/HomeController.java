@@ -267,7 +267,6 @@ public class HomeController {
 
     @GetMapping("/perform_logout")
     public String logout(HttpServletRequest request){
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         List<Panier> paniers = user.getPaniers();
@@ -283,6 +282,7 @@ public class HomeController {
             panier.setStatus(false);
             panierRepository.save(panier);
         }
+        System.out.println("je suis deconnecter");
         HttpSession session = request.getSession();
         session.invalidate();
 
