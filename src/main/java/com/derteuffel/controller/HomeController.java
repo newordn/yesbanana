@@ -262,7 +262,7 @@ public class HomeController {
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request){
-
+        System.out.println("je suis deconnecter");
         HttpSession session = request.getSession();
         session.invalidate();
         return "redirect:/login";
