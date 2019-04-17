@@ -175,7 +175,7 @@
                     <!-- loop over available  faculty -->
                     <select class="form-control" th:field="*{facultyName}">
                         <option value="">choisir une faculté</option>
-                        <option th:each="these : ${theses}" th:value="${these.faculty}" th:text="${these.faculty}">Faculty</option>
+                        <option th:each="these : ${theses}" th:value="${these}" th:text="${these}">Faculty</option>
                     </select>
                 </div>
             </div>

@@ -538,8 +538,9 @@ public class GroupeController {
     public String get(@PathVariable Long groupeId, HttpSession session, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
-        session.setAttribute("roles", user.getRoles());
+        session.setAttribute("roles", roleRepository.findByUsers_UserId(user.getUserId()));
         Groupe groupe = groupeRepository.getOne(groupeId);
+        model.addAttribute("roles",roleRepository.findByUsers_UserId(user.getUserId()));
         session.setAttribute("groupeId", groupeId);
         model.addAttribute("groupe",groupe);
         session.setAttribute("groupeCountry",groupe.getGroupeCountry());

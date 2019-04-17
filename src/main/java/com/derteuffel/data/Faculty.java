@@ -25,7 +25,6 @@ public class Faculty implements Serializable {
     private University university;
 
     @OneToMany(mappedBy = "faculty")
-    @Cascade(CascadeType.ALL)
     private List<Options> optionsList;
 
     public Faculty(String facultyName, University university) {

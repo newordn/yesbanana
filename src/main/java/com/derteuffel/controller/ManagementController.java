@@ -293,7 +293,6 @@ public class ManagementController {
             return "redirect:/management/faculty/"+ faculty.getFacultyId();
         }else {
             options.setFaculty(faculty);
-            options.setOptionsName(options.getOptionsName());
             optionsRepository.save(options);
         }
         return "redirect:/management/faculty/"+ faculty.getFacultyId();
