@@ -281,10 +281,13 @@ public class ManagementController {
     @PostMapping("/options/form/save")
     public String save(Options options, Long facultyId, Errors errors, Model model) {
         Faculty faculty = facultyRepository.getOne(facultyId);
-    Options options1= optionsRepository.findByOptionsName(options.getOptionsName());
-        if (options1 != null){
-            errors.rejectValue("optionsName","options.error","il existe deja une reference avec ce titre");
+        for (Options options2 : faculty.getOptionsList()){
+            Options options1= optionsRepository.findByOptionsName(options.getOptionsName());
+            if (options1.getOptionsName().equals(options2.getOptionsName())){
+                errors.rejectValue("optionsName","options.error","il existe deja une reference avec ce titre");
+            }
         }
+
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
             return "redirect:/management/faculty/"+ faculty.getFacultyId();
@@ -323,10 +326,13 @@ public class ManagementController {
     @PostMapping("/university/form/save")
     public String save(University university, Long regionId, Errors errors, Model model) {
         Region region= regionRepository.getOne(regionId);
-        University university1= universityRepository.findByUniversityName(university.getUniversityName());
-        if (university1 != null){
-            errors.rejectValue("universityName","university.error","il existe deja une reference avec ce titre");
+        for (University university1 : region.getUniversities()){
+            University university2= universityRepository.findByUniversityName(university.getUniversityName());
+            if (university1.getUniversityName().equals(university2.getUniversityName())){
+                errors.rejectValue("universityName","university.error","il existe deja une reference avec ce titre");
+            }
         }
+
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
             return "redirect:/management/region/university/"+ region.getRegionId();
@@ -587,10 +593,13 @@ public class ManagementController {
     @PostMapping("/faculty/form/save")
     public String save(Faculty faculty, Long universityId, Errors errors, Model model) {
         University university= universityRepository.getOne(universityId);
-        Faculty faculty1= facultyRepository.findByFacultyName(faculty.getFacultyName());
-        if (faculty1 != null){
-            errors.rejectValue("facultyName","faculty.error","il existe deja une reference avec ce titre");
+        for (Faculty faculty2 : university.getFacultyList()){
+            Faculty faculty1= facultyRepository.findByFacultyName(faculty.getFacultyName());
+            if (faculty1.getFacultyName().equals(faculty2.getFacultyName())){
+                errors.rejectValue("facultyName","faculty.error","il existe deja une reference avec ce titre");
+            }
         }
+
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
             return "redirect:/management/university/"+ university.getUniversityId();

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Yesbanana</title>
     <meta charset="utf-8">
@@ -41,6 +41,15 @@
                 <li class="nav-item"><a th:href="@{/external/secure/region/region/approvisionnement/}+${session.regionId}" class="nav-link">Approvisionnement</a></li>
                 <li class="nav-item">
                     <div th:replace="~{../templates/payment/panierWidget :: panierWidgetFragment}">
+                    </div>
+                </li>
+                <li class="nav-item" th:if="${session.userId}==null">
+                    <div th:replace="~{../templates/payment/visitorConnexionWidget :: visitorConnexionWidget}">
+                    </div>
+                </li>
+
+                <li class="nav-item" th:if="${session.userId}!=null">
+                    <div th:replace="~{../templates/payment/visitorLogOutWidget :: visitorLogOutWidget}">
                     </div>
                 </li>
             </ul>

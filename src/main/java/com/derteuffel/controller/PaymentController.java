@@ -77,6 +77,7 @@ public class PaymentController {
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
+        if(user==null) return "redirect:/login/visitor";
         List<Panier> paniers = user.getPaniers();
         Panier panier =null;
         for(Panier panier1 : paniers)
