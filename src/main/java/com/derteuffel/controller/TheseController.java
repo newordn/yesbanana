@@ -459,17 +459,8 @@ public class    TheseController {
                 user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
         Collection<Role> roles = roleRepository.findByUsers_UserId(user.getUserId());
-        int p = 0;
-        for (Role role : roles) {
-            if (!role.getRole().equals("USER")) {
-                p = 1;
-            }
-        }
-        if (p == 1) {
+
             return "redirect:/groupe/groupe/" + (Long) session.getAttribute("groupeId");
-        } else {
-            return "redirect:/groupe/groupe/all/user/these";
-        }
 
     }
 
