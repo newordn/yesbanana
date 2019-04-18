@@ -9,25 +9,30 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Bootstrap CSS-->
     <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/css/element.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+
 
 </head>
-<body class="row">
-<!--navigation-->
-<div th:replace="~{../templates/fragments/navigationcrew :: navigationcrew}">
-</div>
-<!-- navigation -->
+<body class="userCrewWrapper">
 <!-- sidebar-->
-<div th:replace="~{../templates/fragments/sidebar :: sidebar}">
-</div>
+<nav th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</nav>
 <!-- sidebar-->
 
-<div class="col-10 offset-2 main" >
-
+<div id="content" class="card modal-warning" style="padding-right: 15px;padding-left: 15px" >
+    <!--navigation-->
+    <div th:replace="~{../templates/fragments/navigationcrew :: navigationcrew}">
+    </div>
+    <!-- navigation -->
 
     <!-- update crew form -->
     <h3 class="text-center mt-5">Modifier les informations du groupe</h3>
-    <div class=" justify-content-center mt-3" >
-        <form class=" card text-center p-5" style="width:40rem;" th:object="${groupe}" th:action="@{/groupe/update/{groupeId}(groupeId=${groupe.groupeId})}" method="post">
+    <div class="modal-dialog justify-content-center mt-3" >
+        <form class="modal-content card text-center p-5" style="width:40rem;" th:object="${groupe}" th:action="@{/groupe/update/{groupeId}(groupeId=${groupe.groupeId})}" method="post">
             <div class="form-group" >
                 <span class='error' id="nameError"></span>
                 <input type="text" th:field="*{groupeName}" id="groupeName" class="form-control" placeholder="Nom du groupe" />
@@ -61,24 +66,18 @@
             </form>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
 
-<!--script -->
-    <!--vendor scripts -->
-    <div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
-    <!--vendor scripts -->
-    <script th:src="@{/js/dashboard.js}"></script>
-<!-- script -->
-<!-- ##### All Javascript Script ##### -->
-<!-- jQuery-2.2.4 js -->
-<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
-<!-- Popper js -->
-<script th:src="@{/js/bootstrap/popper.min.js}"></script>
-<!-- Bootstrap js -->
-<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
-<!-- All Plugins js -->
-<script th:src="@{/js/plugins/plugins.js}"></script>
-<!-- Active js -->
-<script th:src="@{/js/active.js}"></script>
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+        });
+        $('#back').on('click', function(){
+            $('#sidebar').toggleClass('active')
+        });
+
+    });
+</script>
 
 </body>
 

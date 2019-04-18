@@ -727,7 +727,7 @@ public class GroupeController {
         these.setStates(true);
         these.setStatus(false);
         theseRepository.save(these);
-        return "redirect:/groupe/groupe/these/"+these.getTheseId();
+        return "redirect:/groupe/groupe/these/"+these.getTheseId()+"/"+groupe.getGroupeId();
     }
 
     // for saving a these
@@ -762,7 +762,7 @@ public class GroupeController {
         these.setStates(true);
         these.setStatus(false);
         theseRepository.save(these);
-        return "redirect:/groupe/groupe/equipe/"+ these.getTheseId();
+        return "redirect:/groupe/groupe/equipe/"+ these.getTheseId()+"/"+groupe.getGroupeId();
 
     }
     public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
@@ -825,24 +825,26 @@ public class GroupeController {
 
     }
 
-    @GetMapping("/these/publish/{theseId}")
-    public String publishThese(@PathVariable Long theseId, HttpSession session) {
+    @GetMapping("/these/publish/{theseId}/{groupeId}")
+    public String publishThese(@PathVariable Long theseId,@PathVariable Long groupeId, HttpSession session) {
         These these = theseRepository.getOne(theseId);
+        Groupe groupe= groupeRepository.getOne(groupeId);
         these.setStatus(true);
         these.setStates(true);
         System.out.print(these.getStatus());
         System.out.print("blablabla");
         theseRepository.save(these);
-        return "redirect:/groupe/groupe/these/" + theseId;
+        return "redirect:/groupe/groupe/these/" + theseId + "/"+groupe.getGroupeId();
     }
 
-    @GetMapping("/these/draft/{theseId}")
-    public String draftThese(@PathVariable Long theseId, HttpSession session) {
+    @GetMapping("/these/draft/{theseId}/{groupeId}")
+    public String draftThese(@PathVariable Long theseId,@PathVariable Long groupeId, HttpSession session) {
         These these = theseRepository.getOne(theseId);
+        Groupe groupe= groupeRepository.getOne(groupeId);
         these.setStatus(false);
         these.setStates(true);
         theseRepository.save(these);
-        return "redirect:/groupe/groupe/these/" + theseId;
+        return "redirect:/groupe/groupe/these/" + theseId+"/"+ groupe.getGroupeId();
     }
 
     @GetMapping("/these/unPublish/form/{theseId}/{groupeId}")
@@ -874,7 +876,7 @@ public class GroupeController {
                 "Notification de correction du contenu de cette Thèse",
                 user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
-        return "redirect:/groupe/groupe/these/" + theseId;
+        return "redirect:/groupe/groupe/these/" + theseId+"/"+groupeId;
     }
 
 

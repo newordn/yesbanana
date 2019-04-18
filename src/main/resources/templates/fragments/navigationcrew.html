@@ -1,5 +1,5 @@
 <!--navigation -->
-<div class="sticky-top" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navigationcrewthese">
+<div class="sticky-top" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navigationcrew">
     <!--Navbar -->
     <nav class=" navbar navbar-expand-lg navbar-expand-md navbar-light bg-light">
         <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -13,27 +13,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
             <ul class="navbar-nav ml-auto nav-flex-icons ">
-                <li class="nav-item ">
-                    <a th:href="@{/groupe/groupe/}+${groupe.groupeId}" class="text-primary nav-link">
-                        Thèses générale
-                    </a>
-                </li>
-                    <li class="nav-item " >
-                        <a th:href="@{/groupe/groupe/these/} + ${these1.theseId}+'/'+${groupe.groupeId}" class="text-primary nav-link" >
-                            Sommaire
-                        </a>
-                    </li>
-                    <li class="nav-item " >
-                        <a th:href="@{/groupe/groupe/equipe/} + ${these1.theseId}+'/'+${groupe.groupeId}" class="text-primary nav-link" >
-                            Etudiant et équipe directrice<span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item " >
-                        <a th:href="@{/groupe/groupe/biblib/} + ${these1.theseId}+'/'+${groupe.groupeId}" class=" nav-link text-primary" >
-                            Bibliothèques et Bibliographie
-                        </a>
-                    </li>
-
                 <li class="nav-item avatar dropdown">
                     <a class="nav-link dropdown-toggle" th:text="${session.name}" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false">
@@ -53,7 +32,7 @@
     <!--/.Navbar -->
     <!-- navigation -->
     <div class="sticky-top text-center">
-        <h5 class="bg-light"><i th:text="${groupe.groupeName}"></i>&nbsp;&nbsp;<i class="ion-ios-arrow-forward"></i>&nbsp;&nbsp;<i th:text="${groupe.groupeCountry}"></i>&nbsp;&nbsp;<i class="ion-ios-arrow-forward"></i>&nbsp;&nbsp;<i class="text-primary" th:text="${these1.subject}"></i></h5>
+        <h5 class="bg-light"><i th:text="${groupe.groupeName}"></i>&nbsp;&nbsp;<i class="ion-ios-arrow-forward"></i>&nbsp;&nbsp;<i th:text="${groupe.groupeCountry}"></i>&nbsp;&nbsp;</h5>
     </div>
 </div>
 

@@ -423,10 +423,14 @@ public class    TheseController {
 
     // for saving a these
     @PostMapping("/add/create")
-    public String save(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, String adresse, String contenue, Errors errors, Model model) {
+    public String save(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, String adresses, String contenue, Errors errors, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         These these1 = theseRepository.findBySubject(these.getSubject());
+        Long groupeId = (Long) session.getAttribute("groupeId");
+        Groupe groupe = groupeRepository.getOne(groupeId);
+        User user1 = userRepository.getOne(Long.parseLong(groupe.getGroupChief()));
+
         if (these1 != null) {
             errors.rejectValue("title", "these.error", "il existe deja une reference avec ce titre");
         }
@@ -442,9 +446,7 @@ public class    TheseController {
             for (int i = 0; i < pieces.size(); i++) {
                 filesPaths.add(pieces.get(i).getFileDownloadUri());
             }
-            Long groupeId = (Long) session.getAttribute("groupeId");
             these.setResumes(filesPaths);
-            Groupe groupe = groupeRepository.getOne(groupeId);
             these.setGroupe(groupe);
             these.setUser(user);
             these.setStatus(false);
@@ -452,14 +454,25 @@ public class    TheseController {
             these.setOptions(these.getOptions().toLowerCase());
             theseRepository.save(these);
         }
-        MailService mail = new MailService();
-        mail.sendSimpleMessage(
-                adresse,
+
+        String[]adresseList=adresses.split(",");
+        int i=2;
+        for (String adresse : adresseList){
+            i++;
+            MailService mail = new MailService();
+            mail.sendSimpleMessage(
+                    adresse,
+                    "Notification de enregistrement d'une Thèse",
+                    user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
+            );
+        }
+
+        MailService mail1 = new MailService();
+        mail1.sendSimpleMessage(
+                user1.getEmail(),
                 "Notification de enregistrement d'une Thèse",
                 user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
-        Collection<Role> roles = roleRepository.findByUsers_UserId(user.getUserId());
-
             return "redirect:/groupe/groupe/" + (Long) session.getAttribute("groupeId");
 
     }
