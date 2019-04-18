@@ -276,12 +276,12 @@ public class UserController {
             }
         }
         model.addAttribute("users", users1);
-        String avatar = "";
+       /* String avatar = "";
         for (User user : users) {
             avatar = user.getImg();
             int d = avatar.indexOf("d");
             user.setImg(avatar.substring(d));
-        }
+        }*/
 
         return "user/users";
     }
