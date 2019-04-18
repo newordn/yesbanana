@@ -325,12 +325,8 @@ public class ManagementController {
     @PostMapping("/university/form/save")
     public String save(University university, Long regionId, Errors errors, Model model) {
         Region region= regionRepository.getOne(regionId);
-        for (University university1 : region.getUniversities()){
             University university2= universityRepository.findByUniversityName(university.getUniversityName());
-            if (university1.getUniversityName().equals(university2.getUniversityName())){
                 errors.rejectValue("universityName","university.error","il existe deja une reference avec ce titre");
-            }
-        }
 
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
