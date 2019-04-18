@@ -282,8 +282,7 @@ public class ManagementController {
     public String save(Options options, Long facultyId, Errors errors, Model model) {
         Faculty faculty = facultyRepository.getOne(facultyId);
         for (Options options2 : faculty.getOptionsList()){
-            Options options1= optionsRepository.findByOptionsName(options.getOptionsName());
-            if (options1.getOptionsName().equals(options2.getOptionsName())){
+            if (options2.getOptionsName().equals(options.getOptionsName())){
                 errors.rejectValue("optionsName","options.error","il existe deja une reference avec ce titre");
             }
         }
@@ -325,8 +324,11 @@ public class ManagementController {
     @PostMapping("/university/form/save")
     public String save(University university, Long regionId, Errors errors, Model model) {
         Region region= regionRepository.getOne(regionId);
-            University university2= universityRepository.findByUniversityName(university.getUniversityName());
+        for (University university1 : region.getUniversities()){
+            if (university1.getUniversityName().equals(university.getUniversityName())){
                 errors.rejectValue("universityName","university.error","il existe deja une reference avec ce titre");
+            }
+        }
 
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
@@ -588,9 +590,10 @@ public class ManagementController {
     @PostMapping("/faculty/form/save")
     public String save(Faculty faculty, Long universityId, Errors errors, Model model) {
         University university= universityRepository.getOne(universityId);
+        System.out.println(university.getFacultyList());
         for (Faculty faculty2 : university.getFacultyList()){
-            Faculty faculty1= facultyRepository.findByFacultyName(faculty.getFacultyName());
-            if (faculty1.getFacultyName().equals(faculty2.getFacultyName())){
+            System.out.println(university.getFacultyList());
+            if (faculty2.getFacultyName().equals(faculty.getFacultyName())){
                 errors.rejectValue("facultyName","faculty.error","il existe deja une reference avec ce titre");
             }
         }
