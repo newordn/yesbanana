@@ -288,8 +288,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1  text-center pull-rigth">
+                                <br>
                                 <a th:href="@{/#}" class="btn btn-primary btn-block">Groupes</a>
                                 <ul th:each=" groupe : ${groupes}">
                                     <li> <p th:text="${groupe.groupeName}"></p></li>
@@ -298,14 +297,14 @@
                                     <button th:if="${session.roles[0].role == 'ROOT'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#addGroupe">
                                         <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
                                     </button>
-                                    <div th:if="${session.roles[0].role == 'ROOT'}" class=" modal fade" id="addRole" tabindex="-1" role="dialog" data-keyboard="false">
+                                    <div class=" modal fade" id="addGroupe" tabindex="-1" role="dialog" data-keyboard="false">
                                         <div class="modal-dialog modal-dialog-centered"  role="document">
-                                            <form class="add-these-form modal-content card text-center" th:object="${form}" method="post" th:action="@{/groupe/user/save1}">
+                                            <form class="add-these-form modal-content card text-center" th:object="${addToGroupe}" method="post" th:action="@{/user/groupe/save1}">
                                                 <div class=" pt-3 pl-1 pr-1 pb-3">
                                                     <span class='error' id="nameError"></span>
                                                     <!-- loop over available  country -->
-                                                    <select class="form-control" th:field="*{roleId}"  style="width: 100%">
-                                                        <option value="">Choisissez un role a attribuer</option>
+                                                    <select class="form-control" th:field="*{groupeId}"  style="width: 100%">
+                                                        <option value="">Choisissez un groupe a attribuer</option>
                                                         <option th:each="groupe : ${groupes1}" th:value="${groupe.groupeId}" th:text="${groupe.groupeName}">Côte d'ivoire</option>
                                                     </select>
                                                 </div>
@@ -323,15 +322,15 @@
                                     <button th:if="${session.roles[0].role == 'ROOT_MASTER'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#addGroupe">
                                         <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
                                     </button>
-                                    <div th:if="${session.roles[0].role == 'ROOT_MASTER'}" class=" modal fade" id="addRole" tabindex="-1" role="dialog" data-keyboard="false">
+                                    <div class=" modal fade" id="addGroupe" tabindex="-1" role="dialog" data-keyboard="false">
                                         <div class="modal-dialog modal-dialog-centered"  role="document">
-                                            <form class="add-these-form modal-content card text-center" th:object="${form}" method="post" th:action="@{/user/role/save1}">
+                                            <form class="add-these-form modal-content card text-center" th:object="${addToGroupe}" method="post" th:action="@{/user/groupe/save1}">
                                                 <div class=" pt-3 pl-1 pr-1 pb-3">
                                                     <span class='error' id="nameError"></span>
                                                     <!-- loop over available  country -->
-                                                    <select class="form-control" th:field="*{roleId}"  style="width: 100%">
-                                                        <option value="">Choisissez un role a attribuer</option>
-                                                        <option th:each="role : ${roles1}" th:value="${role.roleId}" th:text="${role.role}">Côte d'ivoire</option>
+                                                    <select class="form-control" th:field="*{groupeId}"  style="width: 100%">
+                                                        <option value="">Choisissez un groupe a attribuer</option>
+                                                        <option th:each="groupe : ${groupes1}" th:value="${groupe.groupeId}" th:text="${groupe.groupeName}">Côte d'ivoire</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group row form-button" style="width: 100%">
@@ -348,22 +347,22 @@
 
                                 </div>
                                 <div  th:unless="${#lists.size(user.groupes)==0}">
-                                    <button th:if="${session.roles[0].role == 'ROOT'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#editRole" >
+                                    <button th:if="${session.roles[0].role == 'ROOT'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#editGroupe1" >
                                         <i class="zmdi zmdi-edit zmdi-hc-2x"></i>
                                     </button>
-                                    <button th:if="${session.roles[0].role == 'ROOT_MASTER'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#editRole" >
+                                    <button th:if="${session.roles[0].role == 'ROOT_MASTER'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#editGroupe1" >
                                         <i class="zmdi zmdi-edit zmdi-hc-2x"></i>
                                     </button>
-                                    <div th:if="${session.roles[0].role == 'ROOT'}" class=" modal fade" id="editRole" tabindex="-1" role="dialog" data-keyboard="false">
+                                    <div  class=" modal fade" id="editGroupe1" tabindex="-1" role="dialog" data-keyboard="false">
                                         <div class="modal-dialog modal-dialog-centered"  role="document">
-                                            <form class="add-these-form modal-content card text-center" th:object="${update}" method="post" th:action="@{/user/role/update1/{userId}(userId=${user.userId})}">
+                                            <form class="add-these-form modal-content card text-center" th:object="${editGroupe}" method="post" th:action="@{/user/groupe/edit/{userId}(userId=${user.userId})}">
                                                 <div class=" pt-3 pl-1 pr-1 pb-3">
                                                     <span class='error' id="nameError"></span>
-                                                    <input type="hidden" name="addUserRoleId" th:value="${update.addUserRoleId}">
+                                                    <input type="hidden" name="addGroupeUserId" th:value="${editGroupe.addGroupeUserId}">
                                                     <!-- loop over available  country -->
-                                                    <select class="form-control" th:field="*{roleId}"  style="width: 100%">
-                                                        <option value="">Choisissez un role a attribuer</option>
-                                                        <option th:each="role : ${roles1}" th:value="${role.roleId}" th:text="${role.role}">Côte d'ivoire</option>
+                                                    <select class="form-control" th:field="*{groupeId}"  style="width: 100%">
+                                                        <option value="">Choisissez un groupe a attribuer</option>
+                                                        <option th:each="groupe : ${groupes1}" th:value="${groupe.groupeId}" th:text="${groupe.groupeName}">Côte d'ivoire</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group row form-button" style="width: 100%">
@@ -377,16 +376,16 @@
                                             </form>
                                         </div>
                                     </div>
-                                    <div th:if="${session.roles[0].role == 'ROOT_MASTER'}" class=" modal fade" id="editRole" tabindex="-1" role="dialog" data-keyboard="false">
+                                    <div class=" modal fade" id="editGroupe1" tabindex="-1" role="dialog" data-keyboard="false">
                                         <div class="modal-dialog modal-dialog-centered"  role="document">
-                                            <form class="add-these-form modal-content card text-center" th:object="${update}" method="post" th:action="@{/user/role/update1/{userId}(userId=${user.userId})}">
+                                            <form class="add-these-form modal-content card text-center" th:object="${editGroupe}" method="post" th:action="@{/user/groupe/edit/{userId}(userId=${user.userId})}">
                                                 <div class=" pt-3 pl-1 pr-1 pb-3">
                                                     <span class='error' id="nameError"></span>
-                                                    <input type="hidden" name="addUserRoleId" th:value="${update.addUserRoleId}">
+                                                    <input type="hidden" name="addGroupeUserId" th:value="${editGroupe.addGroupeUserId}">
                                                     <!-- loop over available  country -->
-                                                    <select class="form-control" th:field="*{roleId}"  style="width: 100%">
-                                                        <option value="">Choisissez un role a attribuer</option>
-                                                        <option th:each="role : ${roles1}" th:value="${role.roleId}" th:text="${role.role}">Côte d'ivoire</option>
+                                                    <select class="form-control" th:field="*{groupeId}"  style="width: 100%">
+                                                        <option value="">Choisissez un groupe a attribuer</option>
+                                                        <option th:each="groupe : ${groupes1}" th:value="${groupe.groupeId}" th:text="${groupe.groupeName}">Côte d'ivoire</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group row form-button" style="width: 100%">

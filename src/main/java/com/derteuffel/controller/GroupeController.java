@@ -52,6 +52,8 @@ public class GroupeController {
     @Autowired
     private TheseRepository theseRepository;
     @Autowired
+    private AddGroupeUserRepository addGroupeUserRepository;
+    @Autowired
     private TheseService theseService;
     @Autowired
     private RoleService roleService;
@@ -467,12 +469,14 @@ public class GroupeController {
 
     @PostMapping("/add/users")
     public  String addGroupUser(UsersGroupe usersGroupe, HttpSession session){
+        System.out.println("jesuis la");
         Long groupeId = (Long)session.getAttribute("groupeId");
         Groupe groupe= groupeRepository.getOne(groupeId);
         Collection<Groupe> groupes= groupeRepository.findAll();
         String[] usersIds = usersGroupe.getUsersIds().split(",");
         System.out.println(usersIds[0]);
         ArrayList<Long> usersIdsLong = new ArrayList<>();
+        AddGroupeUser addGroupeUser=new AddGroupeUser();
 
         for(int i=0;i<usersIds.length;i++)
         {
@@ -483,17 +487,25 @@ public class GroupeController {
         for(Long id : usersIdsLong )
         {
             tmp=userRepository.getOne(id);
-            List<Groupe> crews= groupeRepository.findByUsers_UserId(id);
-            for(Groupe crew : crews)
-            {
-                crew.removeUser(tmp);
+            System.out.println(tmp.getName());
+            List<Groupe> crews= groupeRepository.findByUsers_UserId(tmp.getUserId());
+            System.out.println(crews);
+            if (!(crews.size() <= 0)) {
+                for (Groupe crew : crews) {
+                    System.out.println("je contiens des elements");
+                    crew.removeUser(tmp);
 
+
+                }
+            }else {
+                System.out.println("je suis vide");
+                groupe.setUsers(tmp);
             }
-            groupe.setUsers(tmp);
+            System.out.println(groupe.getUsers());
         }
+        System.out.println(groupe.getUsers());
         System.out.println(usersIdsLong);
-
-        groupeRepository.save(groupe);
+        addGroupeUserRepository.save(addGroupeUser);
         return "redirect:/groupe/groupe/users/"+ groupeId;
 
     }
