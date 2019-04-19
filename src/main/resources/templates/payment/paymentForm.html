@@ -21,7 +21,7 @@
 </head>
 <body>
 <script
-        src="https://www.paypal.com/sdk/js?client-id=AZG7uFcDZ07uXrrZXRp0DQCfCONPbHFDoMnOjdL6QQ0l9b_fK1oFjSItYnbaogkpsbkp6b34JnDfkE92&disable-card=visa,mastercard,amex ">
+        src="https://www.paypal.com/sdk/js?client-id=AZG7uFcDZ07uXrrZXRp0DQCfCONPbHFDoMnOjdL6QQ0l9b_fK1oFjSItYnbaogkpsbkp6b34JnDfkE92&disable-card=amex ">
 </script>
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
@@ -72,53 +72,36 @@
             <input type="text" id="amount" class="input-field" th:value="${amount}" style="padding-left:1rem" name="amount" disabled>
             <strong>$</strong>
         </div>
-            <div class="row d-flex text-center heading-section mb-5 justify-content-between" >
-                <div class="col-4">
-                    <input type="radio" name="pay_method" id="creditCardTrigger" value="creditcard" checked="">Credit Card(MasterCard/Visa)
-                </div>
-                <div class="col-4">
-                    <span><input type="radio"  id="payPalTrigger" name="pay_method" value="paypal"> PayPal</span>
-                </div>
-                <div class="col-4">
-                    <span><input type="radio" id="mobileTrigger" name="pay_method" value="mobile" > Mobile Money</span>
-                </div>
+        <div class="row d-flex text-center heading-section mb-5 justify-content-between" >
+
+            <div class="col-6">
+                <span><input type="radio"  id="payPalTrigger" name="pay_method" value="paypal" checked> Credit Card / PayPal</span>
             </div>
+            <div class="col-6">
+                <span><input type="radio" id="mobileTrigger" name="pay_method" value="mobile" > Mobile Money</span>
+            </div>
+        </div>
 
         <div class="row justify-content-center" id="mobile">
-        <form action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
+            <form action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
 
-            <div class="form-group d-flex ">
-                <div class="col-md-4 form-group">
-                    <select class="custom-select" id="operatorSelection">
-                        <option value="undefined">Opérateurs</option>
-                        <option value="CM_ORANGEMONEY" >Orange Money</option>
-                        <option value="CM_MTNMOBILEMONEY" >Mtn Mobile Money</option>
-                        <option value="vodacom">Vodacom Money</option>
-                        <option value="airtel">Airtel Money</option>
-                    </select>
+                <div class="form-group d-flex ">
+                    <div class="col-md-4 form-group">
+                        <select class="custom-select" id="operatorSelection">
+                            <option value="undefined">Opérateurs</option>
+                            <option value="CM_ORANGEMONEY" >Orange Money</option>
+                            <option value="CM_MTNMOBILEMONEY" >Mtn Mobile Money</option>
+                            <option value="vodacom">Vodacom Money</option>
+                            <option value="airtel">Airtel Money</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" id="phone_number" name="phone" style="width:100%;padding-left:4rem;" placeholder="Votre numéro de téléphone ex: 237693063228">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button"  onClick="pay()" class="btn btn-primary " style="width:100%">Valider</button>
+                    </div>
                 </div>
-                <div class="col-md-5">
-                    <input type="text" id="phone_number" name="phone" style="width:100%;padding-left:4rem;" placeholder="Votre numéro de téléphone ex: 237693063228">
-                </div>
-                <div class="col-md-3">
-                    <button type="button"  onClick="pay()" class="btn btn-primary " style="width:100%">Valider</button>
-                </div>
-            </div>
-        </form>
-        </div>
-        <div class="row justify-content-center" id="creditCard">
-            <form th:action="@{/payment/payBy/card}" method="POST">
-                <script
-                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="pk_test_9e0Inb5HJwLZIXFRgGtn23Ne00eX4BMe9E"
-                        data-amount="999"
-                        data-name="Yesbanana"
-                        data-description="Charging for goods"
-                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                        data-locale="auto"
-                        data-zip-code="true"
-                >
-                </script>
             </form>
         </div>
 
@@ -135,14 +118,14 @@
 <!-- payment form -->
 
 <div style="opacity:0">
-<!-- success button -->
-<a th:href="@{/payment/transactions}" id="transaction_success"><span>sucess</span></a>
-<!-- success button -->
+    <!-- success button -->
+    <a th:href="@{/payment/transactions}" id="transaction_success"><span>sucess</span></a>
+    <!-- success button -->
 
 
-<!-- error button -->
-<a th:href="@{/payment/error}" id="transaction_error"><span>error</span></a>
-<!-- error button -->
+    <!-- error button -->
+    <a th:href="@{/payment/error}" id="transaction_error"><span>error</span></a>
+    <!-- error button -->
 </div>
 
 <!-- payment value -->
@@ -244,26 +227,18 @@
 <script th:src="@{/js/PaymentScripts/paymentMobileOrange.js}"></script>
 <script th:src="@{/js/PaymentScripts/paymentPayPal.js}"></script>
 <script type="text/javascript">
-    $("#payPal").css("display","none");
     $("#mobile").css("display","none");
 
-        // Go to the previous item
+    // Go to the previous item
     $('#mobileTrigger').click(function() {
         $("#mobile").css("display","block");
-        $("#creditCard").css("display","none");
         $("#payPal").css("display","none");
     });
 
     $('#payPalTrigger').click(function() {
         $("#payPal").css("display","block");
-        $("#creditCard").css("display","none");
         $("#mobile").css("display","none");
     });
-    $('#creditCardTrigger').click(function() {
-        $("#creditCard").css("display","flex");
-        $("#mobile").css("display","none");
-        $("#payPal").css("display","none");
-    })
 </script>
 </body>
 </html>
