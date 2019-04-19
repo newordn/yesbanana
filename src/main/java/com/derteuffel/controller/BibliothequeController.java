@@ -29,19 +29,19 @@ public class BibliothequeController {
 
             bibliotheque.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
             bibliothequeRepository.save(bibliotheque);
-        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
+        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId")+"/"+(Long)session.getAttribute("groupeId");
     }
 
     @PostMapping("/update")
     public String update(Bibliotheque bibliotheque, HttpSession session){
         bibliotheque.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
         bibliothequeRepository.save(bibliotheque);
-        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
+        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId")+"/"+(Long)session.getAttribute("groupeId");
     }
 
     @GetMapping("/delete/{bibliothequeId}")
     public String delete(@PathVariable Long bibliothequeId, HttpSession session){
         bibliothequeRepository.deleteById(bibliothequeId);
-        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
+        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId")+"/"+(Long)session.getAttribute("groupeId");
     }
 }

@@ -161,7 +161,7 @@
                     <a th:href="@{/groupe/groupe/}+${session.groupeId}"  class="btn btn-warning" >Annuler</a>
                 </div>
                 <div class="col-md-6" style="text-align:center">
-                    <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'" style="width:25%;"   class="btn btn-success" >Valider pour verfication</a>
+                    <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'"  class="btn btn-success" >Valider pour verfication</a>
                     <div class="modal card modal-warning fade in" th:id="modal-warning" >
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -172,7 +172,7 @@
                                 </div>
                                 <div class="modal-body text-center">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" name="adresse" placeholder="Adresse email destinataire :">
+                                        <input type="text" class="form-control" name="adresses" placeholder="Adresses email destinataires separé par des virgules :">
                                     </div>
                                     <div class="form-group">
                                         <textarea class="form-control" rows="10" name="contenue" placeholder="Corps du message :"></textarea>

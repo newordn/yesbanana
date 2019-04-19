@@ -51,7 +51,6 @@
         <table class="table text-center table-hover dt-responsive  table-lg display" id="these">
             <thead class="text-white bg-secondary">
             <tr>
-                <th>Pays</th>
                 <th>Région</th>
                 <th>Université</th>
                 <th>Faculté</th>
@@ -64,7 +63,6 @@
             </thead>
             <tbody>
             <tr th:each="these : ${theses}">
-                <td th:text="${these.country}"></td>
                 <td th:text="${these.regions}"></td>
                 <td th:text="${these.university}"></td>
                 <td th:text="${these.faculty}"></td>

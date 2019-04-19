@@ -60,6 +60,8 @@ public class    TheseController {
     @Autowired
     private GroupeRepository groupeRepository;
     @Autowired
+    RoleRepository roleRepository;
+    @Autowired
     private BibliothequeRepository bibliothequeRepository;
 
     List<String> countries = Arrays.asList(
@@ -294,8 +296,8 @@ public class    TheseController {
 
         model.addAttribute("these", new These());
         model.addAttribute("countries", countries);
-        for (Role role : user.getRoles()) {
-            if (role.getRole().equals("ROOT")) {
+        for (Role role : roleRepository.findByUsers_UserId(user.getUserId())) {
+            if (role.getRole().equals("ROOT")|| role.getRole().equals("ROOT_MASTER") || role.getRole().equals("ADMIN_MASTER") ) {
                 p = 1;
             }
         }
@@ -421,10 +423,14 @@ public class    TheseController {
 
     // for saving a these
     @PostMapping("/add/create")
-    public String save(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, String adresse, String contenue, Errors errors, Model model) {
+    public String save(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, String adresses, String contenue, Errors errors, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         These these1 = theseRepository.findBySubject(these.getSubject());
+        Long groupeId = (Long) session.getAttribute("groupeId");
+        Groupe groupe = groupeRepository.getOne(groupeId);
+        User user1 = userRepository.getOne(Long.parseLong(groupe.getGroupChief()));
+
         if (these1 != null) {
             errors.rejectValue("title", "these.error", "il existe deja une reference avec ce titre");
         }
@@ -440,9 +446,7 @@ public class    TheseController {
             for (int i = 0; i < pieces.size(); i++) {
                 filesPaths.add(pieces.get(i).getFileDownloadUri());
             }
-            Long groupeId = (Long) session.getAttribute("groupeId");
             these.setResumes(filesPaths);
-            Groupe groupe = groupeRepository.getOne(groupeId);
             these.setGroupe(groupe);
             these.setUser(user);
             these.setStatus(false);
@@ -450,24 +454,26 @@ public class    TheseController {
             these.setOptions(these.getOptions().toLowerCase());
             theseRepository.save(these);
         }
-        MailService mail = new MailService();
-        mail.sendSimpleMessage(
-                adresse,
+
+        String[]adresseList=adresses.split(",");
+        int i=2;
+        for (String adresse : adresseList){
+            i++;
+            MailService mail = new MailService();
+            mail.sendSimpleMessage(
+                    adresse,
+                    "Notification de enregistrement d'une Thèse",
+                    user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
+            );
+        }
+
+        MailService mail1 = new MailService();
+        mail1.sendSimpleMessage(
+                user1.getEmail(),
                 "Notification de enregistrement d'une Thèse",
                 user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
-        Collection<Role> roles = user.getRoles();
-        int p = 0;
-        for (Role role : roles) {
-            if (!role.getRole().equals("USER")) {
-                p = 1;
-            }
-        }
-        if (p == 1) {
             return "redirect:/groupe/groupe/" + (Long) session.getAttribute("groupeId");
-        } else {
-            return "redirect:/groupe/groupe/all/user/these";
-        }
 
     }
 
@@ -502,7 +508,7 @@ public class    TheseController {
             these.setOptions(these.getOptions().toLowerCase());
             theseRepository.save(these);
         }
-        Collection<Role> roles = user.getRoles();
+        Collection<Role> roles = roleRepository.findByUsers_UserId(user.getUserId());
         int p = 0;
         for (Role role : roles) {
             if (!role.getRole().equals("USER")) {
@@ -549,7 +555,6 @@ public class    TheseController {
         these.setWorkChief((String) session.getAttribute("workChief"));
         these.setStates(true);
         theseRepository.save(these);
-        Collection<Role> roles = user.getRoles();
         return "redirect:/these/these/" + these.getTheseId();
 
     }
@@ -583,7 +588,6 @@ public class    TheseController {
         these.setResumes((ArrayList<String>) session.getAttribute("resumes"));
         these.setStates(true);
         theseRepository.save(these);
-        Collection<Role> roles = user.getRoles();
         return "redirect:/these/equipe/" + these.getTheseId();
 
     }
@@ -656,7 +660,7 @@ public class    TheseController {
         User user = userService.findByName(auth.getName());
         Optional<These> optional = theseRepository.findById(theseId);
         model.addAttribute("these1", optional.get());
-        model.addAttribute("roles", user.getRoles());
+        model.addAttribute("roles", roleRepository.findByUsers_UserId(user.getUserId()));
         session.setAttribute("userId", optional.get().getUser().getUserId());
         session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
         session.setAttribute("theseId", optional.get().getTheseId());

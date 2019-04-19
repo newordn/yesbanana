@@ -44,6 +44,8 @@ public class UserController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private AddUserRoleRepository addUserRoleRepository;
+    @Autowired
+    AddGroupeUserRepository addGroupeUserRepository;
 
     @Autowired
     private TheseRepository theseRepository;
@@ -276,12 +278,12 @@ public class UserController {
             }
         }
         model.addAttribute("users", users1);
-        String avatar = "";
+       /* String avatar = "";
         for (User user : users) {
             avatar = user.getImg();
             int d = avatar.indexOf("d");
             user.setImg(avatar.substring(d));
-        }
+        }*/
 
         return "user/users";
     }
@@ -311,10 +313,19 @@ public class UserController {
         User user= userService.getById(userId);
         model.addAttribute("user",user);
         AddUserRole form= new AddUserRole();
+        AddGroupeUser addGroupeUser = new AddGroupeUser();
+        AddGroupeUser editGroupe= addGroupeUserRepository.findByUserId(user.getUserId());
         AddUserRole editForm= addUserRoleRepository.findByUserId(user.getUserId());
         Set<Role> roles= roleService.findByGroupe(userId);
+        List<Groupe> groupes=groupeRepository.findByUsers_UserId(userId);
+        System.out.println(groupes);
         List<Role> roles1= roleRepository.findAll();
+        List<Groupe> groupes1=groupeRepository.findAllByStatus(true);
+        model.addAttribute("groupes1",groupes1);
+        model.addAttribute("groupes",groupes);
         model.addAttribute("form",form);
+        model.addAttribute("addToGroupe",addGroupeUser);
+        model.addAttribute("editGroupe",editGroupe);
         model.addAttribute("update",editForm);
         model.addAttribute("roles", roles);
         model.addAttribute("roles1", roles1);
@@ -377,9 +388,22 @@ public class UserController {
         userRepository.save(user);
         return "redirect:/user/staffs/"+user.getUserId();
     }
+    @PostMapping("/groupe/save1")
+    public String groupe(Model model, AddGroupeUser addGroupeUser, HttpSession session){
+        Long userId= (Long)session.getAttribute("userId");
+        Groupe groupe= groupeRepository.getOne(addGroupeUser.getGroupeId());
+        System.out.println(groupe.getGroupeName());
+        User user= userRepository.getOne(userId);
+        System.out.println(user.getName());
+        user.setGroupe(groupe);
+        addGroupeUser.setUserId(user.getUserId());
+        addGroupeUserRepository.save(addGroupeUser);
+        userRepository.save(user);
+        return "redirect:/user/staffs/"+user.getUserId();
+    }
 
     @PostMapping("/role/save")
-    public String roleProfilt(@PathVariable Long userId ,Model model, AddUserRole form, HttpSession session){
+    public String roleProfil(@PathVariable Long userId ,Model model, AddUserRole form, HttpSession session){
 
         Role role= roleRepository.getOne(form.getRoleId());
         System.out.println(role.getRole());
@@ -388,6 +412,20 @@ public class UserController {
         user.setRoles(role);
         form.setUserId(user.getUserId());
         addUserRoleRepository.save(form);
+        userRepository.save(user);
+        return "redirect:/user/staffs/"+user.getUserId();
+    }
+
+    @PostMapping("/groupe/save")
+    public String groupeProfil(@PathVariable Long userId ,Model model, AddGroupeUser addGroupeUser, HttpSession session){
+
+        Groupe groupe= groupeRepository.getOne(addGroupeUser.getGroupeId());
+        System.out.println(groupe.getGroupeName());
+        User user= userRepository.getOne(userId);
+        System.out.println(user.getName());
+        user.setGroupe(groupe);
+        addGroupeUser.setUserId(user.getUserId());
+        addGroupeUserRepository.save(addGroupeUser);
         userRepository.save(user);
         return "redirect:/user/staffs/"+user.getUserId();
     }
@@ -405,6 +443,20 @@ public class UserController {
         userRepository.save(user);
         return "redirect:/user/staffs/"+user.getUserId();
     }
+
+    @PostMapping("/groupe/edit/{userId}")
+    public String updateGroupe(AddGroupeUser addGroupeUser, @PathVariable Long userId){
+        Groupe groupe = groupeRepository.getOne(addGroupeUser.getGroupeId());
+        User user= userRepository.getOne(userId);
+        for (Groupe groupe1 : groupeRepository.findByUsers_UserId(user.getUserId())){
+            user.removeGroupeRelation(groupe1);
+        }
+        user.setGroupe(groupe);
+        addGroupeUser.setUserId(user.getUserId());
+        addGroupeUserRepository.save(addGroupeUser);
+        userRepository.save(user);
+        return "redirect:/user/staffs/"+user.getUserId();
+    }
     @PostMapping("/role/update1/{userId}")
     public String updateRole1(AddUserRole addUserRole, @PathVariable Long userId){
         Role role= roleRepository.getOne(addUserRole.getRoleId());
@@ -419,6 +471,20 @@ public class UserController {
         user.setRoles(role);
         addUserRole.setUserId(user.getUserId());
         addUserRoleRepository.save(addUserRole);
+        userRepository.save(user);
+        return "redirect:/user/staffs/"+user.getUserId();
+    }
+
+    @PostMapping("/groupe/edit1/{userId}")
+    public String updateGroupe2(AddGroupeUser addGroupeUser, @PathVariable Long userId){
+        Groupe groupe = groupeRepository.getOne(addGroupeUser.getGroupeId());
+        User user= userRepository.getOne(userId);
+        for (Groupe groupe1 : groupeRepository.findByUsers_UserId(user.getUserId())){
+            user.removeGroupeRelation(groupe1);
+        }
+        user.setGroupe(groupe);
+        addGroupeUser.setUserId(user.getUserId());
+        addGroupeUserRepository.save(addGroupeUser);
         userRepository.save(user);
         return "redirect:/user/staffs/"+user.getUserId();
     }

@@ -52,7 +52,7 @@ public class BibliographyController {
             bibliography.setDisponibility(false);
             bibliographyRepository.save(bibliography);
         }
-        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
+        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId")+"/"+(Long)session.getAttribute("groupeId");
     }
 
     @PostMapping("/update")
@@ -60,7 +60,7 @@ public class BibliographyController {
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
         bibliography.setPrice(Double.parseDouble(prix));
             bibliographyRepository.save(bibliography);
-        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
+        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId")+"/"+(Long)session.getAttribute("groupeId");
     }
 
     @PostMapping("/disponibility/{bibliographyId}")
@@ -70,20 +70,21 @@ public class BibliographyController {
         System.out.println(bibliography.getDescription());
         if (bibliography.getDisponibility() == true){
             bibliography.setDisponibility(false);
+            bibliography.setPrice(0.0);
         }else {
             bibliography.setDisponibility(true);
+            bibliography.setPrice(Double.parseDouble(prix));
         }
         bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
         bibliography.setDescription(description);
-        bibliography.setPrice(Double.parseDouble(prix));
         bibliography.setPagePrice(0.0);
         bibliographyRepository.save(bibliography);
-        return "redirect:/groupe/groupe/biblib/"+(Long)session.getAttribute("theseId");
+        return "redirect:/groupe/groupe/biblib/"+(Long)session.getAttribute("theseId")+"/"+(Long)session.getAttribute("groupeId");
     }
 
     @GetMapping("/delete/{bibliographyId}")
     public String delete(@PathVariable Long bibliographyId, HttpSession session){
         bibliographyRepository.deleteById(bibliographyId);
-        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId");
+        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId")+"/"+(Long)session.getAttribute("groupeId");
     }
 }

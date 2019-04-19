@@ -32,7 +32,7 @@ public class Groupe implements Serializable{
     @NotEmpty
     private  String groupeRegion;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "groupes")
     private List<User> users;
 
     @OneToMany(mappedBy = "groupe")

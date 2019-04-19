@@ -137,7 +137,8 @@ public class User implements Serializable{
     @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<Panier> paniers;
 
-    @ManyToMany(mappedBy="users")
+    @ManyToMany
+    @JoinTable(name = "user_groupe", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "groupe_id"))
     private List<Groupe> groupes;
 
     public User() {
@@ -429,6 +430,11 @@ public class User implements Serializable{
         role.getUsers().remove(this);
     }
 
+    public void removeGroupeRelation(Groupe groupe){
+        groupes.remove(groupe);
+        groupe.getUsers().remove(this);
+    }
+
 
     public List<These> getTheses() {
         return theses;
@@ -541,6 +547,6 @@ public class User implements Serializable{
     }
 
     public void setGroupes(List<Groupe> groupes) {
-        this.groupes = groupes;
+        this.groupes=groupes;
     }
 }

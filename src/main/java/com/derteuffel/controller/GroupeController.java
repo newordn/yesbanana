@@ -52,6 +52,8 @@ public class GroupeController {
     @Autowired
     private TheseRepository theseRepository;
     @Autowired
+    private AddGroupeUserRepository addGroupeUserRepository;
+    @Autowired
     private TheseService theseService;
     @Autowired
     private RoleService roleService;
@@ -467,12 +469,14 @@ public class GroupeController {
 
     @PostMapping("/add/users")
     public  String addGroupUser(UsersGroupe usersGroupe, HttpSession session){
+        System.out.println("jesuis la");
         Long groupeId = (Long)session.getAttribute("groupeId");
         Groupe groupe= groupeRepository.getOne(groupeId);
         Collection<Groupe> groupes= groupeRepository.findAll();
         String[] usersIds = usersGroupe.getUsersIds().split(",");
         System.out.println(usersIds[0]);
         ArrayList<Long> usersIdsLong = new ArrayList<>();
+        AddGroupeUser addGroupeUser=new AddGroupeUser();
 
         for(int i=0;i<usersIds.length;i++)
         {
@@ -483,17 +487,25 @@ public class GroupeController {
         for(Long id : usersIdsLong )
         {
             tmp=userRepository.getOne(id);
-            List<Groupe> crews= groupeRepository.findByUsers_UserId(id);
-            for(Groupe crew : crews)
-            {
-                crew.removeUser(tmp);
+            System.out.println(tmp.getName());
+            List<Groupe> crews= groupeRepository.findByUsers_UserId(tmp.getUserId());
+            System.out.println(crews);
+            if (!(crews.size() <= 0)) {
+                for (Groupe crew : crews) {
+                    System.out.println("je contiens des elements");
+                    crew.removeUser(tmp);
 
+
+                }
+            }else {
+                System.out.println("je suis vide");
+                groupe.setUsers(tmp);
             }
-            groupe.setUsers(tmp);
+            System.out.println(groupe.getUsers());
         }
+        System.out.println(groupe.getUsers());
         System.out.println(usersIdsLong);
-
-        groupeRepository.save(groupe);
+        addGroupeUserRepository.save(addGroupeUser);
         return "redirect:/groupe/groupe/users/"+ groupeId;
 
     }
@@ -525,7 +537,7 @@ public class GroupeController {
                 usersGroup.add(userGroup.get(j));
             }
         }
-        session.setAttribute("roles", user.getRoles());
+        session.setAttribute("roles", roleRepository.findByUsers_UserId(user.getUserId()));
         model.addAttribute("users1",users);
         model.addAttribute("users", usersGroup);
         System.out.println(usersGroup);
@@ -538,8 +550,9 @@ public class GroupeController {
     public String get(@PathVariable Long groupeId, HttpSession session, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
-        session.setAttribute("roles", user.getRoles());
+        session.setAttribute("roles", roleRepository.findByUsers_UserId(user.getUserId()));
         Groupe groupe = groupeRepository.getOne(groupeId);
+        model.addAttribute("roles",roleRepository.findByUsers_UserId(user.getUserId()));
         session.setAttribute("groupeId", groupeId);
         model.addAttribute("groupe",groupe);
         session.setAttribute("groupeCountry",groupe.getGroupeCountry());
@@ -662,7 +675,7 @@ public class GroupeController {
     public String encadrement(Model model, @PathVariable Long groupeId, HttpSession session){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
-        session.setAttribute("roles", user.getRoles());
+        session.setAttribute("roles", roleRepository.findByUsers_UserId(user.getUserId()));
         Groupe groupe=groupeRepository.getOne(groupeId);
         model.addAttribute("groupeName", groupe.getGroupeName());
         model.addAttribute("groupe",groupe);
@@ -726,7 +739,7 @@ public class GroupeController {
         these.setStates(true);
         these.setStatus(false);
         theseRepository.save(these);
-        return "redirect:/groupe/groupe/these/"+these.getTheseId();
+        return "redirect:/groupe/groupe/these/"+these.getTheseId()+"/"+groupe.getGroupeId();
     }
 
     // for saving a these
@@ -761,7 +774,7 @@ public class GroupeController {
         these.setStates(true);
         these.setStatus(false);
         theseRepository.save(these);
-        return "redirect:/groupe/groupe/equipe/"+ these.getTheseId();
+        return "redirect:/groupe/groupe/equipe/"+ these.getTheseId()+"/"+groupe.getGroupeId();
 
     }
     public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
@@ -824,24 +837,26 @@ public class GroupeController {
 
     }
 
-    @GetMapping("/these/publish/{theseId}")
-    public String publishThese(@PathVariable Long theseId, HttpSession session) {
+    @GetMapping("/these/publish/{theseId}/{groupeId}")
+    public String publishThese(@PathVariable Long theseId,@PathVariable Long groupeId, HttpSession session) {
         These these = theseRepository.getOne(theseId);
+        Groupe groupe= groupeRepository.getOne(groupeId);
         these.setStatus(true);
         these.setStates(true);
         System.out.print(these.getStatus());
         System.out.print("blablabla");
         theseRepository.save(these);
-        return "redirect:/groupe/groupe/these/" + theseId;
+        return "redirect:/groupe/groupe/these/" + theseId + "/"+groupe.getGroupeId();
     }
 
-    @GetMapping("/these/draft/{theseId}")
-    public String draftThese(@PathVariable Long theseId, HttpSession session) {
+    @GetMapping("/these/draft/{theseId}/{groupeId}")
+    public String draftThese(@PathVariable Long theseId,@PathVariable Long groupeId, HttpSession session) {
         These these = theseRepository.getOne(theseId);
+        Groupe groupe= groupeRepository.getOne(groupeId);
         these.setStatus(false);
         these.setStates(true);
         theseRepository.save(these);
-        return "redirect:/groupe/groupe/these/" + theseId;
+        return "redirect:/groupe/groupe/these/" + theseId+"/"+ groupe.getGroupeId();
     }
 
     @GetMapping("/these/unPublish/form/{theseId}/{groupeId}")
@@ -873,7 +888,7 @@ public class GroupeController {
                 "Notification de correction du contenu de cette Thèse",
                 user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
-        return "redirect:/groupe/groupe/these/" + theseId;
+        return "redirect:/groupe/groupe/these/" + theseId+"/"+groupeId;
     }
 
 

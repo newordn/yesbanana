@@ -171,11 +171,11 @@
             <div class="row pt-3">
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="nameError"></span>
-                    <input type="hidden" name="facultyId" th:value="${session.facultyId}" />
+                    <input type="hidden" name="facultyId" th:value="${faculty.facultyId}" />
                     <!-- loop over available  options -->
                     <select class="form-control" th:field="*{optionsName}">
                         <option value="">choisir une option</option>
-                        <option th:each="these : ${theses}" th:value="${these.options}" th:text="${these.options}">Options</option>
+                        <option th:each="these : ${theses}" th:value="${these}" th:text="${these}">Options</option>
                     </select>
                 </div>
             </div>
