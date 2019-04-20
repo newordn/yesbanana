@@ -505,7 +505,7 @@ public class GroupeController {
         }
         System.out.println(groupe.getUsers());
         System.out.println(usersIdsLong);
-        addGroupeUserRepository.save(addGroupeUser);
+        groupeRepository.save(groupe);
         return "redirect:/groupe/groupe/users/"+ groupeId;
 
     }
