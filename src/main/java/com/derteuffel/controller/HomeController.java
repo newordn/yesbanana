@@ -259,8 +259,9 @@ public class HomeController {
         }
 
     @GetMapping("/login/visitor")
-    public String loginVisitor()
+    public String loginVisitor(HttpServletRequest request, HttpSession session)
     {
+        session.setAttribute("lastUrl", request.getHeader("referer"));
         return "loginVisitor";
     }
 

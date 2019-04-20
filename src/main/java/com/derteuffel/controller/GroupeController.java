@@ -318,7 +318,7 @@ public class GroupeController {
             return "crew/crews";
         }else {
             System.out.println("je suis visiteur");
-            return "redirect:/";
+            return "redirect:"+session.getAttribute("lastUrl");
         }
 
 
