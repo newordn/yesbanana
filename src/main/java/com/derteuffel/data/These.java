@@ -58,6 +58,8 @@ public class These implements Serializable{
     private List<Bibliotheque> bibliotheques;
 
 
+    @OneToMany(mappedBy = "these")
+    private List<StudentWork> studentWorks;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
@@ -92,6 +94,14 @@ public class These implements Serializable{
         this.fileType=fileType;
     }
 
+
+    public List<StudentWork> getStudentWorks() {
+        return studentWorks;
+    }
+
+    public void setStudentWorks(List<StudentWork> studentWorks) {
+        this.studentWorks = studentWorks;
+    }
 
     public Boolean getStates() {
         return states;

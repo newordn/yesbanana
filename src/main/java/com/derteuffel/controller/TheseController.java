@@ -642,9 +642,11 @@ public class    TheseController {
 
 
     @DeleteMapping("/delete/{theseId}")
-    public void deleteById(@PathVariable Long theseId) {
-        theseService.delete(theseId);
-    }
+    public String deleteById(@PathVariable Long theseId) {
+        These these=theseRepository.getOne(theseId);
+        these.setStates(false);
+        theseRepository.save(these);
+    return "redirect:/these/all";}
 
 
     @GetMapping("/update/{theseId}")

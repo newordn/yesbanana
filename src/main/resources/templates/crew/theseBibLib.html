@@ -40,10 +40,10 @@
     </div>
     <!-- navigation -->
         <!-- these detail -->
-        <div class=" text-center" style="width:100%;  ">
+        <div class=" text-center container" style="width:100%;  ">
                <div  style="margin-top: 5.5rem;">
                 <div>
-            <h3 >Livres</h3>
+            <h3 ><i>Livres</i></h3>
             <table class="list-group">
                 <tr th:each="bibliography : ${bibliographies}" >
                     <div class="card mt-1">
@@ -103,6 +103,7 @@
                         </div>
                         </div>
                     </div>
+                    <!-- MODAL DETAIL LIVRE START -->
                     <div class="modal card modal-warning alert-warning fade in" th:id="modal-detail+${bibliography.bibliographyId}" >
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -150,6 +151,9 @@
                             </div>
                         </div>
                     </div>
+
+                    <!--MODAL DETAIL LIVRE END -->
+                    <!--MODAL ACTIVATION LIVRE START -->
                     <div class="modal card modal-warning alert-warning fade in" th:id="modal-activation+${bibliography.bibliographyId}" >
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -211,6 +215,8 @@
                             </div>
                         </div>
                     </div>
+                    <!--MODAL ACTIVATION LIVRE END -->
+                    <!--MODAL DESACTIVATION LIVRE START -->
                     <div class="modal card modal-warning alert-warning fade in" th:id="modal-desactivation+${bibliography.bibliographyId}" >
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -271,6 +277,8 @@
                             </div>
                         </div>
                     </div>
+                    <!--MODAL DESACTIVATION LIVRE END -->
+                    <!--MODAL DELETE LIVRE START -->
                     <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${bibliography.bibliographyId}" >
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -287,12 +295,16 @@
                             </div>
                         </div>
                     </div>
+                    <!--MODAL DELETE LIVRE END -->
                 </tr>
             </table>
+                    <!-- BUTTON ADD LIVRE START -->
                     <a class="btn btn-success rounded-circle mt-3"  data-toggle="modal" data-target="#modal-add" th:attr="data-target='#modal-add'">
                         <i class="fa fa-plus"></i>
                     </a>
                     <span>Ajouter</span>
+                    <!-- BUTTON ADD LIVRE END -->
+                    <!-- MODAL ADD LIVRE START -->
                     <div class="modal card modal-warning alert-warning fade in" th:id="modal-add" >
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -341,7 +353,11 @@
                             </div>
                         </div>
                     </div>
-                    <h3 class=" mt-3">Travaux Etudiants</h3>
+                    <!-- MODAL ADD LIVRE END -->
+                    <br>
+                    <hr>
+                    <!-- LIENS VISITES START -->
+                    <h3 class=" mt-3"><i>Liens Visités dans le Web</i></h3>
             <table class="list-group">
                 <tr  th:each="bibliotheque : ${bibliothequess}" >
                     <div class="card mt-1">
@@ -381,10 +397,13 @@
                     </div>
                 </tr>
             </table>
+                    <!-- BUTTON ADD WEB LINK START -->
                     <a class="btn btn-success rounded-circle mt-3"  data-toggle="modal" data-target="#modal-add" th:attr="data-target='#modal-add1'">
                         <i class="fa fa-plus"></i>
                     </a>
                     <span>Ajouter</span>
+                    <!-- BUTTON ADD WEB LINK END -->
+                    <!-- MODAL ADD WEB LINK START -->
                     <div class="modal card modal-warning alert-warning fade in" th:id="modal-add1" >
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -415,6 +434,140 @@
                             </div>
                         </div>
                     </div>
+                    <!-- MODAL ADD WEB LINK END -->
+                    <br>
+                    <hr>
+                    <h3 ><i>Travaux des étudiants</i></h3>
+                    <table class="list-group">
+                        <tr th:each="travail : ${travaux}" >
+                            <div class="card mt-1">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a class="text-left"  href="#" data-toggle="modal" data-target="#modal-detail" th:attr="data-target='#modal-detail'+${travail.studentWorkId}"  th:text="${travail.subject}"></a>
+                                    </div>
+                                    <div class="col-md-6 row">
+                                        <div >
+                                            <a  th:href="@{/studentWork/edit/}+${travail.studentWorkId}">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </div>
+                                        <div  >
+                                            <a   data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${travail.studentWorkId}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
+                                        </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <!-- MODAL DETAIL TRAVAUX START -->
+                            <div class="modal card modal-warning alert-warning fade in" th:id="modal-detail+${travail.studentWorkId}" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center alert-info">
+                                            <h5 class="modal-title">Contenu d'un element</h5>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <h3>Detail d'un travail d'étudiant</h3>
+                                        </div>
+                                        <div class="mb-4">
+                                            <div >
+                                                <div class="form-group">
+                                                    <p class="mt-2 mb-2">Nom de l'Etudiant:</p>
+                                                    <textarea class="form-control"  rows="1" style="height: 30px" th:text="${travail.studentName}" disabled></textarea>
+                                                </div>
+                                            </div>
+                                            <div class=" mt-3">
+                                                <div class="form-group">
+                                                    <p class="mt-2 mb-2">Date de Réalisation:</p>
+                                                    <textarea class="form-control"  rows="1" style="height: 30px" th:text="${travail.date}" disabled></textarea>
+                                                </div>
+                                            </div>
+                                            <div class=" mt-3">
+                                                <div class="form-group ">
+                                                    <p class="mt-2 mb-2">Sujet:</p>
+                                                    <textarea class="form-control"  rows="5" style="height: 100px" th:text="${travail.subject}" disabled></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer text-center">
+                                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--MODAL DETAIL TRAVAUX END -->
+                            <!--MODAL DELETE TRAVAUX START -->
+                            <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${travail.studentWorkId}" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center alert-info">
+                                            <h5 class="modal-title">Suppresion d'un element</h5>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <h3>Voulez vous vraiment supprimer cet element?</h3>
+                                        </div>
+                                        <div class="modal-footer text-center">
+                                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                            <a  class="btn btn-success" th:href="@{/studentWork/delete/}+${travail.studentWorkId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--MODAL DELETE TRAVAUX END -->
+                        </tr>
+                    </table>
+                    <!-- BUTTON ADD TRAVAUX START -->
+                    <a class="btn btn-success rounded-circle mt-3"  data-toggle="modal" data-target="#modal-addTravail" th:attr="data-target='#modal-addTravail'">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <span>Ajouter</span>
+                    <!-- BUTTON ADD LIVRE END -->
+
+                    <!-- MODAL ADD LIVRE START -->
+                    <div class="modal card modal-warning alert-warning fade in" th:id="modal-addTravail" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header text-center alert-info">
+                                    <h5 class="modal-title">Ajouter un Travail d'étudiant</h5>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h5>Veuillez remplir s'il vous plait les champs suivant</h5>
+                                </div>
+                                <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/studentWork/save}" th:object="${studentWork}">
+
+                                    <div class="mb-4">
+                                        <div class="">
+                                            <!--theseId-->
+                                            <input type="hidden" name="theseId" th:value="${session.theseId}"  >
+                                            <!--theseId-->
+                                            <div class="form-group">
+                                                <span class='error' id="assistantError"></span>
+                                                <input type="text" th:field="*{studentName}" id="studentName" class="form-control" placeholder="Nom de l'etudiant" />
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3">
+                                            <div class="form-group">
+                                                <span class='error' id="studentError"></span>
+                                                <input type="text" th:field="*{date}" id="student" class="form-control" placeholder="Date de publication" />
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3">
+                                            <div class="form-group ">
+                                                <span class='error' id="profError"></span>
+                                                <textarea class="form-control" id="subject" rows="5" style="height: 100px" type="text" th:field="*{subject}"  placeholder="Entrer un resumé de votre  " ></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer text-center">
+                                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
+                                        <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- MODAL ADD LIVRE END -->
                     <div>
                         <br><br><br><br><br>
                         <h3 class="text-center">Livres Disponibles</h3>

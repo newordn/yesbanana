@@ -58,6 +58,8 @@ public class GroupeController {
     @Autowired
     private RoleService roleService;
     @Autowired
+    private StudentWorkRepository studentWorkRepository;
+    @Autowired
     FileUploadService fileUploadService;
     @Autowired
     private BibliographyRepository bibliographyRepository;
@@ -828,7 +830,9 @@ public class GroupeController {
         model.addAttribute("groupe",groupe);
         session.setAttribute("theseId", these.getTheseId());
         model.addAttribute("bibliothequess",bibliothequeRepository.findAllByThese(these.getTheseId()));
+        model.addAttribute("travaux",studentWorkRepository.findByThese(these.getTheseId()));
         model.addAttribute("bibliotheque", new Bibliotheque());
+        model.addAttribute("studentWork", new StudentWork());
         model.addAttribute("these1",these);
         model.addAttribute("bibliographies",bibliographies);
         model.addAttribute("bibliography", new Bibliography());

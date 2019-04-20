@@ -77,7 +77,7 @@
                 <td th:text="${these.subject}"></td>
                 <td>
                     <a th:href="@{/groupe/groupe/these/}+${these.theseId}+'/'+${groupe.groupeId}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
-                    <a th:href="@{/groupe/groupe/these/general/edit/}+${these.theseId}" class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
+                    <a th:href="@{/groupe/groupe/these/general/edit/}+${these.theseId}+'/'+${groupe.groupeId}" class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
                     <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${these.theseId}"  class="btn" >Supprimer
                         <i class="zmdi zmdi-close" ></i>
                     </a>

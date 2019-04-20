@@ -25,53 +25,38 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center alert-info">
-                <h5 class="modal-title">Modification d'un element de Bibliothèque</h5>
+                <h5 class="modal-title">Modification d'un element de Travail de l'étudiant</h5>
             </div>
             <div class="modal-body text-center">
                 <h5>Veuillez renseigner le champ a modifier s'il vous plait</h5>
             </div>
-            <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/bibliography/update}" th:object="${bibliography}">
+            <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/studentWork/update}" th:object="${studentWork}">
 
                 <div class="mb-4">
                     <div class="col-md-6">
                         <!--theseId-->
                         <input type="hidden" name="theseId" th:value="${session.theseId}"  >
                         <!--theseId-->
-                        <input type="hidden" th:field="*{bibliographyId}">
+                        <input type="hidden" th:field="*{studentWorkId}">
                         <div class="form-group">
                             <span class='error' id="assistantError"></span>
-                            <p class="mt-2 mb-2">Auteur:</p>
-                            <input type="text" th:field="*{auteur}" id="assistant" class="form-control" placeholder="Nom de l'auteur" />
+                            <p class="mt-2 mb-2">Nom de l'Etudiant:</p>
+                            <input type="text" th:field="*{studentName}" id="assistant" class="form-control" placeholder="Nom de l'Etudiant" />
                         </div>
                     </div>
                     <div class="col-md-6 mt-3">
                         <div class="form-group">
                             <span class='error' id="studentError"></span>
-                            <p class="mt-2 mb-2">Titre:</p>
-                            <input type="text" th:field="*{title}" id="student" class="form-control" placeholder="Titre du livre" />
+                            <p class="mt-2 mb-2">Date de Réalisation:</p>
+                            <input type="text" th:field="*{date}" id="student" class="form-control" placeholder="Date de réalisation du travail" />
+                            <input type="hidden" name="groupeId" th:value="${groupe.groupeId}" class="form-control" placeholder="Date de réalisation du travail" />
                         </div>
                     </div>
                     <div class="col-md-6 mt-3">
                         <div class="form-group ">
                             <span class='error' id="profError"></span>
-                            <p class="mt-2 mb-2">Description:</p>
-                            <textarea class="form-control" id="description" rows="5" style="height: 100px" placeholder="Description " th:field="*{description}" type="text"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <div class="form-group">
-                            <span class='error' id="linkError"></span>
-                            <input type="url" th:field="*{link}"  id="link" class="form-control" placeholder="Lien de telechargement du livre" />
-                        </div>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <div class="form-group ">
-                            <span class='error' id="price"></span>
-                            <p class="mt-2 mb-2">Prix:</p>
-                            <input class="form-control" id="price"  placeholder="Description " name="prix" type="text"></input>
-                            <input class="form-control" id="pagePrice"  placeholder="Description " th:field="*{pagePrice}" style="display: none" type="number"></input>
-                            <input class="form-control" id="disponibility"   th:field="*{disponibility}" type="text" style="display: none"></input>
-                            <input class="form-control" type="hidden" name="groupeId" th:value="${groupe.groupeId}"></input>
+                            <p class="mt-2 mb-2">Résumé du travail:</p>
+                            <textarea class="form-control" id="description" rows="5" style="height: 100px" placeholder="Résumé du travail " th:field="*{subject}" type="text"></textarea>
                         </div>
                     </div>
                 </div>

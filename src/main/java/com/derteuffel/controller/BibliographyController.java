@@ -1,7 +1,9 @@
 package com.derteuffel.controller;
 
 import com.derteuffel.data.Bibliography;
+import com.derteuffel.data.Groupe;
 import com.derteuffel.repository.BibliographyRepository;
+import com.derteuffel.repository.GroupeRepository;
 import com.derteuffel.repository.TheseRepository;
 import org.hibernate.annotations.GeneratorType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +29,15 @@ public class BibliographyController {
     private BibliographyRepository bibliographyRepository;
     @Autowired
     private TheseRepository theseRepository;
+    @Autowired
+    private GroupeRepository groupeRepository;
 
     @GetMapping("/edit/{bibliographyId}")
-    public String edit(Model model, @PathVariable Long bibliographyId){
+    public String edit(Model model, @PathVariable Long bibliographyId, HttpSession session){
+        Groupe groupe= groupeRepository.getOne((Long)session.getAttribute("groupeId"));
         Bibliography bibliography= bibliographyRepository.getOne(bibliographyId);
         model.addAttribute("bibliography",bibliography);
+        model.addAttribute("groupe",groupe);
         return "crew/editBiblio";
     }
 
@@ -56,11 +62,12 @@ public class BibliographyController {
     }
 
     @PostMapping("/update")
-    public String update(Bibliography bibliography, Model model, HttpSession session, String prix){
+    public String update(Bibliography bibliography, Long groupeId, HttpSession session, String prix){
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
+        Groupe groupe= groupeRepository.getOne(groupeId);
         bibliography.setPrice(Double.parseDouble(prix));
             bibliographyRepository.save(bibliography);
-        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId")+"/"+(Long)session.getAttribute("groupeId");
+        return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId")+"/"+groupe.getGroupeId();
     }
 
     @PostMapping("/disponibility/{bibliographyId}")
