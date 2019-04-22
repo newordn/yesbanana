@@ -34,18 +34,18 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+        <a class="navbar-brand" th:href="@{/external/secure/country/countries}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a th:href="@{/external/secure/region/region/university/}+${session.regionId}" class="nav-link ">Universités</a></li>
-                <li class="nav-item "><a th:href="@{/external/secure/region/region/logement/}+${session.regionId}" class="nav-link ">Logements</a></li></li>
+                <li class="nav-item active"><a th:href="@{/external/secure/country/countries}" class="nav-link ">Universtés&nbsp;<i class="fa fa-chevron-right"></i>&nbsp;Facultés&nbsp;<i class="fa fa-chevron-right"></i>&nbsp;<strong>Options</strong></a></li>
+                <!--li class="nav-item "><a th:href="@{/external/secure/region/region/logement/}+${session.regionId}" class="nav-link ">Logements</a></li></li>
                 <li class="nav-item"><a th:href="@{/external/secure/region/region/transport/}+${session.regionId}" class="nav-link " >Transport</a>
                 </li>
-                <li class="nav-item"><a th:href="@{/external/secure/region/region/approvisionnement/}+${session.regionId}" class="nav-link">Approvisionnement</a></li>
+                <li class="nav-item"><a th:href="@{/external/secure/region/region/approvisionnement/}+${session.regionId}" class="nav-link">Approvisionnement</a></li-->
             </ul>
         </div>
     </div>

@@ -49,6 +49,7 @@ public class These implements Serializable{
     @Column
     private Boolean states;
     private String anotherSommaire;
+    private String motCle;
     @Column
     private String country;
     private String fileType;
@@ -68,7 +69,7 @@ public class These implements Serializable{
     public These() {
     }
 
-    public These(String university, String faculty, String options, String level,
+    public These(String university, String faculty, String options, String level,String motCle,
                  String subject, ArrayList<String> resumes, String regions, String student, String profesor,
                  String workChief, String assistant,Date created_at,Boolean status,Boolean states, String theseDate, String country,
                  ArrayList<Bibliotheque> bibliotheques, ArrayList<Bibliography> bibliographies, String fileType,String anotherSommaire) {
@@ -76,6 +77,7 @@ public class These implements Serializable{
         this.faculty = faculty;
         this.options = options;
         this.level = level;
+        this.motCle=motCle;
         this.bibliographies=bibliographies;
         this.subject = subject;
         this.anotherSommaire=anotherSommaire;
@@ -94,6 +96,14 @@ public class These implements Serializable{
         this.fileType=fileType;
     }
 
+
+    public String getMotCle() {
+        return motCle;
+    }
+
+    public void setMotCle(String motCle) {
+        this.motCle = motCle;
+    }
 
     public List<StudentWork> getStudentWorks() {
         return studentWorks;

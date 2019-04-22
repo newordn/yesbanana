@@ -44,10 +44,11 @@ public class UniversityController {
     }
 */
     @GetMapping("/university/{universityId}")
-    public String findById(Model model, @PathVariable Long universityId) {
+    public String findById(Model model, @PathVariable Long universityId, HttpSession session) {
         Optional<University> universityOptional=universityRepository.findById(universityId);
         List<Faculty> faculties=facultyRepository.findAllByUnniversity(universityOptional.get().getUniversityId());
         model.addAttribute("university", universityOptional.get());
+        session.setAttribute("universityId",universityOptional.get().getUniversityId());
         model.addAttribute("faculties", faculties);
         return "university/university";
     }

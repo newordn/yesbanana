@@ -73,6 +73,12 @@
                             </div>
                             <div class="col-12 col-sm-6 col-lg-12 mt-3">
                                 <div class="form-group">
+                                    <span class='error' id="motCleError"></span>
+                                    <input type="text" class="form-control" th:field="*{motCle}" id="motCle" placeholder="Entrer un mot clé" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                <div class="form-group">
                                     <span class='error' id="dateError"></span>
                                     <input type="text" class="form-control" th:field="*{theseDate}" id="dateThese" placeholder="Date" />
                                 </div>

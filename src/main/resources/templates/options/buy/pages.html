@@ -27,20 +27,29 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+        <a class="navbar-brand" th:href="@{external/secure/options/options/}+${session.optionsId}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a th:href="@{/external/secure/region/region/university/}+${session.regionId}" class="nav-link ">Universités</a></li>
-                <li class="nav-item "><a th:href="@{/external/secure/region/region/logement/}+${session.regionId}" class="nav-link ">Logements</a></li></li>
+                <li class="nav-item active"><a th:href="@{/external/secure/country/countries}" class="nav-link ">Facultés</a></li>
+                <!--li class="nav-item "><a th:href="@{/external/secure/region/region/logement/}+${session.regionId}" class="nav-link ">Logements</a></li></li>
                 <li class="nav-item"><a th:href="@{/external/secure/region/region/transport/}+${session.regionId}" class="nav-link " >Transport</a>
                 </li>
-                <li class="nav-item"><a th:href="@{/external/secure/region/region/approvisionnement/}+${session.regionId}" class="nav-link">Approvisionnement</a></li>
+                <li class="nav-item"><a th:href="@{/external/secure/region/region/approvisionnement/}+${session.regionId}" class="nav-link">Approvisionnement</a></li-->
                 <li class="nav-item">
                     <div th:replace="~{../templates/payment/panierWidget :: panierWidgetFragment}">
+                    </div>
+                </li>
+                <li class="nav-item" th:if="${session.userId}==null">
+                    <div th:replace="~{../templates/payment/visitorConnexionWidget :: visitorConnexionWidget}">
+                    </div>
+                </li>
+
+                <li class="nav-item" th:if="${session.userId}!=null">
+                    <div th:replace="~{../templates/payment/visitorLogOutWidget :: visitorLogOutWidget}">
                     </div>
                 </li>
             </ul>
@@ -57,60 +66,73 @@
         </div>
             <div class="container justify-content-center ftco-animate">
               <div class="col-md-12 card bg-light text-black mr-3 mb-3" style="padding-left: 0;padding-right: 0">
-                    <div class="card-header">
-                        <h5>SUJET:</h5>
-                        <p class="card-text" th:text="${these.subject}">i want to marry you</p>
+                    <div class="card-header text-center">
+                        <h5 class="text-primary">Selectioner une options de consultations et ajouter dans votre panier et finaliser votre paiement</h5>
                     </div>
                      <div class="card-body text-center" style="padding: 0">
                         <table class="table table-hover table-bordered ">
                             <thead>
-                                    <th>Livre</th>
-                                    <th>Titre</th>
-                                    <th>Auteur</th>
-                                    <th>Prix</th>
-                                    <th>Page(s) Importante(s)</th>
+                                    <th>Sujet clé : <span th:text="${mot}"></span></th>
+                                    <th>Cout</th>
+                                    <th>Documentation spécifique à votre sujet</th>
                             </thead>
                             <tbody>
-                                <tr th:each="livre, i : ${these.bibliographies}" th:if="${livre.disponibility} == true" >
-                                    <td th:text="${i.index+1}"></td>
-                                    <td th:text="${livre.title}" ></td>
-                                    <td th:text="${livre.auteur}" ></td>
-                                    <td >
-                                        <input type="checkbox" name="price" th:checked="${price}"
-                                               th:value="${livre.price}" th:text="'$'+${livre.price}" />
+                                <tr  >
+
+                                    <td>Consulter 5 Livres</td>
+                                    <td>
+                                        <span th:text="'$'+${0}"></span>
+                                        <input type="checkbox" name="prix" th:value="${0}" />
                                     </td>
-                                    <td style="padding:0">
-                                        <table style="width: 100%">
-                                            <tr>
-                                            <td>Nbre</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>3</td>
-                                            <td>5</td>
-                                            <td>10</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cout</td>
-                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
-                                                           th:value="${1}" th:text="'$'+${1}" /></td>
-                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
-                                                           th:value="${2}" th:text="'$'+${2}" /></td>
-                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
-                                                           th:value="${2.9}" th:text="'$'+${2.9}" /></td>
-                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
-                                                           th:value="${4.7}" th:text="'$'+${4.7}" /></td>
-                                                <td><input type="checkbox" name="pagePrice" th:checked="${pagePrice}"
-                                                           th:value="${8.6}" th:text="'$'+${8.6}" /></td>
-                                            </tr>
-                                        </table>
+                                    <td>
+                                        <span th:text="'$'+${3}"></span>
+                                        <input type="checkbox" name="prix" th:value="${3}" />
+                                    </td>
+                                    <!--div th:replace="~{../templates/payment/addToPayWidget :: pay(${livre.title},${livre.price})}"></div-->
+                                </tr>
+                                <tr  >
+
+                                    <td>Consulter 10 Livres</td>
+                                    <td>
+                                        <span th:text="'$'+${1}"></span>
+                                        <input type="checkbox" name="prix" th:value="${1}" />
+                                    </td>
+                                    <td>
+                                        <span th:text="'$'+${4}"></span>
+                                        <input type="checkbox" name="prix" th:value="${4}" />
+                                    </td>
+                                    <!--div th:replace="~{../templates/payment/addToPayWidget :: pay(${livre.title},${livre.price})}"></div-->
+                                </tr>
+                                <tr  >
+
+                                    <td>Consulter 15 Livres</td>
+                                    <td>
+                                        <span th:text="'$'+${2}"></span>
+                                        <input type="checkbox" name="prix" th:value="${2}" />
+                                    </td>
+                                    <td>
+                                        <span th:text="'$'+${5}"></span>
+                                        <input type="checkbox" name="prix" th:value="${5}" />
+                                    </td>
+                                    <!--div th:replace="~{../templates/payment/addToPayWidget :: pay(${livre.title},${livre.price})}"></div-->
+                                </tr>
+                                <tr  >
+
+                                    <td>Consulter 20 Livres</td>
+                                    <td>
+                                        <span th:text="'$'+${3}"></span>
+                                        <input type="checkbox" name="prix" th:value="${3}" />
+                                    </td>
+                                    <td>
+                                        <span th:text="'$'+${8}"></span>
+                                        <input type="checkbox" name="prix" th:value="${8}" />
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                         <div th:replace="~{../templates/payment/addToPayWidget :: pay(${livre.title},${livre.pagePrice})}"></div>               </div>
+                     </div>
                   <div class="card-footer">
-                      <h5>AUTRE SOMMAIRE:</h5>
-                      <p th:text="${these.anotherSommaire}"></p>
+                      <div th:replace="~{../templates/payment/addToPayWidget :: pay(mot,prix)}"></div>
                   </div>
             </div>
         </div>
