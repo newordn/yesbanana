@@ -82,63 +82,63 @@
                                     <th>Documentation spécifique à votre sujet</th>
                             </thead>
                             <tbody>
-                                <tr  >
+                                <tr>
 
                                     <td>Consulter 5 Livres</td>
                                     <td>
                                         <span th:text="'$'+${0}"></span>
-                                        <input type="checkbox" name="prix" th:value="${0}" />
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 5 livres' + ${mot},0)}"></div>
+
                                     </td>
                                     <td>
                                         <span th:text="'$'+${3}"></span>
-                                        <input type="checkbox" name="prix" th:value="${3}" />
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 5 livres' + ${mot},3)}"></div>
+
                                     </td>
-                                    <!--div th:replace="~{../templates/payment/addToPayWidget :: pay(${livre.title},${livre.price})}"></div-->
-                                </tr>
-                                <tr  >
+                                  </tr>
+                                <tr>
 
                                     <td>Consulter 10 Livres</td>
                                     <td>
                                         <span th:text="'$'+${1}"></span>
-                                        <input type="checkbox" name="prix" th:value="${1}" />
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 10 livres' + ${mot},1)}"></div>
                                     </td>
                                     <td>
                                         <span th:text="'$'+${4}"></span>
-                                        <input type="checkbox" name="prix" th:value="${4}" />
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 10 livres' + ${mot},4)}"></div>
                                     </td>
-                                    <!--div th:replace="~{../templates/payment/addToPayWidget :: pay(${livre.title},${livre.price})}"></div-->
                                 </tr>
-                                <tr  >
+                                <tr>
 
                                     <td>Consulter 15 Livres</td>
                                     <td>
                                         <span th:text="'$'+${2}"></span>
-                                        <input type="checkbox" name="prix" th:value="${2}" />
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 15 livres' + ${mot},2)}"></div>
+
                                     </td>
                                     <td>
                                         <span th:text="'$'+${5}"></span>
-                                        <input type="checkbox" name="prix" th:value="${5}" />
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 15 livres' + ${mot},5)}"></div>
+
                                     </td>
-                                    <!--div th:replace="~{../templates/payment/addToPayWidget :: pay(${livre.title},${livre.price})}"></div-->
-                                </tr>
-                                <tr  >
+                                 </tr>
+                                <tr>
 
                                     <td>Consulter 20 Livres</td>
                                     <td>
                                         <span th:text="'$'+${3}"></span>
-                                        <input type="checkbox" name="prix" th:value="${3}" />
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 20 livres' + ${mot},3)}"></div>
+
                                     </td>
                                     <td>
                                         <span th:text="'$'+${8}"></span>
-                                        <input type="checkbox" name="prix" th:value="${8}" />
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 20 livres' + ${mot},86)}"></div>
+
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                      </div>
-                  <div class="card-footer">
-                      <div th:replace="~{../templates/payment/addToPayWidget :: pay(mot,prix)}"></div>
-                  </div>
             </div>
 
         </div>
