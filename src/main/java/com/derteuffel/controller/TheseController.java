@@ -63,6 +63,8 @@ public class    TheseController {
     RoleRepository roleRepository;
     @Autowired
     private BibliothequeRepository bibliothequeRepository;
+    @Autowired
+    private StudentWorkRepository studentWorkRepository;
 
     List<String> countries = Arrays.asList(
             "Afghanistan",
@@ -271,9 +273,10 @@ public class    TheseController {
 
     // for getting all theses
     @GetMapping("/all")
-    public String findAllThese(HttpSession session) {
+    public String findAllThese(HttpSession session, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
+        model.addAttribute("theses",theseRepository.findAll());
         session.setAttribute("userId", user.getUserId());
         session.setAttribute("avatar", user.getImg());
         session.setAttribute("name", user.getName());
@@ -401,7 +404,7 @@ public class    TheseController {
     }
 
 
-    // for the creation of excel docs, don't mind the name 
+    // for the creation of excel docs, don't mind the name
     @GetMapping(value = "/createPdf/{currentPage}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public FileSystemResource createPdf(@PathVariable("currentPage") int currentPage, HSSFWorkbook workbook, HttpServletResponse response) throws DocumentException, IOException {
@@ -429,10 +432,9 @@ public class    TheseController {
         These these1 = theseRepository.findBySubject(these.getSubject());
         Long groupeId = (Long) session.getAttribute("groupeId");
         Groupe groupe = groupeRepository.getOne(groupeId);
-        User user1 = userRepository.getOne(Long.parseLong(groupe.getGroupChief()));
 
         if (these1 != null) {
-            errors.rejectValue("title", "these.error", "il existe deja une reference avec ce titre");
+            errors.rejectValue("subject", "these.error", "il existe deja une reference avec ce titre");
         }
         if (errors.hasErrors()) {
             model.addAttribute("error", "il existe deja une reference avec ce titre");
@@ -455,25 +457,33 @@ public class    TheseController {
             theseRepository.save(these);
         }
 
-        String[]adresseList=adresses.split(",");
-        int i=2;
-        for (String adresse : adresseList){
-            i++;
-            MailService mail = new MailService();
-            mail.sendSimpleMessage(
-                    adresse,
+        if (!(adresses.isEmpty())) {
+            String[]adresseList=adresses.split(",");
+            for (String adresse : adresseList) {
+                MailService mail = new MailService();
+                mail.sendSimpleMessage(
+                        adresse,
+                        "Notification de enregistrement d'une Thèse",
+                        user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
+                );
+            }
+        }else {
+            System.out.println("liste  vide ");
+        }
+
+        if (!groupe.getGroupChief().isEmpty()) {
+            User user1 = userRepository.getOne(Long.parseLong(groupe.getGroupChief()));
+            MailService mail1 = new MailService();
+            mail1.sendSimpleMessage(
+                    user1.getEmail(),
                     "Notification de enregistrement d'une Thèse",
                     user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
             );
-        }
-
-        MailService mail1 = new MailService();
-        mail1.sendSimpleMessage(
-                user1.getEmail(),
-                "Notification de enregistrement d'une Thèse",
-                user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
-        );
             return "redirect:/groupe/groupe/" + (Long) session.getAttribute("groupeId");
+        }else {
+            System.out.println("liste  vide ");
+            return "redirect:/groupe/groupe/" + (Long) session.getAttribute("groupeId");
+        }
 
     }
 
@@ -646,7 +656,7 @@ public class    TheseController {
         These these=theseRepository.getOne(theseId);
         these.setStates(false);
         theseRepository.save(these);
-    return "redirect:/these/all";}
+        return "redirect:/these/all";}
 
 
     @GetMapping("/update/{theseId}")
@@ -735,6 +745,7 @@ public class    TheseController {
         model.addAttribute("bibliothequess", bibliothequeRepository.findAllByThese(these.getTheseId()));
         model.addAttribute("bibliotheque", new Bibliotheque());
         model.addAttribute("these1", these);
+        model.addAttribute("travaux",studentWorkRepository.findByThese(these.getTheseId()));
         model.addAttribute("bibliographies", bibliographyRepository.findAllByThese(these.getTheseId()));
         model.addAttribute("bibliography", new Bibliography());
 
