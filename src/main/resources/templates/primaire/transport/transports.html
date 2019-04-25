@@ -27,7 +27,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/groupe/groupes}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+        <a class="navbar-brand" th:href="@{/management/country/education/}+${session.countryId}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
@@ -43,7 +43,7 @@
                 <li class="nav-item"><a th:href="@{/primaire/primaires/bibliotheque/}+${region.regionId}" class="nav-link">Bibliothèque en ligne</a></li>
                 <li class="nav-item"><a th:href="@{/primaire/primaires/games/}+${region.regionId}" class="nav-link">Jeux éducatif</a></li>
                 <li class="nav-item active"><a th:href="@{/primaire/primaires/transport/}+${region.regionId}" class="nav-link">Transport sécurisé</a></li>
-
+                <li class="nav-item"><a th:href="@{/secondaire/secondaires/colonie/}+${region.regionId}" class="nav-link">Education Secondaire</a></li>
             </ul>
         </div>
     </div>
@@ -54,7 +54,7 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 heading-section ftco-animate text-center">
-                <h2 >Transport sécurisé</h2>
+                <h2 style="width: inherit">Education Primaire&nbsp;&nbsp;<i class="fa fa-hand-o-right"></i>&nbsp;&nbsp;<strong class="text-primary">Transport sécurisé</strong></h2>
                 <h3 class="mb-1">Nos réalisations</h3>
             </div>
         </div>
