@@ -22,40 +22,28 @@
     <link rel="stylesheet" th:href="@{/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script th:src="@{/js/dataTable/colonie.js}" type="text/javascript"></script>
-    <link th:href="@{/css/dataTablesResponsive.css}" rel="stylesheet">
-    <script th:src="@{/js/dataTablesResponsive.js}"></script>
-
-    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
-
-
-
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/primaire/primaires/bibliotheque/}+${region.regionId}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
+        <a class="navbar-brand" th:href="@{/management/country/education/}+${session.countryId}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item "><a th:href="@{/primaire/primaires/colonie/}+${region.regionId}" class="nav-link ">Colonie de vacances</a></li>
-                <li class="nav-item "><a th:href="@{/primaire/primaires/langue/}+${region.regionId}" class="nav-link ">Anglais et/ou Francais</a></li></li>
+                <li class="nav-item active"><a th:href="@{/secondaire/secondaires/colonie/}+${region.regionId}" class="nav-link ">Colonie de vacances</a></li>
+                <li class="nav-item "><a th:href="@{/secondaire/secondaires/langue/}+${region.regionId}" class="nav-link ">Anglais et/ou Francais</a></li></li>
 
-                <li class="nav-item"><a th:href="@{/primaire/primaires/cours/}+${region.regionId}" class="nav-link " >Cours d'appui</a>
+                <li class="nav-item"><a th:href="@{/secondaire/secondaires/cours/}+${region.regionId}" class="nav-link " >Cours d'appui</a>
 
                 </li>
-                <li class="nav-item active"><a th:href="@{/primaire/primaires/bibliotheque/}+${region.regionId}" class="nav-link">Bibliothèque en ligne</a></li>
-                <li class="nav-item"><a th:href="@{/primaire/primaires/games/}+${region.regionId}" class="nav-link">Jeux éducatif</a></li>
-                <li class="nav-item"><a th:href="@{/primaire/primaires/transport/}+${region.regionId}" class="nav-link">Transport sécurisé</a></li>
+                <li class="nav-item"><a th:href="@{/secondaire/secondaires/bibliotheque/}+${region.regionId}" class="nav-link">Bibliothèque en ligne</a></li>
+                <li class="nav-item"><a th:href="@{/secondaire/secondaires/games/}+${region.regionId}" class="nav-link">Jeux éducatif</a></li>
+                <li class="nav-item"><a th:href="@{/secondaire/secondaires/transport/}+${region.regionId}" class="nav-link">Transport sécurisé</a></li>
+                <li class="nav-item"><a th:href="@{/secondaire/secondaires/colonie/}+${region.regionId}" class="nav-link">Education Secondaire</a></li>
 
             </ul>
         </div>
@@ -67,35 +55,129 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 heading-section ftco-animate text-center">
-                <h2 >Bibliotheque en ligne</h2>
-                <h3 class="mb-1">Evénements passés</h3>
+                <h2 style="width: inherit">Education Secondaire&nbsp;&nbsp;<i class="fa fa-hand-o-right"></i>&nbsp;&nbsp;<strong class="text-primary">Colonie de vacances</strong></h2>
+                <h3 class="mb-1">Nos réalisations</h3>
             </div>
         </div>
-        <div>
-            <h3 class="text-center mt-3">Tableau recapitulatif</h3>
-            <table  class="table text-center table-hover dt-responsive table-lg display" id="colonie">
-                <thead class="text-white bg-secondary">
-                <th>Titre</th>
-                <th>Prix</th>
-                <th>Date de l'événement</th>
-                <th>Couverture</th>
-                </thead>
-                <tbody>
-                <tr th:each="primaire: ${primaires}">
-                    <td th:text="${primaire.title}"></td>
-                    <td>$ <span th:text="${primaire.price}"></span></td>
-                    <td th:text="${primaire.realeseDate}"></td>
-                    <td><a th:href="@{/primaire/bibliotheque/}+${primaire.educationId}"><img height="100" width="100" th:src="${primaire.couverture}"></a></td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="row">
+            <div class="col-md-4 ftco-animate" th:each="primaire : ${primaires}">
+                <div class="block-7" style="height: 700px;" >
+                    <div class="text-center">
+                        <h2 class="heading"><span th:text="${primaire.title}">Gestion des affaires</span></h2>
+                        <img th:if="${primaire.couverture}"  th:src="${primaire.couverture}" alt="Photo de couverture" height="150" width="100%">
+                        <img th:unless="${primaire.couverture}"  th:src="@{/images/default.jpg}" alt="Photo de couverture" height="150" width="100%">
+                        <span class="price"><sup>$</sup> <span class="number" th:text="${primaire.price}">100</span></span>
+                        <span class="excerpt d-block">pour l'événement</span>
+                        <p th:text="${primaire.description}" class="text-left" style="width: inherit">c'est un module permettant de maitriser le monde des affaires.<br><br><br>
+                        </p>
+                        <a class="btn" ><i class="fa fa-heart"></i>&nbsp;&nbsp;<span th:text="${primaire.likes}" class="badge badge-light"></span></a>
+                        <a th:href="@{/secondaire/secondaire/}+${primaire.educationId}" class="btn btn-primary d-block" style="position: relative">Details</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     <div  style="text-align: center">
-        <a class="btn btn-primary" th:href="@{/primaire/primaires/bibliotheque/}+${region.regionId}"><i class="fa fa-long-arrow-left"></i>&nbsp;&nbsp;Retour </a>
+        <a class="btn btn-primary" th:href="@{/secondaire/secondaires/colonie/all/}+${region.regionId}">voir plus <i class="fa fa-long-arrow-right"></i></a>
     </div>
 </section>
-<!-- add these button -->
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2>Planning des évènements</h2>
+            </div>
+        </div>
+        <div class="row d-flex">
+
+            <div class="col-md-4 d-flex ftco-animate" th:each=" admin : ${events}" style="height:400px">
+                <a th:href="@{/secondaire/secondaire/}+${admin.educationId}" style="color:black">
+                    <div class="blog-entry justify-content-end">
+                        <span  class="block-20" style="background-image: url('images/image_1.jpg');" th:style="'background-image:url(' + @{${admin?.couverture}} + ');'">
+                        </span>
+                        <div class="text p-4 float-right d-block">
+                            <div class="d-flex align-items-center pt-2 mb-4">
+                                <div class="one">
+                                    <span class="day" th:text="'$'+${admin?.price}">$14</span>
+                                </div>
+                            </div>
+                            <h3 class="heading mt-2"><span href="#" th:text="${admin?.title}"> Conférence autour de l'énergie.</span></h3>
+                            <p th:text="${admin.description}"></p>
+                            mise en ligne le :
+                            <!--p th:text="${admin?.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p-->
+
+                            date de début:
+                            <span th:text="${admin?.realeseDate}">12/18/2019</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="mt-3" style="text-align: center">
+        <a class="btn btn-primary" th:href="@{/secondaire/secondaires/colonies/events/}+${region.regionId}">voir plus <i class="fa fa-long-arrow-right"></i></a>
+    </div>
+</section>
+
+
+<section class="ftco-counter img" id="section-counter">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-md-6 d-flex">
+                <div class="img d-flex align-self-stretch" th:style="'background-image:url(' + @{/images/insight.png} + ');'"></div>
+            </div>
+            <div class="col-md-6 pl-md-5 py-5">
+                <div class="row justify-content-start pb-3">
+                    <div class="col-md-12 heading-section ftco-animate">
+                        <h2 class="mb-4" style="text-align: center">Statistiques</h2>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center py-4 bg-light mb-4">
+                            <div class="text">
+                                <div class="icon d-flex justify-content-center align-items-center">
+                                    <span class="flaticon-guest"></span>
+                                </div>
+                                <strong>0</strong>
+                                <span>Evenements historiques</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center py-4 bg-light mb-4">
+                            <div class="text">
+                                <div class="icon d-flex justify-content-center align-items-center">
+                                    <span class="flaticon-handshake"></span>
+                                </div>
+                                <strong th:text="${listSize}">0</strong>
+                                <span>Planification des évènements</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center py-4 bg-light mb-4">
+                            <div class="text">
+                                <div class="icon d-flex justify-content-center align-items-center">
+                                    <span class="flaticon-chair"></span>
+                                </div>
+                                <strong th:text="${coursesSize}">0</strong>
+                                <span>Cours disponibles</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 <section class="ftco-section-parallax">
     <div class="parallax-img d-flex align-items-center">
         <div class="container">
@@ -170,6 +252,7 @@
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
+<script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>

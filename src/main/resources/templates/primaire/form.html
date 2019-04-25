@@ -27,22 +27,22 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/groupe/groupes}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+        <a class="navbar-brand" th:href="@{/primaire/primaires/colonie/}+${region.regionId}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a th:href="@{/primaire/primaires/colonie}" class="nav-link ">Colonie de vacances</a></li>
-                <li class="nav-item "><a th:href="@{/primaire/primaires/langue}" class="nav-link ">Anglais et/ou Francais</a></li></li>
+                <li class="nav-item active"><a th:href="@{/primaire/primaires/colonie/}+${region.regionId}" class="nav-link ">Colonie de vacances</a></li>
+                <li class="nav-item "><a th:href="@{/primaire/primaires/langue/}+${region.regionId}" class="nav-link ">Anglais et/ou Francais</a></li></li>
 
-                <li class="nav-item"><a th:href="@{/primaire/primaires/cours}" class="nav-link " >Cours d'appui</a>
+                <li class="nav-item"><a th:href="@{/primaire/primaires/cours/}+${region.regionId}" class="nav-link " >Cours d'appui</a>
 
                 </li>
-                <li class="nav-item"><a th:href="@{/primaire/primaires/bibliotheque}" class="nav-link">Bibliothèque en ligne</a></li>
-                <li class="nav-item"><a th:href="@{/primaire/primaires/game}" class="nav-link">Jeux éducatif</a></li>
-                <li class="nav-item"><a th:href="@{/primaire/primaires/transport}" class="nav-link">Transport sécurisé</a></li>
+                <li class="nav-item"><a th:href="@{/primaire/primaires/bibliotheque/}+${region.regionId}" class="nav-link">Bibliothèque en ligne</a></li>
+                <li class="nav-item"><a th:href="@{/primaire/primaires/game/}+${region.regionId}" class="nav-link">Jeux éducatif</a></li>
+                <li class="nav-item"><a th:href="@{/primaire/primaires/transport/}+${region.regionId}" class="nav-link">Transport sécurisé</a></li>
 
             </ul>
         </div>

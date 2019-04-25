@@ -40,22 +40,22 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/primaire/primaires/bibliotheque/}+${region.regionId}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
+        <a class="navbar-brand" th:href="@{/secondaire/secondaires/cours/}+${region.regionId}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item "><a th:href="@{/primaire/primaires/colonie/}+${region.regionId}" class="nav-link ">Colonie de vacances</a></li>
-                <li class="nav-item "><a th:href="@{/primaire/primaires/langue/}+${region.regionId}" class="nav-link ">Anglais et/ou Francais</a></li></li>
+                <li class="nav-item "><a th:href="@{/secondaire/secondaires/colonie/}+${region.regionId}" class="nav-link ">Colonie de vacances</a></li>
+                <li class="nav-item "><a th:href="@{/secondaire/secondaires/langue/}+${region.regionId}" class="nav-link ">Anglais et/ou Francais</a></li></li>
 
-                <li class="nav-item"><a th:href="@{/primaire/primaires/cours/}+${region.regionId}" class="nav-link " >Cours d'appui</a>
+                <li class="nav-item active"><a th:href="@{/secondaire/secondaires/cours/}+${region.regionId}" class="nav-link " >Cours d'appui</a>
 
                 </li>
-                <li class="nav-item active"><a th:href="@{/primaire/primaires/bibliotheque/}+${region.regionId}" class="nav-link">Bibliothèque en ligne</a></li>
-                <li class="nav-item"><a th:href="@{/primaire/primaires/games/}+${region.regionId}" class="nav-link">Jeux éducatif</a></li>
-                <li class="nav-item"><a th:href="@{/primaire/primaires/transport/}+${region.regionId}" class="nav-link">Transport sécurisé</a></li>
+                <li class="nav-item"><a th:href="@{/secondaire/secondaires/bibliotheque/}+${region.regionId}" class="nav-link">Bibliothèque en ligne</a></li>
+                <li class="nav-item"><a th:href="@{/secondaire/secondaires/games/}+${region.regionId}" class="nav-link">Jeux éducatif</a></li>
+                <li class="nav-item"><a th:href="@{/secondaire/secondaires/transport/}+${region.regionId}" class="nav-link">Transport sécurisé</a></li>
 
             </ul>
         </div>
@@ -67,7 +67,7 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 heading-section ftco-animate text-center">
-                <h2 >Bibliotheque en ligne</h2>
+                <h2 >Cours d'appui</h2>
                 <h3 class="mb-1">Evénements passés</h3>
             </div>
         </div>
@@ -85,14 +85,14 @@
                     <td th:text="${primaire.title}"></td>
                     <td>$ <span th:text="${primaire.price}"></span></td>
                     <td th:text="${primaire.realeseDate}"></td>
-                    <td><a th:href="@{/primaire/bibliotheque/}+${primaire.educationId}"><img height="100" width="100" th:src="${primaire.couverture}"></a></td>
+                    <td><a th:href="@{/secondaire/cours/}+${primaire.educationId}"><img height="100" width="100" th:src="${primaire.couverture}"></a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
     <div  style="text-align: center">
-        <a class="btn btn-primary" th:href="@{/primaire/primaires/bibliotheque/}+${region.regionId}"><i class="fa fa-long-arrow-left"></i>&nbsp;&nbsp;Retour </a>
+        <a class="btn btn-primary" th:href="@{/secondaire/secondaires/cours/}+${region.regionId}"><i class="fa fa-long-arrow-left"></i>&nbsp;&nbsp;Retour </a>
     </div>
 </section>
 <!-- add these button -->
