@@ -21,6 +21,8 @@
     <link th:href="@{/css/showTheses.css}" rel="stylesheet">
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
     <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <link th:href="@{/css/dataTablesResponsive.css}" rel="stylesheet">
+
     <!--link th:href="@{/css/style.css}" rel="stylesheet"-->
     <style>
         .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
@@ -48,7 +50,7 @@
     <h2 class="text-center mt-5">Thèses Génerale</h2>
     <!-- showing theses-->
     <div class="content mt-3 card p-5 ">
-        <table class="table text-center table-hover table-lg display " id="theses">
+        <table class="table text-center table-hover table-lg display dt-responsive " id="these">
             <thead class="text-white bg-secondary">
             <tr>
                 <th>Pays</th>
@@ -115,6 +117,7 @@
     </a>
     < print button-->
     </div>
+<script th:src="@{/js/dataTablesResponsive.js}"></script>
 
 </body>
 
