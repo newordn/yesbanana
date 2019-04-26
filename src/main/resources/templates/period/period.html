@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
@@ -39,21 +38,21 @@
 <!-- END nav -->
 <section class="ftco-section ftco-degree-bg alert-warning">
     <div class="container">
-        <div class="col-md-12 ">
+        <div class="container">
                 <h3 class="mb-3 text-center text-success">Poursuive votre formation pour préparer votre parcours professionnel et devenir un futur expert</h3>
             </div> <!-- .col-md-8 -->
         </div><br>
-        <h2 class="mb-3 text-center">Suivez toutes vos leçons</h2>
-        <div th:each="lesson : ${lessons}" class="pl-3 pr-3" >
-            <div class="border rounded d-flex justify-content-center pt-3" >
+        <h2 class="mb-3 text-center">Suivez toutes vos leçons<hr></h2>
+        <div th:each="lesson : ${lessons}" class="pl-3 pr-3 container card" >
+            <div class="rounded  pt-3" >
             <h3 class="text-center" th:text="${lesson?.title}">Première leçon</h3>
                 <br><br><br>
                 <div class="pl-1 pr-1" th:switch="${lesson.fileType}">
                     <div class="row" th:case="'DOCUMENT FILES'">
-                        <div class="col-12 col-sm-6 col-lg-8 d-flex justify-content-center">
+                        <div class="col-md-8 d-flex justify-content-center">
                             <img style="width: 400px;height: 400px" th:src="@{/images/word.jpeg}">
                         </div>
-                        <div class="col-12 col-sm-6 col-lg-4" style="padding-top: 8rem;padding-bottom: 5rem">
+                        <div class="col-md-4" style="padding-top: 8rem;padding-bottom: 5rem">
                             <button type="button" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'" class="btn btn-primary rounded-circle" ><i class="fa fa-info-circle"></i></button>
                             <br>
                             <p>Voir tous les fichiers (<span th:text="${#lists.size(lesson.pieces)}"></span>) fichiers</p>
@@ -81,12 +80,12 @@
                         </div>
                     </div>
                     <div class="row" th:case="'VIDEO'">
-                        <div class="col-12 col-sm-6 col-lg-8 d-flex justify-content-center">
+                        <div class="col-md-8 d-flex justify-content-center">
                             <video style="width: 400px" controls>
                                 <source th:src="${lesson.pieces[0]}">
                             </video>
                         </div>
-                        <div class="col-12 col-sm-6 col-lg-4" style="padding-top: 8rem;padding-bottom: 5rem">
+                        <div class="col-md-4" style="padding-top: 8rem;padding-bottom: 5rem">
                             <button type="button" data-toggle="modal" data-target="#modal-warning-video" th:attr="data-target='#modal-warning-video'" class="btn btn-primary rounded-circle" ><i class="fa fa-info-circle"></i></button>
                             <br>
                             <p>Voir toutes les videos (<span th:text="${#lists.size(lesson.pieces)}"></span>) videos</p>
@@ -118,12 +117,12 @@
 
                     </div>
                     <div class="row" th:case="'AUDIO'">
-                        <div class="col-12 col-sm-6 col-lg-8 d-flex justify-content-center">
+                        <div class="col-md-8 d-flex justify-content-center">
                             <audio controls>
                                 <source th:src="${lesson.pieces[0]}">
                             </audio>
                         </div>
-                        <div class="col-12 col-sm-6 col-lg-4" style="padding-top: 8rem;padding-bottom: 5rem">
+                        <div class="col-md-4" style="padding-top: 8rem;padding-bottom: 5rem">
                             <button type="button" data-toggle="modal" data-target="#modal-warning-video" th:attr="data-target='#modal-warning-video'" class="btn btn-primary rounded-circle" ><i class="fa fa-info-circle"></i></button>
                             <br>
                             <p>Voir tout les fichiers audio (<span th:text="${#lists.size(lesson.pieces)}"></span>) audios</p>
@@ -153,7 +152,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body mt-3 pl-1 pr-1" style="width: 750px;">
+                <div class="card-body mt-3  text-center container">
                     <p th:text="${lesson.resumes}">With Safari, you learn the way you learn best. Get unlimited access to videos, live online training, learning paths, books, interactive tutorials, and more.
                     </p><br>
                     <div th:replace="~{../templates/payment/addToPayWidget :: pay(${lesson.title},${lesson.price})}"></div><br>

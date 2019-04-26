@@ -95,7 +95,7 @@
                 <h2 class="subheading">Formulaire d'ajout d'une leçon dans une periode donnée</h2>
             </div>
         </div>
-        <div class="row ftco-animate">
+        <div class="row">
             <div class="card col-9 col-sm-9 col-lg-9 " style="margin:auto">
 
                 <form th:action="@{/management/lesson/save}" th:object="${lesson}" method="post" enctype="multipart/form-data">
@@ -109,7 +109,7 @@
                     </div>
                     <div class="form-group">
                         <label for="resumes">Brève appercue de l'element :</label>
-                        <textarea class="form-control" rows="100" id="resumes" th:field="*{resumes}" style="height: 200px"></textarea>
+                        <textarea class="form-control" rows="10" id="resumes" th:field="*{resumes}" style="height: 200px"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="fileType">Type de fichiers a telecharger :</label>
@@ -135,7 +135,7 @@
                         <div class="col-12 col-sm-12 col-lg-6" style="width: 100%;padding-left: 20px;padding-right: 20px">
                             <!--button type="submit" class="btn btn-primary" style="width: 100%">Validé</button-->
                             <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'" class="btn btn-primary" style="width: 100%">Validé</a>
-                            <div class="modal card modal-warning fade in" th:id="modal-warning" >
+                            <div class="modal card modal-warning fade in " th:id="modal-warning" >
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header text-center">
@@ -160,15 +160,11 @@
                             </div>
                         </div>
                     </div>
-                </form>   </div>
-
+                </form>
+            </div>
         </div>
     </div>
-    </div>
 </section>
-
-
-
 
 <section class="ftco-section-parallax">
     <div class="parallax-img d-flex align-items-center">

@@ -14,7 +14,7 @@ public class Lesson implements Serializable {
     private Long lessonId;
     private Boolean status;
     private String title;
-    private Double price;
+    private Double price=0.0;
     @Column
     private ArrayList<String> pieces= new ArrayList<>();
     @Column

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
@@ -50,17 +49,22 @@
 
 <section class="ftco-section ftco-degree-bg alert-warning" style="padding-top: 1rem">
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 order-md-last ftco-animate border">
+        <div>
+            <div class=" order-md-last ftco-animate">
                 <h2 class="mb-3">Description de la Formation</h2>
                 <p th:text="${course.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit, quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et. Dolore perferendis, enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta architecto tempora.</p>
             </div> <!-- .col-md-8 -->
-            <div class="col-md-4 ftco-animate">
-                <h3><i class="fa fa-usd"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${course.price}"></span></h3>
-                <h3><i class="fa fa-thumbs-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${course.views}"></span></h3>
-            </div>
+            <div class="row ftco-animate">
+                <div class="col-md-6">
+                    <h3><i class="fa fa-usd"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${course.price}"></span></h3>
+                </div>
+                <div class="col-md-6">
+                    <h3><i class="fa fa-thumbs-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${course.views}"></span></h3>
+                </div>
+                </div>
         </div><br>
-        <h2 class="mb-3 text-center">Periodes de déroulement de la Formation</h2>
+        <h2 class="mb-3 text-left">Periodes de déroulement de la Formation</h2>
+        <hr>
         <div th:each="period : ${periods}">
             <div class="row pt-3" >
                 <div class="col-md-8 order-md-last ftco-animate">
@@ -77,6 +81,7 @@
                     <img th:src="@{/images/period.jpeg}" class="rounded-circle" style="height: 80px; width: 80px;">
                 </div>
             </div>
+            <hr>
         </div>
     </div>
 </section> <!-- .section -->
