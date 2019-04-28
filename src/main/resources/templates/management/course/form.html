@@ -84,8 +84,6 @@
                 </li>
             </ul>
         </div>
-        </ul>
-    </div>
     </div>
 </nav>
 <section class="ftco-section testimony-section">
@@ -95,7 +93,7 @@
                 <h1>Ajout d'une formation professionnelle</h1>
             </div>
         </div>
-        <div class="row ftco-animate">
+        <div class="container ftco-animate">
             <div class="card card-body alert-info" style="height: 80%; width: 80%;margin-left: 100px">
 
                 <form th:action="@{/management/course/save}" th:object="${course}" method="post" >
@@ -104,8 +102,8 @@
                         <input type="text" class="form-control" id="usr" th:field="*{title}">
                     </div>
                     <div class="form-group">
-                        <label for="usr">Prix de la formation:</label>
-                        <input type="number" class="form-control" id="price" th:field="*{price}">
+                        <label for="usr">Prix de la formation en dollar $:</label>
+                        <input type="text" class="form-control" id="price" name="price">
                     </div>
                     <div class="form-group">
                         <label for="comment">Description:</label>

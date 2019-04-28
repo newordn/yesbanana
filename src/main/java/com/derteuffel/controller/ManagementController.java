@@ -1655,7 +1655,8 @@ public class ManagementController {
     }
 
     @PostMapping(value = "/course/save")
-    public String saveCourse(Course course){
+    public String saveCourse(Course course, String price){
+        course.setPrice(Double.parseDouble(price));
         course.setDomain(course.getDomain().toLowerCase());
         Course course1=courseRepository.save(course);
         if (course1.getDomain().equals("administration et finance")){
@@ -1941,7 +1942,7 @@ public class ManagementController {
     }
 
     @PostMapping(value = "/lesson/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String lessonSave(Lesson lesson, HttpSession session, @RequestParam("files") MultipartFile[] files,  String adresse, String contenue){
+    public String lessonSave(Lesson lesson, HttpSession session, @RequestParam("files") MultipartFile[] files,  String adresse, String contenue, String price){
 
         List<FileUploadRespone> pieces= Arrays.asList(files)
                 .stream()
@@ -1956,7 +1957,7 @@ public class ManagementController {
                 filesPaths.add(pieces.get(i).getFileDownloadUri());
 
         }
-
+            lesson.setPrice(Double.parseDouble(price));
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
         System.out.println(filesPaths);
