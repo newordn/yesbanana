@@ -47,6 +47,7 @@
             <div class="rounded  pt-3" >
             <h3 class="text-center" th:text="${lesson?.title}">Première leçon</h3>
                 <br><br><br>
+                <div id="lesson">
                 <div class="pl-1 pr-1" th:switch="${lesson.fileType}">
                     <div class="row" th:case="'DOCUMENT FILES'">
                         <div class="col-md-8 d-flex justify-content-center">
@@ -155,9 +156,11 @@
                 <div class="card-body mt-3  text-center container">
                     <p th:text="${lesson.resumes}">With Safari, you learn the way you learn best. Get unlimited access to videos, live online training, learning paths, books, interactive tutorials, and more.
                     </p><br>
-                    <div th:replace="~{../templates/payment/addToPayWidget :: pay(${lesson.title},${lesson.price})}"></div><br>
+                    </div>
+                    </div>
+                    <div th:replace="~{../templates/payment/addToPayWidget :: pay(${lesson.title},${lesson.price}, ${lesson?.pieces})}"></div><br>
                     <span style="color: #9fcdff">Carte de credit necessaire</span>
-                </div>
+
             <br>
         </div>
     </div>
@@ -284,6 +287,7 @@
                 $("#hide1").css("display","none");
                 $("#hide2").css("display","none");},
             function(){})
+    $("#lesson *").disable();
 </script>
 </body>
 </html>

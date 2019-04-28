@@ -22,6 +22,27 @@ public class Article {
 
     private String name;
 
+    public String getContainer() {
+        return container;
+    }
+
+    public void setContainer(String container) {
+        this.container = container;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    private String container;
+
+    public Article(String name, String container, Double prix, Panier panier) {
+        this.name = name;
+        this.container = container;
+        this.prix = prix;
+        this.panier = panier;
+    }
+
     private Double prix;
     @ManyToOne
     private Panier panier;

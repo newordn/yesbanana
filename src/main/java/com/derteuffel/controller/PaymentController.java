@@ -72,8 +72,8 @@ public class PaymentController {
         panierRepository.save(panier);
         return "redirect:/payment/panier";
     }
-    @GetMapping("/article/panier/{cours}/{prix}")
-    public String addArticle(@PathVariable String cours, @PathVariable String prix)
+    @GetMapping("/article/panier/{cours}/{prix}/{contenu}")
+    public String addArticle(@PathVariable String cours, @PathVariable String prix, @PathVariable String contenu)
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
@@ -96,9 +96,8 @@ public class PaymentController {
 
         }
 
-        Article article  = new Article(cours,Double.parseDouble(prix),panier);
+        Article article  = new Article(contenu,cours,Double.parseDouble(prix),panier);
         panier.setCount(article.getPrix() + panier.getCount());
-        System.out.println("asfsdf");
         articleRepository.save(article);
         panierRepository.save(panier);
         return "redirect:/payment/panier";
