@@ -30,10 +30,26 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <h3 th:text="${period.periodName}"></h3>
+                <li class="nav-item align-items-center d-flex">
+                <div th:text="${period.periodName}"></div>
+                </li>
+                <li class="nav-item">
+                    <div th:replace="~{../templates/payment/panierWidget :: panierWidgetFragment}">
+                    </div>
+                </li>
+                <li class="nav-item" th:if="${session.userId}==null">
+                    <div th:replace="~{../templates/payment/visitorConnexionWidget :: visitorConnexionWidget}">
+                    </div>
+                </li>
+
+                <li class="nav-item" th:if="${session.userId}!=null">
+                    <div th:replace="~{../templates/payment/visitorLogOutWidget :: visitorLogOutWidget}">
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
+
 </nav>
 <!-- END nav -->
 <section class="ftco-section ftco-degree-bg alert-warning">
@@ -47,7 +63,6 @@
             <div class="rounded  pt-3" >
             <h3 class="text-center" th:text="${lesson?.title}">Première leçon</h3>
                 <br><br><br>
-                <div id="lesson">
                 <div class="pl-1 pr-1" th:switch="${lesson.fileType}">
                     <div class="row" th:case="'DOCUMENT FILES'">
                         <div class="col-md-8 d-flex justify-content-center">
@@ -68,7 +83,7 @@
                                         <div class="modal-body text-center">
                                             <ul th:each="piece : ${lesson.pieces}">
                                                 <li>
-                                                    <a th:href="${piece}" th:text="${piece}"></a>
+                                                    <a th:text="${piece}"></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -157,9 +172,8 @@
                     <p th:text="${lesson.resumes}">With Safari, you learn the way you learn best. Get unlimited access to videos, live online training, learning paths, books, interactive tutorials, and more.
                     </p><br>
                     </div>
-                    </div>
-                    <div th:replace="~{../templates/payment/addToPayWidget :: pay(${lesson.title},${lesson.price}, ${lesson?.pieces})}"></div><br>
-                    <span style="color: #9fcdff">Carte de credit necessaire</span>
+                <div th:replace="~{../templates/payment/addToPayWidget :: pay(${lesson.title},${lesson.price}, ${lesson?.pieces})}"></div><br>
+                <span style="color: #9fcdff">Carte de credit necessaire</span>
 
             <br>
         </div>
@@ -287,7 +301,6 @@
                 $("#hide1").css("display","none");
                 $("#hide2").css("display","none");},
             function(){})
-    $("#lesson *").disable();
 </script>
 </body>
 </html>
