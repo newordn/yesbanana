@@ -72,8 +72,8 @@ public class PaymentController {
         panierRepository.save(panier);
         return "redirect:/payment/panier";
     }
-    @GetMapping("/article/panier/{cours}/{prix}/{contenu}")
-    public String addArticle(@PathVariable String cours, @PathVariable String prix, @PathVariable String contenu)
+    @PostMapping("/article/panier")
+    public String addArticle( HttpServletRequest request)
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
@@ -96,11 +96,12 @@ public class PaymentController {
 
         }
 
-        Article article  = new Article(contenu,cours,Double.parseDouble(prix),panier);
+        Article article  = new Article((String) request.getParameter("cours"),(String) request.getParameter("contenu"),Double.parseDouble(request.getParameter("prix")),panier);
         panier.setCount(article.getPrix() + panier.getCount());
         articleRepository.save(article);
         panierRepository.save(panier);
-        return "redirect:/payment/panier";
+        System.out.println(request.getParameter("currentUrl"));
+        return "redirect:" + request.getParameter("currentUrl");
     }
     @GetMapping("/transactions")
     public String getTransactions( Model model)
@@ -124,24 +125,5 @@ public class PaymentController {
         return "payment/error";
     }
 
-    @PostMapping("/payBy/card")
-    public String payByCard(HttpServletRequest request) {
-        Stripe.apiKey = "sk_test_XQayGouNu0oTFSRnX6lFzkru00GjI4eZlA";
-        // Token is created using Checkout or Elements!
-        // Get the payment token ID submitted by the form:
-        String token = request.getParameter("stripeToken");
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("amount", 999);
-        params.put("currency", "usd");
-        params.put("description", "Charging for goods on Yesbanana");
-        params.put("source", token);
-        try {
-            Charge charge = Charge.create(params);
-        } catch (StripeException e) {
-            e.printStackTrace();
-        }
 
-
-        return "payment/transactions";
-    }
 }

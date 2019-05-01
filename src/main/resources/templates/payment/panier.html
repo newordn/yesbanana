@@ -76,13 +76,16 @@
                     <thead>
                     <th>Produits</th>
                     <th>Montant</th>
-                    <th>Enlever</th>
+                    <th>Actions</th>
+
                 </thead>
                 <tbody>
                 <tr th:each="article : ${panier.articles}">
                     <td th:text="${article.name}">Cours d'anglais</td>
                     <td th:text="${article.prix}">25$</td>
-                    <td><a th:href="@{/payment/delete/article/} + ${article.id}" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+                    <td>
+                        <a th:href="@{/payment/delete/article/} + ${article.id}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
