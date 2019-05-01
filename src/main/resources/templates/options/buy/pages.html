@@ -72,14 +72,14 @@
                 <hr>
               <div class="col-md-12 card bg-light text-black mr-3 mb-3" style="padding-left: 0;padding-right: 0">
                     <div class="card-header text-center">
-                        <h5 class="text-primary">Selectioner une options de consultations et ajouter dans votre panier et finaliser votre paiement</h5>
+                        <h5 class="text-primary">Selectioner un element à ajouter dans votre panier et finaliser votre paiement</h5>
                     </div>
                      <div class="card-body text-center" style="padding: 0">
                         <table class="table table-hover table-bordered ">
                             <thead>
                                     <th>Sujet clé : <span th:text="${mot}"></span></th>
                                     <th>Cout</th>
-                                    <th>Documentation spécifique à votre sujet</th>
+                                    <th>Documentation spécifique à votre recherche</th>
                             </thead>
                             <tbody>
                                 <tr>
@@ -87,12 +87,12 @@
                                     <td>Consulter 5 Livres</td>
                                     <td>
                                         <span th:text="'$'+${0}"></span>
-                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 5 livres ' + ${mot},0)}"></div>
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 5 livres ' + ${mot},0,'blabla')}"></div>
 
                                     </td>
                                     <td>
                                         <span th:text="'$'+${3}"></span>
-                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 5 livres ' + ${mot},3)}"></div>
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 5 livres ' + ${mot},3,'blabla')}"></div>
 
                                     </td>
                                   </tr>
@@ -101,11 +101,11 @@
                                     <td>Consulter 10 Livres</td>
                                     <td>
                                         <span th:text="'$'+${1}"></span>
-                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 10 livres ' + ${mot},1)}"></div>
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 10 livres ' + ${mot},1,'blabla')}"></div>
                                     </td>
                                     <td>
                                         <span th:text="'$'+${4}"></span>
-                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 10 livres ' + ${mot},4)}"></div>
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 10 livres ' + ${mot},4,'blabla')}"></div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -113,12 +113,12 @@
                                     <td>Consulter 15 Livres</td>
                                     <td>
                                         <span th:text="'$'+${2}"></span>
-                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 15 livres git ' + ${mot},2)}"></div>
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 15 livres git ' + ${mot},2,'blabla')}"></div>
 
                                     </td>
                                     <td>
                                         <span th:text="'$'+${5}"></span>
-                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 15 livres ' + ${mot},5)}"></div>
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 15 livres ' + ${mot},5,'blabla')}"></div>
 
                                     </td>
                                  </tr>
@@ -127,12 +127,12 @@
                                     <td>Consulter 20 Livres</td>
                                     <td>
                                         <span th:text="'$'+${3}"></span>
-                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 20 livres ' + ${mot},3)}"></div>
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 20 livres ' + ${mot},3,'blabla')}"></div>
 
                                     </td>
                                     <td>
                                         <span th:text="'$'+${8}"></span>
-                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 20 livres ' + ${mot},86)}"></div>
+                                        <div th:replace="~{../templates/payment/addToPayWidget :: pay('Consultation de 20 livres ' + ${mot},8,'blabla')}"></div>
 
                                     </td>
                                 </tr>
