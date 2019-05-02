@@ -93,11 +93,12 @@ public class OptionsController {
     }
 
     @GetMapping("/buy/pages/{motCle}")
-    public String buyBooksPages(@PathVariable String motCle, Model model){
+    public String buyBooksPages(@PathVariable String motCle, Model model,HttpSession session){
 
         List<Bibliography> livresDisponobles=bibliographyRepository.findAllByDisponibility(true);
         List<Bibliography> livresFaculte=bibliographyRepository.findAllByTitle(motCle);
         List<These>findTheses=theseRepository.findAllByMotCle(motCle);
+        session.setAttribute("motCle",motCle);
         model.addAttribute("mot",motCle);
         model.addAttribute("theses",findTheses);
         return "options/buy/pages";

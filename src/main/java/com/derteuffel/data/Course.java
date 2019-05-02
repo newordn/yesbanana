@@ -22,7 +22,7 @@ public class Course implements Serializable {
     @Column
     private String tutor;
     @Column
-    private double price;
+    private Double price;
     @Column
     private int views;
     @Column

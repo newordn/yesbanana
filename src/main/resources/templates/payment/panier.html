@@ -34,7 +34,7 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item "><a href="/" class="nav-link ">Accueil</a></li>
+                <li class="nav-item "><a th:href="@{/external/secure/options/buy/pages/}+${session.motCle}" class="nav-link "><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a></li>
                 <li class="nav-item active"><a href="/payment/panier" class="nav-link">Votre panier</a></li>
                 <li class="nav-item">
                     <a  href="/payment/transactions" class="nav-link">Mes transactions</a>

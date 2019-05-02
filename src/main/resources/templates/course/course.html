@@ -30,7 +30,7 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <h3 th:text="${course.title}"></h3>
+                <h3 th:text="${course?.title}"></h3>
             </ul>
         </div>
     </div>
@@ -41,7 +41,7 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 heading-section ftco-animate text-center">
-                <h3 th:text="${course.domain}"></h3>
+                <h3 th:text="${course?.domain}"></h3>
             </div>
         </div>
     </div>
@@ -52,14 +52,14 @@
         <div>
             <div class=" order-md-last ftco-animate">
                 <h2 class="mb-3">Description de la Formation</h2>
-                <p th:text="${course.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit, quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et. Dolore perferendis, enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta architecto tempora.</p>
+                <p th:text="${course?.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit, quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et. Dolore perferendis, enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta architecto tempora.</p>
             </div> <!-- .col-md-8 -->
             <div class="row ftco-animate">
                 <div class="col-md-6">
-                    <h3><i class="fa fa-usd"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${course.price}"></span></h3>
+                    <h3><i class="fa fa-usd"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${course?.price}"></span></h3>
                 </div>
                 <div class="col-md-6">
-                    <h3><i class="fa fa-thumbs-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${course.views}"></span></h3>
+                    <h3><i class="fa fa-thumbs-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${course?.views}"></span></h3>
                 </div>
                 </div>
         </div><br>
@@ -68,16 +68,16 @@
         <div th:each="period : ${periods}">
             <div class="row pt-3" >
                 <div class="col-md-8 order-md-last ftco-animate">
-                    <h3 th:text="${period.periodName}"></h3>
-                    <div class="container" th:each=" lesson : ${period.lessons}">
-                        <p><strong>Titre : </strong><span th:text="${lesson.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Durée : </strong><span th:text="${lesson.elapsedTime}"> </span>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Résumé : </strong><span th:text="${lesson.resumes}"></span></p>
+                    <h3 th:text="${period?.periodName}"></h3>
+                    <div class="container" th:each=" lesson : ${period?.lessons}">
+                        <p><strong>Titre : </strong><span th:text="${lesson?.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Durée : </strong><span th:text="${lesson.elapsedTime}"> </span>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Résumé : </strong><span th:text="${lesson.resumes}"></span></p>
                     </div>
                     <div class="col-12 col-sm-6 col-lg-12" style="padding-left: 15px;padding-right: 15px">
                         <a class="btn btn-primary d-block" th:href="@{/period/period/get/}+${period.periodId}">Suivre les leçons &rarr;</a>
                     </div>
                 </div> <!-- .col-md-8 -->
                 <div class="col-md-4 ftco-animate">
-                    <p th:text="${period.title}">Première période</p>
+                    <p th:text="${period?.title}">Première période</p>
                     <img th:src="@{/images/period.jpeg}" class="rounded-circle" style="height: 80px; width: 80px;">
                 </div>
             </div>
