@@ -6,13 +6,13 @@ $("#operatorSelection").change(function(){
 function pay()
 {
     var data = {
-        amount : "500",
-        phone: $("#phone_number").val(),
+        amount : $("#amount").val(),
+        phone_number: $("#phone_number").val(),
         operator: selectedOperator,
         user : $("#user_name").val(),
         email : $("#user_email").val(),
-        notify_url : "http://localhost:8080/payment/transactions",
-        return_url : "http://localhost:8080/payment/transactions",
+        notify_url : "http://localhost:8008/payment/transactions",
+        return_url : "http://localhost:8008/payment/transactions",
 
     };
 //operator for orange: CM_ORANGEMONEY
@@ -35,7 +35,7 @@ function pay()
 
           //  $("#transaction_error span").trigger("click");
         }
-    };
+    } ;
     if(selectedOperator=="undefined")
     {
         alert("Vous devez choisir un opérateur");

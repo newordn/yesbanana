@@ -75,12 +75,13 @@
             <thead>
              <th>Produits</th>
              <th>Montant</th>
+             <th>Contenu</th>
             </thead>
             <tbody>
             <tr th:each="article : ${panier.articles}">
                 <td th:text="${article.name}">Cours d'anglais</td>
                 <td th:text="${article.prix}">25$</td>
-                <td th:text="${article.container}">httsp:://yesbanana.org/video/1.flv</td>
+                <td><a th:href="${article.container}"></a></td>
             </tr>
             </tbody>
         </table>

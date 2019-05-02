@@ -85,6 +85,12 @@
         <div class="row justify-content-center" id="mobile">
             <form action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
 
+                <!-- payment value -->
+                <input type="hidden" th:value="${user.email}" id="user_email" name="user_email">
+                <input type="hidden" th:value="${user.name}" id="user_name" name="user_name">
+                <input type="hidden" th:value="${user.country}" id="user_country" name="user_country">
+                <!-- payment value -->
+
                 <div class="form-group d-flex ">
                     <div class="col-md-4 form-group">
                         <select class="custom-select" id="operatorSelection">
@@ -95,6 +101,7 @@
                             <option value="airtel">Airtel Money</option>
                         </select>
                     </div>
+                    <input type="hidden" th:value="${amount}" name="amount">
                     <div class="col-md-5">
                         <input type="text" id="phone_number" name="phone" style="width:100%;padding-left:2rem;" placeholder="Votre numéro de téléphone ex: 237693063228">
                     </div>
@@ -128,11 +135,6 @@
     <!-- error button -->
 </div>
 
-<!-- payment value -->
-<input type="hidden" th:value="${user.email}" id="user_email">
-<input type="hidden" th:value="${user.name}" id="user_name">
-<input type="hidden" th:value="${user.country}" id="user_country">
-<!-- payment value -->
 <section class="ftco-section-parallax">
     <div class="parallax-img d-flex align-items-center">
         <div class="container">

@@ -91,7 +91,7 @@ public class PaymentController {
         {
 
             long time = System.currentTimeMillis();
-            panier = new Panier(true,new Date(time), 0.0, null, user);
+            panier = new Panier(true,new Date(time), 0.0, null, user,false);
             panierRepository.save(panier);
 
         }
@@ -113,7 +113,7 @@ public class PaymentController {
         List<Panier> paniers1 = user.getPaniers();
         for(int i= paniers1.size()-1;i>=0;i--)
         {
-            if(paniers1.get(i).getCount()!=0.0)
+            if( paniers1.get(i).getBought())
                 paniers.add(paniers1.get(i));
         }
         model.addAttribute("paniers",paniers);
