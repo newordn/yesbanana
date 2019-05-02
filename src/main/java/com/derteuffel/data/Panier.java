@@ -17,6 +17,15 @@ public class Panier {
     @GeneratedValue
     Long id;
 
+    public Boolean getBought() {
+        return bought;
+    }
+
+    public void setBought(Boolean bought) {
+        this.bought = bought;
+    }
+
+    private Boolean bought=false;
     public Long getId() {
         return id;
     }
@@ -41,12 +50,13 @@ public class Panier {
     public Panier() {
     }
 
-    public Panier(Boolean status, Date date, Double count, List<Article> articles, User user) {
+    public Panier(Boolean status, Date date, Double count, List<Article> articles, User user, Boolean bought) {
         this.status = status;
         this.date = date;
         this.count = count;
         this.articles = articles;
         this.user = user;
+        this.bought = bought;
     }
 
     public void setCount(Double count) {

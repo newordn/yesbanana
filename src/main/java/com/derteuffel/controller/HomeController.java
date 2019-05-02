@@ -271,6 +271,8 @@ public class HomeController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         List<Panier> paniers = user.getPaniers();
+        Panier theLast = paniers.get(paniers.size()-1);
+        if(theLast.getCount()==0.0) panierRepository.delete(theLast);
         Panier panier =null;
         for(Panier panier1 : paniers)
         {
