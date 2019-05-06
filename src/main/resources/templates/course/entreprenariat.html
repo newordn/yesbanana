@@ -46,6 +46,15 @@
                     <div th:replace="~{../templates/payment/panierWidget :: panierWidgetFragment}">
                     </div>
                 </li>
+                <li class="nav-item" th:if="${session.userId}==null">
+                    <div th:replace="~{../templates/payment/visitorConnexionWidget :: visitorConnexionWidget}">
+                    </div>
+                </li>
+
+                <li class="nav-item" th:if="${session.userId}!=null">
+                    <div th:replace="~{../templates/payment/visitorLogOutWidget :: visitorLogOutWidget}">
+                    </div>
+                </li>
 
             </ul>
         </div>
