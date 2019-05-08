@@ -1,0 +1,106 @@
+<!-- sidebar-->
+<div  xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="sidebar_these"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <!-- HEADER MOBILE-->
+    <header class="header-mobile d-block d-lg-none">
+        <div class="header-mobile__bar">
+            <div class="container-fluid">
+                <div class="header-mobile-inner">
+                    <a class="logo" href="index.html">
+                        <img src="images/icon/logo.png" alt="CoolAdmin" />
+                    </a>
+                    <button class="hamburger hamburger--slider" type="button">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar-mobile">
+            <div class="container-fluid">
+                <ul class="navbar-mobile__list list-unstyled">
+                    <li class="has-sub">
+                        <a class="js-arrow" href="#">
+                            <i class="fas fa-tachometer-alt"></i>Rechercher</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/visitor/catalogue}">Catalogue</a>
+                    </li>
+                    <li>
+                        <a  th:href="@{/visitor/livres}">Livres</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/visitor/syllabus}">Syllabus</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/visitor/students_work}">Travaux des étudiants</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-chart-bar"></i>Consulter</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/visitor/magazines}">Magazines</a>
+                    </li>
+                    <li>
+                        <a href="table.html">
+                            <i class="fas fa-table"></i>Besoin d'aide?</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/visitor/encadrement}">Encadrement des travaux scientifiques</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- END HEADER MOBILE-->
+
+
+    <!-- MENU SIDEBAR-->
+    <aside class="menu-sidebar d-none d-lg-block">
+        <div class="logo">
+            <a href="#">
+                <img src="images/icon/logo.png" alt="Cool Admin" />
+            </a>
+        </div>
+        <div class="menu-sidebar__content js-scrollbar1">
+            <nav class="navbar-sidebar">
+                <ul class="list-unstyled navbar__list">
+                    <li class="active has-sub">
+                        <a class="js-arrow" href="#">
+                            <i class="fas fa-tachometer-alt"></i><strong>Rechercher</strong></a>
+                    </li>
+                    <li >
+                        <a th:href="@{/visitor/catalogues}"><span class="dot dot--blue"></span>&nbsp;&nbsp;&nbsp;Catalogue</a>
+                    </li>
+                    <li >
+                        <a th:href="@{/visitor/livres}"><span class="dot dot--blue"></span>&nbsp;&nbsp;&nbsp;Livres</a>
+                    </li>
+                    <li >
+                        <a th:href="@{/visitor/syllabus}"><span class="dot dot--blue"></span>&nbsp;&nbsp;&nbsp;Syllabus</a>
+                    </li>
+                    <li >
+                        <a th:href="@{/visitor/students_work}"><span class="dot dot--blue"></span>&nbsp;&nbsp;&nbsp;Travaux des étudiants</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">
+                            <i class="fas fa-chart-bar"></i><strong>Consulter</strong></a>
+                    </li>
+                    <li >
+                        <a th:href="@{/visitor/magazines}"><span class="dot dot--blue"></span>&nbsp;&nbsp;&nbsp;Magazines</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">
+                            <i class="fas fa-table"></i><strong>Besoin d'aide?</strong></a>
+                    </li>
+                    <li >
+                        <a th:href="@{/visitor/encadrement}"><span class="dot dot--blue"></span>&nbsp;&nbsp;&nbsp;Encadrement des Travaux Scientifiques</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+    <!-- END MENU SIDEBAR-->
+</div>
+<!-- sidebar-->

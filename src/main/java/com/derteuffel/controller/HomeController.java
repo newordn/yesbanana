@@ -325,7 +325,7 @@ public class HomeController {
 
     @GetMapping("/about")
     public  String about(){
-        return "about";
+        return "these_module/index";
     }
 
     @GetMapping("/contact")

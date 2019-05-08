@@ -25,19 +25,19 @@ public class TestController {
     @GetMapping("/all")
     public String findAll(Model model) {
         model.addAttribute("tests",testRepository.findAll());
-        return "test/tests";
+        return "these_module/tests";
     }
 
     @GetMapping("/form")
     public String form(Model model){
         model.addAttribute("test", new Test());
-        return "test/form";
+        return "these_module/form";
     }
 
     @PostMapping("/save")
     public String save(Test test) {
           testRepository.save(test);
-        return "redirect:/test/all";
+        return "redirect:/these_module/all";
     }
 
     public Optional<Test> findById(Long id) {
