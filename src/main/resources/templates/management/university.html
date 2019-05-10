@@ -46,13 +46,16 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
+                <li class="nav-item  dropdown"><a href="#" class="nav-link ">Collectes</a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item" id="ender3">
                             <a th:href="@{/groupe/groupes}" class="black nav-link" >Regions</a>
                         </li>
                         <li class="dropdown-item" id="ender3">
                             <a th:href="@{/these/all}" class="black nav-link" >Theses Générales</a>
+                        </li>
+                        <li class="dropdown-item" id="ender3">
+                            <a th:href="@{/groupe/faculties}" class="black nav-link" >Livres</a>
                         </li>
                     </ul>
                 </li>
@@ -95,9 +98,11 @@
                     </a>
                     <ul class="dropdown-menu">
                         <!-- insert the profile image-->
-                        <li class="nav-item"><a data-toggle="dropdown" class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
-                        <li class="nav-item">
-                            <a class="black nav-link" th:href="@{/logout}" sec:authorize="isFullyAuthenticated()">Deconnexion</a>
+                        <li class="dropdown-item" id="ender3">
+                            <a class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a>
+                        </li>
+                        <li class="dropdown-item" id="ender3">
+                            <a class="black nav-link" th:href="@{/logout}" >Deconnexion</a>
                         </li>
                     </ul>
                 </li>

@@ -68,7 +68,9 @@ public class GroupeController {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
-    private PanierRepository panierRepository;
+    private FacultyRepository facultyRepository;
+    @Autowired
+            private OptionsRepository optionsRepository;
 
     List<String> countries= Arrays.asList(
             "Afghanistan",
@@ -322,6 +324,43 @@ public class GroupeController {
         }
 
 
+    }
+
+    //retrieves all books in database
+
+    @GetMapping("/faculties")
+    public  String faculties(Model model){
+        List<Faculty> faculties= facultyRepository.findAll();
+        model.addAttribute("faculties",faculties);
+        return "livres/faculties";
+    }
+
+    @GetMapping("/livres/{facultyId}")
+    public String retrieve_book(Model model, @PathVariable Long facultyId){
+        Faculty faculty=facultyRepository.getOne(facultyId);
+        List<Options> optionses=optionsRepository.findAllByFaculty(faculty.getFacultyId());
+        List<These> theses=new ArrayList<>();
+        for (Options options : optionses){
+                List<These> theses1=theseRepository.findAll();
+            for (These these : theses1){
+                if (options.getOptionsName().equals(these.getOptions())) {
+                    theses.add(these);
+                }
+            }
+             }
+        System.out.println(theses);
+        System.out.println("je suis ici");
+        List<Bibliography> bibliographies= new ArrayList<>();
+        for (These these : theses){
+            if (these.getStates() == true) {
+                System.out.println("je suis ici");
+                bibliographies.addAll(bibliographyRepository.findAllByThese(these.getTheseId()));
+            }
+            System.out.println(bibliographies);
+        }
+
+        model.addAttribute("livres", bibliographies);
+        return "livres/livres";
     }
 
     // for adding a user into one crew

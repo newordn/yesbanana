@@ -335,7 +335,7 @@ public class ManagementController {
             return "redirect:/management/region/university/"+ region.getRegionId();
         }else {
             university.setRegion(region);
-            university.setUniversityName(university.getUniversityName().toUpperCase());
+            university.setUniversityName(university.getUniversityName());
             universityRepository.save(university);
         }
         return "redirect:/management/region/university/"+ region.getRegionId();

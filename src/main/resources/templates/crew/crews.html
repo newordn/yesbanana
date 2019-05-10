@@ -50,7 +50,7 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li th:if="${roles[0].role == 'ROOT'}" class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
+                <li th:if="${roles[0].role != 'USER'} or ${roles[0].role != 'ADMIN'}" class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item" id="ender3">
                             <a th:href="@{/groupe/groupes}" class="black nav-link" >Regions</a>
@@ -58,9 +58,12 @@
                         <li class="dropdown-item" id="ender3">
                             <a th:href="@{/these/all}" class="black nav-link" >Theses Générales</a>
                         </li>
+                        <li class="dropdown-item" id="ender3">
+                            <a th:href="@{/groupe/faculties}" class="black nav-link" >Livres</a>
+                        </li>
                     </ul>
                 </li>
-                <li th:if="${roles[0].role == 'ROOT_MASTER'}" class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
+                <!--li th:if="${roles[0].role == 'ROOT_MASTER'}" class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item" id="ender3">
                             <a th:href="@{/groupe/groupes}" class="black nav-link" >Regions</a>
@@ -79,15 +82,15 @@
                             <a th:href="@{/these/all}" class="black nav-link" >Theses Générales</a>
                         </li>
                     </ul>
-                </li>
-                <li class="nav-item "><a th:href="@{/user}" class="nav-link " th:if="${roles[0].role == 'ROOT'}" >Staffs</a></li>
-                <li class="nav-item "><a th:href="@{/user}" class="nav-link " th:if="${roles[0].role == 'ROOT_MASTER'}" >Staffs</a></li>
-                <li class="nav-item "><a th:href="@{/stats}" class="nav-link " th:if="${roles[0].role == 'ROOT_MASTER'}" >Statistiques</a></li>
-                <li class="nav-item "><a th:href="@{/stats}" class="nav-link " th:if="${roles[0].role == 'ROOT'}" >Statistiques</a></li>
-                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${roles[0].role == 'ROOT'}" >Universités</a></li>
-                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${roles[0].role == 'ROOT_MASTER'}" >Universités</a></li>
-                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${roles[0].role == 'ADMIN_MASTER'}" >Universités</a></li>
-                <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ROOT')">
+                </li-->
+                <li class="nav-item "><a th:href="@{/user}" class="nav-link " th:if="${roles[0].role != 'USER'} or ${roles[0].role != 'ADMIN'} or ${roles[0].role != 'ADMIN_MASTER'}" >Staffs</a></li>
+                <!--li class="nav-item "><a th:href="@{/user}" class="nav-link " th:if="${roles[0].role == 'ROOT_MASTER'}" >Staffs</a></li-->
+                <li class="nav-item "><a th:href="@{/stats}" class="nav-link " th:if="${roles[0].role != 'USER'} or ${roles[0].role != 'ADMIN'} or ${roles[0].role != 'ADMIN_MASTER'}" >Statistiques</a></li>
+                <!--li class="nav-item "><a th:href="@{/stats}" class="nav-link " th:if="${roles[0].role == 'ROOT'}" >Statistiques</a></li-->
+                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${roles[0].role != 'USER'} or ${roles[0].role != 'ADMIN'}" >Universités</a></li>
+                <!--li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${roles[0].role == 'ROOT_MASTER'}" >Universités</a></li>
+                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link " th:if="${roles[0].role == 'ADMIN_MASTER'}" >Universités</a></li-->
+                <li class="nav-item dropdown" th:if="${roles[0].role != 'USER'} or ${roles[0].role != 'ADMIN'} or ${roles[0].role != 'ADMIN_MASTER'}">
                     <a href="#" class="nav-link" data-toggle="dropdown">Travailler avec nous</a>
                     <ul class="dropdown-menu">
 
@@ -107,22 +110,15 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown" th:if="${roles[0].role == 'ROOT'}">
+                <li class="nav-item dropdown" th:if="${roles[0].role != 'USER'} or ${roles[0].role != 'ADMIN'} or ${roles[0].role != 'ADMIN_MASTER'}">
                     <a  href="#" class="nav-link" data-toggle="dropdown" >Educations et Autres</a>
                     <ul class="dropdown-menu">
-                        <li><a  th:href="@{/management/countries/other}" class="black nav-link" >Autres services</a></li>
-                        <li><a  th:href="@{/management/countries/education}" class="black nav-link">Education</a></li>
+                        <li class="dropdown-item" id="ender3"><a  th:href="@{/management/countries/other}" class="black nav-link" >Autres services</a></li>
+                        <li class="dropdown-item" id="ender3"><a  th:href="@{/management/countries/education}" class="black nav-link">Education</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown" th:if="${roles[0].role == 'ROOT_MASTER'}">
-                    <a  href="#" class="nav-link" data-toggle="dropdown" >Educations et Autres</a>
-                    <ul class="dropdown-menu">
-                        <li><a  th:href="@{/management/countries/other}" class="black nav-link" >Autres services</a></li>
-                        <li><a  th:href="@{/management/countries/education}" class="black nav-link">Education</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if="${roles[0].role == 'ROOT'}" >Formations</a></li>
-                <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if="${roles[0].role == 'ROOT_MASTER'}" >Formations</a></li>
+                <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if="${roles[0].role != 'USER'} or ${roles[0].role != 'ADMIN'} or ${roles[0].role != 'ADMIN_MASTER'}" >Formations</a></li>
+                <!--li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if="${roles[0].role == 'ROOT_MASTER'}" >Formations</a></li-->
                 <li class="nav-item dropdown text-center" sec:authorize="isFullyAuthenticated()">
                     <!-- insert the profile image-->
                     <a href="#">
@@ -130,8 +126,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <!-- insert the profile image-->
-                        <li class="nav-item"><a   class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
-                        <li class="nav-item">
+                        <li class="dropdown-item" id="ender3">
+                            <a class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a>
+                        </li>
+                        <li class="dropdown-item" id="ender3">
                             <a class="black nav-link" th:href="@{/logout}" >Deconnexion</a>
                         </li>
                     </ul>

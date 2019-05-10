@@ -39,20 +39,20 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/management/country/university/}+${session.countryId}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
+        <a class="navbar-brand" th:href="@{/groupe/groupes}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item  dropdown"><a href="#" class="nav-link ">Collectes</a>
+                <li class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item" id="ender3">
                             <a th:href="@{/groupe/groupes}" class="black nav-link" >Regions</a>
                         </li>
                         <li class="dropdown-item" id="ender3">
-                            <a th:href="@{/these/all}" class="black nav-link"  >Theses Générales</a>
+                            <a th:href="@{/these/all}" class="black nav-link" >Theses Générales</a>
                         </li>
                         <li class="dropdown-item" id="ender3">
                             <a th:href="@{/groupe/faculties}" class="black nav-link" >Livres</a>
@@ -61,7 +61,7 @@
                 </li>
                 <li class="nav-item "><a th:href="@{/user}" class="nav-link ">Staffs</a></li>
                 <li class="nav-item "><a th:href="@{/stats}" class="nav-link ">Statistiques</a></li>
-                <li class="nav-item active"><a th:href="@{/management/countries/university}" class="nav-link ">Universités</a></li>
+                <li class="nav-item "><a th:href="@{/management/countries/university}" class="nav-link ">Universités</a></li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown">Travailler avec nous</a>
                     <ul class="dropdown-menu">
@@ -85,8 +85,8 @@
                 <li class="nav-item  dropdown">
                     <a  href="#" class="nav-link" data-toggle="dropdown" >Educations et Autres</a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-item" id="ender3"><a  th:href="@{/management/countries/other}" class="black nav-link" >Autres services</a></li>
-                        <li class="dropdown-item" id="ender3"><a  th:href="@{/management/countries/education}" class="black nav-link">Education</a></li>
+                        <li><a  th:href="@{/management/countries/other}" class="black nav-link" >Autres services</a></li>
+                        <li><a  th:href="@{/management/countries/education}" class="black nav-link">Education</a></li>
                     </ul>
                 </li>
                 <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" >Formations</a></li>
@@ -98,11 +98,9 @@
                     </a>
                     <ul class="dropdown-menu">
                         <!-- insert the profile image-->
-                        <li class="dropdown-item" id="ender3">
-                            <a class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a>
-                        </li>
-                        <li class="dropdown-item" id="ender3">
-                            <a class="black nav-link" th:href="@{/logout}" >Deconnexion</a>
+                        <li class="nav-item"><a data-toggle="dropdown" class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
+                        <li class="nav-item">
+                            <a class="black nav-link" th:href="@{/logout}" sec:authorize="isFullyAuthenticated()">Deconnexion</a>
                         </li>
                     </ul>
                 </li>
@@ -112,10 +110,9 @@
 </nav>
 <section class="ftco-section testimony-section">
     <div class="container">
-        <div class=" justify-content-center mb-5 pb-3">
+        <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-12 text-center heading-section ftco-animate">
-                <h1 th:text="${region.regName}">Cameroun</h1>
-                <h2 class="subheading"><span>Liste des universités</span></h2>
+                <h2 class="subheading"><span>Liste des facultés</span></h2>
             </div>
         </div>
 
@@ -124,88 +121,26 @@
                 <thead style="background-color:rgb(0,0,100);">
                 <tr>
 
-                    <th>Nom de l'université</th>
-                    <th class="bg-success">Facultés</th>
+                    <th>Nom de la faculté</th>
+                    <th class="bg-success">Options</th>
                 </tr>
                 </thead>
                 <tbody style="color:black">
-                <tr th:each="university : ${universities}">
-                    <td th:text="${university.universityName}"></td>
+                <tr th:each="faculty : ${faculties}">
+                    <td th:text="${faculty.facultyName}"></td>
                     <td>
 
-                        <a th:href="@{/management/university/} + ${university.universityId}" >Ouvrir &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                        <a sec:authorize="!hasRole('ROLE_USER')" class="text-danger" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${university.universityId }">
-                           Supprimer&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-trash-o"></i>
-                        </a>
+                        <a th:href="@{/groupe/livres/} + ${faculty.facultyId}" >Ouvrir &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
-                    <div class="modal card modal-warning alert-warning fade in" th:id="modal-warning+${university.universityId}" >
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header text-center alert-info">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span></button>
-                                    <h5 class="modal-title">Suppression d'une Universtié</h5>
-                                </div>
-                                <div class="modal-body text-center">
-                                    <h3>Etes vous sure de vouloir supprimer définitivement cet Université de la liste?</h3>
-                                </div>
-                                <div class="modal-footer text-center">
-                                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
-                                    <a type="button" class="btn btn-danger" th:href="@{/management/delete/university/} + ${university.universityId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </tr>
                 </tbody>
             </table>
-
-        </div>
-
-
-
 
         </div>
     </div>
 
 
 </section>
-
-
-<!-- add university button start-->
-<button  style="position:fixed; right:10px;bottom:10px;z-index:404982450" type="button" class="addButton btn btn-success rounded-circle" data-toggle="modal" data-target="#addUniversity">
-    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
-</button>
-<!-- add university button end-->
-<!--addUniversity-->
-<div sec:authorize="!hasRole('ROLE_USER')" class=" modal fade" id="addUniversity" tabindex="-1" role="dialog" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered"  role="document">
-        <form class="add-these-form modal-content card text-center" th:object="${university}" method="post" th:action="@{/management/university/form/save}">
-            <div class="row pt-3">
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="nameError"></span>
-                    <input type="hidden" name="regionId" th:value="${session.regionId}" />
-                    <!-- loop over available  options -->
-                    <select class="form-control" th:field="*{universityName}">
-                        <option value="">choisir une université</option>
-                        <option th:each="these : ${theses}" th:value="${these}" th:text="${these}">University</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row form-button" style="width: 100%">
-                <div class="col-6">
-                    <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
-                </div>
-                <div class="col-6">
-                    <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
 
 <section class="ftco-section-parallax">
     <div class="parallax-img d-flex align-items-center">
