@@ -329,14 +329,20 @@ public class GroupeController {
     //retrieves all books in database
 
     @GetMapping("/faculties")
-    public  String faculties(Model model){
+    public  String faculties(Model model, HttpSession session){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
         List<Faculty> faculties= facultyRepository.findAll();
+        session.setAttribute("roles",user.getRoles());
         model.addAttribute("faculties",faculties);
         return "livres/faculties";
     }
 
     @GetMapping("/livres/{facultyId}")
-    public String retrieve_book(Model model, @PathVariable Long facultyId){
+    public String retrieve_book(Model model, @PathVariable Long facultyId, HttpSession session){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        session.setAttribute("roles",user.getRoles());
         Faculty faculty=facultyRepository.getOne(facultyId);
         List<Options> optionses=optionsRepository.findAllByFaculty(faculty.getFacultyId());
         List<These> theses=new ArrayList<>();
