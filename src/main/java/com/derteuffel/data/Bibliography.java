@@ -20,6 +20,9 @@ public class Bibliography implements Serializable{
     private Boolean disponibility;
     private Double price;
     private Double pagePrice;
+    private String editeur;
+    private String lieu_edition;
+    private String annee_edition;
 
     @ManyToOne
     private These these;
@@ -27,7 +30,8 @@ public class Bibliography implements Serializable{
     public Bibliography() {
     }
 
-    public Bibliography(String auteur, String title, String description, These these, String link,Boolean disponibility,Double pagePrice, Double price) {
+    public Bibliography(String auteur, String title, String description, These these, String link,Boolean disponibility,
+                        Double pagePrice, Double price, String editeur, String lieu_edition, String annee_edition) {
         this.auteur = auteur;
         this.title = title;
         this.price=price;
@@ -35,7 +39,34 @@ public class Bibliography implements Serializable{
         this.disponibility=disponibility;
         this.description = description;
         this.link=link;
+        this.annee_edition=annee_edition;
+        this.editeur=editeur;
+        this.lieu_edition=lieu_edition;
         this.these = these;
+    }
+
+    public String getEditeur() {
+        return editeur;
+    }
+
+    public void setEditeur(String editeur) {
+        this.editeur = editeur;
+    }
+
+    public String getLieu_edition() {
+        return lieu_edition;
+    }
+
+    public void setLieu_edition(String lieu_edition) {
+        this.lieu_edition = lieu_edition;
+    }
+
+    public String getAnnee_edition() {
+        return annee_edition;
+    }
+
+    public void setAnnee_edition(String annee_edition) {
+        this.annee_edition = annee_edition;
     }
 
     public Double getPagePrice() {

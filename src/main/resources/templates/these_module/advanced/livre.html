@@ -80,13 +80,13 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td>Titre</td>
+                                        <td th:text="${livre.title}">Titre</td>
                                     </tr>
                                     <tr>
-                                        <td>Auteur</td>
+                                        <td th:text="${livre.auteur}">Auteur</td>
                                     </tr>
                                     <tr>
-                                        <td>Sommaire  en 10 lignes</td>
+                                        <td th:text="${livre.description}">Sommaire  en 10 lignes</td>
                                     </tr>
                                     <tr>
                                         <td>Voir la fiche</td>
@@ -98,29 +98,23 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td>PDF
-                                            Lecture en ligne
-                                            Prix
+                                        <td>PDF Lecture en ligne Prix
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Commander PDF
-                                            Prix
+                                        <td>Commander PDF Prix
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Commander imprimé
-                                            Prix
+                                        <td>Commander imprimé Prix
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Réserver
-                                            Prix
+                                        <td>Réserver Prix
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Emprunter
-                                            Prix
+                                        <td>Emprunter Prix
                                         </td>
                                     </tr>
                                 </tbody>

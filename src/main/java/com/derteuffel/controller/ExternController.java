@@ -1,8 +1,18 @@
 package com.derteuffel.controller;
 
+import com.derteuffel.data.Bibliography;
+import com.derteuffel.data.These;
+import com.derteuffel.repository.BibliographyRepository;
+import com.derteuffel.repository.TheseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by derteuffel on 07/05/2019.
@@ -10,6 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/visitor")
 public class ExternController {
+
+    @Autowired
+    private TheseRepository theseRepository;
+    @Autowired
+    private BibliographyRepository bibliographyRepository;
 
     @GetMapping("/catalogues")
     public String catalogues(){
@@ -56,15 +71,37 @@ public class ExternController {
     }
 
     @GetMapping("/search_theme")
-    public String search_theme(){
+    public String search_theme(Model model){
+        List<These> allTheses= theseRepository.findAll();
+        List<These> theses=new ArrayList<>();
+        for (These these : allTheses){
+            if (these.getStatus() == true){
+                theses.add(these);
+            }
+        }
+
+        model.addAttribute("theses", theses);
         return "these_module/advanced/search_theme";
     }
-    @GetMapping("/theme")
-    public String theme(){
+    @GetMapping("/theme/{theseId}")
+    public String theme(Model model,@PathVariable Long theseId){
+        These these=theseRepository.getOne(theseId);
+        model.addAttribute("these", these);
+
+        List<Bibliography> allThesesBibliographies=bibliographyRepository.findAllByThese(these.getTheseId());
+        List<Bibliography> livres= new ArrayList<>();
+        for (Bibliography bibliography : allThesesBibliographies){
+            if (bibliography.getDisponibility() == true){
+                livres.add(bibliography);
+            }
+        }
+        model.addAttribute("livres",livres);
         return "these_module/advanced/theme";
     }
-    @GetMapping("/livre")
-    public String livre(){
+    @GetMapping("/livre/detail/{bibliographyId}")
+    public String livre(Model model, @PathVariable Long bibliographyId){
+        Bibliography bibliography=bibliographyRepository.getOne(bibliographyId);
+        model.addAttribute("livre", bibliography);
         return "these_module/advanced/livre";
     }
 

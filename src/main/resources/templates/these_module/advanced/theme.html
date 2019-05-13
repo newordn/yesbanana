@@ -68,11 +68,11 @@
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 text-center heading-section ftco-animate">
                 <h1>Detail</h1>
-                <h2 class="subheading"><span>Titre de votre sujet</span></h2>
+                <h2 class="subheading"><span th:text="${these.subject}">Titre de votre sujet</span></h2>
                 <div class="card">
                     <div class="card-body">
                         <h4>Sommaire</h4>
-                        <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition
+                        <p th:text="${these.anotherSommaire}">Le Lorem Ipsum est simplement du faux texte employé dans la composition
                             et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard
                             de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble
                             des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait
@@ -102,15 +102,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr  >
-                        <td ></td>
-
-                        <td ></td>
-                        <td ></td>
-                        <td ></td>
-                        <td ></td>
+                    <tr th:each="livre : ${livres}" >
+                        <td th:text="${livre.auteur}"></td>
+                        <td th:text="${livre.title}"></td>
+                        <td th:text="${livre.editeur}"></td>
+                        <td th:text="${livre.lieu_edition}"></td>
+                        <td th:text="${livre.annee_edition}"></td>
                         <td>
-                            <a  class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+                            <a th:href="@{/visitor/livre/detail/}+${livre.bibliographyId}" class="btn">Consulter&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
                         </td>
                     </tr>
                     </tbody>
