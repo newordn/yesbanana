@@ -10,6 +10,7 @@ import java.util.List;
  * Created by derteuffel on 13/12/2018.
  */
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Post implements Serializable {
 
     @Id
@@ -30,22 +31,16 @@ public class Post implements Serializable {
     @Column
     private Date creationDate=new Date();
     private double publishPrice;
-    private String niveau;
-
-
-    @ManyToOne
-    private Region region;
-
-    @ManyToOne
-    private User user;
-
+    private Boolean status;
     public Post() {
     }
 
-    public Post(String title,String niveau, double publishPrice, User user, String description,String promotion, String faculty, String publisherName, String category, ArrayList<String> pieces, Date creationDate, Region region) {
+    public Post(String title,Boolean status, double publishPrice,
+                String description,String promotion, String faculty,
+                String publisherName, String category, ArrayList<String> pieces, Date creationDate) {
         this.title = title;
         this.description = description;
-        this.niveau=niveau;
+        this.status=status;
         this.publishPrice=publishPrice;
         this.promotion= promotion;
         this.faculty=faculty;
@@ -53,16 +48,14 @@ public class Post implements Serializable {
         this.category = category;
         this.pieces = pieces;
         this.creationDate = creationDate;
-        this.region = region;
-        this.user=user;
     }
 
-    public String getNiveau() {
-        return niveau;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setNiveau(String niveau) {
-        this.niveau = niveau;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public String getPromotion() {
@@ -95,14 +88,6 @@ public class Post implements Serializable {
 
     public void setPublishPrice(double publishPrice) {
         this.publishPrice = publishPrice;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Long getPostId() {
@@ -151,13 +136,5 @@ public class Post implements Serializable {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
-    }
-
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
     }
 }

@@ -31,35 +31,7 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto text-black" >
                 <li class="nav-item active"><a th:href="@{/}" class="nav-link ">Accueil</a></li>
-                <li class="nav-item"><a th:href="@{/deals}" class="nav-link ">Commencez avec nous?</a></li></li>
-
-                <li class="nav-item dropdown"><a href="#" class="nav-link " data-toggle="dropdown">Travailler avec nous</a>
-                    <ul class="dropdown-menu">
-
-                        <li class="dropdown-item" id="ender3">
-                            <a th:href="@{/visitor/student}" >Etudiant</a>
-                        </li>
-
-                        <li class="dropdown-item" id="ender"><a  href="#">Publication</a>
-                            <ul id="hide">
-                                <li class="dropdown-item"><a class="black" th:href="@{/visitor/publish/book/form}">Livre</a></li>
-                                <li class="dropdown-item"><a class="black" th:href="@{/visitor/publish/sylabus/form}" >Sylabus</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-item" id="starter1" ><a href="#" >Expert</a>
-                            <ul id="hide1" >
-                                <li class="dropdown-item"><a class="black" th:href="@{/visitor/expert/universitory}">Universitaire</a></li>
-                                <li class="dropdown-item"><a class="black" th:href="@{/visitor/expert/professional}" id="ender1">Professionnel</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-item " id="starter2"><a href="#">Enseignant</a>
-                            <ul id="hide2">
-                                <li class="dropdown-item"><a class="black" th:href="@{/visitor/teacher/primaire}">Primaire</a></li>
-                                <li class="dropdown-item" id="ender2"><a  class="black" th:href="@{/visitor/teacher/secondaire}">Secondaire</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+                <li class="nav-item"><a th:href="@{/about}" class="nav-link "><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Page précédente</span></a></li></li>
                 <li class="nav-item nav-link" style="position:relative;right:-50px;"><a href="#" class="btn btn-primary">solutioneducationafrique@gmail.com</a></li>
 
             </ul>
@@ -71,12 +43,14 @@
 <section class="ftco-section contact-section">
     <div class="container">
         <div class="row d-flex mb-5 contact-info">
-            <h3 class="mb-4"  style="color: #0b0b0b">Formulaire de publication d'un sylabus.<br></h3>
-            <h3 class="breadcrumbs"><span class="mr-2"><a th:href="@{/}">Travailler avec nous? <i class="ion-ios-arrow-forward"></i></a></span> <span>Publication <i class="ion-ios-arrow-forward"></i></span><span>Sylabus <i class="ion-ios-arrow-forward"></i></span></h3>
+            <div class="text-left">
+                <h3 class="breadcrumbs"><span class="mr-2"><a th:href="@{/about}">Edition Publication <i class="ion-ios-arrow-forward"></i></a></span><span>Syllabus </span></h3>
+                <h3 class="mb-4"  style="color: #0b0b0b">Formulaire de publication d'un syllabus.<br></h3>
+            </div>
         </div>
         <div class="row block-9">
             <div class="col-md-6 order-md-last d-flex">
-                <form th:action="@{/visitor/post/save}" th:object="${post}" method="post" enctype="multipart/form-data" class="bg-light p-5 contact-form">
+                <form th:action="@{/visitor/syllabus/save}" th:object="${post}" method="post" enctype="multipart/form-data" class="bg-light p-5 contact-form">
                     <span class='error' id="nameError"></span>
                     <div class="form-group">
                         <input type="text" class="form-control" name="publisherName" id="publisherName" placeholder="Veillez renseigner votre nom" >
@@ -95,7 +69,7 @@
                     </div>
                     <span class='error' id="descriptionError"></span>
                     <div class="form-group">
-                        <textarea class="form-control" cols="30" rows="10" id="description" th:field="*{description}"></textarea>
+                        <textarea class="form-control" cols="30" rows="10" id="description" th:field="*{description}" placeholder="Résumé"></textarea>
                     </div>
                     <p>Fichiers:</p>
                     <div class="form-group">
@@ -103,16 +77,10 @@
                     </div>
                     <span class='error' id="priceError"></span>
                     <div class="form-group">
-                        <input type="number" class="form-control" name="publishPlace" id="publishPlace" placeholder="Veillez renseigner le prix de vente de votre sylabus" >
+                        <input type="text" class="form-control" name="publishPrice" id="publishPrice" placeholder="Veillez renseigner le prix de vente de votre syllabus" >
                     </div>
                     <div class="form-group">
-                        <select  class="form-control" name="category" id="category">
-                            <option value="">Veillez choisir un domaine</option>
-                            <option value="Education Universitaire">Education Universitaire</option>
-                            <option value="Education primaire">Education primaire</option>
-                            <option value="Education secondaire">Education secondaire</option>
-                            <option value="Autres services">Autres</option>
-                        </select>
+                        <input type="text" class="form-control" name="category" id="category" placeholder="Veillez renseigner un domaine" >
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Validé" class="btn btn-primary py-3 px-5">
@@ -122,7 +90,7 @@
             </div>
 
             <div class="col-md-6 d-flex">
-                <div id="map" class="bg-white"></div>
+                <div th:style="'background-image: url(' +@{/images/syllabus.jpeg}+ ');height: auto;width: inherit'"></div>
             </div>
         </div>
     </div>

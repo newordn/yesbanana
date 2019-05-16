@@ -118,9 +118,6 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user")
     @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<These> theses;
-    @OneToMany(mappedBy = "user")
-    private List<Post> posts;
-
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -149,7 +146,7 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod,
                 String dayWorkBeginning, String dayWorkEnd, String studentNumber, Boolean numberOfWorkers,
-                String anotherDetail, String classe, String experienceYear, List<Post> posts, String cv, List<These> theses,
+                String anotherDetail, String classe, String experienceYear, String cv, List<These> theses,
                 Boolean status, Set<Role> roles, List<Groupe> groupes, Boolean autorization, String amount) {
         this.name = name;
         this.email = email;
@@ -181,7 +178,6 @@ public class User implements Serializable{
         this.roles = roles;
         this.groupes = groupes;
         this.amount=amount;
-        this.posts=posts;
     }
 
     public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email,
@@ -207,9 +203,8 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod, String dayWorkBeginning,
                 String dayWorkEnd, String studentNumber, Boolean numberOfWorkers, String numberInGroupe, String anotherDetail, String cv,
-                List<These> theses,String classe, String experienceYear, List<Post> posts, Set<Role> roles, List<Groupe> groupes, Boolean autorization) {
+                List<These> theses,String classe, String experienceYear, Set<Role> roles, List<Groupe> groupes, Boolean autorization) {
         this.name = name;
-        this.posts=posts;
         this.autorization=autorization;
         this.experienceYear=experienceYear;
         this.email = email;
@@ -263,14 +258,6 @@ public class User implements Serializable{
 
     public void setClasse(String classe) {
         this.classe = classe;
-    }
-
-    public List<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
     }
 
     public String getAmount() {

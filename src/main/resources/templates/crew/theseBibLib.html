@@ -49,7 +49,7 @@
                     <div class="card mt-1">
                         <div class="row">
                             <div class="col-md-6">
-                                <a class="text-center" data-toggle="modal" data-target="#modal-detail" th:attr="data-target='#modal-detail'+${bibliography.bibliographyId}"  th:text="${bibliography.title}"></a>
+                                <a class="text-center btn" data-toggle="modal" data-target="#modal-detail" th:attr="data-target='#modal-detail'+${bibliography.bibliographyId}"  th:text="${bibliography.title}"></a>
                             </div>
                             <div class="col-md-6 row">
                             <div >
@@ -57,7 +57,7 @@
                                     <i class="fa fa-pencil"></i>
                                 </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
-                                <div th:if="${session.roles[0].role=='ROOT'}" class="row">
+                                <div th:if="${session.roles[0].role=='ROOT'} or ${session.roles[0].role=='ROOT_MASTER'} or ${session.roles[0].role=='ADMIN_MASTER'}"  class="row">
                                 <div  >
                                     <a   data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${bibliography.bibliographyId}">
                                         <i class="fa fa-trash"></i>
@@ -71,35 +71,6 @@
                                         </a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     </div>
                                 </div>
-                                <div th:if="${session.roles[0].role=='ADMIN_MASTER'}" class="row">
-                                    <div >
-                                        <a   data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${bibliography.bibliographyId}">
-                                            <i class="fa fa-trash"></i>
-                                        </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </div>
-                                    <div th:if="${bibliography.disponibility} == true"  >
-                                        <span><a   data-toggle="modal" data-target="#modal-desactivation" th:attr="data-target='#modal-desactivation'+${bibliography.bibliographyId}" class="btn btn-success rounded-circle"></a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </div>
-                                    <div th:unless="${bibliography.disponibility} == true"  >
-                                        <span><a  data-toggle="modal" data-target="#modal-activation" th:attr="data-target='#modal-activation'+${bibliography.bibliographyId}" class="btn btn-danger rounded-circle">
-                                        </a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </div>
-                                </div>
-                                <div th:if="${session.roles[0].role=='ROOT_MASTER'}" class="row">
-                                <div  >
-                                    <a   data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${bibliography.bibliographyId}">
-                                        <i class="fa fa-trash"></i>
-                                    </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </div>
-                                <div th:if="${bibliography.disponibility} == true" >
-                                    <span><a   data-toggle="modal" data-target="#modal-desactivation" th:attr="data-target='#modal-desactivation'+${bibliography.bibliographyId}" class="btn btn-success rounded-circle"></a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </div>
-                                <div th:unless="${bibliography.disponibility} == true" >
-                                    <span><a  data-toggle="modal" data-target="#modal-activation" th:attr="data-target='#modal-activation'+${bibliography.bibliographyId}" class="btn btn-danger rounded-circle">
-                                    </a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </div>
-                                </div>
-
                         </div>
                         </div>
                     </div>
@@ -113,7 +84,13 @@
                                 <div class="modal-body text-center">
                                     <h3>Detail d'un Livre</h3>
                                 </div>
-                                <div class="mb-4">
+                                <div class="mb-4 mr-3 ml-3">
+                                    <div >
+                                        <div class="form-group">
+                                            <p class="mt-2 mb-2">Photo Couverture:</p>
+                                            <img th:src="${bibliography.couverture}">
+                                        </div>
+                                    </div>
                                     <div >
                                         <div class="form-group">
                                             <p class="mt-2 mb-2">Auteur:</p>
@@ -124,6 +101,24 @@
                                         <div class="form-group">
                                             <p class="mt-2 mb-2">Titre:</p>
                                             <textarea class="form-control"  rows="1" style="height: 30px" th:text="${bibliography.title}" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class=" mt-3">
+                                        <div class="form-group">
+                                            <p class="mt-2 mb-2">Edition:</p>
+                                            <textarea class="form-control"  rows="1" style="height: 30px" th:text="${bibliography.editeur}" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class=" mt-3">
+                                        <div class="form-group">
+                                            <p class="mt-2 mb-2">Lieu d'édition:</p>
+                                            <textarea class="form-control"  rows="1" style="height: 30px" th:text="${bibliography.lieu_edition}" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class=" mt-3">
+                                        <div class="form-group">
+                                            <p class="mt-2 mb-2">Date d'édition :</p>
+                                            <textarea class="form-control"  rows="1" style="height: 30px" th:text="${bibliography.annee_edition}" disabled></textarea>
                                         </div>
                                     </div>
                                     <div class=" mt-3">
@@ -314,7 +309,7 @@
                                 <div class="modal-body text-center">
                                     <h5>Veuillez remplir s'il vous plait les champs suivant</h5>
                                 </div>
-                                <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/bibliography/save}" th:object="${bibliography}">
+                                <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/bibliography/save}" th:object="${bibliography}" enctype="multipart/form-data">
 
                                     <div class="mb-4">
                                         <div class="">
@@ -333,15 +328,39 @@
                                             </div>
                                         </div>
                                         <div class=" mt-3">
-                                            <div class="form-group ">
-                                                <span class='error' id="profError"></span>
-                                                <textarea class="form-control" id="description" rows="5" style="height: 100px" type="text" th:field="*{description}"  placeholder="Description " ></textarea>
+                                            <div class="form-group">
+                                                <span class='error' id="editeurError"></span>
+                                                <input type="text" th:field="*{editeur}" id="editeur" class="form-control" placeholder="Editeur du livre" />
                                             </div>
                                         </div>
                                         <div class=" mt-3">
                                             <div class="form-group">
+                                                <span class='error' id="lieu_editionError"></span>
+                                                <input type="text" th:field="*{lieu_edition}" id="lieu_edition" class="form-control" placeholder="Lieu d'édition du livre" />
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3">
+                                            <div class="form-group">
+                                                <span class='error' id="studentError"></span>
+                                                <input type="text" th:field="*{annee_edition}" id="date_edition" class="form-control" placeholder="Date d'édition du livre" />
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3">
+                                            <div class="form-group ">
+                                                <span class='error' id="descriptionError"></span>
+                                                <textarea class="form-control" id="description" rows="5" style="height: 100px" type="text" th:field="*{description}"  placeholder="Description " ></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <div class="form-group">
                                                 <span class='error' id="linkError"></span>
                                                 <input type="url" th:field="*{link}" id="link" class="form-control" placeholder="Lien de telechargement du livre" />
+                                            </div>
+                                        </div>
+                                        <div class="img-upload-div">
+                                            <div class="custom-file mb-3">
+                                                <p class="mt-2 mb-2">Fichiers du Sommaire:</p>
+                                                <input type="file"  class="form-control-file border" id="customFile" name="file">
                                             </div>
                                         </div>
                                     </div>

@@ -264,10 +264,10 @@
                         <li class="account-wrap">
                             <div class="account-item clearfix js-item-menu">
                                         <div class="account-item clearfix js-item-menu">
-                                                        <div class="content text-left">
-                                                            <a class="js-acc-btn " href="#">Encadrement des Travaus Scientifiques</a>
-                                                        </div>
-                                                        <div class="account-dropdown js-dropdown">
+                                            <div class="content text-left">
+                                                <a class="js-acc-btn " href="#">Encadrement des Travaus Scientifiques</a>
+                                            </div>
+                                            <div class="account-dropdown js-dropdown">
                                                             <div class="account-dropdown__body">
                                                                 <div class="account-dropdown__item">
                                                                     <a href="#">
@@ -287,7 +287,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                        </div>
                              </div>
                         </li>
                         <li class="account-wrap">
@@ -300,11 +300,11 @@
                                                         <div class="account-dropdown js-dropdown">
                                                             <div class="account-dropdown__body">
                                                                 <div class="account-dropdown__item">
-                                                                    <a href="#">
+                                                                    <a th:href="@{/visitor/publish/book/form}">
                                                                         <i class="zmdi zmdi-account"></i>Livres</a>
                                                                 </div>
                                                                 <div class="account-dropdown__item">
-                                                                    <a href="#">
+                                                                    <a th:href="@{/visitor/publish/sylabus/form}">
                                                                         <i class="zmdi zmdi-settings"></i>Syllabus</a>
                                                                 </div>
                                                                 <div class="account-dropdown__item">
@@ -419,10 +419,10 @@
                                                             <span class="bot-line"></span>Editions Publications</a>
                                                         <ul class="header3-sub-list list-unstyled">
                                                             <li>
-                                                                <a href="#">Livres</a>
+                                                                <a th:href="@{/visitor/publish/book/form}">Livres</a>
                                                             </li>
                                                             <li>
-                                                                <a href="#">Syllabus</a>
+                                                                <a th:href="@{/visitor/publish/sylabus/form}">Syllabus</a>
                                                             </li>
                                                             <li>
                                                                 <a href="#">Article</a>

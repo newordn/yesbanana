@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,8 +36,16 @@ public class ExternController {
         return "these_module/side/encadrement";
     }
     @GetMapping("/livres")
-    public String livres(){
+    public String livres(Model model){
+        List<Bibliography> bibliographies=bibliographyRepository.findAllByDisponibility(true);
+        model.addAttribute("livres",bibliographies);
         return "these_module/side/livres";
+    }
+    @GetMapping("/livre/{bibliographyId}")
+    public String livreSide(Model model,@PathVariable Long bibliographyId){
+        Bibliography livre=bibliographyRepository.getOne(bibliographyId);
+        model.addAttribute("livre",livre);
+        return "these_module/side/livre";
     }
     @GetMapping("/magazines")
     public String magazines(){
@@ -84,8 +93,9 @@ public class ExternController {
         return "these_module/advanced/search_theme";
     }
     @GetMapping("/theme/{theseId}")
-    public String theme(Model model,@PathVariable Long theseId){
+    public String theme(Model model, @PathVariable Long theseId, HttpSession session){
         These these=theseRepository.getOne(theseId);
+        session.setAttribute("theseId", these.getTheseId());
         model.addAttribute("these", these);
 
         List<Bibliography> allThesesBibliographies=bibliographyRepository.findAllByThese(these.getTheseId());

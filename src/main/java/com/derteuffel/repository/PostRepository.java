@@ -13,11 +13,4 @@ import java.util.List;
  */
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-
-    @Query("select p from Post as p join p.region pr where pr.regionId=:id order by p.postId desc")
-    List<Post> findAllByRegion(@Param("id") Long postId);
-
-    List<Post> findAllByCategoryOrderByPostIdDesc(String category);
-
-    List<Post> findAllByNiveauOrderByPostIdDesc(String niveau);
 }

@@ -49,6 +49,11 @@ public class HomeController {
     @Autowired
     private PanierRepository panierRepository;
 
+    @Autowired
+            private LivreRepository livreRepository;
+    @Autowired
+            private SyllabusRepository syllabusRepository;
+
 
     List<String> countries= Arrays.asList(
             "Afghanistan",
@@ -363,23 +368,7 @@ public class HomeController {
 
 
 
-    @GetMapping("/other/services/region/{countryId}")
-public String otherRegion(Model model, @PathVariable Long countryId){
-    Country country= countryRepository.getOne(countryId);
-    List<Region> regions= regionRepository.findAllByCountry(country.getCountryId());
-    model.addAttribute("regions", regions);
-    return "region/others";
-}
 
-    @GetMapping("/other/markets")
-    public String market(){
-        return "markets/market";
-    }
-
-    @GetMapping("/school/project")
-    public String concour(){
-        return "project/concour";
-    }
 
     @GetMapping("/visitor/student")
     public String student(Model model)
@@ -417,18 +406,20 @@ public String otherRegion(Model model, @PathVariable Long countryId){
 
     @GetMapping("/visitor/publish/book/form")
     public String bookForm(Model model){
-        model.addAttribute("post",new Post());
+        Post livre=new Livre();
+        model.addAttribute("post",livre);
         return "visitor/book";
     }
 
     @GetMapping("/visitor/publish/sylabus/form")
     public String sylabusForm(Model model){
-        model.addAttribute("post",new Post());
+        Post syllabus=new Syllabus();
+        model.addAttribute("post",syllabus);
         return "visitor/sylabus";
     }
 
-    @PostMapping("/visitor/post/save")
-    public String save(Post post, @RequestParam("files") MultipartFile[] files) {
+    @PostMapping("/visitor/livre/save")
+    public String saveLivre(Livre post, @RequestParam("files") MultipartFile[] files, String publishPrice) {
         List<FileUploadRespone> pieces= Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
@@ -441,15 +432,44 @@ public String otherRegion(Model model, @PathVariable Long countryId){
 
         System.out.println(filesPaths);
         post.setPieces(filesPaths);
-        postRepository.save(post);
+        post.setPublishPrice(Double.parseDouble(publishPrice));
+        post.setStatus(false);
+        livreRepository.save(post);
         MailService mailService = new MailService();
         mailService.sendSimpleMessage(
                 "solutioneducationafrique@gmail.com",
                // "derteuffel0@gmail.com",
-                "YesBanana: Notification création d'une publication",
+                "YesBanana: Notification d'une publication d'un livre",
                 "cette publication est encore en suspend veuillez bien vous connecter pour lui attribuer un status "+
-        "ou veiller cliquer sur le lien pour etre rediriger vers la page "+"http:localhost:8080/school/detail/"+post.getPostId());
-        return "redirect:/";
+        " veiller cliquer sur le lien pour etre rediriger vers la page "+"http:localhost:8080/school/detail/"+post.getPostId());
+        return "redirect:/about";
+    }
+
+    @PostMapping("/visitor/syllabus/save")
+    public String save(Syllabus post, @RequestParam("files") MultipartFile[] files, String publishPrice) {
+        List<FileUploadRespone> pieces= Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        ArrayList<String> filesPaths = new ArrayList<String>();
+        for(int i=0;i<pieces.size();i++)
+        {
+            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        }
+
+        System.out.println(filesPaths);
+        post.setPieces(filesPaths);
+        post.setPublishPrice(Double.parseDouble(publishPrice));
+        post.setStatus(false);
+        syllabusRepository.save(post);
+        MailService mailService = new MailService();
+        mailService.sendSimpleMessage(
+                "solutioneducationafrique@gmail.com",
+                // "derteuffel0@gmail.com",
+                "YesBanana: Notification d'une publication d'un sylabus",
+                "cette publication est encore en suspend veuillez bien vous connecter pour lui attribuer un status "+
+                        " veiller cliquer sur le lien pour etre rediriger vers la page "+"http:localhost:8080/school/detail/"+post.getPostId());
+        return "redirect:/about";
     }
     public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
         String fileName = fileUploadService.storeFile(file);

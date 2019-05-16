@@ -17,6 +17,7 @@ public class Bibliography implements Serializable{
     private String title;
     private String description;
     private String link;
+    private String couverture;
     private Boolean disponibility;
     private Double price;
     private Double pagePrice;
@@ -30,7 +31,7 @@ public class Bibliography implements Serializable{
     public Bibliography() {
     }
 
-    public Bibliography(String auteur, String title, String description, These these, String link,Boolean disponibility,
+    public Bibliography(String auteur,String couverture, String title, String description, These these, String link,Boolean disponibility,
                         Double pagePrice, Double price, String editeur, String lieu_edition, String annee_edition) {
         this.auteur = auteur;
         this.title = title;
@@ -39,10 +40,19 @@ public class Bibliography implements Serializable{
         this.disponibility=disponibility;
         this.description = description;
         this.link=link;
+        this.couverture=couverture;
         this.annee_edition=annee_edition;
         this.editeur=editeur;
         this.lieu_edition=lieu_edition;
         this.these = these;
+    }
+
+    public String getCouverture() {
+        return couverture;
+    }
+
+    public void setCouverture(String couverture) {
+        this.couverture = couverture;
     }
 
     public String getEditeur() {

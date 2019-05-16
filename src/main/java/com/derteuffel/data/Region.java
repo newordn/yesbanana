@@ -30,8 +30,6 @@ public class Region implements Serializable {
     @Cascade(CascadeType.ALL)
     private List<University> universities;
     @OneToMany(mappedBy = "region")
-    private List<Post> posts;
-    @OneToMany(mappedBy = "region")
     @Cascade(CascadeType.ALL)
     private List<Event> events;
     @OneToMany(mappedBy = "region")
@@ -108,14 +106,6 @@ public class Region implements Serializable {
 
     public void setCountry(Country country) {
         this.country = country;
-    }
-
-    public List<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
     }
 
     @JsonIgnore
