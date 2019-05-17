@@ -313,10 +313,17 @@ public class GroupeController {
                 }
             }
             System.out.println(users1);
-            model.addAttribute("users2", users2);
-            model.addAttribute("crews", groupes);
-            model.addAttribute("users", users);
-            model.addAttribute("crews1", crews);
+            Role role1 =  roleRepository.findByRole("USER");
+            Role role2 =  roleRepository.findByRole("ADMIN");
+            if (user.getRoles().contains(role1) || user.getRoles().contains(role2)){
+                model.addAttribute("users2", users2);
+                model.addAttribute("users", users);
+                model.addAttribute("crews", crews);
+            }else {
+                model.addAttribute("users2", users2);
+                model.addAttribute("crews", groupes);
+                model.addAttribute("users", users);
+            }
             return "crew/crews";
         }else {
             System.out.println("je suis visiteur");
