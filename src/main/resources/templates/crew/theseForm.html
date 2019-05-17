@@ -122,15 +122,6 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <span class='error' id="anotherSommairetError"></span>
-                        <p>Autre Sommaire:</p>
-                        <textarea th:field="*{anotherSommaire}" cols="60" rows="5"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-4">
                 <div class="col-md-3">
                     <div class="form-group">
                         <span class='error' id="assistantError"></span>
@@ -158,10 +149,26 @@
             </div>
             <div class="row mb-4">
                 <div class="col-md-6">
-                    <a th:href="@{/groupe/groupe/}+${session.groupeId}"  class="btn btn-warning" >Annuler</a>
+                    <div class="form-group">
+                        <span class='error' id="anotherSommairetError"></span>
+                        <p>Autre Sommaire:</p>
+                        <textarea th:field="*{anotherSommaire}" cols="70" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <span class='error' id="departementError"></span>
+                        <p>Departement:</p>
+                        <input type="text" th:field="*{departement}" id="departement" class="form-control" placeholder="Departement ..." />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <a th:href="@{/groupe/groupe/}+${session.groupeId}"  class="btn btn-warning mb-2 mt-2" style="width: 90%">Annuler</a>
                 </div>
                 <div class="col-md-6" style="text-align:center">
-                    <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'"  class="btn btn-success" >Valider pour verfication</a>
+                    <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'"  class="btn btn-success mb-2 mt-2" style="width: 90%" >Valider pour verfication</a>
                     <div class="modal card modal-warning fade in" th:id="modal-warning" >
                         <div class="modal-dialog">
                             <div class="modal-content">

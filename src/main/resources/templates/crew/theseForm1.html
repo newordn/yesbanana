@@ -151,16 +151,23 @@
                     <div class="form-group">
                         <span class='error' id="anotherSommairetError"></span>
                         <p>Autre Sommaire:</p>
-                        <textarea th:field="*{anotherSommaire}" cols="60" rows="5"></textarea>
+                        <textarea th:field="*{anotherSommaire}" cols="70" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <span class='error' id="departementError"></span>
+                        <p>Departement:</p>
+                        <input type="text" th:field="*{departement}" id="departement" class="form-control" placeholder="Departement ..." />
                     </div>
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="col-md-6">
-                    <a style="width:25%;" th:href="@{/groupe/groupe/}+${session.groupeId}"  class="btn btn-warning" >Annuler</a>
+                <div class="col-md-6 mb-2 mt-2">
+                    <a style="width:90%;" th:href="@{/groupe/groupe/}+${session.groupeId}"  class="btn btn-warning" >Annuler</a>
                 </div>
-                <div class="col-md-6">
-                    <button style="width:25%;" type="submit"  class="btn btn-success" sec:authorize="hasRole('ROLE_ROOT')"  >Validé</button>
+                <div class="col-md-6 mb-2 mt-2">
+                    <button style="width:90%;" type="submit"  class="btn btn-success" sec:authorize="hasRole('ROLE_ROOT')"  >Validé</button>
                 </div>
             </div>
         </form>
