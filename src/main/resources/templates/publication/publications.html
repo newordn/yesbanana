@@ -59,7 +59,7 @@
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 text-center heading-section ftco-animate">
                 <h1>Publications des Visiteurs</h1>
-                <h2 class="subheading"><span>Validation des publications</span></h2>
+                <h2 class="subheading"><span>Validation des publications de livres</span></h2>
             </div>
 
             <div class="col-12 ">
@@ -78,118 +78,91 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:if="${roles[0].role == 'ROOT'}" th:each="crew,i : ${crews}" >
-                        <td th:text="${crew.groupeName}"></td>
-
-                        <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
-                        <td th:unless="${users2[i.index]!= null}">Non défini</td>
-                        <td th:text="${crew.groupeCountry}"></td>
-                        <td th:text="${crew.groupeRegion}"></td>
+                    <tr  th:each="publication : ${publications}" >
+                        <td th:text="${publication.publisherName}"></td>
+                        <td th:text="${publication.title}"></td>
+                        <td th:text="${publication.publisherEmail}"></td>
+                        <td th:text="${publication.publisherLocalisation}"></td>
+                        <td th:text="${publication.publisherPhone}"></td>
+                        <td th:text="${publication.category}"></td>
+                        <td th:text="${publication.publishPrice}"></td>
+                        <td th:if="${publication.status}== true"><span>Publier</span></td>
+                        <td th:unless="${publication.status}== true"><span>Pending</span></td>
                         <td>
-                            <a th:href="@{'/groupe/groupe/'+${crew.groupeId}}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
-                            <a th:href="@{'/groupe/update/'+${crew.groupeId}}" class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
-                            <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn" >Supprimer
+                            <a th:href="@{/groupe/publications/livre/detail/}+${publication.postId}"  class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+                            <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${publication.postId}"  class="btn" >Supprimer
                                 <i class="zmdi zmdi-close" ></i>
                             </a>
                         </td>
-                        <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${crew.groupeId}" >
+                        <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${publication.postId}" >
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header text-center alert-info">
                                         <h5 class="modal-title">Suppresion d'un element</h5>
                                     </div>
                                     <div class="modal-body text-center">
-                                        <h3>Voulez vous vraiment supprimer cet element?</h3>
+                                        <h3>Voulez vous vraiment supprimer cette publication?</h3>
                                     </div>
                                     <div class="modal-footer text-center">
                                         <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
-                                        <a  class="btn btn-success"  th:href="@{/groupe/delete/} + ${crew.groupeId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                                        <a  class="btn btn-success"  th:href="@{/groupe/publication/delete/} + ${publication.postId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </tr>
-                    <tr th:if="${roles[0].role == 'ROOT_MASTER'}" th:each="crew,i : ${crews}" >
-                        <td th:text="${crew.groupeName}"></td>
-                        <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
-                        <td th:unless="${users2[i.index]!= null}">Non défini</td>
-                        <td th:text="${crew.groupeCountry}"></td>
-                        <td th:text="${crew.groupeRegion}"></td>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 text-center heading-section ftco-animate">
+                <h2 class="subheading"><span>Validation des publications de syllabus</span></h2>
+            </div>
+
+            <div class="col-12 ">
+                <table class="table text-center table-hover dt-responsive  table-lg display" id="crews1">
+                    <thead class="text-white bg-secondary">
+                    <tr>
+                        <th>Auteur de la publication</th>
+                        <th>Titre</th>
+                        <th>Domaine</th>
+                        <th>Prix</th>
+                        <th>Etat</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  th:each="publication : ${syllabus}" >
+                        <td th:text="${publication.publisherName}"></td>
+                        <td th:text="${publication.title}"></td>
+                        <td th:text="${publication.category}"></td>
+                        <td th:text="${publication.publishPrice}"></td>
+                        <td th:if="${publication.status}== true"><span>Publier</span></td>
+                        <td th:unless="${publication.status}== true"><span>Pending</span></td>
                         <td>
-                            <a th:href="@{'/groupe/groupe/'+${crew.groupeId}}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-eye"></i></a>
-                            <a th:href="@{'/groupe/update/'+${crew.groupeId}}" class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
-                            <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn" >Supprimer
+                            <a th:href="@{/groupe/publications/syllabus/detail/}+${publication.postId}"  class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+                            <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${publication.postId}"  class="btn" >Supprimer
                                 <i class="zmdi zmdi-close" ></i>
                             </a>
-                            <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${crew.groupeId}" >
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header text-center alert-info">
-                                            <h5 class="modal-title">Suppresion d'un element</h5>
-                                        </div>
-                                        <div class="modal-body text-center">
-                                            <h3>Voulez vous vraiment supprimer cet element?</h3>
-                                        </div>
-                                        <div class="modal-footer text-center">
-                                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
-                                            <a  class="btn btn-success"  th:href="@{/groupe/delete/} + ${crew.groupeId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
-                                        </div>
+                        </td>
+                        <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${publication.postId}" >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center alert-info">
+                                        <h5 class="modal-title">Suppresion d'un element</h5>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <h3>Voulez vous vraiment supprimer cette publication?</h3>
+                                    </div>
+                                    <div class="modal-footer text-center">
+                                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                        <a  class="btn btn-success"  th:href="@{/groupe/publication/delete/} + ${publication.postId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
                                     </div>
                                 </div>
                             </div>
-                        </td>
-                    </tr>
-                    <tr th:if="${roles[0].role == 'ADMIN_MASTER'}" th:each="crew,i : ${crews}" >
-                        <td th:text="${crew.groupeName}"></td>
-                        <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
-                        <td th:unless="${users2[i.index]!= null}">Non défini</td>                        <td th:text="${crew.groupeCountry}"></td>
-                        <td th:text="${crew.groupeRegion}"></td>
-                        <td>
-                            <a th:href="@{'/groupe/groupe/'+${crew.groupeId}}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-eye"></i></a>
-                            <a th:href="@{'/groupe/update/'+${crew.groupeId}}" class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
-                            <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn" >Supprimer
-                                <i class="zmdi zmdi-close" ></i>
-                            </a>
-                            <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${crew.groupeId}" >
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header text-center alert-info">
-                                            <h5 class="modal-title">Suppresion d'un element</h5>
-                                        </div>
-                                        <div class="modal-body text-center">
-                                            <h3>Voulez vous vraiment supprimer cet element?</h3>
-                                        </div>
-                                        <div class="modal-footer text-center">
-                                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
-                                            <a  class="btn btn-success"  th:href="@{/groupe/delete/} + ${crew.groupeId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-
-                    </tr>
-                    <tr th:if="${roles[0].role == 'ADMIN'}" th:each="crew,i : ${crews1}" >
-                        <td th:text="${crew.groupeName}"></td>
-                        <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
-                        <td th:unless="${users2[i.index]!= null}">Non défini</td>
-                        <td th:text="${crew.groupeCountry}"></td>
-                        <td th:text="${crew.groupeRegion}"></td>
-                        <td>
-                            <a th:href="@{'/groupe/groupe/'+${crew.groupeId}}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-eye"></i></a>
-                            <a th:href="@{'/groupe/update/'+${crew.groupeId}}" class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
-                        </td>
-
-                    </tr>
-                    <tr th:if="${roles[0].role == 'USER'}" th:each="crew,i : ${crews1}" >
-                        <td th:text="${crew.groupeName}"></td>
-                        <td th:if="${users2[i.index]!= null}" th:text="${users2[i.index].name}"></td>
-                        <td th:unless="${users2[i.index]!= null}">Non défini</td>
-                        <td th:text="${crew.groupeCountry}"></td>
-                        <td th:text="${crew.groupeRegion}"></td>
-                        <td>
-                            <a th:href="@{'/groupe/groupe/'+${crew.groupeId}}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-eye"></i></a>
-                        </td>
+                        </div>
                     </tr>
                     </tbody>
                 </table>
@@ -198,62 +171,6 @@
         </div>
     </div>
 </section>
-
-<button th:if="${roles[0].role == 'ROOT'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
-    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
-</button>
-<button th:if="${roles[0].role == 'ROOT_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
-    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
-</button>
-<button th:if="${roles[0].role == 'ADMIN_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
-    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
-</button>
-
-<!--addCrew-->
-<div  class=" modal fade" id="addCrew" tabindex="-1" role="dialog" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered"  role="document">
-        <form class="add-these-form modal-content card text-center" th:object="${groupe}" method="post" th:action="@{/groupe/save}">
-            <!-- user id -->
-            <input type="number" name="userId" th:value="${session.userId}" style="display:none">
-            <!-- user id -->
-            <div class="row p-4">
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="nameError"></span>
-                    <input type="text" name="groupeName" id="name" class="form-control" placeholder="Nom du groupe" />
-                </div>
-                <span class='error' id="countryError"></span>
-                <select class=" form-control mb-3" style="width: 100%" th:field="*{groupeCountry}" id="countrySelect">
-                    <option value="">Selection pays</option>
-                    <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
-                </select>
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="regionError"></span>
-                    <input type="text" name="groupeRegion" id="region" class="form-control" placeholder="Région" />
-                </div>
-                <div class="form-group" style="width: 100%">
-                    <strong>Chef du groupe : </strong>
-                    <select name="groupChief" class="form-control" style="width: 100%">
-                        <option value="">Choisissez un Chef de Groupe</option>
-                        <option th:each="user : ${users}" class="form-control" th:value="${user.userId}" th:text="${user.name}">Nounamo Patrick</option>
-                    </select>
-
-                </div>
-                <div class="form-group row form-button" style="width: 100%">
-                    <div class="col-6">
-                        <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
-                    </div>
-                    <div class="col-6">
-                        <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
-                    </div>
-                </div>
-            </div>
-
-        </form>
-    </div>
-</div>
-<!-- addCrew-->
-
-
 
 <section class="ftco-section-parallax">
     <div class="parallax-img d-flex align-items-center">
@@ -379,7 +296,12 @@
             function(){
                 $("#hide1").css("display","none");
                 $("#hide2").css("display","none");},
-            function(){})
+            function(){}),
+            $("#ender5").hover(
+                    function(){
+                        $("#hide1").css("display","none");
+                        $("#hide2").css("display","none");},
+                    function(){})
 </script>
 </body>
 </html>

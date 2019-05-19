@@ -44,8 +44,9 @@ public class BibliographyController {
     }
 
     @PostMapping("/save")
-    public String save(Bibliography bibliography, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file){
+    public String save(Bibliography bibliography, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file, @RequestParam("file_cover") MultipartFile file_cover){
         String fileName = fileUploadService.storeFile(file);
+        String fileName1 = fileUploadService.storeFile(file_cover);
     Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
         if (bibliography1 != null){
             errors.rejectValue("title","bibliography.error","il existe deja une reference avec ce titre");
@@ -59,6 +60,7 @@ public class BibliographyController {
             bibliography.setPrice(0.0);
             bibliography.setPagePrice(0.0);
             bibliography.setDisponibility(false);
+            bibliography.setCouverture("/downloadFile/"+fileName1);
             bibliographyRepository.save(bibliography);
         }
         return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId")+"/"+(Long)session.getAttribute("groupeId");

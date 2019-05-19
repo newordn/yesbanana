@@ -19,8 +19,7 @@ public class Post implements Serializable {
     private Long postId;
     @Column
     private String title;
-    private String promotion;
-    private String faculty;
+    private String otherInformation;
     private String publisherName;
     @Column
     private String description;
@@ -30,24 +29,69 @@ public class Post implements Serializable {
     private ArrayList<String> pieces;
     @Column
     private Date creationDate=new Date();
-    private double publishPrice;
+    private Double publishPrice;
     private Boolean status;
+    private Boolean suprimee;
+    private String publisherEmail;
+    private String publisherPhone;
+    private String publisherLocalisation;
+    private String type;
     public Post() {
     }
 
-    public Post(String title,Boolean status, double publishPrice,
-                String description,String promotion, String faculty,
+    public Post(String title,Boolean status, Double publishPrice,Boolean suprimee,
+                String description,String otherInformation,String type,
                 String publisherName, String category, ArrayList<String> pieces, Date creationDate) {
         this.title = title;
         this.description = description;
         this.status=status;
         this.publishPrice=publishPrice;
-        this.promotion= promotion;
-        this.faculty=faculty;
+        this.type=type;
+        this.otherInformation= otherInformation;
         this.publisherName=publisherName;
         this.category = category;
         this.pieces = pieces;
         this.creationDate = creationDate;
+        this.suprimee=suprimee;
+    }
+
+    public String getPublisherEmail() {
+        return publisherEmail;
+    }
+
+    public void setPublisherEmail(String publisherEmail) {
+        this.publisherEmail = publisherEmail;
+    }
+
+    public String getPublisherPhone() {
+        return publisherPhone;
+    }
+
+    public void setPublisherPhone(String publisherPhone) {
+        this.publisherPhone = publisherPhone;
+    }
+
+    public String getPublisherLocalisation() {
+        return publisherLocalisation;
+    }
+
+    public void setPublisherLocalisation(String publisherLocalisation) {
+        this.publisherLocalisation = publisherLocalisation;
+    }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Boolean getSuprimee() {
+        return suprimee;
+    }
+
+    public void setSuprimee(Boolean suprimee) {
+        this.suprimee = suprimee;
     }
 
     public Boolean getStatus() {
@@ -58,20 +102,12 @@ public class Post implements Serializable {
         this.status = status;
     }
 
-    public String getPromotion() {
-        return promotion;
+    public String getOtherInformation() {
+        return otherInformation;
     }
 
-    public void setPromotion(String promotion) {
-        this.promotion = promotion;
-    }
-
-    public String getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(String faculty) {
-        this.faculty = faculty;
+    public void setOtherInformation(String otherInformation) {
+        this.otherInformation = otherInformation;
     }
 
     public String getPublisherName() {
@@ -82,11 +118,11 @@ public class Post implements Serializable {
         this.publisherName = publisherName;
     }
 
-    public double getPublishPrice() {
+    public Double getPublishPrice() {
         return publishPrice;
     }
 
-    public void setPublishPrice(double publishPrice) {
+    public void setPublishPrice(Double publishPrice) {
         this.publishPrice = publishPrice;
     }
 

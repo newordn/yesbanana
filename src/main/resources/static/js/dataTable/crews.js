@@ -3,6 +3,7 @@
  */
 $(document).ready( function () {
 
-    var theses = $('#crews').DataTable()
+    var theses = $('#crews').DataTable();
+    var theses1 = $('#crews1').DataTable();
 
 })

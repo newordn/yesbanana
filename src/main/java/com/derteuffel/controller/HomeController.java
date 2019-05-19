@@ -406,14 +406,14 @@ public class HomeController {
 
     @GetMapping("/visitor/publish/book/form")
     public String bookForm(Model model){
-        Post livre=new Livre();
+        Livre livre=new Livre();
         model.addAttribute("post",livre);
         return "visitor/book";
     }
 
     @GetMapping("/visitor/publish/sylabus/form")
     public String sylabusForm(Model model){
-        Post syllabus=new Syllabus();
+        Syllabus syllabus=new Syllabus();
         model.addAttribute("post",syllabus);
         return "visitor/sylabus";
     }
@@ -434,6 +434,8 @@ public class HomeController {
         post.setPieces(filesPaths);
         post.setPublishPrice(Double.parseDouble(publishPrice));
         post.setStatus(false);
+        post.setSuprimee(true);
+        post.setType("livre");
         livreRepository.save(post);
         MailService mailService = new MailService();
         mailService.sendSimpleMessage(
@@ -461,6 +463,8 @@ public class HomeController {
         post.setPieces(filesPaths);
         post.setPublishPrice(Double.parseDouble(publishPrice));
         post.setStatus(false);
+        post.setSuprimee(true);
+        post.setType("syllabus");
         syllabusRepository.save(post);
         MailService mailService = new MailService();
         mailService.sendSimpleMessage(

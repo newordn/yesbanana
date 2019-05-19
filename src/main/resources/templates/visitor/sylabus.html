@@ -59,17 +59,13 @@
                     <div class="form-group">
                         <input type="text" class="form-control" name="title" id="title" placeholder="Le titre de Votre Publication" >
                     </div>
-                    <span class='error' id="promotionError"></span>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="promotion" id="promotion" placeholder="Veillez renseigner une promotion" >
-                    </div>
-                    <span class='error' id="faculteError"></span>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="faculty" id="faculty" placeholder="Veillez renseigner une faculté" >
-                    </div>
                     <span class='error' id="descriptionError"></span>
                     <div class="form-group">
                         <textarea class="form-control" cols="30" rows="10" id="description" th:field="*{description}" placeholder="Résumé"></textarea>
+                    </div>
+                    <span class='error' id="otherInformationError"></span>
+                    <div class="form-group">
+                        <textarea class="form-control" cols="30" rows="10" id="otherInformation" th:field="*{otherInformation}" placeholder="Autre informations"></textarea>
                     </div>
                     <p>Fichiers:</p>
                     <div class="form-group">

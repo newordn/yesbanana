@@ -71,6 +71,12 @@ public class GroupeController {
     private FacultyRepository facultyRepository;
     @Autowired
             private OptionsRepository optionsRepository;
+    @Autowired
+    private LivreRepository livreRepository;
+    @Autowired
+            private PostRepository postRepository;
+    @Autowired
+    private SyllabusRepository syllabusRepository;
 
     List<String> countries= Arrays.asList(
             "Afghanistan",
@@ -351,6 +357,7 @@ public class GroupeController {
         User user=userService.findByName(auth.getName());
         session.setAttribute("roles",user.getRoles());
         Faculty faculty=facultyRepository.getOne(facultyId);
+        session.setAttribute("facultyId",faculty.getFacultyId());
         List<Options> optionses=optionsRepository.findAllByFaculty(faculty.getFacultyId());
         List<These> theses=new ArrayList<>();
         for (Options options : optionses){
@@ -374,6 +381,13 @@ public class GroupeController {
 
         model.addAttribute("livres", bibliographies);
         return "livres/livres";
+    }
+
+    @GetMapping("/livres/livre/{bibliographyId}")
+    public String show_livre(@PathVariable Long bibliographyId, Model model){
+        Bibliography bibliography=bibliographyRepository.getOne(bibliographyId);
+        model.addAttribute("bibliography", bibliography);
+        return "livres/livre";
     }
 
     // for adding a user into one crew
@@ -563,11 +577,6 @@ public class GroupeController {
         return "redirect:/groupe/groupe/users/"+ groupeId;
 
     }
-
-    private static final int BUTTONS_TO_SHOW = 3;
-    private static final int INITIAL_PAGE = 0;
-    private static final int INITIAL_PAGE_SIZE = 5;
-    private static final int[] PAGE_SIZES = { 5,6,7,8};
 
     @GetMapping("/groupe/users/{groupeId}")
     public String getUsers(Model model, @PathVariable Long groupeId,HttpSession session){
@@ -955,6 +964,93 @@ public class GroupeController {
         groupeRepository.save(groupe);
         return "redirect:/groupe/groupes";
     }
+
+    // publications management methods
+
+    @GetMapping("/publications/livres")
+    public String livre_publier(Model model){
+        List<Post> livres= livreRepository.findAllByTypeAndSuprimeeOrderByPostIdDesc("livre",true);
+        List<Post> syllasbus=syllabusRepository.findAllByTypeAndSuprimeeOrderByPostIdDesc("syllabus",true);
+        model.addAttribute("syllabus",syllasbus);
+        model.addAttribute("publications",livres);
+        return "publication/publications";
+    }
+
+    @GetMapping("/publications/livre/detail/{postId}")
+    public String detail_livre(Model model, @PathVariable Long postId,HttpSession session){
+        Post livre=livreRepository.getOne(postId);
+        session.setAttribute("postId",livre.getPostId());
+        model.addAttribute("bibliography", new Bibliography());
+        model.addAttribute("livre",livre);
+        return "publication/livre";
+    }
+
+    @GetMapping("/publications/syllabus/detail/{postId}")
+    public String detail_syllabus(Model model, @PathVariable Long postId,HttpSession session){
+        Post syllabus=syllabusRepository.getOne(postId);
+        session.setAttribute("postId",syllabus.getPostId());
+        model.addAttribute("bibliography", new Bibliography());
+        model.addAttribute("livre",syllabus);
+        return "publication/syllabus";
+    }
+
+    @GetMapping("/publication/delete/{postId}")
+    public String delete_bibliography(@PathVariable Long postId, HttpSession session){
+        Post post=postRepository.getOne(postId);
+        post.setSuprimee(false);
+        postRepository.save(post);
+        return "redirect:/groupe/publications/livres";
+    }
+
+    @GetMapping("/livre/publier/{bibliographyId}")
+    public String livre_publication(@PathVariable Long bibliographyId, HttpSession session){
+        Bibliography bibliography=bibliographyRepository.getOne(bibliographyId);
+        if (bibliography.getDisponibility()== true){
+            bibliography.setDisponibility(false);
+        }else {
+            bibliography.setDisponibility(true);
+        }
+
+        bibliographyRepository.save(bibliography);
+
+        return "redirect:/groupe/livres/"+session.getAttribute("facultyId");
+    }
+
+    @GetMapping("/syllabus/publier/{postId}")
+    public String syllabus_publication(@PathVariable Long postId){
+        Post syllabus=syllabusRepository.getOne(postId);
+        if (syllabus.getStatus()== true){
+            syllabus.setStatus(false);
+        }else {
+            syllabus.setStatus(true);
+        }
+
+        syllabusRepository.save(syllabus);
+
+        return "redirect:/groupe/publications/syllabus/detail/"+syllabus.getPostId();
+    }
+
+    @PostMapping("/bibliography/save")
+    public String save(Bibliography bibliography, String price, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file){
+        String fileName = fileUploadService.storeFile(file);
+        Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
+        if (bibliography1 != null){
+            errors.rejectValue("title","bibliography.error","il existe deja une reference avec ce titre");
+        }
+        if (errors.hasErrors()){
+            model.addAttribute("error","il existe deja une reference avec ce titre");
+            return "publication/livre";
+        }else {
+            bibliography.setCouverture("/downloadFile/"+fileName);
+            bibliography.setPrice(Double.parseDouble(price));
+            bibliography.setPagePrice(0.0);
+            bibliography.setDisponibility(false);
+            bibliography.setCouverture(fileName);
+            bibliographyRepository.save(bibliography);
+        }
+        return "redirect:/groupe/publications/livre/detail/"+ (Long)session.getAttribute("postId");
+    }
+
 
 
 }
