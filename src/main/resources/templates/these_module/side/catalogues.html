@@ -1,234 +1,246 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Yesbanana</title>
-    <meta charset="utf-8">
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-    <link rel="stylesheet" th:href="@{/css/aos.css}">
-    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
-    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
-    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <!-- Title Page-->
+    <title>Yesbanana</title>
 
+    <!-- Fontfaces CSS-->
+    <link th:href="@{/css/font-face.css}" type="text/css" rel="stylesheet" media="all">
+    <link th:href="@{/css/owl.carousel.min.css}" type="text/css" media="all">
+    <link  th:href="@{/vendor/font-awesome-4.7/css/font-awesome.min.css}" type="text/css" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/font-awesome-5/css/fontawesome-all.min.css}" rel="stylesheet" type="text/css" media="all">
+    <link th:href="@{/vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" type="text/css" media="all">
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script th:src="@{/js/dataTable/crews.js}" type="text/javascript"></script>
-    <link th:href="@{/css/dataTablesResponsive.css}" rel="stylesheet">
-    <script th:src="@{/js/dataTablesResponsive.js}"></script>
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" type="text/css" media="all">
 
+    <!-- Vendor CSS-->
+    <link th:href="@{/vendor/animsition/animsition.min.css}" type="text/css" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css}" type="text/css" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/wow/animate.css}" rel="stylesheet" type="text/css" media="all">
+    <link th:href="@{/vendor/css-hamburgers/hamburgers.min.css}" rel="stylesheet" type="text/css" media="all">
+    <link th:href="@{/vendor/slick/slick.css}" rel="stylesheet" media="all" type="text/css">
+    <link th:href="@{/vendor/select2/select2.min.css}" rel="stylesheet" media="all" type="text/css">
+    <link th:href="@{/vendor/perfect-scrollbar/perfect-scrollbar.css}" rel="stylesheet" media="all" type="text/css">
 
+    <!-- Main CSS-->
+    <link th:href="@{/css/theme.css}" rel="stylesheet" media="all" type="text/css">
 
+    <style>
+        .fsStyle {
+            border: 2px solid #999999;
+            border-radius: 2px;
+            padding-left: 1em;
+            padding-right: 1em;
+            text-align: center;
+        }
+        .legendStyle {
+            font-size: 100%;
+            color: #222222;
+            background-color: transparent;
+            margin-bottom:.15px;
+            width: auto;
+        }
+    </style>
 
 </head>
-<style>
-    .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
-</style>
-<body>
 
-
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
-        </button>
-
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-link">
-                    <a th:href="@{/about}" class="nav-item"><h4><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></h4></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </li>
-                <li class="nav-link">
-                    <a href="#" class="nav-item"><h4>Espace de consultation des catalogues</h4></a>
-                </li>
-
-            </ul>
-        </div>
+<body class="animsition">
+<div class="page-wrapper">
+    <div th:replace="~{../templates/fragments/sidebar_these :: sidebar_these}">
     </div>
-</nav>
-<!-- END nav -->
-
-<section class="ftco-section testimony-section">
-    <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
-            <div class="col-md-7 text-center heading-section ftco-animate">
-                <h1>Catalogues</h1>
-                <h2 class="subheading"><span>Consulter un catalogue de votre choix</span></h2>
+    <!-- PAGE CONTAINER-->
+    <div class="page-container">
+        <!-- HEADER DESKTOP-->
+        <header class="header-desktop">
+            <div class="pt-3 header-title text-center">
+                <h2>Bienvenue au portail de Yesbanana</h2>
             </div>
+            <div class="pt-3 " >
+                <div class="container-fluid">
+                    <!-- HEADER MOBILE-->
+                    <header class="header-mobile d-block d-lg-none">
+                        <div class="header-mobile__bar">
+                            <div class="container-fluid">
+                                <div class="header-mobile-inner">
 
-            <div class="col-12 ">
-                <table class="table text-center table-hover dt-responsive  table-lg display" id="crews">
-                    <thead class="text-white bg-secondary">
-                    <tr>
-                        <th>Auteur</th>
-                        <th>Titre</th>
-                        <th>Grade/Département</th>
-                        <th>Université/Année</th>
-                        <th>Pays/Région</th>
-                        <th>Directeur et co-directeur</th>
-                        <th>Consulter</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr  >
-                        <td >Monzanga Mangbako</td>
-
-                        <td >Apport de marketing social dans les strategies d'intervention du programe nationale de lutte contre le VIH/IST </td>
-                        <td >Memoir de Licence en communication des organisations</td>
-                        <td >Université de Kinshasa/2013-2014</td>
-                        <td >Kinshasa(RDC)</td>
-                        <td >Professeur Gilbert Mubangui</td>
-                        <td>
-                            <a  class="btn">Bibliographie&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>
-</section>
-<section class="ftco-section-parallax">
-    <div class="parallax-img d-flex align-items-center">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                    <h2>Souscrivez a notre  Newsletter</h2>
-                    <p>Restez informer en souscrivant a notre service de messagerie.</p>
-                    <div class="row d-flex justify-content-center mt-4 mb-4">
-                        <div class="col-md-8">
-                            <form action="#" class="subscribe-form">
-                                <div class="form-group d-flex">
-                                    <input type="text" class="form-control" placeholder="Entrer votre adresse email">
-                                    <input type="submit" value="Souscrire" class="submit px-3">
+                                    <button class="hamburger1 hamburger--slider" type="button">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                                    </button>
                                 </div>
-                            </form>
+                            </div>
+                        </div>
+                        <nav class="navbar-mobile1">
+                            <div class="container-fluid">
+                                <ul class="navbar-mobile__list1 list-unstyled">
+                                    <li>
+                                        <a th:href="@{/about}">Accueil</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/visitor/help}">Aide</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/visitor/question}">Une question</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/visitor/about_us}">Qui sommes nous?</a>
+                                    </li>
+                                    <li >
+                                        <a th:href="@{/visitor/work_with_us}">Travailler avec nous</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </header>
+                    <!-- END HEADER MOBILE-->
+                    <nav class="header-wrap d-none d-lg-block">
+                        <div style="padding-left: 300px">
+                            <div class="form-header"></div>
+                            <div class="header-button">
+                                <ul class="noti-wrap">
+                                    <li class="noti__item nav-link text-center ">
+                                        <a class="nav-item" th:href="@{/about}"><i class="fa fa-home"></i>Accueil</a>
+                                    </li>
+                                    <li class="noti__item nav-link ">
+                                        <a class="nav-item" th:href="@{/visitor/help}">Aide</a>
+                                    </li>
+                                    <li class="noti__item nav-link ">
+                                        <a class="nav-item" th:href="@{/visitor/question}">Une question</a>
+                                    </li>
+                                    <li class="noti__item nav-link">
+                                        <a class="nav-item" th:href="@{/visitor/about_us}">Qui sommes nous?</a>
+                                    </li>
+                                    <li class="noti__item nav-link">
+                                        <a class="nav-item" th:href="@{/visitor/work_with_us}">Travailler avec nous</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <br><br>
+        </header>
+        <!-- HEADER DESKTOP-->
+
+        <!-- MAIN CONTENT-->
+        <div class="main-content">
+            <div class="hero-slides owl-carousel">
+            </div>
+            <div class="section__content section__content--p15">
+                <div class="container-fluid">
+                    <div class="container m-t-25">
+                        <div class="container card border">
+                            <div class="card-body" style="height: auto;width: inherit">
+                                <h4>Toutes les collections<br>Adultes et jeunes</h4>
+                            </div>
+                            <br>
+                            <div class="card-body" style="height: auto;width: inherit">
+                                <h2>Catalogue de Yesbanana</h2>
+                            </div>
+                        </div>
+                        <br><br><br><br>
+                        <div class="container card border ">
+                            <div class="card-body">
+                                    <fieldset class="fsStyle">
+                                        <legend class="legendStyle"><span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Recherche par mot-clé &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></legend>
+                                        <div class="row mt-5 mb-4">
+                                            <div class="col-md-5">
+                                                <input type="checkbox" id="rapide" checked >
+                                                <label>&nbsp;Rapide</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="checkbox" id="avance">
+                                                <label>&nbsp;Avancé</label>
+                                            </div>
+                                        </div>
+                                        <form class="pl-5 pr-5" id="form_rapide">
+                                        <div class="row mt-5 mb-5">
+                                            <div class="col-md-8 form-group">
+                                                <input type="text" class="form-control" id="rapide_div" placeholder="Recherche rapide ...">
+                                            </div>
+                                            <div class="col-md-4 form-group">
+                                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp;Chercher</button>
+                                            </div>
+                                        </div>
+                                        </form>
+                                        <form class="pl-5 pr-5" id="form_avance" style="display: none">
+                                            <div class="row mt-5 mb-5">
+                                                <div class="col-md-8 form-group">
+                                                    <input type="text" class="form-control" id="avance_div" placeholder="Recherche avancé ...">
+                                                </div>
+                                                <div class="col-md-4 form-group">
+                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp;Chercher</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="copyright">
+                                <p>Copyright © 2019 Solution Sarl. tous droits resever. Designer par <a th:href="@{/}">Yesbanana</a>.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- END MAIN CONTENT-->
+        <!-- END PAGE CONTAINER-->
     </div>
-</section>
-<footer class="ftco-footer ftco-bg-dark ftco-section">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Yesbanana</h2>
-                    <p>Votre plateforme digitale qui vous ouvre les portes du savoir dans toute son entiereté et sa rigueur.</p>
-                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4 ml-md-5">
-                    <h2 class="ftco-heading-2">Liens Utiles</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">Nos services</a></li>
-                        <li><a href="#" class="py-2 d-block">autres informations</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Confidentialité</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">A propos</a></li>
-                        <li><a href="#" class="py-2 d-block">Conditions d'utilisations</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Des Questions?</h2>
-                    <div class="block-23 mb-3">
-                        <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">Congo Kinshasa</span></li>
-                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+237694126158 +23793063228</span></a></li>
-                            <li><span></span><span class="text"></span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
 
-<!-- loader -->
-<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+</div>
 
-
-<!--script-->
-<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.easing.1.3.js}"></script>
-<script th:src="@{/js/jquery.waypoints.min.js}"></script>
-<script th:src="@{/js/jquery.stellar.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/aos.js}"></script>
-<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/jquery.timepicker.min.js}"></script>
-<script th:src="@{/js/scrollax.min.js}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script th:src="@{/js/google-map.js}"></script>
-<script th:src="@{/js/main1.js}"></script>
-<script th:src="@{/js/crew.js}"></script>
-<!-- All Plugins js -->
-<script th:src="@{/js/plugins/plugins.js}"></script>
-<!-- Active js -->
-<script th:src="@{/js/active.js}"></script>
+<div th:replace="~{../templates/fragments/modules :: modules}"></div>
 <script type="text/javascript">
-    $("#hide1").css("display","none");
-    $("#hide2").css("display","none");
-    $("#starter1").hover(function(){
-        $("#hide1").css("display","block");
+    // toggle password update inputs
+  /*  $("#rapide").change(()=>{
+        if($("#rapide").is(":checked"))
+    {
+        $("#form_rapide").css("display","block");
+        $("#form_avance").css("display","none");
+    }
+    });
+    $("#avance").change(()=>{
+        if($("#avance").is(":checked"))
+    {
+        $("#form_rapide").css("display","none");
+        $("#form_avance").css("display","block");
+    }
+    });*/
 
-        $("#hide2").css("display","none");
-    })
-    $("#starter2").hover(function(){
-        $("#hide2").css("display","block");
-        $("#hide1").css("display","none");
-
-    })
-
-    $("#ender1").hover(function(){
-    },function(){
-        $("#hide1").css("display","none");
-
-    })
-
-    $("#ender3").hover(function(){
-        $("#hide1").css("display","none");
-        $("#hide2").css("display","none");
-    },function(){})
-    $("#ender4").hover(
-            function(){
-                $("#hide1").css("display","none");
-                $("#hide2").css("display","none");},
-            function(){})
+    $(document).ready(function(){
+        $("#avance").click(function(){
+            $("#avance").prop("checked", true);
+            $("#rapide").prop("checked", false);
+            $("#form_rapide").css("display","none");
+            $("#form_avance").css("display","block");
+        });
+        $("#rapide").click(function(){
+            $("#rapide").prop("checked", true);
+            $("#avance").prop("checked", false);
+            $("#form_rapide").css("display","block");
+            $("#form_avance").css("display","none");
+        });
+    });
 </script>
+
+
 </body>
+
 </html>
+<!-- end document-->
