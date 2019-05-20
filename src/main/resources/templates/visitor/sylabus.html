@@ -50,14 +50,34 @@
         </div>
         <div class="row block-9">
             <div class="col-md-6 order-md-last d-flex">
-                <form th:action="@{/visitor/syllabus/save}" th:object="${post}" method="post" enctype="multipart/form-data" class="bg-light p-5 contact-form">
+                <form th:action="@{/visitor/syllabus/save}" th:object="${syllabus}" method="post" enctype="multipart/form-data" class="bg-light p-5 contact-form">
                     <span class='error' id="nameError"></span>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="publisherName" id="publisherName" placeholder="Veillez renseigner votre nom" >
+                        <input type="text" class="form-control" name="auteur" id="auteur" placeholder="Veillez renseigner votre nom" >
                     </div>
                     <span class='error' id="titleError"></span>
                     <div class="form-group">
                         <input type="text" class="form-control" name="title" id="title" placeholder="Le titre de Votre Publication" >
+                    </div>
+                    <span class='error' id="universiteError"></span>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="universite" id="universite" placeholder="Entre une université" >
+                    </div>
+                    <span class='error' id="faculteError"></span>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="faculte" id="faculte" placeholder="Entre une faculte" >
+                    </div>
+                    <span class='error' id="departementError"></span>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="departement" id="departement" placeholder="Entre un département" >
+                    </div>
+                    <span class='error' id="optionError"></span>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="option" id="option" placeholder="Entre une option" >
+                    </div>
+                    <span class='error' id="promotionError"></span>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="promotion" id="promotion" placeholder="Entre une promotion" >
                     </div>
                     <span class='error' id="descriptionError"></span>
                     <div class="form-group">

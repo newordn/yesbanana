@@ -970,10 +970,15 @@ public class GroupeController {
     @GetMapping("/publications/livres")
     public String livre_publier(Model model){
         List<Post> livres= livreRepository.findAllByTypeAndSuprimeeOrderByPostIdDesc("livre",true);
-        List<Post> syllasbus=syllabusRepository.findAllByTypeAndSuprimeeOrderByPostIdDesc("syllabus",true);
-        model.addAttribute("syllabus",syllasbus);
         model.addAttribute("publications",livres);
-        return "publication/publications";
+        return "publication/publications_livres";
+    }
+
+    @GetMapping("/publications/syllabus")
+    public String syllabus_publier(Model model){
+        List<Syllabus> syllasbus=syllabusRepository.findBySuprimeeOrderBySyllabusIdDesc(true);
+        model.addAttribute("syllabus",syllasbus);
+        return "publication/publications_syllabus";
     }
 
     @GetMapping("/publications/livre/detail/{postId}")
@@ -985,11 +990,10 @@ public class GroupeController {
         return "publication/livre";
     }
 
-    @GetMapping("/publications/syllabus/detail/{postId}")
-    public String detail_syllabus(Model model, @PathVariable Long postId,HttpSession session){
-        Post syllabus=syllabusRepository.getOne(postId);
-        session.setAttribute("postId",syllabus.getPostId());
-        model.addAttribute("bibliography", new Bibliography());
+    @GetMapping("/publications/syllabus/detail/{syllabusId}")
+    public String detail_syllabus(Model model, @PathVariable Long syllabusId,HttpSession session){
+        Syllabus syllabus=syllabusRepository.getOne(syllabusId);
+        session.setAttribute("syllabusId",syllabus.getSyllabusId());
         model.addAttribute("livre",syllabus);
         return "publication/syllabus";
     }
@@ -1016,9 +1020,9 @@ public class GroupeController {
         return "redirect:/groupe/livres/"+session.getAttribute("facultyId");
     }
 
-    @GetMapping("/syllabus/publier/{postId}")
-    public String syllabus_publication(@PathVariable Long postId){
-        Post syllabus=syllabusRepository.getOne(postId);
+    @GetMapping("/syllabus/publier/{syllabusId}")
+    public String syllabus_publication(@PathVariable Long syllabusId){
+        Syllabus syllabus=syllabusRepository.getOne(syllabusId);
         if (syllabus.getStatus()== true){
             syllabus.setStatus(false);
         }else {
@@ -1027,7 +1031,7 @@ public class GroupeController {
 
         syllabusRepository.save(syllabus);
 
-        return "redirect:/groupe/publications/syllabus/detail/"+syllabus.getPostId();
+        return "redirect:/groupe/publications/syllabus/detail/"+syllabus.getSyllabusId();
     }
 
     @PostMapping("/bibliography/save")

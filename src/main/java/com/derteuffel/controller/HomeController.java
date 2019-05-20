@@ -414,7 +414,7 @@ public class HomeController {
     @GetMapping("/visitor/publish/sylabus/form")
     public String sylabusForm(Model model){
         Syllabus syllabus=new Syllabus();
-        model.addAttribute("post",syllabus);
+        model.addAttribute("syllabus",syllabus);
         return "visitor/sylabus";
     }
 
@@ -448,7 +448,7 @@ public class HomeController {
     }
 
     @PostMapping("/visitor/syllabus/save")
-    public String save(Syllabus post, @RequestParam("files") MultipartFile[] files, String publishPrice) {
+    public String save(Syllabus syllabus,@RequestParam("files") MultipartFile[] files, String publishPrice){
         List<FileUploadRespone> pieces= Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
@@ -460,20 +460,20 @@ public class HomeController {
         }
 
         System.out.println(filesPaths);
-        post.setPieces(filesPaths);
-        post.setPublishPrice(Double.parseDouble(publishPrice));
-        post.setStatus(false);
-        post.setSuprimee(true);
-        post.setType("syllabus");
-        syllabusRepository.save(post);
+        syllabus.setPieces(filesPaths);
+        syllabus.setPublishPrice(Double.parseDouble(publishPrice));
+        syllabus.setStatus(false);
+        syllabus.setSuprimee(true);
+        syllabusRepository.save(syllabus);
         MailService mailService = new MailService();
         mailService.sendSimpleMessage(
                 "solutioneducationafrique@gmail.com",
                 // "derteuffel0@gmail.com",
-                "YesBanana: Notification d'une publication d'un sylabus",
+                "YesBanana: Notification d'une publication d'un livre",
                 "cette publication est encore en suspend veuillez bien vous connecter pour lui attribuer un status "+
-                        " veiller cliquer sur le lien pour etre rediriger vers la page "+"http:localhost:8080/school/detail/"+post.getPostId());
+                        " veiller cliquer sur le lien pour etre rediriger vers la page "+"http:localhost:8080/school/detail/"+syllabus.getSyllabusId());
         return "redirect:/about";
+
     }
     public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
         String fileName = fileUploadService.storeFile(file);

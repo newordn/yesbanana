@@ -89,14 +89,7 @@
                             <p> <span th:text="${livre.creationDate}"></span></p>
                         </div>
                     </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Type de publication :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${livre.type}"></span></p>
-                        </div>
-                    </div>
+
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
                             <p><strong>Description de publication :</strong></p>
@@ -147,12 +140,12 @@
 </section>
 <!--addCrew-->
 <div th:if="${livre.status}== true">
-    <a  th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ADMIN_MASTER'} or ${session.roles[0].role == 'ROOT_MASTER'}"  th:href="@{/groupe/syllabus/publier/}+${livre.postId}" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" >
+    <a  th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ADMIN_MASTER'} or ${session.roles[0].role == 'ROOT_MASTER'}"  th:href="@{/groupe/syllabus/publier/}+${livre.syllabusId}" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" >
         <i class="zmdi zmdi-check-square zmdi-hc-2x"></i> Pending
     </a>
 </div>
 <div th:unless="${livre.status}== true">
-    <a  th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ADMIN_MASTER'} or ${session.roles[0].role == 'ROOT_MASTER'}"  th:href="@{/groupe/syllabus/publier/}+${livre.postId}" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" >
+    <a  th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ADMIN_MASTER'} or ${session.roles[0].role == 'ROOT_MASTER'}"  th:href="@{/groupe/syllabus/publier/}+${livre.syllabusId}" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" >
         <i class="zmdi zmdi-check zmdi-hc-2x"></i> Publier
     </a>
 </div>

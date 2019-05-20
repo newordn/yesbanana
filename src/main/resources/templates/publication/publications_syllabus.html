@@ -58,66 +58,6 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 text-center heading-section ftco-animate">
-                <h1>Publications des Visiteurs</h1>
-                <h2 class="subheading"><span>Validation des publications de livres</span></h2>
-            </div>
-
-            <div class="col-12 ">
-                <table class="table text-center table-hover dt-responsive  table-lg display" id="crews">
-                    <thead class="text-white bg-secondary">
-                    <tr>
-                        <th>Auteur de la publication</th>
-                        <th>Titre</th>
-                        <th>Email</th>
-                        <th>Localisation</th>
-                        <th>Telephone</th>
-                        <th>Domaine</th>
-                        <th>Prix</th>
-                        <th>Etat</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr  th:each="publication : ${publications}" >
-                        <td th:text="${publication.publisherName}"></td>
-                        <td th:text="${publication.title}"></td>
-                        <td th:text="${publication.publisherEmail}"></td>
-                        <td th:text="${publication.publisherLocalisation}"></td>
-                        <td th:text="${publication.publisherPhone}"></td>
-                        <td th:text="${publication.category}"></td>
-                        <td th:text="${publication.publishPrice}"></td>
-                        <td th:if="${publication.status}== true"><span>Publier</span></td>
-                        <td th:unless="${publication.status}== true"><span>Pending</span></td>
-                        <td>
-                            <a th:href="@{/groupe/publications/livre/detail/}+${publication.postId}"  class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
-                            <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${publication.postId}"  class="btn" >Supprimer
-                                <i class="zmdi zmdi-close" ></i>
-                            </a>
-                        </td>
-                        <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${publication.postId}" >
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header text-center alert-info">
-                                        <h5 class="modal-title">Suppresion d'un element</h5>
-                                    </div>
-                                    <div class="modal-body text-center">
-                                        <h3>Voulez vous vraiment supprimer cette publication?</h3>
-                                    </div>
-                                    <div class="modal-footer text-center">
-                                        <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
-                                        <a  class="btn btn-success"  th:href="@{/groupe/publication/delete/} + ${publication.postId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-        <div class="row justify-content-center mb-5 pb-3">
-            <div class="col-md-7 text-center heading-section ftco-animate">
                 <h2 class="subheading"><span>Validation des publications de syllabus</span></h2>
             </div>
 
@@ -135,14 +75,14 @@
                     </thead>
                     <tbody>
                     <tr  th:each="publication : ${syllabus}" >
-                        <td th:text="${publication.publisherName}"></td>
+                        <td th:text="${publication.auteur}"></td>
                         <td th:text="${publication.title}"></td>
                         <td th:text="${publication.category}"></td>
                         <td th:text="${publication.publishPrice}"></td>
                         <td th:if="${publication.status}== true"><span>Publier</span></td>
                         <td th:unless="${publication.status}== true"><span>Pending</span></td>
                         <td>
-                            <a th:href="@{/groupe/publications/syllabus/detail/}+${publication.postId}"  class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+                            <a th:href="@{/groupe/publications/syllabus/detail/}+${publication.syllabusId}"  class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
                             <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${publication.postId}"  class="btn" >Supprimer
                                 <i class="zmdi zmdi-close" ></i>
                             </a>

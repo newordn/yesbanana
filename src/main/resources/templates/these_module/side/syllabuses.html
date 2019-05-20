@@ -51,10 +51,10 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-link">
-                    <a th:href="@{/visitor/livres}" class="nav-item"><h4><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></h4></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a th:href="@{/about}" class="nav-item"><h4><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></h4></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </li>
                 <li class="nav-link">
-                    <a href="#" class="nav-item"><h4>Consultation d'un livre</h4></a>
+                    <a href="#" class="nav-item"><h4>Espace de consultation des syllabus</h4></a>
                 </li>
 
             </ul>
@@ -67,60 +67,37 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 text-center heading-section ftco-animate">
-                <h1>Detail sur le contenu d'un livre</h1>
-                <h2 class="subheading"><span>Description ou encore resume du livre ici entrer un text descriptif des procedures pour apporter de l'aide a nos clients</span></h2>
+                <h1>Syllabus</h1>
+                <h2 class="subheading"><span>Consulter un syllabus de votre choix</span></h2>
             </div>
-            <div class="col-12 pt-4 ">
-                <table class="table text-left table-hover table-border dt-responsive  table-lg display" id="crews">
-                    <tbody>
-                    <tr>
-                        <td>Couverture du livre</td>
 
+            <div class="col-12 ">
+                <table class="table text-center table-hover dt-responsive  table-lg display" id="crews">
+                    <thead class="text-white bg-secondary">
+                    <tr>
+                        <th>Auteur</th>
+                        <th>Titre</th>
+                        <th>Université</th>
+                        <th>Faculté</th>
+                        <th>Département</th>
+                        <th>Options/Grade</th>
+                        <th>Année de publication</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="syllabus : ${syllabuses}" >
+                        <td th:text="${syllabus.auteur}"></td>
+
+                        <td th:text="${syllabus.title}"></td>
+                        <td th:text="${syllabus.universite}"></td>
+                        <td th:text="${syllabus.faculte}"></td>
+                        <td th:text="${syllabus.departement}"></td>
+                        <td th:text="${syllabus.options}"></td>
+                        <td th:text="${syllabus.annee}"></td>
                         <td>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td th:text="${livre.title}">Titre</td>
-                                    </tr>
-                                    <tr>
-                                        <td th:text="${livre.auteur}">Auteur</td>
-                                    </tr>
-                                    <tr>
-                                        <td th:text="${livre.description}">Sommaire  en 10 lignes</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Voir la fiche</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <a  class="btn" th:href="@{/visitor/syllabus/}+${syllabus.syllabusId}">Consulté&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
                         </td>
-                        <td>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>PDF Lecture en ligne Prix
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Commander PDF Prix
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Commander imprimé Prix
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Réserver Prix
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Emprunter Prix
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td>Nombre d'examplaire</td>
                     </tr>
                     </tbody>
                 </table>

@@ -1,8 +1,10 @@
 package com.derteuffel.controller;
 
 import com.derteuffel.data.Bibliography;
+import com.derteuffel.data.Syllabus;
 import com.derteuffel.data.These;
 import com.derteuffel.repository.BibliographyRepository;
+import com.derteuffel.repository.SyllabusRepository;
 import com.derteuffel.repository.TheseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,6 +31,8 @@ public class ExternController {
     private TheseRepository theseRepository;
     @Autowired
     private BibliographyRepository bibliographyRepository;
+    @Autowired
+    private SyllabusRepository syllabusRepository;
 
     @GetMapping("/catalogues")
     public String catalogues(){
@@ -44,11 +48,23 @@ public class ExternController {
         model.addAttribute("livres",bibliographies);
         return "these_module/side/livres";
     }
+    @GetMapping("/syllabuses")
+    public String syllabus(Model model){
+        List<Syllabus> syllabuses=syllabusRepository.findBySuprimeeAndStatusOrderBySyllabusIdDesc(true,true);
+        model.addAttribute("syllabuses",syllabuses);
+        return "these_module/side/syllabuses";
+    }
     @GetMapping("/livre/{bibliographyId}")
     public String livreSide(Model model,@PathVariable Long bibliographyId){
         Bibliography livre=bibliographyRepository.getOne(bibliographyId);
         model.addAttribute("livre",livre);
         return "these_module/side/livre";
+    }
+    @GetMapping("/syllabus/{syllabusId}")
+    public String syllabusSide(Model model,@PathVariable Long syllabusId){
+        Syllabus syllabus=syllabusRepository.getOne(syllabusId);
+        model.addAttribute("syllabus",syllabus);
+        return "these_module/side/syllabus";
     }
     @GetMapping("/magazines")
     public String magazines(){
