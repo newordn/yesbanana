@@ -15,6 +15,7 @@ public class Bibliography implements Serializable{
     private Long bibliographyId;
     private String auteur;
     private String title;
+    private String motCle;
     private String description;
     private String link;
     private String couverture;
@@ -31,12 +32,13 @@ public class Bibliography implements Serializable{
     public Bibliography() {
     }
 
-    public Bibliography(String auteur,String couverture, String title, String description, These these, String link,Boolean disponibility,
+    public Bibliography(String auteur,String couverture, String title,String motCle, String description, These these, String link,Boolean disponibility,
                         Double pagePrice, Double price, String editeur, String lieu_edition, String annee_edition) {
         this.auteur = auteur;
         this.title = title;
         this.price=price;
         this.pagePrice=pagePrice;
+        this.motCle=motCle;
         this.disponibility=disponibility;
         this.description = description;
         this.link=link;
@@ -45,6 +47,14 @@ public class Bibliography implements Serializable{
         this.editeur=editeur;
         this.lieu_edition=lieu_edition;
         this.these = these;
+    }
+
+    public String getMotCle() {
+        return motCle;
+    }
+
+    public void setMotCle(String motCle) {
+        this.motCle = motCle;
     }
 
     public String getCouverture() {

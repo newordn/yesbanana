@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by derteuffel on 15/10/2018.
@@ -54,5 +55,11 @@ public class TheseService {
         theseRepository.save(these);
     }
 
-
+    public List<These> findAllByMotCle(String motCle) {
+        List<These> allTheses=theseRepository.findAllByStates(true);
+        List<These> result = allTheses.stream()
+                .filter(x -> x.getSubject().contains(motCle))
+                .collect(Collectors.toList());
+        return result;
+    }
 }

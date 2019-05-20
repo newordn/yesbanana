@@ -1,6 +1,8 @@
 package com.derteuffel.repository;
 
 import com.derteuffel.data.Bibliography;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,6 +18,7 @@ public interface BibliographyRepository extends JpaRepository<Bibliography,Long>
 
     @Query("select b from Bibliography as b join b.these bt where bt.theseId=:id order by b.bibliographyId desc")
     List<Bibliography> findAllByThese(@Param("id") Long theseId);
+    Page<Bibliography> findAllByMotCle(String motCle, Pageable pageable);
     Bibliography findByTitle(String title);
     List<Bibliography> findAllByTitle(String title);
     List<Bibliography> findAllByDisponibility(Boolean disponibility);

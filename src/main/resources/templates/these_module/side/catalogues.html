@@ -165,23 +165,23 @@
                                                 <label>&nbsp;Avancé</label>
                                             </div>
                                         </div>
-                                        <form class="pl-5 pr-5" id="form_rapide">
+                                        <form class="pl-5 pr-5" id="form_rapide" th:action="@{/visitor/rapide/search/catalogues}" method="get">
                                         <div class="row mt-5 mb-5">
                                             <div class="col-md-8 form-group">
-                                                <input type="text" class="form-control" id="rapide_div" placeholder="Recherche rapide ...">
+                                                <input type="text" class="form-control" name="motCle"  id="search_input" placeholder="Recherche rapide ...">
                                             </div>
                                             <div class="col-md-4 form-group">
-                                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp;Chercher</button>
+                                                <button type="submit" class="btn btn-primary" id="valid_search"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp;Chercher</button>
                                             </div>
                                         </div>
                                         </form>
-                                        <form class="pl-5 pr-5" id="form_avance" style="display: none">
+                                        <form class="pl-5 pr-5" id="form_avance" style="display: none" th:action="@{/visitor/avance/search/catalogues}">
                                             <div class="row mt-5 mb-5">
                                                 <div class="col-md-8 form-group">
-                                                    <input type="text" class="form-control" id="avance_div" placeholder="Recherche avancé ...">
+                                                    <input type="text" class="form-control" name="motCle" placeholder="Recherche avancé ...">
                                                 </div>
                                                 <div class="col-md-4 form-group">
-                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp;Chercher</button>
+                                                    <button type="submit" class="btn btn-primary" id="search_btn_avance"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp;Chercher</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -224,6 +224,7 @@
     });*/
 
     $(document).ready(function(){
+        // change checked button
         $("#avance").click(function(){
             $("#avance").prop("checked", true);
             $("#rapide").prop("checked", false);
@@ -236,6 +237,7 @@
             $("#form_rapide").css("display","block");
             $("#form_avance").css("display","none");
         });
+
     });
 </script>
 

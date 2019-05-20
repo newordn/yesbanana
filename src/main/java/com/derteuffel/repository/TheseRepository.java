@@ -34,6 +34,8 @@ public interface TheseRepository extends JpaRepository<These,Long> {
 
     List<These> findAllByStatus(Boolean status);
     List<These> findAllByStates(Boolean states);
+    @Query("select t from These as t where t.states like :x and t.motCle like :y")
+    Page<These> findByStatesAndMotCle(@Param("x") Boolean states,@Param("y") String motCle, Pageable pageable);
 
     List<These> findAllByOptionsOrderByTheseIdDesc(String options);
     List<These> findAllByCountryOrderByTheseIdDesc(String country);
