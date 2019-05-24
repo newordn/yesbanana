@@ -47,6 +47,9 @@
                         <a th:href="@{/visitor/magazines}">Magazines</a>
                     </li>
                     <li>
+                        <a th:href="@{/visitor/university/infos}">Découvertes universitaire</a>
+                    </li>
+                    <li>
                         <a href="#">
                             <i class="fas fa-table"></i>Besoin d'aide?</a>
                     </li>
@@ -72,7 +75,7 @@
                 <ul class="list-unstyled navbar__list">
                     <li class="active has-sub">
                         <a class="js-arrow" href="#">
-                            <i class="fas fa-tachometer-alt"></i><strong>Rechercher</strong></a>
+                            <i class="fas fa-search"></i><strong>Rechercher</strong></a>
                     </li>
                     <li >
                         <a th:href="@{/visitor/catalogues}"><span class="dot dot--blue"></span>&nbsp;&nbsp;&nbsp;Catalogue</a>
@@ -91,14 +94,17 @@
                     </li>
                     <li class="active">
                         <a href="#">
-                            <i class="fas fa-chart-bar"></i><strong>Consulter</strong></a>
+                            <i class="fas fa-list-ul"></i><strong>Consulter</strong></a>
                     </li>
                     <li >
                         <a th:href="@{/visitor/magazines}"><span class="dot dot--blue"></span>&nbsp;&nbsp;&nbsp;Magazines</a>
                     </li>
+                    <li >
+                        <a th:href="@{/visitor/university/infos}"><span class="dot dot--blue"></span>&nbsp;&nbsp;&nbsp;Découvertes universitaire</a>
+                    </li>
                     <li class="active">
                         <a href="#">
-                            <i class="fas fa-table"></i><strong>Besoin d'aide?</strong></a>
+                            <i class="fas fa-exclamation-circle"></i><strong>Besoin d'aide?</strong></a>
                     </li>
                     <li >
                         <a th:href="@{/visitor/encadrement}"><span class="dot dot--blue"></span>&nbsp;&nbsp;&nbsp;Encadrement des Travaux Scientifiques</a>

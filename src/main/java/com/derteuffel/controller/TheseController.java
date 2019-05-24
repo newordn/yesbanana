@@ -283,11 +283,6 @@ public class    TheseController {
         return "these/theses";
     }
 
-    private static final int BUTTONS_TO_SHOW = 3;
-    private static final int INITIAL_PAGE = 0;
-    private static final int INITIAL_PAGE_SIZE = 5;
-    private static final int[] PAGE_SIZES = {5, 6, 7, 8};
-
     // for adding a these in a crew
 
     @GetMapping("/add/form")

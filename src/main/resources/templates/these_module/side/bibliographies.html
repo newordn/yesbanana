@@ -51,10 +51,10 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-link">
-                    <a th:href="@{/visitor/livres}" class="nav-item"><h4><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></h4></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a th:href="@{/visitor/search/catalogues}" class="nav-item"><h4><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></h4></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </li>
                 <li class="nav-link">
-                    <a href="#" class="nav-item"><h4>Portail Yesbanana&nbsp;<i class="fa fa-angle-right"></i>&nbsp; Livres&nbsp;<i class="fa fa-angle-right"></i>&nbsp;Detail</h4></a>                </li>
+                    <a href="#" class="nav-item"><h4>Portail Yesbanana&nbsp;<i class="fa fa-angle-right"></i>&nbsp; Catalogues&nbsp;<i class="fa fa-angle-right"></i>&nbsp;Bibliographies</h4></a>                </li>
 
             </ul>
         </div>
@@ -66,26 +66,33 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 text-center heading-section ftco-animate">
-                <h1>Detail sur le contenu d'un livre</h1>
-                <h2 class="subheading"><span>Description ou encore resume du livre ici entrer un text descriptif des procedures pour apporter de l'aide a nos clients</span></h2>
+                <h1>Detail sur la bibliographie lier a votre sujet</h1>
+                <h2 class="subheading"><span>Retrouver tout les livres liers a votre sujet de recherche</span></h2>
             </div>
             <div class="col-12 pt-4 ">
                 <table class="table text-left table-hover table-border dt-responsive  table-lg display" id="crews">
+                    <thead>
+                        <th>Couverture du livre</th>
+                        <th>Titre, Auteur et Résumé</th>
+                        <th>Commander?</th>
+                        <th>Quantité</th>
+                    </thead>
                     <tbody>
-                    <tr>
-                        <td>Couverture du livre</td>
+                    <tr th:each="bibliography : ${bibliographies}">
+                        <td>Couverture du livre
+                        <img th:src="${bibliography.couverture}"></td>
 
                         <td>
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td th:text="${livre.title}">Titre</td>
+                                        <td th:text="${bibliography.title}">Titre</td>
                                     </tr>
                                     <tr>
-                                        <td th:text="${livre.auteur}">Auteur</td>
+                                        <td th:text="${bibliography.auteur}">Auteur</td>
                                     </tr>
                                     <tr>
-                                        <td th:text="${livre.description}">Sommaire  en 10 lignes</td>
+                                        <td th:text="${bibliography.description}">Sommaire  en 10 lignes</td>
                                     </tr>
                                     <tr>
                                         <td>Voir la fiche</td>

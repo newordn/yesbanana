@@ -18,7 +18,10 @@ public interface BibliographyRepository extends JpaRepository<Bibliography,Long>
 
     @Query("select b from Bibliography as b join b.these bt where bt.theseId=:id order by b.bibliographyId desc")
     List<Bibliography> findAllByThese(@Param("id") Long theseId);
-    Page<Bibliography> findAllByMotCle(String motCle, Pageable pageable);
+    @Query("select b from Bibliography as b join b.these bt where bt.theseId=:id and b.disponibility=:x order by b.bibliographyId desc")
+    List<Bibliography> findAllByTheseAndDisponibility(@Param("id") Long theseId,@Param("x")Boolean disponibility);
+    Page<Bibliography> findByMotCle(String motCle, Pageable pageable);
+    List<Bibliography> findByMotCleAndDisponibility(String motCle,Boolean disponibility);
     Bibliography findByTitle(String title);
     List<Bibliography> findAllByTitle(String title);
     List<Bibliography> findAllByDisponibility(Boolean disponibility);

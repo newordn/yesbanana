@@ -70,6 +70,10 @@ public class ExternController {
     public String magazines(){
         return "these_module/side/magazines";
     }
+    @GetMapping("/university/infos")
+    public String university_search(){
+        return "these_module/side/university_search";
+    }
     @GetMapping("/students_work")
     public String students_work(){
         return "these_module/side/students_work";

@@ -107,7 +107,7 @@
                             <td th:text="${these.university}+','+${these.theseDate}">New York City / Warsaw / Lodz / Amsterdam / London / Chicago</td>
                             <td th:text="${these.regions}+'('+${these.country}+')'">Web Designer /UX designer / Ul designer / JavaScript Developer</td>
                             <td th:text="'Professeur :'+${these.profesor}+' Assistant :'+${these.assistant}">23</td>
-                            <td ><a th:href="@{/visitor/search/bibliographies}"> Bibliographies</a></td>
+                            <td ><a th:href="@{/visitor/search/bibliographies/}+${these.theseId}"> Bibliographies</a></td>
                         </tr>
                         </tbody>
                         <!--Table body-->
