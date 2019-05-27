@@ -81,6 +81,10 @@ public class ExternController {
     public String help(){
         return "these_module/encadrement_travaux/professeurs";
     }
+    @GetMapping("/what_are/encadreur")
+    public String what(){
+        return "these_module/encadrement_travaux/what";
+    }
     @GetMapping("/chef/travaux")
     public String about_us(){
         return "these_module/encadrement_travaux/chef_travaux";
