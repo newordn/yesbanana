@@ -1,522 +1,300 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="au theme template">
-    <meta name="author" content="Hau Nguyen">
-    <meta name="keywords" content="au theme template">
-
-    <!-- Title Page-->
-    <title>Yesbanana</title>
-
-    <!-- Fontfaces CSS-->
-    <link th:href="@{/css/font-face.css}" type="text/css" rel="stylesheet" media="all">
-        <link th:href="@{/css/owl.carousel.min.css}" type="text/css" media="all">
-    <link  th:href="@{/vendor/font-awesome-4.7/css/font-awesome.min.css}" type="text/css" rel="stylesheet" media="all">
-    <link th:href="@{/vendor/font-awesome-5/css/fontawesome-all.min.css}" rel="stylesheet" type="text/css" media="all">
-    <link th:href="@{/vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" type="text/css" media="all">
-
-    <!-- Bootstrap CSS-->
-    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" type="text/css" media="all">
-
-    <!-- Vendor CSS-->
-    <link th:href="@{/vendor/animsition/animsition.min.css}" type="text/css" rel="stylesheet" media="all">
-    <link th:href="@{/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css}" type="text/css" rel="stylesheet" media="all">
-    <link th:href="@{/vendor/wow/animate.css}" rel="stylesheet" type="text/css" media="all">
-    <link th:href="@{/vendor/css-hamburgers/hamburgers.min.css}" rel="stylesheet" type="text/css" media="all">
-    <link th:href="@{/vendor/slick/slick.css}" rel="stylesheet" media="all" type="text/css">
-    <link th:href="@{/vendor/select2/select2.min.css}" rel="stylesheet" media="all" type="text/css">
-    <link th:href="@{/vendor/perfect-scrollbar/perfect-scrollbar.css}" rel="stylesheet" media="all" type="text/css">
-
-    <!-- Main CSS-->
-    <link th:href="@{/css/theme.css}" rel="stylesheet" media="all" type="text/css">
+<title>YesBanana</title>
+<meta charset="utf-8">
+<meta name="description" content="OneTech shop project">
+<meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
+<link rel="stylesheet"  th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+<link th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}" rel="stylesheet">
+<link rel="stylesheet"  th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+<link rel="stylesheet"  th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+<link rel="stylesheet"  th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+<link rel="stylesheet"  th:href="@{/new/plugins/slick-1.8.0/slick.css}">
+<link rel="stylesheet"  th:href="@{/new/styles/main_styles.css}">
+<link rel="stylesheet"  th:href="@{/new/styles/responsive.css}">
 
 </head>
 
-<body class="animsition">
-    <div class="page-wrapper">
-        <div th:replace="~{../templates/fragments/sidebar_these :: sidebar_these}">
-        </div>
-        <!-- PAGE CONTAINER-->
-        <div class="page-container">
-            <!-- HEADER DESKTOP-->
-            <header class="header-desktop">
-                <div class="pt-3 header-title text-center">
-                    <h2>Bienvenue au portail de Yesbanana</h2>
-                </div>
-                <div class="pt-3 " >
-                    <div class="container-fluid">
-                        <!-- HEADER MOBILE-->
-        <header class="header-mobile d-block d-lg-none">
-            <div class="header-mobile__bar">
-                <div class="container-fluid">
-                    <div class="header-mobile-inner">
-                        
-                        <button class="hamburger1 hamburger--slider" type="button">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
+<body>
+
+<div class="super_container">
+
+	<div th:replace="~{../templates/fragments/header :: header}"></div>
+
+
+	<!-- Banner -->
+
+	<div class="banner">
+		<div class="banner_background row" >
+			<div class="col-md-4"></div>
+			<div class="col-md-8">
+				<div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+	                              <!--Indicators-->
+	                              <ol class="carousel-indicators">
+	                                <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
+	                                <li data-target="#carousel-example-1z" data-slide-to="1"></li>
+	                                <li data-target="#carousel-example-1z" data-slide-to="2"></li>
+	                              </ol>
+	                              <!--/.Indicators-->
+	                              <!--Slides-->
+	                              <div class="carousel-inner" role="listbox">
+	                                <!--First slide-->
+	                                <div class="carousel-item active">
+	                                  <img class="d-block w-100" src="images/slide-1.jpeg" style="height: 266px"
+	                                    alt="First slide">
+	                                </div>
+	                                <!--/First slide-->
+	                                <!--Second slide-->
+	                                <div class="carousel-item">
+	                                  <img class="d-block w-100" src="images/slide-2.jpeg" style="height: 266px"
+	                                    alt="Second slide">
+	                                </div>
+	                                <!--/Second slide-->
+	                                <!--Third slide-->
+	                                <div class="carousel-item">
+	                                  <img class="d-block w-100" src="images/slide-3.jpeg" style="height: 266px"
+	                                    alt="Third slide">
+	                                </div>
+	                                <!--/Third slide-->
+	                                <!--Third slide-->
+	                                <div class="carousel-item">
+	                                  <img class="d-block w-100" src="images/slide-4.jpeg" style="height: 266px"
+	                                    alt="Third slide">
+	                                </div>
+	                                <!--/Third slide-->
+	                                <!--Third slide-->
+	                                <div class="carousel-item">
+	                                  <img class="d-block w-100" src="images/slide-5.jpeg" style="height: 266px"
+	                                    alt="Third slide">
+	                                </div>
+	                                <!--/Third slide-->
+	                                  <!--Third slide-->
+	                                  <div class="carousel-item">
+	                                      <img class="d-block w-100" src="images/slide-6.jpeg" style="height: 266px"
+	                                           alt="Third slide">
+	                                  </div>
+	                                  <!--/Third slide-->
+	                                  <!--Third slide-->
+	                                  <div class="carousel-item">
+	                                      <img class="d-block w-100" src="images/slide-7.jpeg" style="height: 266px"
+	                                           alt="Third slide">
+	                                  </div>
+	                                  <!--/Third slide-->
+	                                  <!--Third slide-->
+	                                  <div class="carousel-item">
+	                                      <img class="d-block w-100" src="images/slide-8.jpeg" style="height: 266px"
+	                                           alt="Third slide">
+	                                  </div>
+	                                  <!--/Third slide-->
+	                              </div>
+	                              <!--/.Slides-->
+	                              <!--Controls-->
+	                              <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+	                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	                                <span class="sr-only">Previous</span>
+	                              </a>
+	                              <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+	                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	                                <span class="sr-only">Next</span>
+	                              </a>
+	                              <!--/.Controls-->
+	            </div>
             </div>
-            <nav class="navbar-mobile1">
-                <div class="container-fluid">
-                    <ul class="navbar-mobile__list1 list-unstyled">
-                        <li>
-                            <a th:href="@{/visitor/help}">Aide</a>
-                        </li>
-                        <li>
-                            <a th:href="@{/visitor/question}">Une question</a>
-                        </li>
-                        <li>
-                            <a th:href="@{/visitor/about_us}">Qui sommes nous?</a>
-                        </li>
-                        <li >
-                            <a th:href="@{/visitor/work_with_us}">Travailler avec nous</a>
-                        </li>                        
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <!-- END HEADER MOBILE-->
-                        <nav class="header-wrap d-none d-lg-block">
-                            <div style="padding-left: 385px">
-                           <div class="form-header"></div>
-                            <div class="header-button">
-                                <ul class="noti-wrap">
-                                    <li class="noti__item nav-link ">
-                                        <a class="nav-item" th:href="@{/visitor/help}">Aide</a>
-                                    </li>
-                                    <li class="noti__item nav-link ">
-                                        <a class="nav-item" th:href="@{/visitor/question}">Une question</a>
-                                    </li>
-                                    <li class="noti__item nav-link">
-                                        <a class="nav-item" th:href="@{/visitor/about_us}">Qui sommes nous?</a>
-                                    </li>
-                                    <li class="noti__item nav-link">
-                                        <a class="nav-item" th:href="@{/visitor/work_with_us}">Travailler avec nous</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-                <br><br>
-                <div class="section__content section__content--p30 pt-3">
-                    <div class="container-fluid">
-                        <div class="header-wrap">
-                            <form class="form-header" action="" method="POST">
-                                <input class="au-input au-input--xl" type="text" name="search" placeholder="Titre, Auteur, Editeur, ISBN, ISSN " />
-                                <button class="au-btn--submit" type="submit">
-                                    <i class="zmdi zmdi-search"></i>
-                                </button>
-                            </form>
-                            <div class="header-button">
-                                <div class="noti-wrap">
-                                    <div >
-                                        <a th:href="@{/visitor/search_theme}"><span class="dot dot--blue"></span>&nbsp;&nbsp;&nbsp;Recherche avancée</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
-            <!-- HEADER DESKTOP-->
+		</div>
+	</div>
 
-            <!-- MAIN CONTENT-->
-            <div class="main-content">
-                 <div class="hero-slides owl-carousel">
-        </div>
-                <div class="section__content section__content--p15">
-                    <div class="container-fluid">
-                        <div class="row m-t-25">
-                            <div class="col-sm-6 col-lg-9">
-                               
-                                <!--Carousel Wrapper-->
-                            <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
-                              <!--Indicators-->
-                              <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-example-1z" data-slide-to="1"></li>
-                                <li data-target="#carousel-example-1z" data-slide-to="2"></li>
-                              </ol>
-                              <!--/.Indicators-->
-                              <!--Slides-->
-                              <div class="carousel-inner" role="listbox">
-                                <!--First slide-->
-                                <div class="carousel-item active">
-                                  <img class="d-block w-100" th:src="@{/images/slide-1.jpeg}" style="height: 250px"
-                                    alt="First slide">
-                                </div>
-                                <!--/First slide-->
-                                <!--Second slide-->
-                                <div class="carousel-item">
-                                  <img class="d-block w-100" th:src="@{/images/slide-2.jpeg}" style="height: 250px"
-                                    alt="Second slide">
-                                </div>
-                                <!--/Second slide-->
-                                <!--Third slide-->
-                                <div class="carousel-item">
-                                  <img class="d-block w-100" th:src="@{/images/slide-3.jpeg}" style="height: 250px"
-                                    alt="Third slide">
-                                </div>
-                                <!--/Third slide-->
-                                <!--Third slide-->
-                                <div class="carousel-item">
-                                  <img class="d-block w-100" th:src="@{/images/slide-4.jpeg}" style="height: 250px"
-                                    alt="Third slide">
-                                </div>
-                                <!--/Third slide-->
-                                <!--Third slide-->
-                                <div class="carousel-item">
-                                  <img class="d-block w-100" th:src="@{/images/slide-5.jpeg}" style="height: 250px"
-                                    alt="Third slide">
-                                </div>
-                                <!--/Third slide-->
-                                  <!--Third slide-->
-                                  <div class="carousel-item">
-                                      <img class="d-block w-100" th:src="@{/images/slide-6.jpeg}" style="height: 250px"
-                                           alt="Third slide">
-                                  </div>
-                                  <!--/Third slide-->
-                                  <!--Third slide-->
-                                  <div class="carousel-item">
-                                      <img class="d-block w-100" th:src="@{/images/slide-7.jpeg}" style="height: 250px"
-                                           alt="Third slide">
-                                  </div>
-                                  <!--/Third slide-->
-                                  <!--Third slide-->
-                                  <div class="carousel-item">
-                                      <img class="d-block w-100" th:src="@{/images/slide-8.jpeg}" style="height: 250px"
-                                           alt="Third slide">
-                                  </div>
-                                  <!--/Third slide-->
-                              </div>
-                              <!--/.Slides-->
-                              <!--Controls-->
-                              <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                              </a>
-                              <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                              </a>
-                              <!--/.Controls-->
-                            </div>
-                              <br>
-        <header class="header-mobile d-block d-lg-none">
-            <div class="header-mobile__bar">
-                <div class="container-fluid">
-                    <div class="header-mobile-inner">
-                        <button class="hamburger2 hamburger--slider" type="button">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <nav class="navbar-mobile2">
-                <div class="container-fluid">
-                    <ul class="navbar-mobile__list2 list-unstyled">
-                        <li class="account-wrap">
-                            <div class="account-item clearfix js-item-menu">
-                                        <div class="content">
-                                            <a class="js-acc-btn" href="#">Mediathèques Documentation</a>
-                                        </div>
-                                        <div class="account-dropdown js-dropdown">
-                                            <div class="account-dropdown__body">
-                                                    <div class="account-dropdown__item">
-                                                        <a href="#">
-                                                             <i class="zmdi zmdi-account"></i>Sites de référence
-                                                         </a>
-                                                     </div>
-                                                     <div class="account-dropdown__item">
-                                                         <a href="#">
-                                                            <i class="zmdi zmdi-settings"></i>Multimédia
-                                                        </a>
-                                                    </div>
-                                                    <div class="account-dropdown__item">
-                                                        <a href="#">
-                                                            <i class="zmdi zmdi-money-box"></i>Thème
-                                                        </a>
-                                                    </div>
-                                                    <div class="account-dropdown__item">
-                                                        <a href="#">
-                                                            <i class="zmdi zmdi-money-box"></i>Travaux des étudiants
-                                                        </a>
-                                                    </div>
-                                            </div>
-                                        </div>
-                             </div>
-                         </li>
-                        <li class="account-wrap">
-                            <div class="account-item clearfix js-item-menu">
-                                        <div class="content text-left">
-                                            <a class="js-acc-btn " href="#">Création d'entreprise</a>
-                                        </div>
-                                        <div class="account-dropdown js-dropdown">
-                                            <div class="account-dropdown__body">
-                                                <div class="account-dropdown__item">
-                                                     <a href="#">
-                                                        <i class="zmdi zmdi-account"></i>Documents
-                                                    </a>
-                                                 </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                      <i class="zmdi zmdi-settings"></i>Fonds de documents
-                                                  </a>
-                                              </div>
-                                            </div>
-                                        </div>
-                             </div>
-                        </li>
-                        <li class="account-wrap">
-                            <div class="account-item clearfix js-item-menu">
-                                        <div class="account-item clearfix js-item-menu">
-                                            <div class="content text-left">
-                                                <a class="js-acc-btn " href="#">Encadrement des Travaus Scientifiques</a>
-                                            </div>
-                                            <div class="account-dropdown js-dropdown">
-                                                            <div class="account-dropdown__body">
-                                                                <div class="account-dropdown__item">
-                                                                    <a href="#">
-                                                                        <i class="zmdi zmdi-account"></i>Assistant</a>
-                                                                </div>
-                                                                <div class="account-dropdown__item">
-                                                                    <a href="#">
-                                                                        <i class="zmdi zmdi-settings"></i>Chef des travaux</a>
-                                                                </div>
-                                                                <div class="account-dropdown__item">
-                                                                    <a href="#">
-                                                                        <i class="zmdi zmdi-money-box"></i>Professeur</a>
-                                                                </div>
-                                                                <div class="account-dropdown__item">
-                                                                    <a href="#">
-                                                                        <i class="zmdi zmdi-money-box"></i>Professionnel</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                        </div>
-                             </div>
-                        </li>
-                        <li class="account-wrap">
-                            <div class="account-item clearfix js-item-menu">
-                                        <div class="content text-left">
-                                                            <a class="js-acc-btn " href="#">
-                                                                Editions Publications
-                                                            </a>
-                                                        </div>
-                                                        <div class="account-dropdown js-dropdown">
-                                                            <div class="account-dropdown__body">
-                                                                <div class="account-dropdown__item">
-                                                                    <a th:href="@{/visitor/publish/book/form}">
-                                                                        <i class="zmdi zmdi-account"></i>Livres</a>
-                                                                </div>
-                                                                <div class="account-dropdown__item">
-                                                                    <a th:href="@{/visitor/publish/sylabus/form}">
-                                                                        <i class="zmdi zmdi-settings"></i>Syllabus</a>
-                                                                </div>
-                                                                <div class="account-dropdown__item">
-                                                                    <a href="#">
-                                                                        <i class="zmdi zmdi-money-box"></i>Article</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                             </div>
-                        </li> 
-                        <li class="account-wrap">
-                            <div class="account-item clearfix js-item-menu">
-                                        <div class="content ">
-                                                        <a class="js-acc-btn " href="#">
-                                                            Etudes et Bourses
-                                                        </a>
-                                                    </div>
-                                                    <div class="account-dropdown js-dropdown">
-                                                        <div class="account-dropdown__body">
-                                                            <div class="account-dropdown__item">
-                                                                <a href="#">
-                                                                    <i class="zmdi zmdi-account"></i>Etudiant</a>
-                                                            </div>
-                                                            <div class="account-dropdown__item">
-                                                                <a href="#">
-                                                                    <i class="zmdi zmdi-settings"></i>Diplomé</a>
-                                                            </div>
-                                                            <div class="account-dropdown__item">
-                                                                <a href="#">
-                                                                    <i class="zmdi zmdi-money-box"></i>Professionnel</a>
-                                                            </div>
-                                                            <div class="account-dropdown__item">
-                                                                <a href="#">
-                                                                    <i class="zmdi zmdi-money-box"></i>Assistant</a>
-                                                            </div>
-                                                            <div class="account-dropdown__item">
-                                                                <a href="#">
-                                                                    <i class="zmdi zmdi-money-box"></i>Chef des travaux</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                             </div>
-                        </li>                        
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <!-- END HEADER MOBILE-->
-                                <!-- HEADER DESKTOP-->
-                                <header class="header-desktop3 d-none d-lg-block">
-                                    <div class="section__content section__content--p35">
-                                        <div class="header3-wrap">
-                                            <div class="header__navbar">
-                                                <ul class="list-unstyled">
-                                                    <li class="has-sub">
-                                                        <a href="#">
-                                                            Mediathèques Documentation
-                                                            <span class="bot-line"></span>
-                                                        </a>
-                                                        <ul class="header3-sub-list list-unstyled">
-                                                            <li>
-                                                                <a href="#">Sites de référence</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Multimédia</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Thème</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Travaux des étudiants</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="has-sub">
-                                                        <a href="#">
-                                                            Création d'entreprise
-                                                            <span class="bot-line"></span>
-                                                        </a>
-                                                        <ul class="header3-sub-list list-unstyled">
-                                                            <li>
-                                                                <a href="#">Documents</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Fonds de documents</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
+	<!-- Characteristics -->
 
-                                                    <li class="has-sub">
-                                                        <a href="#">
-                                                            Encadrement des Travaus Scientifiques
-                                                            <span class="bot-line"></span>
-                                                        </a>
-                                                        <ul class="header3-sub-list list-unstyled">
-                                                            <li>
-                                                                <a href="#">Assistant</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Chef des travaux</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Professeur</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Professionnel</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="has-sub">
-                                                        <a href="#">
-                                                            <span class="bot-line"></span>Editions Publications</a>
-                                                        <ul class="header3-sub-list list-unstyled">
-                                                            <li>
-                                                                <a th:href="@{/visitor/publish/book/form}">Livres</a>
-                                                            </li>
-                                                            <li>
-                                                                <a th:href="@{/visitor/publish/sylabus/form}">Syllabus</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Article</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="has-sub">
-                                                        <a href="#">
-                                                            <span class="bot-line"></span>Etudes et Bourses</a>
-                                                        <ul class="header3-sub-list list-unstyled">
-                                                            <li>
-                                                                <a href="#">Etudiant</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Diplomé</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Professionnel</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Assistant</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#">Chef des travaux</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </header>
-                                <!-- END HEADER DESKTOP-->
-                            </div>
-                            <div class="col-sm-6 col-lg-3">
-                                <div class="overview-item bg-white" style="height: 300px">
-                                    <div class="overview__inner">
-                                        <div class="overview-box clearfix">
-                                            <div class="card-header bg-danger text-center">
-                                                <h3>FLUX RSS</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+	<div class="characteristics">
+		<div class="container">
+			<div class="row">
+			</div>
+		</div>
+	</div>
 
-                                <div class="overview-item bg-white" style="height: 500px">
-                                    <div class="overview__inner">
-                                        <div class="overview-box clearfix">
-                                            <div class="card-header bg-white text-center">
-                                                <h4>Les nouveautés</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="copyright">
-                                    <p>Copyright © 2019 Solution Sarl. tous droits resever. Designer par <a href="yebanana.org">Yesbanana</a>.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END MAIN CONTENT-->
-            <!-- END PAGE CONTAINER-->
-        </div>
+	<!-- Deals of the week -->
 
-    </div>
+	<div class="deals_featured">
+		<div class="container">
+			<div class="row mb-auto">
+				<div class="col d-flex flex-lg-row flex-column align-items-center justify-content-start">
+					
+					<!-- Deals -->
 
-    <div th:replace="~{../templates/fragments/modules :: modules}"></div>
+					<div class="deals">
+						<div class="deals_title">Flux RSS</div>
+						<div class="deals_slider_container">
+							
+							<!-- Deals Slider -->
+							<div class="owl-carousel owl-theme deals_slider">
+								
+								<!-- Deals Item -->
+								<div class="owl-item deals_item">
+									<div class="deals_image"><img th:src="@{/new/images/no-image.png}" alt=""></div>
+									<div class="deals_content">
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category"><a href="#">Titre :</a></div>
+											<div class="deals_item_price_a ml-2">Pourquoi l'utiliser?</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category">Publier le :</div>
+											<div class="deals_item_price_a ml-2">22-12-2019</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category">Categorie :</div>
+											<div class="deals_item_price_a ml-2">Transport</div>
+										</div>
+										<div class="available">
+											<div class="available_line d-flex flex-row justify-content-start">
+												<a href="#" class="btn btn-primary">Voir l'annonce</a>
+											</div>
+										</div>
+									</div>
+								</div>
 
+								<!-- Deals Item -->
+								<div class="owl-item deals_item">
+									<div class="deals_image"><img th:src="@{/new/images/no-image.png}" alt=""></div>
+									<div class="deals_content">
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category"><a href="#">Titre :</a></div>
+											<div class="deals_item_price_a ml-2">Je l'ai utiliser?</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category">Publier le :</div>
+											<div class="deals_item_price_a ml-2">22-12-2018</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category">Categorie :</div>
+											<div class="deals_item_price_a ml-2">Education</div>
+										</div>
+										<div class="available">
+											<div class="available_line d-flex flex-row justify-content-start">
+												<a href="#" class="btn btn-primary">Voir l'annonce</a>
+											</div>
+										</div>
+									</div>
+								</div>
 
+								<!-- Deals Item -->
+								<div class="owl-item deals_item">
+									<div class="deals_image"><img th:src="@{/new/images/no-image.png}" alt=""></div>
+									<div class="deals_content">
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category"><a href="#">Titre :</a></div>
+											<div class="deals_item_price_a ml-2">Je veux l'utiliser</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category">Publier le :</div>
+											<div class="deals_item_price_a ml-2">23-12-2019</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category">Categorie :</div>
+											<div class="deals_item_price_a ml-2">Economie</div>
+										</div>
+										<div class="available">
+											<div class="available_line d-flex flex-row justify-content-start">
+												<a href="#" class="btn btn-primary">Voir l'annonce</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+
+						<div class="deals_slider_nav_container">
+							<div class="deals_slider_prev deals_slider_nav"><i class="fas fa-chevron-left ml-auto"></i></div>
+							<div class="deals_slider_next deals_slider_nav"><i class="fas fa-chevron-right ml-auto"></i></div>
+						</div>
+					</div>
+					
+					<!-- Featured -->
+					<div class="featured">
+						<div class="tabbed_container">
+							<div class="tabs">
+								<ul class="clearfix">
+									<li class="active">Qui somme nous?</li>
+									<li>Une Question</li>
+									<li>Aide</li>
+								</ul>
+								<div class="tabs_line"><span></span></div>
+							</div>
+
+							<!-- Product Panel -->
+							<div class="product_panel panel active">
+								<div class="featured_slider slider">
+
+									<!-- Slider Item -->
+									<div class="featured_slider_item">
+										<div class="border_active"></div>
+										<div class="product_item discount ">
+											<p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
+										</div>
+									</div>
+
+								</div>
+								<div class="featured_slider_dots_cover"></div>
+							</div>
+
+							<!-- Product Panel -->
+
+							<div class="product_panel panel">
+								<div class="featured_slider slider">
+
+									<!-- Slider Item -->
+									<div class="featured_slider_item">
+										<div class="border_active"></div>
+										<div class="product_item discount ">
+											<p> 3 - On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
+										</div>
+									</div>
+
+								</div>
+								<div class="featured_slider_dots_cover"></div>
+							</div>
+
+							<!-- Product Panel -->
+
+							<div class="product_panel panel">
+								<div class="featured_slider slider">
+
+									<!-- Slider Item -->
+									<div class="featured_slider_item">
+										<div class="border_active"></div>
+										<div class="product_item discount ">
+											<p>2- On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
+										</div>
+									</div>
+								</div>
+								<div class="featured_slider_dots_cover"></div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Banner -->
+</div>
+	<div th:replace="~{../templates/fragments/footer :: footer}"></div>
+
+<script src="new/js/jquery-3.3.1.min.js" ></script>
+<script src="new/styles/bootstrap4/popper.js"></script>
+<script src="new/styles/bootstrap4/bootstrap.min.js"></script>
+<script src="new/plugins/greensock/TweenMax.min.js"></script>
+<script src="new/plugins/greensock/TimelineMax.min.js"></script>
+<script src="new/plugins/scrollmagic/ScrollMagic.min.js"></script>
+<script src="new/plugins/greensock/animation.gsap.min.js"></script>
+<script src="new/plugins/greensock/ScrollToPlugin.min.js"></script>
+<script src="new/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="new/plugins/slick-1.8.0/slick.js"></script>
+<script src="new/plugins/easing/easing.js"></script>
+<script src="new/js/custom.js"></script>
 </body>
 
 </html>
-<!-- end document-->

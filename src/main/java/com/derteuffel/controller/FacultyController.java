@@ -54,7 +54,7 @@ public class FacultyController {
          Optional<Faculty> facultyOptional= facultyRepository.findById(facultyId);
         model.addAttribute("faculty", facultyOptional.get());
         model.addAttribute("optionses", optionsRepository.findAllByFaculty(facultyOptional.get().getFacultyId()));
-        return "faculty/faculty";
+        return "these_module/side/search_livres_faculte_option";
     }
 
 

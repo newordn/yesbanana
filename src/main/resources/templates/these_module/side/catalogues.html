@@ -1,40 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="au theme template">
-    <meta name="author" content="Hau Nguyen">
-    <meta name="keywords" content="au theme template">
-
-    <!-- Title Page-->
-    <title>Yesbanana</title>
-
-    <!-- Fontfaces CSS-->
-    <link th:href="@{/css/font-face.css}" type="text/css" rel="stylesheet" media="all">
-    <link th:href="@{/css/owl.carousel.min.css}" type="text/css" media="all">
-    <link  th:href="@{/vendor/font-awesome-4.7/css/font-awesome.min.css}" type="text/css" rel="stylesheet" media="all">
-    <link th:href="@{/vendor/font-awesome-5/css/fontawesome-all.min.css}" rel="stylesheet" type="text/css" media="all">
-    <link th:href="@{/vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" type="text/css" media="all">
-
-    <!-- Bootstrap CSS-->
-    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" type="text/css" media="all">
-
-    <!-- Vendor CSS-->
-    <link th:href="@{/vendor/animsition/animsition.min.css}" type="text/css" rel="stylesheet" media="all">
-    <link th:href="@{/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css}" type="text/css" rel="stylesheet" media="all">
-    <link th:href="@{/vendor/wow/animate.css}" rel="stylesheet" type="text/css" media="all">
-    <link th:href="@{/vendor/css-hamburgers/hamburgers.min.css}" rel="stylesheet" type="text/css" media="all">
-    <link th:href="@{/vendor/slick/slick.css}" rel="stylesheet" media="all" type="text/css">
-    <link th:href="@{/vendor/select2/select2.min.css}" rel="stylesheet" media="all" type="text/css">
-    <link th:href="@{/vendor/perfect-scrollbar/perfect-scrollbar.css}" rel="stylesheet" media="all" type="text/css">
-
-    <!-- Main CSS-->
-    <link th:href="@{/css/theme.css}" rel="stylesheet" media="all" type="text/css">
-
+<title>YesBanana</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="OneTech shop project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
     <style>
         .fsStyle {
             border: 2px solid #999999;
@@ -54,104 +33,41 @@
 
 </head>
 
-<body class="animsition">
-<div class="page-wrapper">
-    <div th:replace="~{../templates/fragments/sidebar_these :: sidebar_these}">
-    </div>
-    <!-- PAGE CONTAINER-->
-    <div class="page-container">
-        <!-- HEADER DESKTOP-->
-        <header class="header-desktop">
-            <div class="pt-3 header-title text-center">
-                <h2>Bienvenue au portail de Yesbanana</h2>
-            </div>
-            <div class="pt-3 " >
-                <div class="container-fluid">
-                    <!-- HEADER MOBILE-->
-                    <header class="header-mobile d-block d-lg-none">
-                        <div class="header-mobile__bar">
-                            <div class="container-fluid">
-                                <div class="header-mobile-inner">
+<body>
 
-                                    <button class="hamburger1 hamburger--slider" type="button">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <nav class="navbar-mobile1">
-                            <div class="container-fluid">
-                                <ul class="navbar-mobile__list1 list-unstyled">
-                                    <li>
-                                        <a th:href="@{/about}">Accueil</a>
-                                    </li>
-                                    <li>
-                                        <a th:href="@{/visitor/help}">Aide</a>
-                                    </li>
-                                    <li>
-                                        <a th:href="@{/visitor/question}">Une question</a>
-                                    </li>
-                                    <li>
-                                        <a th:href="@{/visitor/about_us}">Qui sommes nous?</a>
-                                    </li>
-                                    <li >
-                                        <a th:href="@{/visitor/work_with_us}">Travailler avec nous</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </header>
-                    <!-- END HEADER MOBILE-->
-                    <nav class="header-wrap d-none d-lg-block">
-                        <div style="padding-left: 300px">
-                            <div class="form-header"></div>
-                            <div class="header-button">
-                                <ul class="noti-wrap">
-                                    <li class="noti__item nav-link text-center ">
-                                        <a class="nav-item" th:href="@{/about}"><i class="fa fa-home"></i>Accueil</a>
-                                    </li>
-                                    <li class="noti__item nav-link ">
-                                        <a class="nav-item" th:href="@{/visitor/help}">Aide</a>
-                                    </li>
-                                    <li class="noti__item nav-link ">
-                                        <a class="nav-item" th:href="@{/visitor/question}">Une question</a>
-                                    </li>
-                                    <li class="noti__item nav-link">
-                                        <a class="nav-item" th:href="@{/visitor/about_us}">Qui sommes nous?</a>
-                                    </li>
-                                    <li class="noti__item nav-link">
-                                        <a class="nav-item" th:href="@{/visitor/work_with_us}">Travailler avec nous</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-            <br><br>
-        </header>
-        <!-- HEADER DESKTOP-->
+<div class="super_container">
+	<div th:replace="~{../templates/fragments/header :: header}"></div>
+	
+	<!-- Home -->
 
-        <!-- MAIN CONTENT-->
-        <div class="main-content">
-            <div class="hero-slides owl-carousel">
-            </div>
-            <div class="section__content section__content--p15">
-                <div class="container-fluid">
-                    <div class="container m-t-25">
-                        <div class="container card border">
-                            <div class="card-body" style="height: auto;width: inherit">
-                                <h4>Toutes les collections<br>Adultes et jeunes</h4>
-                            </div>
-                            <br>
-                            <div class="card-body" style="height: auto;width: inherit">
-                                <h2>Catalogue de Yesbanana</h2>
-                            </div>
-                        </div>
-                        <br><br><br><br>
-                        <div class="container card border ">
+	<div class="home">
+		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="new/images/shop_background.jpg"></div>
+		<div class="home_overlay"></div>
+		<div class="home_content d-flex flex-column align-items-center justify-content-center">
+			<h2 class="home_title">Bibliothèque & Recherche universitaire</h2>
+		</div>
+	</div>
+
+	<!-- Shop -->
+
+	<div class="shop">
+		<div class="container">
+			<div class="row mb-auto">
+				<div th:replace="~{../templates/fragments/side_bibliotheque_recherche :: side_bibliotheque_recherche}"></div>
+
+				<div class="col-lg-9">
+					
+					<!-- Shop Content -->
+
+					<div class="shop_content">
+						<div class="shop_bar clearfix">
+							<div class="shop_product_count"><span></span> Toutes les collections<br>Adultes et jeunes</div>
+							<div class="shop_sorting">Catalogue de Yesbanana</div>
+						</div>
+
+						<div class="product_grid">
+							<div class="product_grid_border"></div><br><br>
+								<div class="container card border ">
                             <div class="card-body">
                                     <fieldset class="fsStyle">
                                         <legend class="legendStyle"><span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Recherche par mot-clé &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></legend>
@@ -188,41 +104,34 @@
                                     </fieldset>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="copyright">
-                                <p>Copyright © 2019 Solution Sarl. tous droits resever. Designer par <a th:href="@{/}">Yesbanana</a>.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END MAIN CONTENT-->
-        <!-- END PAGE CONTAINER-->
-    </div>
+							
+						</div>
 
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+<div th:replace="~{../templates/fragments/footer :: footer}"></div>
 
-<div th:replace="~{../templates/fragments/modules :: modules}"></div>
+
+<script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+<script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/new/js/shop_custom.js}"></script>
 <script type="text/javascript">
-    // toggle password update inputs
-  /*  $("#rapide").change(()=>{
-        if($("#rapide").is(":checked"))
-    {
-        $("#form_rapide").css("display","block");
-        $("#form_avance").css("display","none");
-    }
-    });
-    $("#avance").change(()=>{
-        if($("#avance").is(":checked"))
-    {
-        $("#form_rapide").css("display","none");
-        $("#form_avance").css("display","block");
-    }
-    });*/
-
     $(document).ready(function(){
         // change checked button
         $("#avance").click(function(){
@@ -241,8 +150,6 @@
     });
 </script>
 
-
 </body>
 
 </html>
-<!-- end document-->

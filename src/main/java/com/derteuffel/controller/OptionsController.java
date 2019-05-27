@@ -75,21 +75,23 @@ public class OptionsController {
         List<These> theses=theseRepository.findAllByStatus(true);
         List<These> theses1=theseRepository.findAllByOptionsOrderByTheseIdDesc(optionsOptional.get().getOptionsName());
         List<These> theses2= new ArrayList<>();
-        ArrayList<String> mots=new ArrayList<>();
+        ArrayList<Bibliography> mots=new ArrayList<>();
         for (These  these : theses){
             for (int i=0; i<theses1.size(); i++){
                 if (these.getTheseId().equals(theses1.get(i).getTheseId())){
-                    mots.add(theses1.get(i).getMotCle());
                     theses2.add(these);
                 }
             }
         }
 
+        for (These these : theses2){
+            mots.addAll(bibliographyRepository.findAllByThese(these.getTheseId()));
+        }
+
         session.setAttribute("optionsId",optionsOptional.get().getOptionsId());
-        model.addAttribute("mots",removeDuplicates(mots));
+        model.addAttribute("livres",mots);
         model.addAttribute("options", optionsOptional.get());
-        model.addAttribute("theses", theses2);
-        return "options/options";
+        return "these_module/side/search_livres_option";
     }
 
     @GetMapping("/buy/pages/{motCle}")

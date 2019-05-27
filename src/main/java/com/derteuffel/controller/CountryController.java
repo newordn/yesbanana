@@ -41,7 +41,7 @@ public class CountryController {
     public String findAll(Model model) {
         List<Faculty> faculties= facultyRepository.findAll();
         model.addAttribute("faculties",faculties);
-        return "university/university";
+        return "these_module/side/search_livres_faculte";
     }
 
     @GetMapping("/country/{countryId}")

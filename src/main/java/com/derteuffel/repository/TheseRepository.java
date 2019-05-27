@@ -37,10 +37,18 @@ public interface TheseRepository extends JpaRepository<These,Long> {
     @Query("select t from These as t where t.states like :x and t.motCle like :y")
     Page<These> findByStatesAndMotCle(@Param("x") Boolean states,@Param("y") String motCle, Pageable pageable);
 
+    @Query("select t from These as t where t.states like :x and t.motCle like :y")
+    List<These> findStatesAndMotCle(@Param("x") Boolean states,@Param("y") String motCle);
+
     @Query("select t from These as t where t.states like :x and t.motCle like :y or t.student like :z or t.subject like :a or t.level like :b or t.options like :c " +
             "or t.university like :d or t.theseDate like :e or t.regions like :f or t.country like :g or t.profesor like :h")
     Page<These> recherche_avance(@Param("x") Boolean states,@Param("y") String motCle,@Param("z") String student,@Param("a") String subject, @Param("b")String level, @Param("c")String options,
                                  @Param("d")String university,@Param("e") String theseDate,@Param("f") String regions,@Param("g")String country, @Param("h")String profesor,Pageable pageable);
+
+    @Query("select t from These as t where t.states like :x and t.motCle like :y or t.student like :z or t.subject like :a or t.level like :b or t.options like :c " +
+            "or t.university like :d or t.theseDate like :e or t.regions like :f or t.country like :g or t.profesor like :h")
+    List<These> recherche(@Param("x") Boolean states,@Param("y") String motCle,@Param("z") String student,@Param("a") String subject, @Param("b")String level, @Param("c")String options,
+                                 @Param("d")String university,@Param("e") String theseDate,@Param("f") String regions,@Param("g")String country, @Param("h")String profesor);
 
     List<These> findAllByOptionsOrderByTheseIdDesc(String options);
     List<These> findAllByCountryOrderByTheseIdDesc(String country);
@@ -48,4 +56,5 @@ public interface TheseRepository extends JpaRepository<These,Long> {
     List<These> findAllByUniversityOrderByTheseIdDesc(String university);
 
     List<These> findAllByMotCle(String motCle);
+
 }

@@ -1,253 +1,152 @@
-
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Yesbanana</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-    <link rel="stylesheet" th:href="@{/css/aos.css}">
-    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
-    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+<title>YesBanana</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="OneTech shop project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}"> 
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_styles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_responsive.css}">
+    <style>
+        .fsStyle {
+            border: 2px solid #999999;
+            border-radius: 2px;
+            padding-left: 1em;
+            padding-right: 1em;
+            text-align: center;
+        }
+        .legendStyle {
+            font-size: 100%;
+            color: #222222;
+            background-color: transparent;
+            margin-bottom:.15px;
+            width: auto;
+        }
+    </style>
 
 </head>
+
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand text-black"  th:href="@{/}"><span>Yes</span>banana</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
-        </button>
+<div class="super_container">
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto text-black" >
-                <li class="nav-item active"><a th:href="@{/}" class="nav-link ">Accueil</a></li>
-                <li class="nav-item"><a th:href="@{/about}" class="nav-link "><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Page précédente</span></a></li></li>
-                <li class="nav-item nav-link" style="position:relative;right:-50px;"><a href="#" class="btn btn-primary">solutioneducationafrique@gmail.com</a></li>
+	<div th:replace="~{../templates/fragments/header :: header}"></div>
 
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- END nav -->
-<br>
-<section class="ftco-section contact-section">
-    <div class="container">
-        <div class="row d-flex mb-5 contact-info">
-            <div class="text-left">
-                <h3 class="breadcrumbs"><span class="mr-2"><a th:href="@{/about}">Edition Publication <i class="ion-ios-arrow-forward"></i></a></span><span>Livre </span></h3>
-                <h3 class="mb-4"  style="color: #0b0b0b">Formulaire de publication d'un livre.<br></h3>
-            </div>
-        </div>
-        <div class="row block-9">
-            <div class="col-md-6 order-md-last d-flex">
-                <form th:action="@{/visitor/livre/save}" th:object="${post}" method="post" enctype="multipart/form-data" class="bg-light p-5 contact-form">
-                    <span class='error' id="nameError"></span>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="publisherName" id="publisherName" placeholder="Veillez renseigner votre nom" >
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" name="publisherEmail" id="publisherEmail" placeholder="Veillez renseigner votre adresse email" required >
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="publisherPhone" id="publisherPhone" placeholder="Veillez renseigner votre numero de téléphone" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="publisherLocalisation" id="publisherLocalisation" placeholder="Veillez renseigner votre ville de localisation" required>
-                    </div>
-                    <span class='error' id="titleError"></span>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="title" id="title" placeholder="Le titre de Votre Publication" >
-                    </div>
-                    <span class='error' id="descriptionError"></span>
-                    <div class="form-group">
-                        <textarea class="form-control" cols="30" rows="10" id="description" th:field="*{description}" placeholder="Résumé"></textarea>
-                    </div>
-                    <span class='error' id="otherInformationError"></span>
-                    <div class="form-group">
-                        <textarea class="form-control" cols="30" rows="10" id="otherInformation" th:field="*{otherInformation}" placeholder="Autre informations"></textarea>
-                    </div>
-                    <p>Fichiers:</p>
-                    <div class="form-group">
-                        <input type="file" multiple class="form-control-file border" name="files" id="avatar" >
-                    </div>
-                    <span class='error' id="priceError"></span>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="publishPrice" id="publishPrice" placeholder="Veillez renseigner le prix de vente de votre livre" >
-                    </div>
-                    <div class="form-group">
-                            <input type="text" class="form-control" name="category" id="category" placeholder="Veillez renseigner un domaine" >
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Validé" class="btn btn-primary py-3 px-5">
-                    </div>
-                </form>
+	<!-- Shop -->
 
-            </div>
+	<div class="shop">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
 
-            <div class="col-md-6 d-flex">
-                <div  th:style="'background-image: url(' +@{/images/signature-book-publishing.png}+ ');height: auto;width: inherit'"></div>
-            </div>
-        </div>
-    </div>
-</section>
+					<!-- Shop Sidebar -->
+					<div class="shop_sidebar">
+						<div class="sidebar_section">
+							<div class="sidebar_title">Eléments de publication</div>
+							<ul class="sidebar_categories">
+								<li><a th:href="@{/visitor/publish/book/form}">Livre</a></li>
+								<li><a th:href="@{/visitor/publish/sylabus/form}">Syllabus</a></li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-lg-9">
+					
+					<!-- Shop Content -->
+
+					<div class="shop_content">
+						<div class="shop_bar clearfix">
+							<div class="shop_product_count"><span>Nouvelle</span> publications</div>
+							<div class="shop_sorting">Livre</div>
+						</div>
+
+						<div class="product_grid">
+							<div class="product_grid_border"></div><br><br>                            
+                        <form action="#" id="contact_form" class="p-2" th:action="@{/visitor/livre/save}" method="post" th:object="${post}" enctype="multipart/form-data">
+							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+								<input type="text" id="contact_form_name" name="publisherName" class="contact_form_name input_field" placeholder="Votre nom" required="required" data-error="Name is required.">
+								<input type="text" id="contact_form_email" class="contact_form_email input_field" placeholder="Votre adresse email" name="publisherEmail" required="required" data-error="Email is required.">
+								<input type="text" id="contact_form_phone" name="publisherPhone" class="contact_form_phone input_field" placeholder="Votre numéro de télé...">
+							</div>
+							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+								<input type="text" id="contact_form_localisation" name="publisherLocalisation" class="contact_form_name input_field" placeholder="Votre localisation" required="required" data-error="Localisation is required.">
+								<input type="text" id="contact_form_title" class="contact_form_email input_field" placeholder="Titre" name="title" required="required" data-error="Email is required.">
+								<input type="text" id="contact_form_price" name="publishPrice" class="contact_form_phone input_field" placeholder="Prix de vente du livre">
+							</div>
+							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+								<input type="text" id="contact_form_category" name="category" class="contact_form_name input_field" placeholder="Domaine" required="required" data-error="Localisation is required.">
+								<input type="file" id="contact_form_files" multiple  class="contact_form_email input_field" name="files" >
+							</div>
+							<div class="contact_form_text">
+								<textarea id="contact_form_message" class="text_field contact_form_message" name="description" rows="4" placeholder="Description" required="required" data-error="Please, write  a description."></textarea>
+							</div>
+							<div class="contact_form_text">
+								<textarea id="contact_form_other_info" class="text_field contact_form_message" name="otherInformation" rows="4" placeholder="Autre information" required="required" data-error="Please, write  another information."></textarea>
+							</div>
+							<div class="contact_form_button">
+								<button type="submit" class="button contact_submit_button">Validé</button>
+							</div>
+						</form>
+							
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div th:replace="~{../templates/fragments/footer :: footer}"></div>
 
 
-<section class="ftco-section-parallax">
-    <div class="parallax-img d-flex align-items-center">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                    <h2>Souscrivez a notre  Newsletter</h2>
-                    <p>Restez informer en souscrivant a notre service de messagerie.</p>
-                    <div class="row d-flex justify-content-center mt-4 mb-4">
-                        <div class="col-md-8">
-                            <form action="#" class="subscribe-form">
-                                <div class="form-group d-flex">
-                                    <input type="text" class="form-control" placeholder="Entrer votre adresse email">
-                                    <input type="submit" value="Souscrire" class="submit px-3">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<footer class="ftco-footer ftco-bg-dark ftco-section">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Yesbanana</h2>
-                    <p>Votre plateforme digitale qui vous ouvre les portes du savoir dans toute son entiereté et sa rigueur.</p>
-                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4 ml-md-5">
-                    <h2 class="ftco-heading-2">Liens Utiles</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">Nos services</a></li>
-                        <li><a href="#" class="py-2 d-block">autres informations</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Confidentialité</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">A propos</a></li>
-                        <li><a href="#" class="py-2 d-block">Conditions d'utilisations</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Des Questions?</h2>
-                    <div class="block-23 mb-3">
-                        <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">Congo Kinshasa</span></li>
-                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+237694126158 +23793063228</span></a></li>
-                            <li><span></span><span class="text"></span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- loader -->
-<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-
-<script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/goole-map/map-active.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.easing.1.3.js}"></script>
-<script th:src="@{/js/jquery.waypoints.min.js}"></script>
-<script th:src="@{/js/jquery.stellar.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/aos.js}"></script>
-<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/jquery.timepicker.min.js}"></script>
-<script th:src="@{/js/scrollax.min.js}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script th:src="@{/js/google-map.js}"></script>
-<script th:src="@{/js/main1.js}"></script>
-<script type="module" th:src="@{/js/main.js}"></script>
-<script type="module" th:src="@{/js/dashboard.js}"></script>
+<script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+<script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/new/js/contact_custom.js}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
 <script type="text/javascript">
-    $("#hide1").css("display","none");
-    $("#hide").css("display","none");
-    $("#hide2").css("display","none");
-    $("#starter1").hover(function(){
-        $("#hide1").css("display","block");
+    $(document).ready(function(){
+        // change checked button
+        $("#avance").click(function(){
+            $("#avance").prop("checked", true);
+            $("#rapide").prop("checked", false);
+            $("#form_rapide").css("display","none");
+            $("#form_avance").css("display","block");
+        });
+        $("#rapide").click(function(){
+            $("#rapide").prop("checked", true);
+            $("#avance").prop("checked", false);
+            $("#form_rapide").css("display","block");
+            $("#form_avance").css("display","none");
+        });
 
-        $("#hide2").css("display","none");
-        $("#hide").css("display","none");
-    })
-    $("#ender").hover(function(){
-        $("#hide").css("display","block");
-
-        $("#hide2").css("display","none");
-        $("#hide2").css("display","none");
-    })
-    $("#starter2").hover(function(){
-        $("#hide2").css("display","block");
-        $("#hide1").css("display","none");
-        $("#hide").css("display","none");
-
-    })
-
-    $("#ender1").hover(function(){
-    },function(){
-        $("#hide1").css("display","none");
-
-    })
-
-    $("#ender3").hover(function(){
-        $("#hide1").css("display","none");
-        $("#hide2").css("display","none");
-    },function(){})
-    $("#ender4").hover(
-            function(){
-                $("#hide1").css("display","none");
-                $("#hide2").css("display","none");},
-            function(){})
-
-
-    var owl = $('.owl-carousel');
-    $('#previous').click(function() {
-
-        owl.trigger('next.owl.carousel');
-    })
-    // Go to the previous item
-    $('#next').click(function() {
-        owl.trigger('prev.owl.carousel', [300]);
-    })
+    });
 </script>
+
 </body>
+
 </html>

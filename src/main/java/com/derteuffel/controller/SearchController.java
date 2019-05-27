@@ -33,65 +33,36 @@ public class SearchController {
     private BibliographyRepository bibliographyRepository;
 
     @GetMapping("/rapide/search/catalogues")
-    public String catalogues_list(@RequestParam(name = "motCle",defaultValue = "")String mc, @RequestParam(name = "page",defaultValue = "0")int p, Model model){
+    public String catalogues_list(@RequestParam(name = "motCle",defaultValue = "")String mc, Model model){
         List<These> all=theseRepository.findAll();
         System.out.println(all);
-        Page<These> theses=theseRepository.findByStatesAndMotCle(true,"%"+mc+"%", new PageRequest(p,5));
-        int pagesCount=theses.getTotalPages();
-        int[] pages= new int[pagesCount];
-        for (int i=0;i<pagesCount;i++){
-            pages[i]=i;
-        }
-        System.out.println(theses.getTotalElements());
-        System.out.println(theses);
-        model.addAttribute("pages",pages);
-        model.addAttribute("pageCourante",p);
+        List<These> theses=theseRepository.findStatesAndMotCle(true,"%"+mc+"%");
         model.addAttribute("motCle", mc);
         model.addAttribute("theses", theses);
-        return "these_module/side/catalogues_search";
+        return "these_module/side/search_catalogues";
     }
 
 
     @GetMapping("/avance/search/catalogues")
-    public String catalogues_list_avancee(@RequestParam(name = "motCle",defaultValue = "")String mc, @RequestParam(name = "page",defaultValue = "0")int p, Model model){
-        List<These> all=theseRepository.findAll();
-        System.out.println(all);
-        Page<These> theses=theseRepository.recherche_avance(true,"%"+mc+"%","%"+mc+"%",
+    public String catalogues_list_avancee(@RequestParam(name = "motCle",defaultValue = "")String mc,  Model model){
+
+        List<These> theses=theseRepository.recherche(true,"%"+mc+"%","%"+mc+"%",
                 "%"+mc+"%","%"+mc+"%","%"+mc+"%","%"+mc+"%","%"+mc+"%","%"+mc+"%","%"+mc+"%",
-                "%"+mc+"%",new PageRequest(p,5));
-        int pagesCount=theses.getTotalPages();
-        int[] pages= new int[pagesCount];
-        for (int i=0;i<pagesCount;i++){
-            pages[i]=i;
-        }
-        System.out.println(theses.getTotalElements());
-        System.out.println(theses);
-        model.addAttribute("pages",pages);
-        model.addAttribute("pageCourante",p);
+                "%"+mc+"%");
         model.addAttribute("motCle", mc);
         model.addAttribute("theses", theses);
-        return "these_module/side/catalogues_search";
+        return "these_module/side/search_catalogues";
     }
 
     @GetMapping("/search/catalogues")
-    public String catalogues_list_search(@RequestParam(name = "motCle",defaultValue = "")String mc, @RequestParam(name = "page",defaultValue = "0")int p, Model model){
-        List<These> all=theseRepository.findAll();
-        System.out.println(all);
-        Page<These> theses=theseRepository.recherche_avance(true,"%"+mc+"%","%"+mc+"%",
+    public String catalogues_list_search(@RequestParam(name = "motCle",defaultValue = "")String mc, Model model){
+
+        List<These> theses=theseRepository.recherche(true,"%"+mc+"%","%"+mc+"%",
                 "%"+mc+"%","%"+mc+"%","%"+mc+"%","%"+mc+"%","%"+mc+"%","%"+mc+"%","%"+mc+"%",
-                "%"+mc+"%",new PageRequest(p,5));
-        int pagesCount=theses.getTotalPages();
-        int[] pages= new int[pagesCount];
-        for (int i=0;i<pagesCount;i++){
-            pages[i]=i;
-        }
-        System.out.println(theses.getTotalElements());
-        System.out.println(theses);
-        model.addAttribute("pages",pages);
-        model.addAttribute("pageCourante",p);
+                "%"+mc+"%");
         model.addAttribute("motCle", mc);
         model.addAttribute("theses", theses);
-        return "these_module/side/catalogues_search";
+        return "these_module/side/search_catalogues";
     }
 
     @GetMapping("/search/bibliographies/{theseId}")

@@ -38,21 +38,17 @@ public class ExternController {
     public String catalogues(){
         return "these_module/side/catalogues";
     }
-    @GetMapping("/encadrements")
-    public String encadrement(){
-        return "these_module/side/encadrement";
-    }
     @GetMapping("/livres")
     public String livres(Model model){
         List<Bibliography> bibliographies=bibliographyRepository.findAllByDisponibility(true);
         model.addAttribute("livres",bibliographies);
-        return "these_module/side/livres";
+        return "these_module/side/search_livres";
     }
     @GetMapping("/syllabuses")
     public String syllabus(Model model){
         List<Syllabus> syllabuses=syllabusRepository.findBySuprimeeAndStatusOrderBySyllabusIdDesc(true,true);
         model.addAttribute("syllabuses",syllabuses);
-        return "these_module/side/syllabuses";
+        return "these_module/side/search_syllabus";
     }
     @GetMapping("/livre/{bibliographyId}")
     public String livreSide(Model model,@PathVariable Long bibliographyId){
@@ -76,30 +72,26 @@ public class ExternController {
     }
     @GetMapping("/students_work")
     public String students_work(){
-        return "these_module/side/students_work";
-    }
-    @GetMapping("/syllabus")
-    public String syllabus(){
-        return "these_module/side/syllabus";
+        return "these_module/side/search_student_work";
     }
 
 
 
-    @GetMapping("/help")
+    @GetMapping("/professeurs")
     public String help(){
-        return "these_module/home_nav/help";
+        return "these_module/encadrement_travaux/professeurs";
     }
-    @GetMapping("/about_us")
+    @GetMapping("/chef/travaux")
     public String about_us(){
-        return "these_module/home_nav/about_us";
+        return "these_module/encadrement_travaux/chef_travaux";
     }
-    @GetMapping("/question")
+    @GetMapping("/assistances")
     public String question(){
-        return "these_module/home_nav/question";
+        return "these_module/encadrement_travaux/assistance";
     }
-    @GetMapping("/work_with_us")
+    @GetMapping("/expert/yesb")
     public String work_with_us(){
-        return "these_module/home_nav/work_with_us";
+        return "these_module/encadrement_travaux/expert_yesb";
     }
 
     @GetMapping("/search_theme")
