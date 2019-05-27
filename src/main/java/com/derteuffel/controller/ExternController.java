@@ -85,7 +85,7 @@ public class ExternController {
     public String about_us(){
         return "these_module/encadrement_travaux/chef_travaux";
     }
-    @GetMapping("/assistances")
+    @GetMapping("/enseignants")
     public String question(){
         return "these_module/encadrement_travaux/assistance";
     }
@@ -94,18 +94,9 @@ public class ExternController {
         return "these_module/encadrement_travaux/expert_yesb";
     }
 
-    @GetMapping("/search_theme")
+    @GetMapping("/why_work/with_us")
     public String search_theme(Model model){
-        List<These> allTheses= theseRepository.findAll();
-        List<These> theses=new ArrayList<>();
-        for (These these : allTheses){
-            if (these.getStatus() == true){
-                theses.add(these);
-            }
-        }
-
-        model.addAttribute("theses", theses);
-        return "these_module/advanced/search_theme";
+        return "these_module/side/why";
     }
     @GetMapping("/theme/{theseId}")
     public String theme(Model model, @PathVariable Long theseId, HttpSession session){

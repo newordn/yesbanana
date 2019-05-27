@@ -46,20 +46,7 @@
 	<div class="shop">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-3">
-
-					<!-- Shop Sidebar -->
-					<div class="shop_sidebar">
-						<div class="sidebar_section">
-							<div class="sidebar_title">Eléments de publication</div>
-							<ul class="sidebar_categories">
-								<li><a th:href="@{/visitor/publish/book/form}">Livre</a></li>
-								<li><a th:href="@{/visitor/publish/sylabus/form}">Syllabus</a></li>
-							</ul>
-						</div>
-					</div>
-
-				</div>
+				<div th:replace="~{../templates/fragments/side_travailler_avec_nous :: side_travailler_avec_nous}"></div>
 
 				<div class="col-lg-9">
 					
