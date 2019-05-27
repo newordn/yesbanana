@@ -294,7 +294,7 @@ section
 .top_bar
 {
 	width: 100%;
-	height: 56px;
+	height: auto;
 	background: #fafafa;
 	border-bottom: solid 1px rgba(0,0,0,0.05);
 	z-index: 2;
