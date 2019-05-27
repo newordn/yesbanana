@@ -318,7 +318,7 @@ public class HomeController {
 
     }
 
-    @GetMapping("/")
+    @GetMapping("/about")
     public  String home(){
         return "index";
     }
@@ -328,7 +328,7 @@ public class HomeController {
         return "deals";
     }
 
-    @GetMapping("/about")
+    @GetMapping("/")
     public  String about(){
         return "these_module/index";
     }
