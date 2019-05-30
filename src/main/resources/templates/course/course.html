@@ -3,219 +3,79 @@
 <head>
     <title>Yesbanana</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-
-
-    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-    <link rel="stylesheet" th:href="@{/css/aos.css}">
-    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
-    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="OneTech shop project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/blog_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/blog_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/blog_single_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/blog_single_responsive.css}">
 
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+<div class="super_container">
+    <div th:replace="~{../templates/fragments/header :: header}"></div>
+    <!-- Single Blog Post -->
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <h3 th:text="${course?.title}"></h3>
-                <li class="nav-item" th:if="${session.userId}==null">
-                    <div th:replace="~{../templates/payment/visitorConnexionWidget :: visitorConnexionWidget}">
-                    </div>
-                </li>
-
-                <li class="nav-item" th:if="${session.userId}!=null">
-                    <div th:replace="~{../templates/payment/visitorLogOutWidget :: visitorLogOutWidget}">
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- END nav -->
-
-<section class="ftco-section alert-info">
-    <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
-            <div class="col-md-7 heading-section ftco-animate text-center">
-                <h3 th:text="${course?.domain}"></h3>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="ftco-section ftco-degree-bg alert-warning" style="padding-top: 1rem">
-    <div class="container">
-        <div>
-            <div class=" order-md-last ftco-animate">
-                <h2 class="mb-3">Description de la Formation</h2>
-                <p th:text="${course?.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit, quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et. Dolore perferendis, enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta architecto tempora.</p>
-            </div> <!-- .col-md-8 -->
-            <div class="row ftco-animate">
-                <div class="col-md-6">
-                    <h3><i class="fa fa-usd"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${course?.price}"></span></h3>
-                </div>
-                <div class="col-md-6">
-                    <h3><i class="fa fa-thumbs-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${course?.views}"></span></h3>
-                </div>
-                </div>
-        </div><br>
-        <h2 class="mb-3 text-left">Periodes de déroulement de la Formation</h2>
-        <hr>
-        <div th:each="period : ${periods}">
-            <div class="row pt-3" >
-                <div class="col-md-8 order-md-last ftco-animate">
-                    <h3 th:text="${period?.periodName}"></h3>
-                    <div class="container" th:each=" lesson : ${period?.lessons}">
-                        <p><strong>Titre : </strong><span th:text="${lesson?.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Durée : </strong><span th:text="${lesson.elapsedTime}"> </span>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Résumé : </strong><span th:text="${lesson.resumes}"></span></p>
-                    </div>
-                    <div class="col-12 col-sm-6 col-lg-12" style="padding-left: 15px;padding-right: 15px">
-                        <a class="btn btn-primary d-block" th:href="@{/period/period/get/}+${period.periodId}">Suivre les leçons &rarr;</a>
-                    </div>
-                </div> <!-- .col-md-8 -->
-                <div class="col-md-4 ftco-animate">
-                    <p th:text="${period?.title}">Première période</p>
-                    <img th:src="@{/images/period.jpeg}" class="rounded-circle" style="height: 80px; width: 80px;">
-                </div>
-            </div>
-            <hr>
-        </div>
-    </div>
-</section> <!-- .section -->
-<section class="ftco-section-parallax">
-    <div class="parallax-img d-flex align-items-center">
+    <div class="single_post mb-auto">
         <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                    <h2>Souscrivez a notre  Newsletter</h2>
-                    <p>Restez informer en souscrivant a notre service de messagerie.</p>
-                    <div class="row d-flex justify-content-center mt-4 mb-4">
-                        <div class="col-md-8">
-                            <form action="#" class="subscribe-form">
-                                <div class="form-group d-flex">
-                                    <input type="text" class="form-control" placeholder="Entrer votre adresse email">
-                                    <input type="submit" value="Souscrire" class="submit px-3">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="single_post_title" th:text="${course.title}">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</div>
+                    <div class="single_post_text">
+                        <p th:text="${course.description}">Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus velit id urna vehicula, nec maximus est sollicitudin. Praesent at tempus lectus, eleifend blandit felis. Fusce augue arcu, consequat a nisl aliquet, consectetur elementum turpis. Donec iaculis lobortis nisl, et viverra risus imperdiet eu. Etiam mollis posuere elit non sagittis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quis arcu a magna sodales venenatis. Integer non diam sit amet magna luctus mollis ac eu nisi. In accumsan tellus ut dapibus blandit.</p>
+
+                        <br>
+                        <hr>
+                        <h4>Periodes de déroulement de la Formation</h4>
+                        <p>Espace de déroulement de votre formation, choisissez par ou vous voulez commencer</p>
+                        <div th:each="period : ${periods}">
+                            <div class="single_post_quote text-center">
+                                <div class="row">
+                                    <div class="quote_image col-md-3"><img th:src="@{/new/images/quote.png}" alt=""></div>
+                                    <div class="quote_image col-md-6"><p th:text="${period.periodName}"></p></div>
+                                    <div class="quote_image col-md-3"><p th:text="${period.title}"></p></div>
                                 </div>
-                            </form>
+                                <div class="row" th:each="lesson : ${period.lessons}">
+                                    <div class="quote_text">
+                                        <p><strong>Titre : </strong><span th:text="${lesson?.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Durée : </strong><span th:text="${lesson.elapsedTime}"> </span>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Résumé : </strong><span th:text="${lesson.resumes}"></span></div>
+                                </div>
+                                    <div class="quote_name"><a th:href="@{/period/period/get/}+${period.periodId}">Suivre les leçons</a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
 
+    <div th:replace="~{../templates/fragments/footer :: footer}"></div>
+</div>
 
-<footer class="ftco-footer ftco-bg-dark ftco-section">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Yesbanana</h2>
-                    <p>Votre plateforme digitale qui vous ouvre les portes du savoir dans toute son entiereté et sa rigueur.</p>
-                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4 ml-md-5">
-                    <h2 class="ftco-heading-2">Liens Utiles</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">Nos services</a></li>
-                        <li><a href="#" class="py-2 d-block">autres informations</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Confidentialité</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">A propos</a></li>
-                        <li><a href="#" class="py-2 d-block">Conditions d'utilisations</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Des Questions?</h2>
-                    <div class="block-23 mb-3">
-                        <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">Congo Kinshasa</span></li>
-                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+237694126158 +23793063228</span></a></li>
-                            <li><span></span><span class="text"></span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- loader -->
-<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-
-<script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.easing.1.3.js}"></script>
-<script th:src="@{/js/jquery.waypoints.min.js}"></script>
-<script th:src="@{/js/jquery.stellar.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/aos.js}"></script>
-<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/jquery.timepicker.min.js}"></script>
-<script th:src="@{/js/scrollax.min.js}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script th:src="@{/js/google-map.js}"></script>
-<script th:src="@{/js/main1.js}"></script>
-<script type="text/javascript">
-    $("#hide1").css("display","none");
-    $("#hide2").css("display","none");
-    $("#starter1").hover(function(){
-        $("#hide1").css("display","block");
-
-        $("#hide2").css("display","none");
-    })
-    $("#starter2").hover(function(){
-        $("#hide2").css("display","block");
-        $("#hide1").css("display","none");
-
-    })
-
-    $("#ender1").hover(function(){
-    },function(){
-        $("#hide1").css("display","none");
-
-    })
-
-    $("#ender3").hover(function(){
-        $("#hide1").css("display","none");
-        $("#hide2").css("display","none");
-    },function(){})
-    $("#ender4").hover(
-            function(){
-                $("#hide1").css("display","none");
-                $("#hide2").css("display","none");},
-            function(){})
-</script>
+<script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+<script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/new/js/shop_custom.js}"></script>
+<script th:src="@{/new/js/blog_custom.js}"></script>
+<script th:src="@{/new/js/blog_single_custom.js}"></script>
 </body>
 </html>
