@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -338,336 +339,46 @@ public class CourseController {
 
     //second part for shower
     @GetMapping("/administration")
-    public String courseAdmin(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
-                              @RequestParam("page") Optional<Integer> page){
+    public String courseAdmin(Model model){
 
-        Page<Course> courses1= courseRepository.findAllByDomainOrderByCourseIdDesc("administration et finance",pageable);
+        List<Course> courses1= courseRepository.findFirst12ByDomain("administration et finance", Sort.by(Sort.Direction.DESC,"domain"));
         model.addAttribute("courses", courses1);
-        model.addAttribute("coursesSize", courses1.getTotalElements());
-        //
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-        // evaluate page size
-        model.addAttribute("selectedPageSize", evalPageSize);
-        // add pages size
-        model.addAttribute("pageSizes", 3);
-        Page<Event> list= eventRepository.findAllByType("administration et finance", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager1 = new PagerModel(list.getTotalPages(),list.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists", list);
-        model.addAttribute("pager", pager1);
-        model.addAttribute("listSize", list.getTotalElements());
         return "course/administration";
 
     }
 
     @GetMapping("/languages")
-    public String courseLanguage(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
-                                 @RequestParam("page") Optional<Integer> page){
+    public String courseLanguage(Model model){
 
-//language
-        Page<Course> courses2= courseRepository.findAllByDomainOrderByCourseIdDesc("anglais et/ou francais",pageable);
-        model.addAttribute("courses", courses2);
-        model.addAttribute("coursesSize", courses2.getTotalElements());
-        //
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-        // evaluate page size
-        model.addAttribute("selectedPageSize", evalPageSize);
-        // add pages size
-        model.addAttribute("pageSizes", 3);
-        Page<Event> list1= eventRepository.findAllByType("anglais et/ou francais", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager2 = new PagerModel(list1.getTotalPages(),list1.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists", list1);
-        model.addAttribute("pager", pager2);
-        model.addAttribute("listSize", list1.getTotalElements());
+        List<Course> courses1= courseRepository.findFirst12ByDomain("anglais et/ou francais", Sort.by(Sort.Direction.DESC,"domain"));
+        model.addAttribute("courses", courses1);
         return "course/language";
 
     }
 
-    @GetMapping("/its")
-    public String courseIt(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
-                           @RequestParam("page") Optional<Integer> page){
-
-//templates.course it
-        Page<Course> courses3= courseRepository.findAllByDomainOrderByCourseIdDesc("it",pageable);
-        model.addAttribute("courses", courses3);
-        model.addAttribute("coursesSize", courses3.getTotalElements());
-        //
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-        // evaluate page size
-        model.addAttribute("selectedPageSize", evalPageSize);
-        // add pages size
-        model.addAttribute("pageSizes", 3);
-        Page<Event> list2= eventRepository.findAllByType("it", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager3 = new PagerModel(list2.getTotalPages(),list2.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists", list2);
-        model.addAttribute("pager", pager3);
-        model.addAttribute("listSize", list2.getTotalElements());
-        return "course/its";
-
-    }
-
-    @GetMapping("/logistiques")
-    public String courseLogistique(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
-                                   @RequestParam("page") Optional<Integer> page){
-
-// templates.course logistique
-        Page<Course> courses4= courseRepository.findAllByDomainOrderByCourseIdDesc("logistiques", pageable);
-        model.addAttribute("courses", courses4);
-        model.addAttribute("coursesSize", courses4.getTotalElements());
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-        // evaluate page size
-        model.addAttribute("selectedPageSize", evalPageSize);
-        // add pages size
-        model.addAttribute("pageSizes", 3);
-        Page<Event> list3= eventRepository.findAllByType("logistiques", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager4 = new PagerModel(list3.getTotalPages(),list3.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists", list3);
-        model.addAttribute("pager", pager4);
-        model.addAttribute("listSize", list3.getTotalElements());
-        return "course/logistique";
-
-    }
-
-    @GetMapping("/protections")
-    public String courseProtection(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
-                                   @RequestParam("page") Optional<Integer> page){
-// courses protection
-        Page<Course> courses5= courseRepository.findAllByDomainOrderByCourseIdDesc("protection", pageable);
-        model.addAttribute("courses", courses5);
-        model.addAttribute("coursesSize", courses5.getTotalElements());
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-        // evaluate page size
-        model.addAttribute("selectedPageSize", evalPageSize);
-        // add pages size
-        model.addAttribute("pageSizes", 3);
-
-        Page<Event> list4= eventRepository.findAllByType("protection", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager5 = new PagerModel(list4.getTotalPages(),list4.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists", list4);
-        model.addAttribute("pager", pager5);
-        model.addAttribute("listSize", list4.getTotalElements());
-        return "course/protection";
-
-    }
 
     @GetMapping("/resource")
-    public String courseResource(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
-                                 @RequestParam("page") Optional<Integer> page){
+    public String courseResource(Model model){
 
-        // courses resource humaine
-        Page<Course> courses6= courseRepository.findAllByDomainOrderByCourseIdDesc("resources humaines", pageable);
-
-        model.addAttribute("courses", courses6);
-        model.addAttribute("coursesSize", courses6.getTotalElements());
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-        // evaluate page size
-        model.addAttribute("selectedPageSize", evalPageSize);
-        // add pages size
-        model.addAttribute("pageSizes", 3);
-
-        Page<Event> list5= eventRepository.findAllByType("resources humaines", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager6 = new PagerModel(list5.getTotalPages(),list5.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists", list5);
-        model.addAttribute("pager", pager6);
-        model.addAttribute("listSize", list5.getTotalElements());
+        List<Course> courses1= courseRepository.findFirst12ByDomain("resources humaines", Sort.by(Sort.Direction.DESC,"domain"));
+        model.addAttribute("courses", courses1);
         return "course/resource";
 
     }
 
-    @GetMapping("/leaderships")
-    public String courseLeadership(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
-                                   @RequestParam("page") Optional<Integer> page)
-    {
-
-        // courses leadership
-        Page<Course> courses7= courseRepository.findAllByDomainOrderByCourseIdDesc("leadership", pageable);
-
-        model.addAttribute("courses", courses7);
-        model.addAttribute("coursesSize", courses7.getTotalElements());
-
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-        // evaluate page size
-        model.addAttribute("selectedPageSize", evalPageSize);
-        // add pages size
-        model.addAttribute("pageSizes", 3);
-
-        Page<Event> list6= eventRepository.findAllByType("leadership", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager7 = new PagerModel(list6.getTotalPages(),list6.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists", list6);
-        model.addAttribute("pager", pager7);
-        model.addAttribute("listSize", list6.getTotalElements());
-        return "course/leadership";
-
-    }
-
-    @GetMapping("/managements")
-    public String courseManagement(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
-                                   @RequestParam("page") Optional<Integer> page){
-
-        // courses managements
-        Page<Course> courses8= courseRepository.findAllByDomainOrderByCourseIdDesc("management", pageable);
-
-        model.addAttribute("courses", courses8);
-        model.addAttribute("coursesSize", courses8.getTotalElements());
-
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-        // evaluate page size
-        model.addAttribute("selectedPageSize", evalPageSize);
-        // add pages size
-        model.addAttribute("pageSizes", 3);
-
-        Page<Event> list7= eventRepository.findAllByType("management", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager8 = new PagerModel(list7.getTotalPages(),list7.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists", list7);
-        model.addAttribute("pager", pager8);
-        model.addAttribute("listSize", list7.getTotalElements());
-        return "course/management";
-
-    }
-
-
-    @GetMapping("/washs")
-    public String findWash( Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
-                            @RequestParam("page") Optional<Integer> page) {
-        // courses wash
-        Page<Course> courses9= courseRepository.findAllByDomainOrderByCourseIdDesc("wash", pageable);
-
-        model.addAttribute("courses", courses9);
-        model.addAttribute("coursesSize", courses9.getTotalElements());
-        //
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-        // evaluate page size
-        model.addAttribute("selectedPageSize", evalPageSize);
-        // add pages size
-        model.addAttribute("pageSizes", 3);
-        Page<Event> list8= eventRepository.findAllByType("wash", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager9 = new PagerModel(list8.getTotalPages(),list8.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists", list8);
-        model.addAttribute("pager", pager9);
-        model.addAttribute("listSize", list8.getTotalElements());
-        return "course/wash";
-    }
-
     @GetMapping("/alphabetisations")
-    public String courseAlphabetisation(Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
-                                   @RequestParam("page") Optional<Integer> page){
-        // courses managements
-        Page<Course> courses8= courseRepository.findAllByDomainOrderByCourseIdDesc("alphabetisation", pageable);
-
-        model.addAttribute("courses", courses8);
-        model.addAttribute("coursesSize", courses8.getTotalElements());
-
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-        // evaluate page size
-        model.addAttribute("selectedPageSize", evalPageSize);
-        // add pages size
-        model.addAttribute("pageSizes", 3);
-
-        Page<Event> list7= eventRepository.findAllByType("alphabetisation", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager8 = new PagerModel(list7.getTotalPages(),list7.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists", list7);
-        model.addAttribute("pager", pager8);
-        model.addAttribute("listSize", list7.getTotalElements());
+    public String courseAlphabetisation(Model model){
+        List<Course> courses1= courseRepository.findFirst12ByDomain("alphabetisation", Sort.by(Sort.Direction.DESC,"domain"));
+        model.addAttribute("courses", courses1);
         return "course/alphabetisation";
 
     }
 
 
     @GetMapping("/entreprenariats")
-    public String findEntreprenariat( Model model, @PageableDefault(size = 6) Pageable pageable, @RequestParam("pageSize") Optional<Integer> pageSize,
-                            @RequestParam("page") Optional<Integer> page) {
-        // courses wash
-        Page<Course> courses9= courseRepository.findAllByDomainOrderByCourseIdDesc("entreprenariat", pageable);
-
-        model.addAttribute("courses", courses9);
-        model.addAttribute("coursesSize", courses9.getTotalElements());
-        //
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
-        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
-        // Evaluate page. If requested parameter is null or less than 0 (to
-        // prevent exception), return initial size. Otherwise, return value of
-        // param. decreased by 1.
-        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
-        // print repo
-        // evaluate page size
-        model.addAttribute("selectedPageSize", evalPageSize);
-        // add pages size
-        model.addAttribute("pageSizes", 3);
-        Page<Event> list8= eventRepository.findAllByType("entreprenariat", new PageRequest(evalPage, evalPageSize));
-        PagerModel pager9 = new PagerModel(list8.getTotalPages(),list8.getNumber(),BUTTONS_TO_SHOW);
-        model.addAttribute("lists", list8);
-        model.addAttribute("pager", pager9);
-        model.addAttribute("listSize", list8.getTotalElements());
+    public String findEntreprenariat( Model model) {
+        List<Course> courses1= courseRepository.findFirst12ByDomain("entreprenariat", Sort.by(Sort.Direction.DESC,"domain"));
+        model.addAttribute("courses", courses1);
         return "course/entreprenariat";
     }
 

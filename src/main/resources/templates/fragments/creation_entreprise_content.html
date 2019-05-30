@@ -1,0 +1,19 @@
+					<div class="col-lg-9" th:fragment="creation_entreprise_content"  xmlns:th="http://www.w3.org/1999/xhtml">
+						<div class="blog_posts d-flex flex-row align-items-start justify-content-between" th:if="${#lists.size(courses)<=0}">
+							<div class="alert alert-info">
+								<span>Aucun élément disponible</span>
+							</div>
+						</div>
+						<div class="blog_posts d-flex flex-row align-items-start justify-content-between" th:unless="${#lists.size(courses)<=0}">
+							<div th:each="course : ${courses}">
+								<!-- Blog post -->
+								<div class="blog_post">
+									<div class="blog_image text-center card-header" style="padding: 31px">
+										<h5><span th:text="${course.title}"></span></h5>
+									</div>
+									<div class="blog_text"><span th:text="${course.description}"></span>Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada.</div>
+									<div class="blog_button"><a th:href="@{/course/get/}+${course.courseId}">Detail</a></div>
+								</div>
+							</div>
+						</div>
+					</div>
