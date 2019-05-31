@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml" >
 <head>
     <title>Yesbanana</title>
     <meta charset="utf-8">
@@ -8,8 +8,11 @@
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+
     <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/animate.css}">
+
     <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
     <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
     <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
@@ -21,29 +24,22 @@
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
     <link th:href="@{/css/addTheses.css}" rel="stylesheet">
 
-
+    <link th:href="@{/css/dataTablesResponsive.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script th:src="@{/js/dataTable/crews.js}" type="text/javascript"></script>
-    <link th:href="@{/css/dataTablesResponsive.css}" rel="stylesheet">
-    <script th:src="@{/js/dataTablesResponsive.js}"></script>
-
-
+    <script th:src="@{/js/dataTable/motCle.js}" type="text/javascript"></script>
 
 
 </head>
-<style>
-    .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
-</style>
 <body>
 
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+        <a class="navbar-brand" th:href="@{/groupe/groupes}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
@@ -52,114 +48,118 @@
         </div>
     </div>
 </nav>
-<!-- END nav -->
-
 <section class="ftco-section testimony-section">
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
-            <div class="col-md-7 text-center heading-section ftco-animate">
-                <h1>Publications des livres</h1>
-                <h2 class="subheading"><span>Activation de la visilbités des livres au format de yesbanana</span></h2>
-            </div>
-
-            <div class="col-12 card " >
-                <div class="container">
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Auteur :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${bibliography.auteur}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Titre :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${bibliography.title}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Lien de Téléchargement :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${bibliography.link}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Editeur :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${bibliography.editeur}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Lieu d'édition :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${bibliography.lieu_edition}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Année d'édition :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${bibliography.annee_edition}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Prix de vente :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${bibliography.price}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Couverture du livre :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p><img th:src="${bibliography.couverture}"></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Description :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${bibliography.description}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Etat :</strong></p>
-                        </div>
-                        <div class="col-md-7" th:if="${bibliography.disponibility}==true">
-                            <p> <span >Deja publier</span></p>
-                        </div>
-                        <div class="col-md-7" th:unless="${bibliography.disponibility}==true">
-                            <p><span >Pending</span></p>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-
+            <div class="col-md-12 text-center heading-section ftco-animate">
+                <h2 class="subheading"><span>Liste des livres de la faculté</span></h2>
             </div>
         </div>
+
+        <div class=" ftco-animate">
+            <table class="table table-hover dt-responsive text-white" id="mots" >
+                <thead style="background-color:rgb(0,0,100);">
+                <tr>
+
+                    <th>Auteur</th>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Public?</th>
+                    <th class="bg-success">Action</th>
+                </tr>
+                </thead>
+                <tbody style="color:black">
+                <tr th:each="livre : ${bibliographies}">
+                    <td th:text="${livre.auteur}"></td>
+                    <td th:text="${livre.title}"></td>
+                    <td th:text="${livre.description}"></td>
+                    <td>
+                        <span th:if="${livre.disponibility}==true">Oui</span>
+                        <span th:unless="${livre.disponibility}==true">Non</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/groupe/livre/} + ${livre.bibliographyId}" >Ouvrir &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <!--addCrew-->
+    <button th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ADMIN_MASTER'} or ${session.roles[0].role == 'ROOT_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
+        <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+    </button>
+    <!--addCrew-->
+    <div  class=" modal fade" id="addCrew" tabindex="-1" role="dialog" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered"  role="document">
+            <form class="add-these-form modal-content card text-center" th:object="${bibliography}" method="post" th:action="@{/groupe/livre/save}" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <div class="mt-3">
+                        <div class="form-group">
+                            <span class='error' id="assistantError"></span>
+                            <input type="text" th:field="*{auteur}" id="assistant" class="form-control" placeholder="Nom de l'auteur" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="studentError"></span>
+                            <input type="text" th:field="*{title}" id="student" class="form-control" placeholder="Titre du livre" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="editeurError"></span>
+                            <input type="text" th:field="*{editeur}" id="editeur" class="form-control" placeholder="Editeur du livre" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="lieu_editionError"></span>
+                            <input type="text" th:field="*{lieu_edition}" id="lieu_edition" class="form-control" placeholder="Lieu d'édition du livre" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="studentError"></span>
+                            <input type="text" th:field="*{annee_edition}" id="date_edition" class="form-control" placeholder="Date d'édition du livre" />
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="form-group">
+                            <span class='error' id="priceError"></span>
+                            <input type="text" name="price" id="price" class="form-control" placeholder="Prix du livre" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group ">
+                            <span class='error' id="descriptionError"></span>
+                            <textarea class="form-control" id="description" rows="5" style="height: 100px" type="text" th:field="*{description}"  placeholder="Description " ></textarea>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="form-group">
+                            <span class='error' id="linkError"></span>
+                            <input type="url" th:field="*{link}" id="link" class="form-control" placeholder="Lien de telechargement du livre" />
+                        </div>
+                    </div>
+                    <div class="img-upload-div">
+                        <div class="custom-file mb-3">
+                            <p class="mt-2 mb-2">Photo de couverture:</p>
+                            <input type="file"  class="form-control-file border" id="customFile" name="file">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- addCrew-->
+
 </section>
-<!--addCrew-->
-<a th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ADMIN_MASTER'} or ${session.roles[0].role == 'ROOT_MASTER'}"   th:href="@{/groupe/livre/publier/}+${bibliography.bibliographyId}" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" >
-   <span th:if="${bibliography.disponibility}==true">Désactiver?</span>
-   <span th:unless="${bibliography.disponibility}==true">Activer?</span>
-</a>
-
-
 
 <section class="ftco-section-parallax">
     <div class="parallax-img d-flex align-items-center">
@@ -234,8 +234,7 @@
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-
-<!--script-->
+<script th:src="@{/js/dataTablesResponsive.js}"></script>
 <script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
@@ -253,10 +252,6 @@
 <script th:src="@{/js/google-map.js}"></script>
 <script th:src="@{/js/main1.js}"></script>
 <script th:src="@{/js/crew.js}"></script>
-<!-- All Plugins js -->
-<script th:src="@{/js/plugins/plugins.js}"></script>
-<!-- Active js -->
-<script th:src="@{/js/active.js}"></script>
 <script type="text/javascript">
     $("#hide1").css("display","none");
     $("#hide2").css("display","none");
@@ -285,12 +280,7 @@
             function(){
                 $("#hide1").css("display","none");
                 $("#hide2").css("display","none");},
-            function(){}),
-            $("#ender5").hover(
-                    function(){
-                        $("#hide1").css("display","none");
-                        $("#hide2").css("display","none");},
-                    function(){})
+            function(){})
 </script>
 </body>
 </html>

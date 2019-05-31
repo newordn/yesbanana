@@ -14,6 +14,7 @@ import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -383,11 +384,26 @@ public class GroupeController {
         return "livres/livres";
     }
 
+    @GetMapping("/livres")
+    public String all_livres(Model model){
+        List<Bibliography> bibliographies= bibliographyRepository.findAll(Sort.by(Sort.Direction.DESC,"bibliographyId"));
+        model.addAttribute("bibliographies", bibliographies);
+        model.addAttribute("bibliography", new Bibliography());
+        return "livres/all/livres";
+    }
+
     @GetMapping("/livres/livre/{bibliographyId}")
     public String show_livre(@PathVariable Long bibliographyId, Model model){
         Bibliography bibliography=bibliographyRepository.getOne(bibliographyId);
         model.addAttribute("bibliography", bibliography);
         return "livres/livre";
+    }
+
+    @GetMapping("/livre/{bibliographyId}")
+    public String view_livre(@PathVariable Long bibliographyId, Model model){
+        Bibliography bibliography=bibliographyRepository.getOne(bibliographyId);
+        model.addAttribute("bibliography", bibliography);
+        return "livres/all/livre";
     }
 
     // for adding a user into one crew
@@ -969,7 +985,7 @@ public class GroupeController {
 
     @GetMapping("/publications/livres")
     public String livre_publier(Model model){
-        List<Post> livres= livreRepository.findAllByTypeAndSuprimeeOrderByPostIdDesc("livre",true);
+        List<Livre> livres= livreRepository.findAllByTypeAndSuprimeeOrderByLivreIdDesc("livre",true);
         model.addAttribute("publications",livres);
         return "publication/publications_livres";
     }
@@ -981,10 +997,10 @@ public class GroupeController {
         return "publication/publications_syllabus";
     }
 
-    @GetMapping("/publications/livre/detail/{postId}")
-    public String detail_livre(Model model, @PathVariable Long postId,HttpSession session){
-        Post livre=livreRepository.getOne(postId);
-        session.setAttribute("postId",livre.getPostId());
+    @GetMapping("/publications/livre/detail/{livreId}")
+    public String detail_livre(Model model, @PathVariable Long livreId,HttpSession session){
+        Livre livre=livreRepository.getOne(livreId);
+        session.setAttribute("livreId",livre.getLivreId());
         model.addAttribute("bibliography", new Bibliography());
         model.addAttribute("livre",livre);
         return "publication/livre";
@@ -998,11 +1014,11 @@ public class GroupeController {
         return "publication/syllabus";
     }
 
-    @GetMapping("/publication/delete/{postId}")
-    public String delete_bibliography(@PathVariable Long postId, HttpSession session){
-        Post post=postRepository.getOne(postId);
-        post.setSuprimee(false);
-        postRepository.save(post);
+    @GetMapping("/publication/delete/{livreId}")
+    public String delete_bibliography(@PathVariable Long livreId, HttpSession session){
+        Livre livre=livreRepository.getOne(livreId);
+        livre.setSuprimee(false);
+        livreRepository.save(livre);
         return "redirect:/groupe/publications/livres";
     }
 
@@ -1052,7 +1068,30 @@ public class GroupeController {
             bibliography.setCouverture(fileName);
             bibliographyRepository.save(bibliography);
         }
-        return "redirect:/groupe/publications/livre/detail/"+ (Long)session.getAttribute("postId");
+        return "redirect:/groupe/publications/livre/detail/"+ (Long)session.getAttribute("livreId");
+    }
+
+    @PostMapping("/livre/save")
+    public String save_book(Bibliography bibliography, String price, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        String fileName = fileUploadService.storeFile(file);
+        Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
+        if (bibliography1 != null){
+            errors.rejectValue("title","bibliography.error","il existe deja une reference avec ce titre");
+        }
+        if (errors.hasErrors()){
+            model.addAttribute("error","il existe deja une reference avec ce titre");
+            return "publication/livre";
+        }else {
+            bibliography.setCouverture("/downloadFile/"+fileName);
+            bibliography.setPrice(Double.parseDouble(price));
+            bibliography.setPagePrice(0.0);
+            bibliography.setDisponibility(false);
+            bibliography.setCouverture(fileName);
+            bibliographyRepository.save(bibliography);
+        }
+        return "redirect:/groupe/livres";
     }
 
 

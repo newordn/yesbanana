@@ -60,7 +60,7 @@
 
 						<div class="product_grid">
 							<div class="product_grid_border"></div><br><br>                            
-                        <form action="#" id="contact_form" class="p-2" th:action="@{/visitor/livre/save}" method="post" th:object="${post}" enctype="multipart/form-data">
+                        <form action="#" id="contact_form" class="p-2" th:action="@{/visitor/livre/save}" method="post" th:object="${livre}" enctype="multipart/form-data">
 							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
 								<input type="text" id="contact_form_name" name="publisherName" class="contact_form_name input_field" placeholder="Votre nom" required="required" data-error="Name is required.">
 								<input type="text" id="contact_form_email" class="contact_form_email input_field" placeholder="Votre adresse email" name="publisherEmail" required="required" data-error="Email is required.">

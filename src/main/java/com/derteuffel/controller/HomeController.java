@@ -407,7 +407,7 @@ public class HomeController {
     @GetMapping("/visitor/publish/book/form")
     public String bookForm(Model model){
         Livre livre=new Livre();
-        model.addAttribute("post",livre);
+        model.addAttribute("livre",livre);
         return "visitor/book";
     }
 
@@ -443,7 +443,7 @@ public class HomeController {
                // "derteuffel0@gmail.com",
                 "YesBanana: Notification d'une publication d'un livre",
                 "cette publication est encore en suspend veuillez bien vous connecter pour lui attribuer un status "+
-        " veiller cliquer sur le lien pour etre rediriger vers la page "+"http:localhost:8080/school/detail/"+post.getPostId());
+        " veiller cliquer sur le lien pour etre rediriger vers la page "+"http:localhost:8080/school/detail/"+post.getLivreId());
         return "redirect:/about";
     }
 

@@ -89,12 +89,12 @@
                         <td th:if="${publication.status}== true"><span>Publier</span></td>
                         <td th:unless="${publication.status}== true"><span>Pending</span></td>
                         <td>
-                            <a th:href="@{/groupe/publications/livre/detail/}+${publication.postId}"  class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
-                            <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${publication.postId}"  class="btn" >Supprimer
+                            <a th:href="@{/groupe/publications/livre/detail/}+${publication.livreId}"  class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+                            <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${publication.livreId}"  class="btn" >Supprimer
                                 <i class="zmdi zmdi-close" ></i>
                             </a>
                         </td>
-                        <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${publication.postId}" >
+                        <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${publication.livreId}" >
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header text-center alert-info">
@@ -105,7 +105,7 @@
                                     </div>
                                     <div class="modal-footer text-center">
                                         <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
-                                        <a  class="btn btn-success"  th:href="@{/groupe/publication/delete/} + ${publication.postId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                                        <a  class="btn btn-success"  th:href="@{/groupe/publication/delete/} + ${publication.livreId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
                                     </div>
                                 </div>
                             </div>
