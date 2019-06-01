@@ -118,9 +118,13 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user")
     @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<These> theses;
+    @OneToMany(mappedBy = "user")
+    @OnDelete(action= OnDeleteAction.NO_ACTION)
+    private List<Bibliography> bibliographies;
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
 
     public List<Panier> getPaniers() {
         return paniers;
@@ -133,6 +137,10 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user")
     @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<Panier> paniers;
+
+    @OneToMany(mappedBy = "user")
+    @OnDelete(action= OnDeleteAction.NO_ACTION)
+    private List<Rapport> rapports;
 
     @ManyToMany
     @JoinTable(name = "user_groupe", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "groupe_id"))
@@ -233,6 +241,22 @@ public class User implements Serializable{
         this.theses = theses;
         this.roles = roles;
         this.groupes = groupes;
+    }
+
+    public List<Bibliography> getBibliographies() {
+        return bibliographies;
+    }
+
+    public void setBibliographies(List<Bibliography> bibliographies) {
+        this.bibliographies = bibliographies;
+    }
+
+    public List<Rapport> getRapports() {
+        return rapports;
+    }
+
+    public void setRapports(List<Rapport> rapports) {
+        this.rapports = rapports;
     }
 
     public Boolean getStatus() {

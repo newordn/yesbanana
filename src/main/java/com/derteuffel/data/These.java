@@ -1,6 +1,8 @@
 package com.derteuffel.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -55,8 +57,10 @@ public class These implements Serializable{
     private String country;
     private String fileType;
     @OneToMany(mappedBy = "these")
+    @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<Bibliography> bibliographies;
 @OneToMany(mappedBy = "these")
+@OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<Bibliotheque> bibliotheques;
 
 

@@ -78,6 +78,8 @@ public class GroupeController {
             private PostRepository postRepository;
     @Autowired
     private SyllabusRepository syllabusRepository;
+    @Autowired
+    private RapportRepository rapportRepository;
 
     List<String> countries= Arrays.asList(
             "Afghanistan",
@@ -386,10 +388,64 @@ public class GroupeController {
 
     @GetMapping("/livres")
     public String all_livres(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
         List<Bibliography> bibliographies= bibliographyRepository.findAll(Sort.by(Sort.Direction.DESC,"bibliographyId"));
-        model.addAttribute("bibliographies", bibliographies);
+        List<Bibliography> bibliographies1= bibliographyRepository.findAllByUser(user.getUserId());
+        Role role1=roleRepository.findByRole("LIVRE");
+        if (user.getRoles().contains(role1)){
+            model.addAttribute("bibliographies", bibliographies1);
+
+        }else{
+            model.addAttribute("bibliographies", bibliographies);
+
+        }
         model.addAttribute("bibliography", new Bibliography());
         return "livres/all/livres";
+    }
+    @GetMapping("/rapports/{groupeId}")
+    public String get_rapports(@PathVariable Long groupeId, HttpSession session, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        session.setAttribute("roles", roleRepository.findByUsers_UserId(user.getUserId()));
+        Groupe groupe = groupeRepository.getOne(groupeId);
+        model.addAttribute("roles",roleRepository.findByUsers_UserId(user.getUserId()));
+        session.setAttribute("groupeId", groupeId);
+        model.addAttribute("groupe",groupe);
+        model.addAttribute("user",user);
+        session.setAttribute("groupeCountry",groupe.getGroupeCountry());
+        session.setAttribute("groupeRegion",groupe.getGroupeRegion());
+        model.addAttribute("rapport",new Rapport());
+
+        Collection<Role> roles= roleRepository.findByUsers_UserId(user.getUserId());
+        List<Rapport> rapports= rapportRepository.findAll();
+        List<Rapport> allRapports= new ArrayList<>();
+        int p=0;
+
+        for (Role role : roles){
+            if (!role.getRole().equals("ROOT") || !role.getRole().equals("ROOT_MASTER")){
+                p=1;
+            }else {
+                p=2;
+            }
+        }
+        if (p==1){
+
+            List<Rapport> rapportGroupe =rapportRepository.findByGroupe(groupe.getGroupeId());
+            List<Rapport> rapportUser=rapportRepository.findByUser(user.getUserId());
+            for (Rapport rapport : rapportGroupe){
+                for (int i=0; i<rapportUser.size();i++){
+                    if (rapport.getRapportId().equals(rapportUser.get(i).getRapportId())){
+                        allRapports.add(rapport);
+                    }
+                }
+            }
+            model.addAttribute("rapports", allRapports);
+        }else {
+            model.addAttribute("rapports",rapports);
+        }
+
+        return "crew/rapports";
     }
 
     @GetMapping("/livres/livre/{bibliographyId}")
@@ -687,6 +743,28 @@ public class GroupeController {
         return "redirect:/groupe/groupe/"+ (Long)session.getAttribute("groupeId");
     }
 
+    @GetMapping("/delete/rapport/{rapportId}")
+    public String deleteRapport(@PathVariable Long rapportId, HttpSession session){
+
+        Rapport rapport=rapportRepository.getOne(rapportId);
+        rapport.setSupprime(false);
+        rapportRepository.save(rapport);
+        return "redirect:/groupe/rapports/"+ (Long)session.getAttribute("groupeId");
+    }
+
+    @GetMapping("//rapport/active/{rapportId}")
+    public String activeRapport(@PathVariable Long rapportId, HttpSession session){
+
+        Rapport rapport=rapportRepository.getOne(rapportId);
+        if (rapport.getStatus()==true){
+            rapport.setStatus(false);
+        }else {
+            rapport.setStatus(true);
+        }
+        rapportRepository.save(rapport);
+        return "redirect:/groupe/rapports/"+ (Long)session.getAttribute("groupeId");
+    }
+
     @DeleteMapping("/delete/{groupeId}")
     public String deleteById(@PathVariable Long groupeId) {
         Groupe groupe= groupeRepository.getOne(groupeId);
@@ -697,15 +775,74 @@ public class GroupeController {
 
     @GetMapping("/groupe/these/general/edit/{theseId}/{groupeId}")
     public String getGeneral(Model model, @PathVariable Long theseId,@PathVariable Long groupeId, HttpSession session) {
-        Optional<These> optional = theseRepository.findById(theseId);
-        session.setAttribute("userId", optional.get().getUser().getUserId());
+        These these=theseRepository.getOne(theseId);
+        session.setAttribute("userId", these.getUser().getUserId());
         Groupe groupe= groupeRepository.getOne(groupeId);
-        session.setAttribute("resumes", optional.get().getResumes());
-        session.setAttribute("anotherSommaire", optional.get().getAnotherSommaire());
+        session.setAttribute("resumes", these.getResumes());
+        session.setAttribute("anotherSommaire", these.getAnotherSommaire());
         model.addAttribute("groupe", groupe);
         model.addAttribute("countries", countries);
-        model.addAttribute("these1", optional.get());
+        model.addAttribute("these1", these);
         return "crew/general";
+    }
+
+    @GetMapping("/rapport/edit/{rapportId}/{groupeId}")
+    public String getGeneral_edit_rapport(Model model, @PathVariable Long rapportId,@PathVariable Long groupeId, HttpSession session) {
+        Rapport rapport=rapportRepository.getOne(rapportId);
+        User user= userRepository.getOne(rapport.getUser().getUserId());
+        Groupe groupe= groupeRepository.getOne(groupeId);
+        model.addAttribute("groupe", groupe);
+        model.addAttribute("user",user);
+        model.addAttribute("rapport", rapport);
+        session.setAttribute("supprime",rapport.getSupprime());
+        session.setAttribute("status",rapport.getStatus());
+        return "crew/general_rapport";
+    }
+
+    @PostMapping("/rapport/edit")
+    public String save_edit_rapport(Rapport rapport, HttpSession session,Long groupeId,Long userId, @RequestParam("files") MultipartFile[] files){
+        List<FileUploadRespone> pieces= Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        ArrayList<String> filesPaths = new ArrayList<String>();
+        for(int i=0;i<pieces.size();i++)
+        {
+            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        }
+        if (filesPaths.isEmpty()){
+            rapport.setPieces(rapport.getPieces());
+        }else {
+            rapport.setPieces(filesPaths);
+        }
+        rapport.setSupprime((Boolean) session.getAttribute("supprime"));
+        rapport.setStatus((Boolean) session.getAttribute("status"));
+        rapport.setGroupe(groupeRepository.getOne(groupeId));
+        rapport.setUser(userRepository.getOne(userId));
+        rapport.setCreated_date(new java.util.Date());
+        rapportRepository.save(rapport);
+        return "redirect:/groupe/rapports/"+groupeId;
+    }
+
+    @PostMapping("/rapport/save")
+    public String save__rapport(Rapport rapport,Long groupeId,Long userId, @RequestParam("files") MultipartFile[] files){
+        List<FileUploadRespone> pieces= Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        ArrayList<String> filesPaths = new ArrayList<String>();
+        for(int i=0;i<pieces.size();i++)
+        {
+            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        }
+        rapport.setPieces(filesPaths);
+        rapport.setSupprime(false);
+        rapport.setStatus(false);
+        rapport.setGroupe(groupeRepository.getOne(groupeId));
+        rapport.setUser(userRepository.getOne(userId));
+        rapport.setCreated_date(new java.util.Date());
+        rapportRepository.save(rapport);
+        return "redirect:/groupe/rapports/"+groupeId;
     }
 
     @PostMapping("/groupe/these/general/edit")
@@ -1052,6 +1189,8 @@ public class GroupeController {
 
     @PostMapping("/bibliography/save")
     public String save(Bibliography bibliography, String price, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
         String fileName = fileUploadService.storeFile(file);
         Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
         if (bibliography1 != null){
@@ -1066,6 +1205,7 @@ public class GroupeController {
             bibliography.setPagePrice(0.0);
             bibliography.setDisponibility(false);
             bibliography.setCouverture(fileName);
+            bibliography.setUser(user);
             bibliographyRepository.save(bibliography);
         }
         return "redirect:/groupe/publications/livre/detail/"+ (Long)session.getAttribute("livreId");
@@ -1089,6 +1229,7 @@ public class GroupeController {
             bibliography.setPagePrice(0.0);
             bibliography.setDisponibility(false);
             bibliography.setCouverture(fileName);
+            bibliography.setUser(user);
             bibliographyRepository.save(bibliography);
         }
         return "redirect:/groupe/livres";

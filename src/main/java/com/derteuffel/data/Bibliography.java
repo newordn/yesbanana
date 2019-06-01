@@ -26,8 +26,10 @@ public class Bibliography implements Serializable{
     private String lieu_edition;
     private String annee_edition;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private These these;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     public Bibliography() {
     }
@@ -47,6 +49,14 @@ public class Bibliography implements Serializable{
         this.editeur=editeur;
         this.lieu_edition=lieu_edition;
         this.these = these;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getMotCle() {

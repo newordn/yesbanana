@@ -2,19 +2,19 @@
 
     <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-            <li th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'ADMIN_MASTER'}" class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
+            <li  class="nav-item active dropdown"><a href="#" class="nav-link ">Collectes</a>
                 <ul class="dropdown-menu">
-                    <li class="dropdown-item" >
+                    <li class="dropdown-item" th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'ADMIN_MASTER'}">
                         <a th:href="@{/groupe/groupes}" class="black nav-link" >Regions</a>
                     </li>
-                    <li class="dropdown-item" >
-                        <a th:href="@{/these/all}" class="black nav-link" >Theses Générales</a>
+                    <li class="dropdown-item" th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'ADMIN_MASTER'}">
+                        <a th:href="@{/these/all}" class="black nav-link"  >Theses Générales</a>
                     </li>
-                    <li class="dropdown-item" >
+                    <li class="dropdown-item" th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'ADMIN_MASTER'}">
                         <a th:href="@{/groupe/faculties}" class="black nav-link" >Livres</a>
                     </li>
-                    <li class="dropdown-item" >
-                        <a th:href="@{/groupe/livres}" class="black nav-link" >Voir et ajouter des livres</a>
+                    <li class="dropdown-item" th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'LIVRE'}" >
+                        <a th:href="@{/groupe/livres}" class="black nav-link" >Consulter et ajouter des livres</a>
                     </li>
                 </ul>
             </li>
