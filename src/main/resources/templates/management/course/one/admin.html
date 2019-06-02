@@ -87,7 +87,7 @@
                         class="page-link"
                         th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=1)}">«</a>
                 </li>
-                <li th:class="${lists.number == 0} ? disabled" class="page-item" ><a
+                <li th:class="${courses.number == 0} ? disabled" class="page-item" ><a
                         class="page-link"
                         th:href="@{/management/course/admin(pageSize=${selectedPageSize}, page=${courses.number})}">←</a>
                 </li>
@@ -112,11 +112,7 @@
         </div>
     </div>
     </div>
-    <a th:if="${session.roles[0].role == 'ROOT'}" class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/course/form}">
-        <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
-    <a th:if="${session.roles[0].role == 'ROOT_MASTER'}" class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/course/form}">
-        <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
-    <a th:if="${session.roles[0].role == 'ADMIN_MASTER'}" class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/course/form}">
+    <a th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'ADMIN_MASTER'} " class="btn  btn-primary rounded-circle pull-right mt-3" th:href="@{/management/course/form}">
         <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
 </section>
 </div>

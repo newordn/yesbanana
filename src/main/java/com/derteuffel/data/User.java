@@ -69,6 +69,8 @@ public class User implements Serializable{
     private  String diplom;
     @Column
     private String expertDomain;
+    @Column
+    private Boolean par_mobile;
 
     //work validity period
     @Column
@@ -155,9 +157,10 @@ public class User implements Serializable{
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod,
                 String dayWorkBeginning, String dayWorkEnd, String studentNumber, Boolean numberOfWorkers,
                 String anotherDetail, String classe, String experienceYear, String cv, List<These> theses,
-                Boolean status, Set<Role> roles, List<Groupe> groupes, Boolean autorization, String amount) {
+                Boolean status, Set<Role> roles, List<Groupe> groupes, Boolean autorization, String amount, Boolean par_mobile) {
         this.name = name;
         this.email = email;
+        this.par_mobile=par_mobile;
         this.experienceYear= experienceYear;
         this.autorization=autorization;
         this.password = password;
@@ -191,7 +194,7 @@ public class User implements Serializable{
     public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email,
                 @Length(min = 6) String password, @NotNull String country, @NotNull @Size(min = 3) String region,
                 @Size(min = 2) String university, @Size(min = 3) String faculty, @NotNull String number, String img,
-                Date createdDate, Boolean active, Boolean autorization) {
+                Date createdDate, Boolean active, Boolean autorization, Boolean par_mobile) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -200,6 +203,7 @@ public class User implements Serializable{
         this.university = university;
         this.faculty = faculty;
         this.number = number;
+        this.par_mobile=par_mobile;
         this.img = img;
         this.createdDate = createdDate;
         this.active = active;
@@ -211,9 +215,10 @@ public class User implements Serializable{
                 @Size(min = 3) String faculty, @NotNull String number, String img, Date createdDate, Boolean active,
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod, String dayWorkBeginning,
                 String dayWorkEnd, String studentNumber, Boolean numberOfWorkers, String numberInGroupe, String anotherDetail, String cv,
-                List<These> theses,String classe, String experienceYear, Set<Role> roles, List<Groupe> groupes, Boolean autorization) {
+                List<These> theses,Boolean par_mobile, String classe, String experienceYear, Set<Role> roles, List<Groupe> groupes, Boolean autorization) {
         this.name = name;
         this.autorization=autorization;
+        this.par_mobile=par_mobile;
         this.experienceYear=experienceYear;
         this.email = email;
         this.classe=classe;
@@ -241,6 +246,15 @@ public class User implements Serializable{
         this.theses = theses;
         this.roles = roles;
         this.groupes = groupes;
+    }
+
+
+    public Boolean getPar_mobile() {
+        return par_mobile;
+    }
+
+    public void setPar_mobile(Boolean par_mobile) {
+        this.par_mobile = par_mobile;
     }
 
     public List<Bibliography> getBibliographies() {

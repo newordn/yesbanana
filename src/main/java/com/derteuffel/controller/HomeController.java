@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -410,6 +411,8 @@ public class HomeController {
         model.addAttribute("livre",livre);
         return "visitor/book";
     }
+
+
 
     @GetMapping("/visitor/publish/sylabus/form")
     public String sylabusForm(Model model){

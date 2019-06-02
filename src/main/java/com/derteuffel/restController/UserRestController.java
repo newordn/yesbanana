@@ -3,6 +3,9 @@ package com.derteuffel.restController;
 import com.derteuffel.data.User;
 import com.derteuffel.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,10 +17,13 @@ import java.util.List;
  * Created by derteuffel on 07/01/2019.
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:8008")
 public class UserRestController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/users")
     public Collection<User> list(){
@@ -26,6 +32,19 @@ public class UserRestController {
 
     //users visitor management function
 
+    @GetMapping(value = "/mobile/login",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean restLogin(String login, String password){
+
+        String mot_passe = bCryptPasswordEncoder.encode(password);
+
+        User user= userRepository.findByName(login);
+        if (login==user.getName() && mot_passe==user.getPassword()){
+            user.setPar_mobile(true);
+            return true;
+        }else {
+            return false;
+        }
+    }
     @GetMapping("/chiefs")
     public List<User> chiefs() {
         List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
