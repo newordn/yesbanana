@@ -36,7 +36,7 @@ public class UserRestController {
         Map map = new HashMap<String,String>();
         if(login==null || password == null || login.isEmpty() || password.isEmpty())
         {
-            map.put("status", "true");
+            map.put("status", "false");
             return map;
         }
         String mot_passe = bCryptPasswordEncoder.encode(password);
