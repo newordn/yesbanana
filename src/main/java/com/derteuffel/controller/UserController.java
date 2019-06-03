@@ -288,6 +288,9 @@ public class UserController {
         return "user/users";
     }
 
+
+
+
     @GetMapping("/detail/{userId}")
     public String user(Model model, @PathVariable Long userId, HttpSession session){
 

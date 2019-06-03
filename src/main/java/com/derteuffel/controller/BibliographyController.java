@@ -2,11 +2,15 @@ package com.derteuffel.controller;
 
 import com.derteuffel.data.Bibliography;
 import com.derteuffel.data.Groupe;
+import com.derteuffel.data.User;
 import com.derteuffel.repository.BibliographyRepository;
 import com.derteuffel.repository.GroupeRepository;
 import com.derteuffel.repository.TheseRepository;
+import com.derteuffel.service.UserService;
 import org.hibernate.annotations.GeneratorType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -31,9 +35,11 @@ public class BibliographyController {
     private GroupeRepository groupeRepository;
     @Autowired
     private FileUploadService fileUploadService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/edit/{bibliographyId}")
-    public String edit(Model model, @PathVariable Long bibliographyId, HttpSession session, @RequestParam("file") MultipartFile file){
+    public String edit(Model model, @PathVariable Long bibliographyId, HttpSession session){
 
 
         Groupe groupe= groupeRepository.getOne((Long)session.getAttribute("groupeId"));
@@ -45,8 +51,9 @@ public class BibliographyController {
 
     @PostMapping("/save")
     public String save(Bibliography bibliography, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file, @RequestParam("file_cover") MultipartFile file_cover){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByName(auth.getName());
         String fileName = fileUploadService.storeFile(file);
-        String fileName1 = fileUploadService.storeFile(file_cover);
     Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
         if (bibliography1 != null){
             errors.rejectValue("title","bibliography.error","il existe deja une reference avec ce titre");
@@ -59,24 +66,34 @@ public class BibliographyController {
             bibliography.setCouverture("/downloadFile/"+fileName);
             bibliography.setPrice(0.0);
             bibliography.setPagePrice(0.0);
+            bibliography.setUser(user);
             bibliography.setDisponibility(false);
-            bibliography.setCouverture("/downloadFile/"+fileName1);
             bibliographyRepository.save(bibliography);
         }
         return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId")+"/"+(Long)session.getAttribute("groupeId");
     }
 
     @PostMapping("/update")
-    public String update(Bibliography bibliography, Long groupeId, HttpSession session, String prix,@RequestParam("file") MultipartFile file){
-        String fileName = fileUploadService.storeFile(file);
-        if (fileName.isEmpty()){
+    public String update(Bibliography bibliography, Long groupeId, Long userId, HttpSession session, String prix,@RequestParam("file") MultipartFile file){
+
+        if (file.isEmpty()){
             bibliography.setCouverture(bibliography.getCouverture());
         }else {
+            String fileName = fileUploadService.storeFile(file);
             bibliography.setCouverture("/downloadFile/"+fileName);
         }
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
         Groupe groupe= groupeRepository.getOne(groupeId);
-        bibliography.setPrice(Double.parseDouble(prix));
+        if (!prix.isEmpty()) {
+            bibliography.setPrice(Double.parseDouble(prix));
+        }else {
+            bibliography.setPrice(0.0);
+        }
+        if (!(userId == null)) {
+            bibliography.setUser(userService.getById(userId));
+        }else {
+            System.out.println("je suis dedans");
+        }
             bibliographyRepository.save(bibliography);
         return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId")+"/"+groupe.getGroupeId();
     }

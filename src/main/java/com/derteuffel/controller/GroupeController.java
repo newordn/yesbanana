@@ -752,7 +752,7 @@ public class GroupeController {
         return "redirect:/groupe/rapports/"+ (Long)session.getAttribute("groupeId");
     }
 
-    @GetMapping("//rapport/active/{rapportId}")
+    @GetMapping("/rapport/active/{rapportId}")
     public String activeRapport(@PathVariable Long rapportId, HttpSession session){
 
         Rapport rapport=rapportRepository.getOne(rapportId);
@@ -794,6 +794,7 @@ public class GroupeController {
         model.addAttribute("groupe", groupe);
         model.addAttribute("user",user);
         model.addAttribute("rapport", rapport);
+        session.setAttribute("pieces",rapport.getPieces());
         session.setAttribute("supprime",rapport.getSupprime());
         session.setAttribute("status",rapport.getStatus());
         return "crew/general_rapport";
@@ -801,6 +802,7 @@ public class GroupeController {
 
     @PostMapping("/rapport/edit")
     public String save_edit_rapport(Rapport rapport, HttpSession session,Long groupeId,Long userId, @RequestParam("files") MultipartFile[] files){
+        System.out.println(rapport.getPieces());
         List<FileUploadRespone> pieces= Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
@@ -810,10 +812,15 @@ public class GroupeController {
         {
             filesPaths.add(pieces.get(i).getFileDownloadUri());
         }
-        if (filesPaths.isEmpty()){
-            rapport.setPieces(rapport.getPieces());
-        }else {
+
+        if (filesPaths.size() != 0){
             rapport.setPieces(filesPaths);
+            System.out.println((ArrayList<String>)session.getAttribute("pieces"));
+        }else {
+            System.out.println("je suis ici");
+
+            rapport.setPieces((ArrayList<String>)session.getAttribute("pieces"));
+
         }
         rapport.setSupprime((Boolean) session.getAttribute("supprime"));
         rapport.setStatus((Boolean) session.getAttribute("status"));
@@ -826,6 +833,8 @@ public class GroupeController {
 
     @PostMapping("/rapport/save")
     public String save__rapport(Rapport rapport,Long groupeId,Long userId, @RequestParam("files") MultipartFile[] files){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
         List<FileUploadRespone> pieces= Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
@@ -836,6 +845,7 @@ public class GroupeController {
             filesPaths.add(pieces.get(i).getFileDownloadUri());
         }
         rapport.setPieces(filesPaths);
+        rapport.setUserName(user.getName());
         rapport.setSupprime(false);
         rapport.setStatus(false);
         rapport.setGroupe(groupeRepository.getOne(groupeId));
@@ -859,31 +869,73 @@ public class GroupeController {
 
     @GetMapping("/encadrement/chef/{groupeId}")
     public String findAllByGroupeAndCategory1(Model model, @PathVariable Long groupeId){
-
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        List<User> users1= userRepository.findAllByCategory("Chef des travaux");
+        List<User> chiefs= new ArrayList<>();
+        for (User user : users){
+            for (int i=0; i<users1.size(); i++){
+                if (user.getUserId().equals(users1.get(i).getUserId())){
+                    chiefs.add(user);
+                }
+            }
+        }
         Groupe groupe= groupeRepository.getOne(groupeId);
         model.addAttribute("groupe", groupe);
+        model.addAttribute("users", chiefs);
         return "crew/user/chiefs";
     }
 
     @GetMapping("/encadrement/assistant/{groupeId}")
     public String findAllByGroupeAndCategory2(Model model, @PathVariable Long groupeId){
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        List<User> users1= userRepository.findAllByCategory("Assistant");
+        List<User> assistants= new ArrayList<>();
+        for (User user : users){
+            for (int i=0; i<users1.size(); i++){
+                if (user.getUserId().equals(users1.get(i).getUserId())){
+                    assistants.add(user);
+                }
+            }
+        }
         Groupe groupe= groupeRepository.getOne(groupeId);
         model.addAttribute("groupe", groupe);
+        model.addAttribute("users", assistants);
       return "crew/user/assistants";
     }
 
     @GetMapping("/encadrement/encadreur/{groupeId}")
     public String findAllByGroupeAndCategory3(Model model, @PathVariable Long groupeId){
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        List<User> users1= userRepository.findAllByCategory("Encadreur");
+        List<User> assistants= new ArrayList<>();
+        for (User user : users){
+            for (int i=0; i<users1.size(); i++){
+                if (user.getUserId().equals(users1.get(i).getUserId())){
+                    assistants.add(user);
+                }
+            }
+        }
         Groupe groupe= groupeRepository.getOne(groupeId);
         model.addAttribute("groupe", groupe);
+        model.addAttribute("users", assistants);
         return "crew/user/encadreurs";
     }
 
     @GetMapping("/encadrement/etudiant/{groupeId}")
     public String findAllByGroupeAndCategory4(Model model, @PathVariable Long groupeId){
-
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        List<User> users1= userRepository.findAllByCategory("Etudiant");
+        List<User> students= new ArrayList<>();
+        for (User user : users){
+            for (int i=0; i<users1.size(); i++){
+                if (user.getUserId().equals(users1.get(i).getUserId())){
+                    students.add(user);
+                }
+            }
+        }
         Groupe groupe= groupeRepository.getOne(groupeId);
         model.addAttribute("groupe", groupe);
+        model.addAttribute("users", students);
         return "crew/user/etudiants";
     }
 
@@ -920,6 +972,17 @@ public class GroupeController {
         session.setAttribute("professor", optional.get().getProfesor());
         session.setAttribute("workChief", optional.get().getWorkChief());
             return "crew/these";
+
+    }
+
+    @GetMapping("/rapport/{rapportId}/{groupeId}")
+    public String get_rapport(Model model, @PathVariable Long rapportId,@PathVariable Long groupeId, HttpSession session){
+
+        Rapport rapport=rapportRepository.getOne(rapportId);
+        model.addAttribute("rapport",rapport);
+        model.addAttribute("groupe",groupeRepository.getOne(groupeId));
+
+        return "crew/rapport";
 
     }
 
@@ -1074,7 +1137,7 @@ public class GroupeController {
         these.setStatus(false);
         these.setStates(true);
         theseRepository.save(these);
-        return "redirect:/groupe/groupe/these/" + theseId+"/"+ groupe.getGroupeId();
+        return "redirect:/groupe/groupe/these/" + these.getTheseId()+"/"+ groupe.getGroupeId();
     }
 
     @GetMapping("/these/unPublish/form/{theseId}/{groupeId}")
@@ -1087,6 +1150,7 @@ public class GroupeController {
         model.addAttribute("these", these);
         session.setAttribute("userId", these.getUser().getUserId());
         session.setAttribute("country", these.getCountry());
+        session.setAttribute("pieces",these.getResumes());
         return "crew/correction";
     }
 
@@ -1099,6 +1163,7 @@ public class GroupeController {
         these.setGroupe(groupeRepository.getOne(groupeId));
         these.setCountry((String) session.getAttribute("country"));
         these.setStates(true);
+        these.setResumes((ArrayList<String>)session.getAttribute("pieces"));
         theseRepository.save(these);
         MailService backMessage = new MailService();
         backMessage.sendSimpleMessage(

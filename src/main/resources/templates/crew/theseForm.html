@@ -111,13 +111,16 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <span class='error' id="countryError"></span>
-                        <input type="text" name="country" id="country" class="form-control" th:value="${session.groupeCountry}" placeholder="Pays" />
+                        <p th:text="${session.groupeCountry}"></p>
+                        <input th:text="${session.groupeCountry}" class="form-control">
+                        <input type="text" name="country" id="country" class="form-control" th:value="${session.groupeCountry}" style="display: none" placeholder="Pays" />
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <span class='error' id="regionError"></span>
-                        <input type="text" name="regions" id="region" class="form-control" th:value="${session.groupeRegion}" placeholder="Région" />
+                        <input th:text="${session.groupeRegion}" class="form-control">
+                        <input type="text" name="regions" id="region" class="form-control"  th:value="${session.groupeRegion}" style="display: none" placeholder="Région" />
                     </div>
                 </div>
             </div>

@@ -17,6 +17,7 @@ public class StudentWork implements Serializable {
     private String studentName;
     private String subject;
     private String date;
+    private Boolean status;
 
     @ManyToOne
     private These these;
@@ -24,10 +25,19 @@ public class StudentWork implements Serializable {
     public StudentWork() {
     }
 
-    public StudentWork(String studentName, String subject, String date) {
+    public StudentWork(String studentName,Boolean status, String subject, String date) {
         this.studentName = studentName;
         this.subject = subject;
+        this.status=status;
         this.date = date;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public These getThese() {
