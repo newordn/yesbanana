@@ -67,8 +67,17 @@
                 <td th:text="${these.userName}"></td>
                 <td th:text="${these.occupation}"></td>
                 <td th:text="${these.title}"></td>
-                <td th:text="${these.created_date}"></td>
-                <td th:text="${these.release_date}"></td>
+                <td th:text="${these.description}"></td>
+                <td>
+                    <table>
+                        <tr>
+                            <td th:text="${these.begin_date}"></td>
+                            <td th:text="${these.end_date}"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td th:text="${these.recommandation}"></td>
+                <td th:text="${these.lieu}"></td>
                 <td th:if="${these.status} ==true" >
                     <span>Réaliser</span>
                     <a th:href="@{/groupe/rapport/active/}+${these.rapportId}"><i class="fa fa-check-square-o"></i></a>
@@ -79,7 +88,7 @@
                 </td>
                 <td>
                     <a th:href="@{/groupe/rapport/}+${these.rapportId}+'/'+${groupe.groupeId}" class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
-                    <a th:href="@{/groupe/rapport/edit/}+${these.rapportId}+'/'+${groupe.groupeId}" class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
+                    <!--a th:href="@{/groupe/rapport/edit/}+${these.rapportId}+'/'+${groupe.groupeId}" class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a-->
                     <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${these.rapportId}"  class="btn" >Supprimer
                         <i class="zmdi zmdi-close" ></i>
                     </a>
@@ -119,12 +128,6 @@
                 <!-- user id -->
                 <div class="row p-4">
                     <div class=" mb-4">
-                        <div class="col-12 col-sm-6 col-lg-12">
-                            <div class="form-group">
-                                <span class='error' id="universityError"></span>
-                                <input type="text" name="userName" th:value="${user.name}" class="form-control" id="university" placeholder="Nom" />
-                            </div>
-                        </div>
                         <div class="col-12 col-sm-6 col-lg-12 mt-3">
                             <div class="form-group">
                                 <span class='error' id="facultyError"></span>
@@ -140,13 +143,33 @@
                         <div class="col-12 col-sm-6 col-lg-12">
                             <div class="form-group">
                                 <span class='error' id="levelError"></span>
-                                <textarea th:field="*{resumes}" placeholder="Contenu" cols="30" rows="5"></textarea>
+                                <textarea th:field="*{description}" placeholder="Description" cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                            <div class="form-group">
+                                <span class='error' id="optionError"></span>
+                                <input type="text" th:field="*{recommandation}" class="form-control" id="recommandation" placeholder="Recommandation" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                            <div class="form-group">
+                                <span class='error' id="lieuError"></span>
+                                <input type="text" th:field="*{lieu}" class="form-control" id="lieu" placeholder="Lieu" />
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-lg-12 mt-3">
                             <div class="form-group">
                                 <span class='error' id="subjectError"></span>
-                                <input type="date" class="form-control" th:field="*{release_date}" id="subject" placeholder="Date de réalisation" />
+                                <p>Date de début</p>
+                                <input type="date" class="form-control" th:field="*{begin_date}" id="subject" placeholder="Date de début" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                            <div class="form-group">
+                                <span class='error' id="end_dateError"></span>
+                                <p>Date de fin</p>
+                                <input type="date" class="form-control" th:field="*{end_date}" id="end_date" placeholder="Date de fin" />
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-lg-12 mt-3">

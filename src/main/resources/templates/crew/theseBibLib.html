@@ -369,12 +369,6 @@
                                                 <input type="file"  class="form-control-file border" id="customFile" name="file_cover">
                                             </div>
                                         </div>
-                                        <div class="img-upload-div">
-                                            <div class="custom-file mb-3">
-                                                <p class="mt-2 mb-2">Fichiers du Sommaire:</p>
-                                                <input type="file"  class="form-control-file border" id="customFile" name="file">
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="modal-footer text-center">
                                         <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
@@ -398,7 +392,7 @@
                             </div>
                             <div class="col-md-4 row pull-right">
                                 <div>
-                                    <a  th:href="@{/bibliotheque/edit/}+${bibliotheque.bibliothequeId}">
+                                    <a data-toggle="modal" data-target="#modal-edit" th:attr="data-target='#modal-edit'+${bibliotheque.bibliothequeId}"  th:href="@{/bibliotheque/edit/}+${bibliotheque.bibliothequeId}">
                                         <i class="fa fa-pencil"></i>
                                     </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </div>
@@ -422,6 +416,35 @@
                                 <div class="modal-footer text-center">
                                     <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
                                     <a  class="btn btn-success" th:href="@{/bibliotheque/delete/}+${bibliotheque.bibliothequeId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal card modal-warning alert-warning fade in" th:id="modal-edit+${bibliotheque.bibliothequeId}" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header text-center alert-info">
+                                    <h5 class="modal-title">Modification d'un élément</h5>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/bibliotheque/update}" th:object="${bibliotheque}">
+
+                                        <div class="mb-4">
+                                            <div >
+                                                <!--theseId-->
+                                                <input type="hidden" name="theseId" th:value="${session.theseId}"  >
+                                                <!--theseId-->
+                                                <div class="form-group">
+                                                    <span class='error' id="assistantError"></span>
+                                                    <input type="url" th:field="*{bibliotheques}" id="assistant" class="form-control" placeholder="Renseigner votre lien ici" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer text-center">
+                                            <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
+                                            <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -487,6 +510,13 @@
                                                 <i class="fa fa-trash"></i>
                                             </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
                                         </div>
+                                        <div th:if="${travail.status} == true" >
+                                            <span ><a   th:href="@{/studentWork/active/}+${travail.studentWorkId}" class="btn btn-success rounded-circle"></a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </div>
+                                        <div th:unless="${travail.status} == true" >
+                                            <span><a   th:href="@{/studentWork/active/}+${travail.studentWorkId}" class="btn btn-danger rounded-circle"></a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </div>
+
                                         </div>
                                 </div>
                             </div>

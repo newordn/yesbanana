@@ -40,7 +40,7 @@
                         <input type="hidden" name="userId" th:value="${user.userId}"  >
                         <!--theseId-->
                         <div class=" mb-4">
-                            <div class="col-12 col-sm-6 col-lg-12">
+                            <div class="col-12 col-sm-6 col-lg-12" style="display: none;">
                                 <div class="form-group">
                                     <span class='error' id="universityError"></span>
                                     <input type="text" th:field="*{userName}" class="form-control" id="university" placeholder="Nom" />
@@ -63,20 +63,39 @@
                             <div class="col-12 col-sm-6 col-lg-12">
                                 <div class="form-group">
                                     <span class='error' id="levelError"></span>
-                                    <textarea th:field="*{resumes}" placeholder="Contenu" cols="55" rows="5"></textarea>
+                                    <textarea th:field="*{description}" placeholder="Contenu" cols="55" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                <div class="form-group">
+                                    <span class='error' id="optionError"></span>
+                                    <input type="text" th:field="*{recommandation}" class="form-control" id="recommandation" placeholder="Recommandation" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                <div class="form-group">
+                                    <span class='error' id="lieuError"></span>
+                                    <input type="text" th:field="*{lieu}" class="form-control" id="lieu" placeholder="Lieu" />
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-12 mt-3">
                                 <div class="form-group">
                                     <span class='error' id="subjectError"></span>
-                                    <input type="date" class="form-control" th:field="*{release_date}" id="subject" placeholder="Date de réalisation" />
+                                    <p>Date de début</p>
+                                    <input type="date" class="form-control" th:field="*{begin_date}" id="subject" placeholder="Date de début" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                <div class="form-group">
+                                    <span class='error' id="end_dateError"></span>
+                                    <p>Date de fin</p>
+                                    <input type="date" class="form-control" th:field="*{end_date}" id="end_date" placeholder="Date de fin" />
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-12 mt-3">
                                 <div class="form-group">
                                     <span class='error' id="motCleError"></span>
                                     <p>Pieces:</p>
-                                    <input type="text" class="form-control" th:field="*{pieces}" id="motCle" style="display: none" />
                                     <input type="file" class="form-control-file border" multiple  name="files"  />
                                 </div>
                             </div>

@@ -49,6 +49,18 @@ public class StudentWorkController {
         return "redirect:/groupe/groupe/biblib" +"/"+ (Long)session.getAttribute("theseId")+"/"+(Long)session.getAttribute("groupeId");
     }
 
+    @GetMapping("/active/{studentWorkId}")
+    public String active(@PathVariable Long studentWorkId,HttpSession session){
+        StudentWork studentWork=studentWorkRepository.getOne(studentWorkId);
+        if (studentWork.getStatus() == true){
+            studentWork.setStatus(false);
+        }else {
+            studentWork.setStatus(true);
+        }
+        studentWorkRepository.save(studentWork);
+        return "redirect:/groupe/groupe/biblib" +"/"+ (Long)session.getAttribute("theseId")+"/"+(Long)session.getAttribute("groupeId");
+    }
+
     @PostMapping("/update")
     public String update( StudentWork studentWork, Long groupeId, HttpSession session){
         Groupe groupe=groupeRepository.getOne(groupeId);

@@ -64,6 +64,7 @@
                     <th>Auteur</th>
                     <th>Titre</th>
                     <th>Description</th>
+                    <th>Public?</th>
                     <th class="bg-success">Action</th>
                 </tr>
                 </thead>
@@ -72,6 +73,10 @@
                     <td th:text="${livre.auteur}"></td>
                     <td th:text="${livre.title}"></td>
                     <td th:text="${livre.description}"></td>
+                    <td>
+                        <span th:if="${livre.disponibility}==true">Oui</span>
+                        <span th:unless="${livre.disponibility}==true">Non</span>
+                    </td>
                     <td>
 
                         <a th:href="@{/groupe/livres/livre/} + ${livre.bibliographyId}" >Ouvrir &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -85,17 +85,23 @@
                             </div>
                         </div>
                         <div class=" mb-4">
-                            <div class="col-12 col-sm-6 col-lg-12">
+                            <div class="col-12 col-sm-6 col-lg-12" style="display: none">
                                 <span class='error' id="countryError"></span>
-                                <select th:field="*{country}" style="width: 100%" class="form-control" id="countrySelect">
+                                <select th:field="*{country}" style="width: 100%" class="form-control"  id="countrySelect">
                                     <option value="">Selection pays</option>
                                     <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
                                 </select>
                             </div>
-                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3" style="display: none">
                                 <div class="form-group">
                                     <span class='error' id="regionError"></span>
-                                    <input type="text" th:field="*{regions}" class="form-control" id="region" placeholder="Région" />
+                                    <input type="text" th:field="*{regions}" class="form-control"  id="region" placeholder="Région" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                <div class="form-group ">
+                                    <span class='error' id="profError"></span>
+                                    <input type="text" th:field="*{departement}" class="form-control" id="prof" placeholder="Département" />
                                 </div>
                             </div>
                         </div>

@@ -20,12 +20,17 @@ public class Rapport implements Serializable{
     private String userName;
     private  String occupation;
     private String title;
-    private String resumes;
+    private String description;
+    private String recommandation;
+    private String lieu;
     private ArrayList<String> pieces;
     private Date created_date= new Date();
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date release_date;
+    private Date begin_date;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date end_date;
     private Boolean supprime;
     private Boolean status;
 
@@ -38,32 +43,19 @@ public class Rapport implements Serializable{
     public Rapport() {
     }
 
-    public Rapport(String userName, String occupation, String title, String resumes,
-                   ArrayList<String> pieces, Date created_date, Date release_date, Boolean status, Boolean supprime) {
+    public Rapport(String userName, String occupation, String title, String description, String recommandation, String lieu,
+                   ArrayList<String> pieces, Date created_date, Date begin_date, Date end_date, Boolean supprime, Boolean status) {
         this.userName = userName;
         this.occupation = occupation;
-        this.supprime=supprime;
         this.title = title;
-        this.resumes = resumes;
-        this.status=status;
+        this.description = description;
+        this.recommandation = recommandation;
+        this.lieu = lieu;
         this.pieces = pieces;
         this.created_date = created_date;
-        this.release_date = release_date;
-    }
-
-    public Boolean getSupprime() {
-        return supprime;
-    }
-
-    public void setSupprime(Boolean supprime) {
+        this.begin_date = begin_date;
+        this.end_date = end_date;
         this.supprime = supprime;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
         this.status = status;
     }
 
@@ -99,12 +91,28 @@ public class Rapport implements Serializable{
         this.title = title;
     }
 
-    public String getResumes() {
-        return resumes;
+    public String getDescription() {
+        return description;
     }
 
-    public void setResumes(String resumes) {
-        this.resumes = resumes;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getRecommandation() {
+        return recommandation;
+    }
+
+    public void setRecommandation(String recommandation) {
+        this.recommandation = recommandation;
+    }
+
+    public String getLieu() {
+        return lieu;
+    }
+
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
     }
 
     public ArrayList<String> getPieces() {
@@ -123,12 +131,36 @@ public class Rapport implements Serializable{
         this.created_date = created_date;
     }
 
-    public Date getRelease_date() {
-        return release_date;
+    public Date getBegin_date() {
+        return begin_date;
     }
 
-    public void setRelease_date(Date release_date) {
-        this.release_date = release_date;
+    public void setBegin_date(Date begin_date) {
+        this.begin_date = begin_date;
+    }
+
+    public Date getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(Date end_date) {
+        this.end_date = end_date;
+    }
+
+    public Boolean getSupprime() {
+        return supprime;
+    }
+
+    public void setSupprime(Boolean supprime) {
+        this.supprime = supprime;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public User getUser() {
