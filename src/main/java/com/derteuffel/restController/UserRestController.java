@@ -7,17 +7,15 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by derteuffel on 07/01/2019.
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:8008")
 public class UserRestController {
 
     @Autowired
@@ -32,17 +30,25 @@ public class UserRestController {
 
     //users visitor management function
 
-    @GetMapping(value = "/mobile/login",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean restLogin(String login, String password){
-
+    @PostMapping(value = "/mobile/login",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String,String> restLogin(String login, String password){
+        System.out.println("i got it");
+        Map map = new HashMap<String,String>();
+        if(login==null || password == null || login.isEmpty() || password.isEmpty())
+        {
+            map.put("status", "false");
+            return map;
+        }
         String mot_passe = bCryptPasswordEncoder.encode(password);
 
         User user= userRepository.findByName(login);
         if (login==user.getName() && mot_passe==user.getPassword()){
             user.setPar_mobile(true);
-            return true;
+            map.put("status","true");
+            return map;
         }else {
-            return false;
+            map.put("status","false");
+            return map;
         }
     }
     @GetMapping("/chiefs")
