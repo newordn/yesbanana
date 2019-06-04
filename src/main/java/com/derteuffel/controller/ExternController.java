@@ -90,9 +90,13 @@ public class ExternController {
     public String about_us(){
         return "these_module/encadrement_travaux/chef_travaux";
     }
-    @GetMapping("/enseignants")
+    @GetMapping("/enseignants/primaire")
     public String question(){
-        return "these_module/encadrement_travaux/assistance";
+        return "these_module/encadrement_travaux/primaire";
+    }
+    @GetMapping("/enseignants/secondaire")
+    public String question1(){
+        return "these_module/encadrement_travaux/secondaire";
     }
     @GetMapping("/expert/yesb")
     public String work_with_us(){

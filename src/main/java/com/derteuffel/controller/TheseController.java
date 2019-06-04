@@ -278,6 +278,7 @@ public class    TheseController {
         User user = userService.findByName(auth.getName());
         model.addAttribute("theses",theseRepository.findAll());
         session.setAttribute("userId", user.getUserId());
+        session.setAttribute("roles",user.getRoles());
         session.setAttribute("avatar", user.getImg());
         session.setAttribute("name", user.getName());
         return "these/theses";
@@ -553,6 +554,9 @@ public class    TheseController {
         these.setSubject((String) session.getAttribute("subject"));
         these.setTheseDate((String) session.getAttribute("theseDate"));
         these.setCountry((String) session.getAttribute("country"));
+        these.setDepartement((String) session.getAttribute("departement"));
+        these.setMotCle((String) session.getAttribute("motCle"));
+        these.setStatus((Boolean) session.getAttribute("status"));
         these.setRegions((String) session.getAttribute("regions"));
         these.setAssistant((String) session.getAttribute("assistant"));
         these.setStudent((String) session.getAttribute("student"));
@@ -590,6 +594,9 @@ public class    TheseController {
         these.setTheseDate((String) session.getAttribute("theseDate"));
         these.setCountry((String) session.getAttribute("country"));
         these.setRegions((String) session.getAttribute("regions"));
+        these.setDepartement((String) session.getAttribute("departement"));
+        these.setMotCle((String) session.getAttribute("motCle"));
+        these.setStatus((Boolean) session.getAttribute("status"));
         these.setResumes((ArrayList<String>) session.getAttribute("resumes"));
         these.setStates(true);
         theseRepository.save(these);
@@ -665,24 +672,27 @@ public class    TheseController {
     public String get(Model model, @PathVariable Long theseId, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
-        Optional<These> optional = theseRepository.findById(theseId);
-        model.addAttribute("these1", optional.get());
+        These these= theseRepository.getOne(theseId);
+        model.addAttribute("these1", these);
         model.addAttribute("roles", roleRepository.findByUsers_UserId(user.getUserId()));
-        session.setAttribute("userId", optional.get().getUser().getUserId());
-        session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
-        session.setAttribute("theseId", optional.get().getTheseId());
-        session.setAttribute("university", optional.get().getUniversity());
-        session.setAttribute("faculty", optional.get().getFaculty());
-        session.setAttribute("options", optional.get().getOptions());
-        session.setAttribute("level", optional.get().getLevel());
-        session.setAttribute("subject", optional.get().getSubject());
-        session.setAttribute("theseDate", optional.get().getTheseDate());
-        session.setAttribute("country", optional.get().getCountry());
-        session.setAttribute("regions", optional.get().getRegions());
-        session.setAttribute("assistant", optional.get().getAssistant());
-        session.setAttribute("student", optional.get().getStudent());
-        session.setAttribute("professor", optional.get().getProfesor());
-        session.setAttribute("workChief", optional.get().getWorkChief());
+        session.setAttribute("groupeId", these.getGroupe().getGroupeId());
+        session.setAttribute("theseId", these.getTheseId());
+        session.setAttribute("university", these.getUniversity());
+        session.setAttribute("faculty", these.getFaculty());
+        session.setAttribute("options", these.getOptions());
+        session.setAttribute("level", these.getLevel());
+        session.setAttribute("subject", these.getSubject());
+        session.setAttribute("theseDate", these.getTheseDate());
+        session.setAttribute("country", these.getCountry());
+        session.setAttribute("status", these.getStatus());
+        session.setAttribute("states", these.getStates());
+        session.setAttribute("departement", these.getDepartement());
+        session.setAttribute("motCle", these.getMotCle());
+        session.setAttribute("regions", these.getRegions());
+        session.setAttribute("assistant", these.getAssistant());
+        session.setAttribute("student", these.getStudent());
+        session.setAttribute("professor", these.getProfesor());
+        session.setAttribute("workChief", these.getWorkChief());
         return "these/these";
 
 
@@ -691,7 +701,6 @@ public class    TheseController {
     @GetMapping("/equipe/{theseId}")
     public String getEquipe(Model model, @PathVariable Long theseId, HttpSession session) {
         Optional<These> optional = theseRepository.findById(theseId);
-        session.setAttribute("userId", optional.get().getUser().getUserId());
         session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
         session.setAttribute("university", optional.get().getUniversity());
         session.setAttribute("theseId", optional.get().getTheseId());
@@ -702,6 +711,9 @@ public class    TheseController {
         session.setAttribute("theseDate", optional.get().getTheseDate());
         session.setAttribute("country", optional.get().getCountry());
         session.setAttribute("regions", optional.get().getRegions());
+        session.setAttribute("departement", optional.get().getDepartement());
+        session.setAttribute("status", optional.get().getStatus());
+        session.setAttribute("states", optional.get().getStates());
         session.setAttribute("resumes", optional.get().getResumes());
         session.setAttribute("anotherSommaire", optional.get().getAnotherSommaire());
         model.addAttribute("these1", optional.get());
@@ -737,11 +749,22 @@ public class    TheseController {
         System.out.println("sdfffsfghjdg");
         These these = theseRepository.getOne(theseId);
         session.setAttribute("theseId", these.getTheseId());
+        List<Bibliography> bibliographies=bibliographyRepository.findAllByThese(these.getTheseId());
+        List<Bibliography> bibliographiesDispo= bibliographyRepository.findAllByDisponibility(true);
+        List<Bibliography> bibliographies1=new ArrayList<>();
+        for (Bibliography  bibliography : bibliographies){
+            for (int i=0;i<bibliographiesDispo.size();i++){
+                if (bibliography.getBibliographyId().equals(bibliographiesDispo.get(i).getBibliographyId())){
+                    bibliographies1.add(bibliography);
+                }
+            }
+        }
+        model.addAttribute("disponibles", bibliographies1);
         model.addAttribute("bibliothequess", bibliothequeRepository.findAllByThese(these.getTheseId()));
         model.addAttribute("bibliotheque", new Bibliotheque());
         model.addAttribute("these1", these);
         model.addAttribute("travaux",studentWorkRepository.findByThese(these.getTheseId()));
-        model.addAttribute("bibliographies", bibliographyRepository.findAllByThese(these.getTheseId()));
+        model.addAttribute("bibliographies", bibliographies);
         model.addAttribute("bibliography", new Bibliography());
 
         return "these/theseBibLib";

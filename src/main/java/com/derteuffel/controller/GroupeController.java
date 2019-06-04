@@ -1237,7 +1237,7 @@ public class GroupeController {
 
         return "redirect:/groupe/livres/"+session.getAttribute("facultyId");
     }
-    @GetMapping("/livre/publication/{bibliographyId")
+    @GetMapping("/livre/publication/{bibliographyId}")
     public String livre_publier(@PathVariable Long bibliographyId, HttpSession session){
         Bibliography bibliography=bibliographyRepository.getOne(bibliographyId);
         if (bibliography.getDisponibility()== true){

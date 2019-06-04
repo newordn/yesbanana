@@ -248,15 +248,6 @@ public class User implements Serializable{
         this.groupes = groupes;
     }
 
-
-    public Boolean getPar_mobile() {
-        return par_mobile;
-    }
-
-    public void setPar_mobile(Boolean par_mobile) {
-        this.par_mobile = par_mobile;
-    }
-
     public List<Bibliography> getBibliographies() {
         return bibliographies;
     }
@@ -573,5 +564,13 @@ public class User implements Serializable{
 
     public void setGroupes(List<Groupe> groupes) {
         this.groupes=groupes;
+    }
+
+    public Boolean getPar_mobile() {
+        return par_mobile;
+    }
+
+    public void setPar_mobile(Boolean par_mobile) {
+        this.par_mobile = par_mobile;
     }
 }

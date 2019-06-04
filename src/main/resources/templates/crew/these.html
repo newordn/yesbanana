@@ -144,7 +144,7 @@
                         </div>
                     </div>
                     <br><hr>
-                    <h5><i>Ajouter par:</i> <span th:text="${these1.user.name}"></span>  <i>le  <span th:text="${these1.created_at}"></span></i>    <i>à <span th:text="${these1.university}"></span></i> </h5>
+                    <h5><i>Ajouter par:</i> <span th:text="${these1?.user.name}"></span>  <i>le  <span th:text="${these1.created_at}"></span></i>    <i>à <span th:text="${these1.university}"></span></i> </h5>
                 </div>
                 <div class="modal card modal-warning alert-warning fade in" th:id="modal-edit+${these1.theseId}" >
                     <div class="modal-dialog">

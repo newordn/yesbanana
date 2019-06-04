@@ -39,13 +39,13 @@
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
-									<form action="#" class="header_search_form clearfix">
-										<input type="search" required="required" class="header_search_input" placeholder="Recherche...">
+									<form action="#" class="header_search_form clearfix" style="display: none!important;">
+										<input type="search" required="required" style="display: none!important;" class="header_search_input" placeholder="Recherche...">
 										<div class="custom_dropdown">
 											<div class="custom_dropdown_list">
 												<span class="custom_dropdown_placeholder clc"></span>
 												<ul class="custom_list clc">
-													
+
 												</ul>
 											</div>
 										</div>
@@ -78,15 +78,16 @@
 
 								<ul class="cat_menu">
 									<li class="hassubs">
-										<a href="#">Bibliothèque et Recherche Universitaire<i class="fas fa-chevron-right"></i></a>
+										<a href="#">Bibliothèque<i class="fas fa-chevron-right"></i></a>
 										<ul>
 											<li class="hassubs">
-												<a th:href="@{/visitor/catalogues}">Bibliotheques<i class="fas fa-search"></i></a>
+												<a th:href="@{/visitor/livres}">Bibliotheques<i class="fas fa-search"></i></a>
 											</li>
 											<li class="hassubs"><a th:href="@{/visitor/university/infos}">Bourses<i class="fas fa-university"></i></a></li>
 										</ul>
 									</li>
-									<li><a href="#">Mediathèques<i class="fas fa-chevron-right"></i></a></li>
+									<li><a th:href="@{/visitor/catalogues}">Catalogues<i class="fas fa-chevron-right"></i></a></li>
+									<!--li><a href="#">Mediathèques<i class="fas fa-chevron-right"></i></a></li>
 									<li><a th:href="@{/course/administration}">Création d'entreprise<i class="fas fa-chevron-right"></i></a></li>
 									<li><a href="#">Colonie de vacances<i class="fas fa-chevron-right"></i></a></li>
 									<li><a href="#">Espace école Primaire Carolyn W<i class="fas fa-chevron-right"></i></a></li>
@@ -109,7 +110,7 @@
 												<a th:href="@{#}">Opportunité emploi<i class="fas fa-leanpub"></i></a>
 											</li>
 										</ul>
-									</li>
+									</li-->
 								</ul>
 							</div>
 
@@ -146,12 +147,17 @@
 										</ul>
 									</li>
 									<li class="hassubs">
-										<a href="#">Encadreur, etudiant, élève et entrepreneur<i class="fas fa-chevron-down"></i></a>
+										<a href="#">Accompagnement par ?<i class="fas fa-chevron-down"></i></a>
 										<ul>
 											<li><a th:href="@{/visitor/what_are/encadreur}">Qui est encadreur?<i class="fas fa-chevron-down"></i></a></li>
-											<li><a th:href="@{/visitor/professeurs}">Professeur<i class="fas fa-chevron-down"></i></a></li>
-											<li><a th:href="@{/visitor/chef/travaux}">Chef de travaux<i class="fas fa-chevron-down"></i></a></li>
-											<li><a th:href="@{/visitor/enseignants}">Enseignants<i class="fas fa-chevron-down"></i></a></li>
+											<li><a th:href="@{/visitor/professeurs}">Un Professeur<i class="fas fa-chevron-down"></i></a></li>
+											<li><a th:href="@{/visitor/chef/travaux}">Un Chef de travaux<i class="fas fa-chevron-down"></i></a></li>
+											<li class="hassubs"><a href="#">Enseignants<i class="fas fa-chevron-down"></i></a>
+												<ul>
+													<li><a th:href="@{/visitor/enseignants/primaire}">Ecole primaire<i class="fas fa-chevron-down"></i></a></li>
+													<li><a th:href="@{/visitor/enseignants/secondaire}">Ecole secondaire<i class="fas fa-chevron-down"></i></a></li>
+													</li>
+												</ul>
 											<li><a th:href="@{/visitor/expert/yesb}">Expert YesB<i class="fas fa-chevron-down"></i></a></li>
 										</ul>
 									</li>

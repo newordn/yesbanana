@@ -60,7 +60,7 @@ public class These implements Serializable{
     @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<Bibliography> bibliographies;
 @OneToMany(mappedBy = "these")
-@OnDelete(action= OnDeleteAction.NO_ACTION)
+
     private List<Bibliotheque> bibliotheques;
 
 

@@ -2,7 +2,7 @@
 
     <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-            <li  class="nav-item  dropdown"><a href="#" class="nav-link ">Bibliotèque et recherche universitaire</a>
+            <li  class="nav-item  dropdown"><a href="#" class="nav-link ">Bibliothèque et recherche universitaire</a>
                 <ul class="dropdown-menu">
                     <li class="dropdown-item" th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'ADMIN_MASTER'}">
                         <a th:href="@{/groupe/groupes}" class="black nav-link" >Regions</a>
@@ -15,6 +15,9 @@
                     </li>
                     <li class="dropdown-item" th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'LIVRE'} or ${session.roles[0].role == 'ADMIN_MASTER'}" >
                         <a th:href="@{/groupe/livres}" class="black nav-link" >Consulter et ajouter des livres</a>
+                    </li>
+                    <li class="dropdown-item" th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'LIVRE'} or ${session.roles[0].role == 'ADMIN_MASTER'}" >
+                        <a th:href="@{#}" class="black nav-link" >Bourses</a>
                     </li>
                 </ul>
             </li>
