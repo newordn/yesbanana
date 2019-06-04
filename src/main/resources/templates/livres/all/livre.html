@@ -154,7 +154,7 @@
         </div>
 </section>
 <!--addCrew-->
-<a th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ADMIN_MASTER'} or ${session.roles[0].role == 'ROOT_MASTER'}"   th:href="@{/groupe/livre/publier/}+${bibliography.bibliographyId}" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" >
+<a th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ADMIN_MASTER'} or ${session.roles[0].role == 'ROOT_MASTER'}"   th:href="@{/groupe/livre/publication/}+${bibliography.bibliographyId}" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" >
    <span th:if="${bibliography.disponibility}==true">Désactiver?</span>
    <span th:unless="${bibliography.disponibility}==true">Activer?</span>
 </a>
