@@ -5,10 +5,7 @@ import com.derteuffel.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -31,18 +28,34 @@ public class UserRestController {
     //users visitor management function
 
     @PostMapping(value = "/mobile/login",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String,String> restLogin(String login, String password){
+    public Map<String,String> restLogin( @RequestBody Map<String,String> object){
         System.out.println("i got it");
+        System.out.println(object);
+        System.out.println(object.get("login"));
+        System.out.println(object.get("password"));
         Map map = new HashMap<String,String>();
-        if(login==null || password == null || login.isEmpty() || password.isEmpty())
+        if(object.get("login")==null || object.get("password") == null || object.get("login").isEmpty() || object.get("password").isEmpty())
         {
+            System.out.println("here is ");
             map.put("status", "false");
             return map;
         }
-        String mot_passe = bCryptPasswordEncoder.encode(password);
-
-        User user= userRepository.findByName(login);
-        if (login==user.getName() && mot_passe==user.getPassword()){
+        String mot_passe = object.get("password");
+        System.out.println(mot_passe);
+        User user= userRepository.findByName(object.get("login"));
+        System.out.println(user.getName());
+        System.out.println(user.getPassword());
+       /* if (bCryptPasswordEncoder.matches(mot_passe,user.getPassword())){
+            System.out.println("oui");
+        }else {
+            System.out.println("non");
+        }
+        if (user.getName().equals(object.get("login"))){
+            System.out.println("oui");
+        }else {
+            System.out.println("non");
+        }*/
+        if (user.getName().equals(object.get("login")) && bCryptPasswordEncoder.matches(mot_passe,user.getPassword())){
             user.setPar_mobile(true);
             map.put("status","true");
             return map;
