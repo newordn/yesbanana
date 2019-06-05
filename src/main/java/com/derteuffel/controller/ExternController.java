@@ -1,14 +1,17 @@
 package com.derteuffel.controller;
 
 import com.derteuffel.data.Bibliography;
+import com.derteuffel.data.Bourse;
 import com.derteuffel.data.Syllabus;
 import com.derteuffel.data.These;
 import com.derteuffel.repository.BibliographyRepository;
+import com.derteuffel.repository.BourseRepository;
 import com.derteuffel.repository.SyllabusRepository;
 import com.derteuffel.repository.TheseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +36,8 @@ public class ExternController {
     private BibliographyRepository bibliographyRepository;
     @Autowired
     private SyllabusRepository syllabusRepository;
+    @Autowired
+    private BourseRepository bourseRepository;
 
     @GetMapping("/catalogues")
     public String catalogues(){
@@ -67,9 +72,11 @@ public class ExternController {
     public String magazines(){
         return "these_module/side/magazines";
     }
-    @GetMapping("/university/infos")
-    public String university_search(){
-        return "these_module/side/university_search";
+    @GetMapping("/bourses")
+    public String bourses(Model model){
+        List<Bourse> bourses= bourseRepository.findFirst12ByStatusAndSuprime(true,false, Sort.by(Sort.Direction.DESC,"bourseId"));
+        model.addAttribute("bourses",bourses);
+        return "these_module/side/bourses";
     }
     @GetMapping("/students_work")
     public String students_work(){

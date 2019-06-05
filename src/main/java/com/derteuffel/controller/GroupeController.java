@@ -1369,5 +1369,12 @@ public class GroupeController {
         return "redirect:/groupe/bourses";
     }
 
+    @GetMapping("/bourse/edit/{bourseId}")
+    public String modifier_bourse(@PathVariable Long bourseId, Model model){
+        Bourse bourse=bourseRepository.getOne(bourseId);
+        model.addAttribute("bourse",bourse);
+        return "crew/bourse_edit";
+    }
+
 
 }

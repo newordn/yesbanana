@@ -1,111 +1,104 @@
 
-	
-<div th:fragment="footer" class="mt-auto"  xmlns:th="http://www.w3.org/1999/xhtml">
-	<!-- Newsletter -->
-
-	<div class="newsletter ">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
-						<div class="newsletter_title_container">
-							<div class="newsletter_icon"><img th:src="@{/new/images/send.png}" alt=""></div>
-							<div class="newsletter_title">S'inscrire à notre Newsletters</div>
-							<div class="newsletter_text"><p>...recevez en premier les nouveautés sur YesBanana.</p></div>
-						</div>
-						<div class="newsletter_content clearfix">
-							<form action="#" class="newsletter_form">
-								<input type="email" class="newsletter_input" required="required" placeholder="Entrer votre adresse email">
-								<button class="newsletter_button">Souscrire</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<!-- Footer -->
 
-	<footer class="footer">
-		<div class="container">
-			<div class="row">
-
-				<div class="col-lg-3 footer_col">
-					<div class="footer_column footer_contact">
-						<div class="logo_container">
-							<div class="logo"><a th:href="@{/}">Yesbanana</a></div>
-						</div>
-						<div class="footer_title">Avez vous une question? Appelez nous 24/7</div>
-						<div class="footer_phone">solutioneducationafrique@gmail.com</div>
-						<div class="footer_contact_text">
-							<p>RD Congo, Kinshasa </p>
-						</div>
-						<div class="footer_social">
-							<ul>
-								<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-								<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fab fa-youtube"></i></a></li>
-								<li><a href="#"><i class="fab fa-google"></i></a></li>
-								<li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
-							</ul>
+	<div th:fragment="footer"  xmlns:th="http://www.w3.org/1999/xhtml">
+		<div  class="newsletter ">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
+							<div class="newsletter_title_container">
+								<div class="newsletter_icon"><img th:src="@{/new/images/send.png}" alt=""></div>
+								<div class="newsletter_title">S'inscrire à notre Newsletters</div>
+								<div class="newsletter_text"><p>...recevez en premier les nouveautés sur YesBanana.</p></div>
+							</div>
+							<div class="newsletter_content clearfix">
+								<form action="#" class="newsletter_form">
+									<input type="email" class="newsletter_input" required="required" placeholder="Entrer votre adresse email">
+									<button class="newsletter_button">Souscrire</button>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
-
-				<div class="col-lg-2 offset-lg-2">
-					<div class="footer_column">
-						<div class="footer_title">Liens utiles</div>
-						<ul class="footer_list">
-							<li><a href="#">Nos Services</a></li>
-							<li><a href="#">Autres informations</a></li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="col-lg-2">
-					<div class="footer_column">
-						<p>Votre plateforme digitale qui vous ouvre les portes du savoir dans toute son entiereté et sa rigueur.</p>
-					</div>
-				</div>
-
-				<div class="col-lg-2">
-					<div class="footer_column">
-						<div class="footer_title">Confidentialité</div>
-						<ul class="footer_list">
-							<li><a href="#">A propos</a></li>
-							<li><a href="#">Conditiond'utilisation</a></li>
-						</ul>
-					</div>
-				</div>
-
 			</div>
 		</div>
-	</footer>
+		<footer  class="footer" >
+			<div class="container">
+				<div class="row">
 
-	<!-- Copyright -->
-
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					
-					<div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
-						<div class="copyright_content"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-							Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous droits reservés | Ce modèle est fait avec <i class="fa fa-heart" aria-hidden="true"></i> par <a href="https://solutionafrica.com" target="_blank">Solution Africa</a>
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					<div class="col-lg-3 footer_col">
+						<div class="footer_column footer_contact">
+							<div class="logo_container">
+								<div class="logo"><a th:href="@{/}">Yesbanana</a></div>
+							</div>
+							<div class="footer_title">Avez vous une question? Appelez nous 24/7</div>
+							<div class="footer_phone">solutioneducationafrique@gmail.com</div>
+							<div class="footer_contact_text">
+								<p>RD Congo, Kinshasa </p>
+							</div>
+							<div class="footer_social">
+								<ul>
+									<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+									<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+									<li><a href="#"><i class="fab fa-youtube"></i></a></li>
+									<li><a href="#"><i class="fab fa-google"></i></a></li>
+									<li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+								</ul>
+							</div>
 						</div>
-						<div class="logos ml-sm-auto">
-							<ul class="logos_list">
-								<li><a href="#"><img th:src="@{/new/images/logos_1.png}" alt=""></a></li>
-								<li><a href="#"><img th:src="@{/new/images/logos_2.png}" alt=""></a></li>
-								<li><a href="#"><img th:src="@{/new/images/logos_3.png}" alt=""></a></li>
-								<li><a href="#"><img th:src="@{/new/images/logos_4.png}" alt=""></a></li>
+					</div>
+
+					<div class="col-lg-2 offset-lg-2">
+						<div class="footer_column">
+							<div class="footer_title">Liens utiles</div>
+							<ul class="footer_list">
+								<li><a href="#">Nos Services</a></li>
+								<li><a href="#">Autres informations</a></li>
 							</ul>
+						</div>
+					</div>
+
+					<div class="col-lg-2">
+						<div class="footer_column">
+							<p>Votre plateforme digitale qui vous ouvre les portes du savoir dans toute son entiereté et sa rigueur.</p>
+						</div>
+					</div>
+
+					<div class="col-lg-2">
+						<div class="footer_column">
+							<div class="footer_title">Confidentialité</div>
+							<ul class="footer_list">
+								<li><a href="#">A propos</a></li>
+								<li><a href="#">Conditiond'utilisation</a></li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</footer>
+		<div class="copyright">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+
+						<div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
+							<div class="copyright_content"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous droits reservés | Ce modèle est fait avec <i class="fa fa-heart" aria-hidden="true"></i> par <a href="https://solutionafrica.com" target="_blank">Solution Africa</a>
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							</div>
+							<div class="logos ml-sm-auto">
+								<ul class="logos_list">
+									<li><a href="#"><img th:src="@{/new/images/logos_1.png}" alt=""></a></li>
+									<li><a href="#"><img th:src="@{/new/images/logos_2.png}" alt=""></a></li>
+									<li><a href="#"><img th:src="@{/new/images/logos_3.png}" alt=""></a></li>
+									<li><a href="#"><img th:src="@{/new/images/logos_4.png}" alt=""></a></li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>

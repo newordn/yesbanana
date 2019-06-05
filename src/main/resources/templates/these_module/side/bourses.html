@@ -11,9 +11,9 @@
 <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/slick-1.8.0/slick.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/new/styles/main_styles.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/new/styles/responsive.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
 
 </head>
 
@@ -29,7 +29,7 @@
 		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
 		<div class="home_overlay"></div>
 		<div class="home_content d-flex flex-column align-items-center justify-content-center">
-			<h2 class="home_title">Bibliothèque & Recherche universitaire</h2>
+			<h2 class="home_title">Bourses</h2>
 		</div>
 	</div>
 
@@ -52,21 +52,24 @@
 
 				</div>
 
-				<div class="col-lg-9">
+				<div class="col-lg-9 mb-auto">
 					
 					<!-- Shop Content -->
 
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><span>17</span> éléments trouver</div>
+							<div class="shop_product_count"><span th:text="${#lists.size(bourses)}">17</span> éléments trouver</div>
 							<div class="shop_sorting">Bourses</div>
 						</div>
 
 						<div class="product_grid">
 							<div class="product_grid_border"></div><br><br>
-								<div class="container card border ">
-                            <div class="card-body">
-                                   ici contenu bourses
+								<div class="container card row border pt-3 pb-3" th:each=" bourse : ${bourses}">
+                            <div class="card col-md-4 p-3">
+                                   <div class="card-body">
+									   <p th:text="${bourse.description}"></p>
+									   <a th:href="${bourse.link}" ><span>Visiter le site?</span></a>
+								   </div>
                             </div>
                         </div>
 							
@@ -78,9 +81,7 @@
 			</div>
 		</div>
 	</div>
-
-	
-					</div>
+</div>
 <div th:replace="~{../templates/fragments/footer :: footer}"></div>
 
 <script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>

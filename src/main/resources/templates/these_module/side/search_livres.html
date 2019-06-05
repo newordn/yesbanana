@@ -43,7 +43,7 @@
 
 <body>
 
-<div class="super_container">
+<div class="super_container mb-auto">
 
 	<div th:replace="~{../templates/fragments/header :: header}"></div>
 
@@ -62,11 +62,11 @@
 
 	<div class="shop">
 		<div class="container">
-			<div class="row mb-auto">
+			<div class="row ">
 				<div th:replace="~{../templates/fragments/side_bibliotheque_recherche :: side_bibliotheque_recherche}"></div>
 
 
-				<div class="col-lg-9">
+				<div class="col-lg-9 ">
 					
 					<!-- Shop Content -->
 
@@ -78,7 +78,7 @@
 
 						<div class="product_grid">
 							<div class="product_grid_border"></div><br><br>
-								<table class="table text-center table-hover dt-responsive  table-lg display" id="crews">
+								<table class="table text-left table-hover dt-responsive  table-lg display" id="crews">
                     <thead class="text-white bg-secondary">
                     <tr>
                         <th>Auteur</th>
@@ -110,6 +110,7 @@
 		</div>
 	</div>
 </div>
+<br>
 <div th:replace="~{../templates/fragments/footer :: footer}"></div>
 
 <script th:src="@{/new/styles/bootstrap4/popper.js}"></script>

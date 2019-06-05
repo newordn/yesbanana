@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modification du groupe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/style1.css}" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/css/element.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+
+
+</head>
+<body class="userCrewWrapper">
+
+<div id="content" class="card modal-warning" style="padding-right: 15px;padding-left: 15px" >
+    <!--navigation-->
+    <div th:replace="~{../templates/fragments/navigationeditbourse :: navigationeditbourse}">
+    </div>
+    <!-- navigation -->
+
+    <!-- update crew form -->
+    <h3 class="text-center mt-5">Modifier les informations d'une bourse</h3>
+    <div class="modal-dialog justify-content-center mt-3" >
+        <form  th:object="${bourse}" method="post" th:action="@{/groupe/bourse/edit/{bourseId} (bourseId=${bourse.bourseId})}">
+            <div class=" p-4">
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="nameError"></span>
+                    <input type="text" th:field="*{link}" id="name" class="form-control" placeholder="Lien du site" />
+                </div>
+                <div class="form-group" style="display: none;width: 100%">
+                    <span class='error' id="nameError"></span>
+                    <input type="text" name="status" th:value="${bourse.status}"  class="form-control" placeholder="Lien du site" />
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="regionError"></span>
+                    <textarea type="text" th:field="*{description}" id="region" rows="5" class="form-control" placeholder="Description " ></textarea>
+                </div>
+                <div class="form-group row form-button" style="width: 100%">
+                    <div class="col-6">
+                        <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+</body>
+
+</html>

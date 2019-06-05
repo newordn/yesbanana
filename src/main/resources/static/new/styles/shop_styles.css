@@ -1260,7 +1260,7 @@ select option
 {
 	background: #FFFFFF;
 	padding-top: 80px;
-	padding-bottom: 139px;
+	padding-bottom: 300px;
 }
 .shop_content
 {
@@ -1937,7 +1937,40 @@ select option
 /*********************************
 8. Brands
 *********************************/
+@media screen and(max-width: 767px){
 
+	.newsletter
+	{
+		width: 100%;
+		padding-top: 30px;
+		padding-bottom: 30px;
+
+	}
+	.newsletter_container
+	{
+		width: 100%;
+	}
+	.newsletter_title_container
+	{
+		width: 100%;
+		padding-left: 95px;
+	}
+	.newsletter_unsubscribe_link
+	{
+		float: right;
+		text-align: right;
+		height: 30px;
+	}
+	.newsletter_unsubscribe_link a
+	{
+		font-size: 10px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		line-height: 20px;
+	}
+
+}
 .brands
 {
 	width: 100%;
