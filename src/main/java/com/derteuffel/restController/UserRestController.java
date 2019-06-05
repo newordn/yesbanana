@@ -76,8 +76,6 @@ public class UserRestController {
     public Map<String,String> restLogin( @RequestBody Map<String,String> object){
         System.out.println("i got it");
         System.out.println(object);
-        System.out.println(object.get("login"));
-        System.out.println(object.get("password"));
         Map map = new HashMap<String,String>();
         if(object.get("login")==null || object.get("password") == null || object.get("login").isEmpty() || object.get("password").isEmpty())
         {
@@ -90,16 +88,7 @@ public class UserRestController {
         User user= userRepository.findByName(object.get("login"));
         System.out.println(user.getName());
         System.out.println(user.getPassword());
-       /* if (bCryptPasswordEncoder.matches(mot_passe,user.getPassword())){
-            System.out.println("oui");
-        }else {
-            System.out.println("non");
-        }
-        if (user.getName().equals(object.get("login"))){
-            System.out.println("oui");
-        }else {
-            System.out.println("non");
-        }*/
+
         if (user.getName().equals(object.get("login")) && bCryptPasswordEncoder.matches(mot_passe,user.getPassword())){
             user.setPar_mobile(true);
             map.put("status","true");
