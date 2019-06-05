@@ -35,20 +35,20 @@ public class UserRestController {
 
         User user= userRepository.findByName(object.get("name"));
         if (user!= null){
-            map.put("status","Cet utilisateur existe deja, veuillez changer de name");
+            map.put("status","false");
             return map;
         }
 
         User user1= userRepository.findByEmail(object.get("email"));
         if (user1!= null){
-            map.put("status","Cet utilisateur existe deja, veuillez changer d'adresse email");
+            map.put("status","false");
             return map;
         }
         User user2=new User();
         user2.setName(object.get("name"));
         user2.setEmail(object.get("email"));
         if (!object.get("password").equals(object.get("confirmPassword"))){
-            map.put("status","Mot de passe incoherent, veuillez entrer le meme mot de passe");
+            map.put("status","false");
             return map;
         }else {
             user2.setPassword(bCryptPasswordEncoder.encode(object.get("password")));
@@ -67,7 +67,7 @@ public class UserRestController {
                         user2.getEmail()+ "  Vient de s'inscrire " +
                         "sur la plateforme YesBanana.");
 
-        map.put("status","inscription reussit");
+        map.put("status","true");
         return map;
 
     }
