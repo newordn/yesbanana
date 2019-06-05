@@ -33,9 +33,9 @@ public class UserRestController {
     public Map<String, String> restRegistration(@RequestBody Map<String,String> object){
        Map map=new HashMap<String,String>();
 
-        User user= userRepository.findByName(object.get("login"));
+        User user= userRepository.findByName(object.get("name"));
         if (user!= null){
-            map.put("status","Cet utilisateur existe deja, veuillez changer de login");
+            map.put("status","Cet utilisateur existe deja, veuillez changer de name");
             return map;
         }
 
@@ -45,12 +45,17 @@ public class UserRestController {
             return map;
         }
         User user2=new User();
-        user2.setName(object.get("login"));
+        user2.setName(object.get("name"));
         user2.setEmail(object.get("email"));
-        user2.setPassword(bCryptPasswordEncoder.encode(object.get("password")));
+        if (!object.get("password").equals(object.get("confirmPassword"))){
+            map.put("status","Mot de passe incoherent, veuillez entrer le meme mot de passe");
+            return map;
+        }else {
+            user2.setPassword(bCryptPasswordEncoder.encode(object.get("password")));
+        }
         user2.setCountry(object.get("country"));
         user2.setRegion(object.get("region"));
-        user2.setNumber(object.get("number"));
+        user2.setNumber(object.get("phone"));
         user2.setPar_mobile(false);
         user2.setStatus(true);
         userRepository.save(user2);

@@ -80,6 +80,8 @@ public class GroupeController {
     private SyllabusRepository syllabusRepository;
     @Autowired
     private RapportRepository rapportRepository;
+    @Autowired
+    private BourseRepository bourseRepository;
 
     List<String> countries= Arrays.asList(
             "Afghanistan",
@@ -1313,6 +1315,59 @@ public class GroupeController {
         return "redirect:/groupe/livres";
     }
 
+    // groupe bourses methods
+    @GetMapping("/bourses")
+    public String getBourses(Model model, HttpSession session){
+        List<Bourse> bourses=bourseRepository.findBySuprime(false);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        model.addAttribute("roles",user.getRoles());
+        session.setAttribute("roles",user.getRoles());
+        model.addAttribute("bourse",new Bourse());
+        model.addAttribute("bourses",bourses);
+        return "crew/bourses";
+    }
+
+    @PostMapping("/bourse/save")
+    public String saveBourse(Bourse bourse, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        model.addAttribute("roles",user.getRoles());
+        bourse.setStatus(false);
+        bourse.setSuprime(false);
+        bourseRepository.save(bourse);
+        return "redirect:/groupe/bourses";
+    }
+
+    @GetMapping("/bourse/active/{bourseId}")
+    public String activeBourse(@PathVariable Long bourseId){
+
+        Bourse bourse=bourseRepository.getOne(bourseId);
+        if (bourse.getStatus()== true){
+            bourse.setStatus(false);
+        }else {
+            bourse.setStatus(true);
+        }
+        bourseRepository.save(bourse);
+        return "redirect:/groupe/bourses";
+    }
+
+    @PostMapping("/bourse/edit/{bourseId}")
+    public String editBourse(@PathVariable Long bourseId, String status, Bourse bourse){
+
+        bourse.setStatus(Boolean.parseBoolean(status));
+        bourse.setSuprime(false);
+        bourseRepository.save(bourse);
+        return "redirect:/groupe/bourses";
+    }
+
+    @GetMapping("/bourse/delete/{bourseId}")
+    public String deleteBourse(@PathVariable Long bourseId ){
+        Bourse bourse= bourseRepository.getOne(bourseId);
+        bourse.setSuprime(true);
+        bourseRepository.save(bourse);
+        return "redirect:/groupe/bourses";
+    }
 
 
 }
