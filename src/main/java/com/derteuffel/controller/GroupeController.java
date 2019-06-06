@@ -389,12 +389,14 @@ public class GroupeController {
     }
 
     @GetMapping("/livres")
-    public String all_livres(Model model){
+    public String all_livres(Model model, HttpSession session){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
         List<Bibliography> bibliographies= bibliographyRepository.findAll(Sort.by(Sort.Direction.DESC,"bibliographyId"));
         List<Bibliography> bibliographies1= bibliographyRepository.findAllByUser(user.getUserId());
         Role role1=roleRepository.findByRole("LIVRE");
+        model.addAttribute("roles", user.getRoles());
+        session.setAttribute("roles",user.getRoles());
         if (user.getRoles().contains(role1)){
             model.addAttribute("bibliographies", bibliographies1);
 
@@ -1302,7 +1304,7 @@ public class GroupeController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "publication/livre";
+            return "publication/livres";
         }else {
             bibliography.setCouverture("/downloadFile/"+fileName);
             bibliography.setPrice(Double.parseDouble(price));
@@ -1374,6 +1376,12 @@ public class GroupeController {
         Bourse bourse=bourseRepository.getOne(bourseId);
         model.addAttribute("bourse",bourse);
         return "crew/bourse_edit";
+    }
+
+    // University information
+
+    public String university_info(Model model){
+        return "crew/university/info";
     }
 
 

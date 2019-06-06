@@ -534,6 +534,7 @@ public class UserController {
 
         User user1 = userService.findByEmail(user.getEmail());
         User user2= userService.findByName(user.getName());
+
         model.addAttribute("countries", countries);
         if (user1 != null) {
 
@@ -547,6 +548,7 @@ public class UserController {
             model.addAttribute("error", "Il existe un utilisateur avec le même email ou alors le meme nom d'utilisateur.");
             return "user/inscription";
         } else {
+            user.setPar_mobile(false);
             userService.saveOrUpdate(user);
 
             MailService mailService = new MailService();
@@ -580,6 +582,7 @@ public class UserController {
             FileUploadRespone fileUploadRespone = new FileUploadRespone(fileName, fileDownloadUri);*/
         user.setImg("/downloadFile/" + fileName);
         user.setStatus(true);
+        user.setPar_mobile(false);
         //user.setActive(true);
         User user1 = userService.findByEmail(user.getEmail());
         if (user1 != null) {
@@ -629,6 +632,7 @@ public class UserController {
             user.setCv("/downloadFile/" + fileNameCv);
         }
         user.setStatus(true);
+        user.setPar_mobile(false);
         //user.setActive(true);
 
         User user1 = userService.findByEmail(user.getEmail());
@@ -680,6 +684,7 @@ public class UserController {
         User user = userService.findByName(auth.getName());
         session.setAttribute("avatar", user.getImg());
         session.setAttribute("name", user.getName());
+        session.setAttribute("par_mobile", user.getPar_mobile());
         User user1=userService.getById(user.getUserId());
         model.addAttribute("countries", countries);
         model.addAttribute("user", user1);
@@ -697,7 +702,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-        public String updateUser ( User user, @RequestParam("file") MultipartFile file, @RequestParam("cvFile") MultipartFile cvFile){
+        public String updateUser ( User user, @RequestParam("file") MultipartFile file,HttpSession session, @RequestParam("cvFile") MultipartFile cvFile){
             if(!file.isEmpty()) {
                 String fileName = fileUploadService.storeFile(file);
 
@@ -719,6 +724,7 @@ public class UserController {
         Role role= roleRepository.getOne(addUserRole.getRoleId());
         System.out.println(role.getRole());
 
+        user.setPar_mobile((Boolean)session.getAttribute("par_mobile"));
 
 
         if (user.getPassword().isEmpty()){
