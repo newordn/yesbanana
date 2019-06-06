@@ -41,13 +41,10 @@ public class User implements Serializable{
     private String country;
     @Column
     @NotNull
-    @Size(min = 3)
     private String region;
     @Column
-    @Size(min = 2)
     private String university;
     @Column
-    @Size(min = 3)
     private String faculty;
     @Column
     @NotNull
