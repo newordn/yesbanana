@@ -6,6 +6,7 @@ import com.derteuffel.data.User;
 import com.derteuffel.repository.BibliographyRepository;
 import com.derteuffel.repository.GroupeRepository;
 import com.derteuffel.repository.TheseRepository;
+import com.derteuffel.service.MailService;
 import com.derteuffel.service.UserService;
 import org.hibernate.annotations.GeneratorType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,12 @@ public class BibliographyController {
             bibliography.setDisponibility(false);
             bibliographyRepository.save(bibliography);
         }
+        MailService backMessage = new MailService();
+        backMessage.sendSimpleMessage(
+                "solutioneducationafrique@gmail.com",
+                "Notification de l'ajout d'un livre, Titre : "+ bibliography.getTitle(),
+                user.getName() + " vous notifi celon le contenue suivant :  veuillez bien prendre connaissance du message et apporter des modifications souligner"
+        );
         return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId")+"/"+(Long)session.getAttribute("groupeId");
     }
 
@@ -94,6 +101,13 @@ public class BibliographyController {
         }else {
             System.out.println("je suis dedans");
         }
+
+        MailService backMessage = new MailService();
+        backMessage.sendSimpleMessage(
+                "solutioneducationafrique@gmail.com",
+                "Notification de l'ajout d'un livre, Titre : "+ bibliography.getTitle(),
+                 " notification celon le contenue suivant :  veuillez bien prendre connaissance du message et apporter des modifications souligner"
+        );
             bibliographyRepository.save(bibliography);
         return "redirect:/groupe/groupe/biblib/"+ (Long)session.getAttribute("theseId")+"/"+groupe.getGroupeId();
     }

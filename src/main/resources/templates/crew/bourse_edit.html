@@ -17,45 +17,54 @@
 
 
 </head>
-<body class="userCrewWrapper">
-
-<div id="content" class="card modal-warning" style="padding-right: 15px;padding-left: 15px" >
-    <!--navigation-->
-    <div th:replace="~{../templates/fragments/navigationeditbourse :: navigationeditbourse}">
-    </div>
-    <!-- navigation -->
-
-    <!-- update crew form -->
-    <h3 class="text-center mt-5">Modifier les informations d'une bourse</h3>
-    <div class="modal-dialog justify-content-center mt-3" >
-        <form  th:object="${bourse}" method="post" th:action="@{/groupe/bourse/edit/{bourseId} (bourseId=${bourse.bourseId})}">
-            <div class=" p-4">
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="nameError"></span>
-                    <input type="text" th:field="*{link}" id="name" class="form-control" placeholder="Lien du site" />
-                </div>
-                <div class="form-group" style="display: none;width: 100%">
-                    <span class='error' id="nameError"></span>
-                    <input type="text" name="status" th:value="${bourse.status}"  class="form-control" placeholder="Lien du site" />
-                </div>
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="regionError"></span>
-                    <textarea type="text" th:field="*{description}" id="region" rows="5" class="form-control" placeholder="Description " ></textarea>
-                </div>
-                <div class="form-group row form-button" style="width: 100%">
-                    <div class="col-6">
-                        <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
-                    </div>
-                    <div class="col-6">
-                        <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
-                    </div>
-                </div>
+<body>
+<div class=" card modal-warning alert-warning"  >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center alert-info">
+                <h5 class="modal-title">Modification des elements d'une bourse</h5>
             </div>
+            <div class="modal-body text-center">
+                <h5>Veuillez renseigner le champ a modifier s'il vous plait</h5>
+            </div>
+            <form class=" text-center" style="width:100%;padding:1rem;"  th:object="${bourse}" method="post" th:action="@{/groupe/bourse/edit/{bourseId} (bourseId=${bourse.bourseId})}">
 
-        </form>
+                <div class="mb-4">
+                    <div class="col-12 col-sm-6 col-lg-12">
+
+                        <div class=" mb-4">
+                            <div class="col-12 col-sm-6 col-lg-12">
+                                <div class="form-group">
+                                    <span class='error' id="universityError"></span>
+                                    <input type="text" th:field="*{link}" class="form-control" id="university" placeholder="Université/Ecole" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="col-12 col-sm-6 col-lg-12">
+                                <div class="form-group">
+                                    <span class='error' id="levelError"></span>
+                                    <textarea type="text" th:field="*{description}" id="region" rows="5" class="form-control" placeholder="Description " ></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3" style="display: none">
+                                <div class="form-group">
+                                    <span class='error' id="subjectError"></span>
+                                    <input type="text" name="status" th:value="${bourse.status}"  class="form-control" placeholder="Lien du site" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer text-center">
+                    <a th:href="@{/groupe/bourses}" class="btn btn-warning pull-left">Retour</a>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-
 </body>
 
 </html>

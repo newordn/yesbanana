@@ -459,7 +459,7 @@ public class    TheseController {
                 MailService mail = new MailService();
                 mail.sendSimpleMessage(
                         adresse,
-                        "Notification de enregistrement d'une Thèse",
+                        "Notification de enregistrement d'une Thèse, avec le titre :  "+these.getSubject(),
                         user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
                 );
             }
@@ -472,7 +472,7 @@ public class    TheseController {
             MailService mail1 = new MailService();
             mail1.sendSimpleMessage(
                     user1.getEmail(),
-                    "Notification de enregistrement d'une Thèse",
+                    "Notification de enregistrement d'une Thèse, avec le titre :  "+these.getSubject(),
                     user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
             );
             return "redirect:/groupe/groupe/" + (Long) session.getAttribute("groupeId");
@@ -646,7 +646,7 @@ public class    TheseController {
         MailService backMessage = new MailService();
         backMessage.sendSimpleMessage(
                 adresse,
-                "Notification de correction du contenu de cette Thèse",
+                "Notification de correction du contenu de cette Thèse, Titre : "+these.getSubject(),
                 user.getName() + " vous notifi celon le contenue suivant :" + contenue + " veuillez bien prendre connaissance du message et apporter des modifications souligner"
         );
         return "redirect:/these/these/" + theseId;

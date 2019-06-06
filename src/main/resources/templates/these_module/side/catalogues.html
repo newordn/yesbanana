@@ -30,13 +30,19 @@
             width: auto;
         }
     </style>
-
+    <script>
+        $(document).ready(function(){
+            $("a").click(function(){
+                alert("The paragraph was clicked.");
+            });
+        });
+    </script>
 </head>
 
 <body>
 
 <div class="super_container">
-	<div th:replace="~{../templates/fragments/header_catalogue :: header_catalogue}"></div>
+	<div th:replace="~{../templates/fragments/header :: header}"></div>
 	
 	<!-- Home -->
 

@@ -364,13 +364,6 @@ public class HomeController {
         return "region/education";
     }
 
-
-
-
-
-
-
-
     @GetMapping("/visitor/student")
     public String student(Model model)
     {
@@ -444,9 +437,9 @@ public class HomeController {
         mailService.sendSimpleMessage(
                 "solutioneducationafrique@gmail.com",
                // "derteuffel0@gmail.com",
-                "YesBanana: Notification d'une publication d'un livre",
+                "YesBanana: Notification d'une publication d'un livre ",
                 "cette publication est encore en suspend veuillez bien vous connecter pour lui attribuer un status "+
-        " veiller cliquer sur le lien pour etre rediriger vers la page "+"http:localhost:8080/school/detail/"+post.getLivreId());
+        " veiller cliquer sur le lien pour etre rediriger vers la page "+"yesbanana.org/groupe/publications/livres");
         return "redirect:/about";
     }
 
@@ -474,7 +467,7 @@ public class HomeController {
                 // "derteuffel0@gmail.com",
                 "YesBanana: Notification d'une publication d'un livre",
                 "cette publication est encore en suspend veuillez bien vous connecter pour lui attribuer un status "+
-                        " veiller cliquer sur le lien pour etre rediriger vers la page "+"http:localhost:8080/school/detail/"+syllabus.getSyllabusId());
+                        " veiller cliquer sur le lien pour etre rediriger vers la page "+"yesbanana.org/groupe/publications/syllabus");
         return "redirect:/about";
 
     }
