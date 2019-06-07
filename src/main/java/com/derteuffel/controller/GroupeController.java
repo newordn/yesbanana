@@ -1270,10 +1270,11 @@ public class GroupeController {
     }
 
     @PostMapping("/bibliography/save")
-    public String save(Bibliography bibliography, String price, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file){
+    public String save(Bibliography bibliography, String price, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file, @RequestParam("document") MultipartFile document){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
         String fileName = fileUploadService.storeFile(file);
+        String fileName1 = fileUploadService.storeFile(document);
         Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
         if (bibliography1 != null){
             errors.rejectValue("title","bibliography.error","il existe deja une reference avec ce titre");
@@ -1283,6 +1284,7 @@ public class GroupeController {
             return "publication/livre";
         }else {
             bibliography.setCouverture("/downloadFile/"+fileName);
+            bibliography.setFichier("/downloadFile/"+fileName1);
             bibliography.setPrice(Double.parseDouble(price));
             bibliography.setPagePrice(0.0);
             bibliography.setDisponibility(false);
@@ -1294,10 +1296,11 @@ public class GroupeController {
     }
 
     @PostMapping("/livre/save")
-    public String save_book(Bibliography bibliography, String price, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file){
+    public String save_book(Bibliography bibliography, String price, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file, @RequestParam("document") MultipartFile document){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
         String fileName = fileUploadService.storeFile(file);
+        String fileName1= fileUploadService.storeFile(document);
         Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
         if (bibliography1 != null){
             errors.rejectValue("title","bibliography.error","il existe deja une reference avec ce titre");
@@ -1306,6 +1309,7 @@ public class GroupeController {
             model.addAttribute("error","il existe deja une reference avec ce titre");
             return "publication/livres";
         }else {
+            bibliography.setFichier("/downloadFile/"+fileName1);
             bibliography.setCouverture("/downloadFile/"+fileName);
             bibliography.setPrice(Double.parseDouble(price));
             bibliography.setPagePrice(0.0);

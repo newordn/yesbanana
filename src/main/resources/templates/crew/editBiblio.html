@@ -89,6 +89,14 @@
                             <input type="text"  class="form-control-file border" style="display: none" th:field="*{couverture}">
                         </div>
                     </div>
+                    <div class="img-upload-div">
+                        <div class="custom-file mb-3">
+                            <p class="mt-2 mb-2">Fichier du livre:</p>
+                            <p class="mt-2 mb-2" th:text="${bibliography.fichier}">Fichier du livre:</p>
+                            <input type="file"  class="form-control-file border" id="customFile" name="document">
+                            <input type="text"  class="form-control-file border" style="display: none" th:field="*{fichier}">
+                        </div>
+                    </div>
                     <div class=" mt-3">
                         <div class="form-group ">
                             <span class='error' id="profError"></span>

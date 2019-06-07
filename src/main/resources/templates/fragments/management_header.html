@@ -57,6 +57,7 @@
                 <ul class="dropdown-menu">
                     <li class="dropdown-item" ><a  th:href="@{/management/countries/other}" class="black nav-link" >Autres services</a></li>
                     <li class="dropdown-item" ><a  th:href="@{/management/countries/education}" class="black nav-link">Education</a></li>
+                    <li class="dropdown-item" ><a  th:href="@{/colonie/colonies}" class="black nav-link">Colonie de vacances</a></li>
                 </ul>
             </li>
             <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if=" ${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'}" >Formations</a></li>

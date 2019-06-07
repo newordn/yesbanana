@@ -87,7 +87,7 @@
         </div>
     </div>
     <!--addCrew-->
-    <button th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ADMIN_MASTER'} or ${session.roles[0].role == 'ROOT_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
+    <button th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ADMIN_MASTER'} or ${session.roles[0].role == 'ROOT_MASTER'}" type="button" style=" right: auto;bottom:10px;" class=" btn btn-success rounded-circle" data-toggle="modal" data-target="#addCrew">
         <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
     </button>
     <!--addCrew-->
@@ -147,6 +147,12 @@
                         <div class="custom-file mb-3">
                             <p class="mt-2 mb-2">Photo de couverture:</p>
                             <input type="file"  class="form-control-file border" id="customFile" name="file">
+                        </div>
+                    </div>
+                    <div class="img-upload-div">
+                        <div class="custom-file mb-3">
+                            <p class="mt-2 mb-2">Fichier du livre:</p>
+                            <input type="file"  class="form-control-file border" id="customFile" name="document">
                         </div>
                     </div>
                 </div>

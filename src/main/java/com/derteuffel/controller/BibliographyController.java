@@ -51,10 +51,11 @@ public class BibliographyController {
     }
 
     @PostMapping("/save")
-    public String save(Bibliography bibliography, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file, @RequestParam("file_cover") MultipartFile file_cover){
+    public String save(Bibliography bibliography, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file, @RequestParam("document") MultipartFile document){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         String fileName = fileUploadService.storeFile(file);
+        String fileName1 = fileUploadService.storeFile(document);
     Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
         if (bibliography1 != null){
             errors.rejectValue("title","bibliography.error","il existe deja une reference avec ce titre");
@@ -65,6 +66,7 @@ public class BibliographyController {
         }else {
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
             bibliography.setCouverture("/downloadFile/"+fileName);
+            bibliography.setFichier("/downloadFile/"+fileName1);
             bibliography.setPrice(0.0);
             bibliography.setPagePrice(0.0);
             bibliography.setUser(user);
@@ -81,13 +83,21 @@ public class BibliographyController {
     }
 
     @PostMapping("/update")
-    public String update(Bibliography bibliography, Long groupeId, Long userId, HttpSession session, String prix,@RequestParam("file") MultipartFile file){
+    public String update(Bibliography bibliography, Long groupeId, Long userId,@RequestParam("document") MultipartFile document, HttpSession session, String prix,@RequestParam("file") MultipartFile file){
 
         if (file.isEmpty()){
             bibliography.setCouverture(bibliography.getCouverture());
         }else {
             String fileName = fileUploadService.storeFile(file);
             bibliography.setCouverture("/downloadFile/"+fileName);
+        }
+
+        if (document.isEmpty()){
+            bibliography.setFichier(bibliography.getFichier());
+        }else {
+
+            String fileName1 = fileUploadService.storeFile(document);
+            bibliography.setFichier("/downloadFile/"+fileName1);
         }
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
         Groupe groupe= groupeRepository.getOne(groupeId);
@@ -113,20 +123,14 @@ public class BibliographyController {
     }
 
     @PostMapping("/disponibility/{bibliographyId}")
-    public String changeDisponibility(Bibliography bibliography,HttpSession session,@PathVariable Long bibliographyId, String prix,String description){
+    public String changeDisponibility(HttpSession session,@PathVariable Long bibliographyId, String prix,String description){
 
-        System.out.println(bibliography.getDisponibility());
-        System.out.println(bibliography.getDescription());
+        Bibliography bibliography= bibliographyRepository.getOne(bibliographyId);
         if (bibliography.getDisponibility() == true){
             bibliography.setDisponibility(false);
-            bibliography.setPrice(0.0);
         }else {
             bibliography.setDisponibility(true);
-            bibliography.setPrice(Double.parseDouble(prix));
         }
-        bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
-        bibliography.setDescription(description);
-        bibliography.setPagePrice(0.0);
         bibliographyRepository.save(bibliography);
         return "redirect:/groupe/groupe/biblib/"+(Long)session.getAttribute("theseId")+"/"+(Long)session.getAttribute("groupeId");
     }

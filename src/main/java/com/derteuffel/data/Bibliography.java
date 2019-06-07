@@ -25,6 +25,7 @@ public class Bibliography implements Serializable{
     private String editeur;
     private String lieu_edition;
     private String annee_edition;
+    private String fichier;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private These these;
@@ -34,11 +35,12 @@ public class Bibliography implements Serializable{
     public Bibliography() {
     }
 
-    public Bibliography(String auteur,String couverture, String title,String motCle, String description, These these, String link,Boolean disponibility,
+    public Bibliography(String auteur, String fichier, String couverture, String title,String motCle, String description, These these, String link,Boolean disponibility,
                         Double pagePrice, Double price, String editeur, String lieu_edition, String annee_edition) {
         this.auteur = auteur;
         this.title = title;
         this.price=price;
+        this.fichier=fichier;
         this.pagePrice=pagePrice;
         this.motCle=motCle;
         this.disponibility=disponibility;
@@ -49,6 +51,14 @@ public class Bibliography implements Serializable{
         this.editeur=editeur;
         this.lieu_edition=lieu_edition;
         this.these = these;
+    }
+
+    public String getFichier() {
+        return fichier;
+    }
+
+    public void setFichier(String fichier) {
+        this.fichier = fichier;
     }
 
     public User getUser() {
