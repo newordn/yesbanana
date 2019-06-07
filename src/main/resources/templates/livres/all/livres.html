@@ -79,9 +79,27 @@
                     </td>
                     <td>
                         <a th:href="@{/groupe/livre/} + ${livre.bibliographyId}" >Ouvrir &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a th:href="@{/groupe/livre/delete/} + ${livre.bibliographyId}" >suprimee &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${livre.bibliographyId}" >Supprimer
+                            <i class="zmdi zmdi-close" ></i>
+                        </a>
                     </td>
-                    </tr>
+                    <div class="modal card modal-warning alert-warning fade in" th:id="modal-delete+${livre.bibliographyId}" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header text-center alert-info">
+                                    <h5 class="modal-title">Suppresion d'un element</h5>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <h3>Voulez vous vraiment supprimer cet element?</h3>
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                    <a  class="btn btn-success"  th:href="@{/groupe/livre/delete/} + ${livre.bibliographyId}"><i class="fa fa-check"></i>&nbsp;Oui</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
                 </tbody>
             </table>
 
