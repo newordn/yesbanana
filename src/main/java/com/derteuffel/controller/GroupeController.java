@@ -388,6 +388,11 @@ public class GroupeController {
         return "livres/livres";
     }
 
+    @GetMapping("/livre/delete/{bibliographyId}")
+    public String delete_lvre(@PathVariable Long bibliographyId){
+        bibliographyRepository.deleteById(bibliographyId);
+        return "redirect:/groupe/livres";
+    }
     @GetMapping("/livres")
     public String all_livres(Model model, HttpSession session){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

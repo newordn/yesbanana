@@ -79,6 +79,7 @@
                     </td>
                     <td>
                         <a th:href="@{/groupe/livre/} + ${livre.bibliographyId}" >Ouvrir &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a th:href="@{/groupe/livre/delete/} + ${livre.bibliographyId}" >suprimee &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     </tr>
                 </tbody>
@@ -87,7 +88,7 @@
         </div>
     </div>
     <!--addCrew-->
-    <button th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ADMIN_MASTER'} or ${session.roles[0].role == 'ROOT_MASTER'}" type="button" style=" right: auto;bottom:10px;" class=" btn btn-success rounded-circle" data-toggle="modal" data-target="#addCrew">
+    <button th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ADMIN_MASTER'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'LIVRE'}" type="button" style=" right: auto;bottom:10px;" class=" btn btn-success rounded-circle pull-right" data-toggle="modal" data-target="#addCrew">
         <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
     </button>
     <!--addCrew-->
