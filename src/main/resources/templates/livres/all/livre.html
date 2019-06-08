@@ -138,6 +138,14 @@
                     </div>
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
+                            <p><strong>Nombre de page :</strong></p>
+                        </div>
+                        <div class="col-md-7">
+                            <p> <span th:text="${bibliography.pageNumber}"></span></p>
+                        </div>
+                    </div>
+                    <div class="row mr-3 ml-3">
+                        <div class="col-md-5">
                             <p><strong>Etat :</strong></p>
                         </div>
                         <div class="col-md-7" th:if="${bibliography.disponibility}==true">
