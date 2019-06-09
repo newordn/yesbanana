@@ -1319,7 +1319,7 @@ public class GroupeController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "publication/livres";
+            return "publication/livre";
         }else {
             bibliography.setFichier("/downloadFile/"+fileName1);
             bibliography.setCouverture("/downloadFile/"+fileName);
