@@ -37,7 +37,7 @@ $(document).ready(function()
 	initViewedSlider();
 	initBrandsSlider();
 	initIsotope();
-	initPriceSlider();
+	//initPriceSlider();
 	initFavs();
 
 	$(window).on('resize', function()
@@ -321,7 +321,7 @@ $(document).ready(function()
 	{
 		var sortingButtons = $('.shop_sorting_button');
 
-		$('.product_grid').isotope({
+		/*$('.product_grid').isotope({
 			itemSelector: '.product_item',
             getSortData: {
             	price: function(itemElement)
@@ -336,10 +336,10 @@ $(document).ready(function()
                 easing: 'linear',
                 queue: false
             }
-        });
+        });*/
 
         // Sort based on the value from the sorting_type dropdown
-        sortingButtons.each(function()
+       /* sortingButtons.each(function()
         {
         	$(this).on('click', function()
         	{
@@ -348,7 +348,7 @@ $(document).ready(function()
         		option = JSON.parse(option);
 				$('.product_grid').isotope(option);
         	});
-        });
+        });*/
 
 	}
 
@@ -358,7 +358,7 @@ $(document).ready(function()
 
 	*/
 
-    function initPriceSlider()
+   /* function initPriceSlider()
     {
     	if($("#slider-range").length)
     	{
@@ -395,7 +395,7 @@ $(document).ready(function()
 		        });
 			});
     	}	
-    }
+    }*/
 
     /* 
 

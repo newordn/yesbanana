@@ -53,15 +53,15 @@
 		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
 		<div class="home_overlay"></div>
 		<div class="home_content d-flex flex-column align-items-center justify-content-center">
-			<h2 class="home_title">Bibliothèque & Recherche universitaire</h2>
+			<h2 class="home_title">Bibliothèque</h2>
 		</div>
 	</div>
 
 	<!-- Shop -->
 
-	<div class="shop">
+	<div class="shop mb-auto">
 		<div class="container">
-			<div class="row mb-auto">
+			<div class="row ">
 				<div th:replace="~{../templates/fragments/side_bibliotheque_recherche :: side_bibliotheque_recherche}"></div>
 
 				<div class="col-lg-9">
@@ -70,76 +70,77 @@
 
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><span th:text="${#lists.size(bibliographies)}">17</span>éléments trouver</div>
+							<div class="shop_product_count"><span th:text="${#lists.size(bibliographies)}">17</span> Eléments trouvé</div>
 							<div class="shop_sorting">Bibliographies</div>
 						</div>
 
-						<div class="product_grid">
-							<div class="product_grid_border"></div><br><br>
-								<div class="container card border ">
+						<div >
+							<div>
+								<div class=" card border " style="width: inherit!important;">
                             <div class="card-body">
-                                    <table class="table text-left table-hover dt-responsive  table-lg display" id="crews">
+                                <table class="table text-left table-hover dt-responsive  table-lg display" id="crews">
                                     	<thead>
-                        <th>Couverture du livre</th>
-                        <th>Titre, Auteur et Résumé</th>
-                        <th>Commander?</th>
-                        <th>Quantité</th>
-                    </thead>
-                    <tbody>
-                    <tr th:each="bibliography : ${bibliographies}">
-                        <td >Couverture du livre
-                        <img th:if="${bibliography.couverture}" th:src="${bibliography.couverture}">
-                        <img th:unless="${bibliography.couverture}" th:src="@{/new:images/no-image.png}"></td>
+                                            <th>Couverture du livre</th>
+                                            <th>Titre, Auteur et Résumé</th>
+                                            <th>Commander?</th>
+                                            <th>Quantité</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="bibliography : ${bibliographies}">
+                                                <td >Couverture du livre
+                                                <img th:if="${bibliography.couverture}" th:src="${bibliography.couverture}">
+                                                <img th:unless="${bibliography.couverture}" th:src="@{/new/images/no-image.png}"></td>
 
-                        <td>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td th:text="${bibliography.title}">Titre</td>
-                                    </tr>
-                                    <tr>
-                                        <td th:text="${bibliography.auteur}">Auteur</td>
-                                    </tr>
-                                    <tr>
-                                        <td th:text="${bibliography.description}">Sommaire  en 10 lignes</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Voir la fiche</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>PDF Lecture en ligne Prix
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Commander PDF Prix
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Commander imprimé Prix
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Réserver Prix
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Emprunter Prix
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td>Nombre d'examplaire</td>
-                    </tr>
-                    </tbody>
+                                                <td>
+                                                    <table>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td th:text="${bibliography.title}">Titre</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td th:text="${bibliography.auteur}">Auteur</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td th:text="${bibliography.description}">Sommaire  en 10 lignes</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Voir la fiche</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td>
+                                                    <table>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>PDF Lecture en ligne Prix
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Commander PDF Prix
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Commander imprimé Prix
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Réserver Prix
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Emprunter Prix
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td>Nombre d'examplaire</td>
+                                             </tr>
+                                        </tbody>
                                     </table>
                             </div>
+                                </div>
                         </div>
 							
 						</div>
