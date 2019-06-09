@@ -1289,7 +1289,7 @@ public class GroupeController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "publication/livre";
+            return "publication/publications_livres";
         }else {
             bibliography.setCouverture("/downloadFile/"+fileName);
             bibliography.setFichier("/downloadFile/"+fileName1);
@@ -1319,7 +1319,7 @@ public class GroupeController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            return "publication/livre";
+            return "livres/all/livres";
         }else {
             bibliography.setFichier("/downloadFile/"+fileName1);
             bibliography.setCouverture("/downloadFile/"+fileName);
