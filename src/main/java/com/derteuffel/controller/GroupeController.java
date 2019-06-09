@@ -1293,7 +1293,11 @@ public class GroupeController {
         }else {
             bibliography.setCouverture("/downloadFile/"+fileName);
             bibliography.setFichier("/downloadFile/"+fileName1);
-            bibliography.setPrice(Double.parseDouble(price));
+            if (!price.isEmpty()){
+                bibliography.setPrice(Double.parseDouble(price));
+            }else {
+                bibliography.setPrice(0.0);
+            }
             bibliography.setPagePrice(0.0);
             bibliography.setDisponibility(false);
             bibliography.setCouverture(fileName);
@@ -1319,7 +1323,11 @@ public class GroupeController {
         }else {
             bibliography.setFichier("/downloadFile/"+fileName1);
             bibliography.setCouverture("/downloadFile/"+fileName);
-            bibliography.setPrice(Double.parseDouble(price));
+            if (!price.isEmpty()){
+                bibliography.setPrice(Double.parseDouble(price));
+            }else {
+                bibliography.setPrice(0.0);
+            }
             bibliography.setPagePrice(0.0);
             bibliography.setDisponibility(false);
             bibliography.setCouverture(fileName);
