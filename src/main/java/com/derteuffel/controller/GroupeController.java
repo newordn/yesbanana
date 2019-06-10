@@ -1282,17 +1282,20 @@ public class GroupeController {
         Bibliography bibliography=bibliographyRepository.getOne(bibliographyId);
         session.setAttribute("userId",bibliography.getUser().getUserId());
         session.setAttribute("disponibility",bibliography.getDisponibility());
+        session.setAttribute("price",bibliography.getPrice());
         model.addAttribute("bibliography",bibliography);
         return "crew/bibliography_edit";
     }
 
     @PostMapping("/livre/edit")
-    public String sauvegarder_modification(Bibliography bibliography, String price,HttpSession session, @RequestParam("file")MultipartFile file, @RequestParam("document") MultipartFile document){
+    public String sauvegarder_modification(Bibliography bibliography, String prix,HttpSession session, @RequestParam("file")MultipartFile file, @RequestParam("document") MultipartFile document){
 
         String fileName = fileUploadService.storeFile(file);
         String fileName1 = fileUploadService.storeFile(document);
-        if (price.isEmpty()){
-            bibliography.setPrice(bibliography.getPrice());
+        if (prix.isEmpty()){
+            bibliography.setPrice((Double)session.getAttribute("price"));
+        }else {
+            bibliography.setPrice(Double.parseDouble(prix));
         }
         bibliography.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
         if (file.isEmpty()){
