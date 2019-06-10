@@ -15,6 +15,7 @@ public class Bourse implements Serializable{
     @GeneratedValue
     private Long bourseId;
     private String link;
+    private String title;
     private String description;
     private Boolean status;
     private Boolean suprime;
@@ -22,11 +23,20 @@ public class Bourse implements Serializable{
     public Bourse() {
     }
 
-    public Bourse(String link, String description, Boolean status, Boolean suprime) {
+    public Bourse(String link, String title, String description, Boolean status, Boolean suprime) {
         this.link = link;
+        this.title=title;
         this.description = description;
         this.status=status;
         this.suprime=suprime;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Boolean getStatus() {

@@ -82,26 +82,17 @@
                     <tr>
                         <th>Auteur</th>
                         <th>Titre</th>
-                        <th>Université</th>
-                        <th>Faculté</th>
-                        <th>Département</th>
-                        <th>Options/Grade</th>
-                        <th>Année de publication</th>
-                        <th>Action</th>
+                        <th>Date</th>
+                        <th>Consulté</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr >
-                        <td ></td>
-
-                        <td ></td>
-                        <td ></td>
-                        <td ></td>
-                        <td ></td>
-                        <td ></td>
-                        <td ></td>
+                    <tr th:each="studentWork : ${studentWorks}">
+                        <td th:text="${studentWork.studentName}"></td>
+                        <td th:text="${studentWork.subject}"></td>
+                        <td th:text="${studentWork.date}"></td>
                         <td>
-                            <a  class="btn" th:href="@{/visitor/syllabus/}">Consulté&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+                            <a  class="btn" th:href="@{/visitor/studentWork/}+${studentWork.studentWorkId}">Consulté&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
                         </td>
                     </tr>
                     </tbody>

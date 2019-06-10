@@ -31,12 +31,19 @@
 
                 <div class="mb-4">
                     <div class="col-12 col-sm-6 col-lg-12">
-
                         <div class=" mb-4">
                             <div class="col-12 col-sm-6 col-lg-12">
                                 <div class="form-group">
                                     <span class='error' id="universityError"></span>
-                                    <input type="text" th:field="*{link}" class="form-control" id="university" placeholder="Université/Ecole" />
+                                    <input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Titre de la bourse" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" mb-4">
+                            <div class="col-12 col-sm-6 col-lg-12">
+                                <div class="form-group">
+                                    <span class='error' id="universityError"></span>
+                                    <input type="text" th:field="*{link}" class="form-control" id="university" placeholder="Lien de consultation de la bourse" />
                                 </div>
                             </div>
                         </div>

@@ -1,13 +1,7 @@
 package com.derteuffel.controller;
 
-import com.derteuffel.data.Bibliography;
-import com.derteuffel.data.Bourse;
-import com.derteuffel.data.Syllabus;
-import com.derteuffel.data.These;
-import com.derteuffel.repository.BibliographyRepository;
-import com.derteuffel.repository.BourseRepository;
-import com.derteuffel.repository.SyllabusRepository;
-import com.derteuffel.repository.TheseRepository;
+import com.derteuffel.data.*;
+import com.derteuffel.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,6 +32,9 @@ public class ExternController {
     private SyllabusRepository syllabusRepository;
     @Autowired
     private BourseRepository bourseRepository;
+
+    @Autowired
+    private StudentWorkRepository studentWorkRepository;
 
     @GetMapping("/catalogues")
     public String catalogues(){
@@ -79,7 +76,10 @@ public class ExternController {
         return "these_module/side/bourses";
     }
     @GetMapping("/students_work")
-    public String students_work(){
+    public String students_work(Model model){
+        List<StudentWork> studentsWorks=studentWorkRepository.findByStatusOrderByStudentWorkIdDesc(true);
+        System.out.println(studentsWorks);
+        model.addAttribute("studentWorks",studentsWorks);
         return "these_module/side/search_student_work";
     }
 
@@ -136,6 +136,7 @@ public class ExternController {
         model.addAttribute("livre", bibliography);
         return "these_module/advanced/livre";
     }
+
 
 
 }

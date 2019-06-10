@@ -1277,6 +1277,43 @@ public class GroupeController {
         return "redirect:/groupe/publications/syllabus/detail/"+syllabus.getSyllabusId();
     }
 
+    @GetMapping("/livre/update/{bibliographyId}")
+    public String editer_livre(@PathVariable Long bibliographyId, Model model,HttpSession session){
+        Bibliography bibliography=bibliographyRepository.getOne(bibliographyId);
+        session.setAttribute("userId",bibliography.getUser().getUserId());
+        session.setAttribute("disponibility",bibliography.getDisponibility());
+        model.addAttribute("bibliography",bibliography);
+        return "crew/bibliography_edit";
+    }
+
+    @PostMapping("/livre/edit")
+    public String sauvegarder_modification(Bibliography bibliography, String price,HttpSession session, @RequestParam("file")MultipartFile file, @RequestParam("document") MultipartFile document){
+
+        String fileName = fileUploadService.storeFile(file);
+        String fileName1 = fileUploadService.storeFile(document);
+        if (price.isEmpty()){
+            bibliography.setPrice(bibliography.getPrice());
+        }
+        bibliography.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
+        if (file.isEmpty()){
+            bibliography.setCouverture(bibliography.getCouverture());
+        }else {
+            bibliography.setCouverture("/downloadFile/"+fileName);
+        }
+
+        if (document.isEmpty()){
+            bibliography.setFichier(bibliography.getFichier());
+        }else {
+            bibliography.setCouverture("/downloadFile/"+fileName1);
+        }
+
+        bibliography.setPagePrice(0.0);
+        bibliography.setDisponibility((Boolean)session.getAttribute("disponibility"));
+
+        bibliographyRepository.save(bibliography);
+        return "redirect:/groupe/livres";
+
+    }
     @PostMapping("/bibliography/save")
     public String save(Bibliography bibliography, String price, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file, @RequestParam("document") MultipartFile document){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

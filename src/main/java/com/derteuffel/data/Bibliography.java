@@ -23,10 +23,12 @@ public class Bibliography implements Serializable{
     private Double price;
     private Double pagePrice;
     private String editeur;
+    private String edition;
     private String lieu_edition;
     private String annee_edition;
     private String fichier;
     private String pageNumber;
+    private String isbnNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private These these;
@@ -37,10 +39,11 @@ public class Bibliography implements Serializable{
     }
 
     public Bibliography(String auteur, String fichier, String couverture, String pageNumber, String title,String motCle, String description, These these, String link,Boolean disponibility,
-                        Double pagePrice, Double price, String editeur, String lieu_edition, String annee_edition) {
+                        Double pagePrice, Double price, String editeur, String edition, String isbnNumber, String lieu_edition, String annee_edition) {
         this.auteur = auteur;
         this.title = title;
         this.price=price;
+        this.isbnNumber=isbnNumber;
         this.pageNumber=pageNumber;
         this.fichier=fichier;
         this.pagePrice=pagePrice;
@@ -51,8 +54,25 @@ public class Bibliography implements Serializable{
         this.couverture=couverture;
         this.annee_edition=annee_edition;
         this.editeur=editeur;
+        this.edition=edition;
         this.lieu_edition=lieu_edition;
         this.these = these;
+    }
+
+    public String getEdition() {
+        return edition;
+    }
+
+    public void setEdition(String edition) {
+        this.edition = edition;
+    }
+
+    public String getIsbnNumber() {
+        return isbnNumber;
+    }
+
+    public void setIsbnNumber(String isbnNumber) {
+        this.isbnNumber = isbnNumber;
     }
 
     public String getPageNumber() {

@@ -205,6 +205,12 @@
                 </div>
                 <div class=" mt-3">
                     <div class="form-group">
+                        <span class='error' id="editionError"></span>
+                        <input type="text" th:field="*{edition}" id="edition" class="form-control" placeholder="Edition du livre" />
+                    </div>
+                </div>
+                <div class=" mt-3">
+                    <div class="form-group">
                         <span class='error' id="lieu_editionError"></span>
                         <input type="text" th:field="*{lieu_edition}" id="lieu_edition" class="form-control" placeholder="Lieu d'édition du livre" />
                     </div>
@@ -249,6 +255,12 @@
                     <div class="form-group">
                         <span class='error' id="pageNumberError"></span>
                         <input type="text" th:field="*{pageNumber}" id="pageNumber" class="form-control" placeholder="Nombre de page du livre" />
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <div class="form-group">
+                        <span class='error' id="isbnError"></span>
+                        <input type="text" th:field="*{isbnNumber}" id="isbnNumber" class="form-control" placeholder="ISBN" />
                     </div>
                 </div>
             </div>

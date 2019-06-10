@@ -66,6 +66,7 @@
                 <table class="table text-center table-hover dt-responsive  table-lg display" id="crews">
                     <thead class="text-white bg-secondary">
                     <tr>
+                        <th>Titre</th>
                         <th>Lien du site</th>
                         <th>Description</th>
                         <th>Etat</th>
@@ -74,6 +75,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="bourse : ${bourses}"  >
+                        <td th:text="${bourse.title}"></td>
                         <td ><a th:href="${bourse.link}" th:text="${bourse.link}"></a></td>
 
                         <td th:text="${bourse.description}"></td>
@@ -126,7 +128,11 @@
             <div class="row p-4">
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="nameError"></span>
-                    <input type="text" th:field="*{link}" id="name" class="form-control" placeholder="Lien du site" />
+                    <input type="text" th:field="*{title}" id="title" class="form-control" placeholder="Titre de la bourse" />
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="nameError"></span>
+                    <input type="text" th:field="*{link}" id="name" class="form-control" placeholder="Lien de consultation de la bourse" />
                 </div>
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="regionError"></span>

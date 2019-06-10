@@ -91,6 +91,7 @@ public class UserRestController {
 
         if (user.getName().equals(object.get("login")) && bCryptPasswordEncoder.matches(mot_passe,user.getPassword())){
             user.setPar_mobile(true);
+            userRepository.save(user);
             map.put("status","true");
             return map;
         }else {
@@ -98,6 +99,8 @@ public class UserRestController {
             return map;
         }
     }
+
+
     @GetMapping("/chiefs")
     public List<User> chiefs() {
         List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
