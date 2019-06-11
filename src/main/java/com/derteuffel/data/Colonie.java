@@ -30,6 +30,8 @@ public class Colonie implements Serializable {
     private String site;
     private String pays;
     private String region;
+    private String adresse;
+    private String saison;
     private Boolean active;
     private Boolean status;
     private ArrayList<String> fichier;
@@ -38,7 +40,7 @@ public class Colonie implements Serializable {
     }
 
     public Colonie(String title, String activite, String category, Double price, Date dateDebut,
-                   Date dateFin, String type, String site, String pays, String region, Boolean active, Boolean status, ArrayList<String> fichier) {
+                   Date dateFin, String type, String site, String pays, String region, String adresse, String saison, Boolean active, Boolean status, ArrayList<String> fichier) {
         this.title = title;
         this.activite = activite;
         this.category = category;
@@ -49,9 +51,27 @@ public class Colonie implements Serializable {
         this.site = site;
         this.pays = pays;
         this.region = region;
+        this.adresse = adresse;
+        this.saison = saison;
         this.active = active;
         this.status = status;
         this.fichier = fichier;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getSaison() {
+        return saison;
+    }
+
+    public void setSaison(String saison) {
+        this.saison = saison;
     }
 
     public Long getColonieId() {

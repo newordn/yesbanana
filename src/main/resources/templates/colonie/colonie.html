@@ -148,6 +148,22 @@
                     </div>
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
+                            <p><strong>Saison :</strong></p>
+                        </div>
+                        <div class="col-md-7">
+                            <p> <span th:text="${colonie.saison}"></span></p>
+                        </div>
+                    </div>
+                    <div class="row mr-3 ml-3">
+                        <div class="col-md-5">
+                            <p><strong>Adresse Google :</strong></p>
+                        </div>
+                        <div class="col-md-7">
+                            <p> <span th:text="${colonie.adresse}"></span></p>
+                        </div>
+                    </div>
+                    <div class="row mr-3 ml-3">
+                        <div class="col-md-5">
                             <p><strong>Etat :</strong></p>
                         </div>
                         <div class="col-md-7">
@@ -233,6 +249,14 @@
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="regionError"></span>
                     <input type="text" th:field="*{region}" id="region" class="form-control" placeholder="Région" />
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="adresseError"></span>
+                    <input type="text" th:field="*{adresse}" id="adresse" class="form-control" placeholder="Adresse google" />
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="saisonError"></span>
+                    <input type="text" th:field="*{saison}" id="saison" class="form-control" placeholder="Saison de l'année, Année " />
                 </div>
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="fichierError"></span>
