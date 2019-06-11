@@ -534,16 +534,7 @@ public class    TheseController {
     public String update(These these, @RequestParam("files") MultipartFile[] files, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
-        List<FileUploadRespone> pieces = Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        ArrayList<String> filesPaths = new ArrayList<String>();
-        for (int i = 0; i < pieces.size(); i++) {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
-        }
         Long groupeId = (Long) session.getAttribute("groupeId");
-        these.setResumes(filesPaths);
         Groupe groupe = groupeRepository.getOne(groupeId);
         these.setGroupe(groupe);
         these.setUser(userRepository.getOne((Long) session.getAttribute("userId")));
@@ -563,7 +554,21 @@ public class    TheseController {
         these.setProfesor((String) session.getAttribute("professor"));
         these.setWorkChief((String) session.getAttribute("workChief"));
         these.setStates(true);
-        theseRepository.save(these);
+
+        List<FileUploadRespone> pieces = Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        if (pieces.size()<=1){
+            theseRepository.save(these);
+        }else {
+            ArrayList<String> filesPaths = new ArrayList<String>();
+            for (int i = 0; i < pieces.size(); i++) {
+                filesPaths.add(pieces.get(i).getFileDownloadUri());
+            }
+            these.setResumes(filesPaths);
+            theseRepository.save(these);
+        }
         return "redirect:/these/these/" + these.getTheseId();
 
     }
@@ -573,16 +578,7 @@ public class    TheseController {
     public String updateEquipe(These these, @RequestParam("files") MultipartFile[] files, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
-        List<FileUploadRespone> pieces = Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        ArrayList<String> filesPaths = new ArrayList<String>();
-        for (int i = 0; i < pieces.size(); i++) {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
-        }
         Long groupeId = (Long) session.getAttribute("groupeId");
-        these.setResumes(filesPaths);
         Groupe groupe = groupeRepository.getOne(groupeId);
         these.setGroupe(groupe);
         these.setUser(userRepository.getOne((Long) session.getAttribute("userId")));
@@ -597,7 +593,19 @@ public class    TheseController {
         these.setDepartement((String) session.getAttribute("departement"));
         these.setMotCle((String) session.getAttribute("motCle"));
         these.setStatus((Boolean) session.getAttribute("status"));
-        these.setResumes((ArrayList<String>) session.getAttribute("resumes"));
+        List<FileUploadRespone> pieces = Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        if (pieces.size()<=1){
+            these.setResumes((ArrayList<String>) session.getAttribute("resumes"));
+        }else {
+            ArrayList<String> filesPaths = new ArrayList<String>();
+            for (int i = 0; i < pieces.size(); i++) {
+                filesPaths.add(pieces.get(i).getFileDownloadUri());
+            }
+            these.setResumes(filesPaths);
+        }
         these.setStates(true);
         theseRepository.save(these);
         return "redirect:/these/equipe/" + these.getTheseId();

@@ -819,19 +819,15 @@ public class GroupeController {
                 .stream()
                 .map(file -> uploadFile(file))
                 .collect(Collectors.toList());
+        if (pieces.size()<=1){
+            rapport.setPieces((ArrayList<String>)session.getAttribute("pieces"));
+        }else {
         ArrayList<String> filesPaths = new ArrayList<String>();
         for(int i=0;i<pieces.size();i++)
         {
             filesPaths.add(pieces.get(i).getFileDownloadUri());
         }
-
-        if (filesPaths.size() != 0){
             rapport.setPieces(filesPaths);
-            System.out.println((ArrayList<String>)session.getAttribute("pieces"));
-        }else {
-            System.out.println("je suis ici");
-
-            rapport.setPieces((ArrayList<String>)session.getAttribute("pieces"));
 
         }
         rapport.setSupprime((Boolean) session.getAttribute("supprime"));
@@ -968,7 +964,6 @@ public class GroupeController {
         Optional<These> optional= theseRepository.findById(theseId);
         model.addAttribute("these1",optional.get());
         model.addAttribute("groupe",groupeRepository.getOne(groupeId));
-        session.setAttribute("userId",optional.get().getUser().getUserId());
         session.setAttribute("theseId", optional.get().getTheseId());
         session.setAttribute("groupeId", optional.get().getGroupe().getGroupeId());
         session.setAttribute("university", optional.get().getUniversity());
@@ -1000,21 +995,29 @@ public class GroupeController {
 
     // for saving a these
     @PostMapping("/groupe/add/update/somaire")
-    public String update(These these, @RequestParam("files") MultipartFile[] files, HttpSession session, Long groupeId) {
+    public String update(These these, @RequestParam("files") MultipartFile[] files,Long userId, HttpSession session, Long groupeId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         List<FileUploadRespone> pieces = Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
                 .collect(Collectors.toList());
-        ArrayList<String> filesPaths = new ArrayList<String>();
-        for (int i = 0; i < pieces.size(); i++) {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        if (pieces.size()<=1){
+            these.setResumes(these.getResumes());
+        }else {
+            ArrayList<String> filesPaths = new ArrayList<String>();
+            for (int i = 0; i < pieces.size(); i++) {
+                filesPaths.add(pieces.get(i).getFileDownloadUri());
+            }
+            these.setResumes(filesPaths);
         }
-        these.setResumes(filesPaths);
         Groupe groupe = groupeRepository.getOne(groupeId);
         these.setGroupe(groupe);
-        these.setUser(userRepository.getOne((Long) session.getAttribute("userId")));
+        if (userId != null) {
+            these.setUser(userRepository.getOne(userId));
+        }else {
+            these.setUser(null);
+        }
         these.setUniversity((String) session.getAttribute("university"));
         these.setFaculty((String) session.getAttribute("faculty"));
         these.setOptions((String) session.getAttribute("options"));
@@ -1035,23 +1038,17 @@ public class GroupeController {
 
     // for saving a these
     @PostMapping("/groupe/add/update/equipe")
-    public String updateEquipe(These these, @RequestParam("files") MultipartFile[] files, HttpSession session) {
+    public String updateEquipe(These these, Long userId, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        ArrayList<String> filesPaths = new ArrayList<String>();
-        for(int i=0;i<pieces.size();i++)
-        {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
-        }
         Long groupeId = (Long) session.getAttribute("groupeId");
-        these.setResumes(filesPaths);
         Groupe groupe= groupeRepository.getOne(groupeId);
         these.setGroupe(groupe);
-        these.setUser(userRepository.getOne((Long)session.getAttribute("userId")));
+        if (userId != null) {
+            these.setUser(userRepository.getOne(userId));
+        }else {
+            these.setUser(null);
+        }
         these.setUniversity((String)session.getAttribute("university"));
         these.setFaculty((String)session.getAttribute("faculty"));
         these.setOptions((String)session.getAttribute("options"));
@@ -1083,7 +1080,6 @@ public class GroupeController {
         Optional<These> optional= theseRepository.findById(theseId);
         model.addAttribute("these1",optional.get());
         session.setAttribute("theseId", optional.get().getTheseId());
-        session.setAttribute("userId",optional.get().getUser().getUserId());
         model.addAttribute("groupe", groupeRepository.getOne(groupeId));
         session.setAttribute("university", optional.get().getUniversity());
         session.setAttribute("faculty", optional.get().getFaculty());
@@ -1160,18 +1156,21 @@ public class GroupeController {
         model.addAttribute("groupe",groupe);
         model.addAttribute("countries", countries);
         model.addAttribute("these", these);
-        session.setAttribute("userId", these.getUser().getUserId());
         session.setAttribute("country", these.getCountry());
         session.setAttribute("pieces",these.getResumes());
         return "crew/correction";
     }
 
     @PostMapping("/these/unPublish/{theseId}")
-    public String unPublishPeriod(These these, HttpSession session, String adresse, String contenue, @PathVariable Long theseId, Long groupeId) {
+    public String unPublishPeriod(These these, HttpSession session, String adresse, Long userId, String contenue, @PathVariable Long theseId, Long groupeId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         these.setStatus(false);
-        these.setUser(userRepository.getOne((Long) session.getAttribute("userId")));
+        if (userId != null) {
+            these.setUser(userRepository.getOne(userId));
+        }else {
+            these.setUser(null);
+        }
         these.setGroupe(groupeRepository.getOne(groupeId));
         these.setCountry((String) session.getAttribute("country"));
         these.setStates(true);

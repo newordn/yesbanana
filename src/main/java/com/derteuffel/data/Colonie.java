@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -31,13 +32,13 @@ public class Colonie implements Serializable {
     private String region;
     private Boolean active;
     private Boolean status;
-    private String fichier;
+    private ArrayList<String> fichier;
 
     public Colonie() {
     }
 
     public Colonie(String title, String activite, String category, Double price, Date dateDebut,
-                   Date dateFin, String type, String site, String pays, String region, Boolean active, Boolean status, String fichier) {
+                   Date dateFin, String type, String site, String pays, String region, Boolean active, Boolean status, ArrayList<String> fichier) {
         this.title = title;
         this.activite = activite;
         this.category = category;
@@ -157,11 +158,11 @@ public class Colonie implements Serializable {
         this.status = status;
     }
 
-    public String getFichier() {
+    public ArrayList<String> getFichier() {
         return fichier;
     }
 
-    public void setFichier(String fichier) {
+    public void setFichier(ArrayList<String> fichier) {
         this.fichier = fichier;
     }
 }

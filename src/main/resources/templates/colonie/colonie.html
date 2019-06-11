@@ -160,7 +160,7 @@
                             <p><strong>fichier :</strong></p>
                         </div>
                         <div class="col-md-7">
-                            <p> <a th:href="${colonie.fichier}" th:text="${colonie.fichier}"></a></p>
+                            <p th:each="element : ${colonie.fichier}"> <a th:href="${element}" th:text="${element}"></a></p>
                         </div>
                     </div>
                     </div>
@@ -185,6 +185,7 @@
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="nameError"></span>
                     <input type="text" th:field="*{title}" id="title" class="form-control" placeholder="Activite" />
+                    <input type="hidden" th:field="*{colonieId}"  />
                 </div>
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="desriptionError"></span>
@@ -235,8 +236,8 @@
                 </div>
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="fichierError"></span>
-                    <span th:text="${colonie.fichier}"></span>
-                    <input type="file" name="file" id="fichier" class="form-control" placeholder="Activite" />
+                    <span th:each="element : ${colonie.fichier}" th:text="${element}"></span>
+                    <input type="file" name="files" multiple id="fichier" class="form-control" placeholder="Activite" />
                     <input type="text" th:field="*{fichier}" style="display: none;" class="form-control" placeholder="Activite" />
                     <input type="text" th:field="*{status}" style="display: none;" class="form-control" placeholder="Activite" />
                     <input type="text" th:field="*{active}" style="display: none;" class="form-control" placeholder="Activite" />
@@ -343,8 +344,6 @@
 <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
 <script th:src="@{/js/aos.js}"></script>
 <script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/jquery.timepicker.min.js}"></script>
 <script th:src="@{/js/scrollax.min.js}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script th:src="@{/js/google-map.js}"></script>
