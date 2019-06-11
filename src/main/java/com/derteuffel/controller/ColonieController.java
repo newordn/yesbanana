@@ -233,11 +233,11 @@ public class ColonieController {
 
     );
 
-    @GetMapping("/lists")
+    @GetMapping("/colonies")
     public String lists_all(Model model){
 
         List<Colonie> lists=colonieRepository.findByStatus(true, Sort.by(Sort.Direction.DESC,"colonieId"));
-        model.addAttribute("lists",lists);
+        model.addAttribute("colonies",lists);
         model.addAttribute("colonie", new Colonie());
         model.addAttribute("countries",countries);
         return "colonie/colonies";
@@ -247,6 +247,7 @@ public class ColonieController {
     public String view(@PathVariable Long colonieId, Model model){
         Colonie colonie =colonieRepository.getOne(colonieId);
         model.addAttribute("colonie", colonie);
+        model.addAttribute("countries", countries);
         return "colonie/colonie";
     }
 
@@ -273,19 +274,53 @@ public class ColonieController {
     }
 
     @PostMapping("/update")
-    public String update(Colonie colonie, @RequestParam("file")MultipartFile file, String prix,String active){
+    public String update(Colonie colonie, @RequestParam("file")MultipartFile file, String prix){
         if (file.isEmpty()){
             colonie.setFichier(colonie.getFichier());
         }else {
             String fileName = fileUploadService.storeFile(file);
             colonie.setFichier("/downloadFile/"+fileName);
         }
-        colonie.setActive(Boolean.parseBoolean(active));
-        colonie.setStatus(true);
-        colonie.setPrice(Double.parseDouble(prix));
+        if (prix.isEmpty()){
+            colonie.setPrice(colonie.getPrice());
+        }else {
+            colonie.setPrice(Double.parseDouble(prix));
+        }
         colonieRepository.save(colonie);
 
         return "redirect:/colonie/detail/"+colonie.getColonieId();
     }
 
+    @GetMapping("/colonies/{pays}")
+    public String findByCountry(Model model, @PathVariable String pays){
+        List<Colonie> colonies=colonieRepository.findByPaysAndStatusOrderByColonieIdDesc(pays,true);
+        model.addAttribute("colonies",colonies);
+        model.addAttribute("countries", countries);
+        return "colonie/colonies";
+
+    }
+
+    @GetMapping("/activation/{colonieId}")
+    public String active(@PathVariable Long colonieId){
+        Colonie colonie= colonieRepository.getOne(colonieId);
+        if (colonie.getActive()==true){
+            colonie.setActive(false);
+        }else {
+            colonie.setActive(true);
+        }
+        colonieRepository.save(colonie);
+        return "redirect:/colonie/colonies";
+    }
+
+    @GetMapping("/delete/{colonieId}")
+    public String delete(@PathVariable Long colonieId){
+        Colonie colonie= colonieRepository.getOne(colonieId);
+        if (colonie.getStatus()==true){
+            colonie.setStatus(false);
+        }else {
+            colonie.setStatus(true);
+        }
+        colonieRepository.save(colonie);
+        return "redirect:/colonie/colonies";
+    }
 }

@@ -1,8 +1,8 @@
 package com.derteuffel.data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -19,7 +19,11 @@ public class Colonie implements Serializable {
     private String activite;
     private String category;
     private Double price;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateDebut;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateFin;
     private String type;
     private String site;
@@ -33,7 +37,7 @@ public class Colonie implements Serializable {
     }
 
     public Colonie(String title, String activite, String category, Double price, Date dateDebut,
-                   Date dateFin, String type, String site_event, String pays, String region, Boolean active, Boolean status, String fichier) {
+                   Date dateFin, String type, String site, String pays, String region, Boolean active, Boolean status, String fichier) {
         this.title = title;
         this.activite = activite;
         this.category = category;

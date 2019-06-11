@@ -78,6 +78,7 @@ public class SecurityConfig1 extends WebSecurityConfigurerAdapter {
                 .antMatchers("/bibliotheque/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER","")
                 .antMatchers("/bibliography/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER","lIVRE")
                 .antMatchers("/user/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER","LIVRE")
+                .antMatchers("/colonie/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER","LIVRE")
                 .anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
                 .loginPage("/login")
