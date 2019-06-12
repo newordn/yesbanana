@@ -268,8 +268,10 @@ public class UserController {
     private static final int INITIAL_PAGE = 0;
     private static final int INITIAL_PAGE_SIZE = 5;
     private static final int[] PAGE_SIZES = { 5,6,7,8};
-    @GetMapping("")
-    public String allUsers(Model model) {
+    @GetMapping("/users")
+    public String allUsers(Model model, HttpSession session) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
         List<User> users = userRepository.findAllByActiveOrderByUserIdDesc(true);
         List<User> users1= new ArrayList<>();
         for (int i=0;i<users.size();i++){
@@ -277,6 +279,9 @@ public class UserController {
                 users1.add(users.get(i));
             }
         }
+
+        model.addAttribute("roles", user.getRoles());
+        session.setAttribute("roles",user.getRoles());
         model.addAttribute("users", users1);
        /* String avatar = "";
         for (User user : users) {
@@ -331,8 +336,16 @@ public class UserController {
         model.addAttribute("editGroupe",editGroupe);
         model.addAttribute("update",editForm);
         model.addAttribute("roles", roles);
+        session.setAttribute("roles",roles);
         model.addAttribute("roles1", roles1);
         return "user/staffs";
+    }
+
+    @GetMapping("/livre/{bibliographyId}")
+    public String livre(@PathVariable Long bibliographyId, Model model){
+        Bibliography bibliography=bibliographyRepository.getOne(bibliographyId);
+        model.addAttribute("bibliography", bibliography);
+        return "user/livre";
     }
 
     @GetMapping("/view/{userId}")
