@@ -241,6 +241,13 @@
                                         </div>
                                         <div class=" mt-3">
                                             <div class="form-group">
+                                                <span class='error' id="faculteError"></span>
+                                                <input type="text" name="faculte" th:value="${these1.faculty}" id="faculte" class="form-control" placeholder="Titre du livre" />
+                                                <input type="text" name="option" th:value="${these1.option}" id="option" class="form-control" placeholder="Titre du livre" />
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3">
+                                            <div class="form-group">
                                                 <span class='error' id="editeurError"></span>
                                                 <input type="text" th:field="*{editeur}" id="editeur" class="form-control" placeholder="Editeur du livre" />
                                             </div>
