@@ -31,6 +31,7 @@ public interface TheseRepository extends JpaRepository<These,Long> {
     List<These> findByGroupeOrderByTheseIdDesc( @Param("id") Long groupeId);
 
     These findBySubject(String subject);
+    These findByOptions(String options);
 
     List<These> findAllByStatus(Boolean status);
     List<These> findAllByStates(Boolean states);

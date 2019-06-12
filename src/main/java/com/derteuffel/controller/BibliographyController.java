@@ -51,7 +51,7 @@ public class BibliographyController {
     }
 
     @PostMapping("/save")
-    public String save(Bibliography bibliography, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file, @RequestParam("document") MultipartFile document){
+    public String save(Bibliography bibliography,String faculte, String option, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file, @RequestParam("document") MultipartFile document){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         String fileName = fileUploadService.storeFile(file);
@@ -69,6 +69,8 @@ public class BibliographyController {
             bibliography.setFichier("/downloadFile/"+fileName1);
             bibliography.setPrice(0.0);
             bibliography.setPagePrice(0.0);
+            bibliography.setFaculte(faculte);
+            bibliography.setOptions(option);
             bibliography.setUser(user);
             bibliography.setDisponibility(false);
             bibliographyRepository.save(bibliography);

@@ -105,6 +105,30 @@
                                     </div>
                                     <div class=" mt-3">
                                         <div class="form-group">
+                                            <p class="mt-2 mb-2">Categorie:</p>
+                                            <textarea class="form-control"  rows="1" style="height: 30px" th:text="${bibliography.category}" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class=" mt-3">
+                                    <div class="form-group">
+                                        <p class="mt-2 mb-2">Indexation:</p>
+                                        <textarea class="form-control"  rows="1" style="height: 30px" th:text="${bibliography.indexation}" disabled></textarea>
+                                    </div>
+                                    </div>
+                                    <div class=" mt-3">
+                                        <div class="form-group">
+                                            <p class="mt-2 mb-2">Faculte:</p>
+                                            <textarea class="form-control"  rows="1" style="height: 30px" th:text="${bibliography.faculte}" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class=" mt-3">
+                                        <div class="form-group">
+                                            <p class="mt-2 mb-2">Option:</p>
+                                            <textarea class="form-control"  rows="1" style="height: 30px" th:text="${bibliography.options}" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class=" mt-3">
+                                        <div class="form-group">
                                             <p class="mt-2 mb-2">Edition:</p>
                                             <textarea class="form-control"  rows="1" style="height: 30px" th:text="${bibliography.editeur}" disabled></textarea>
                                         </div>
@@ -239,11 +263,23 @@
                                                 <input type="text" th:field="*{title}" id="student" class="form-control" placeholder="Titre du livre" />
                                             </div>
                                         </div>
-                                        <div class=" mt-3">
+                                        <div class=" mt-3" style="display: none">
                                             <div class="form-group">
                                                 <span class='error' id="faculteError"></span>
-                                                <input type="text" name="faculte" th:value="${these1.faculty}" id="faculte" class="form-control" placeholder="Titre du livre" />
-                                                <input type="text" name="option" th:value="${these1.option}" id="option" class="form-control" placeholder="Titre du livre" />
+                                                <input type="text" name="faculte"  th:value="${these1.faculty}" id="faculte" class="form-control" placeholder="Titre du livre" />
+                                                <input type="text" name="option" th:value="${these1.options}" id="option" class="form-control" placeholder="Titre du livre" />
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3">
+                                            <div class="form-group">
+                                                <span class='error' id="categoryError"></span>
+                                                <input type="text" th:field="*{category}"  class="form-control" placeholder="Category" />
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3">
+                                            <div class="form-group">
+                                                <span class='error' id="indexationError"></span>
+                                                <input type="text" th:field="*{indexation}"  class="form-control" placeholder="Indexation" />
                                             </div>
                                         </div>
                                         <div class=" mt-3">

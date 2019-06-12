@@ -18,6 +18,10 @@ public class Bibliography implements Serializable{
     private String motCle;
     private String description;
     private String link;
+    private String faculte;
+    private String options;
+    private String category;
+    private String indexation;
     private String couverture;
     private Boolean disponibility;
     private Double price;
@@ -38,16 +42,20 @@ public class Bibliography implements Serializable{
     public Bibliography() {
     }
 
-    public Bibliography(String auteur, String fichier, String couverture, String pageNumber, String title,String motCle, String description, These these, String link,Boolean disponibility,
-                        Double pagePrice, Double price, String editeur, String edition, String isbnNumber, String lieu_edition, String annee_edition) {
+    public Bibliography(String auteur,String category, String indexation, String fichier, String couverture, String pageNumber, String title,String motCle, String description, These these, String link,Boolean disponibility,
+                        Double pagePrice, Double price, String editeur,String faculte,String options, String edition, String isbnNumber, String lieu_edition, String annee_edition) {
         this.auteur = auteur;
         this.title = title;
+        this.category = category;
+        this.indexation = indexation;
         this.price=price;
         this.isbnNumber=isbnNumber;
         this.pageNumber=pageNumber;
         this.fichier=fichier;
         this.pagePrice=pagePrice;
         this.motCle=motCle;
+        this.faculte=faculte;
+        this.options=options;
         this.disponibility=disponibility;
         this.description = description;
         this.link=link;
@@ -57,6 +65,38 @@ public class Bibliography implements Serializable{
         this.edition=edition;
         this.lieu_edition=lieu_edition;
         this.these = these;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getIndexation() {
+        return indexation;
+    }
+
+    public void setIndexation(String indexation) {
+        this.indexation = indexation;
+    }
+
+    public String getFaculte() {
+        return faculte;
+    }
+
+    public void setFaculte(String faculte) {
+        this.faculte = faculte;
+    }
+
+    public String getOptions() {
+        return options;
+    }
+
+    public void setOptions(String options) {
+        this.options = options;
     }
 
     public String getEdition() {
