@@ -271,9 +271,18 @@ public class ColonieController {
     }
 
     @PostMapping("/save")
-    public String save(Colonie colonie, @RequestParam("files")MultipartFile[] files, String prix){
+    public String save(Colonie colonie, @RequestParam("files")MultipartFile[] files,@RequestParam("couverture")MultipartFile couverture, String prix){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
+        String fileName = fileUploadService.storeFile(couverture);
+        if (couverture.isEmpty()){
+            System.out.println("je suis vide");
+            colonie.setCover("/downloadFile/new/images/blog_1.jpg");
+        }else {
+            System.out.println("je suis charger");
+            colonie.setCover("/downloadFile/"+fileName);
+        }
+
         List<FileUploadRespone> pieces= Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
@@ -308,7 +317,7 @@ public class ColonieController {
     }
 
     @PostMapping("/update")
-    public String update(Colonie colonie, @RequestParam("files")MultipartFile[] files, String prix){
+    public String update(Colonie colonie, @RequestParam("files")MultipartFile[] files,@RequestParam("couverture")MultipartFile couverture, String prix){
         System.out.println(colonie.getFichier());
         if (prix.isEmpty()){
             colonie.setPrice(colonie.getPrice());
@@ -316,7 +325,14 @@ public class ColonieController {
             colonie.setPrice(Double.parseDouble(prix));
         }
 
-            List<FileUploadRespone> pieces = Arrays.asList(files)
+        String fileName = fileUploadService.storeFile(couverture);
+        if (couverture.isEmpty()){
+            colonie.setCover(colonie.getCover());
+        }else {
+            colonie.setCover("/downloadFile/"+fileName);
+        }
+
+        List<FileUploadRespone> pieces = Arrays.asList(files)
                     .stream()
                     .map(file -> uploadFile(file))
                     .collect(Collectors.toList());

@@ -66,6 +66,14 @@
                 <div class="container">
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
+                            <p><strong>Photo de garde :</strong></p>
+                        </div>
+                        <div class="col-md-7">
+                            <p> <img th:src="${colonie.cover}"></img></p>
+                        </div>
+                    </div>
+                    <div class="row mr-3 ml-3">
+                        <div class="col-md-5">
                             <p><strong>Activité :</strong></p>
                         </div>
                         <div class="col-md-7">
@@ -257,6 +265,13 @@
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="saisonError"></span>
                     <input type="text" th:field="*{saison}" id="saison" class="form-control" placeholder="Saison de l'année, Année " />
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="coverError"></span>
+                    <span >Photo de garde:</span>
+                    <span th:text="${colonie.cover}"></span>
+                    <input type="file" name="couverture"  id="couverture" class="form-control" placeholder="Activite" />
+                    <input type="text" th:field="*{cover}" id="cover" class="form-control" style="display: none;" placeholder="Saison de l'année, Année " />
                 </div>
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="fichierError"></span>

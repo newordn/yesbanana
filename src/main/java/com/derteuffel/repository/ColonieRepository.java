@@ -29,4 +29,6 @@ List<Colonie> findByPaysAndStatusOrderByColonieIdDesc(String pays, Boolean statu
 List<Colonie> findFirst12ByRegionAndActive(String region, Boolean active, Sort sort);
 List<Colonie> findByRegionAndStatusOrderByColonieIdDesc(String region, Boolean status);
 List<Colonie> findByStatus(Boolean status, Sort sort);
+    List<Colonie> findFirst12ByActive(Boolean active, Sort sort);
+    List<Colonie> findFirst3ByActive(Boolean active, Sort sort);
 }
