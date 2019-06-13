@@ -24,7 +24,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/visitor")
 public class ExternController {
-    List<String> countries= Arrays.asList(
+  /*  List<String> countries= Arrays.asList(
             "Afghanistan",
             "Albania",
             "Algeria",
@@ -224,7 +224,7 @@ public class ExternController {
             "Zambia",
             "Zimbabwe"
 
-    );
+    );*/
 
     @Autowired
     private TheseRepository theseRepository;
@@ -342,15 +342,173 @@ public class ExternController {
         return "these_module/advanced/livre";
     }
 
+    public List<String> removeDuplicates(List<String> list)
+    {
+        if (list == null){
+            return new ArrayList<>();
+        }
+
+        // Create a new ArrayList
+        List<String> newList = new ArrayList<String>();
+        // Traverse through the first list
+        for (String element : list) {
+
+            // If this element is not present in newList
+            // then add it
+
+            if (element !=null && !newList.contains(element) && !element.isEmpty()) {
+
+                newList.add(element);
+            }
+        }
+        // return the new list
+        return newList;
+    }
+
+
+    public List<String> categorieses= Arrays.asList("petit","cadet");
+    public List<String> types= Arrays.asList("vip","standart");
+
 
     //colonie methods implements
 
     @GetMapping("/colonies")
     public String all_colonies(Model model){
         List<Colonie> colonies=colonieRepository.findFirst12ByActive(true, Sort.by(Sort.Direction.DESC,"colonieId"));
-        model.addAttribute("colonies", colonies);
-        model.addAttribute("countries", countries);
+         List<Colonie> colonies1=colonieRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        for (Colonie colonie : colonies1){
 
+            countries.add(colonie.getPays());
+            saisons.add(colonie.getSaison());
+            sites.add(colonie.getSite());
+        }
+        model.addAttribute("saisons",removeDuplicates(saisons));
+        model.addAttribute("sites",removeDuplicates(sites));
+        model.addAttribute("categories", categorieses);
+        model.addAttribute("types",types);
+
+        model.addAttribute("colonies", colonies);
+        model.addAttribute("countries", removeDuplicates(countries));
+
+
+        return "these_module/colonie/colonies";
+    }
+
+    @GetMapping("/colonie/country/{pays}")
+    public String search_colonie_country(@PathVariable String pays, Model model){
+
+        List<Colonie> colonies=colonieRepository.findFirst12ByPaysAndActive(pays,true,Sort.by(Sort.Direction.DESC,"colonieId"));
+        List<Colonie> colonies1=colonieRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        for (Colonie colonie : colonies1){
+
+            countries.add(colonie.getPays());
+            saisons.add(colonie.getSaison());
+            sites.add(colonie.getSite());
+        }
+        model.addAttribute("saisons",removeDuplicates(saisons));
+        model.addAttribute("sites",removeDuplicates(sites));
+        model.addAttribute("categories", categorieses);
+        model.addAttribute("types",types);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("colonies", colonies);
+        return "these_module/colonie/colonies";
+    }
+
+    @GetMapping("/colonie/site/{site}")
+    public String search_colonie_site(@PathVariable String site, Model model){
+
+        List<Colonie> colonies=colonieRepository.findFirst12BySiteAndActive(site,true,Sort.by(Sort.Direction.DESC,"colonieId"));
+        List<Colonie> colonies1=colonieRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        for (Colonie colonie : colonies1){
+
+            countries.add(colonie.getPays());
+            saisons.add(colonie.getSaison());
+            sites.add(colonie.getSite());
+        }
+        model.addAttribute("saisons",removeDuplicates(saisons));
+        model.addAttribute("sites",removeDuplicates(sites));
+        model.addAttribute("categories", categorieses);
+        model.addAttribute("types",types);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("colonies", colonies);
+        return "these_module/colonie/colonies";
+    }
+
+    @GetMapping("/colonie/saison/{saison}")
+    public String search_colonie_saison(@PathVariable String saison, Model model){
+
+        List<Colonie> colonies=colonieRepository.findFirst12BySaisonAndActive(saison,true,Sort.by(Sort.Direction.DESC,"colonieId"));
+        List<Colonie> colonies1=colonieRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        for (Colonie colonie : colonies1){
+
+            countries.add(colonie.getPays());
+            saisons.add(colonie.getSaison());
+            sites.add(colonie.getSite());
+        }
+        model.addAttribute("saisons",removeDuplicates(saisons));
+        model.addAttribute("sites",removeDuplicates(sites));
+        model.addAttribute("categories", categorieses);
+        model.addAttribute("types",types);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("colonies", colonies);
+        return "these_module/colonie/colonies";
+    }
+
+    @GetMapping("/colonie/type/{type}")
+    public String search_colonie_type(@PathVariable String type, Model model){
+
+        List<Colonie> colonies=colonieRepository.findFirst12ByTypeAndActive(type,true,Sort.by(Sort.Direction.DESC,"colonieId"));
+        List<Colonie> colonies1=colonieRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        for (Colonie colonie : colonies1){
+
+            countries.add(colonie.getPays());
+            saisons.add(colonie.getSaison());
+            sites.add(colonie.getSite());
+        }
+        model.addAttribute("saisons",removeDuplicates(saisons));
+        model.addAttribute("sites",removeDuplicates(sites));
+        model.addAttribute("categories", categorieses);
+        model.addAttribute("types",types);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("colonies", colonies);
+        return "these_module/colonie/colonies";
+    }
+
+    @GetMapping("/colonie/category/{category}")
+    public String search_colonie_category(@PathVariable String category, Model model){
+
+        List<Colonie> colonies=colonieRepository.findFirst12ByCategoryAndActive(category,true,Sort.by(Sort.Direction.DESC,"colonieId"));
+        List<Colonie> colonies1=colonieRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        for (Colonie colonie : colonies1){
+
+            countries.add(colonie.getPays());
+            saisons.add(colonie.getSaison());
+            sites.add(colonie.getSite());
+        }
+        model.addAttribute("saisons",removeDuplicates(saisons));
+        model.addAttribute("sites",removeDuplicates(sites));
+        model.addAttribute("categories", categorieses);
+        model.addAttribute("types",types);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("colonies", colonies);
         return "these_module/colonie/colonies";
     }
 
