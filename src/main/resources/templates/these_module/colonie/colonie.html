@@ -138,27 +138,24 @@
                                 <div class="clearfix" style="z-index: 1000;">
 
                                     <!-- Product Quantity -->
+                                    <span>Saison</span>
                                     <div class="product_quantity clearfix">
                                         <span th:text="${colonie.saison}">Quantity: </span>
 
                                     </div>
+                                        <!-- Product Quantity -->
+                                    <div class="product_quantity mt-3 clearfix">
+                                            <span th:text="${colonie.dateDebut}">Quantity: </span>
 
-                                    <!-- Product Color -->
-                                    <ul class="product_color">
-                                        <li>
-                                            <span>Le: </span><span th:text="${colonie.dateDebut}"></span>
-                                        </li>
-                                    </ul>
-                                    <!-- Product Color -->
-                                    <ul class="product_color mt-2">
-                                        <li th:if="${colonie.type}=='vip'">
-                                            <span>Type: </span><span>V I P</span>
-                                        </li>
-                                        <li th:unless="${colonie.type}=='vip'">
-                                            <span>Type: </span><span>S T A N D A R T</span>
-                                        </li>
-                                    </ul>
-
+                                        </div>
+                                    <!-- Product Quantity -->
+                                    <div class="product_quantity mt-3 clearfix" th:if="${colonie.type}=='vip'">
+                                        <span>Type: </span><span>V I P</span>
+                                    </div>
+                                    <!-- Product Quantity -->
+                                    <div class="product_quantity clearfix" th:if="${colonie.type}=='cadet'">
+                                        <span>Type: </span><span>S T A N D A R T</span>
+                                    </div>
 
                                 </div>
                                 <div class="product_price"><h6 th:text="'$ '+${colonie.price}"></h6></div>
