@@ -66,10 +66,12 @@
                 <div class="container">
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
-                            <p><strong>Photo de garde :</strong></p>
+                            <p><strong>Photos de garde : </strong><span th:text="${#lists.size(colonie.fichier)}"></span></p>
                         </div>
                         <div class="col-md-7">
-                            <p> <img th:src="${colonie.cover}"></img></p>
+                            <p th:each="element : ${colonie.fichier}">
+                                <a th:href="${element}" th:text="${element}"></a>
+                            </p>
                         </div>
                     </div>
                     <div class="row mr-3 ml-3">
@@ -181,10 +183,12 @@
                     </div>
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
-                            <p><strong>fichier :</strong></p>
+                            <p><strong>Video illustrative :</strong></p>
                         </div>
                         <div class="col-md-7">
-                            <p th:each="element : ${colonie.fichier}"> <a th:href="${element}" th:text="${element}"></a></p>
+                            <video  controls>
+                                <source th:src="${colonie.cover}" >
+                            </video>
                         </div>
                     </div>
                     </div>
@@ -268,13 +272,14 @@
                 </div>
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="coverError"></span>
-                    <span >Photo de garde:</span>
+                    <span >Video illustrative:</span>
                     <span th:text="${colonie.cover}"></span>
                     <input type="file" name="couverture"  id="couverture" class="form-control" placeholder="Activite" />
                     <input type="text" th:field="*{cover}" id="cover" class="form-control" style="display: none;" placeholder="Saison de l'année, Année " />
                 </div>
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="fichierError"></span>
+                    <span >Photos de garde, entrer 10 élements</span>
                     <span th:each="element : ${colonie.fichier}" th:text="${element}"></span>
                     <input type="file" name="files" multiple id="fichier" class="form-control" placeholder="Activite" />
                     <input type="text" th:field="*{fichier}" style="display: none;" class="form-control" placeholder="Activite" />

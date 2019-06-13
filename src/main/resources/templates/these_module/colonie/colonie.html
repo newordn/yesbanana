@@ -16,6 +16,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/product_styles.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/product_responsive.css}">
+    <link rel="stylesheet"  th:href="@{/new/styles/main_styles.css}">
+    <link rel="stylesheet"  th:href="@{/new/styles/responsive.css}">
 </head>
 <body>
 
@@ -41,20 +43,94 @@
                 <!-- Images -->
                 <div class="col-lg-2 order-lg-1 order-2">
                     <ul class="image_list" th:each=" colonie1 : ${colonies}">
-                        <a th:href="@{/visitor/colonie/}+${colonie1.colonieId}"> <li th:data-image="${colonie1.cover}"><img th:src="${colonie1.cover}" alt=""></li></a>
+                        <a th:href="@{/visitor/colonie/}+${colonie1.colonieId}"> <li th:data-image="${colonie1.fichier[0]}"><img th:src="${colonie1.fichier[0]}" alt=""></li></a>
                     </ul>
                 </div>
 
                 <!-- Selected Image -->
                 <div class="col-lg-5 order-lg-2 order-1">
-                    <div class="image_selected" ><img th:src="${colonie.cover}" alt=""></div>
+                    <div class="image_selected" >
+                        <!-- Deals -->
+
+                        <div class="deals">
+                            <div class="deals_title">PHOTO COUVERTURE</div>
+                            <div class="deals_slider_container">
+
+                                <!-- Deals Slider -->
+                                <div class="owl-carousel owl-theme deals_slider" >
+
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie.fichier[0]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie.fichier[1]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[2]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[3]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[4]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[5]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[6]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[6]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[7]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[8]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[9]}" alt=""></div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="deals_slider_nav_container">
+                                <div class="deals_slider_prev deals_slider_nav"><i class="fas fa-chevron-left ml-auto"></i></div>
+                                <div class="deals_slider_next deals_slider_nav"><i class="fas fa-chevron-right ml-auto"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image_selected" >
+                        <video controls>
+                            <source th:src="${colonie.cover}">
+                        </video>
+                    </div>
                 </div>
 
                 <!-- Description -->
                 <div class="col-lg-5 order-3">
                     <div class="product_description">
-                        <div class="product_category"><h6><strong>Category : </strong><span th:text="${colonie.category}"></span></h6></div>
                         <div class="product_name"><span th:text="${colonie.title}"></span></div>
+                        <div class="product_category">
+                            <h6 th:if="${colonie.category}=='petit'"><strong>Age de : </strong><span >05 - 10 ans</span></h6>
+                            <h6 th:if="${colonie.category}=='cadet'"><strong>Age de : </strong><span >11 - 16 ans</span></h6>
+                            <p class="mt-2">Pays : <span th:text="${colonie.pays}"></span></p>
+                            <p class="mt-2">Site devant abriter l'activité : <span th:text="${colonie.site}"></span></p>
+                        </div>
                         <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
                         <div class="product_text"><p th:text="${colonie.activite}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at. Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.</p></div>
                         <div class="order_info d-flex flex-row">
@@ -85,9 +161,6 @@
 
 
                                 </div>
-
-                                <p class="mt-2">Pays : <span th:text="${colonie.pays}"></span></p>
-                                <p class="mt-2">Site devant abrité l'activité : <span th:text="${colonie.site}"></span></p>
                                 <div class="product_price"><h6 th:text="'$ '+${colonie.price}"></h6></div>
                                 <div class="button_container">
                                     <button type="button" class="button cart_button">Add to Cart</button>
@@ -120,5 +193,7 @@
 <script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
 <script th:src="@{/new/js/shop_custom.js}"></script>
 <script th:src="@{/new/js/product_custom.js}"></script>
+<script th:src="@{/new/js/custom.js}"></script>
+
 </body>
 </html>
