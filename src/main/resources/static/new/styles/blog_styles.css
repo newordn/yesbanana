@@ -1312,8 +1312,8 @@ select option
 	text-align: center;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
-	visibility: hidden;
-	opacity: 0;
+	visibility:visible;
+	/*opacity: 0;*/
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
 	-ms-transition: all 200ms ease;

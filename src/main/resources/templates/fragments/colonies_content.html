@@ -5,6 +5,9 @@
 							</div>
 						</div>
 						<div class="blog_posts d-flex row align-items-start justify-content-between" th:unless="${#lists.size(colonies)<=0}">
+							<div class="alert alert-info">
+								<p><span th:text="${#lists.size(colonies)}"></span><span> élément(s) disponible(nt)</span></p>
+							</div>
 							<div  th:each="colonie : ${colonies}" class="col-md-4">
 								<!-- Blog post -->
 								<div class="blog_post ">
