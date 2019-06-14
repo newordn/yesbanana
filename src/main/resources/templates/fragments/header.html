@@ -55,6 +55,29 @@
 							</div>
 						</div>
 					</div>
+					<!-- Wishlist -->
+					<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
+						<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
+								<img th:src="@{/new/images/images_shopping.png}" alt=""><br>
+									<div class="wishlist_text"><a th:href="@{/payment/panier}">Mon Panier</a></div>
+							</div>
+
+							<!-- Cart -->
+							<div class="cart">
+								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
+									<div class="wishlist">
+										<img th:src="@{/new/images/images_transaction.png}" alt="">
+										<div class="wishlist_text"><a th:href="@{/payment/transactions}">Transactions</a></div>
+									</div>
+									<div class="cart_content">
+										<div class="cart_text"><a href="#">Cart</a></div>
+										<div class="cart_price">$85</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

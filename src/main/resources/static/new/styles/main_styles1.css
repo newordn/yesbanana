@@ -1322,11 +1322,11 @@ select option
 /*********************************
 6.1 Deals
 *********************************/
+
 .deals
 {
-	width: 36%;
-	margin-right: 7%;
-	padding-top: 85px;
+	width: 100%;
+	padding-top: 100px;
 	padding-left: 50px;
 	padding-right: 50px;
 	padding-bottom: 35px;
