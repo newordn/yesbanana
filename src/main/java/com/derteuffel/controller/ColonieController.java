@@ -402,6 +402,7 @@ public class ColonieController {
     public String reservations(Model model, @PathVariable Long colonieId,HttpSession session){
         Colonie colonie=colonieRepository.getOne(colonieId);
 
+        model.addAttribute("colonieId", colonie.getColonieId());
         session.setAttribute("colonieId", colonie.getColonieId());
         List<Reservation> reservations=reservationRepository.findByColonie(colonie.getColonieId());
         model.addAttribute("reservations",reservations);
