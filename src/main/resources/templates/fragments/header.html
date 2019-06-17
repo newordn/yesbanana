@@ -28,14 +28,14 @@
 				<div class="row">
 
 					<!-- Logo -->
-					<div class="col-lg-4 col-sm-6 col-6 order-2">
+					<div class="col-lg-3 col-sm-6 col-6 order-2">
 						<div class="logo_container">
 							<div class="logo"><a th:href="@{/}">Yesbanana</a></div>
 						</div>
 					</div>
 
 					<!-- Search -->
-					<div class="col-lg-8 col-12 order-lg-3 order-4 text-lg-left text-right">
+					<div class="col-lg-5 col-12 order-lg-3 order-4 text-lg-left text-right">
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
@@ -55,6 +55,9 @@
 							</div>
 						</div>
 					</div>
+
+					<div class="col-lg-1" th:replace="commands/visitorConnexionWidget.html:: visitorConnexionWidget"></div>
+					<div class="col-lg-1" th:replace="commands/visitorLogOutWidget.html:: visitorLogOutWidget"></div>
 				</div>
 			</div>
 		</div>

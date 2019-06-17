@@ -31,6 +31,7 @@ public class UserRestController {
     //users visitor management function
     @PostMapping(value = "/mobile/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
     public Map<String, String> restRegistration(@RequestBody Map<String,String> object){
+        System.out.println("Registration");
        Map map=new HashMap<String,String>();
 
         User user= userRepository.findByName(object.get("name"));
@@ -98,6 +99,7 @@ public class UserRestController {
             return map;
         }
     }
+
     @GetMapping("/chiefs")
     public List<User> chiefs() {
         List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
@@ -129,6 +131,7 @@ public class UserRestController {
         System.out.println(assistants);
         return assistants;
     }
+
     @GetMapping("/professeurs")
     public List<User> professors() {
         List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
@@ -144,6 +147,7 @@ public class UserRestController {
         System.out.println(professeurs);
         return professeurs;
     }
+
     @GetMapping("/primaries")
     public List<User> primaries() {
         List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
@@ -159,6 +163,7 @@ public class UserRestController {
         System.out.println(primaries);
         return primaries;
     }
+
     @GetMapping("/secondaries")
     public List<User> secondary() {
         List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
