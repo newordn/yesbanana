@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/product_styles.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/product_responsive.css}">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet"  th:href="@{/new/styles/main_styles1.css}">
     <link rel="stylesheet"  th:href="@{/new/styles/responsive.css}">
 </head>
@@ -159,11 +160,27 @@
 
                                 </div>
                                 <div class="product_price"><h6 th:text="'$ '+${colonie.price}"></h6></div>
+                                <p>Faite votre reservation pour faire passé des moments inoubliable a vos enfants avec m'équipe de Solution Africa Sarl.
+                                    Reserver en trois (03) étapes:
+                                </p>
+                                <p>
+                                    (01)&nbsp;<i class="fa fa-hand-o-right"></i>&nbsp;Connectez afin d'afin d'avoir
+                                    un compte et pouvoir ajouter des éléments dans votre panier pour effeectuer vos
+                                    paiements via le lien <a th:href="@{/visitor/login}" style="color: #00b5e9">connexion</a>
+                                </p>
+                                <p>
+                                    (02)&nbsp;<i class="fa fa-hand-o-right"></i>&nbsp;Vous etes deja connecter? c'est le moment de signaler vos conditions de reservation pour une activité via le bouton ci-dessous
+                                </p>
                                 <div class="button_container">
-                                    <button type="button" class="button cart_button">Add to Cart</button>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                    <a class="button cart_button" th:href="@{/reservation/form/}+${colonie.colonieId}">Reservez sur Yesbanana</a>
                                 </div>
 
+                                <p class="mt-4">
+                                    (03)&nbsp;<i class="fa fa-hand-o-right"></i>&nbsp;Finalisez votre resevation en ajoutant cette activité dans votre panier a fin de finaliser le paiement via le bouton ci-dessous
+                                </p>
+                                <div class="button_container">
+                                    <a class="button cart_button" href="#">Ajouter a mon Panier</a>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -174,7 +191,6 @@
     </div>
 </div>
 <div th:replace="~{../templates/fragments/footer :: footer}"></div>
-
 <script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
 <script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
 <script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>

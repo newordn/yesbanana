@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by derteuffel on 06/06/2019.
@@ -37,6 +38,9 @@ public class Colonie implements Serializable {
     private Boolean status;
     private ArrayList<String> fichier;
 
+    @OneToMany(mappedBy = "colonie")
+    private List<Reservation> reservations;
+
     public Colonie() {
     }
 
@@ -58,6 +62,14 @@ public class Colonie implements Serializable {
         this.active = active;
         this.status = status;
         this.fichier = fichier;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
     public String getCover() {

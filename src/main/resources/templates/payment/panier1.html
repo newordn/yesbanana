@@ -38,32 +38,9 @@
     <div class="shop">
         <div class="container">
             <div class="container mb-3 card p-3" >
-                <div class="row">
-                    <div class="col-6">
-                        <h4 class="text-left"> Date :  <span th:text="${panier.date}"></span></h4>
-                    </div>
-                    <div class="col-6">
-                        <h4 class="text-right"><a class="btn btn-primary" th:href="@{/payment/form/} + ${panier.count}" >Passer la commande</a></h4>
-                    </div>
+                <div class="alert alert-info">
+                    <span>Votre panier est vide, bien vouloir ajouter des élements pour effectuer un paiement</span>
                 </div>
-                <h4>Montant total : <span th:text="${panier.count}" class="text-center"></span> $ </h4>
-                <table class="table bordered" style="color:black">
-                    <thead>
-                    <th>Produits</th>
-                    <th>Montant</th>
-                    <th>Actions</th>
-
-                    </thead>
-                    <tbody>
-                    <tr th:each="article : ${panier.articles}">
-                        <td th:text="${article.name}">Cours d'anglais</td>
-                        <td th:text="${article.prix}">25$</td>
-                        <td>
-                            <a th:href="@{/payment/delete/article/} + ${article.id}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>

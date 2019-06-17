@@ -277,24 +277,27 @@ public class HomeController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         List<Panier> paniers = user.getPaniers();
-        Panier theLast = paniers.get(paniers.size()-1);
-        if(theLast.getCount()==0.0) panierRepository.delete(theLast);
-        Panier panier =null;
-        for(Panier panier1 : paniers)
-        {
-            if(panier1.getStatus())
-            {
-                panier= panier1;
+        if (paniers.size()<=0){
+            System.out.println("je ne contient aucun panier");
+        }else {
+            Panier theLast = paniers.get(paniers.size() - 1);
+            if (theLast.getCount() == 0.0) panierRepository.delete(theLast);
+            Panier panier = null;
+            for (Panier panier1 : paniers) {
+                if (panier1.getStatus()) {
+                    panier = panier1;
+                }
             }
-        }
-        if(panier!=null) {
-            panier.setStatus(false);
-            panierRepository.save(panier);
+            if (panier != null) {
+                panier.setStatus(false);
+                panierRepository.save(panier);
+            }
         }
         HttpSession session = request.getSession();
         session.invalidate();
 
-        return "redirect:/logout";
+
+        return "redirect:/login/visitor";
     }
 
     @GetMapping("/stats")

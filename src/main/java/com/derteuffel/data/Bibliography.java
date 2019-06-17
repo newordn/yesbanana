@@ -131,6 +131,7 @@ public class Bibliography implements Serializable{
         this.fichier = fichier;
     }
 
+    @JsonIgnore
     public User getUser() {
         return user;
     }

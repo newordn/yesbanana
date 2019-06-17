@@ -1,6 +1,7 @@
 package com.derteuffel.controller;
 
 import com.derteuffel.data.Colonie;
+import com.derteuffel.data.Reservation;
 import com.derteuffel.data.User;
 import com.derteuffel.repository.ColonieRepository;
 import com.derteuffel.service.MailService;
@@ -251,10 +252,16 @@ public class ColonieController {
         return "colonie/colonies";
     }
 
+
     @GetMapping("/detail/{colonieId}")
-    public String view(@PathVariable Long colonieId, Model model){
+    public String view(@PathVariable Long colonieId, Model model,HttpSession session){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByName(auth.getName());
         Colonie colonie =colonieRepository.getOne(colonieId);
+        session.setAttribute("colonieId",colonie.getColonieId());
+        model.addAttribute("user",user);
         model.addAttribute("colonie", colonie);
+        model.addAttribute("reservation",new Reservation());
         model.addAttribute("countries", countries);
         return "colonie/colonie";
     }

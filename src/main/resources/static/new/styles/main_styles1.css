@@ -245,6 +245,17 @@ section
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
+.button1
+{
+	display: inline-block;
+	border-radius: 5px;
+	height: 48px;
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+}
 .button a
 {
 	display: block;
@@ -252,6 +263,16 @@ section
 	font-weight: 400;
 	line-height: 48px;
 	color: #FFFFFF;
+	padding-left: 35px;
+	padding-right: 35px;
+}
+.button1 a
+{
+	display: block;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 48px;
+	color: #000;
 	padding-left: 35px;
 	padding-right: 35px;
 }

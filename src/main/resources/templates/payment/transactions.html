@@ -1,184 +1,90 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Yesbanana</title>
+    <title>YesBanana</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-    <link rel="stylesheet" th:href="@{/css/aos.css}">
-    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
-    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="OneTech shop project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
 </head>
 <body>
 <script
         src="https://www.paypal.com/sdk/js?client-id=AX1bgCA9UyX9fwXC1EuDBva_xyHGr5YIUO5T_T0xLT_WcUEewEkW8Il5sZ0yzcJ7FPGVpR7YKi9-Q5mi&disable-card=visa,mastercard,amex ">
 </script>
 
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/}"><span>Yes</span>banana</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
-        </button>
+<div class="super_container">
+    <div th:replace="~{../templates/fragments/header :: header}"></div>
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item "><a th:href="@{/external/secure/options/buy/pages/}+${session.motCle}" class="nav-link "><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a></li>
-                <li class="nav-item "><a href="/payment/panier" class="nav-link">Votre panier</a></li>
-                <li class="nav-item active">
-                    <a  href="/payment/transactions" class="nav-link">Mes transactions</a>
-                </li>
-                <li class="nav-item dropdown text-center" sec:authorize="isFullyAuthenticated()">
+    <!-- Home -->
 
-                    <!-- insert the profile image-->
-                    <a href="#">
-                        <img class="profile-img" src="" alt="avatar">
-                    </a>
-                    <!-- insert the profile image-->
-                    <ul class="dropdown-menu">
-                        <li class="nav-item"><a   class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
-                        <li class="nav-item">
-                            <a class="black nav-link" th:href="@{/perform_logout}" >Deconnexion</a>
-                        </li>
-                    </ul>
-                </li>
-
-            </ul>
+    <div class="home">
+        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="new/images/shop_background.jpg"></div>
+        <div class="home_overlay"></div>
+        <div class="home_content d-flex flex-column align-items-center justify-content-center">
+            <h2 class="home_title">Toutes mes transactions</h2>
         </div>
     </div>
-</nav>
-<!-- END nav -->
 
-<section class="ftco-section testimony-section">
-    <h4 class="text-center"><strong>L'historique de vos transactions</strong></h4>
-    <div class="container mb-3 card p-5" th:each="panier : ${paniers}">
-        <div class="row">
-           <div class="col-md-6">
-               <h4 class="text-left"> Date :  <span th:text="${panier.date}"></span></h4>
-           </div>
-            <div class="col-md-6">
-                <h4 class="text-right">Montant total : <span th:text="${panier.count}" class="text-center"></span> $ </h4>
+    <!-- Shop -->
+
+    <div class="shop">
+        <div class="container" th:if="${#lists.size(paniers)<=0}">
+            <div class="container ale mb-3 card p-5" >
+
             </div>
         </div>
-            <table class="table bordered" style="color:black">
-            <thead>
-             <th>Produits</th>
-             <th>Montant</th>
-             <th>Contenu</th>
-            </thead>
-            <tbody>
-            <tr th:each="article : ${panier.articles}">
-                <td th:text="${article.name}">Cours d'anglais</td>
-                <td th:text="${article.prix}">25$</td>
-                <td><a th:href="${article.container}"></a></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-</section>
-<section class="ftco-section-parallax">
-    <div class="parallax-img d-flex align-items-center">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                    <h2>Souscrivez a notre  Newsletter</h2>
-                    <p>Restez informer en souscrivant a notre service de messagerie.</p>
-                    <div class="row d-flex justify-content-center mt-4 mb-4">
-                        <div class="col-md-8">
-                            <form action="#" class="subscribe-form">
-                                <div class="form-group d-flex">
-                                    <input type="text" class="form-control" placeholder="Entrer votre adresse email">
-                                    <input type="submit" value="Souscrire" class="submit px-3">
-                                </div>
-                            </form>
-                        </div>
+        <div class="container" th:unless="${#lists.size(paniers)<=0}">
+            <div class="container mb-3 card p-5" th:each="panier : ${paniers}">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="text-left"> Date :  <span th:text="${panier.date}"></span></h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="text-right">Montant total : <span th:text="${panier.count}" class="text-center"></span> $ </h4>
                     </div>
                 </div>
+                <table class="table bordered" style="color:black">
+                    <thead>
+                    <th>Produits</th>
+                    <th>Montant</th>
+                    <th>Contenu</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="article : ${panier.articles}">
+                        <td th:text="${article.name}">Cours d'anglais</td>
+                        <td th:text="${article.prix}">25$</td>
+                        <td><a th:href="${article.container}"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-</section>
+</div>
+<div th:replace="~{../templates/fragments/footer :: footer}"></div>
 
 
-<footer class="ftco-footer ftco-bg-dark ftco-section">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Yesbanana</h2>
-                    <p>Votre plateforme digitale qui vous ouvre les portes du savoir dans toute son entiereté et sa rigueur.</p>
-                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4 ml-md-5">
-                    <h2 class="ftco-heading-2">Liens Utiles</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">Nos services</a></li>
-                        <li><a href="#" class="py-2 d-block">autres informations</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Confidentialité</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">A propos</a></li>
-                        <li><a href="#" class="py-2 d-block">Conditions d'utilisations</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Des Questions?</h2>
-                    <div class="block-23 mb-3">
-                        <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">Congo Kinshasa</span></li>
-                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+237694126158 +23793063228</span></a></li>
-                            <li><span></span><span class="text"></span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- loader -->
-<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-<script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.easing.1.3.js}"></script>
-<script th:src="@{/js/jquery.waypoints.min.js}"></script>
-<script th:src="@{/js/jquery.stellar.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/aos.js}"></script>
-<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/scrollax.min.js}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script th:src="@{/js/google-map.js}"></script>
-<script th:src="@{/js/main1.js}"></script>
-
+<script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+<script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/new/js/shop_custom.js}"></script>
 </body>
 </html>

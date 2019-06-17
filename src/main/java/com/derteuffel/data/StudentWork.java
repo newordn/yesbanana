@@ -1,5 +1,7 @@
 package com.derteuffel.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -40,6 +42,7 @@ public class StudentWork implements Serializable {
         this.status = status;
     }
 
+    @JsonIgnore
     public These getThese() {
         return these;
     }
