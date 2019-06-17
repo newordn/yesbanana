@@ -82,7 +82,7 @@ public class ReservationController {
         reservation.setPrix(reservation.getNombreEnfants()*Double.parseDouble(prix));
         reservation.setType(type);
         reservation.setSaison(saison);
-        reservation.setStatus(true);
+        reservation.setStatus(false);
         reservation.setColonie(colonieRepository.getOne(colonieId));
         reservationRepository.save(reservation);
 

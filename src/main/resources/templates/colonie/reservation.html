@@ -59,35 +59,33 @@
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 text-center heading-section ftco-animate">
                 <h1>Colonie de vacances</h1>
-                <h2 class="subheading"><span>Contenu d'une activité de colonie de vacances</span></h2>
+                <h2 class="subheading"><span>Contenu d'une reservation d'une activité</span></h2>
             </div>
 
             <div class="col-12 card " >
                 <div class="container">
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
-                            <p><strong>Photos de garde : </strong><span th:text="${#lists.size(colonie.fichier)}"></span></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p th:each="element : ${colonie.fichier}">
-                                <a th:href="${element}" th:text="${element}"></a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
                             <p><strong>Activité :</strong></p>
                         </div>
                         <div class="col-md-7">
-                            <p> <span th:text="${colonie.title}"></span></p>
+                            <p> <span th:text="${reservation.activite}"></span></p>
                         </div>
                     </div>
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
-                            <p><strong>Description :</strong></p>
+                            <p><strong>Nom du Demandeur :</strong></p>
                         </div>
                         <div class="col-md-7">
-                            <p> <span th:text="${colonie.activite}"></span></p>
+                            <p> <span th:text="${reservation.nom}"></span></p>
+                        </div>
+                    </div>
+                    <div class="row mr-3 ml-3">
+                        <div class="col-md-5">
+                            <p><strong>Adresse email :</strong></p>
+                        </div>
+                        <div class="col-md-7">
+                            <p> <span th:text="${reservation.saison}"></span></p>
                         </div>
                     </div>
                     <div class="row mr-3 ml-3">
@@ -95,41 +93,32 @@
                             <p><strong>Niveau :</strong></p>
                         </div>
                         <div class="col-md-7" >
-                            <p th:if="${colonie.category}=='petit'"> <span>05-10 ans</span></p>
-                            <p th:unless="${colonie.category}=='petit'"> <span>11-16 ans</span></p>
+                            <p th:if="${reservation.type}=='petit'"> <span>05-10 ans</span></p>
+                            <p th:unless="${reservation.type}=='petit'"> <span>11-16 ans</span></p>
                         </div>
                     </div>
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
-                            <p><strong>Prix de participation :</strong></p>
+                            <p><strong>Montant total :</strong></p>
                         </div>
                         <div class="col-md-7">
-                            <p> <span th:text="'$ '+${colonie.price}"></span></p>
+                            <p> <span th:text="'$ '+${reservation.prix}"></span></p>
                         </div>
                     </div>
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
-                            <p><strong>Date de début :</strong></p>
+                            <p><strong>Heure de début :</strong></p>
                         </div>
                         <div class="col-md-7">
-                            <p> <span th:text="${colonie.dateDebut}"></span></p>
+                            <p> <span th:text="${reservation.heureDebut}"></span></p>
                         </div>
                     </div>
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
-                            <p><strong>Date de fin :</strong></p>
+                            <p><strong>Heure de fin :</strong></p>
                         </div>
                         <div class="col-md-7">
-                            <p> <span th:text="${colonie.dateFin}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Type d'activité  :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p th:if="${colonie.type}=='vip'"> <span > V I P</span></p>
-                            <p th:unless="${colonie.type}=='vip'"> <span > STANDART</span></p>
+                            <p> <span th:text="${reservation.heureFin}"></span></p>
                         </div>
                     </div>
                     <div class="row mr-3 ml-3">
@@ -137,7 +126,7 @@
                             <p><strong>Site de déroulement :</strong></p>
                         </div>
                         <div class="col-md-7">
-                            <p> <span th:text="${colonie.site}"></span></p>
+                            <p> <span th:text="${reservation.site}"></span></p>
                         </div>
                     </div>
                     <div class="row mr-3 ml-3">
@@ -145,7 +134,7 @@
                             <p><strong>Pays :</strong></p>
                         </div>
                         <div class="col-md-7">
-                            <p> <span th:text="${colonie.pays}"></span></p>
+                            <p> <span th:text="${reservation.pays}"></span></p>
                         </div>
                     </div>
                     <div class="row mr-3 ml-3">
@@ -153,7 +142,7 @@
                             <p><strong>Région :</strong></p>
                         </div>
                         <div class="col-md-7">
-                            <p> <span th:text="${colonie.region}"></span></p>
+                            <p> <span th:text="${reservation.region}"></span></p>
                         </div>
                     </div>
                     <div class="row mr-3 ml-3">
@@ -161,15 +150,15 @@
                             <p><strong>Saison :</strong></p>
                         </div>
                         <div class="col-md-7">
-                            <p> <span th:text="${colonie.saison}"></span></p>
+                            <p> <span th:text="${reservation.saison}"></span></p>
                         </div>
                     </div>
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
-                            <p><strong>Adresse Google :</strong></p>
+                            <p><strong>Nombre d'enfant :</strong></p>
                         </div>
                         <div class="col-md-7">
-                            <p> <span th:text="${colonie.adresse}"></span></p>
+                            <p> <span th:text="${reservation.nombreEnfants}"></span></p>
                         </div>
                     </div>
                     <div class="row mr-3 ml-3">
@@ -177,22 +166,12 @@
                             <p><strong>Etat :</strong></p>
                         </div>
                         <div class="col-md-7">
-                            <p th:if="${colonie.active}==true"><span>Public</span></p>
-                            <p th:unless="${colonie.active}==true"><span>Suspendu</span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Video illustrative :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <video  controls>
-                                <source th:src="${colonie.cover}" >
-                            </video>
+                            <p th:if="${reservation.status}==true"><span>Payé</span></p>
+                            <p th:unless="${reservation.status}==true"><span>En attente de paiement</span></p>
                         </div>
                     </div>
                     <div class=" mr-3 ml-3 mt-3 mb-3 ">
-                        <a class="btn btn-secondary" style="color: #ffffff" th:href="@{/colonie/reservations/}+${colonie.colonieId}">Voir les reservations</a>
+                        <a class="btn btn-secondary" style="color: #ffffff" th:href="@{/colonie/reservations/}+${session.colonieId}">Voir les reservations</a>
                     </div>
                     </div>
                 </div>
@@ -201,108 +180,6 @@
         </div>
 </section>
 <!--addCrew-->
-<a  th:href="@{/colonie/activation/}+${colonie.colonieId}" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" >
-   <span th:if="${colonie.active}==true">Suspendre?</span>
-   <span th:unless="${colonie.active}==true">Publier?</span>
-</a>
-<button  type="button" style="position:fixed; left:10px;bottom:10px;" class=" btn btn-success rounded-circle" data-toggle="modal" data-target="#addCrew">
-    <i class="fa fa-pencil"></i>
-</button>
-<!--addCrew-->
-<div  class=" modal fade" id="addCrew" tabindex="-1" role="dialog" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered"  role="document">
-        <form class="add-these-form modal-content card text-left" th:object="${colonie}" method="post" th:action="@{/colonie/update}" enctype="multipart/form-data">
-            <div class="row p-4">
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="nameError"></span>
-                    <input type="text" th:field="*{title}" id="title" class="form-control" placeholder="Activite" />
-                    <input type="hidden" th:field="*{colonieId}"  />
-                </div>
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="desriptionError"></span>
-                    <textarea type="text" th:field="*{activite}" rows="5" id="description" class="form-control" placeholder="Description" ></textarea>
-                </div>
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="categoryError"></span>
-                    <select type="text" class="form-control" th:field="*{category}">
-                        <option value="">Choisir une category</option>
-                        <option value="petit">05-10 ans</option>
-                        <option value="cadet">11-16 ans</option>
-                    </select>
-                </div>
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="priceError"></span>
-                    <span th:text="${colonie.price}"></span>
-                    <input type="text" name="prix" id="price" class="form-control" placeholder="Prix de participation" />
-                    <input type="text" th:field="*{price}" style="display: none" class="form-control" placeholder="Prix de participation" />
-                </div>
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="dateDebutError"></span>
-                    <input type="date" th:field="*{dateDebut}" id="dateDebut" class="form-control" placeholder="Date de debut" />
-                </div>
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="dateFinError"></span>
-                    <input type="date" th:field="*{dateFin}" id="dateFin" class="form-control" placeholder="Date de fin" />
-                </div>
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="typeError"></span>
-                    <select type="text" class="form-control" th:field="*{type}">
-                        <option value="">Choisir un type d'évenement</option>
-                        <option value="vip">VIP</option>
-                        <option value="standart">Standart</option>
-                    </select>
-                </div>
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="siteError"></span>
-                    <input type="text" th:field="*{site}" id="site" class="form-control" placeholder="Site de deroulement de l'activite" />
-                </div>
-                <span class='error' id="countryError"></span>
-                <select class=" form-control mb-3" style="width: 100%" th:field="*{pays}" id="pays">
-                    <option value="">Selection pays</option>
-                    <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
-                </select>
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="regionError"></span>
-                    <input type="text" th:field="*{region}" id="region" class="form-control" placeholder="Région" />
-                </div>
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="adresseError"></span>
-                    <input type="text" th:field="*{adresse}" id="adresse" class="form-control" placeholder="Adresse google" />
-                </div>
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="saisonError"></span>
-                    <input type="text" th:field="*{saison}" id="saison" class="form-control" placeholder="Saison de l'année, Année " />
-                </div>
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="coverError"></span>
-                    <span >Video illustrative:</span>
-                    <span th:text="${colonie.cover}"></span>
-                    <input type="file" name="couverture"  id="couverture" class="form-control" placeholder="Activite" />
-                    <input type="text" th:field="*{cover}" id="cover" class="form-control" style="display: none;" placeholder="Saison de l'année, Année " />
-                </div>
-                <div class="form-group" style="width: 100%">
-                    <span class='error' id="fichierError"></span>
-                    <span >Photos de garde, entrer 10 élements</span>
-                    <span th:each="element : ${colonie.fichier}" th:text="${element}"></span>
-                    <input type="file" name="files" multiple id="fichier" class="form-control" placeholder="Activite" />
-                    <input type="text" th:field="*{fichier}" style="display: none;" class="form-control" placeholder="Activite" />
-                    <input type="text" th:field="*{status}" style="display: none;" class="form-control" placeholder="Activite" />
-                    <input type="text" th:field="*{active}" style="display: none;" class="form-control" placeholder="Activite" />
-                </div>
-                <div class="form-group row form-button" style="width: 100%">
-                    <div class="col-6">
-                        <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
-                    </div>
-                    <div class="col-6">
-                        <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
-                    </div>
-                </div>
-            </div>
-
-        </form>
-    </div>
-</div>
-<!-- addCrew-->
 
 
 

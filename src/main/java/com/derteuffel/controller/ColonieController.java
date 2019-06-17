@@ -4,6 +4,7 @@ import com.derteuffel.data.Colonie;
 import com.derteuffel.data.Reservation;
 import com.derteuffel.data.User;
 import com.derteuffel.repository.ColonieRepository;
+import com.derteuffel.repository.ReservationRepository;
 import com.derteuffel.service.MailService;
 import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,8 @@ public class ColonieController {
     private FileUploadService fileUploadService;
     @Autowired
     private UserService userService;
+    @Autowired
+            private ReservationRepository reservationRepository;
 
     List<String> countries= Arrays.asList(
             "Afghanistan",
@@ -393,5 +396,36 @@ public class ColonieController {
         }
         colonieRepository.save(colonie);
         return "redirect:/colonie/colonies";
+    }
+
+    @GetMapping("/reservations/{colonieId}")
+    public String reservations(Model model, @PathVariable Long colonieId,HttpSession session){
+        Colonie colonie=colonieRepository.getOne(colonieId);
+
+        session.setAttribute("colonieId", colonie.getColonieId());
+        List<Reservation> reservations=reservationRepository.findByColonie(colonie.getColonieId());
+        model.addAttribute("reservations",reservations);
+        return "colonie/reservations";
+
+    }
+
+    @GetMapping("/activation/reservation/{reservationId}")
+    public String reservation_activation(@PathVariable Long reservationId, HttpSession session){
+            Reservation reservation=reservationRepository.getOne(reservationId);
+        if (reservation.getStatus()== true){
+            reservation.setStatus(false);
+        }else {
+            reservation.setStatus(true);
+        }
+
+        reservationRepository.save(reservation);
+        return "redirect:/colonie/reservations/"+(Long)session.getAttribute("colonieId");
+    }
+
+    @GetMapping("/reservation/{reservationId}")
+    public  String reservation(Model model, @PathVariable Long reservationId){
+        Reservation reservation=reservationRepository.getOne(reservationId);
+        model.addAttribute("reservation",reservation);
+        return "colonie/reservation";
     }
 }
