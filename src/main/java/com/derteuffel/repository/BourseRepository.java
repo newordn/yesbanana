@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Repository
 public interface BourseRepository extends JpaRepository<Bourse, Long> {
-    List<Bourse> findByStatusAndSuprime(Boolean status,Boolean suprime);
+    List<Bourse> findByStatusAndSuprimeOrderByBourseIdDesc(Boolean status,Boolean suprime);
     List<Bourse> findFirst12ByStatusAndSuprime(Boolean status, Boolean suprime, Sort sort);
     List<Bourse> findBySuprime(Boolean suprime);
 }

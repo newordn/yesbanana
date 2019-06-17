@@ -1,0 +1,21 @@
+					<div class="col-lg-9" th:fragment="colonies_content"  xmlns:th="http://www.w3.org/1999/xhtml">
+						<div class="blog_posts d-flex flex-row align-items-start justify-content-between" th:if="${#lists.size(colonies)<=0}">
+							<div class="alert alert-info">
+								<span>Aucun élément disponible</span>
+							</div>
+						</div>
+						<div class="blog_posts d-flex row align-items-start justify-content-between" th:unless="${#lists.size(colonies)<=0}">
+							<div class="alert alert-info">
+								<p><span th:text="${#lists.size(colonies)}"></span><span> élément(s) disponible(nt)</span></p>
+							</div>
+							<div  th:each="colonie : ${colonies}" class="col-md-4">
+								<!-- Blog post -->
+								<div class="blog_post ">
+									<div class="blog_image" th:if="${#lists.size(colonie.fichier)==0}"  th:style="'background-image:url('+@{/new/images/blog_1.jpg}+')'"></div>
+									<div class="blog_image" th:unless="${#lists.size(colonie.fichier)==0}"  th:style="'background-image:url('+${colonie.fichier[0]}+')'"></div>
+									<div class="blog_text"><span th:text="${colonie.title}"></span></div>
+									<div class="blog_button"><a th:href="@{/visitor/colonie/}+${colonie.colonieId}">Decouvrir</a></div>
+								</div>
+							</div>
+						</div>
+					</div>

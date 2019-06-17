@@ -17,7 +17,7 @@
         <form th:action="@{/groupe/these/unPublish/{theseId}(theseId=${these.theseId})}" th:object="${these}" method="post">
 
             <div style="display:none">
-            <input type="number" name="userId" th:value="${these.user.userId}" style="display:none">
+            <input type="number" name="userId" th:value="${these?.user.userId}" style="display:none">
             <!-- user id -->
             <!--theseId-->
             <input type="number" th:field="*{theseId}"  style="display:none">

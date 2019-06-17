@@ -1,10 +1,12 @@
 package com.derteuffel.data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by derteuffel on 06/06/2019.
@@ -19,21 +21,31 @@ public class Colonie implements Serializable {
     private String activite;
     private String category;
     private Double price;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateDebut;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateFin;
     private String type;
     private String site;
     private String pays;
     private String region;
+    private String cover;
+    private String adresse;
+    private String saison;
     private Boolean active;
     private Boolean status;
-    private String fichier;
+    private ArrayList<String> fichier;
+
+    @OneToMany(mappedBy = "colonie")
+    private List<Reservation> reservations;
 
     public Colonie() {
     }
 
     public Colonie(String title, String activite, String category, Double price, Date dateDebut,
-                   Date dateFin, String type, String site_event, String pays, String region, Boolean active, Boolean status, String fichier) {
+                   Date dateFin, String type, String site, String pays,String cover, String region, String adresse, String saison, Boolean active, Boolean status, ArrayList<String> fichier) {
         this.title = title;
         this.activite = activite;
         this.category = category;
@@ -44,9 +56,44 @@ public class Colonie implements Serializable {
         this.site = site;
         this.pays = pays;
         this.region = region;
+        this.cover = cover;
+        this.adresse = adresse;
+        this.saison = saison;
         this.active = active;
         this.status = status;
         this.fichier = fichier;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getSaison() {
+        return saison;
+    }
+
+    public void setSaison(String saison) {
+        this.saison = saison;
     }
 
     public Long getColonieId() {
@@ -153,11 +200,11 @@ public class Colonie implements Serializable {
         this.status = status;
     }
 
-    public String getFichier() {
+    public ArrayList<String> getFichier() {
         return fichier;
     }
 
-    public void setFichier(String fichier) {
+    public void setFichier(ArrayList<String> fichier) {
         this.fichier = fichier;
     }
 }

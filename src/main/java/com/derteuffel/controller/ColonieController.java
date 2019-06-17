@@ -1,6 +1,7 @@
 package com.derteuffel.controller;
 
 import com.derteuffel.data.Colonie;
+import com.derteuffel.data.Reservation;
 import com.derteuffel.data.User;
 import com.derteuffel.repository.ColonieRepository;
 import com.derteuffel.service.MailService;
@@ -13,9 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by derteuffel on 06/06/2019.
@@ -233,29 +239,74 @@ public class ColonieController {
 
     );
 
-    @GetMapping("/lists")
-    public String lists_all(Model model){
-
+    @GetMapping("/colonies")
+    public String lists_all(Model model, HttpSession session){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByName(auth.getName());
         List<Colonie> lists=colonieRepository.findByStatus(true, Sort.by(Sort.Direction.DESC,"colonieId"));
-        model.addAttribute("lists",lists);
+        model.addAttribute("roles",user.getRoles());
+        session.setAttribute("roles", user.getRoles());
+        model.addAttribute("colonies",lists);
         model.addAttribute("colonie", new Colonie());
         model.addAttribute("countries",countries);
         return "colonie/colonies";
     }
 
+
     @GetMapping("/detail/{colonieId}")
-    public String view(@PathVariable Long colonieId, Model model){
+    public String view(@PathVariable Long colonieId, Model model,HttpSession session){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByName(auth.getName());
         Colonie colonie =colonieRepository.getOne(colonieId);
+        session.setAttribute("colonieId",colonie.getColonieId());
+        model.addAttribute("user",user);
         model.addAttribute("colonie", colonie);
+        model.addAttribute("reservation",new Reservation());
+        model.addAttribute("countries", countries);
         return "colonie/colonie";
     }
 
+    public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
+        String fileName = fileUploadService.storeFile(file);
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+
+        return new FileUploadRespone(fileName, fileDownloadUri);
+    }
+
     @PostMapping("/save")
-    public String save(Colonie colonie, @RequestParam("file")MultipartFile file, String prix){
+    public String save(Colonie colonie, @RequestParam("files")MultipartFile[] files,@RequestParam("couverture")MultipartFile couverture, String prix){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
-        String fileName = fileUploadService.storeFile(file);
-        colonie.setFichier("/downloadFile/"+fileName);
+        String fileName = fileUploadService.storeFile(couverture);
+        if (couverture.isEmpty()){
+            System.out.println("je suis vide");
+            colonie.setCover("/downloadFile/new/images/blog_1.jpg");
+        }else {
+            System.out.println("je suis charger");
+            colonie.setCover("/downloadFile/"+fileName);
+        }
+
+        List<FileUploadRespone> pieces= Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+        if (pieces.size() == 0) {
+            colonie.setFichier(colonie.getFichier());
+        }else {
+            ArrayList<String> filesPaths = new ArrayList<String>();
+            for(int i=0;i<pieces.size();i++)
+            {
+
+                filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+            }
+            colonie.setFichier(filesPaths);
+
+        }
 
         colonie.setPrice(Double.parseDouble(prix));
         colonie.setStatus(true);
@@ -273,19 +324,74 @@ public class ColonieController {
     }
 
     @PostMapping("/update")
-    public String update(Colonie colonie, @RequestParam("file")MultipartFile file, String prix,String active){
-        if (file.isEmpty()){
-            colonie.setFichier(colonie.getFichier());
+    public String update(Colonie colonie, @RequestParam("files")MultipartFile[] files,@RequestParam("couverture")MultipartFile couverture, String prix){
+        System.out.println(colonie.getFichier());
+        if (prix.isEmpty()){
+            colonie.setPrice(colonie.getPrice());
         }else {
-            String fileName = fileUploadService.storeFile(file);
-            colonie.setFichier("/downloadFile/"+fileName);
+            colonie.setPrice(Double.parseDouble(prix));
         }
-        colonie.setActive(Boolean.parseBoolean(active));
-        colonie.setStatus(true);
-        colonie.setPrice(Double.parseDouble(prix));
-        colonieRepository.save(colonie);
+
+        String fileName = fileUploadService.storeFile(couverture);
+        if (couverture.isEmpty()){
+            colonie.setCover(colonie.getCover());
+        }else {
+            colonie.setCover("/downloadFile/"+fileName);
+        }
+
+        List<FileUploadRespone> pieces = Arrays.asList(files)
+                    .stream()
+                    .map(file -> uploadFile(file))
+                    .collect(Collectors.toList());
+            if (pieces.size() <= 1) {
+                System.out.println("je suis la");
+                System.out.println(pieces.size());
+                colonieRepository.save(colonie);
+            } else {
+                ArrayList<String> filesPaths = new ArrayList<String>();
+                for (int i = 0; i < pieces.size(); i++) {
+
+                    filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+                }
+                colonie.setFichier(filesPaths);
+                colonieRepository.save(colonie);
+            }
+
 
         return "redirect:/colonie/detail/"+colonie.getColonieId();
     }
 
+    @GetMapping("/colonies/{pays}")
+    public String findByCountry(Model model, @PathVariable String pays){
+        List<Colonie> colonies=colonieRepository.findByPaysAndStatusOrderByColonieIdDesc(pays,true);
+        model.addAttribute("colonies",colonies);
+        model.addAttribute("countries", countries);
+        return "colonie/colonies";
+
+    }
+
+    @GetMapping("/activation/{colonieId}")
+    public String active(@PathVariable Long colonieId){
+        Colonie colonie= colonieRepository.getOne(colonieId);
+        if (colonie.getActive()==true){
+            colonie.setActive(false);
+        }else {
+            colonie.setActive(true);
+        }
+        colonieRepository.save(colonie);
+        return "redirect:/colonie/colonies";
+    }
+
+    @GetMapping("/delete/{colonieId}")
+    public String delete(@PathVariable Long colonieId){
+        Colonie colonie= colonieRepository.getOne(colonieId);
+        if (colonie.getStatus()==true){
+            colonie.setStatus(false);
+        }else {
+            colonie.setStatus(true);
+        }
+        colonieRepository.save(colonie);
+        return "redirect:/colonie/colonies";
+    }
 }

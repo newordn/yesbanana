@@ -1,13 +1,7 @@
 package com.derteuffel.controller;
 
-import com.derteuffel.data.Bibliography;
-import com.derteuffel.data.Bourse;
-import com.derteuffel.data.Syllabus;
-import com.derteuffel.data.These;
-import com.derteuffel.repository.BibliographyRepository;
-import com.derteuffel.repository.BourseRepository;
-import com.derteuffel.repository.SyllabusRepository;
-import com.derteuffel.repository.TheseRepository;
+import com.derteuffel.data.*;
+import com.derteuffel.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,6 +24,207 @@ import java.util.List;
 @Controller
 @RequestMapping("/visitor")
 public class ExternController {
+  /*  List<String> countries= Arrays.asList(
+            "Afghanistan",
+            "Albania",
+            "Algeria",
+            "Andorra",
+            "Angola",
+            "Antigua and Barbuda",
+            "Argentina",
+            "Armenia",
+            "Australia",
+            "Austria",
+            "Azerbaijan",
+            "Bahamas",
+            "Bahrain",
+            "Bangladesh",
+            "Barbados",
+            "Belarus",
+            "Belgium",
+            "Belize",
+            "Benin",
+            "Bhutan",
+            "Bolivia",
+            "Bosnia and Herzegovina",
+            "Botswana",
+            "Brazil",
+            "Brunei",
+            "Bulgaria",
+            "Burkina Faso",
+            "Burundi",
+            "Cabo Verde",
+            "Cambodia",
+            "Cameroon",
+            "Canada",
+            "Central African Republic (CAR)",
+            "Chad",
+            "Chile",
+            "China",
+            "Colombia",
+            "Comoros",
+            " Democratic Republic of the Congo",
+            "Republic of the Congo",
+            "Costa Rica",
+            "Cote d'Ivoire",
+            "Croatia",
+            "Cuba",
+            "Cyprus",
+            "Czech Republic",
+            "Denmark",
+            "Djibouti",
+            "Dominica",
+            "Dominican Republic",
+            "Ecuador",
+            "Egypt",
+            "El Salvador",
+            "Equatorial Guinea",
+            "Eritrea",
+            "Estonia",
+            "Eswatini (formerly Swaziland)",
+            "Ethiopia",
+            "Fiji",
+            "Finland",
+            "France",
+            "Gabon",
+            "Gambia",
+            "Georgia",
+            "Germany",
+            "Ghana",
+            "Greece",
+            "Grenada",
+            "Guatemala",
+            "Guinea",
+            "Guinea-Bissau",
+            "Guyana",
+            "Haiti",
+            "Honduras",
+            "Hungary",
+            "Iceland",
+            "India",
+            "Indonesia",
+            "Iran",
+            "Iraq",
+            "Ireland",
+            "Israel",
+            "Italy",
+            "Jamaica",
+            "Japan",
+            "Jordan",
+            "Kazakhstan",
+            "Kenya",
+            "Kiribati",
+            "Kosovo",
+            "Kuwait",
+            "Kyrgyzstan",
+            "Laos",
+            "Latvia",
+            "Lebanon",
+            "Lesotho",
+            "Liberia",
+            "Libya",
+            "Liechtenstein",
+            "Lithuania",
+            "Luxembourg",
+            "Macedonia (FYROM)",
+            "Madagascar",
+            "Malawi",
+            "Malaysia",
+            "Maldives",
+            "Mali",
+            "Malta",
+            "Marshall Islands",
+            "Mauritania",
+            "Mauritius",
+            "Mexico",
+            "Micronesia",
+            "Moldova",
+            "Monaco",
+            "Mongolia",
+            "Montenegro",
+            "Morocco",
+            "Mozambique",
+            "Myanmar (formerly Burma)",
+            "Namibia",
+            "Nauru",
+            "Nepal",
+            "Netherlands",
+            "New Zealand",
+            "Nicaragua",
+            "Niger",
+            "Nigeria",
+            "North Korea",
+            "Norway",
+            "Oman",
+            "Pakistan",
+            "Palau",
+            "Palestine",
+            "Panama",
+            "Papua New Guinea",
+            "Paraguay",
+            "Peru",
+            "Philippines",
+            "Poland",
+            "Portugal",
+            "Qatar",
+            "Romania",
+            "Russia",
+            "Rwanda",
+            "Saint Kitts and Nevis",
+            "Saint Lucia",
+            "Saint Vincent and the Grenadines",
+            "Samoa",
+            "San Marino",
+            "Sao Tome",
+            "Saudi Arabia",
+            "Senegal",
+            "Serbia",
+            "Seychelles",
+            "Sierra Leone",
+            "Singapore",
+            "Slovakia",
+            "Slovenia",
+            "Solomon Islands",
+            "Somalia",
+            "South Africa",
+            "South Korea",
+            "South Sudan",
+            "Spain",
+            "Sri Lanka",
+            "Sudan",
+            "Suriname",
+            "Swaziland",
+            "Sweden",
+            "Switzerland",
+            "Syria",
+            "Taiwan",
+            "Tajikistan",
+            "Tanzania",
+            "Thailand",
+            "Timor-Leste",
+            "Togo",
+            "Tonga",
+            "Trinidad and Tobago",
+            "Tunisia",
+            "Turkey",
+            "Turkmenistan",
+            "Tuvalu",
+            "Uganda",
+            "Ukraine",
+            "United Arab Emirates",
+            "United Kingdom",
+            "United States of America",
+            "Uruguay",
+            "Uzbekistan",
+            "Vanuatu",
+            "Vatican City (Holy See)",
+            "Venezuela",
+            "Vietnam",
+            "Yemen",
+            "Zambia",
+            "Zimbabwe"
+
+    );*/
 
     @Autowired
     private TheseRepository theseRepository;
@@ -38,6 +234,12 @@ public class ExternController {
     private SyllabusRepository syllabusRepository;
     @Autowired
     private BourseRepository bourseRepository;
+
+    @Autowired
+    private ColonieRepository colonieRepository;
+
+    @Autowired
+    private StudentWorkRepository studentWorkRepository;
 
     @GetMapping("/catalogues")
     public String catalogues(){
@@ -79,7 +281,10 @@ public class ExternController {
         return "these_module/side/bourses";
     }
     @GetMapping("/students_work")
-    public String students_work(){
+    public String students_work(Model model){
+        List<StudentWork> studentsWorks=studentWorkRepository.findByStatusOrderByStudentWorkIdDesc(true);
+        System.out.println(studentsWorks);
+        model.addAttribute("studentWorks",studentsWorks);
         return "these_module/side/search_student_work";
     }
 
@@ -137,5 +342,184 @@ public class ExternController {
         return "these_module/advanced/livre";
     }
 
+    public List<String> removeDuplicates(List<String> list)
+    {
+        if (list == null){
+            return new ArrayList<>();
+        }
+
+        // Create a new ArrayList
+        List<String> newList = new ArrayList<String>();
+        // Traverse through the first list
+        for (String element : list) {
+
+            // If this element is not present in newList
+            // then add it
+
+            if (element !=null && !newList.contains(element) && !element.isEmpty()) {
+
+                newList.add(element);
+            }
+        }
+        // return the new list
+        return newList;
+    }
+
+
+    public List<String> categorieses= Arrays.asList("petit","cadet");
+    public List<String> types= Arrays.asList("vip","standart");
+
+
+    //colonie methods implements
+
+    @GetMapping("/colonies")
+    public String all_colonies(Model model){
+        List<Colonie> colonies=colonieRepository.findFirst12ByActive(true, Sort.by(Sort.Direction.DESC,"colonieId"));
+         List<Colonie> colonies1=colonieRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        for (Colonie colonie : colonies1){
+
+            countries.add(colonie.getPays());
+            saisons.add(colonie.getSaison());
+            sites.add(colonie.getSite());
+        }
+        model.addAttribute("saisons",removeDuplicates(saisons));
+        model.addAttribute("sites",removeDuplicates(sites));
+        model.addAttribute("categories", categorieses);
+        model.addAttribute("types",types);
+
+        model.addAttribute("colonies", colonies);
+        model.addAttribute("countries", removeDuplicates(countries));
+
+
+        return "these_module/colonie/colonies";
+    }
+
+    @GetMapping("/colonie/country/{pays}")
+    public String search_colonie_country(@PathVariable String pays, Model model){
+
+        List<Colonie> colonies=colonieRepository.findFirst12ByPaysAndActive(pays,true,Sort.by(Sort.Direction.DESC,"colonieId"));
+        List<Colonie> colonies1=colonieRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        for (Colonie colonie : colonies1){
+
+            countries.add(colonie.getPays());
+            saisons.add(colonie.getSaison());
+            sites.add(colonie.getSite());
+        }
+        model.addAttribute("saisons",removeDuplicates(saisons));
+        model.addAttribute("sites",removeDuplicates(sites));
+        model.addAttribute("categories", categorieses);
+        model.addAttribute("types",types);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("colonies", colonies);
+        return "these_module/colonie/colonies";
+    }
+
+    @GetMapping("/colonie/site/{site}")
+    public String search_colonie_site(@PathVariable String site, Model model){
+
+        List<Colonie> colonies=colonieRepository.findFirst12BySiteAndActive(site,true,Sort.by(Sort.Direction.DESC,"colonieId"));
+        List<Colonie> colonies1=colonieRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        for (Colonie colonie : colonies1){
+
+            countries.add(colonie.getPays());
+            saisons.add(colonie.getSaison());
+            sites.add(colonie.getSite());
+        }
+        model.addAttribute("saisons",removeDuplicates(saisons));
+        model.addAttribute("sites",removeDuplicates(sites));
+        model.addAttribute("categories", categorieses);
+        model.addAttribute("types",types);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("colonies", colonies);
+        return "these_module/colonie/colonies";
+    }
+
+    @GetMapping("/colonie/saison/{saison}")
+    public String search_colonie_saison(@PathVariable String saison, Model model){
+
+        List<Colonie> colonies=colonieRepository.findFirst12BySaisonAndActive(saison,true,Sort.by(Sort.Direction.DESC,"colonieId"));
+        List<Colonie> colonies1=colonieRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        for (Colonie colonie : colonies1){
+
+            countries.add(colonie.getPays());
+            saisons.add(colonie.getSaison());
+            sites.add(colonie.getSite());
+        }
+        model.addAttribute("saisons",removeDuplicates(saisons));
+        model.addAttribute("sites",removeDuplicates(sites));
+        model.addAttribute("categories", categorieses);
+        model.addAttribute("types",types);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("colonies", colonies);
+        return "these_module/colonie/colonies";
+    }
+
+    @GetMapping("/colonie/type/{type}")
+    public String search_colonie_type(@PathVariable String type, Model model){
+
+        List<Colonie> colonies=colonieRepository.findFirst12ByTypeAndActive(type,true,Sort.by(Sort.Direction.DESC,"colonieId"));
+        List<Colonie> colonies1=colonieRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        for (Colonie colonie : colonies1){
+
+            countries.add(colonie.getPays());
+            saisons.add(colonie.getSaison());
+            sites.add(colonie.getSite());
+        }
+        model.addAttribute("saisons",removeDuplicates(saisons));
+        model.addAttribute("sites",removeDuplicates(sites));
+        model.addAttribute("categories", categorieses);
+        model.addAttribute("types",types);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("colonies", colonies);
+        return "these_module/colonie/colonies";
+    }
+
+    @GetMapping("/colonie/category/{category}")
+    public String search_colonie_category(@PathVariable String category, Model model){
+
+        List<Colonie> colonies=colonieRepository.findFirst12ByCategoryAndActive(category,true,Sort.by(Sort.Direction.DESC,"colonieId"));
+        List<Colonie> colonies1=colonieRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        for (Colonie colonie : colonies1){
+
+            countries.add(colonie.getPays());
+            saisons.add(colonie.getSaison());
+            sites.add(colonie.getSite());
+        }
+        model.addAttribute("saisons",removeDuplicates(saisons));
+        model.addAttribute("sites",removeDuplicates(sites));
+        model.addAttribute("categories", categorieses);
+        model.addAttribute("types",types);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("colonies", colonies);
+        return "these_module/colonie/colonies";
+    }
+
+
+    @GetMapping("/colonie/{colonieId}")
+    public String one_colonie(@PathVariable Long colonieId, Model model){
+        List<Colonie> colonies=colonieRepository.findFirst3ByActive(true,Sort.by(Sort.Direction.DESC,"colonieId"));
+        Colonie colonie=colonieRepository.getOne(colonieId);
+        model.addAttribute("colonies", colonies);
+        model.addAttribute("colonie", colonie);
+        return "these_module/colonie/colonie";
+    }
 
 }

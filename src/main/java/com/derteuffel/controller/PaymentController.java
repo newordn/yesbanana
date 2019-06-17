@@ -57,8 +57,12 @@ public class PaymentController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         List<Panier> paniers1 = user.getPaniers();
-        model.addAttribute("panier",paniers1.get(paniers1.size()-1));
-        return "payment/panier";
+        if (paniers1.size()<=0){
+            return "payment/panier1";
+        }else {
+            model.addAttribute("panier", paniers1.get(paniers1.size() - 1));
+            return "payment/panier";
+        }
     }
     @GetMapping("/delete/article/{articleId}")
     public String deleteArticle(@PathVariable Long articleId )

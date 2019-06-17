@@ -28,7 +28,7 @@
 				<div class="row">
 
 					<!-- Logo -->
-					<div class="col-lg-3 col-sm-6 col-6 order-2">
+					<div class="col-lg-2 col-sm-6 col-6 order-2">
 						<div class="logo_container">
 							<div class="logo"><a th:href="@{/}">Yesbanana</a></div>
 						</div>
@@ -38,8 +38,8 @@
 					<div class="col-lg-5 col-12 order-lg-3 order-4 text-lg-left text-right">
 						<div class="header_search">
 							<div class="header_search_content">
-								<div class="header_search_form_container">
-									<form action="#" class="header_search_form clearfix" style="display: none!important;">
+								<div class="header_search_form_container" style="display: none!important;">
+									<form action="#" class="header_search_form clearfix">
 										<input type="search" required="required" style="display: none!important;" class="header_search_input" placeholder="Recherche...">
 										<div class="custom_dropdown">
 											<div class="custom_dropdown_list">
@@ -56,8 +56,26 @@
 						</div>
 					</div>
 
-					<div class="col-lg-1" th:replace="commands/visitorConnexionWidget.html:: visitorConnexionWidget"></div>
-					<div class="col-lg-1" th:replace="commands/visitorLogOutWidget.html:: visitorLogOutWidget"></div>
+					<div class="col-lg-5 col-9 order-lg-3 order-2 text-lg-left text-right">
+						<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+							<div class="wishlist d-flex flex-row align-items-center justify-content-end" th:if="${session.userId}!=null">
+								<img th:src="@{/new/images/images_shopping.png}" alt="">
+								<div class="wishlist_text"><a th:href="@{/payment/panier}">Mon Panier</a></div>
+							</div>
+							<div class="wishlist d-flex flex-row align-items-center justify-content-end" th:if="${session.userId}!=null">
+								<img th:src="@{/new/images/images_transaction.png}" alt="">
+								<div class="wishlist_text"><a th:href="@{/payment/transactions}">Transactions</a></div>
+							</div>
+							<div class="wishlist d-flex flex-row align-items-center justify-content-end" th:if="${session.userId}==null">
+								<img th:src="@{/new/images/profile_picture.png}" alt="">
+								<div class="wishlist_text"><a th:href="@{/login/visitor}">Connexion</a></div>
+							</div>
+							<div class="wishlist d-flex flex-row align-items-center justify-content-end" th:if="${session.userId}!=null">
+								<img th:src="@{/new/images/logout_profile.jpg}" alt="">
+								<div class="wishlist_text"><a th:href="@{/perform_logout}">Déconnexion</a></div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -88,8 +106,8 @@
 										</ul>
 									</li>
 									<li ><a th:href="@{/visitor/bourses}">Bourses<i class="fas fa-university"></i></a></li>
-									<!--li><a href="#">Mediathèques<i class="fas fa-chevron-right"></i></a></li>
-									<li><a th:href="@{/course/administration}">Création d'entreprise<i class="fas fa-chevron-right"></i></a></li>
+									<li><a th:href="@{/visitor/colonies}">Colonie de vacances<i class="fas fa-chevron-right"></i></a></li>
+									<!--li><a th:href="@{/course/administration}">Création d'entreprise<i class="fas fa-chevron-right"></i></a></li>
 									<li><a href="#">Colonie de vacances<i class="fas fa-chevron-right"></i></a></li>
 									<li><a href="#">Espace école Primaire Carolyn W<i class="fas fa-chevron-right"></i></a></li>
 									<li><a href="#">Espace école Secondaire Jean paul K<i class="fas fa-chevron-right"></i></a></li>

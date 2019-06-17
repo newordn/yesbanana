@@ -98,6 +98,14 @@
                     </div>
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
+                            <p><strong>Edition :</strong></p>
+                        </div>
+                        <div class="col-md-7">
+                            <p> <span th:text="${bibliography.edition}"></span></p>
+                        </div>
+                    </div>
+                    <div class="row mr-3 ml-3">
+                        <div class="col-md-5">
                             <p><strong>Lieu d'édition :</strong></p>
                         </div>
                         <div class="col-md-7">
@@ -138,10 +146,58 @@
                     </div>
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
+                            <p><strong>Document Pdf :</strong></p>
+                        </div>
+                        <div class="col-md-7">
+                            <p> <a th:text="${bibliography.fichier}" th:href="${bibliography.fichier}"></a></p>
+                        </div>
+                    </div>
+                    <div class="row mr-3 ml-3">
+                        <div class="col-md-5">
                             <p><strong>Nombre de page :</strong></p>
                         </div>
                         <div class="col-md-7">
                             <p> <span th:text="${bibliography.pageNumber}"></span></p>
+                        </div>
+                    </div>
+                    <div class="row mr-3 ml-3">
+                        <div class="col-md-5">
+                            <p><strong>Faculte :</strong></p>
+                        </div>
+                        <div class="col-md-7">
+                            <p> <span th:text="${bibliography.faculte}"></span></p>
+                        </div>
+                    </div>
+                    <div class="row mr-3 ml-3">
+                        <div class="col-md-5">
+                            <p><strong>Option :</strong></p>
+                        </div>
+                        <div class="col-md-7">
+                            <p> <span th:text="${bibliography.options}"></span></p>
+                        </div>
+                    </div>
+                    <div class="row mr-3 ml-3">
+                        <div class="col-md-5">
+                            <p><strong>Categorie :</strong></p>
+                        </div>
+                        <div class="col-md-7">
+                            <p> <span th:text="${bibliography.category}"></span></p>
+                        </div>
+                    </div>
+                    <div class="row mr-3 ml-3">
+                        <div class="col-md-5">
+                            <p><strong>Indexation :</strong></p>
+                        </div>
+                        <div class="col-md-7">
+                            <p> <span th:text="${bibliography.indexation}"></span></p>
+                        </div>
+                    </div>
+                    <div class="row mr-3 ml-3">
+                        <div class="col-md-5">
+                            <p><strong>Numero du livre :</strong></p>
+                        </div>
+                        <div class="col-md-7">
+                            <p> <span th:text="${bibliography.isbnNumber}"></span></p>
                         </div>
                     </div>
                     <div class="row mr-3 ml-3">

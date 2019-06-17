@@ -46,45 +46,47 @@
             <div  style="margin-top: 5.5rem">
                 <div class=" pt-3 pb-3 justify-content-center">
                     <div class="detailabstract " style="padding:0" ><h2>Sommaire</h2>
-                        <div class=" pull-right text-right " style="padding:0">
-                            <a class="btn btn-success rounded-circle"  data-toggle="modal" data-target="#modal-edit" th:attr="data-target='#modal-edit'+${these1.theseId }">
-                                <i class="fa fa-pencil"></i>
-                            </a>
-                            <span>Editer</span>
-                        </div>
-                        <div th:switch="${these1.fileType}" class="justify-content-center col-md-12">
-                            <div class="card" th:case="'IMAGE'" >
-                                <div class="card-header alert-success">
-                                    <h4>Images Relatives</h4>
+                        <div class="row">
+                            <div th:switch="${these1.fileType}" class="justify-content-center col-md-11">
+                                <div class="card" th:case="'IMAGE'" >
+                                    <div class="card-header alert-success">
+                                        <h4>Images Relatives</h4>
+                                    </div>
+                                    <div class="card-body pr-3 pl-3" th:each=" resume : ${these1.resumes}">
+                                        <img  th:src="${resume}" id="detailAbstract" width="300" height="250" alt="sommaire">
+                                    </div>
                                 </div>
-                                <div class="card-body pr-3 pl-3" th:each=" resume : ${these1.resumes}">
-                                    <img  th:src="${resume}" id="detailAbstract" width="300" height="250" alt="sommaire">
+                                <div th:case="'DOCUMENT'" class="card">
+                                    <div class="card-header alert-success">
+                                        <h4>Documents Relatifs</h4>
+                                    </div>
+                                    <div class="card-body pr-3 pl-3">
+                                        <ul th:each=" resume : ${these1.resumes}">
+                                            <li><a th:href="${resume}" th:text="${resume}"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div th:case="'VIDEO'" class="card" >
+                                    <div class="card-header alert-success">
+                                        <h4>Videos Relatives</h4>
+                                    </div>
+                                    <div class="card-body pr-3 pl-3">
+                                        <ul th:each=" resume : ${these1.resumes}">
+                                            <li>
+                                                <video controls style="width: 400px;height: 300px">
+                                                    <source th:src="${resume}">
+                                                </video>
+                                                <br>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <div th:case="'DOCUMENT'" class="card">
-                                <div class="card-header alert-success">
-                                    <h4>Documents Relatifs</h4>
-                                </div>
-                                <div class="card-body pr-3 pl-3">
-                                    <ul th:each=" resume : ${these1.resumes}">
-                                        <li><a th:href="${resume}" th:text="${resume}"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div th:case="'VIDEO'" class="card" >
-                                <div class="card-header alert-success">
-                                    <h4>Videos Relatives</h4>
-                                </div>
-                                <div class="card-body pr-3 pl-3">
-                                    <ul th:each=" resume : ${these1.resumes}">
-                                        <li>
-                                            <video controls style="width: 400px;height: 300px">
-                                                <source th:src="${resume}">
-                                            </video>
-                                            <br>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <div class="col-md-1 " style="padding:0">
+                                <a class="btn btn-success rounded-circle"  data-toggle="modal" data-target="#modal-edit" th:attr="data-target='#modal-edit'">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <span>Editer</span>
                             </div>
                         </div>
                     </div>
@@ -146,7 +148,7 @@
                     <br><hr>
                     <h5><i>Ajouter par:</i> <span th:text="${these1?.user.name}"></span>  <i>le  <span th:text="${these1.created_at}"></span></i>    <i>à <span th:text="${these1.university}"></span></i> </h5>
                 </div>
-                <div class="modal card modal-warning alert-warning fade in" th:id="modal-edit+${these1.theseId}" >
+                <div class="modal card modal-warning alert-warning fade in" th:id="modal-edit" >
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header text-center alert-info">
@@ -186,6 +188,7 @@
                                 </div>
                                 <div class="custom-file mb-3">
                                     <input type="file" multiple class="form-control-file border" id="customFile" name="files">
+                                    <input type="text" class="form-control-file border"  th:field="*{resumes}">
                                 </div>
                                 <div class="modal-footer text-center">
                                     <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
@@ -195,6 +198,7 @@
                                     <div class="row mb-4">
                                         <!--theseId-->
                                         <input type="hidden" th:field="*{theseId}"  >
+                                        <input type="hidden" name="userId" th:value="${these1?.user.userId}"  >
                                         <!--theseId-->
                                     </div>
                                 </div>

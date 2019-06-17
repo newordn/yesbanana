@@ -17,4 +17,6 @@ public interface StudentWorkRepository extends JpaRepository<StudentWork,Long> {
     List<StudentWork> findByThese(@Param("id") Long theseId);
 
     StudentWork findByDate(String date);
+
+    List<StudentWork> findByStatusOrderByStudentWorkIdDesc(Boolean status);
 }

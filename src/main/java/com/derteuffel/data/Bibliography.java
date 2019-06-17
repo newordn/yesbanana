@@ -18,15 +18,21 @@ public class Bibliography implements Serializable{
     private String motCle;
     private String description;
     private String link;
+    private String faculte;
+    private String options;
+    private String category;
+    private String indexation;
     private String couverture;
     private Boolean disponibility;
     private Double price;
     private Double pagePrice;
     private String editeur;
+    private String edition;
     private String lieu_edition;
     private String annee_edition;
     private String fichier;
     private String pageNumber;
+    private String isbnNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private These these;
@@ -36,23 +42,77 @@ public class Bibliography implements Serializable{
     public Bibliography() {
     }
 
-    public Bibliography(String auteur, String fichier, String couverture, String pageNumber, String title,String motCle, String description, These these, String link,Boolean disponibility,
-                        Double pagePrice, Double price, String editeur, String lieu_edition, String annee_edition) {
+    public Bibliography(String auteur,String category, String indexation, String fichier, String couverture, String pageNumber, String title,String motCle, String description, These these, String link,Boolean disponibility,
+                        Double pagePrice, Double price, String editeur,String faculte,String options, String edition, String isbnNumber, String lieu_edition, String annee_edition) {
         this.auteur = auteur;
         this.title = title;
+        this.category = category;
+        this.indexation = indexation;
         this.price=price;
+        this.isbnNumber=isbnNumber;
         this.pageNumber=pageNumber;
         this.fichier=fichier;
         this.pagePrice=pagePrice;
         this.motCle=motCle;
+        this.faculte=faculte;
+        this.options=options;
         this.disponibility=disponibility;
         this.description = description;
         this.link=link;
         this.couverture=couverture;
         this.annee_edition=annee_edition;
         this.editeur=editeur;
+        this.edition=edition;
         this.lieu_edition=lieu_edition;
         this.these = these;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getIndexation() {
+        return indexation;
+    }
+
+    public void setIndexation(String indexation) {
+        this.indexation = indexation;
+    }
+
+    public String getFaculte() {
+        return faculte;
+    }
+
+    public void setFaculte(String faculte) {
+        this.faculte = faculte;
+    }
+
+    public String getOptions() {
+        return options;
+    }
+
+    public void setOptions(String options) {
+        this.options = options;
+    }
+
+    public String getEdition() {
+        return edition;
+    }
+
+    public void setEdition(String edition) {
+        this.edition = edition;
+    }
+
+    public String getIsbnNumber() {
+        return isbnNumber;
+    }
+
+    public void setIsbnNumber(String isbnNumber) {
+        this.isbnNumber = isbnNumber;
     }
 
     public String getPageNumber() {
@@ -71,6 +131,7 @@ public class Bibliography implements Serializable{
         this.fichier = fichier;
     }
 
+    @JsonIgnore
     public User getUser() {
         return user;
     }
