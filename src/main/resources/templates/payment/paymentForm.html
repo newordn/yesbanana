@@ -1,246 +1,130 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Yesbanana</title>
+    <title>YesBanana</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-    <link rel="stylesheet" th:href="@{/css/aos.css}">
-    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
-    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="OneTech shop project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
 </head>
 <body>
 <script
-        src="https://www.paypal.com/sdk/js?client-id=AZG7uFcDZ07uXrrZXRp0DQCfCONPbHFDoMnOjdL6QQ0l9b_fK1oFjSItYnbaogkpsbkp6b34JnDfkE92&disable-card=amex ">
+        src="https://www.paypal.com/sdk/js?client-id=AX1bgCA9UyX9fwXC1EuDBva_xyHGr5YIUO5T_T0xLT_WcUEewEkW8Il5sZ0yzcJ7FPGVpR7YKi9-Q5mi&disable-card=visa,mastercard,amex ">
 </script>
 
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/}"><span>Yes</span>banana</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
-        </button>
+<div class="super_container">
+    <div th:replace="~{../templates/fragments/header :: header}"></div>
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item "><a href="/" class="nav-link ">Accueil</a></li>
-                <li class="nav-item active"><a href="/payment/form" class="nav-link ">Paiement</a></li>
-                <li class="nav-item"><a href="/payment/panier" class="nav-link">Votre panier</a></li>
-                <li class="nav-item ">
-                    <a  href="/payment/transactions" class="nav-link">Mes transactions</a>
-                </li>
-                <li class="nav-item dropdown text-center" sec:authorize="isFullyAuthenticated()">
+    <!-- Home -->
 
-                    <!-- insert the profile image-->
-                    <a href="#">
-                        <img class="profile-img" src="" alt="avatar">
-                    </a>
-                    <!-- insert the profile image-->
-                    <ul class="dropdown-menu">
-                        <li class="nav-item"><a   class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
-                        <li class="nav-item">
-                            <a class="black nav-link" th:href="@{/perform_logout}" >Deconnexion</a>
-                        </li>
-                    </ul>
-                </li>
-
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- END nav -->
-<!--payment form -->
-<section class="ftco-section testimony-section">
-    <div class="container">
-        <div class="row justify-content-center  pb-3">
-            <div class="col-md-7 text-center heading-section ftco-animate">
-                <h2 class="mb-1"><span>Effectuer un paiement</span></h2>
-            </div>
-        </div>
-        <div style="margin-left:1rem">
-            <label for="amount">Montant &nbsp;</label>
-            <input type="text" id="amount" class="input-field" th:value="${amount}" style="padding-left:1rem" name="amount" disabled>
-            <strong>$</strong>
-        </div>
-        <div class="row d-flex text-center heading-section mb-5 justify-content-between" >
-
-            <div class="col-6">
-                <span><input type="radio"  id="payPalTrigger" name="pay_method" value="paypal" checked> Credit Card / PayPal</span>
-            </div>
-            <div class="col-6">
-                <span><input type="radio" id="mobileTrigger" name="pay_method" value="mobile" > Mobile Money</span>
-            </div>
-        </div>
-
-        <div class="row justify-content-center" id="mobile">
-            <form action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
-
-                <!-- payment value -->
-                <input type="hidden" th:value="${user.email}" id="user_email" name="user_email">
-                <input type="hidden" th:value="${user.name}" id="user_name" name="user_name">
-                <input type="hidden" th:value="${user.country}" id="user_country" name="user_country">
-                <!-- payment value -->
-
-                <div class="form-group d-flex ">
-                    <div class="col-md-4 form-group">
-                        <select class="custom-select" id="operatorSelection">
-                            <option value="undefined">Opérateurs</option>
-                            <option value="CM_ORANGEMONEY" >Orange Money</option>
-                            <option value="CM_MTNMOBILEMONEY" >Mtn Mobile Money</option>
-                            <option value="vodacom">Vodacom Money</option>
-                            <option value="airtel">Airtel Money</option>
-                        </select>
-                    </div>
-                    <input type="hidden" th:value="${amount}" name="amount">
-                    <div class="col-md-5">
-                        <input type="text" id="phone_number" name="phone" style="width:100%;padding-left:2rem;" placeholder="Votre numéro de téléphone ex: 237693063228">
-                    </div>
-                    <div class="col-md-3">
-                        <button type="button"  onClick="pay()" class="btn btn-primary " style="width:100%">Valider</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        <div class="row justify-content-center" id="payPal">
-
-            <div id="paypal-button-container" class="row justify-content-center">
-
-            </div>
-
+    <div class="home">
+        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="new/images/shop_background.jpg"></div>
+        <div class="home_overlay"></div>
+        <div class="home_content d-flex flex-column align-items-center justify-content-center">
+            <h2 class="home_title">Page d'érreur</h2>
         </div>
     </div>
 
-</section>
-<!-- payment form -->
+    <!-- Shop -->
 
-<div style="opacity:0">
-    <!-- success button -->
-    <a th:href="@{/payment/transactions}" id="transaction_success"><span>sucess</span></a>
-    <!-- success button -->
-
-
-    <!-- error button -->
-    <a th:href="@{/payment/error}" id="transaction_error"><span>error</span></a>
-    <!-- error button -->
-</div>
-
-<section class="ftco-section-parallax">
-    <div class="parallax-img d-flex align-items-center">
+    <div class="shop">
         <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                    <h2>Souscrivez a notre  Newsletter</h2>
-                    <p>Restez informer en souscrivant a notre service de messagerie.</p>
-                    <div class="row d-flex justify-content-center mt-4 mb-4">
-                        <div class="col-md-8">
-                            <form action="#" class="subscribe-form">
-                                <div class="form-group d-flex">
-                                    <input type="text" class="form-control" placeholder="Entrer votre adresse email">
-                                    <input type="submit" value="Souscrire" class="submit px-3">
-                                </div>
-                            </form>
+            <div class="container mb-3 card p-3" >
+                    <div class="row justify-content-center  pb-3">
+                        <div class="col-md-7 text-center heading-section ftco-animate">
+                            <h2 class="mb-1"><span>Effectuer un paiement</span></h2>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<footer class="ftco-footer ftco-bg-dark ftco-section">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Yesbanana</h2>
-                    <p>Votre plateforme digitale qui vous ouvre les portes du savoir dans toute son entiereté et sa rigueur.</p>
-                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4 ml-md-5">
-                    <h2 class="ftco-heading-2">Liens Utiles</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">Nos services</a></li>
-                        <li><a href="#" class="py-2 d-block">autres informations</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Confidentialité</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">A propos</a></li>
-                        <li><a href="#" class="py-2 d-block">Conditions d'utilisations</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Des Questions?</h2>
-                    <div class="block-23 mb-3">
-                        <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">Congo Kinshasa</span></li>
-                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+237694126158 +23793063228</span></a></li>
-                            <li><span></span><span class="text"></span></a></li>
-                        </ul>
+                    <div style="margin-left:1rem">
+                        <label for="amount">Montant &nbsp;</label>
+                        <input type="text" id="amount" class="input-field" th:value="${amount}" style="padding-left:1rem" name="amount" disabled>
+                        <strong>$</strong>
                     </div>
-                </div>
+                    <div class="row d-flex text-center heading-section mb-5 justify-content-between" >
+
+                        <div class="col-6">
+                            <span><input type="radio"  id="payPalTrigger" name="pay_method" value="paypal" checked> Credit Card / PayPal</span>
+                        </div>
+                        <div class="col-6">
+                            <span><input type="radio" id="mobileTrigger" name="pay_method" value="mobile" > Mobile Money</span>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center" id="mobile">
+                        <form action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
+
+                            <!-- payment value -->
+                            <input type="hidden" th:value="${user.email}" id="user_email" name="user_email">
+                            <input type="hidden" th:value="${user.name}" id="user_name" name="user_name">
+                            <input type="hidden" th:value="${user.country}" id="user_country" name="user_country">
+                            <!-- payment value -->
+
+                            <div class="form-group d-flex ">
+                                <div class="col-md-4 form-group">
+                                    <select class="custom-select" id="operatorSelection">
+                                        <option value="undefined">Opérateurs</option>
+                                        <option value="CM_ORANGEMONEY" >Orange Money</option>
+                                        <option value="CM_MTNMOBILEMONEY" >Mtn Mobile Money</option>
+                                        <option value="vodacom">Vodacom Money</option>
+                                        <option value="airtel">Airtel Money</option>
+                                    </select>
+                                </div>
+                                <input type="hidden" th:value="${amount}" name="amount">
+                                <div class="col-md-5">
+                                    <input type="text" id="phone_number" name="phone" style="width:100%;padding-left:2rem;" placeholder="Votre numéro de téléphone ex: 237693063228">
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button"  onClick="pay()" class="btn btn-primary " style="width:100%">Valider</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="row justify-content-center" id="payPal">
+
+                        <div id="paypal-button-container" class="row justify-content-center">
+
+                        </div>
+
+                    </div>
             </div>
         </div>
     </div>
-</footer>
+    <div style="opacity:0">
+        <!-- success button -->
+        <a th:href="@{/payment/transactions}" id="transaction_success"><span>sucess</span></a>
+        <!-- success button -->
 
-<!-- loader -->
-<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-<script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.easing.1.3.js}"></script>
-<script th:src="@{/js/jquery.waypoints.min.js}"></script>
-<script th:src="@{/js/jquery.stellar.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/aos.js}"></script>
-<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/scrollax.min.js}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script th:src="@{/js/google-map.js}"></script>
-<script th:src="@{/js/main1.js}"></script>
-<script th:src="@{/js/PaymentScripts/paymentMobileOrange.js}"></script>
-<script th:src="@{/js/PaymentScripts/paymentPayPal.js}"></script>
-<script type="text/javascript">
-    $("#mobile").css("display","none");
+        <!-- error button -->
+        <a th:href="@{/payment/error}" id="transaction_error"><span>error</span></a>
+        <!-- error button -->
+    </div>
+</div>
+<div th:replace="~{../templates/fragments/footer :: footer}"></div>
 
-    // Go to the previous item
-    $('#mobileTrigger').click(function() {
-        $("#mobile").css("display","block");
-        $("#payPal").css("display","none");
-    });
 
-    $('#payPalTrigger').click(function() {
-        $("#payPal").css("display","block");
-        $("#mobile").css("display","none");
-    });
-</script>
+<script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+<script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/new/js/shop_custom.js}"></script>
 </body>
 </html>
