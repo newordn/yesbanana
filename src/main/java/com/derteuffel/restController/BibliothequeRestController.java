@@ -24,6 +24,8 @@ public class BibliothequeRestController {
     private StudentWorkRepository studentWorkRepository;
     @Autowired
     private TheseRepository theseRepository;
+    @Autowired
+    private BourseRepository bourseRepository;
 
     @GetMapping("/syllabuses")
     public List<Syllabus> syllabuses(){
@@ -36,6 +38,12 @@ public class BibliothequeRestController {
         List<Bibliography> bibliographies=bibliographyRepository.findAllByDisponibility(true);
 
         return bibliographies;
+    }
+
+    @GetMapping("/bourses")
+    public List<Bourse> bourses(){
+    List<Bourse> bourses=bourseRepository.findByStatusAndSuprimeOrderByBourseIdDesc(true,false);
+        return bourses;
     }
 
     @GetMapping("/studentWorks")
