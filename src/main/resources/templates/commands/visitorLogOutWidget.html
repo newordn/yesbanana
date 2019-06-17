@@ -1,0 +1,21 @@
+<li class="nav-item dropdown text-center" th:if="${session.userId!=null}"
+     xmlns:th="http://www.w3.org/1999/xhtml"  th:fragment="visitorLogOutWidget">
+
+    <!-- insert the profile image-->
+    <a href="#">
+        <img class="profile-img" src="" alt="avatar">
+    </a>
+    <!-- insert the profile image-->
+    <ul class="dropdown-menu">
+        <li class="nav-item"><a   class="black nav-link" th:href="@{/user/detail/}+${session.userId}">Profil</a></li>
+        <li class="nav-item">
+            <a class="black nav-link" th:href="@{/perform_logout}" >Deconnexion</a>
+        </li>
+    </ul>
+</li>
+
+
+
+
+
+
