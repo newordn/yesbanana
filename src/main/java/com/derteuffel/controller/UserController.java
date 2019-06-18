@@ -379,7 +379,7 @@ public class UserController {
         user.setStatus(false);
         user.setActive(false);
         userRepository.save(user);
-        return "redirect:/user";
+        return "redirect:/user/users";
     }
 
     @GetMapping("/registration")
