@@ -404,8 +404,34 @@ public class ColonieController {
 
         model.addAttribute("colonieId", colonie.getColonieId());
         session.setAttribute("colonieId", colonie.getColonieId());
+        model.addAttribute("colonie", colonie);
         List<Reservation> reservations=reservationRepository.findByColonie(colonie.getColonieId());
-        model.addAttribute("reservations",reservations);
+        List<Reservation> reservations1=reservationRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        List<String> regions=new ArrayList<>();
+        List<String> activites=new ArrayList<>();
+        for (Reservation reservation : reservations1){
+
+            countries.add(reservation.getPays());
+            saisons.add(reservation.getSaison());
+            sites.add(reservation.getSite());
+            regions.add(reservation.getRegion());
+            activites.add(reservation.getActivite());
+        }
+
+        System.out.println(countries);
+        System.out.println(saisons);
+        System.out.println(sites);
+        System.out.println(regions);
+        System.out.println(activites);
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("saisons", removeDuplicates(saisons));
+        model.addAttribute("sites", removeDuplicates(sites));
+        model.addAttribute("regions", removeDuplicates(regions));
+        model.addAttribute("activites",  removeDuplicates(activites));
         return "colonie/reservations";
 
     }
@@ -428,5 +454,183 @@ public class ColonieController {
         Reservation reservation=reservationRepository.getOne(reservationId);
         model.addAttribute("reservation",reservation);
         return "colonie/reservation";
+    }
+
+    public List<String> removeDuplicates(List<String> list)
+    {
+        if (list == null){
+            return new ArrayList<>();
+        }
+
+        // Create a new ArrayList
+        List<String> newList = new ArrayList<String>();
+        // Traverse through the first list
+        for (String element : list) {
+
+            // If this element is not present in newList
+            // then add it
+
+            if (element !=null && !newList.contains(element) && !element.isEmpty()) {
+
+                newList.add(element);
+            }
+        }
+        // return the new list
+        return newList;
+    }
+
+    @GetMapping("/reservation/country/{pays}/{colonieId}")
+    public String reservation_pays(Model model, @PathVariable String pays, @PathVariable Long colonieId){
+
+        Colonie colonie= colonieRepository.getOne(colonieId);
+        List<Reservation> reservations=reservationRepository.findByColonieAndStatusAndPays(colonie.getColonieId(),pays,true);
+        List<Reservation> reservations1=reservationRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        List<String> regions=new ArrayList<>();
+        List<String> activites=new ArrayList<>();
+        for (Reservation reservation : reservations1){
+
+            countries.add(reservation.getPays());
+            saisons.add(reservation.getSaison());
+            sites.add(reservation.getSite());
+            regions.add(reservation.getRegion());
+            activites.add(reservation.getActivite());
+        }
+
+        model.addAttribute("colonie", colonie);
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("saisons", removeDuplicates(saisons));
+        model.addAttribute("sites", removeDuplicates(sites));
+        model.addAttribute("regions", removeDuplicates(regions));
+        model.addAttribute("activites",  removeDuplicates(activites));
+        return "colonie/reservations";
+    }
+
+    @GetMapping("/reservation/region/{region}/{colonieId}")
+    public String reservation_regions(Model model, @PathVariable String region, @PathVariable Long colonieId){
+
+        Colonie colonie= colonieRepository.getOne(colonieId);
+        List<Reservation> reservations=reservationRepository.findByColonieAndStatusAndRegion(colonie.getColonieId(),region,true);
+        List<Reservation> reservations1=reservationRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        List<String> regions=new ArrayList<>();
+        List<String> activites=new ArrayList<>();
+        for (Reservation reservation : reservations1){
+
+            countries.add(reservation.getPays());
+            saisons.add(reservation.getSaison());
+            sites.add(reservation.getSite());
+            regions.add(reservation.getRegion());
+            activites.add(reservation.getActivite());
+        }
+
+        model.addAttribute("colonie", colonie);
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("saisons", removeDuplicates(saisons));
+        model.addAttribute("sites", removeDuplicates(sites));
+        model.addAttribute("regions", removeDuplicates(regions));
+        model.addAttribute("activites",  removeDuplicates(activites));
+        return "colonie/reservations";
+    }
+
+    @GetMapping("/reservation/saison/{saison}/{colonieId}")
+    public String reservation_saison(Model model, @PathVariable String saison, @PathVariable Long colonieId){
+
+        Colonie colonie= colonieRepository.getOne(colonieId);
+        List<Reservation> reservations=reservationRepository.findByColonieAndStatusAndSaison(colonie.getColonieId(),saison,true);
+        List<Reservation> reservations1=reservationRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        List<String> regions=new ArrayList<>();
+        List<String> activites=new ArrayList<>();
+        for (Reservation reservation : reservations1){
+
+            countries.add(reservation.getPays());
+            saisons.add(reservation.getSaison());
+            sites.add(reservation.getSite());
+            regions.add(reservation.getRegion());
+            activites.add(reservation.getActivite());
+        }
+
+        model.addAttribute("colonie", colonie);
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("saisons", removeDuplicates(saisons));
+        model.addAttribute("sites", removeDuplicates(sites));
+        model.addAttribute("regions", removeDuplicates(regions));
+        model.addAttribute("activites",  removeDuplicates(activites));
+        return "colonie/reservations";
+    }
+
+    @GetMapping("/reservation/site/{site}/{colonieId}")
+    public String reservation_site(Model model, @PathVariable String site, @PathVariable Long colonieId){
+
+        Colonie colonie= colonieRepository.getOne(colonieId);
+        List<Reservation> reservations=reservationRepository.findByColonieAndStatusAndSite(colonie.getColonieId(),site,true);
+        List<Reservation> reservations1=reservationRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        List<String> regions=new ArrayList<>();
+        List<String> activites=new ArrayList<>();
+        for (Reservation reservation : reservations1){
+
+            countries.add(reservation.getPays());
+            saisons.add(reservation.getSaison());
+            sites.add(reservation.getSite());
+            regions.add(reservation.getRegion());
+            activites.add(reservation.getActivite());
+        }
+
+        model.addAttribute("colonie", colonie);
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("saisons", removeDuplicates(saisons));
+        model.addAttribute("sites", removeDuplicates(sites));
+        model.addAttribute("regions", removeDuplicates(regions));
+        model.addAttribute("activites",  removeDuplicates(activites));
+        return "colonie/reservations";
+    }
+
+    @GetMapping("/reservation/activite/{activite}/{colonieId}")
+    public String reservation_activite(Model model, @PathVariable String activite, @PathVariable Long colonieId){
+
+        Colonie colonie= colonieRepository.getOne(colonieId);
+        List<Reservation> reservations=reservationRepository.findByColonieAndStatusAndActivite(colonie.getColonieId(),activite,true);
+        List<Reservation> reservations1=reservationRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        List<String> regions=new ArrayList<>();
+        List<String> activites=new ArrayList<>();
+        for (Reservation reservation : reservations1){
+
+            countries.add(reservation.getPays());
+            saisons.add(reservation.getSaison());
+            sites.add(reservation.getSite());
+            regions.add(reservation.getRegion());
+            activites.add(reservation.getActivite());
+        }
+
+        System.out.println(countries);
+        System.out.println(saisons);
+        System.out.println(sites);
+        System.out.println(regions);
+        System.out.println(activites);
+        model.addAttribute("colonie", colonie);
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("saisons", removeDuplicates(saisons));
+        model.addAttribute("sites", removeDuplicates(sites));
+        model.addAttribute("regions", removeDuplicates(regions));
+        model.addAttribute("activites",  removeDuplicates(activites));
+        return "colonie/reservations";
     }
 }
