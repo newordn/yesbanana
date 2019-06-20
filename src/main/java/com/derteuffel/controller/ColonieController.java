@@ -406,35 +406,11 @@ public class ColonieController {
         session.setAttribute("colonieId", colonie.getColonieId());
         model.addAttribute("colonie", colonie);
         List<Reservation> reservations=reservationRepository.findByColonie(colonie.getColonieId());
-        List<Reservation> reservations1=reservationRepository.findAll();
-        List<String> saisons=new ArrayList<>();
-        List<String> countries=new ArrayList<>();
-        List<String> sites=new ArrayList<>();
-        List<String> regions=new ArrayList<>();
-        List<String> activites=new ArrayList<>();
-        for (Reservation reservation : reservations1){
-
-            countries.add(reservation.getPays());
-            saisons.add(reservation.getSaison());
-            sites.add(reservation.getSite());
-            regions.add(reservation.getRegion());
-            activites.add(reservation.getActivite());
-        }
-
-        System.out.println(countries);
-        System.out.println(saisons);
-        System.out.println(sites);
-        System.out.println(regions);
-        System.out.println(activites);
         model.addAttribute("reservations", reservations);
-        model.addAttribute("countries", removeDuplicates(countries));
-        model.addAttribute("saisons", removeDuplicates(saisons));
-        model.addAttribute("sites", removeDuplicates(sites));
-        model.addAttribute("regions", removeDuplicates(regions));
-        model.addAttribute("activites",  removeDuplicates(activites));
         return "colonie/reservations";
 
     }
+
 
     @GetMapping("/activation/reservation/{reservationId}")
     public String reservation_activation(@PathVariable Long reservationId, HttpSession session){
@@ -479,6 +455,65 @@ public class ColonieController {
         return newList;
     }
 
+    @GetMapping("/reservations/paid/{colonieId}")
+    public String reservation_paid(Model model, @PathVariable Long colonieId){
+
+        Colonie colonie= colonieRepository.getOne(colonieId);
+        List<Reservation> reservations=reservationRepository.findByColonieAndStatus(colonie.getColonieId(),true);
+        List<Reservation> reservations1=reservationRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        List<String> regions=new ArrayList<>();
+        List<String> activites=new ArrayList<>();
+        for (Reservation reservation : reservations1){
+
+            countries.add(reservation.getPays());
+            saisons.add(reservation.getSaison());
+            sites.add(reservation.getSite());
+            regions.add(reservation.getRegion());
+            activites.add(reservation.getActivite());
+        }
+
+        model.addAttribute("colonie", colonie);
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("saisons", removeDuplicates(saisons));
+        model.addAttribute("sites", removeDuplicates(sites));
+        model.addAttribute("regions", removeDuplicates(regions));
+        model.addAttribute("activites",  removeDuplicates(activites));
+        return "colonie/payed_reservations";
+    }
+
+    @GetMapping("/reservations/unpaid/{colonieId}")
+    public String reservation_unpaid(Model model, @PathVariable Long colonieId){
+
+        Colonie colonie= colonieRepository.getOne(colonieId);
+        List<Reservation> reservations=reservationRepository.findByColonieAndStatus(colonie.getColonieId(),false);
+        List<Reservation> reservations1=reservationRepository.findAll();
+        List<String> saisons=new ArrayList<>();
+        List<String> countries=new ArrayList<>();
+        List<String> sites=new ArrayList<>();
+        List<String> regions=new ArrayList<>();
+        List<String> activites=new ArrayList<>();
+        for (Reservation reservation : reservations1){
+
+            countries.add(reservation.getPays());
+            saisons.add(reservation.getSaison());
+            sites.add(reservation.getSite());
+            regions.add(reservation.getRegion());
+            activites.add(reservation.getActivite());
+        }
+
+        model.addAttribute("colonie", colonie);
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("saisons", removeDuplicates(saisons));
+        model.addAttribute("sites", removeDuplicates(sites));
+        model.addAttribute("regions", removeDuplicates(regions));
+        model.addAttribute("activites",  removeDuplicates(activites));
+        return "colonie/payed_reservations";
+    }
     @GetMapping("/reservation/country/{pays}/{colonieId}")
     public String reservation_pays(Model model, @PathVariable String pays, @PathVariable Long colonieId){
 
@@ -506,7 +541,7 @@ public class ColonieController {
         model.addAttribute("sites", removeDuplicates(sites));
         model.addAttribute("regions", removeDuplicates(regions));
         model.addAttribute("activites",  removeDuplicates(activites));
-        return "colonie/reservations";
+        return "colonie/payed_reservations";
     }
 
     @GetMapping("/reservation/region/{region}/{colonieId}")
@@ -536,7 +571,7 @@ public class ColonieController {
         model.addAttribute("sites", removeDuplicates(sites));
         model.addAttribute("regions", removeDuplicates(regions));
         model.addAttribute("activites",  removeDuplicates(activites));
-        return "colonie/reservations";
+        return "colonie/payed_reservations";
     }
 
     @GetMapping("/reservation/saison/{saison}/{colonieId}")
@@ -566,7 +601,7 @@ public class ColonieController {
         model.addAttribute("sites", removeDuplicates(sites));
         model.addAttribute("regions", removeDuplicates(regions));
         model.addAttribute("activites",  removeDuplicates(activites));
-        return "colonie/reservations";
+        return "colonie/payed_reservations";
     }
 
     @GetMapping("/reservation/site/{site}/{colonieId}")
@@ -596,7 +631,7 @@ public class ColonieController {
         model.addAttribute("sites", removeDuplicates(sites));
         model.addAttribute("regions", removeDuplicates(regions));
         model.addAttribute("activites",  removeDuplicates(activites));
-        return "colonie/reservations";
+        return "colonie/payed_reservations";
     }
 
     @GetMapping("/reservation/activite/{activite}/{colonieId}")
@@ -631,6 +666,6 @@ public class ColonieController {
         model.addAttribute("sites", removeDuplicates(sites));
         model.addAttribute("regions", removeDuplicates(regions));
         model.addAttribute("activites",  removeDuplicates(activites));
-        return "colonie/reservations";
+        return "colonie/payed_reservations";
     }
 }

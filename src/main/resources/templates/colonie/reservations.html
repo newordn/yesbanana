@@ -65,53 +65,19 @@
                 <!-- Shop Sidebar -->
                 <div class="shop_sidebar">
                     <div class="sidebar_section">
-                        <div class="sidebar_title">Option de recherche</div>
+                        <div class="sidebar_title">Options de reservation</div>
                         <hr>
                         <ul class="sidebar_categories">
-                            <div class="btn-group dropdown">
-                                <button class="btn dropdown-toggle" type="button"  data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    Rechercher par pays
-                                </button>
-                                <div class="dropdown-menu"  >
-                                    <a th:each="country : ${countries}" class="dropdown-item" th:href="@{/colonie/reservation/country/}+${country}+'/'+${colonie.colonieId}" th:text="${country}">Action</a>
-                                </div>
-                            </div><hr>
-                            <div class="btn-group dropdown">
-                                <button class=" btn dropdown-toggle" type="button"  data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    Rechercher par site
-                                </button>
-                                <div class="dropdown-menu"  >
-                                    <a th:each="site : ${sites}" class="dropdown-item" th:href="@{/colonie/reservation/site/}+${site}+'/'+${colonie.colonieId}" th:text="${site}">Action</a>
-                                </div>
-                            </div><hr>
-                            <div class="btn-group dropdown">
-                                <button class="btn dropdown-toggle" type="button"  data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    Rechercher par saison
-                                </button>
-                                <div class="dropdown-menu"  >
-                                    <a th:each="saison : ${saisons}" class="dropdown-item" th:href="@{/visitor/colonie/saison/}+${saison}+'/'+${colonie.colonieId}" th:text="${saison}">Action</a>
-                                </div>
-                            </div><hr>
-                            <div class="btn-group dropdown">
-                                <button class="btn  dropdown-toggle" type="button"  data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    Rechercher par région
-                                </button>
-                                <div class="dropdown-menu"  >
-                                    <a th:each="region : ${regions}" class="dropdown-item" th:href="@{/colonie/reservation/region/}+${region}+'/'+${colonie.colonieId}" th:text="${region}"></a>
-                                </div>
-                            </div><hr>
-                            <li class="btn-group dropdown">
-                                <button class="btn  dropdown-toggle" type="button"  data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    Rechercher par activite
-                                </button>
-                                <div class="dropdown-menu"  >
-                                    <a th:each="activite : ${activites}" class="dropdown-item" th:href="@{/colonie/reservation/activite/}+${activite}+'/'+${colonie.colonieId}" th:text="${activite}"></a>
-                                </div>
+                                <li>
+                                    <a  th:href="@{/colonie/reservations/}+${session.colonieId}" >Toutes les reservations</a>
+                                </li>
+                            <hr>
+                            <li>
+                                <a  th:href="@{/colonie/reservations/paid/}+${session.colonieId}" >Reservations Payées</a>
+                            </li>
+                            <hr>
+                            <li>
+                                <a  th:href="@{/colonie/reservations/unpaid/}+${session.colonieId}" >Reservations en suspend</a>
                             </li>
                         </ul>
                     </div>

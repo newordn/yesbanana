@@ -9,7 +9,7 @@
 								<div class="btn-group dropright">
 									<button class="btn dropdown-toggle" type="button"  data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false">
-										Rechercher par pays
+										Resevations par pays
 									</button>
 									<div class="dropdown-menu"  >
 										<a th:each="country : ${countries}" class="dropdown-item" th:href="@{/visitor/colonie/country/}+${country}" th:text="${country}">Action</a>
@@ -18,7 +18,7 @@
 								<div class="btn-group dropright">
 									<button class=" btn dropdown-toggle" type="button"  data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false">
-										Rechercher par site
+										Resevations par site
 									</button>
 									<div class="dropdown-menu"  >
 										<a th:each="site : ${sites}" class="dropdown-item" th:href="@{/visitor/colonie/site/}+${site}" th:text="${site}">Action</a>
@@ -27,7 +27,7 @@
 								<div class="btn-group dropright">
 									<button class="btn dropdown-toggle" type="button"  data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false">
-										Rechercher par saison
+										Resevations par saison
 									</button>
 									<div class="dropdown-menu"  >
 										<a th:each="saison : ${saisons}" class="dropdown-item" th:href="@{/visitor/colonie/saison/}+${saison}" th:text="${saison}">Action</a>
@@ -36,7 +36,7 @@
 								<div class="btn-group dropright">
 									<button class="btn dropdown-toggle" type="button"  data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false">
-										Rechercher par categorie
+										Resevations par categorie
 									</button>
 									<div class="dropdown-menu"  >
 										<a th:each="category : ${categories}" class="dropdown-item" th:href="@{/visitor/colonie/category/}+${category}" th:if="${category}=='petit'"><span>De 05 à 10 ans</span></a>
@@ -46,7 +46,7 @@
 								<div class="btn-group dropright">
 									<button class="btn  dropdown-toggle" type="button"  data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false">
-										Rechercher par type
+										Resevations par type
 									</button>
 									<div class="dropdown-menu"  >
 										<a th:each="type : ${types}" class="dropdown-item" th:href="@{/visitor/colonie/type/}+${type}" th:if="${type}=='vip'"><span>V I P</span></a>

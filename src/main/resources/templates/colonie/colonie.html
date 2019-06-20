@@ -64,6 +64,14 @@
 
             <div class="col-12 card " >
                 <div class="container">
+                    <div class=" mr-3 ml-3 row ">
+                        <div class="col-md-5">
+                            <p><strong>Voir les reservations :</strong></p>
+                        </div>
+                        <div class="col-md-7">
+                            <a class=" alert-info" style="color: #000000" th:href="@{/colonie/reservations/}+${session.colonieId}"><span>Voir les réservations</span></a>
+                        </div>
+                    </div>
                     <div class="row mr-3 ml-3">
                         <div class="col-md-5">
                             <p><strong>Photos de garde : </strong><span th:text="${#lists.size(colonie.fichier)}"></span></p>
@@ -190,9 +198,6 @@
                                 <source th:src="${colonie.cover}" >
                             </video>
                         </div>
-                    </div>
-                    <div class=" mr-3 ml-3 mt-3 mb-3 ">
-                        <a class="btn btn-secondary" style="color: #ffffff" th:href="@{/colonie/reservations/}+${colonie.colonieId}">Voir les reservations</a>
                     </div>
                     </div>
                 </div>

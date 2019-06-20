@@ -32,4 +32,7 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long> {
     @Query("select r from Reservation as r join r.colonie rc where rc.colonieId=:id and r.saison=:y and r.status=:x order by r.reservationId desc")
     List<Reservation> findByColonieAndStatusAndSaison(@Param("id") Long colonieId,@Param("y") String saison, @Param("x") Boolean status);
 
+    @Query("select r from Reservation as r join r.colonie rc where rc.colonieId=:id and r.status=:x order by r.reservationId desc")
+    List<Reservation> findByColonieAndStatus(@Param("id") Long colonieId, @Param("x") Boolean status);
+
 }

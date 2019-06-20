@@ -4,7 +4,8 @@ html,body
     height: 100%;
     width: 100%;
     margin:0 !important;
-    font-family: Poppins;
+    font-family: Rubik;
+    font-size: 14px;
 }
 .theseNavigation:hover, .theseNavigation:hover li
     {

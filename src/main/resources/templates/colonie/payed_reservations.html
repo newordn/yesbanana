@@ -20,8 +20,8 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link th:href="@{/css/dashboard.css}" rel="stylesheet">
     <link th:href="@{/css/addTheses.css}" rel="stylesheet">
-
-
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -30,9 +30,6 @@
     <script th:src="@{/js/dataTable/crews.js}" type="text/javascript"></script>
     <link th:href="@{/css/dataTablesResponsive.css}" rel="stylesheet">
     <script th:src="@{/js/dataTablesResponsive.js}"></script>
-
-
-
 
 </head>
 <style>
@@ -43,7 +40,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/colonie/reservations/}+${session.colonieId}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
+        <a class="navbar-brand text-center" th:href="@{/colonie/reservations/}+${colonie.colonieId}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
@@ -58,126 +55,117 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 text-center heading-section ftco-animate">
-                <h1>Colonie de vacances</h1>
-                <h2 class="subheading"><span>Contenu d'une reservation d'une activité</span></h2>
+                <h1>Colonies de vacances</h1>
+                <h2 class="subheading"><span>Reservations d'une activité</span></h2>
+                <p><span th:text="${#lists.size(reservations)}"></span>&nbsp;élelment(s) trouvé(s)</p>
             </div>
-
-            <div class="col-12 card " >
-                <div class="container">
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Activité :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${reservation.activite}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Nom du Demandeur :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${reservation.nom}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Adresse email :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${reservation.saison}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Niveau :</strong></p>
-                        </div>
-                        <div class="col-md-7" >
-                            <p th:if="${reservation.type}=='petit'"> <span>05-10 ans</span></p>
-                            <p th:unless="${reservation.type}=='petit'"> <span>11-16 ans</span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Montant total :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="'$ '+${reservation.prix}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Heure de début :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${reservation.heureDebut}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Heure de fin :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${reservation.heureFin}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Site de déroulement :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${reservation.site}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Pays :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${reservation.pays}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Région :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${reservation.region}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Saison :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${reservation.saison}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Nombre d'enfant :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p> <span th:text="${reservation.nombreEnfants}"></span></p>
-                        </div>
-                    </div>
-                    <div class="row mr-3 ml-3">
-                        <div class="col-md-5">
-                            <p><strong>Etat :</strong></p>
-                        </div>
-                        <div class="col-md-7">
-                            <p th:if="${reservation.status}==true"><span>Payé</span></p>
-                            <p th:unless="${reservation.status}==true"><span>En attente de paiement</span></p>
-                        </div>
-                    </div>
+        </div>
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-3">
+                <!-- Shop Sidebar -->
+                <div class="shop_sidebar">
+                    <div class="sidebar_section">
+                        <div class="sidebar_title">Option de recherche</div>
+                        <hr>
+                        <ul class="sidebar_categories">
+                            <div class="btn-group dropdown">
+                                <button class="btn dropdown-toggle" type="button"  data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    Rechercher par pays
+                                </button>
+                                <div class="dropdown-menu"  >
+                                    <a th:each="country : ${countries}" class="dropdown-item" th:href="@{/colonie/reservation/country/}+${country}+'/'+${colonie.colonieId}" th:text="${country}">Action</a>
+                                </div>
+                            </div><hr>
+                            <div class="btn-group dropdown">
+                                <button class=" btn dropdown-toggle" type="button"  data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    Rechercher par site
+                                </button>
+                                <div class="dropdown-menu"  >
+                                    <a th:each="site : ${sites}" class="dropdown-item" th:href="@{/colonie/reservation/site/}+${site}+'/'+${colonie.colonieId}" th:text="${site}">Action</a>
+                                </div>
+                            </div><hr>
+                            <div class="btn-group dropdown">
+                                <button class="btn dropdown-toggle" type="button"  data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    Rechercher par saison
+                                </button>
+                                <div class="dropdown-menu"  >
+                                    <a th:each="saison : ${saisons}" class="dropdown-item" th:href="@{/visitor/colonie/saison/}+${saison}+'/'+${colonie.colonieId}" th:text="${saison}">Action</a>
+                                </div>
+                            </div><hr>
+                            <div class="btn-group dropdown">
+                                <button class="btn  dropdown-toggle" type="button"  data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    Rechercher par région
+                                </button>
+                                <div class="dropdown-menu"  >
+                                    <a th:each="region : ${regions}" class="dropdown-item" th:href="@{/colonie/reservation/region/}+${region}+'/'+${colonie.colonieId}" th:text="${region}"></a>
+                                </div>
+                            </div><hr>
+                            <li class="btn-group dropdown">
+                                <button class="btn  dropdown-toggle" type="button"  data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    Rechercher par activite
+                                </button>
+                                <div class="dropdown-menu"  >
+                                    <a th:each="activite : ${activites}" class="dropdown-item" th:href="@{/colonie/reservation/activite/}+${activite}+'/'+${colonie.colonieId}" th:text="${activite}"></a>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-9">
+                <table class="table text-left table-hover dt-responsive  table-lg display" id="crews">
+                    <thead class="text-white bg-secondary">
+                    <tr>
+                        <th>Activité</th>
+                        <th>Nom Reservant</th>
+                        <th>Intervalle horaire</th>
+                        <th>Site</th>
+                        <th>Prix</th>
+                        <th>Pays</th>
+                        <th>Région</th>
+                        <th>Paiement</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  th:each="reservation : ${reservations}" >
+                        <td th:text="${reservation.activite}"></td>
+
+                        <td  th:text="${reservation.nom}"></td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td th:text="${reservation.heureDebut}"></td>
+                                    <td th:text="${reservation.heureFin}"></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td th:text="${reservation.site}"></td>
+                        <td th:text="'$ '+${reservation.prix}"></td>
+                        <td th:text="${reservation.pays}"></td>
+                        <td th:text="${reservation.region}"></td>
+                        <td th:if="${reservation.status}== true"><span>Effectuer</span>
+                            <a th:href="@{/colonie/activation/reservation/}+${reservation.reservationId}" class="btn btn-success rounded-circle"><i class="fa fa-check"></i></a>
+                        </td>
+                        <td th:unless="${reservation.status}== true"><span>Suspendu</span>
+                            <a th:href="@{/colonie/activation/reservation/}+${reservation.reservationId}" class="btn btn-danger rounded-circle"><i class="fa fa-check-square-o"></i></a>
+                        </td>
+                        <td>
+                            <a th:href="@{'/colonie/reservation/'+${reservation.reservationId}}"  class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
 
             </div>
         </div>
+    </div>
 </section>
-<!--addCrew-->
-
 
 
 <section class="ftco-section-parallax">
@@ -265,6 +253,8 @@
 <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
 <script th:src="@{/js/aos.js}"></script>
 <script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/js/jquery.timepicker.min.js}"></script>
 <script th:src="@{/js/scrollax.min.js}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script th:src="@{/js/google-map.js}"></script>
@@ -302,12 +292,7 @@
             function(){
                 $("#hide1").css("display","none");
                 $("#hide2").css("display","none");},
-            function(){}),
-            $("#ender5").hover(
-                    function(){
-                        $("#hide1").css("display","none");
-                        $("#hide2").css("display","none");},
-                    function(){})
+            function(){})
 </script>
 </body>
 </html>
