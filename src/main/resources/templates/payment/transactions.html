@@ -37,8 +37,8 @@
 
     <div class="shop">
         <div class="container" th:if="${#lists.size(paniers)<=0}">
-            <div class="container ale mb-3 card p-5" >
-
+            <div class="container alert alert-danger mb-3 card p-5" >
+                <p>Aucune transaction éffectuer</p>
             </div>
         </div>
         <div class="container" th:unless="${#lists.size(paniers)<=0}">

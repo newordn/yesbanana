@@ -24,7 +24,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/visitor")
 public class ExternController {
-  /*  List<String> countries= Arrays.asList(
+    List<String> countries= Arrays.asList(
             "Afghanistan",
             "Albania",
             "Algeria",
@@ -224,7 +224,7 @@ public class ExternController {
             "Zambia",
             "Zimbabwe"
 
-    );*/
+    );
 
     @Autowired
     private TheseRepository theseRepository;
@@ -377,11 +377,11 @@ public class ExternController {
         List<Colonie> colonies=colonieRepository.findFirst12ByActive(true, Sort.by(Sort.Direction.DESC,"colonieId"));
          List<Colonie> colonies1=colonieRepository.findAll();
         List<String> saisons=new ArrayList<>();
-        List<String> countries=new ArrayList<>();
+        List<String> countries1=new ArrayList<>();
         List<String> sites=new ArrayList<>();
         for (Colonie colonie : colonies1){
 
-            countries.add(colonie.getPays());
+            countries1.add(colonie.getPays());
             saisons.add(colonie.getSaison());
             sites.add(colonie.getSite());
         }
@@ -389,11 +389,8 @@ public class ExternController {
         model.addAttribute("sites",removeDuplicates(sites));
         model.addAttribute("categories", categorieses);
         model.addAttribute("types",types);
-
         model.addAttribute("colonies", colonies);
-        model.addAttribute("countries", removeDuplicates(countries));
-
-
+        model.addAttribute("countries", removeDuplicates(countries1));
         return "these_module/colonie/colonies";
     }
 
@@ -403,11 +400,11 @@ public class ExternController {
         List<Colonie> colonies=colonieRepository.findFirst12ByPaysAndActive(pays,true,Sort.by(Sort.Direction.DESC,"colonieId"));
         List<Colonie> colonies1=colonieRepository.findAll();
         List<String> saisons=new ArrayList<>();
-        List<String> countries=new ArrayList<>();
+        List<String> countries1=new ArrayList<>();
         List<String> sites=new ArrayList<>();
         for (Colonie colonie : colonies1){
 
-            countries.add(colonie.getPays());
+            countries1.add(colonie.getPays());
             saisons.add(colonie.getSaison());
             sites.add(colonie.getSite());
         }
@@ -415,7 +412,7 @@ public class ExternController {
         model.addAttribute("sites",removeDuplicates(sites));
         model.addAttribute("categories", categorieses);
         model.addAttribute("types",types);
-        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("countries", removeDuplicates(countries1));
         model.addAttribute("colonies", colonies);
         return "these_module/colonie/colonies";
     }
@@ -426,11 +423,11 @@ public class ExternController {
         List<Colonie> colonies=colonieRepository.findFirst12BySiteAndActive(site,true,Sort.by(Sort.Direction.DESC,"colonieId"));
         List<Colonie> colonies1=colonieRepository.findAll();
         List<String> saisons=new ArrayList<>();
-        List<String> countries=new ArrayList<>();
+        List<String> countries1=new ArrayList<>();
         List<String> sites=new ArrayList<>();
         for (Colonie colonie : colonies1){
 
-            countries.add(colonie.getPays());
+            countries1.add(colonie.getPays());
             saisons.add(colonie.getSaison());
             sites.add(colonie.getSite());
         }
@@ -438,7 +435,7 @@ public class ExternController {
         model.addAttribute("sites",removeDuplicates(sites));
         model.addAttribute("categories", categorieses);
         model.addAttribute("types",types);
-        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("countries", removeDuplicates(countries1));
         model.addAttribute("colonies", colonies);
         return "these_module/colonie/colonies";
     }
@@ -449,11 +446,11 @@ public class ExternController {
         List<Colonie> colonies=colonieRepository.findFirst12BySaisonAndActive(saison,true,Sort.by(Sort.Direction.DESC,"colonieId"));
         List<Colonie> colonies1=colonieRepository.findAll();
         List<String> saisons=new ArrayList<>();
-        List<String> countries=new ArrayList<>();
+        List<String> countries1=new ArrayList<>();
         List<String> sites=new ArrayList<>();
         for (Colonie colonie : colonies1){
 
-            countries.add(colonie.getPays());
+            countries1.add(colonie.getPays());
             saisons.add(colonie.getSaison());
             sites.add(colonie.getSite());
         }
@@ -461,7 +458,7 @@ public class ExternController {
         model.addAttribute("sites",removeDuplicates(sites));
         model.addAttribute("categories", categorieses);
         model.addAttribute("types",types);
-        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("countries", removeDuplicates(countries1));
         model.addAttribute("colonies", colonies);
         return "these_module/colonie/colonies";
     }
@@ -472,11 +469,11 @@ public class ExternController {
         List<Colonie> colonies=colonieRepository.findFirst12ByTypeAndActive(type,true,Sort.by(Sort.Direction.DESC,"colonieId"));
         List<Colonie> colonies1=colonieRepository.findAll();
         List<String> saisons=new ArrayList<>();
-        List<String> countries=new ArrayList<>();
+        List<String> countries1=new ArrayList<>();
         List<String> sites=new ArrayList<>();
         for (Colonie colonie : colonies1){
 
-            countries.add(colonie.getPays());
+            countries1.add(colonie.getPays());
             saisons.add(colonie.getSaison());
             sites.add(colonie.getSite());
         }
@@ -484,7 +481,7 @@ public class ExternController {
         model.addAttribute("sites",removeDuplicates(sites));
         model.addAttribute("categories", categorieses);
         model.addAttribute("types",types);
-        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("countries", removeDuplicates(countries1));
         model.addAttribute("colonies", colonies);
         return "these_module/colonie/colonies";
     }
@@ -495,11 +492,11 @@ public class ExternController {
         List<Colonie> colonies=colonieRepository.findFirst12ByCategoryAndActive(category,true,Sort.by(Sort.Direction.DESC,"colonieId"));
         List<Colonie> colonies1=colonieRepository.findAll();
         List<String> saisons=new ArrayList<>();
-        List<String> countries=new ArrayList<>();
+        List<String> countries1=new ArrayList<>();
         List<String> sites=new ArrayList<>();
         for (Colonie colonie : colonies1){
 
-            countries.add(colonie.getPays());
+            countries1.add(colonie.getPays());
             saisons.add(colonie.getSaison());
             sites.add(colonie.getSite());
         }
@@ -507,7 +504,7 @@ public class ExternController {
         model.addAttribute("sites",removeDuplicates(sites));
         model.addAttribute("categories", categorieses);
         model.addAttribute("types",types);
-        model.addAttribute("countries", removeDuplicates(countries));
+        model.addAttribute("countries", removeDuplicates(countries1));
         model.addAttribute("colonies", colonies);
         return "these_module/colonie/colonies";
     }
@@ -518,6 +515,8 @@ public class ExternController {
         List<Colonie> colonies=colonieRepository.findFirst3ByActive(true,Sort.by(Sort.Direction.DESC,"colonieId"));
         Colonie colonie=colonieRepository.getOne(colonieId);
         model.addAttribute("colonies", colonies);
+        model.addAttribute("countries",countries);
+        model.addAttribute("user", new User());
         model.addAttribute("colonie", colonie);
         return "these_module/colonie/colonie";
     }

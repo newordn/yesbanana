@@ -58,8 +58,8 @@
 							<div class="shop_sorting">Expert universitaire</div>
 						</div>
 
-						<div class="product_grid">
-							<div class="product_grid_border"></div><br><br>                            
+						<div class="card p-3  mt-3" style="border-radius: 15px">
+							<div class="card-body">
                         <form action="#" id="contact_form" class="p-2" method="POST" enctype="multipart/form-data" th:object="${user}" th:action="@{/user/create/visitor}">
 							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
 								<input type="text" id="contact_form_name" name="name" class="contact_form_name input_field" placeholder="Nom"  data-error="Name is required.">
@@ -107,45 +107,45 @@
 		                            <tr>
 		                                <td>Assistant</td>
 		                                <td>
-		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${50}" th:text="${50}"/>
+		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${50}" th:text="' $'+${50}"/>
 		                                    <input type="text" name="experienceYear"  value="< 5 ans" style="display: none"/>
 		                                </td>
 		                                <td>
-		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${80}" th:text="${80}"/>
+		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${80}" th:text="' $'+${80}"/>
 		                                    <input type="text" name="experienceYear"  value="5 ans et plus" style="display: none"/>
 		                                </td>
 		                                <td>
-		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${30}" th:text="${30}"/>
+		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${30}" th:text="' $'+${30}"/>
 		                                    <input type="text" name="experienceYear"  value="Sans experience" style="display: none"/>
 		                                </td>
 		                            </tr>
 		                            <tr>
 		                                <td>Chef des travaux</td>
 		                                <td>
-		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${80}" th:text="${80}"/>
+		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${80}" th:text="' $'+${80}"/>
 		                                    <input type="text" name="experienceYear"  value=" < 5 ans " style="display: none"/>
 		                                </td>
 		                                <td>
-		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${100}" th:text="${100}"/>
+		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${100}" th:text="' $'+${100}"/>
 		                                    <input type="text" name="experienceYear"  value="5 ans et plus" style="display: none"/>
 		                                </td>
 		                                <td>
-		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${50}" th:text="${50}"/>
+		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${50}" th:text="' $'+${50}"/>
 		                                    <input type="text" name="experienceYear"  value="Sans experience" style="display: none"/>
 		                                </td>
 		                            </tr>
 		                            <tr>
 		                                <td>Professeur</td>
 		                                <td>
-		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${130}" th:text="${130}"/>
+		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${130}" th:text="' $'+${130}"/>
 		                                    <input type="text" name="experienceYear"  value="< 5 ans" style="display: none"/>
 		                                </td>
 		                                <td>
-		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${170}" th:text="${170}"/>
+		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${170}" th:text="' $'+${170}"/>
 		                                    <input type="text" name="experienceYear"  value="5 ans et plus" style="display: none"/>
 		                                </td>
 		                                <td>
-		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${100}" th:text="${100}"/>
+		                                    <input type="checkbox" name="amount" th:checked="${amount}" th:value="${100}" th:text="' $'+${100}"/>
 		                                    <input type="text" name="experienceYear"  value="Sans experience" style="display: none"/>
 		                                </td>
 		                            </tr>
@@ -157,7 +157,7 @@
 								<button type="submit" class="button contact_submit_button">Validé</button>
 							</div>
 						</form>
-							
+							</div><br><br>
 						</div>
 
 					</div>

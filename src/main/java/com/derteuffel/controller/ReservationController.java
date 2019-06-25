@@ -1,9 +1,9 @@
 package com.derteuffel.controller;
 
-import com.derteuffel.data.Colonie;
-import com.derteuffel.data.Reservation;
-import com.derteuffel.data.User;
+import com.derteuffel.data.*;
+import com.derteuffel.repository.ArticleRepository;
 import com.derteuffel.repository.ColonieRepository;
+import com.derteuffel.repository.PanierRepository;
 import com.derteuffel.repository.ReservationRepository;
 import com.derteuffel.service.MailService;
 import com.derteuffel.service.UserService;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
@@ -62,6 +63,11 @@ public class ReservationController {
             "23:00"
     );
 
+    @Autowired
+    private ArticleRepository articleRepository;
+    @Autowired
+    private PanierRepository panierRepository;
+
     @GetMapping("/form/{colonieId}")
     public String form(Model model, @PathVariable Long colonieId){
         Colonie colonie=colonieRepository.getOne(colonieId);
@@ -75,6 +81,8 @@ public class ReservationController {
 
     @PostMapping("/save")
     public String save(Reservation reservation, String pays,Long colonieId, String region, String site, HttpSession session, String activite, String prix, String type, String saison){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByName(auth.getName());
         reservation.setPays(pays);
         reservation.setRegion(region);
         reservation.setSite(site);
@@ -83,9 +91,13 @@ public class ReservationController {
         reservation.setType(type);
         reservation.setSaison(saison);
         reservation.setStatus(false);
+        long time=System.currentTimeMillis();
         reservation.setColonie(colonieRepository.getOne(colonieId));
         reservationRepository.save(reservation);
-
+        Panier panier= new Panier(true, new Date(time),reservation.getPrix(),null,user,false);
+        panierRepository.save(panier);
+        Article article=new Article(reservation.getActivite(),"Reservation d'une activité",reservation.getPrix(),panier);
+        articleRepository.save(article);
         MailService backMessage = new MailService();
         backMessage.sendSimpleMessage(
                 "solutioneducationafrique@gmail.com",

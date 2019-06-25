@@ -31,7 +31,6 @@ $(document).ready(function()
 
 	initCustomDropdown();
 	initPageMenu();
-	initGoogleMap();
 
 	$(window).on('resize', function()
 	{
@@ -207,8 +206,7 @@ $(document).ready(function()
 
 	function initGoogleMap()
 	{
-		var myLatlng = new google.maps.LatLng(51.507098, -0.126270);
-    	var mapOptions = 
+    	var mapOptions =
     	{
     		center: myLatlng,
 	       	zoom: 14,

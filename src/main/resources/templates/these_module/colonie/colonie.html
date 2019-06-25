@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/product_styles.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/product_responsive.css}">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_responsive.css}">
     <link rel="stylesheet"  th:href="@{/new/styles/main_styles1.css}">
     <link rel="stylesheet"  th:href="@{/new/styles/responsive.css}">
 </head>
@@ -166,7 +168,7 @@
                                 <p>
                                     (01)&nbsp;<i class="fa fa-hand-o-right"></i>&nbsp;Connectez vous afin d'avoir
                                     un compte et pouvoir ajouter des éléments dans votre panier pour éffectuer vos
-                                    paiements via le lien <a th:href="@{/login/visitor}" style="color: #00b5e9">connexion</a>
+                                    paiements via le lien <a class="btn" data-toggle="modal" data-target="#login" style="color: #00b5e9">connexion</a> oû <a class="btn" data-toggle="modal" data-target="#inscription" style="color: #00b5e9">Inscrivez vous?</a> ici!
                                 </p>
                                 <p>
                                     (02)&nbsp;<i class="fa fa-hand-o-right"></i>&nbsp;Vous etes deja connecter? c'est le moment de signaler vos conditions de reservation pour une activité via le bouton ci-dessous
@@ -182,14 +184,55 @@
                                     <a class="button cart_button" href="#">Ajouter à mon Panier</a>
                                 </div>
                             </form>
+                            <div th:replace="~{../templates/fragments/login :: login}"></div>
                         </div>
                     </div>
                 </div>
-
+                <div  class=" modal fade in" id="inscription" tabindex="-1" role="dialog" data-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered card p-3"  style="pointer-events:auto;" role="document" >
+                        <form  id="contact_form" enctype="multipart/form-data" th:object="${user}" th:action="@{/user/visitor/buy/save}" me>
+                            <h2 class="card-header bg-primary text-center" style="color: #FFFFFF;">Incription visiteur</h2>
+                            <div class="card-body mt-3 p-0">
+                                <div  class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                                    <input style="width: 100%" type="text" id="contact_form_name" name="name" class="contact_form_name input_field" placeholder="Nom d'utilisateur"  >
+                                </div>
+                                <div  class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                                    <input style="width: 100%" type="email" id="contact_form_email" class="contact_form_email input_field" placeholder="Adresse Email" name="email"  >
+                                </div>
+                                <div  class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                                    <input style="width: 100%" type="text"  name="number" class="contact_form_name input_field" placeholder="Numero de téléphone"  >
+                                </div>
+                                <div  class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                                    <input style="width: 100%" type="password"  class="contact_form_email input_field" placeholder="Mot de passe" name="password"  >
+                                </div>
+                                <div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                                    <select class="contact_form_email input_field" style="width: 100%" name="country">
+                                        <option value="">Selectionner un pays</option>
+                                        <option th:each="countrySel : ${countries}" th:value="${countrySel}"
+                                                th:text="${countrySel}">Selectionner un pays</option>
+                                    </select>
+                                </div>
+                                <div  class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                                    <input style="width: 100%" type="text"  class="contact_form_email input_field" placeholder="Région" name="region"  >
+                                </div>
+                            </div>
+                            <div class="form-group row form-button" style="width: 100%">
+                                <div class="col-6">
+                                    <button data-dismiss="modal" style="width:100%;background-color: #f5e211!important; " class="button cart_button" >Cancel</button>
+                                </div>
+                                <div class="col-6">
+                                    <button type="submit" id="submit" style="width:100%;"  class="button cart_button">Valider</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- addCrew-->
             </div>
         </div>
     </div>
 </div>
+
 <div th:replace="~{../templates/fragments/footer :: footer}"></div>
 <script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
 <script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
@@ -206,6 +249,7 @@
 <script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
 <script th:src="@{/new/js/shop_custom.js}"></script>
 <script th:src="@{/new/js/product_custom.js}"></script>
+<script th:src="@{/new/js/contact_custom.js}"></script>
 <script th:src="@{/new/js/custom.js}"></script>
 
 </body>

@@ -58,8 +58,8 @@
 							<div class="shop_sorting">Syllabus</div>
 						</div>
 
-						<div class="product_grid">
-							<div class="product_grid_border"></div><br><br>                            
+						<div class="card p-3  mt-3" style="border-radius: 15px">
+							<div class="card-body">
                         <form action="#" id="contact_form" class="p-2"th:action="@{/visitor/syllabus/save}" method="post" enctype="multipart/form-data" th:object="${syllabus}">
 							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
 								<input type="text" id="contact_form_name" name="auteur" class="contact_form_name input_field" placeholder="Votre nom" required="required" data-error="Name is required.">
@@ -89,7 +89,7 @@
 								<button type="submit" class="button contact_submit_button">Validé</button>
 							</div>
 						</form>
-							
+							</div><br><br>
 						</div>
 
 					</div>

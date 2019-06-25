@@ -361,47 +361,138 @@ public class ManagementController {
     //visitor management functions
 
     @GetMapping("/chiefs")
-    public  String chiefs(){
+    public  String chiefs(Model model){
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        List<User> users1= userRepository.findAllByCategory("Chef des travaux");
+        List<User> chiefs= new ArrayList<>();
+        for (User user : users){
+            for (int i=0; i<users1.size(); i++){
+                if (user.getUserId().equals(users1.get(i).getUserId())){
+                    chiefs.add(user);
+                }
+            }
+        }
+        model.addAttribute("users",chiefs);
         return "user/chiefs";
     }
 
 
     @GetMapping("/student")
-    public  String student(){
+    public  String student(Model model){
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        List<User> users1= userRepository.findAllByCategory("Etudiant");
+        List<User> students= new ArrayList<>();
+        for (User user : users){
+            for (int i=0; i<users1.size(); i++){
+                if (user.getUserId().equals(users1.get(i).getUserId())){
+                    students.add(user);
+                }
+            }
+        }
+        model.addAttribute("users",students);
         return "user/student";
     }
 
 
     @GetMapping("/assistants")
-    public  String assistants(){
+    public  String assistants(Model model){
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        List<User> users1= userRepository.findAllByCategory("Assistant");
+        List<User> assistants= new ArrayList<>();
+        for (User user : users){
+            for (int i=0; i<users1.size(); i++){
+                if (user.getUserId().equals(users1.get(i).getUserId())){
+                    assistants.add(user);
+                }
+            }
+        }
+
+        model.addAttribute("users",assistants);
         return "user/assistants";
     }
 
 
     @GetMapping("/professeurs")
-    public  String professeurs(){
+    public  String professeurs(Model model){
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        List<User> users1= userRepository.findAllByCategory("Professeur");
+        List<User> professeurs= new ArrayList<>();
+        for (User user : users){
+            for (int i=0; i<users1.size(); i++){
+                if (user.getUserId().equals(users1.get(i).getUserId())){
+                    professeurs.add(user);
+                }
+            }
+        }
+        model.addAttribute("users",professeurs);
         return "user/professeurs";
     }
 
 
     @GetMapping("/primaire")
-    public  String primary(){
+    public  String primary(Model model){
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        List<User> users1= userRepository.findAllByCategory("Primaire");
+        List<User> primaries= new ArrayList<>();
+        for (User user : users){
+            for (int i=0; i<users1.size(); i++){
+                if (user.getUserId().equals(users1.get(i).getUserId())){
+                    primaries.add(user);
+                }
+            }
+        }
+        model.addAttribute("users",primaries);
         return "user/primaires";
     }
 
 
     @GetMapping("/secondaire")
-    public  String secondaire(){
+    public  String secondaire(Model model){
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        List<User> users1= userRepository.findAllByCategory("Secondaire");
+        List<User> secondaries= new ArrayList<>();
+        for (User user : users){
+            for (int i=0; i<users1.size(); i++){
+                if (user.getUserId().equals(users1.get(i).getUserId())){
+                    secondaries.add(user);
+                }
+            }
+        }
+        model.addAttribute("users",secondaries);
         return "user/secondaires";
     }
 
     @GetMapping("/master")
-    public  String master(){
+    public  String master(Model model){
+
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        List<User> users1= userRepository.findAllByDiplomOrderByUserIdDesc("Master1&2");
+        List<User> userList= new ArrayList<>();
+        for (User user: users){
+            for (int i=0; i< users1.size(); i++){
+                if (user.getUserId().equals(users1.get(i).getUserId())){
+                    userList.add(user);
+                }
+            }
+        }
+        model.addAttribute("users",userList);
+
         return "user/master";
     }
 
     @GetMapping("/doctorat")
-    public  String doctorat(){
+    public  String doctorat(Model model){
+        List<User> users= userRepository.findAllByActiveOrderByUserIdDesc(null);
+        List<User> users1= userRepository.findAllByDiplomOrderByUserIdDesc("Phd/Doctorat");
+        List<User> userList= new ArrayList<>();
+        for (User user: users){
+            for (int i=0; i< users1.size(); i++){
+                if (user.getUserId().equals(users1.get(i).getUserId())){
+                    userList.add(user);
+                }
+            }
+        }
+        model.addAttribute("users",userList);
         return "user/doctorat";
     }
 

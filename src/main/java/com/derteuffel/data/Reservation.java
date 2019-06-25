@@ -1,10 +1,10 @@
 package com.derteuffel.data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by derteuffel on 16/06/2019.
@@ -28,7 +28,11 @@ public class Reservation implements Serializable {
     private String saison;
     private String heureDebut;
     private String heureFin;
+    private int nombreJours;
     private Boolean status;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateDebut;
 
     @ManyToOne
     private Colonie colonie;
@@ -36,15 +40,14 @@ public class Reservation implements Serializable {
     public Reservation() {
     }
 
-    public Reservation(String nom, String telephone, String pays, String region, String email, String site, String activite,
-                       Double prix, String type, int nombreEnfants, String saison, String heureDebut, String heureFin,
-                       Boolean status, Colonie colonie) {
+    public Reservation(String nom, String telephone, String pays, String region, String email, String site, String activite, Double prix, String type, int nombreEnfants,
+                       String saison, String heureDebut, String heureFin, int nombreJours, Boolean status, Date dateDebut, Colonie colonie) {
         this.nom = nom;
         this.telephone = telephone;
         this.pays = pays;
         this.region = region;
+        this.email = email;
         this.site = site;
-        this.email=email;
         this.activite = activite;
         this.prix = prix;
         this.type = type;
@@ -52,8 +55,26 @@ public class Reservation implements Serializable {
         this.saison = saison;
         this.heureDebut = heureDebut;
         this.heureFin = heureFin;
+        this.nombreJours = nombreJours;
         this.status = status;
+        this.dateDebut = dateDebut;
         this.colonie = colonie;
+    }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public int getNombreJours() {
+        return nombreJours;
+    }
+
+    public void setNombreJours(int nombreJours) {
+        this.nombreJours = nombreJours;
     }
 
     public String getEmail() {

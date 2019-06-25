@@ -333,7 +333,8 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public  String about(){
+    public  String about(HttpServletRequest request, HttpSession session){
+        session.setAttribute("lastUrl", request.getHeader("referer"));
         return "these_module/index";
     }
 

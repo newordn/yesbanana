@@ -377,7 +377,7 @@ public class UserController {
 
         User user=userRepository.getOne(userId);
         user.setStatus(false);
-        user.setActive(false);
+        user.setActive(null);
         userRepository.save(user);
         return "redirect:/user/users";
     }
@@ -890,13 +890,13 @@ public class UserController {
     @GetMapping("/visitor/buy/form")
     public String visitorForm(Model model){
         model.addAttribute("countries", countries );
-        model.addAttribute("visitor", new User());
+        model.addAttribute("user", new User());
         return "user/visitorForm";
 
     }
 
     @PostMapping("/visitor/buy/save")
-    public String visitorSave(User user, Errors errors, Model model){
+    public String visitorSave(User user, Errors errors, HttpSession session){
         User user1= userRepository.findByEmail(user.getEmail());
         if (user1 != null){
             errors.rejectValue("email", "user.error", "There is already a user registered with the email provided");
@@ -927,7 +927,7 @@ public class UserController {
 
         userRepository.save(user);
 
-        return "redirect:/login/visitor";
+        return "redirect:"+session.getAttribute("lastUrl");
     }
 
 }

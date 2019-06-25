@@ -307,7 +307,11 @@ public class GroupeController {
         if(user.getRoles().containsAll(new HashSet<Role>(Arrays.asList(role3)))){
 
             return "redirect:/groupe/livres";
-        }else if (!user.getRoles().containsAll(new HashSet<Role>(Arrays.asList(role)))) {
+        }else if (user.getRoles().containsAll(new HashSet<Role>(Arrays.asList(role)))) {
+            System.out.println("je suis visiteur");
+            return "redirect:"+session.getAttribute("lastUrl");
+
+        }else {
             System.out.println("je suis dedans" );
             model.addAttribute("countries", countries);
             Collection<User> users1 = userRepository.findByRoles_Role("ADMIN");
@@ -339,9 +343,6 @@ public class GroupeController {
                 model.addAttribute("users", users);
             }
             return "crew/crews";
-        }else {
-            System.out.println("je suis visiteur");
-            return "redirect:"+session.getAttribute("lastUrl");
         }
 
 

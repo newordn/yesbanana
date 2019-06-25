@@ -58,13 +58,13 @@
 							<div class="shop_sorting">Expert professionnel</div>
 						</div>
 
-						<div class="product_grid">
-							<div class="product_grid_border"></div><br><br>                            
+						<div class="card p-3  mt-3" style="border-radius: 15px">
+							<div class="card-body">
                         <form action="#" id="contact_form" class="p-2" method="POST" enctype="multipart/form-data" th:object="${user}" th:action="@{/user/create/visitor}">
 							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
 								<input type="text" id="contact_form_name" name="name" class="contact_form_name input_field" placeholder="Nom"  data-error="Name is required.">
 								<input type="text" id="contact_form_email" class="contact_form_email input_field" placeholder="Email" name="email"  data-error="Email is required.">
-								<select class="contact_form_email input_field">
+								<select class="contact_form_email input_field" name="country">
 									<option value="">Selectionner un pays</option>
 									<option th:each="countrySel : ${countries}" th:value="${countrySel}"
                                     th:text="${countrySel}">Selectionner un pays</option>
@@ -106,13 +106,13 @@
                                 <td>2 à 3 ans</td>
                                 <td>
                                     <input type="checkbox" name="amount" th:checked="${amount}"
-                                           th:value="${100}" th:text="${100}" />
+                                           th:value="${100}" th:text="' $'+${100}" />
                                     <input type="text" name="experienceYear" value="2 à 3 ans"
                                            style="display: none" />
                                 </td>
                                 <td>
                                     <input type="checkbox" name="amount" th:checked="${amount}"
-                                           th:value="${150}" th:text="${150}" />
+                                           th:value="${150}" th:text="' $'+${150}" />
                                     <input type="text" name="experienceYear" value="2 à 3 ans"
                                            style="display: none" />
 
@@ -122,13 +122,13 @@
                                 <td>4 à 8 ans</td>
                                 <td>
                                     <input type="checkbox" name="amount" th:checked="${amount}"
-                                           th:value="${200}" th:text="${200}" />
+                                           th:value="${200}" th:text="' $'+${200}" />
                                     <input type="text" name="experienceYear" value="4 à 8 ans"
                                            style="display: none" />
                                 </td>
                                 <td>
                                     <input type="checkbox" name="amount" th:checked="${amount}"
-                                           th:value="${250}" th:text="${250}" />
+                                           th:value="${250}" th:text="' $'+${250}" />
                                     <input type="text" name="experienceYear" value="4 à 8 ans"
                                            style="display: none" />
                                 </td>
@@ -137,13 +137,13 @@
                                 <td>9 à 12 ans</td>
                                 <td>
                                     <input type="checkbox" name="amount" th:checked="${amount}"
-                                           th:value="${300}" th:text="${300}" />
+                                           th:value="${300}" th:text="' $'+${300}" />
                                     <input type="text" name="experienceYear" value="9 à 12 ans"
                                            style="display: none" />
                                 </td>
                                 <td>
                                     <input type="checkbox" name="amount" th:checked="${amount}"
-                                           th:value="${350}" th:text="${350}" />
+                                           th:value="${350}" th:text="' $'+${350}" />
                                     <input type="text" name="experienceYear" value="9 à 12 ans"
                                            style="display: none" />
                                 </td>
@@ -152,13 +152,13 @@
                                 <td>12 ans à +</td>
                                 <td>
                                     <input type="checkbox" name="amount" th:checked="${amount}"
-                                           th:value="${500}" th:text="${500}" />
+                                           th:value="${500}" th:text="' $'+${500}" />
                                     <input type="text" name="experienceYear" value="12 ans et +"
                                            style="display: none" />
                                 </td>
                                 <td>
                                     <input type="checkbox" name="amount" th:checked="${amount}"
-                                           th:value="${600}" th:text="${600}" />
+                                           th:value="${600}" th:text="' $'+${600}" />
                                     <input type="text" name="experienceYear" value="12 ans et +"
                                            style="display: none" />
                                 </td>
@@ -171,7 +171,7 @@
 								<button type="submit" class="button contact_submit_button">Validé</button>
 							</div>
 						</form>
-							
+                            </div><br><br>
 						</div>
 
 					</div>

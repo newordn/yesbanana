@@ -643,7 +643,7 @@ public class PrimaryController {
 
     @GetMapping("/like/{educationId}")
     public String likes(@PathVariable Long educationId){
-        Education primaire= primaireRepository.getOne(educationId);
+        Primaire primaire= primaireRepository.getOne(educationId);
         int n=primaire.getLikes();
         n++;
         primaire.setLikes(n);
@@ -654,7 +654,7 @@ public class PrimaryController {
 
     @GetMapping("/publish/{educationId}")
     public String publish(@PathVariable Long educationId){
-        Education primaire= primaireRepository.getOne(educationId);
+        Primaire primaire= primaireRepository.getOne(educationId);
         if (primaire.getStatus()== true){
             primaire.setStatus(false);
         }else {
