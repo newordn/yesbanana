@@ -125,6 +125,9 @@ public class User implements Serializable{
     private Set<Role> roles;
 
 
+    @OneToMany(mappedBy = "user")
+    @OnDelete(action= OnDeleteAction.NO_ACTION)
+    private List<Education> educations;
     public List<Panier> getPaniers() {
         return paniers;
     }
@@ -243,6 +246,14 @@ public class User implements Serializable{
         this.theses = theses;
         this.roles = roles;
         this.groupes = groupes;
+    }
+
+    public List<Education> getEducations() {
+        return educations;
+    }
+
+    public void setEducations(List<Education> educations) {
+        this.educations = educations;
     }
 
     public List<Bibliography> getBibliographies() {

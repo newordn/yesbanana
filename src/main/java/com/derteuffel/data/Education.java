@@ -24,54 +24,91 @@ public class Education implements Serializable {
     @Column
     private String description;
     @Column
-    private int likes;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date realeseDate;
+    private String edition;
+    @Column
+    private String editeur;
+    @Column
+    private String maison_edition;
+    @Column
+    private String anne_edition;
     @Column
     private Boolean status=false;
     @Column
-    private ArrayList<String> pieces=new ArrayList<>();
+    private String pieces;
     @Column
     private String type;
     @Column
     private String couverture;
-
-    private Double price;
+    private String region;
+    private  String country;
+    private int classe;
+    private Boolean suprime=false;
 
     @ManyToOne
-    private Region region;
+    private User user;
+
 
 
     public Education() {
     }
 
-    public Education(String title,Double price, String description, int likes, ArrayList<String> pieces, String type, Boolean status, Date realeseDate, String couverture) {
+    public Education(@NotEmpty String title, String description, String edition, String editeur,
+                     String maison_edition, String anne_edition, Boolean status, String pieces,
+                     String type, String couverture, String region, String country, int classe,Boolean suprime) {
         this.title = title;
         this.description = description;
-        this.likes = likes;
-        this.price=price;
-        this.realeseDate=realeseDate;
+        this.edition = edition;
+        this.suprime=suprime;
+        this.editeur = editeur;
+        this.maison_edition = maison_edition;
+        this.anne_edition = anne_edition;
+        this.status = status;
         this.pieces = pieces;
         this.type = type;
-        this.status=status;
-        this.couverture=couverture;
+        this.couverture = couverture;
+        this.region = region;
+        this.country = country;
+        this.classe = classe;
     }
 
-    public Double getPrice() {
-        return price;
+    public Boolean getSuprime() {
+        return suprime;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setSuprime(Boolean suprime) {
+        this.suprime = suprime;
     }
 
-    public Region getRegion() {
+    public String getRegion() {
         return region;
     }
 
-    public void setRegion(Region region) {
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setRegion(String region) {
         this.region = region;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public int getClasse() {
+        return classe;
+    }
+
+    public void setClasse(int classe) {
+        this.classe = classe;
     }
 
     public String getCouverture() {
@@ -106,19 +143,11 @@ public class Education implements Serializable {
         this.description = description;
     }
 
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
-    public ArrayList<String> getPieces() {
+    public String getPieces() {
         return pieces;
     }
 
-    public void setPieces(ArrayList<String> pieces) {
+    public void setPieces(String pieces) {
         this.pieces = pieces;
     }
 
@@ -130,12 +159,36 @@ public class Education implements Serializable {
         this.type = type;
     }
 
-    public Date getRealeseDate() {
-        return realeseDate;
+    public String getEdition() {
+        return edition;
     }
 
-    public void setRealeseDate(Date realeseDate) {
-        this.realeseDate = realeseDate;
+    public void setEdition(String edition) {
+        this.edition = edition;
+    }
+
+    public String getEditeur() {
+        return editeur;
+    }
+
+    public void setEditeur(String editeur) {
+        this.editeur = editeur;
+    }
+
+    public String getMaison_edition() {
+        return maison_edition;
+    }
+
+    public void setMaison_edition(String maison_edition) {
+        this.maison_edition = maison_edition;
+    }
+
+    public String getAnne_edition() {
+        return anne_edition;
+    }
+
+    public void setAnne_edition(String anne_edition) {
+        this.anne_edition = anne_edition;
     }
 
     public Boolean getStatus() {

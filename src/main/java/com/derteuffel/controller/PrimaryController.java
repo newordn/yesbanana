@@ -3,10 +3,14 @@ package com.derteuffel.controller;
 import com.derteuffel.data.Education;
 import com.derteuffel.data.Primaire;
 import com.derteuffel.data.Region;
+import com.derteuffel.data.User;
 import com.derteuffel.repository.PrimaireRepository;
 import com.derteuffel.repository.RegionRepository;
+import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,14 +39,13 @@ public class PrimaryController {
     private FileUploadService fileUploadService;
 
     @Autowired
-    private RegionRepository regionRepository;
+   private UserService userService;
 
-    @GetMapping("/form/{regionId}")
-    public String form(Model model,@PathVariable Long regionId){
+    @GetMapping("/form")
+    public String form(Model model){
+        model.addAttribute("countries",countries);
         model.addAttribute("primaire",new Primaire());
-        model.addAttribute("region", regionRepository.getOne(regionId));
         return "primaire/form";
-
     }
 
     public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
@@ -58,43 +61,44 @@ public class PrimaryController {
 
 
     @PostMapping("/save")
-    public String save(Primaire primaire, @RequestParam("files")MultipartFile[] files,String montant,Long regionId,
-                       @RequestParam("photo")MultipartFile photo){
+    public String save(Primaire primaire, @RequestParam("file")MultipartFile file, @RequestParam("photo")MultipartFile photo){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByName(auth.getName());
         String fileName = fileUploadService.storeFile(photo);
+        String fileName1 = fileUploadService.storeFile(file);
 
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        ArrayList<String> filesPaths = new ArrayList<String>();
-        for(int i=0;i<pieces.size();i++)
-        {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
-        }
 
         primaire.setCouverture("/downloadFile/" + fileName);
-        primaire.setPieces(filesPaths);
-        primaire.setPrice(Double.parseDouble(montant));
-        primaire.setLikes(0);
+        primaire.setPieces("/downloadFile/" + fileName1);
         primaire.setStatus(false);
-        primaire.setRegion(regionRepository.getOne(regionId));
+        primaire.setUser(user);
+        primaireRepository.save(primaire);
 
-        Primaire primaire1= primaireRepository.save(primaire);
-        if (primaire1.getType().contains("colonie")){
-            return "redirect:/primaire/primaires/colonie/"+regionRepository.getOne(regionId).getRegionId();
-        }else if(primaire1.getType().contains("cours")){
-            return "redirect:/primaire/primaires/cours/"+regionRepository.getOne(regionId).getRegionId();
-        }else if(primaire1.getType().contains("anglais")){
-            return "redirect:/primaire/primaires/langue/"+regionRepository.getOne(regionId).getRegionId();
-        }else if(primaire1.getType().contains("jeux")){
-            return "redirect:/primaire/primaires/games/"+regionRepository.getOne(regionId).getRegionId();
-        }else if(primaire1.getType().contains("bibliotheque")){
-            return "redirect:/primaire/primaires/bibliotheque/"+regionRepository.getOne(regionId).getRegionId();
-        }else if(primaire1.getType().contains("transport")){
-            return "redirect:/primaire/primaires/transport/"+regionRepository.getOne(regionId).getRegionId();
+        return "redirect:/primaire/primaires";
+
+    }
+
+    @PostMapping("/update/{educationId}")
+    public String update(Primaire primaire, @RequestParam("file")MultipartFile file,Long userId, @RequestParam("photo")MultipartFile photo){
+        User user=userService.getById(userId);
+        if (!photo.isEmpty()) {
+            String fileName = fileUploadService.storeFile(photo);
+            primaire.setCouverture("/downloadFile/" + fileName);
         }else {
-            return "redirect:/groupe/groupes";
+            primaire.setCouverture(primaire.getCouverture());
         }
+
+        if (!file.isEmpty()) {
+            String fileName1 = fileUploadService.storeFile(file);
+            primaire.setPieces("/downloadFile/" + fileName1);
+        }else {
+            primaire.setPieces(primaire.getPieces());
+        }
+        primaire.setStatus(false);
+        primaire.setUser(user);
+        primaireRepository.save(primaire);
+
+        return "redirect:/primaire/primaires";
 
     }
 
@@ -102,554 +106,33 @@ public class PrimaryController {
     Date date= new Date();
 
     /*---- here colonies all methods  start ------*/
-    @GetMapping("/primaires/colonie/{regionId}")
-    public String get9first(Model model, @PathVariable Long regionId, HttpSession session){
-        session.setAttribute("regionId", regionId);
-         List<Primaire> allPrimaires= primaireRepository.findFirst12ByType("colonie de vacances", Sort.by( "educationId").descending());
-        List<Primaire> primaires=new ArrayList<>();
-        List<Primaire> events=new ArrayList<>();
-
-
-        for(Primaire primaire : allPrimaires){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if (!(primaireDate.compareTo(date1)>=0) ){
-                    primaires.add(primaire);
-                }else {
-                    events.add(primaire);
-                }
-
-            }
-        }
-
+    @GetMapping("/primaires")
+    public String getAll(Model model, HttpSession session){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByName(auth.getName());
+        model.addAttribute("roles",user.getRoles());
+        session.setAttribute("roles",user.getRoles());
+        List<Primaire> primaires=primaireRepository.findBySuprime(false);
         model.addAttribute("primaires",primaires);
-        model.addAttribute("listSize",primaires.size());
-        model.addAttribute("events",events);
-        model.addAttribute("coursesSize",events.size());
-        model.addAttribute("region", regionRepository.getOne(regionId));
-        return "primaire/colonie/colonies";
+        return "primaire/primaires";
 
     }
 
-
-    @GetMapping("/primaires/colonie/all/{regionId}")
-    public String getAllPassEvent(Model model, @PathVariable Long regionId){
-
-        List<Primaire> lists= primaireRepository.findAllByTypeOrderByEducationIdDesc("colonie de vacances");
-        List<Primaire> primaires=new ArrayList<>();
-        Region region= regionRepository.getOne(regionId);
-        for(Primaire primaire : lists){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if (!(primaireDate.compareTo(date1)>=0) ){
-                    primaires.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("region",region);
-        model.addAttribute("primaires",primaires);
-        return "primaire/colonie/all";
-    }
-
-    @GetMapping("/primaires/colonies/events/{regionId}")
-    public String getAllUpCommingEvent(Model model, @PathVariable Long regionId){
-
-        List<Primaire> lists= primaireRepository.findAllByTypeOrderByEducationIdDesc("colonie de vacances");
-        List<Primaire> primaires=new ArrayList<>();
-        Region region= regionRepository.getOne(regionId);
-        for(Primaire primaire : lists){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if (primaireDate.compareTo(date1)>=0 ){
-                    primaires.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("region",region);
-        model.addAttribute("primaires",primaires);
-        return "primaire/colonie/events";
-    }
-
-    @GetMapping("/colonie/{educationId}")
-    public String getOnecolonie(Model model, @PathVariable Long educationId, HttpSession session){
-
-        Long regionId=(Long)session.getAttribute("regionId");
-        Region region=regionRepository.getOne(regionId);
-        model.addAttribute("region",region);
-        Education primaire = primaireRepository.getOne(educationId);
-        model.addAttribute("primaire",primaire);
-        return "primaire/colonie/primaire";
-    }
-
-    /*---- here colonies methods end ----*/
-
-    /*---- Here courses methods start ----*/
-
-    @GetMapping("/primaires/cours/{regionId}")
-    public String cours(Model model, @PathVariable Long regionId){
-        List<Primaire> allPrimaires= primaireRepository.findFirst12ByType("cours d'appui", Sort.by( "educationId").descending());
-        List<Primaire> primaires=new ArrayList<>();
-        List<Primaire> events=new ArrayList<>();
-        for(Primaire primaire : allPrimaires){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if ( !(primaireDate.compareTo(date1)>=0)){
-                    primaires.add(primaire);
-                }else {
-                    events.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("primaires",primaires);
-        model.addAttribute("listSize",primaires.size());
-        model.addAttribute("events",events);
-        model.addAttribute("coursesSize",events.size());
-        model.addAttribute("region", regionRepository.getOne(regionId));
-        return "primaire/cours/cours";
-
-    }
-
-    @GetMapping("/primaires/cours/all/{regionId}")
-    public String getAllPassCourseEvent(Model model, @PathVariable Long regionId){
-
-        List<Primaire> lists= primaireRepository.findAllByTypeOrderByEducationIdDesc("cours d'appui");
-        List<Primaire> primaires=new ArrayList<>();
-        Region region= regionRepository.getOne(regionId);
-        for(Primaire primaire : lists){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if (!(primaireDate.compareTo(date1)>=0) ){
-                    primaires.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("region",region);
-        model.addAttribute("primaires",primaires);
-        return "primaire/cours/all";
-    }
-
-    @GetMapping("/primaires/cours/events/{regionId}")
-    public String getAllUpCommingCoursesEvent(Model model, @PathVariable Long regionId){
-
-        List<Primaire> lists= primaireRepository.findAllByTypeOrderByEducationIdDesc("cours d'appui");
-        List<Primaire> primaires=new ArrayList<>();
-        Region region= regionRepository.getOne(regionId);
-        for(Primaire primaire : lists){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if (primaireDate.compareTo(date1)>=0 ){
-                    primaires.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("region",region);
-        model.addAttribute("primaires",primaires);
-        return "primaire/cours/events";
-    }
-
-    @GetMapping("/cours/{educationId}")
-    public String getOnecourse(Model model, @PathVariable Long educationId, HttpSession session){
-
-        Long regionId=(Long)session.getAttribute("regionId");
-        Region region=regionRepository.getOne(regionId);
-        model.addAttribute("region",region);
-        Education primaire = primaireRepository.getOne(educationId);
-        model.addAttribute("primaire",primaire);
-        return "primaire/cours/primaire";
-    }
-
-
-
-    /*----- Here courses methods end ----*/
-    /*----- Here Languages methods start ----*/
-
-
-    @GetMapping("/primaires/langue/{regionId}")
-    public String anglais(Model model, @PathVariable Long regionId){
-        List<Primaire> allPrimaires= primaireRepository.findFirst12ByType("anglais et/ou francais", Sort.by( "educationId").descending());
-        List<Primaire> primaires=new ArrayList<>();
-        List<Primaire> events=new ArrayList<>();
-        for(Primaire primaire : allPrimaires){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if ( !(primaireDate.compareTo(date1)>=0)){
-                    primaires.add(primaire);
-                }else {
-                    events.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("primaires",primaires);
-        model.addAttribute("listSize",primaires.size());
-        model.addAttribute("events",events);
-        model.addAttribute("coursesSize",events.size());
-        model.addAttribute("region", regionRepository.getOne(regionId));
-        return "primaire/langue/langues";
-
-    }
-
-    @GetMapping("/primaires/langue/all/{regionId}")
-    public String getAllPassLangueeEvent(Model model, @PathVariable Long regionId){
-
-        List<Primaire> lists= primaireRepository.findAllByTypeOrderByEducationIdDesc("anglais et/ou francais");
-        List<Primaire> primaires=new ArrayList<>();
-        Region region= regionRepository.getOne(regionId);
-        for(Primaire primaire : lists){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if (!(primaireDate.compareTo(date1)>=0) ){
-                    primaires.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("region",region);
-        model.addAttribute("primaires",primaires);
-        return "primaire/langue/all";
-    }
-
-    @GetMapping("/primaires/langue/events/{regionId}")
-    public String getAllUpCommingLangueEvent(Model model, @PathVariable Long regionId){
-
-        List<Primaire> lists= primaireRepository.findAllByTypeOrderByEducationIdDesc("anglais et/ou francais");
-        List<Primaire> primaires=new ArrayList<>();
-        Region region= regionRepository.getOne(regionId);
-        for(Primaire primaire : lists){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if (primaireDate.compareTo(date1)>=0 ){
-                    primaires.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("region",region);
-        model.addAttribute("primaires",primaires);
-        return "primaire/langue/events";
-    }
-
-    @GetMapping("/langue/{educationId}")
-    public String getOnelangue(Model model, @PathVariable Long educationId, HttpSession session){
-
-        Long regionId=(Long)session.getAttribute("regionId");
-        Region region=regionRepository.getOne(regionId);
-        model.addAttribute("region",region);
-        Education primaire = primaireRepository.getOne(educationId);
-        model.addAttribute("primaire",primaire);
-        return "primaire/langue/primaire";
-    }
-
-/*------ Here language methods end -----*/
-
-
-
-/*------ Here Games methods start -----*/
-
-    @GetMapping("/primaires/games/{regionId}")
-    public String jeux(Model model, @PathVariable Long regionId){
-        List<Primaire> allPrimaires= primaireRepository.findFirst12ByType("jeux educatif", Sort.by( "educationId").descending());
-        List<Primaire> primaires=new ArrayList<>();
-        List<Primaire> events=new ArrayList<>();
-        for(Primaire primaire : allPrimaires){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if ( !(primaireDate.compareTo(date1)>=0)){
-                    primaires.add(primaire);
-                }else {
-                    events.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("primaires",primaires);
-        model.addAttribute("listSize",primaires.size());
-        model.addAttribute("events",events);
-        model.addAttribute("coursesSize",events.size());
-        model.addAttribute("region", regionRepository.getOne(regionId));
-        return "primaire/game/games";
-
-    }
-
-
-    @GetMapping("/primaires/games/all/{regionId}")
-    public String getAllPassGameEvent(Model model, @PathVariable Long regionId){
-
-        List<Primaire> lists= primaireRepository.findAllByTypeOrderByEducationIdDesc("jeux educatif");
-        List<Primaire> primaires=new ArrayList<>();
-        Region region= regionRepository.getOne(regionId);
-        for(Primaire primaire : lists){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if (!(primaireDate.compareTo(date1)>=0) ){
-                    primaires.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("region",region);
-        model.addAttribute("primaires",primaires);
-        return "primaire/game/all";
-    }
-
-    @GetMapping("/primaires/games/events/{regionId}")
-    public String getAllUpCommingGameEvent(Model model, @PathVariable Long regionId){
-
-        List<Primaire> lists= primaireRepository.findAllByTypeOrderByEducationIdDesc("jeux educatif");
-        List<Primaire> primaires=new ArrayList<>();
-        Region region= regionRepository.getOne(regionId);
-        for(Primaire primaire : lists){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if (primaireDate.compareTo(date1)>=0 ){
-                    primaires.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("region",region);
-        model.addAttribute("primaires",primaires);
-        return "primaire/game/events";
-    }
-
-    @GetMapping("/games/{educationId}")
-    public String getOneGame(Model model, @PathVariable Long educationId, HttpSession session){
-
-        Long regionId=(Long)session.getAttribute("regionId");
-        Region region=regionRepository.getOne(regionId);
-        model.addAttribute("region",region);
-        Education primaire = primaireRepository.getOne(educationId);
-        model.addAttribute("primaire",primaire);
-        return "primaire/game/primaire";
-    }
-
-    /*------ Here Games methods end -----*/
-
-
-    /*------ Here Bibliotheque methods start -----*/
-
-    @GetMapping("/primaires/bibliotheque/{regionId}")
-    public String bibliotheque(Model model, @PathVariable Long regionId){
-        List<Primaire> allPrimaires= primaireRepository.findFirst12ByType("bibliotheque en ligne", Sort.by( "educationId").descending());
-        List<Primaire> primaires=new ArrayList<>();
-        List<Primaire> events=new ArrayList<>();
-        for(Primaire primaire : allPrimaires){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if ( !(primaireDate.compareTo(date1)>=0)){
-                    primaires.add(primaire);
-                }else {
-                    events.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("primaires",primaires);
-        model.addAttribute("listSize",primaires.size());
-        model.addAttribute("events",events);
-        model.addAttribute("coursesSize",events.size());
-        model.addAttribute("region", regionRepository.getOne(regionId));
-        return "primaire/bibliotheque/bibliotheques";
-
-    }
-
-    @GetMapping("/primaires/bibliotheque/all/{regionId}")
-    public String getAllPassBibliothequeEvent(Model model, @PathVariable Long regionId){
-
-        List<Primaire> lists= primaireRepository.findAllByTypeOrderByEducationIdDesc("bibliotheque en ligne");
-        List<Primaire> primaires=new ArrayList<>();
-        Region region= regionRepository.getOne(regionId);
-        for(Primaire primaire : lists){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if (!(primaireDate.compareTo(date1)>=0) ){
-                    primaires.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("region",region);
-        model.addAttribute("primaires",primaires);
-        return "primaire/bibliotheque/all";
-    }
-
-    @GetMapping("/primaires/bibliotheque/events/{regionId}")
-    public String getAllUpCommingBibliothequeEvent(Model model, @PathVariable Long regionId){
-
-        List<Primaire> lists= primaireRepository.findAllByTypeOrderByEducationIdDesc("bibliotheque en ligne");
-        List<Primaire> primaires=new ArrayList<>();
-        Region region= regionRepository.getOne(regionId);
-        for(Primaire primaire : lists){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if (primaireDate.compareTo(date1)>=0 ){
-                    primaires.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("region",region);
-        model.addAttribute("primaires",primaires);
-        return "primaire/bibliotheque/events";
-    }
-
-    @GetMapping("/bibliotheque/{educationId}")
-    public String getOneBibliotheque(Model model, @PathVariable Long educationId, HttpSession session){
-
-        Long regionId=(Long)session.getAttribute("regionId");
-        Region region=regionRepository.getOne(regionId);
-        model.addAttribute("region",region);
-        Education primaire = primaireRepository.getOne(educationId);
-        model.addAttribute("primaire",primaire);
-        return "primaire/bibliotheque/primaire";
-    }
-
-
-    /*----- Here Bibliotheque methods end -----*/
-
-
-    /*----- Here Transports methods start -----*/
-
-    @GetMapping("/primaires/transport/{regionId}")
-    public String transport(Model model, @PathVariable Long regionId){
-        List<Primaire> allPrimaires= primaireRepository.findFirst12ByType("transport securise", Sort.by( "educationId").descending());
-        List<Primaire> primaires=new ArrayList<>();
-        List<Primaire> events=new ArrayList<>();
-        for(Primaire primaire : allPrimaires){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if (!(primaireDate.compareTo(date1)>=0)){
-                    primaires.add(primaire);
-                }else {
-                    events.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("primaires",primaires);
-        model.addAttribute("listSize",primaires.size());
-        model.addAttribute("events",events);
-        model.addAttribute("coursesSize",events.size());
-        model.addAttribute("region", regionRepository.getOne(regionId));
-        return "primaire/transport/transports";
-
-    }
-
-    @GetMapping("/primaires/transport/all/{regionId}")
-    public String getAllPassTransportEvent(Model model, @PathVariable Long regionId){
-
-        List<Primaire> lists= primaireRepository.findAllByTypeOrderByEducationIdDesc("transport securise");
-        List<Primaire> primaires=new ArrayList<>();
-        Region region= regionRepository.getOne(regionId);
-        for(Primaire primaire : lists){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if (!(primaireDate.compareTo(date1)>=0) ){
-                    primaires.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("region",region);
-        model.addAttribute("primaires",primaires);
-        return "primaire/transport/all";
-    }
-
-    @GetMapping("/primaires/transport/events/{regionId}")
-    public String getAllUpCommingTransportEvent(Model model, @PathVariable Long regionId){
-
-        List<Primaire> lists= primaireRepository.findAllByTypeOrderByEducationIdDesc("transport securise");
-        List<Primaire> primaires=new ArrayList<>();
-        Region region= regionRepository.getOne(regionId);
-        for(Primaire primaire : lists){
-            String primaireDate=sdf.format(primaire.getRealeseDate());
-            String date1=sdf.format(date);
-            if (primaire.getRegion().getRegionId().equals(regionId)){
-                if (primaireDate.compareTo(date1)>=0 ){
-                    primaires.add(primaire);
-                }
-
-            }
-        }
-
-        model.addAttribute("region",region);
-        model.addAttribute("primaires",primaires);
-        return "primaire/transport/events";
-    }
-
-    @GetMapping("/transport/{educationId}")
-    public String getOneTransport(Model model, @PathVariable Long educationId, HttpSession session){
-
-        Long regionId=(Long)session.getAttribute("regionId");
-        Region region=regionRepository.getOne(regionId);
-        model.addAttribute("region",region);
-        Education primaire = primaireRepository.getOne(educationId);
-        model.addAttribute("primaire",primaire);
-        return "primaire/transport/primaire";
-    }
-
-
-    /*------ Here Transport methods end ----*/
 
 
     @GetMapping("/primaire/{educationId}")
-    public String getOne(Model model, @PathVariable Long educationId, HttpSession session){
-
-        Long regionId=(Long)session.getAttribute("regionId");
-        Region region=regionRepository.getOne(regionId);
-        model.addAttribute("region",region);
-        Education primaire = primaireRepository.getOne(educationId);
+    public String getOne(Model model, @PathVariable Long educationId){
+        Primaire primaire=primaireRepository.getOne(educationId);
         model.addAttribute("primaire",primaire);
         return "primaire/primaire";
     }
 
-    @GetMapping("/like/{educationId}")
-    public String likes(@PathVariable Long educationId){
+    @GetMapping("/primaire/edit/{educationId}")
+    public String updateForm(@PathVariable Long educationId,Model model){
         Primaire primaire= primaireRepository.getOne(educationId);
-        int n=primaire.getLikes();
-        n++;
-        primaire.setLikes(n);
-        System.out.println(n);
-        primaireRepository.save(primaire);
-       return "redirect:/primaire/primaire/"+primaire.getEducationId();
+        model.addAttribute("countries",countries);
+        model.addAttribute("primaire",primaire);
+        return "primaire/edit";
     }
 
     @GetMapping("/publish/{educationId}")
@@ -664,5 +147,220 @@ public class PrimaryController {
 
         return "redirect:/primaire/primaire/"+primaire.getEducationId();
     }
+
+    @GetMapping("/delete/{educationId}")
+    public String delete(@PathVariable Long educationId){
+        Primaire primaire= primaireRepository.getOne(educationId);
+        if (primaire.getSuprime()== true){
+            primaire.setSuprime(false);
+        }else {
+            primaire.setSuprime(true);
+        }
+        primaireRepository.save(primaire);
+
+        return "redirect:/primaire/primaires";
+    }
+
+    List<String> countries= Arrays.asList(
+            "Afghanistan",
+            "Albania",
+            "Algeria",
+            "Andorra",
+            "Angola",
+            "Antigua and Barbuda",
+            "Argentina",
+            "Armenia",
+            "Australia",
+            "Austria",
+            "Azerbaijan",
+            "Bahamas",
+            "Bahrain",
+            "Bangladesh",
+            "Barbados",
+            "Belarus",
+            "Belgium",
+            "Belize",
+            "Benin",
+            "Bhutan",
+            "Bolivia",
+            "Bosnia and Herzegovina",
+            "Botswana",
+            "Brazil",
+            "Brunei",
+            "Bulgaria",
+            "Burkina Faso",
+            "Burundi",
+            "Cabo Verde",
+            "Cambodia",
+            "Cameroon",
+            "Canada",
+            "Central African Republic (CAR)",
+            "Chad",
+            "Chile",
+            "China",
+            "Colombia",
+            "Comoros",
+            " Democratic Republic of the Congo",
+            "Republic of the Congo",
+            "Costa Rica",
+            "Cote d'Ivoire",
+            "Croatia",
+            "Cuba",
+            "Cyprus",
+            "Czech Republic",
+            "Denmark",
+            "Djibouti",
+            "Dominica",
+            "Dominican Republic",
+            "Ecuador",
+            "Egypt",
+            "El Salvador",
+            "Equatorial Guinea",
+            "Eritrea",
+            "Estonia",
+            "Eswatini (formerly Swaziland)",
+            "Ethiopia",
+            "Fiji",
+            "Finland",
+            "France",
+            "Gabon",
+            "Gambia",
+            "Georgia",
+            "Germany",
+            "Ghana",
+            "Greece",
+            "Grenada",
+            "Guatemala",
+            "Guinea",
+            "Guinea-Bissau",
+            "Guyana",
+            "Haiti",
+            "Honduras",
+            "Hungary",
+            "Iceland",
+            "India",
+            "Indonesia",
+            "Iran",
+            "Iraq",
+            "Ireland",
+            "Israel",
+            "Italy",
+            "Jamaica",
+            "Japan",
+            "Jordan",
+            "Kazakhstan",
+            "Kenya",
+            "Kiribati",
+            "Kosovo",
+            "Kuwait",
+            "Kyrgyzstan",
+            "Laos",
+            "Latvia",
+            "Lebanon",
+            "Lesotho",
+            "Liberia",
+            "Libya",
+            "Liechtenstein",
+            "Lithuania",
+            "Luxembourg",
+            "Macedonia (FYROM)",
+            "Madagascar",
+            "Malawi",
+            "Malaysia",
+            "Maldives",
+            "Mali",
+            "Malta",
+            "Marshall Islands",
+            "Mauritania",
+            "Mauritius",
+            "Mexico",
+            "Micronesia",
+            "Moldova",
+            "Monaco",
+            "Mongolia",
+            "Montenegro",
+            "Morocco",
+            "Mozambique",
+            "Myanmar (formerly Burma)",
+            "Namibia",
+            "Nauru",
+            "Nepal",
+            "Netherlands",
+            "New Zealand",
+            "Nicaragua",
+            "Niger",
+            "Nigeria",
+            "North Korea",
+            "Norway",
+            "Oman",
+            "Pakistan",
+            "Palau",
+            "Palestine",
+            "Panama",
+            "Papua New Guinea",
+            "Paraguay",
+            "Peru",
+            "Philippines",
+            "Poland",
+            "Portugal",
+            "Qatar",
+            "Romania",
+            "Russia",
+            "Rwanda",
+            "Saint Kitts and Nevis",
+            "Saint Lucia",
+            "Saint Vincent and the Grenadines",
+            "Samoa",
+            "San Marino",
+            "Sao Tome",
+            "Saudi Arabia",
+            "Senegal",
+            "Serbia",
+            "Seychelles",
+            "Sierra Leone",
+            "Singapore",
+            "Slovakia",
+            "Slovenia",
+            "Solomon Islands",
+            "Somalia",
+            "South Africa",
+            "South Korea",
+            "South Sudan",
+            "Spain",
+            "Sri Lanka",
+            "Sudan",
+            "Suriname",
+            "Swaziland",
+            "Sweden",
+            "Switzerland",
+            "Syria",
+            "Taiwan",
+            "Tajikistan",
+            "Tanzania",
+            "Thailand",
+            "Timor-Leste",
+            "Togo",
+            "Tonga",
+            "Trinidad and Tobago",
+            "Tunisia",
+            "Turkey",
+            "Turkmenistan",
+            "Tuvalu",
+            "Uganda",
+            "Ukraine",
+            "United Arab Emirates",
+            "United Kingdom",
+            "United States of America",
+            "Uruguay",
+            "Uzbekistan",
+            "Vanuatu",
+            "Vatican City (Holy See)",
+            "Venezuela",
+            "Vietnam",
+            "Yemen",
+            "Zambia",
+            "Zimbabwe"
+
+    );
 
 }

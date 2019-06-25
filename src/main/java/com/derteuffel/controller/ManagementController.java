@@ -2237,44 +2237,7 @@ public class ManagementController {
         return "management/region/education/primary/form";
     }
 
-    @PostMapping("/primary/save")
-    public String primarySave(Primaire primaire,Errors errors, HttpSession session, Model model, @RequestParam("files") MultipartFile[] files, String adresse, String contenue){
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user=userService.findByName(auth.getName());
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        ArrayList<String> filesPaths = new ArrayList<String>();
-        for(int i=0;i<pieces.size();i++)
-        {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
-        }
-
-Primaire primaire1=primaireRepository.findByTitle(primaire.getTitle());
-        if (primaire1 != null){
-            errors.rejectValue("title","primaire.error","Il existe de un element avec ce titre");
-        }
-        if (errors.hasErrors()){
-            model.addAttribute("errors","Il existe deja un element avec ce titre");
-            return "management/region/education/primary/form";
-        }else {
-            primaire.setPieces(filesPaths);
-            primaire.setRegion(regionRepository.getOne((Long)session.getAttribute("regionId")));
-            primaire.setStatus(null);
-            primaire.setType(primaire.getType().toLowerCase());
-            primaireRepository.save(primaire);
-            MailService mail= new MailService();
-            mail.sendSimpleMessage(
-                    adresse,
-                    "Notification de enregistrement d'un element dans le module Education Primaire",
-                    user.getName()+" vous notifi celon le contenue suivant :"+ contenue+" veuillez bien prendre connaissance du message et apporter des modifications souligner"
-            );
-
-            return "redirect:/management/primary/colonie";
-        }
-    }
 }
 
 

@@ -80,6 +80,7 @@ public class SecurityConfig1 extends WebSecurityConfigurerAdapter {
                 .antMatchers("/bibliography/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER","lIVRE")
                 .antMatchers("/user/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER","LIVRE")
                 .antMatchers("/colonie/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER","LIVRE")
+                .antMatchers("/primaire/**").hasAnyAuthority( "ROOT_MASTER","ROOT","ADMIN_MASTER","ADMIN","USER","LIVRE")
                 .anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
                 .loginPage("/login")

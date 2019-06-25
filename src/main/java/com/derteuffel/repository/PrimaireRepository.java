@@ -18,15 +18,16 @@ import java.util.List;
 @Repository
 public interface PrimaireRepository extends JpaRepository<Primaire, Long> {
 
-    @Query("select p from Primaire as p join p.region pr where pr.regionId=:id order by p.educationId desc")
-    List<Primaire> findAllByRegion(@Param("id") Long regionId);
+    @Query("select p from Primaire as p join p.user pu where pu.userId=:id order by p.educationId desc")
+    List<Primaire> findAllByRegion(@Param("id") Long userId);
 
     Primaire findByTitle(String title);
 
     List<Primaire> findAllByStatus(Boolean status);
+    List<Primaire> findBySuprime(Boolean suprime);
     List<Primaire> findAllByOrderByEducationIdDesc();
     List<Primaire> findFirst12ByType(String type, Sort sort);
-    List<Primaire> findAllByTypeOrderByEducationIdDesc(String type);
+    List<Primaire> findByTypeOrderByEducationIdDesc(String type);
 
 
 }

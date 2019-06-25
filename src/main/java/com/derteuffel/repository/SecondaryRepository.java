@@ -16,9 +16,6 @@ import java.util.List;
 @Repository
 public interface SecondaryRepository extends JpaRepository<Education, Long> {
 
-    @Query("select s from Secondary as s join s.region sr where sr.regionId=:id order by s.educationId desc")
-    List<Secondary> findAllByRegion(@Param("id") Long regionId);
-
     Secondary findByTitle(String title);
 
     List<Secondary> findAllByStatus(Boolean status);

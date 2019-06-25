@@ -27,24 +27,12 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/primaire/primaires/colonie/}+${region.regionId}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
+        <a class="navbar-brand" th:href="@{/groupe/groupes}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a th:href="@{/primaire/primaires/colonie/}+${region.regionId}" class="nav-link ">Colonie de vacances</a></li>
-                <li class="nav-item "><a th:href="@{/primaire/primaires/langue/}+${region.regionId}" class="nav-link ">Anglais et/ou Francais</a></li></li>
-
-                <li class="nav-item"><a th:href="@{/primaire/primaires/cours/}+${region.regionId}" class="nav-link " >Cours d'appui</a>
-
-                </li>
-                <li class="nav-item"><a th:href="@{/primaire/primaires/bibliotheque/}+${region.regionId}" class="nav-link">Bibliothèque en ligne</a></li>
-                <li class="nav-item"><a th:href="@{/primaire/primaires/game/}+${region.regionId}" class="nav-link">Jeux éducatif</a></li>
-                <li class="nav-item"><a th:href="@{/primaire/primaires/transport/}+${region.regionId}" class="nav-link">Transport sécurisé</a></li>
-
-            </ul>
+        <div th:replace="~{../templates/fragments/management_header :: management_header}">
         </div>
     </div>
 </nav>
@@ -54,8 +42,8 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
             <div class="col-md-7 heading-section ftco-animate text-center">
-                <h2 >Colonie de vacances</h2>
-                <h3 class="mb-1">Formulaire d'enregistrement d'un événement</h3>
+                <h2 >Education primaire</h2>
+                <h3 class="mb-1">Formulaire d'enregistrement d'un Livre</h3>
             </div>
         </div>
         <div class=" modal-warning alert-warning">
@@ -67,41 +55,63 @@
                             <input type="text" id="title" class="form-control" th:field="*{title}" placeholder="Entrer un titre à votre événnement"/>
                         </div>
                         <div class="form-group">
-                            <label for="realeseDate">Date de Réalisation:</label>
-                            <input type="date" id="realeseDate" class="form-control" th:field="*{realeseDate}" placeholder="Date de déroulement de l'événnement"/>
+                            <label for="type">Module:</label>
+                            <input type="text" id="type" class="form-control" th:field="*{type}" placeholder="Domaine "/>
                         </div>
                         <div class="form-group">
-                            <label for="type">Module:</label>
-                            <select id="type" th:field="*{type}" class="form-control">
-                                <option value="">Choisir un Module</option>
-                                <option value="colonie de vacances">Colonie de Vacances</option>
-                                <option value="jeux éducatif">Jeux éducatif</option>
-                                <option value="bibliotheque en ligne">Bibliotheque en ligne</option>
-                                <option value="transport sécurise">Transports Sécurisés</option>
-                                <option value="cours d'appui">Cours d'appui</option>
-                                <option value="francais et/ou anglais">Cours de Francais et/ou Anglais</option>
+                            <label for="couverture">Description:</label>
+                            <textarea type="text" th:field="*{description}" rows="5" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="edition">Edition :</label>
+                            <input id="edition" type="text" class="form-control" th:field="*{edition}" placeholder="Edition"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="editeur">Editeur :</label>
+                            <input id="editeur" type="text" class="form-control" th:field="*{editeur}" placeholder="Editeur"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="editionHome">Maison d'édition :</label>
+                            <input id="editionHome" type="text" class="form-control" th:field="*{maison_edition}" placeholder="Maison d'édition"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="editionYear">Année d'édition :</label>
+                            <input id="editionYear" type="text" class="form-control" th:field="*{anne_edition}" placeholder="Année d'édition"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Pays :</label>
+                            <select id="country" type="text" class="form-control" th:field="*{country}">
+                                <option th:each="country : ${countries}"  th:text="${country}" th:value="${country}" ></option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="price">Montant:</label>
-                            <input id="price" type="text" class="form-control" name="montant" placeholder="Entrer un motant pour cet événement"/>
-                            <input id="region" type="hidden" class="form-control" name="regionId" th:value="${region.regionId}" />
+                            <label for="region">Région :</label>
+                            <input id="region" type="text" class="form-control" th:field="*{region}" placeholder="Région"/>
                         </div>
                         <div class="form-group">
-                            <label for="couverture">Image de couverture:</label>
+                            <label for="classe">Classe :</label>
+                            <select id="classe" type="number" class="form-control" th:field="*{classe}">
+                                <option value="1">Première année</option>
+                                <option value="2">Deuxième année</option>
+                                <option value="3">Troisième année</option>
+                                <option value="4">Quatrième année</option>
+                                <option value="5">Cinquième année</option>
+                                <option value="6">Sixième année</option>
+                                <option value="7">Septième année</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="couverture">Photo de couverture:</label>
                             <input id="couverture" type="file" class="form-control-file border" name="photo" />
                         </div>
                         <div class="form-group">
-                            <label for="pieces">Fichiers associers:</label>
-                            <input id="pieces" type="file" class="form-control-file border" name="files" multiple />
+                            <label for="piece">Fichier pdf:</label>
+                            <input id="piece" type="file" class="form-control-file border" name="file"  />
                         </div>
-                        <div class="form-group">
-                            <label for="couverture">Image de couverture:</label>
-                            <textarea type="text" th:field="*{description}" rows="5" class="form-control"></textarea>
-                        </div>
+
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <a class="btn btn-warning" th:href="@{/primaire/primaires/colonie/}+${region.regionId}"><i class="fa fa-long-arrow-left"></i> &nbsp;&nbsp;Retour </a>
+                                <a class="btn btn-warning" th:href="@{/primaire/primaires}"><i class="fa fa-long-arrow-left"></i> &nbsp;&nbsp;Retour </a>
                             </div>
                             <div class="col-md-6 text-right">
                                 <button class="btn btn-success" type="submit">Validé&nbsp;&nbsp;<i class="fa fa-check"></i></button>
