@@ -319,12 +319,14 @@ public class UserController {
     public String getUser(Model model, @PathVariable Long userId, HttpSession session){
         session.setAttribute("userId",userId);
         User user= userService.getById(userId);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user1=userService.findByName(auth.getName());
         model.addAttribute("user",user);
         AddUserRole form= new AddUserRole();
         AddGroupeUser addGroupeUser = new AddGroupeUser();
         AddGroupeUser editGroupe= addGroupeUserRepository.findByUserId(user.getUserId());
         AddUserRole editForm= addUserRoleRepository.findByUserId(user.getUserId());
-        Set<Role> roles= roleService.findByGroupe(userId);
+        Set<Role> roles= roleRepository.findByUsers_UserId(user1.getUserId());
         List<Groupe> groupes=groupeRepository.findByUsers_UserId(userId);
         System.out.println(groupes);
         List<Role> roles1= roleRepository.findAll();

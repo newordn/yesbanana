@@ -156,7 +156,7 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center" >
                         <a class="btn btn-success btn-block follow" sec:authorize="isAuthenticated()" th:href="@{/user/update}" >Modifier<span>&nbsp;&nbsp;&nbsp;&nbsp;</span><i class="fa fa-pencil"></i></a>
-                        <a class="btn btn-danger btn-block follow" th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'}" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${user.userId }">Supprimer<span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"></i></a>
+                        <a class="btn btn-danger btn-block follow" th:if="${roles[0].role == 'ROOT'} or ${roles[0].role == 'ROOT_MASTER'}" data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${user.userId }">Supprimer<span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"></i></a>
                     </div>
                     <div class="row user-detail-row">
                         <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
@@ -178,11 +178,11 @@
                             </div>
                             <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1  text-center pull-rigth">
                                 <a th:href="@{/#}" class="btn btn-primary btn-block">Roles</a>
-                                <ul th:each=" role : ${roles}">
+                                <ul th:each=" role : ${user.roles}">
                                     <li> <p th:text="${role.role}"></p></li>
                                 </ul>
                                 <div  th:if="${#lists.size(user.roles)==0}">
-                                    <button th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#addRole">
+                                    <button th:if="${roles[0].role == 'ROOT'} or ${roles[0].role == 'ROOT_MASTER'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#addRole">
                                         <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
                                     </button>
                                     <div  class=" modal fade" id="addRole" tabindex="-1" role="dialog" data-keyboard="false">
@@ -209,7 +209,7 @@
                                     </div>
                                 </div>
                                 <div  th:unless="${#lists.size(user.roles)==0}">
-                                    <button th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#editRole" >
+                                    <button th:if="${roles[0].role == 'ROOT'} or ${roles[0].role == 'ROOT_MASTER'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#editRole" >
                                         <i class="zmdi zmdi-edit zmdi-hc-2x"></i>
                                     </button>
                                     <div  class=" modal fade" id="editRole" tabindex="-1" role="dialog" data-keyboard="false">
@@ -242,7 +242,7 @@
                                     <li> <p th:text="${groupe.groupeName}"></p></li>
                                 </ul>
                                 <div  th:if="${#lists.size(user.groupes)==0}">
-                                    <button th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#addGroupe">
+                                    <button th:if="${roles[0].role == 'ROOT'} or ${roles[0].role == 'ROOT_MASTER'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#addGroupe">
                                         <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
                                     </button>
                                     <div class=" modal fade" id="addGroupe" tabindex="-1" role="dialog" data-keyboard="false">
@@ -269,7 +269,7 @@
                                     </div>
                                 </div>
                                 <div  th:unless="${#lists.size(user.groupes)==0}">
-                                    <button th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#editGroupe1" >
+                                    <button th:if="${roles[0].role == 'ROOT'} or ${roles[0].role == 'ROOT_MASTER'}" type="button" class="addButton btn btn-secondary rounded-circle" data-toggle="modal" data-target="#editGroupe1" >
                                         <i class="zmdi zmdi-edit zmdi-hc-2x"></i>
                                     </button>
                                     <div  class=" modal fade" id="editGroupe1" tabindex="-1" role="dialog" data-keyboard="false">

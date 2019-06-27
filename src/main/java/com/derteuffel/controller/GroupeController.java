@@ -314,6 +314,7 @@ public class GroupeController {
         }else {
             System.out.println("je suis dedans" );
             model.addAttribute("countries", countries);
+            //roleRepository.save(new Role("ECOLE"));
             Collection<User> users1 = userRepository.findByRoles_Role("ADMIN");
             List<Groupe> groupes = groupeRepository.findAllByStatus(true);
             List<Groupe> crews = groupeRepository.findByUsers_UserId(user.getUserId());
@@ -358,6 +359,12 @@ public class GroupeController {
         session.setAttribute("roles",user.getRoles());
         model.addAttribute("faculties",faculties);
         return "livres/faculties";
+    }
+
+    @PostMapping("/role/save")
+    public String addRole(Role role){
+        roleRepository.save(role);
+        return "redirect:/groupe/groupes";
     }
 
     @GetMapping("/livres/{facultyId}")
