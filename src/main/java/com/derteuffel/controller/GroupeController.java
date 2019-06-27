@@ -334,7 +334,8 @@ public class GroupeController {
             System.out.println(users1);
             Role role1 =  roleRepository.findByRole("USER");
             Role role2 =  roleRepository.findByRole("ADMIN");
-            if (user.getRoles().contains(role1) || user.getRoles().contains(role2)){
+            Role role4 =  roleRepository.findByRole("ECOLE");
+            if (user.getRoles().contains(role1) || user.getRoles().contains(role2)|| user.getRoles().contains(role4)){
                 model.addAttribute("users2", users2);
                 model.addAttribute("users", users);
                 model.addAttribute("crews", crews);
