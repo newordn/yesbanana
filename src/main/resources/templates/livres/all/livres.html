@@ -80,7 +80,7 @@
                     <td>
                         <a th:href="@{/groupe/livre/} + ${livre.bibliographyId}" >Ouvrir &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a th:href="@{/groupe/livre/update/} + ${livre.bibliographyId}" >Modifier &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="#" data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${livre.bibliographyId}"  >Supprimer
+                        <a href="#" data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${livre.bibliographyId}" th:if="${roles[0].role == 'ROOT'} or ${roles[0].role == 'ROOT_MASTER'}" >Supprimer
                             <i class="zmdi zmdi-close" ></i>
                         </a>
                     </td>
