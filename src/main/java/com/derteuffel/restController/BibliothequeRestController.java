@@ -49,6 +49,7 @@ public class BibliothequeRestController {
     @GetMapping("/studentWorks")
     public List<StudentWork> studentWorks(){
         List<StudentWork> studentsWorks=studentWorkRepository.findByStatusOrderByStudentWorkIdDesc(true);
+        System.out.println(studentsWorks);
         return studentsWorks;
     }
 
