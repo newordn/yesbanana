@@ -1206,14 +1206,45 @@ public class GroupeController {
     // publications management methods
 
     @GetMapping("/publications/livres")
-    public String livre_publier(Model model){
+    public String livre_publier(Model model, HttpSession session){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        session.setAttribute("roles",user.getRoles());
+        model.addAttribute("roles",user.getRoles());
         List<Livre> livres= livreRepository.findAllByTypeAndSuprimeeOrderByLivreIdDesc("livre",true);
         model.addAttribute("publications",livres);
         return "publication/publications_livres";
     }
 
+    @PostMapping("/syllabus/save")
+    public String save(Syllabus syllabus,@RequestParam("file") MultipartFile file,@RequestParam("photo")MultipartFile photo, String publishPrice){
+        String fileName= fileUploadService.storeFile(file);
+        String fileName1= fileUploadService.storeFile(photo);
+
+        syllabus.setPieces("/downloadFile/"+fileName);
+        syllabus.setCouverture("/downloadFile/"+fileName1);
+        syllabus.setPublishPrice(Double.parseDouble(publishPrice));
+        syllabus.setStatus(false);
+        syllabus.setSuprimee(true);
+        syllabusRepository.save(syllabus);
+        MailService mailService = new MailService();
+        mailService.sendSimpleMessage(
+                "solutioneducationafrique@gmail.com",
+                // "derteuffel0@gmail.com",
+                "YesBanana: Notification d'une publication d'un livre",
+                "cette publication est encore en suspend veuillez bien vous connecter pour lui attribuer un status "+
+                        " veiller cliquer sur le lien pour etre rediriger vers la page "+"yesbanana.org/groupe/publications/syllabus");
+        return "redirect:/groupe/publications/syllabus";
+
+    }
+
     @GetMapping("/publications/syllabus")
-    public String syllabus_publier(Model model){
+    public String syllabus_publier(Model model, HttpSession session){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        session.setAttribute("roles",user.getRoles());
+        model.addAttribute("roles",user.getRoles());
         List<Syllabus> syllasbus=syllabusRepository.findBySuprimeeOrderBySyllabusIdDesc(true);
         model.addAttribute("syllabus",syllasbus);
         return "publication/publications_syllabus";
@@ -1230,6 +1261,10 @@ public class GroupeController {
 
     @GetMapping("/publications/syllabus/detail/{syllabusId}")
     public String detail_syllabus(Model model, @PathVariable Long syllabusId,HttpSession session){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        session.setAttribute("roles",user.getRoles());
+        model.addAttribute("roles",user.getRoles());
         Syllabus syllabus=syllabusRepository.getOne(syllabusId);
         session.setAttribute("syllabusId",syllabus.getSyllabusId());
         model.addAttribute("livre",syllabus);
@@ -1420,6 +1455,20 @@ public class GroupeController {
         }
         bourseRepository.save(bourse);
         return "redirect:/groupe/bourses";
+    }
+
+    @GetMapping("/active/syllabus/{syllabusId}")
+    public String activeSyllabus(@PathVariable Long syllabusId){
+        Syllabus syllabus=syllabusRepository.getOne(syllabusId);
+
+        if (syllabus.getStatus()==true){
+            syllabus.setStatus(false);
+        }else {
+            syllabus.setStatus(true);
+        }
+
+        syllabusRepository.save(syllabus);
+        return "redirect:/groupe/publications/syllabus";
     }
 
     @PostMapping("/bourse/edit/{bourseId}")

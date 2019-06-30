@@ -1,5 +1,6 @@
 package com.derteuffel.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -197,6 +198,7 @@ public class Reservation implements Serializable {
         this.status = status;
     }
 
+    @JsonIgnore
     public Colonie getColonie() {
         return colonie;
     }

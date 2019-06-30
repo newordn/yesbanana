@@ -448,19 +448,12 @@ public class HomeController {
     }
 
     @PostMapping("/visitor/syllabus/save")
-    public String save(Syllabus syllabus,@RequestParam("files") MultipartFile[] files, String publishPrice){
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        ArrayList<String> filesPaths = new ArrayList<String>();
-        for(int i=0;i<pieces.size();i++)
-        {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
-        }
+    public String save(Syllabus syllabus,@RequestParam("file") MultipartFile file,@RequestParam("photo")MultipartFile photo, String publishPrice){
+        String fileName= fileUploadService.storeFile(file);
+        String fileName1= fileUploadService.storeFile(photo);
 
-        System.out.println(filesPaths);
-        syllabus.setPieces(filesPaths);
+        syllabus.setPieces("/downloadFile/"+fileName);
+        syllabus.setCouverture("/downloadFile/"+fileName1);
         syllabus.setPublishPrice(Double.parseDouble(publishPrice));
         syllabus.setStatus(false);
         syllabus.setSuprimee(true);
@@ -472,7 +465,7 @@ public class HomeController {
                 "YesBanana: Notification d'une publication d'un livre",
                 "cette publication est encore en suspend veuillez bien vous connecter pour lui attribuer un status "+
                         " veiller cliquer sur le lien pour etre rediriger vers la page "+"yesbanana.org/groupe/publications/syllabus");
-        return "redirect:/about";
+        return "redirect:/";
 
     }
     public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {

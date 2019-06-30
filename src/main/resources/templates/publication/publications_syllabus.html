@@ -43,7 +43,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+        <a class="navbar-brand" th:href="@{/groupe/groupes}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
@@ -79,8 +79,12 @@
                         <td th:text="${publication.title}"></td>
                         <td th:text="${publication.category}"></td>
                         <td th:text="${publication.publishPrice}"></td>
-                        <td th:if="${publication.status}== true"><span>Publier</span></td>
-                        <td th:unless="${publication.status}== true"><span>Pending</span></td>
+                        <td th:if="${publication.status}== true"><span>Publier</span>
+                            <a th:href="@{/groupe/active/syllabus/}+${publication.syllabusId}"><i class="fa fa-check-square-o"></i></a>
+                        </td>
+                        <td th:unless="${publication.status}== true"><span>Pending</span>
+                            <a th:href="@{/groupe/active/syllabus/}+${publication.syllabusId}"><i class="fa fa-check-square"></i></a>
+                        </td>
                         <td>
                             <a th:href="@{/groupe/publications/syllabus/detail/}+${publication.syllabusId}"  class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
                             <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${publication.syllabusId}"  class="btn" >Supprimer
@@ -111,6 +115,82 @@
         </div>
     </div>
 </section>
+<button th:if="${roles[0].role == 'ROOT'} or ${roles[0].role == 'ROOT_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
+    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+</button>
+<!--addCrew-->
+<div  class=" modal fade" id="addCrew" tabindex="-1" role="dialog" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered"  role="document">
+        <form class="add-these-form modal-content card text-center" th:object="${syllabus}" method="post" th:action="@{/groupe/syllabus/save}" enctype="multipart/form-data">
+            <!-- user id -->
+            <!-- user id -->
+            <div class="row p-4">
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="nameError"></span>
+                    <input type="text" id="contact_form_name" name="auteur" class="form-control" placeholder="Auteur" required="required" data-error="Name is required.">
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="titleError"></span>
+                    <input type="text"  name="title" class="form-control" placeholder="Titre" required="required" data-error="Name is required.">
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="universiteError"></span>
+                    <input type="text"  name="universite" class="form-control" placeholder="Universite" required="required" data-error="Name is required.">
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="faculteteError"></span>
+                    <input type="text"  name="faculty" class="form-control" placeholder="Faculte" required="required" data-error="Name is required.">
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="departementError"></span>
+                    <input type="text"  name="departement" class="form-control" placeholder="Departement" required="required" data-error="Name is required.">
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="optionError"></span>
+                    <input type="text"  name="option" class="form-control" placeholder="Option" required="required" data-error="Name is required.">
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="promotionError"></span>
+                    <input type="text"  name="promotion" class="form-control" placeholder="Promotion" required="required" data-error="Name is required.">
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="priceError"></span>
+                    <input type="text"  name="publishPrice" class="form-control" placeholder="Prix du livre" required="required" data-error="Name is required.">
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="categoryError"></span>
+                    <input type="text"  name="category" class="form-control" placeholder="Categorie " required="required" data-error="Name is required.">
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="fileError"></span>
+                    <input type="file"  name="file" class="form-control-file" >
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="photoError"></span>
+                    <input type="file"  name="photo" class="form-control-file" >
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="descriptionError"></span>
+                    <textarea  class="form-control" name="description" rows="4" placeholder="Description" ></textarea>
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="otherIfnfoError"></span>
+                    <textarea  class="form-control" name="otherInformation" rows="4" placeholder="Description" ></textarea>
+                </div>
+                <div class="form-group row form-button" style="width: 100%">
+                    <div class="col-6">
+                        <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<!-- addCrew-->
 
 <section class="ftco-section-parallax">
     <div class="parallax-img d-flex align-items-center">

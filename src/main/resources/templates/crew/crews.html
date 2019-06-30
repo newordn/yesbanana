@@ -84,7 +84,7 @@
                         <td>
                             <a th:href="@{'/groupe/groupe/'+${crew.groupeId}}"  class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
                             <a th:href="@{'/groupe/update/'+${crew.groupeId}}" th:if="${roles[0].role == 'ROOT'} or ${roles[0].role == 'ROOT_MASTER'}or ${roles[0].role == 'ADMIN_MASTER'}" class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>
-                            <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn" th:if="${roles[0].role == 'ROOT'} or ${roles[0].role == 'ROOT_MASTER'} >Supprimer
+                            <a data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${crew.groupeId}"  class="btn" th:if="${roles[0].role == 'ROOT'} or ${roles[0].role == 'ROOT_MASTER'}" >Supprimer
                                 <i class="zmdi zmdi-close" ></i>
                             </a>
                         </td>

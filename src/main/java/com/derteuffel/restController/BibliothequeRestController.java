@@ -3,6 +3,7 @@ package com.derteuffel.restController;
 import com.derteuffel.data.*;
 import com.derteuffel.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,8 @@ public class BibliothequeRestController {
     private TheseRepository theseRepository;
     @Autowired
     private BourseRepository bourseRepository;
+    @Autowired
+    private ColonieRepository colonieRepository;
 
     @GetMapping("/syllabuses")
     public List<Syllabus> syllabuses(){
@@ -57,6 +60,13 @@ public class BibliothequeRestController {
     public List<These> theses(){
         List<These>theses=theseRepository.findByStatesAndStatusOrderByTheseIdDesc(true,true);
         return theses;
+    }
+
+    @GetMapping("/colonies")
+    public List<Colonie> colonies(){
+        List<Colonie> colonies=colonieRepository.findFirst12ByActive(true, Sort.by(Sort.Direction.DESC,"colonieId"));
+        return colonies;
+
     }
 
 }

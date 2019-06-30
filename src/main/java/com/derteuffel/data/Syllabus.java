@@ -16,6 +16,7 @@ public class Syllabus implements Serializable{
     private Long syllabusId;
     private String auteur;
     private String title;
+    private String couverture;
     @Column
     private String description;
     @Column
@@ -28,7 +29,7 @@ public class Syllabus implements Serializable{
     private String promotion;
     private String otherInformation;
     @Column
-    private ArrayList<String> pieces;
+    private String pieces;
     @Column
     private Date creationDate=new Date();
     private Double publishPrice;
@@ -38,26 +39,26 @@ public class Syllabus implements Serializable{
     public Syllabus() {
     }
 
-    public Syllabus(String auteur, String title, String description, String category, String universite, String annee, String otherInformation, String faculte, String departement, String options,
-                    String promotion, ArrayList<String> pieces, Date creationDate, Double publishPrice, Boolean status, Boolean suprimee) {
+    public Syllabus(String auteur, String title, String couverture, String description, String category, String universite, String faculte, String departement, String annee, String options, String promotion,
+                    String otherInformation, String pieces, Date creationDate, Double publishPrice, Boolean status, Boolean suprimee) {
         this.auteur = auteur;
+        this.title = title;
+        this.couverture = couverture;
         this.description = description;
         this.category = category;
         this.universite = universite;
         this.faculte = faculte;
-        this.annee=annee;
-        this.otherInformation=otherInformation;
         this.departement = departement;
+        this.annee = annee;
         this.options = options;
-        this.title=title;
         this.promotion = promotion;
+        this.otherInformation = otherInformation;
         this.pieces = pieces;
         this.creationDate = creationDate;
         this.publishPrice = publishPrice;
         this.status = status;
         this.suprimee = suprimee;
     }
-
 
     public String getTitle() {
         return title;
@@ -155,11 +156,19 @@ public class Syllabus implements Serializable{
         this.promotion = promotion;
     }
 
-    public ArrayList<String> getPieces() {
+    public String getPieces() {
         return pieces;
     }
 
-    public void setPieces(ArrayList<String> pieces) {
+    public String getCouverture() {
+        return couverture;
+    }
+
+    public void setCouverture(String couverture) {
+        this.couverture = couverture;
+    }
+
+    public void setPieces(String pieces) {
         this.pieces = pieces;
     }
 
