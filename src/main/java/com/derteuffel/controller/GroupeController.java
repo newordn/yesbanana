@@ -1383,7 +1383,6 @@ public class GroupeController {
             }
             bibliography.setPagePrice(0.0);
             bibliography.setDisponibility(false);
-            bibliography.setCouverture(fileName);
             bibliography.setUser(user);
             bibliographyRepository.save(bibliography);
         }
@@ -1413,7 +1412,6 @@ public class GroupeController {
             }
             bibliography.setPagePrice(0.0);
             bibliography.setDisponibility(false);
-            bibliography.setCouverture(fileName);
             bibliography.setUser(user);
             bibliographyRepository.save(bibliography);
         }
