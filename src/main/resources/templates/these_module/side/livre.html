@@ -90,7 +90,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td><img th:src="${livre?.couverture}"></td>
+                        <td><img th:src="${livre?.couverture}" height="250" width="200"></td>
 
                         <td>
                             <table>
@@ -103,9 +103,6 @@
                                     </tr>
                                     <tr>
                                         <td th:text="${livre.description}">Sommaire  en 10 lignes</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Voir la fiche</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -123,14 +120,6 @@
                                     </tr>
                                     <tr>
                                         <td>Commander imprimé Prix
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Réserver Prix
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Emprunter Prix
                                         </td>
                                     </tr>
                                 </tbody>
