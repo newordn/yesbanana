@@ -52,7 +52,7 @@ public interface TheseRepository extends JpaRepository<These,Long> {
     List<These> recherche(@Param("x") Boolean states,@Param("y") String motCle,@Param("z") String student,@Param("a") String subject, @Param("b")String level, @Param("c")String options,
                                  @Param("d")String university,@Param("e") String theseDate,@Param("f") String regions,@Param("g")String country, @Param("h")String profesor);
 
-    List<These> findAllByOptionsOrderByTheseIdDesc(String options);
+    List<These> findAllByOptionsAndStatusOrderByTheseIdDesc(String options,Boolean status);
     List<These> findAllByCountryOrderByTheseIdDesc(String country);
     List<These> findAllByRegionsOrderByTheseIdDesc(String regions);
     List<These> findAllByUniversityOrderByTheseIdDesc(String university);

@@ -237,6 +237,10 @@ public class ExternController {
 
     @Autowired
     private ColonieRepository colonieRepository;
+    @Autowired
+    private FacultyRepository facultyRepository;
+    @Autowired
+    private OptionsRepository optionsRepository;
 
     @Autowired
     private StudentWorkRepository studentWorkRepository;
@@ -282,9 +286,32 @@ public class ExternController {
     }
     @GetMapping("/students_work")
     public String students_work(Model model){
-        List<StudentWork> studentsWorks=studentWorkRepository.findByStatusOrderByStudentWorkIdDesc(true);
+        List<These> studentsWorks=theseRepository.findByStatesAndStatusOrderByTheseIdDesc(true,true);
         System.out.println(studentsWorks);
-        model.addAttribute("studentWorks",studentsWorks);
+        model.addAttribute("theses",studentsWorks);
+        return "these_module/side/search_student_work";
+    }
+
+    @GetMapping("/students_work/faculties")
+    public  String student_work_faculties(Model model){
+        List<Faculty> faculties=facultyRepository.findAll();
+        model.addAttribute("faculties",faculties);
+        return "these_module/side/student_work_by_faculties";
+    }
+
+    @GetMapping("/students_work/options/{facultyId}")
+    public String student_work_option(@PathVariable Long facultyId, Model model){
+        Faculty faculty=facultyRepository.getOne(facultyId);
+        List<Options> optionses=optionsRepository.findAllByFaculty(faculty.getFacultyId());
+        model.addAttribute("optionses",optionses);
+        return "these_module/side/student_work_optionses";
+    }
+
+    @GetMapping("/student_work/theses/{optionsId}")
+    public String student_work_by_options(@PathVariable Long optionsId, Model model){
+        Options options=optionsRepository.getOne(optionsId);
+        List<These>theses= theseRepository.findAllByOptionsAndStatusOrderByTheseIdDesc(options.getOptionsName(),true);
+        model.addAttribute("theses", theses);
         return "these_module/side/search_student_work";
     }
 

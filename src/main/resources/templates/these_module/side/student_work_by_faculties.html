@@ -71,40 +71,29 @@
 
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><!--span th:text="${#lists.size(syllabuses)}">186</span--> éléments trouver</div>
-							<div class="shop_sorting">Travaux des étudiants</div>
+							<div class="shop_product_count"><span th:text="${#lists.size(faculties)}">186</span> éléments trouver</div>
+							<div class="shop_sorting">Recherce de theses par faculté/option</div>
 						</div>
 
 						<div class="">
 							<div class="">
 								<table class="table text-left table-hover dt-responsive  table-lg display" id="crews">
-									<!--Table head-->
-									<thead>
-									<tr>
-										<th>Auteur</th>
-										<th>Titre</th>
-										<th>Grade/Département</th>
-										<th>Université/Année</th>
-										<th>Pays/Region</th>
-										<th>Directeur et Co-directeur</th>
-										<th>Consulter</th>
-									</tr>
-									</thead>
-									<!--Table head-->
-
-									<!--Table body-->
-									<tbody>
-									<tr th:each=" these : ${theses}">
-										<td th:text="${these.student}">Kate</td>
-										<td th:text="${these.subject}">Moss</td>
-										<td th:text="${these.level}+''+${these.options}">USA / The United Kingdom / China / Russia </td>
-										<td th:text="${these.university}+','+${these.theseDate}">New York City / Warsaw / Lodz / Amsterdam / London / Chicago</td>
-										<td th:text="${these.regions}+'('+${these.country}+')'">Web Designer /UX designer / Ul designer / JavaScript Developer</td>
-										<td th:text="'Professeur :'+${these.profesor}+' Assistant :'+${these.assistant}">23</td>
-										<td ><a th:href="@{/visitor/search/bibliographies/}+${these.theseId}"> Bibliographies</a></td>
-									</tr>
-									</tbody>
-									<!--Table body-->
+                    <thead class="text-white bg-secondary">
+                    <tr>
+                        <th>#</th>
+                        <th>Nom de la faculté</th>
+                        <th>Options</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="faculty : ${faculties}">
+                        <td th:text="${faculty.facultyName[0]}"></td>
+                                <td th:text="${faculty.facultyName}"></td>
+                                <td>
+                                    <a th:href="@{/visitor/students_work/options/} + ${faculty.facultyId}">Ouvrir &nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+                                </td>
+                    </tr>
+                    </tbody>
                 </table>
 							</div>
 						</div>

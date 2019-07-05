@@ -73,7 +73,7 @@ public class OptionsController {
     public String findById(Model model, @PathVariable Long optionsId, HttpSession session) {
         Optional<Options> optionsOptional= optionsRepository.findById(optionsId);
         List<These> theses=theseRepository.findAllByStatus(true);
-        List<These> theses1=theseRepository.findAllByOptionsOrderByTheseIdDesc(optionsOptional.get().getOptionsName());
+        List<These> theses1=theseRepository.findAllByOptionsAndStatusOrderByTheseIdDesc(optionsOptional.get().getOptionsName(),true);
         List<These> theses2= new ArrayList<>();
         ArrayList<Bibliography> mots=new ArrayList<>();
         for (These  these : theses){

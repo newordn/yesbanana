@@ -300,7 +300,7 @@ public class ManagementController {
     public String findById(Model model, @PathVariable Long optionsId) {
         Optional<Options> optionsOptional= optionsRepository.findById(optionsId);
         model.addAttribute("option", optionsOptional.get().getOptionsName());
-        model.addAttribute("theses", theseRepository.findAllByOptionsOrderByTheseIdDesc(optionsOptional.get().getOptionsName()));
+        model.addAttribute("theses", theseRepository.findAllByOptionsAndStatusOrderByTheseIdDesc(optionsOptional.get().getOptionsName(),true));
         return "management/options";
     }
 
