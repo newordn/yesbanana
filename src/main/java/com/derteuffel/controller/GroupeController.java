@@ -1372,6 +1372,10 @@ public class GroupeController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
+            List<Bibliography> livres=new ArrayList<>();
+            livres.add(bibliography1);
+            model.addAttribute("bibliographies",livres);
+            model.addAttribute("roles",user.getRoles());
             return "publication/publications_livres";
         }else {
             bibliography.setCouverture("/downloadFile/"+fileName);
@@ -1401,6 +1405,10 @@ public class GroupeController {
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
+            List<Bibliography> livres=new ArrayList<>();
+            livres.add(bibliography1);
+            model.addAttribute("bibliographies",livres);
+            model.addAttribute("roles",user.getRoles());
             return "livres/all/livres";
         }else {
             bibliography.setFichier("/downloadFile/"+fileName1);
