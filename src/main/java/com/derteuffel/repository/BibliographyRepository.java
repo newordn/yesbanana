@@ -32,4 +32,5 @@ public interface BibliographyRepository extends JpaRepository<Bibliography,Long>
     List<Bibliography> rechercheB(@Param("x") Boolean disponibility,@Param("y") String auteur,@Param("z") String title,@Param("a") String motCle, @Param("b")String description, @Param("c")String link,
                           @Param("d")String faculte,@Param("e") String options,@Param("f") String category,@Param("g")String editeur, @Param("h")String edition, @Param("i") String lieu_edition,@Param("j") String annee_edition,@Param("k") String isbnNumber);
 
+    Bibliography findByAuteur(String auteur);
 }

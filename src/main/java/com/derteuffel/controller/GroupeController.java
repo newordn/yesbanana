@@ -1367,7 +1367,8 @@ public class GroupeController {
         String fileName = fileUploadService.storeFile(file);
         String fileName1 = fileUploadService.storeFile(document);
         Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
-        if (bibliography1 != null){
+        Bibliography bibliography2=bibliographyRepository.findByAuteur(bibliography.getAuteur());
+        if (bibliography1 != null && bibliography2!=null){
             errors.rejectValue("title","bibliography.error","il existe deja une reference avec ce titre");
         }
         if (errors.hasErrors()){
@@ -1400,7 +1401,9 @@ public class GroupeController {
         String fileName = fileUploadService.storeFile(file);
         String fileName1= fileUploadService.storeFile(document);
         Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
-        if (bibliography1 != null){
+        Bibliography bibliography2=bibliographyRepository.findByAuteur(bibliography.getAuteur());
+
+        if (bibliography1 != null && bibliography2!= null){
             errors.rejectValue("title","bibliography.error","il existe deja une reference avec ce titre");
         }
         if (errors.hasErrors()){
