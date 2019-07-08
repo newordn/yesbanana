@@ -1350,7 +1350,7 @@ public class GroupeController {
         if (document.isEmpty()){
             bibliography.setFichier(bibliography.getFichier());
         }else {
-            bibliography.setCouverture("/downloadFile/"+fileName1);
+            bibliography.setFichier("/downloadFile/"+fileName1);
         }
 
         bibliography.setPagePrice(0.0);
