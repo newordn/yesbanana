@@ -54,6 +54,12 @@
                     </div>
                     <div class=" mt-3">
                         <div class="form-group">
+                            <span class='error' id="categoryError"></span>
+                            <input type="text" th:field="*{category}"  class="form-control" placeholder="Category" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
                             <span class='error' id="editionError"></span>
                             <input type="text" th:field="*{edition}" id="edition" class="form-control" placeholder="Edition du livre" />
                         </div>
@@ -62,6 +68,18 @@
                         <div class="form-group">
                             <span class='error' id="lieu_editionError"></span>
                             <input type="text" th:field="*{lieu_edition}" id="lieu_edition" class="form-control" placeholder="Lieu d'édition du livre" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="faculteError"></span>
+                            <input type="text" th:field="*{faculte}"  class="form-control" placeholder="Faculte" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="optionError"></span>
+                            <input type="text" th:field="*{options}"  class="form-control" placeholder="Option" />
                         </div>
                     </div>
                     <div class=" mt-3">
