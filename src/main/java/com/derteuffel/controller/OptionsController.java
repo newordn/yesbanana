@@ -94,7 +94,7 @@ public class OptionsController {
         return "these_module/side/search_livres_option";
     }
 
-    @GetMapping("/buy/pages/{motCle}")
+    /*@GetMapping("/buy/pages/{motCle}")
     public String buyBooksPages(@PathVariable String motCle, Model model,HttpSession session){
 
         List<Bibliography> livresDisponobles=bibliographyRepository.findAllByDisponibility(true);
@@ -105,7 +105,7 @@ public class OptionsController {
         model.addAttribute("theses",findTheses);
         return "options/buy/pages";
 
-    }
+    }*/
 
     @GetMapping("/buy/livres/{theseId}")
     public String buyBooks(@PathVariable Long theseId, Model model){

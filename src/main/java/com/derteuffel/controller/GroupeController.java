@@ -1400,17 +1400,17 @@ public class GroupeController {
         User user=userService.findByName(auth.getName());
         String fileName = fileUploadService.storeFile(file);
         String fileName1= fileUploadService.storeFile(document);
-        Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
-        Bibliography bibliography2=bibliographyRepository.findByAuteur(bibliography.getAuteur());
+        List<Bibliography> bibliographies1= bibliographyRepository.findAllByTitle(bibliography.getTitle());
+        List<Bibliography> bibliographies2= bibliographyRepository.findAllByAuteur(bibliography.getAuteur());
 
-        if (bibliography1 != null && bibliography2!= null){
+        if (!bibliographies1.isEmpty() && !bibliographies2.isEmpty()){
+            System.out.println("je suis la dedans");
             errors.rejectValue("title","bibliography.error","il existe deja une reference avec ce titre");
         }
         if (errors.hasErrors()){
             model.addAttribute("error","il existe deja une reference avec ce titre");
-            List<Bibliography> livres=new ArrayList<>();
-            livres.add(bibliography1);
-            model.addAttribute("bibliographies",livres);
+            bibliographies1.addAll(bibliographies2);
+            model.addAttribute("bibliographies",bibliographies1);
             model.addAttribute("roles",user.getRoles());
             return "livres/all/livres";
         }else {

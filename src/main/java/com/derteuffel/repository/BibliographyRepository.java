@@ -26,6 +26,7 @@ public interface BibliographyRepository extends JpaRepository<Bibliography,Long>
     List<Bibliography> findByMotCleAndDisponibility(String motCle,Boolean disponibility);
     Bibliography findByTitle(String title);
     List<Bibliography> findAllByTitle(String title);
+    List<Bibliography> findAllByAuteur(String auteur);
     List<Bibliography> findAllByDisponibility(Boolean disponibility);
     @Query("select t from Bibliography as t where t.disponibility like :x and t.auteur like :y or t.title like :z or t.motCle like :a or t.description like :b or t.link like :c " +
             "or t.faculte like :d or t.options like :e or t.category like :f or t.editeur like :g or t.edition like :h or t.lieu_edition like :i or t.annee_edition like :j or t.isbnNumber like :k")
