@@ -221,6 +221,7 @@
 	{
 		width: 100%;
 		margin-right: 0px;
+		margin-top: auto;
 	}
 	.featured
 	{
@@ -542,6 +543,7 @@
 		height: 310px;
 		padding-top: 0px;
 		padding-bottom: 0px;
+		margin-bottom: auto;
 	}
 	.banner_content
 	{

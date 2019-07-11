@@ -1198,6 +1198,7 @@ select option
 	width: 100%;
 	/*padding-top: 68px;*/
 	padding-bottom: 83px;
+	margin-bottom: auto;
 	overflow: hidden;
 }
 .banner_background
@@ -1551,6 +1552,7 @@ select option
 .tabbed_container
 {
 	width: 100%;
+	padding: 10px;
 }
 .tabs
 {
