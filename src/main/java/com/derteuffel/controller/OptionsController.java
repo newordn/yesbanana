@@ -69,28 +69,11 @@ public class OptionsController {
         // return the new list
         return newList;
     }
-    @GetMapping("/options/{optionsId}")
-    public String findById(Model model, @PathVariable Long optionsId, HttpSession session) {
-        Optional<Options> optionsOptional= optionsRepository.findById(optionsId);
-        List<These> theses=theseRepository.findAllByStatus(true);
-        List<These> theses1=theseRepository.findAllByOptionsAndStatusOrderByTheseIdDesc(optionsOptional.get().getOptionsName(),true);
-        List<These> theses2= new ArrayList<>();
-        ArrayList<Bibliography> mots=new ArrayList<>();
-        for (These  these : theses){
-            for (int i=0; i<theses1.size(); i++){
-                if (these.getTheseId().equals(theses1.get(i).getTheseId())){
-                    theses2.add(these);
-                }
-            }
-        }
-
-        for (These these : theses2){
-            mots.addAll(bibliographyRepository.findAllByThese(these.getTheseId()));
-        }
-
-        session.setAttribute("optionsId",optionsOptional.get().getOptionsId());
-        model.addAttribute("livres",mots);
-        model.addAttribute("options", optionsOptional.get());
+    @GetMapping("/options/{options}")
+    public String findById(Model model, @PathVariable String options, HttpSession session) {
+        List<Bibliography> bibliographies=bibliographyRepository.findByOptionsAndDisponibility(options, true);
+        model.addAttribute("option",options);
+        model.addAttribute("livres",bibliographies);
         return "these_module/side/search_livres_option";
     }
 

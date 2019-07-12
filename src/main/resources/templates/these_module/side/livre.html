@@ -73,8 +73,8 @@
 
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><span></span> Recherche livres</div>
-							<div class="shop_sorting">Détail</div>
+							<div class="shop_product_count"><a th:href="@{/external/secure/options/options/}+${livre.options}">Retourner à la liste</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${livre.options}" style="color: #0b0b0b"></span></div>
+							<div class="shop_sorting">Présentation de votre selection</div>
 						</div>
 
 						<div class="">

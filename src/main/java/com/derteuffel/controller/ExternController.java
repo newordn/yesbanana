@@ -284,6 +284,10 @@ public class ExternController {
         model.addAttribute("bourses",bourses);
         return "these_module/side/bourses";
     }
+
+
+
+    // student work methods implementations
     @GetMapping("/students_work")
     public String students_work(Model model){
         List<These> studentsWorks=theseRepository.findByStatesAndStatusOrderByTheseIdDesc(true,true);

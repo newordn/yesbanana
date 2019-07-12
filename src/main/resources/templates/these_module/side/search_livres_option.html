@@ -72,8 +72,9 @@
 
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><span th:text="${#lists.size(livres)}">186</span> éléments trouver</div>
-							<div class="shop_sorting"><span th:text="${options.optionsName}"></span>Recherche livres</div>
+							<div class="shop_product_count" th:if="${#lists.size(livres)}<=0"><span >Aucun</span> livre trouver</div>
+							<div class="shop_product_count" th:unless="${#lists.size(livres)}<=0"><span th:text="${#lists.size(livres)}">186</span> livres(s) trouver</div>
+							<div class="shop_sorting"><span th:text="${option}"></span> : tous vos livres disponibles</div>
 						</div>
 
 						<div class="">

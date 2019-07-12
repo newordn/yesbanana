@@ -71,8 +71,9 @@
 
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><span th:text="${#lists.size(optionses)}">186</span> éléments trouver</div>
-							<div class="shop_sorting"><span th;text="${faculty.facultyName}"></span>Livres par faculté/option</div>
+							<div class="shop_product_count"  th:if="${#lists.size(optionses)}<=0"><span >Aucun</span> département trouver</div>
+							<div class="shop_product_count"  th:unless="${#lists.size(optionses)}<=0"><span th:text="${#lists.size(optionses)}">186</span> département(s) trouver</div>
+							<div class="shop_sorting"><span th:text="${faculty}"></span> : Les départements </div>
 						</div>
 
 						<div class="">
@@ -81,16 +82,16 @@
                     <thead class="text-white bg-secondary">
                     <tr>
                         <th>#</th>
-                        <th>Nom de l'option</th>
-                        <th>Sujets</th>
+                        <th>Nom du département</th>
+                        <th>Documentation(Livres)</th>
                     </tr>
                     </thead>
                     <tbody>
-					<tr th:each="option : ${optionses}">
-						<td th:text="${option.optionsName[0]}"></td>
-						<td th:text="${option.optionsName}"></td>
+					<tr th:each="option,i : ${optionses}">
+						<td th:text="${i.index}+1"></td>
+						<td th:text="${option}"></td>
 						<td>
-							<a th:href="@{/external/secure/options/options/} + ${option.optionsId}">Ouvrir &nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+							<a th:href="@{/external/secure/options/options/} + ${option}">Ouvrir &nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
 						</td>
 					</tr>
                     </tbody>

@@ -71,8 +71,9 @@
 
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><span th:text="${#lists.size(faculties)}">186</span> éléments trouver</div>
-							<div class="shop_sorting">Livres par faculté/option</div>
+							<div class="shop_product_count" th:if="${#lists.size(faculties)}<=0"><span>Aucune</span> faculté trouver</div>
+							<div class="shop_product_count" th:unless="${#lists.size(faculties)}<=0"><span th:text="${#lists.size(faculties)}">186</span> faculté(s) trouver</div>
+							<div class="shop_sorting">Recherche des livres par facuté</div>
 						</div>
 
 						<div class="">
@@ -82,17 +83,25 @@
                     <tr>
                         <th>#</th>
                         <th>Nom de la faculté</th>
-                        <th>Options</th>
+                        <th>Départements</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="faculty : ${faculties}">
+                    <!--tr th:each="faculty : ${faculties}">
                         <td th:text="${faculty.facultyName[0]}"></td>
-                                <td th:text="${faculty.facultyName}"></td>
-                                <td>
-                                    <a th:href="@{/external/secure/faculty/faculty/} + ${faculty.facultyId}">Ouvrir &nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
-                                </td>
-                    </tr>
+						<td th:text="${faculty.facultyName}"></td>
+						<td>
+							<a th:href="@{/external/secure/faculty/faculty/} + ${faculty.facultyId}">Ouvrir &nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+						</td>
+                    </tr-->
+					<tr th:each="faculty,i : ${faculties}">
+						<td th:text="${i.index}+1"></td>
+						<td th:text="${faculty}"></td>
+						<td>
+							<a th:href="@{/external/secure/faculty/faculty/} + ${faculty}">Ouvrir &nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
+						</td>
+					</tr>
+
                     </tbody>
                 </table>
 							</div>

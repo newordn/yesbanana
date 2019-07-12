@@ -1,5 +1,6 @@
 package com.derteuffel.controller;
 
+import com.derteuffel.data.Bibliography;
 import com.derteuffel.data.Country;
 import com.derteuffel.data.Faculty;
 import com.derteuffel.data.Region;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,14 +35,45 @@ public class CountryController {
     private FacultyRepository facultyRepository;
     @Autowired
     private OptionsRepository optionsRepository;
+    @Autowired
+    private BibliographyRepository bibliographyRepository;
 
+    public List<String> removeDuplicates(List<String> list)
+    {
+        if (list == null){
+            return new ArrayList<>();
+        }
 
+        // Create a new ArrayList
+        List<String> newList = new ArrayList<String>();
+        // Traverse through the first list
+        for (String element : list) {
+
+            // If this element is not present in newList
+            // then add it
+
+            if (element !=null && !newList.contains(element) && !element.isEmpty()) {
+
+                newList.add(element);
+            }
+        }
+        // return the new list
+        return newList;
+    }
     //country crud methods
 
     @GetMapping("/countries")
     public String findAll(Model model) {
-        List<Faculty> faculties= facultyRepository.findAll();
-        model.addAttribute("faculties",faculties);
+        List<Bibliography> bibliographies=bibliographyRepository.findAllByDisponibility(true);
+        List<String> faculties=new ArrayList<>();
+
+        for (Bibliography bibliography : bibliographies){
+            if (bibliography.getFaculte()!= null && !bibliography.getFaculte().isEmpty()) {
+                faculties.add(bibliography.getFaculte());
+            }
+        }
+        System.out.println(faculties);
+        model.addAttribute("faculties",removeDuplicates(faculties));
         return "these_module/side/search_livres_faculte";
     }
 
