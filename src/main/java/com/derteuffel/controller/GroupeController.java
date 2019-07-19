@@ -409,6 +409,10 @@ public class GroupeController {
     public String all_livres(Model model, HttpSession session){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
+       /* for (Bibliography bibliography : bibliographyRepository.findByFaculte("Sciences Economiques et Gestion")){
+            bibliography.setFaculte("Sciences économiques et gestion");
+            bibliographyRepository.save(bibliography);
+        }*/
         List<Bibliography> bibliographies= bibliographyRepository.findAll(Sort.by(Sort.Direction.DESC,"bibliographyId"));
         List<Bibliography> bibliographies1= bibliographyRepository.findAllByUser(user.getUserId());
         Role role1=roleRepository.findByRole("LIVRE");

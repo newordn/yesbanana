@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by derteuffel on 27/12/2018.
@@ -53,8 +54,7 @@ public class Education implements Serializable {
     }
 
     public Education(@NotEmpty String title, String description, String edition, String editeur,
-                     String maison_edition, String anne_edition, Boolean status, String pieces,
-                     String type, String couverture, String region, String country, int classe,Boolean suprime) {
+                     String maison_edition, String anne_edition, Boolean status, String pieces, String type, String couverture, String region, String country, int classe,Boolean suprime) {
         this.title = title;
         this.description = description;
         this.edition = edition;
@@ -70,6 +70,7 @@ public class Education implements Serializable {
         this.country = country;
         this.classe = classe;
     }
+
 
     public Boolean getSuprime() {
         return suprime;
@@ -197,5 +198,36 @@ public class Education implements Serializable {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Education)) return false;
+        Education education = (Education) o;
+        return getClasse() == education.getClasse() &&
+                Objects.equals(getEducationId(), education.getEducationId()) &&
+                Objects.equals(getTitle(), education.getTitle()) &&
+                Objects.equals(getDescription(), education.getDescription()) &&
+                Objects.equals(getEdition(), education.getEdition()) &&
+                Objects.equals(getEditeur(), education.getEditeur()) &&
+                Objects.equals(getMaison_edition(), education.getMaison_edition()) &&
+                Objects.equals(getAnne_edition(), education.getAnne_edition()) &&
+                Objects.equals(getStatus(), education.getStatus()) &&
+                Objects.equals(getPieces(), education.getPieces()) &&
+                Objects.equals(getType(), education.getType()) &&
+                Objects.equals(getCouverture(), education.getCouverture()) &&
+                Objects.equals(getRegion(), education.getRegion()) &&
+                Objects.equals(getCountry(), education.getCountry()) &&
+                Objects.equals(getSuprime(), education.getSuprime()) &&
+                Objects.equals(getUser(), education.getUser());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getEducationId(), getTitle(), getDescription(), getEdition(), getEditeur(),
+                getMaison_edition(), getAnne_edition(), getStatus(), getPieces(), getType(), getCouverture(),
+                getRegion(), getCountry(), getClasse(), getSuprime(), getUser());
     }
 }

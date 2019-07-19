@@ -64,6 +64,8 @@
 
                     <th>Auteur</th>
                     <th>Titre</th>
+                    <th>Faculté</th>
+                    <th>Département</th>
                     <th>Description</th>
                     <th>Public?</th>
                     <th class="bg-success">Action</th>
@@ -73,6 +75,8 @@
                 <tr th:each="livre : ${bibliographies}">
                     <td th:text="${livre.auteur}"></td>
                     <td th:text="${livre.title}"></td>
+                    <td th:text="${livre.faculte}"></td>
+                    <td th:text="${livre.options}"></td>
                     <td th:text="${livre.description}"></td>
                     <td>
                         <span th:if="${livre.disponibility}==true">Oui</span>

@@ -36,6 +36,7 @@ public interface BibliographyRepository extends JpaRepository<Bibliography,Long>
     Bibliography findByAuteur(String auteur);
 
     List<Bibliography> findByFaculteAndDisponibility(String faculte, Boolean disponibility);
+    List<Bibliography> findByFaculte(String faculte);
     List<Bibliography> findByOptionsAndDisponibility(String options, Boolean disponibility);
 
 }

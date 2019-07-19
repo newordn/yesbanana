@@ -3,20 +3,17 @@ package com.derteuffel.controller;
 import com.derteuffel.data.*;
 import com.derteuffel.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.print.DocFlavor;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Created by derteuffel on 07/05/2019.
@@ -244,6 +241,10 @@ public class ExternController {
 
     @Autowired
     private StudentWorkRepository studentWorkRepository;
+    @Autowired
+    private MatiereRepository matiereRepository;
+    @Autowired
+    private PrimaireRepository primaireRepository;
 
     @GetMapping("/catalogues")
     public String catalogues(){
@@ -388,6 +389,51 @@ public class ExternController {
             // then add it
 
             if (element !=null && !newList.contains(element) && !element.isEmpty()) {
+
+                newList.add(element);
+            }
+        }
+        // return the new list
+        return newList;
+    }
+    public List<Integer> removeDuplicatesNumber(List<Integer> list)
+    {
+        if (list == null){
+            return new ArrayList<>();
+        }
+
+        // Create a new ArrayList
+        List<Integer> newList = new ArrayList<>();
+        // Traverse through the first list
+        for (Integer element : list) {
+
+            // If this element is not present in newList
+            // then add it
+
+            if (element !=null && !newList.contains(element)) {
+
+                newList.add(element);
+            }
+        }
+        // return the new list
+        return newList;
+    }
+
+    public List<List<Object>> removeDuplicatesList(List<List<Object>> list)
+    {
+        if (list == null){
+            return new ArrayList<List<Object>>();
+        }
+
+        // Create a new ArrayList
+        List<List<Object>> newList = new ArrayList<List<Object>>();
+        // Traverse through the first list
+        for (List<Object> element : list) {
+
+            // If this element is not present in newList
+            // then add it
+
+            if (element !=null && !newList.contains(element)) {
 
                 newList.add(element);
             }
@@ -550,6 +596,68 @@ public class ExternController {
         model.addAttribute("user", new User());
         model.addAttribute("colonie", colonie);
         return "these_module/colonie/colonie";
+    }
+
+    //education primaire methods implementations
+
+    @GetMapping("/education/primaire")
+    public String gets_all_livre(Model model){
+        List<Primaire> primaires=primaireRepository.findAllByStatus(true);
+        List<Integer> classes=new ArrayList<>();
+        List<Primaire> livres=new ArrayList<>();
+        List<List<Matiere>> matieres=new ArrayList<List<Matiere>>();
+        List<Matiere> matieres_par_niveau= new ArrayList<>();
+        List<String> elements= new ArrayList<>();
+
+        for (Primaire primaire: primaires){
+            if (primaire.getClasse()!=0 && primaire.getClasse()<=7){
+               classes.add(primaire.getClasse());
+            }
+
+        }
+
+        for (Integer integer : removeDuplicatesNumber(classes)){
+
+            List<Primaire> primaires1=primaireRepository.findByClasse(integer);
+            for (Primaire primaire : primaires1){
+                elements.add(primaire.getType());
+                for (String element : elements){
+                    if (matiereRepository.findByNameAndClasse(element,integer)==null) {
+                        Matiere matiere = new Matiere();
+                        matiere.setClasse(integer);
+                        matiere.setName(element);
+                        matiereRepository.save(matiere);
+                    }else {
+                        System.out.println("j'existe deja");
+                    }
+                }
+                elements = new ArrayList<>();
+            }
+
+            matieres_par_niveau.addAll(matiereRepository.findByClasse(integer));
+            System.out.println(matieres_par_niveau);
+            matieres.add(matieres_par_niveau);
+            matieres_par_niveau= new ArrayList<>();
+
+        }
+
+
+        System.out.println(elements);
+        System.out.println(matieres);
+
+
+        System.out.println(removeDuplicatesNumber(classes));
+        model.addAttribute("niveaux",removeDuplicatesNumber(classes));
+        model.addAttribute("matieres",matieres);
+        return "these_module/primaire/primaires";
+    }
+
+
+    @GetMapping("/primaire/{type}/{educationId}")
+    public String getLivre_by_matiere(@PathVariable Long educationId, Model model){
+        Primaire primaire = primaireRepository.getOne(educationId);
+        model.addAttribute("primaire",primaire);
+        return "these_module/primaire/primaire";
     }
 
 }

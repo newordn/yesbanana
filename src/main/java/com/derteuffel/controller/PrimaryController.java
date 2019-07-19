@@ -1,9 +1,7 @@
 package com.derteuffel.controller;
 
-import com.derteuffel.data.Education;
-import com.derteuffel.data.Primaire;
-import com.derteuffel.data.Region;
-import com.derteuffel.data.User;
+import com.derteuffel.data.*;
+import com.derteuffel.repository.MatiereRepository;
 import com.derteuffel.repository.PrimaireRepository;
 import com.derteuffel.repository.RegionRepository;
 import com.derteuffel.service.UserService;
@@ -37,6 +35,8 @@ public class PrimaryController {
 
     @Autowired
     private FileUploadService fileUploadService;
+    @Autowired
+    private MatiereRepository matiereRepository;
 
     @Autowired
    private UserService userService;
@@ -66,8 +66,6 @@ public class PrimaryController {
         User user = userService.findByName(auth.getName());
         String fileName = fileUploadService.storeFile(photo);
         String fileName1 = fileUploadService.storeFile(file);
-
-
         primaire.setCouverture("/downloadFile/" + fileName);
         primaire.setPieces("/downloadFile/" + fileName1);
         primaire.setStatus(false);
@@ -113,6 +111,24 @@ public class PrimaryController {
         model.addAttribute("roles",user.getRoles());
         session.setAttribute("roles",user.getRoles());
         List<Primaire> primaires=primaireRepository.findBySuprime(false);
+        List<Matiere> matieres=matiereRepository.findAll();
+        for (Primaire primaire : primaires){
+            System.out.println("je suis la");
+            for (Matiere matiere : matieres){
+                System.out.println("deuxieme niveau");
+                System.out.println(primaire.getType());
+                System.out.println(primaire.getClasse());
+                System.out.println(matiere.getName());
+                System.out.println(matiere.getClasse());
+                if (primaire.getType().contains(matiere.getName())  && primaire.getClasse() == matiere.getClasse()){
+                    System.out.println("troisieme niveau");
+                    primaire.setMatiere(matiereRepository.getOne(matiere.getMatiereId()));
+                    primaireRepository.save(primaire);
+                }else {
+                    System.out.println("incompatible");
+                }
+            }
+        }
         model.addAttribute("primaires",primaires);
         return "primaire/primaires";
 

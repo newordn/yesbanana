@@ -46,7 +46,15 @@
                 <h3 class="mb-1">Detail d'un livre</h3>
             </div>
         </div>
-        <div class="card modal-warning alert-warning">
+        <div class="card modal-warning alert-warning row">
+            <div th:if="${primaire.status}==false">
+                <a class="btn btn-success rounded-circle" th:href="@{/primaire/publish/}+${primaire.educationId}" ><i class="fa fa-check"></i></a>
+                <span>En suspend</span>
+            </div>
+            <div th:if="${primaire.status}==true">
+                <a class="btn btn-danger rounded-circle" th:href="@{/primaire/publish/}+${primaire.educationId}" ><i class="fa fa-check-square-o"></i></a>
+                <span>Public</span>
+            </div>
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="card-header text-center">

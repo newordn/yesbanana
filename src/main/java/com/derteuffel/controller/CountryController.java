@@ -71,6 +71,7 @@ public class CountryController {
             if (bibliography.getFaculte()!= null && !bibliography.getFaculte().isEmpty()) {
                 faculties.add(bibliography.getFaculte());
             }
+
         }
         System.out.println(faculties);
         model.addAttribute("faculties",removeDuplicates(faculties));

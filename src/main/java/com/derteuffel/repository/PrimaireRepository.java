@@ -22,12 +22,17 @@ public interface PrimaireRepository extends JpaRepository<Primaire, Long> {
     List<Primaire> findAllByRegion(@Param("id") Long userId);
 
     Primaire findByTitle(String title);
+    List<Primaire> findByClasse(int classe);
 
     List<Primaire> findAllByStatus(Boolean status);
     List<Primaire> findBySuprime(Boolean suprime);
     List<Primaire> findAllByOrderByEducationIdDesc();
     List<Primaire> findFirst12ByType(String type, Sort sort);
     List<Primaire> findByTypeOrderByEducationIdDesc(String type);
+    List<Primaire> findByTypeAndClasse(String type, int classe);
+   // Primaire findByType(String type);
+
+    List<Primaire> findAllByMatiere_MatiereId(Long matiereId);
 
 
 }
