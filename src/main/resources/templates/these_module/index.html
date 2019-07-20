@@ -14,6 +14,14 @@
 <link rel="stylesheet"  th:href="@{/new/styles/main_styles.css}">
 <link rel="stylesheet"  th:href="@{/new/styles/responsive.css}">
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<style>
+		.mouse{
+			cursor:pointer ;
+		}
+		.p{
+			font-size: 20px;
+		}
+	</style>
 
 </head>
 
@@ -108,19 +116,19 @@
 	            </div>
             </div>
 			<div class="col-md-5 text-left">
-				<p><i class="fa fa-circle"></i>&nbsp;YesB est une plate forme de la Fondation  Joseph qui a pour objectif de promouvoir l’éducation
-					et l’entrepreneuriat en Afrique. Lutter contre le sous développement de l’Afrique invite soit à
-					revoir ou à compléter le système d’éducation d’abord. Revoir est une mission et décision des
-					gouvernements mais compléter est une mission de chaque citoyen digne d’appartenir à son pays.</p>
+				<p class="p"><i class="fa fa-circle"></i>&nbsp;Yesbanana  est une plate forme de la Fondation  Joseph qui a pour objectif de promouvoir l’éducation et l’entrepreneuriat en Afrique.<strong class="text-info mouse" id="button_show">&nbsp;&nbsp;<i class="fa fa-chevron-circle-down fa-1x"></i>&nbsp;<span>Voir plus</span></strong><span id="paragraph1_show" style="display: none">
+					Lutter contre le sous développement de l’Afrique invite soit à revoir ou à compléter le système d’éducation actuel.
+					Revoir est une mission et décision des gouvernements mais compléter
+					est une contribution de tout citoyen digne d’appartenir à son pays..</br><strong class="text-info mouse" id="button_hide">&nbsp;&nbsp;<i class="fa fa-chevron-circle-up fa-1x" ></i>&nbsp;<span >Réduire</span></strong></span></p>
 				<br>
-				<p><i class="fa fa-circle"></i>&nbsp;YesB croit en de valeurs qui au fil de temps disparaissent à tous les niveaux d’éducation.
-					Voilà pourquoi on n’hésite pas à se poser la question pourquoi avec tant d’institutions d’éducation,
-					l’Afrique forme très peu de citoyens dignes pour servir leur pays. Pourquoi les maux africains ne se
-					guérissent pas? Une remise en question de tout un système. Les générations passées ont toujours été
-					fières de l’éducation reçue comparée à celle d’aujourd’hui mais si cette  éducation avait été bien
-					conçue et complétée avec des valeurs citoyennes et d’entrepreneuriat, on ne serait pas arrivé là où
-					le continent est actuellement.</p><br>
-				<p><i class="fa fa-circle"></i>&nbsp;Voici la contribution de YesB: compléter le système éducatif formel et promouvoir l’entrepreneuriat.</p>
+				<p class="p"><i class="fa fa-circle"></i>&nbsp;Yesbanana  croit en de valeurs qui au fil de temps disparaissent à tous
+					les niveaux d’éducation. Voilà pourquoi on n’hésite pas à se poser la question pourquoi avec tant d’institutions
+					d’éducation,&nbsp;&nbsp;<strong class="text-info mouse" id="button_show1"><i class="fa fa-chevron-circle-down fa-1x" ></i>&nbsp;<span>Voir plus</span></strong><span id="paragraph1_show1" style="display: none">
+						l’Afrique forme très peu de citoyens dignes pour servir leur pays. Pourquoi les maux africains ne
+					se guérissent pas? Une remise en question de tout un système. Les générations passées ont toujours été fières de
+					l’éducation reçue comparée à celle d’aujourd’hui mais si cette  éducation avait été bien conçue et complétée avec
+					des valeurs citoyennes et d’entrepreneuriat, l’Afrique ne serait pas arrivé là où elle est actuellement..</br><strong class="text-info mouse"  id="button_hide1">&nbsp;&nbsp;<i class="fa fa-chevron-circle-up fa-1x"></i>&nbsp;<span>Réduire</span></strong></span></p><br>
+				<p class="p"><i class="fa fa-circle"></i>&nbsp;Voici la contribution de YesB: compléter le système éducatif formel et promouvoir et accompagner l’entrepreneuriat.</p>
 			</div>
 		</div>
 	</div>
@@ -389,6 +397,30 @@
 <script th:src="@{/new/plugins/slick-1.8.0/slick.js}"></script>
 <script th:src="@{/new/plugins/easing/easing.js}"></script>
 <script th:src="@{/new/js/custom.js}"></script>
+<script>
+    $(document).ready(function(){
+        //first paragraphe
+        $("#button_hide").click(function(){
+            $("#paragraph1_show").hide();
+            $("#button_show").show();
+        });
+        $("#button_show").click(function(){
+            $("#paragraph1_show").show();
+           // $("#paragraph1_show1").hide();
+            $("#button_show").hide();
+        });
+
+        //second paragraph
+        $("#button_hide1").click(function(){
+            $("#paragraph1_show1").hide();
+            $("#button_show1").show();
+        });
+        $("#button_show1").click(function(){
+            $("#paragraph1_show1").show();
+            $("#button_show1").hide();
+        });
+    });
+</script>
 </body>
 
 </html>
