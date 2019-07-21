@@ -2,6 +2,7 @@ package com.derteuffel.controller;
 
 import com.derteuffel.data.*;
 import com.derteuffel.repository.MatiereRepository;
+import com.derteuffel.repository.NiveauRepository;
 import com.derteuffel.repository.PrimaireRepository;
 import com.derteuffel.repository.RegionRepository;
 import com.derteuffel.service.UserService;
@@ -40,6 +41,8 @@ public class PrimaryController {
 
     @Autowired
    private UserService userService;
+    @Autowired
+    private NiveauRepository niveauRepository;
 
     @GetMapping("/form")
     public String form(Model model){
@@ -114,6 +117,31 @@ public class PrimaryController {
         List<Matiere> matieres=matiereRepository.findAll();
         for (Primaire primaire : primaires){
             System.out.println("je suis la");
+            Niveau niveau1=niveauRepository.findByNiveau(primaire.getClasse());
+            Niveau niveau = new Niveau();
+            if (niveau1 == null) {
+                niveau.setNiveau(primaire.getClasse());
+                if (primaire.getClasse() == 1){
+                    niveau.setSlug("PREMIER ANNEE");
+                }else if (primaire.getClasse() == 2){
+                    niveau.setSlug("DEUXIEME ANNEE");
+                }else if (primaire.getClasse() == 3){
+                    niveau.setSlug("TROISIEME ANNEE");
+                }else if (primaire.getClasse() == 4){
+                    niveau.setSlug("QUATRIEME ANNEE");
+                }else if (primaire.getClasse() == 5){
+                    niveau.setSlug("CINQUIEME ANNEE");
+                }else if (primaire.getClasse() == 6){
+                    niveau.setSlug("SIXIEME ANNEE");
+                }else if (primaire.getClasse() == 7){
+                    niveau.setSlug("SEPTIEME ANNEE");
+                }else {
+                    System.out.println("je ne suis pas coool");
+                }
+                niveauRepository.saveAndFlush(niveau);
+            }else {
+                System.out.println("jexiste deja");
+            }
             for (Matiere matiere : matieres){
                 System.out.println("deuxieme niveau");
                 System.out.println(primaire.getType());
@@ -123,6 +151,7 @@ public class PrimaryController {
                 if (primaire.getType().contains(matiere.getName())  && primaire.getClasse() == matiere.getClasse()){
                     System.out.println("troisieme niveau");
                     primaire.setMatiere(matiereRepository.getOne(matiere.getMatiereId()));
+                    primaire.setNiveau(niveauRepository.findByNiveau(matiere.getClasse()));
                     primaireRepository.save(primaire);
                 }else {
                     System.out.println("incompatible");

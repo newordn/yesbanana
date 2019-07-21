@@ -50,7 +50,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="niveau,i : ${niveaux}">
-                    <td th:text="${niveau}">Première annéee</td>
+                    <td th:text="${niveau.slug}">Première annéee</td>
                     <td style="padding: 0;">
                         <table style="width: 100%">
                             <tbody>
@@ -73,22 +73,14 @@
                     <td style="padding: 0">
                         <table style="width: 100%">
                             <tbody>
-                                <tr><td><a class="btn" href="#">Première bande déssinée</a></td></tr>
-                                <tr><td><a class="btn" href="#">Première bande déssinée</a></td></tr>
-                                <tr><td><a class="btn" href="#">Première bande déssinée</a></td></tr>
-                                <tr><td><a class="btn" href="#">Première bande déssinée</a></td></tr>
-                                <tr><td><a class="btn" href="#">Première bande déssinée</a></td></tr>
-
+                                <tr th:each="matiere : ${niveau.primaires}"><td th:if="${matiere.type}=='Roman'"><a class="btn" href="#" th:text="${matiere.title}">Première bande déssinée</a></td></tr>
                             </tbody>
                         </table>
                     </td>
                     <td style="padding: 0">
                         <table style="width: 100%">
                             <tbody>
-                                <tr><td><a class="btn" href="#">Premier roman</a></td></tr>
-                                <tr><td><a class="btn" href="#">Premier roman</a></td></tr>
-                                <tr><td><a class="btn" href="#">Premier roman</a></td></tr>
-                                <tr><td><a class="btn" href="#">Premier roman</a></td></tr>
+                            <tr th:each="matiere : ${niveau.primaires}"><td th:if="${matiere.type}=='Bande dessinée'"><a class="btn" href="#" th:text="${matiere.title}">Première bande déssinée</a></td></tr>
                             </tbody>
                         </table>
                     </td>

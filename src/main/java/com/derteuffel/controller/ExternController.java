@@ -245,6 +245,8 @@ public class ExternController {
     private MatiereRepository matiereRepository;
     @Autowired
     private PrimaireRepository primaireRepository;
+    @Autowired
+    private NiveauRepository niveauRepository;
 
     @GetMapping("/catalogues")
     public String catalogues(){
@@ -603,28 +605,21 @@ public class ExternController {
     @GetMapping("/education/primaire")
     public String gets_all_livre(Model model){
         List<Primaire> primaires=primaireRepository.findAllByStatus(true);
-        List<Integer> classes=new ArrayList<>();
+        List<Niveau> classes=niveauRepository.findAll();
         List<Primaire> livres=new ArrayList<>();
         List<List<Matiere>> matieres=new ArrayList<List<Matiere>>();
         List<Matiere> matieres_par_niveau= new ArrayList<>();
         List<String> elements= new ArrayList<>();
 
-        for (Primaire primaire: primaires){
-            if (primaire.getClasse()!=0 && primaire.getClasse()<=7){
-               classes.add(primaire.getClasse());
-            }
+        for (Niveau niveau : classes){
 
-        }
-
-        for (Integer integer : removeDuplicatesNumber(classes)){
-
-            List<Primaire> primaires1=primaireRepository.findByClasse(integer);
+            List<Primaire> primaires1=primaireRepository.findByClasse(niveau.getNiveau());
             for (Primaire primaire : primaires1){
                 elements.add(primaire.getType());
                 for (String element : elements){
-                    if (matiereRepository.findByNameAndClasse(element,integer)==null) {
+                    if (matiereRepository.findByNameAndClasse(element,niveau.getNiveau())==null) {
                         Matiere matiere = new Matiere();
-                        matiere.setClasse(integer);
+                        matiere.setClasse(niveau.getNiveau());
                         matiere.setName(element);
                         matiereRepository.save(matiere);
                     }else {
@@ -634,7 +629,7 @@ public class ExternController {
                 elements = new ArrayList<>();
             }
 
-            matieres_par_niveau.addAll(matiereRepository.findByClasse(integer));
+            matieres_par_niveau.addAll(matiereRepository.findByClasse(niveau.getNiveau()));
             System.out.println(matieres_par_niveau);
             matieres.add(matieres_par_niveau);
             matieres_par_niveau= new ArrayList<>();
@@ -646,8 +641,8 @@ public class ExternController {
         System.out.println(matieres);
 
 
-        System.out.println(removeDuplicatesNumber(classes));
-        model.addAttribute("niveaux",removeDuplicatesNumber(classes));
+
+        model.addAttribute("niveaux",classes);
         model.addAttribute("matieres",matieres);
         return "these_module/primaire/primaires";
     }

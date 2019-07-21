@@ -14,16 +14,25 @@ public class Niveau implements Serializable {
     @GeneratedValue
     private Long niveauId;
     private int niveau;
+    private String slug;
     @OneToMany(mappedBy = "niveau")
-    private List<Matiere> matieres;
+    private List<Primaire> primaires;
 
     public Niveau() {
     }
 
-    public Niveau(Long niveauId, int niveau, List<Matiere> matieres) {
-        this.niveauId = niveauId;
+    public Niveau(int niveau, String slug, List<Primaire> primaires) {
         this.niveau = niveau;
-        this.matieres = matieres;
+        this.slug = slug;
+        this.primaires = primaires;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public Long getNiveauId() {
@@ -42,11 +51,11 @@ public class Niveau implements Serializable {
         this.niveau = niveau;
     }
 
-    public List<Matiere> getMatieres() {
-        return matieres;
+    public List<Primaire> getPrimaires() {
+        return primaires;
     }
 
-    public void setMatieres(List<Matiere> matieres) {
-        this.matieres = matieres;
+    public void setPrimaires(List<Primaire> primaires) {
+        this.primaires = primaires;
     }
 }
