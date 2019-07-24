@@ -41,69 +41,12 @@
 
     <div class="single_product">
         <div class="container d-flex flex-column align-items-center text-center justify-content-center">
-            <table class="table text-left  table-bordered table-responsive  table-lg display" style="font-size: 16px">
-                <thead>
-                    <th>Niveau</th>
-                    <th>Matières et livres recommandés par le ministère</th>
-                    <th>Roman</th>
-                    <th>Bande déssine</th>
-                </thead>
-                <tbody>
-                <tr th:each="niveau,i : ${niveaux}">
-                    <td th:text="${niveau.slug}">Première annéee</td>
-                    <td style="padding: 0;">
-                        <table style="width: 100%">
-                            <tbody>
-                                <tr th:each="matiere : ${matieres[i.index]}"><td th:text="${matiere.name}" style="color: #0b0b0b" >Mathématiques</td>
-                                    <td style="padding: 0;" >
-                                        <table  style="width: 100%" >
-                                            <tbody id="table_3">
-                                            <tr>
-                                                <td th:if="${#lists.size(matiere.primaires)}>0">
-                                                    <a th:href="@{/visitor/primaire/}+${matiere.primaires[0].type}+'/'+${matiere.primaires[0].educationId}" th:text="${matiere.primaires[0].title}" class="btn">Mathématiques</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td th:if="${#lists.size(matiere.primaires)}>1">
-                                                    <a th:href="@{/visitor/primaire/}+${matiere.primaires[1].type}+'/'+${matiere.primaires[1].educationId}" th:text="${matiere.primaires[1].title}" class="btn">Mathématiques</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td th:if="${#lists.size(matiere.primaires)}>2">
-                                                    <a th:href="@{/visitor/primaire/}+${matiere.primaires[2].type}+'/'+${matiere.primaires[2].educationId}" th:text="${matiere.primaires[2].title}" class="btn">Mathématiques</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td th:if="${#lists.size(matiere.primaires)}>3" >
-                                                    <a th:href="@{/visitor/primaire/matiere/}+${matiere.name}+'/'+${matiere.classe}" ><i class="fa fa-chevron-circle-down fa-1x"></i>&nbsp;&nbsp;Voir plus</a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                <ul style="width: 90%;font-size: 18px; " class="" th:each="livre : ${livres}">
+                    <li class="nav-item card p-3 alert-secondary text-left mt-1 mb-1">
+                        <a  th:href="@{/visitor/primaire/livre/}+${livre.educationId}" style="color: #0b0b0b"><span class="text-primary">Titre : </span><span th:text="${livre.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-primary">Ecrit par : </span>&nbsp;&nbsp;&nbsp;<span th:text="${livre.editeur}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-primary">année :</span>&nbsp;&nbsp;&nbsp;<span th:text="${livre.anne_edition}"></span></a>
+                    </li>
 
-                                    </td></tr>
-
-                            </tbody>
-                        </table>
-                    </td>
-                    <td style="padding: 0">
-                        <table style="width: 100%">
-                            <tbody>
-                                <tr th:each="matiere : ${niveau.primaires}"><td th:if="${matiere.type}=='Roman'"><a class="btn" href="#" th:text="${matiere.title}">Première bande déssinée</a></td></tr>
-                            </tbody>
-                        </table>
-                    </td>
-                    <td style="padding: 0">
-                        <table style="width: 100%">
-                            <tbody>
-                            <tr th:each="matiere : ${niveau.primaires}"><td th:if="${matiere.type}=='Bande dessinée'"><a class="btn" href="#" th:text="${matiere.title}">Première bande déssinée</a></td></tr>
-                            </tbody>
-                        </table>
-                    </td>
-
-                </tr>
-                </tbody>
-            </table>
+                </ul>
         </div>
     </div>
 </div>

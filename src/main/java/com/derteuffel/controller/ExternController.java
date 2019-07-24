@@ -655,4 +655,18 @@ public class ExternController {
         return "these_module/primaire/primaire";
     }
 
+    @GetMapping("/primaire/matiere/{type}/{classe}")
+    public String find_all_by_type(@PathVariable String type, Model model, @PathVariable int classe){
+        List<Primaire> primaires=primaireRepository.findByTypeAndClasse(type,classe);
+        model.addAttribute("livres",primaires);
+        return "these_module/primaire/livres";
+    }
+
+    @GetMapping("/primaire/livre/{educationId}")
+    public  String get_one_livre(Model model , @PathVariable Long educationId){
+        Primaire primaire=primaireRepository.getOne(educationId);
+        model.addAttribute("primaire",primaire);
+        return "these_module/primaire/livre";
+    }
+
 }
