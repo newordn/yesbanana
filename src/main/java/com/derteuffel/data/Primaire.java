@@ -17,8 +17,7 @@ import java.util.Date;
 @PrimaryKeyJoinColumn(name = "educationId")
 public class Primaire extends Education implements Serializable {
 
-    @ManyToOne
-    private Niveau niveau;
+
     @ManyToOne
     private Matiere matiere;
 
@@ -27,15 +26,11 @@ public class Primaire extends Education implements Serializable {
     }
 
     public Primaire(@NotEmpty String title, String description, String edition, String editeur, String maison_edition, String anne_edition, Boolean status, String pieces,
-                    String type, String couverture, String region, String country, int classe, Boolean suprime, Niveau niveau, Matiere matiere) {
+                    String type, String couverture, String region, String country, int classe, Boolean suprime,  Matiere matiere) {
         super(title, description, edition, editeur, maison_edition, anne_edition, status, pieces, type, couverture, region, country, classe, suprime);
-        this.niveau = niveau;
         this.matiere = matiere;
     }
 
-    public void setNiveau(Niveau niveau) {
-        this.niveau = niveau;
-    }
 
     public Matiere getMatiere() {
         return matiere;
@@ -43,10 +38,6 @@ public class Primaire extends Education implements Serializable {
 
     public void setMatiere(Matiere matiere) {
         this.matiere = matiere;
-    }
-
-    public Niveau getNiveau() {
-        return niveau;
     }
 
     @Override

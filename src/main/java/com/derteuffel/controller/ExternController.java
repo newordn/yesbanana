@@ -643,21 +643,21 @@ public class ExternController {
 
 
         model.addAttribute("niveaux",classes);
-        model.addAttribute("matieres",matieres);
         return "these_module/primaire/primaires";
     }
 
 
-    @GetMapping("/primaire/{type}/{educationId}")
+    @GetMapping("/primaire/{educationId}/{type}")
     public String getLivre_by_matiere(@PathVariable Long educationId, Model model){
         Primaire primaire = primaireRepository.getOne(educationId);
         model.addAttribute("primaire",primaire);
         return "these_module/primaire/primaire";
     }
 
-    @GetMapping("/primaire/matiere/{type}/{classe}")
+    @GetMapping("/primaire/matiere/{classe}/{type}")
     public String find_all_by_type(@PathVariable String type, Model model, @PathVariable int classe){
         List<Primaire> primaires=primaireRepository.findByTypeAndClasse(type,classe);
+        System.out.println(primaires);
         model.addAttribute("livres",primaires);
         return "these_module/primaire/livres";
     }

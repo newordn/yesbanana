@@ -43,33 +43,35 @@
         <div class="container row">
             <div class="col-md-7 d-flex flex-column align-items-center text-center justify-content-center">
                 <div class="card ">
-                <div class="card-img-top" style="border-radius: 15px">
-                    <img th:src="${primaire.couverture}" width="450" height="500">
-                </div>
-                <div class="card-title mt-3">
-                    <h4><span th:text="${primaire.title}"></span></h4>
-                </div>
-                    <div class="card-body text-lg-left">
-                        <h4><strong class="text-info">Auteur : </strong> <span th:text="${primaire.editeur}"></span></h4>
-                        <h4><strong class="text-info">Description : </strong> <span th:text="${primaire.description}"></span></h4>
+                    <div class="card-img-top" style="border-radius: 15px">
+                        <img th:if="${primaire.couverture}" th:src="${primaire.couverture}" width="450" height="500">
+                        <img th:unless="${primaire.couverture}" th:src="@{/new/images/no-image.png}" width="450" height="500">
                     </div>
-            </div>
+                    <div class="card-title mt-3">
+                        <h4><span th:text="${primaire.title}"></span></h4>
+                    </div>
+                    <div class="card-footer text-lg-center">
+                        <h4><strong class="text-info">Auteur : </strong> <span th:text="${primaire.editeur}"></span></h4>
+                    </div>
+                </div>
             </div>
             <div class="col-md-5">
-                <div class="p-2">
-                    <table class="table ">
-                        <tbody>
-                            <tr>
-                                <td><a href="#" class="btn alert-warning">Commander le livre(Numérique)</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="btn alert-warning">Lire le livre en ligne(Pdf)</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="btn alert-warning">Commander le livre imprimer(Physiqye)</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <p style="font-size: 20px"><span th:text="${primaire.description}"></span></p>
+                <div class="alert alert-warning">
+                    <span>Vous pouvez payer votre livre au format pdf et le recevoir en un clic</span><br>
+                    <a href="#">Commander le livre(Pdf)&nbsp;&nbsp;<i class="fa fa-shopping-cart"></i></a>
+                </div>
+                <hr>
+                <div class="alert alert-secondary">
+                    <span>Payez et lisez directement votre livre en ligne depuis notre plateforme sans toute fois pouvoir le télécharger</span><br>
+                    <a href="#" >Lire le livre en ligne(Numerique)&nbsp;&nbsp;<i class="fa fa-shopping-cart"></i></a>
+                </div>
+                <hr>
+                <div class="alert alert-success">
+                    <span>faites  votre reservation et/ou payez directement ici et recevez votre document partout ou vous vous trouvez</span><br>
+                    <a href="#">Commander le livre imprimer(Physiqye)&nbsp;&nbsp;<i class="fa fa-shopping-cart"></i></a>
+                </div>
+                <hr>
                     <div class="alert alert-info">
                         <a th:href="@{/visitor/education/primaire}">Retour à la liste de livre</a>
                     </div>

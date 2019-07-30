@@ -1,9 +1,6 @@
 package com.derteuffel.data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,6 +14,7 @@ public class Matiere implements Serializable {
     private int classe;
     @OneToMany(mappedBy = "matiere")
     private List<Primaire> primaires;
+    @ManyToOne
     private Niveau niveau;
 
     public Matiere() {

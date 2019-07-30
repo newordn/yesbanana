@@ -21,6 +21,30 @@
     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_responsive.css}">
     <link rel="stylesheet"  th:href="@{/new/styles/main_styles1.css}">
     <link rel="stylesheet"  th:href="@{/new/styles/responsive.css}">
+
+    <style>
+        .blue-gradient{
+            background-image: linear-gradient(40deg,rgb(69,202,252),rgb(48,63,159))!important;
+            background-position-x: initial!important;
+            background-position-y: initial!important;
+            background-size: initial!important;
+            background-repeat-x:initial!important;
+            background-repeat-y:initial!important;
+            background-attachment:initial!important;
+            background-origin:initial!important;
+            background-clip:initial!important;
+            background-color:initial!important;
+        }
+        .white-text{
+            color: #FFFFFF;
+        }
+        .btn-rounded{
+            border-radius: 50%;
+        }
+        .th-lg{
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
 
@@ -40,37 +64,26 @@
     <!-- Single Product -->
 
     <div class="single_product">
-        <div class="container d-flex flex-column align-items-center text-center justify-content-center">
-            <table class="table text-left  table-bordered table-responsive  table-lg display" style="font-size: 16px">
+        <div class="container">
+            <!--table class="table text-left  table-bordered table-responsive  table-lg display" style="font-size: 16px">
                 <thead>
                     <th>Niveau</th>
                     <th>Matières et livres recommandés par le ministère</th>
-                    <th>Roman</th>
-                    <th>Bande déssine</th>
                 </thead>
                 <tbody>
                 <tr th:each="niveau,i : ${niveaux}">
-                    <td th:text="${niveau.slug}">Première annéee</td>
+                    <td><span th:text="${niveau.slug}"></span></td>
                     <td style="padding: 0;">
                         <table style="width: 100%">
                             <tbody>
-                                <tr th:each="matiere : ${matieres[i.index]}"><td th:text="${matiere.name}" style="color: #0b0b0b" >Mathématiques</td>
-                                    <td style="padding: 0;" >
+                                <tr th:id="'row_1'+${niveau.niveauId}">
+                                    <td  style="color: #0b0b0b" ><span th:text="${matieres[i.index][0].name}"></span><br><strong class="text-primary" style="cursor: pointer" id="btn_show"><i class="fa fa-chevron-circle-down"></i><span>Voir plus</span></strong></td>
+                                    <td style="padding: 0;height: 100%" >
                                         <table  style="width: 100%" >
                                             <tbody id="table_3">
                                             <tr>
-                                                <td th:if="${#lists.size(matiere.primaires)}>0">
-                                                    <a th:href="@{/visitor/primaire/}+${matiere.primaires[0].type}+'/'+${matiere.primaires[0].educationId}" th:text="${matiere.primaires[0].title}" class="btn">Mathématiques</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td th:if="${#lists.size(matiere.primaires)}>1">
-                                                    <a th:href="@{/visitor/primaire/}+${matiere.primaires[1].type}+'/'+${matiere.primaires[1].educationId}" th:text="${matiere.primaires[1].title}" class="btn">Mathématiques</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td th:if="${#lists.size(matiere.primaires)}>2">
-                                                    <a th:href="@{/visitor/primaire/}+${matiere.primaires[2].type}+'/'+${matiere.primaires[2].educationId}" th:text="${matiere.primaires[2].title}" class="btn">Mathématiques</a>
+                                                <td th:if="${#lists.size(matieres[i.index][0].primaires)}>0">
+                                                    <a th:href="@{/visitor/primaire/}+${matieres[i.index][0].primaires[0].type}+'/'+${matieres[i.index][0].primaires[0].educationId}" th:text="${matieres[i.index][0].primaires[0].title}" class="btn">Mathématiques</a>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -81,30 +94,62 @@
                                             </tbody>
                                         </table>
 
-                                    </td></tr>
+                                    </td>
+                                </tr>
+                                <tr th:id="'row_all'+${niveau.niveauId}" th:each="matiere : ${matieres[i.index]}">
+                                    <td th:text="${matiere.name}" style="color: #0b0b0b" >Mathématiques</td>
+                                    <td style="padding: 0;" >
+                                        <table  style="width: 100%" >
+                                            <tbody>
+                                            <tr>
+                                                <td th:if="${#lists.size(matiere.primaires)}>0">
+                                                    <a th:href="@{/visitor/primaire/}+${matiere.primaires[0].type}+'/'+${matiere.primaires[0].educationId}" th:text="${matiere.primaires[0].title}" class="btn">Mathématiques</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td th:if="${#lists.size(matiere.primaires)}>3" >
+                                                    <a th:href="@{/visitor/primaire/matiere/}+${matiere.name}+'/'+${matiere.classe}" ><i class="fa fa-chevron-circle-down fa-1x"></i>&nbsp;&nbsp;Voir plus</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
 
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </td>
-                    <td style="padding: 0">
-                        <table style="width: 100%">
-                            <tbody>
-                                <tr th:each="matiere : ${niveau.primaires}"><td th:if="${matiere.type}=='Roman'"><a class="btn" href="#" th:text="${matiere.title}">Première bande déssinée</a></td></tr>
-                            </tbody>
-                        </table>
-                    </td>
-                    <td style="padding: 0">
-                        <table style="width: 100%">
-                            <tbody>
-                            <tr th:each="matiere : ${niveau.primaires}"><td th:if="${matiere.type}=='Bande dessinée'"><a class="btn" href="#" th:text="${matiere.title}">Première bande déssinée</a></td></tr>
-                            </tbody>
-                        </table>
-                    </td>
-
                 </tr>
                 </tbody>
-            </table>
+            </table-->
+            <div class="alert alert-info">
+                <p style="font-size: 18px">Vous pouver consulter ou commender tous les livres scholaire pour vos enfants recomomandé par le ministère de l'education et profitez des livre complementaire que vous offres Yesbanana pour compléter la formation de vos enfants </p>
+            </div>
+
+
+            <div class="row" th:each="niveau : ${niveaux}">
+                <div class="card col-md-4 card-columns au-card-bordered">
+                    <span th:text="${niveau.slug}"></span>
+                </div>
+                <div class="card col-md-8" >
+                    <div class="row" th:each="matiere : ${niveau.matieres}">
+                        <div class="card col-md-6 card-columns au-card-bordered">
+                            <a th:href="@{/visitor/primaire/matiere/}+${matiere.classe}+'/'+${matiere.name}">
+                                <span th:text="${matiere.name}" style="color: #0b0b0b">blablabla</span> &nbsp;&nbsp;&nbsp;&nbsp;<em th:if="${#lists.size(matiere.primaires)}<=1">(<span th:text="${#lists.size(matiere.primaires)}"></span> livre)</em>
+                                <em th:unless="${#lists.size(matiere.primaires)}<=1">(<span th:text="${#lists.size(matiere.primaires)}"></span> livres)</em>
+                            </a>
+                        </div>
+                        <div class="card col-md-6" >
+                            <a th:href="@{/visitor/primaire/}+${matiere.primaires[0].educationId}+'/'+${matiere.primaires[0].type}">
+                                <span th:text="${matiere.primaires[0].title}"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
 
@@ -128,16 +173,10 @@
 <script th:src="@{/new/js/custom.js}"></script>
 <script>
     $(document).ready(function(){
-        //first paragraphe
-        $("#button_show").click(function(){
-            $("#table_3").hide();
-            $("#table_all").show();
-        });
-        $("#button_hide").click(function(){
-            $("#table_3").show();
-            // $("#paragraph1_show1").hide();
-            $("#table_all").hide();
-        });
+        $("#checkbox1").checked(
+            $("#table").show()
+        );
+
     });
 </script>
 </body>

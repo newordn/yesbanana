@@ -16,15 +16,15 @@ public class Niveau implements Serializable {
     private int niveau;
     private String slug;
     @OneToMany(mappedBy = "niveau")
-    private List<Primaire> primaires;
+    private List<Matiere> matieres;
 
     public Niveau() {
     }
 
-    public Niveau(int niveau, String slug, List<Primaire> primaires) {
+    public Niveau(int niveau, String slug, List<Matiere> matieres) {
         this.niveau = niveau;
         this.slug = slug;
-        this.primaires = primaires;
+        this.matieres = matieres;
     }
 
     public String getSlug() {
@@ -51,11 +51,11 @@ public class Niveau implements Serializable {
         this.niveau = niveau;
     }
 
-    public List<Primaire> getPrimaires() {
-        return primaires;
+    public List<Matiere> getMatieres() {
+        return matieres;
     }
 
-    public void setPrimaires(List<Primaire> primaires) {
-        this.primaires = primaires;
+    public void setMatieres(List<Matiere> matieres) {
+        this.matieres = matieres;
     }
 }

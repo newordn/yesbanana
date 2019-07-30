@@ -30,7 +30,7 @@
     <!-- Home -->
 
     <div class="home">
-        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
+        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="new/images/shop_background.jpg"></div>
         <div class="home_overlay"></div>
         <div class="home_content d-flex flex-column align-items-center text-center justify-content-center">
             <h2 class="home_title">Education primaire</h2>
@@ -42,11 +42,14 @@
     <div class="single_product">
         <div class="container d-flex flex-column align-items-center text-center justify-content-center">
                 <ul style="width: 90%;font-size: 18px; " class="" th:each="livre : ${livres}">
-                    <li class="nav-item card p-3 alert-secondary text-left mt-1 mb-1">
+                    <li class="nav-item card p-3 alert-secondary text-center mt-1 mb-1">
                         <a  th:href="@{/visitor/primaire/livre/}+${livre.educationId}" style="color: #0b0b0b"><span class="text-primary">Titre : </span><span th:text="${livre.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-primary">Ecrit par : </span>&nbsp;&nbsp;&nbsp;<span th:text="${livre.editeur}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-primary">année :</span>&nbsp;&nbsp;&nbsp;<span th:text="${livre.anne_edition}"></span></a>
                     </li>
 
                 </ul>
+        </div>
+        <div class=" container mt-5 d-flex flex-column align-items-center text-center justify-content-center">
+            <a th:href="@{/visitor/education/primaire}"><i class="fa fa-long-arrow-left"></i>&nbsp;<span>Retourner à la liste</span></a>
         </div>
     </div>
 </div>
@@ -69,19 +72,5 @@
 <script th:src="@{/new/js/product_custom.js}"></script>
 <script th:src="@{/new/js/contact_custom.js}"></script>
 <script th:src="@{/new/js/custom.js}"></script>
-<script>
-    $(document).ready(function(){
-        //first paragraphe
-        $("#button_show").click(function(){
-            $("#table_3").hide();
-            $("#table_all").show();
-        });
-        $("#button_hide").click(function(){
-            $("#table_3").show();
-            // $("#paragraph1_show1").hide();
-            $("#table_all").hide();
-        });
-    });
-</script>
 </body>
 </html>

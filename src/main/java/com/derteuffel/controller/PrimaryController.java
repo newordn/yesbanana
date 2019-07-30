@@ -122,7 +122,7 @@ public class PrimaryController {
             if (niveau1 == null) {
                 niveau.setNiveau(primaire.getClasse());
                 if (primaire.getClasse() == 1){
-                    niveau.setSlug("PREMIER ANNEE");
+                    niveau.setSlug("PREMIERE ANNEE");
                 }else if (primaire.getClasse() == 2){
                     niveau.setSlug("DEUXIEME ANNEE");
                 }else if (primaire.getClasse() == 3){
@@ -151,7 +151,7 @@ public class PrimaryController {
                 if (primaire.getType().contains(matiere.getName())  && primaire.getClasse() == matiere.getClasse()){
                     System.out.println("troisieme niveau");
                     primaire.setMatiere(matiereRepository.getOne(matiere.getMatiereId()));
-                    primaire.setNiveau(niveauRepository.findByNiveau(matiere.getClasse()));
+                    matiere.setNiveau(niveauRepository.findByNiveau(matiere.getClasse()));
                     primaireRepository.save(primaire);
                 }else {
                     System.out.println("incompatible");
