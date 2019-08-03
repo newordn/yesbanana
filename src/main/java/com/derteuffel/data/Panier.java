@@ -4,7 +4,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,6 +16,7 @@ public class Panier {
     @Id
     @GeneratedValue
     Long id;
+
 
     public Boolean getBought() {
         return bought;
@@ -48,6 +49,13 @@ public class Panier {
     }
 
     public Panier() {
+    }
+
+    public Panier(Boolean bought, Boolean status, Date date, Double count) {
+        this.bought = bought;
+        this.status = status;
+        this.date = date;
+        this.count = count;
     }
 
     public Panier(Boolean status, Date date, Double count, List<Article> articles, User user, Boolean bought) {

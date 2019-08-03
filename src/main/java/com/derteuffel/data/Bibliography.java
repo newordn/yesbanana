@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by derteuffel on 30/01/2019.
@@ -39,6 +40,9 @@ public class Bibliography implements Serializable{
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    @ManyToMany(mappedBy = "bibliographies")
+    private List<Commande> commandes;
+
     public Bibliography() {
     }
 
@@ -65,6 +69,14 @@ public class Bibliography implements Serializable{
         this.edition=edition;
         this.lieu_edition=lieu_edition;
         this.these = these;
+    }
+
+    public List<Commande> getCommandes() {
+        return commandes;
+    }
+
+    public void setCommandes(List<Commande> commandes) {
+        this.commandes = commandes;
     }
 
     public String getCategory() {

@@ -44,8 +44,8 @@
             <div class="col-md-7 d-flex flex-column align-items-center text-center justify-content-center">
                 <div class="card ">
                     <div class="card-img-top" style="border-radius: 15px">
-                        <img th:if="${primaire.couverture}" th:src="${primaire.couverture}" width="450" height="500">
-                        <img th:unless="${primaire.couverture}" th:src="@{/new/images/no-image.png}" width="450" height="500">
+                        <img th:if="${primaire.couverture}=='/downloadFile/null'" th:src="@{/new/images/no-image.png}" width="450" height="500">
+                        <img th:unless="${primaire.couverture}=='/downloadFile/null'" th:src="${primaire.couverture}"  width="450" height="500">
                     </div>
                     <div class="card-title mt-3">
                         <h4><span th:text="${primaire.title}"></span></h4>
@@ -79,6 +79,7 @@
             </div>
         </div>
     </div>
+<div th:replace="~{../templates/fragments/login :: login}"></div>
 </div>
 
 <div th:replace="~{../templates/fragments/footer :: footer}"></div>

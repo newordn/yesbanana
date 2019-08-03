@@ -8,10 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.print.DocFlavor;
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -230,6 +232,8 @@ public class ExternController {
     @Autowired
     private SyllabusRepository syllabusRepository;
     @Autowired
+    private  CommandeRepository commandeRepository;
+    @Autowired
     private BourseRepository bourseRepository;
 
     @Autowired
@@ -247,6 +251,10 @@ public class ExternController {
     private PrimaireRepository primaireRepository;
     @Autowired
     private NiveauRepository niveauRepository;
+    @Autowired
+    ArticleRepository articleRepository;
+    @Autowired
+    PanierRepository panierRepository;
 
     @GetMapping("/catalogues")
     public String catalogues(){
@@ -266,9 +274,13 @@ public class ExternController {
         return "these_module/side/search_syllabus";
     }
     @GetMapping("/livre/{bibliographyId}")
-    public String livreSide(Model model,@PathVariable Long bibliographyId){
+    public String livreSide(Model model,@PathVariable Long bibliographyId, HttpSession session){
+        session.setAttribute("bibliographyId",bibliographyId);
         Bibliography livre=bibliographyRepository.getOne(bibliographyId);
+        System.out.println(livre);
         model.addAttribute("livre",livre);
+        System.out.println(livre.getFichier());
+        System.out.println("me voicis");
         return "these_module/side/livre";
     }
     @GetMapping("/syllabus/{syllabusId}")
@@ -286,6 +298,34 @@ public class ExternController {
         List<Bourse> bourses= bourseRepository.findFirst12ByStatusAndSuprime(true,false, Sort.by(Sort.Direction.DESC,"bourseId"));
         model.addAttribute("bourses",bourses);
         return "these_module/side/bourses";
+    }
+
+    @GetMapping("/commande/livre/form/{bibliographyId}")
+    public String livre_commande(Model model,@PathVariable Long bibliographyId){
+        Commande commande= new Commande();
+        Bibliography bibliography=bibliographyRepository.getOne(bibliographyId);
+        model.addAttribute("bibliography", bibliography);
+        model.addAttribute("commande",commande);
+        return "these_module/side/commande";
+    }
+
+    @PostMapping("/commande/livre/save")
+    public String create_commande(Commande commande,Model model, String title,HttpSession session, String price, Boolean paiement){
+        commande.setTitle(title);
+        if (paiement.equals(true)){
+            commandeRepository.save(commande);
+            Panier panier=new Panier(true,true,new java.util.Date(), Double.parseDouble(price));
+            panierRepository.save(panier);
+            Article article=new Article(title,"je suis une commande",Double.parseDouble(price),panier);
+            articleRepository.save(article);
+
+            model.addAttribute("panier",panierRepository.getOne(panier.getId()));
+            System.out.println("je contient"+panierRepository.getOne(panier.getId()));
+            return "payment/panier";
+        }else {
+        commandeRepository.save(commande);
+        return "redirect:/visitor/livre/"+(Long)session.getAttribute("bibliographyId");
+        }
     }
 
 

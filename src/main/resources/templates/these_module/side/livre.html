@@ -114,15 +114,17 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td>PDF Lecture en ligne Prix
+                                        <td th:if="${session.userId}!=null"><a th:href="${livre.fichier}" class="btn" style="color: #00b5e9">PDF Lecture en ligne </a>
+                                        </td>
+                                        <td th:unless="${session.userId}!=null"><a th:href="@{/login/visitor}"  class="btn" style="color: #00b5e9">PDF Lecture en ligne </a>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Commander PDF Prix
+                                        <td>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Commander imprimé Prix
+                                        <td ><a th:href="@{/visitor/commande/livre/form/}+${livre.bibliographyId}" class="btn" style="color: #00b5e9">Commander imprimé </a>
                                         </td>
                                     </tr>
                                 </tbody>

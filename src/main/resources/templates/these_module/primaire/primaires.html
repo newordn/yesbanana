@@ -129,19 +129,19 @@
 
             <div class="row" th:each="niveau : ${niveaux}">
                 <div class="card col-md-4 card-columns au-card-bordered">
-                    <span th:text="${niveau.slug}"></span>
+                    <span th:text="${niveau.slug}" style="font-size: 18px"></span>
                 </div>
                 <div class="card col-md-8" >
                     <div class="row" th:each="matiere : ${niveau.matieres}">
                         <div class="card col-md-6 card-columns au-card-bordered">
-                            <a th:href="@{/visitor/primaire/matiere/}+${matiere.classe}+'/'+${matiere.name}">
+                            <a th:href="@{/visitor/primaire/matiere/}+${matiere.classe}+'/'+${matiere.name}" style="font-size: 18px">
                                 <span th:text="${matiere.name}" style="color: #0b0b0b">blablabla</span> &nbsp;&nbsp;&nbsp;&nbsp;<em th:if="${#lists.size(matiere.primaires)}<=1">(<span th:text="${#lists.size(matiere.primaires)}"></span> livre)</em>
                                 <em th:unless="${#lists.size(matiere.primaires)}<=1">(<span th:text="${#lists.size(matiere.primaires)}"></span> livres)</em>
                             </a>
                         </div>
                         <div class="card col-md-6" >
                             <a th:href="@{/visitor/primaire/}+${matiere.primaires[0].educationId}+'/'+${matiere.primaires[0].type}">
-                                <span th:text="${matiere.primaires[0].title}"></span>
+                                <span th:text="${matiere.primaires[0].title}" style="font-size: 18px"></span>
                             </a>
                         </div>
                     </div>
@@ -151,6 +151,7 @@
         </div>
 
     </div>
+    <div th:replace="~{../templates/fragments/login :: login}"></div>
 </div>
 
 <div th:replace="~{../templates/fragments/footer :: footer}"></div>
@@ -171,13 +172,5 @@
 <script th:src="@{/new/js/product_custom.js}"></script>
 <script th:src="@{/new/js/contact_custom.js}"></script>
 <script th:src="@{/new/js/custom.js}"></script>
-<script>
-    $(document).ready(function(){
-        $("#checkbox1").checked(
-            $("#table").show()
-        );
-
-    });
-</script>
 </body>
 </html>
