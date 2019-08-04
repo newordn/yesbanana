@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="row justify-content-center" id="mobile">
-                        <form th:if="${user}!=null" action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
+                        <form th:if="${session.userId}!=null" action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
 
                             <!-- payment value -->
                             <input type="hidden" th:value="${user.email}" id="user_email" name="user_email">
@@ -86,7 +86,7 @@
                                 </div>
                             </div>
                         </form>
-                        <form th:unless="${user}!=null" action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
+                        <form th:unless="${session.userId}!=null" action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
 
                             <div class="form-group d-flex ">
                                 <div class="col-md-4 form-group">

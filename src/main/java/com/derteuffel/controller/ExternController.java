@@ -399,7 +399,7 @@ public class ExternController {
         session.setAttribute("theseId", these.getTheseId());
         model.addAttribute("these", these);
 
-        List<Bibliography> allThesesBibliographies=bibliographyRepository.findAllByThese(these.getTheseId());
+        List<Bibliography> allThesesBibliographies=bibliographyRepository.findAllByThese(these.getTheseId(),Sort.by(Sort.Direction.DESC,"bibliographyId"));
         List<Bibliography> livres= new ArrayList<>();
         for (Bibliography bibliography : allThesesBibliographies){
             if (bibliography.getDisponibility() == true){

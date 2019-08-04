@@ -3,6 +3,7 @@ package com.derteuffel.repository;
 import com.derteuffel.data.Bibliography;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,7 +18,7 @@ import java.util.List;
 public interface BibliographyRepository extends JpaRepository<Bibliography,Long> {
 
     @Query("select b from Bibliography as b join b.these bt where bt.theseId=:id order by b.bibliographyId desc")
-    List<Bibliography> findAllByThese(@Param("id") Long theseId);
+    List<Bibliography> findAllByThese(@Param("id") Long theseId,Sort sort);
     @Query("select b from Bibliography as b join b.these bt where bt.theseId=:id and b.disponibility=:x order by b.bibliographyId desc")
     List<Bibliography> findAllByTheseAndDisponibility(@Param("id") Long theseId,@Param("x")Boolean disponibility);
     @Query("select b from Bibliography as b join b.user bu where bu.userId=:id order by b.bibliographyId desc")

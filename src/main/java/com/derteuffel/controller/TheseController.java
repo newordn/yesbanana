@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.Font;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -757,7 +758,7 @@ public class    TheseController {
         System.out.println("sdfffsfghjdg");
         These these = theseRepository.getOne(theseId);
         session.setAttribute("theseId", these.getTheseId());
-        List<Bibliography> bibliographies=bibliographyRepository.findAllByThese(these.getTheseId());
+        List<Bibliography> bibliographies=bibliographyRepository.findAllByThese(these.getTheseId(),Sort.by(Sort.Direction.DESC,"bibliographyId"));
         List<Bibliography> bibliographiesDispo= bibliographyRepository.findAllByDisponibility(true);
         List<Bibliography> bibliographies1=new ArrayList<>();
         for (Bibliography  bibliography : bibliographies){

@@ -391,7 +391,7 @@ public class GroupeController {
         for (These these : theses){
             if (these.getStates() == true) {
                 System.out.println("je suis ici");
-                bibliographies.addAll(bibliographyRepository.findAllByThese(these.getTheseId()));
+                bibliographies.addAll(bibliographyRepository.findAllByThese(these.getTheseId(),Sort.by(Sort.Direction.DESC,"bibliographyId")));
             }
             System.out.println(bibliographies);
         }
@@ -415,14 +415,29 @@ public class GroupeController {
         }*/
         List<Bibliography> bibliographies= bibliographyRepository.findAll(Sort.by(Sort.Direction.DESC,"bibliographyId"));
         List<Bibliography> bibliographies1= bibliographyRepository.findAllByUser(user.getUserId());
+        List<Bibliography> bibli_user=new ArrayList<>();
+        List<Bibliography> bibli_these=new ArrayList<>();
+        for (Bibliography bibliography: bibliographies1){
+            if (bibliography.getThese()== null){
+                bibli_user.add(bibliography);
+            }
+        }
+
+        for (Bibliography bibliography: bibliographies){
+            if (bibliography.getThese()== null){
+                bibli_these.add(bibliography);
+            }
+        }
         Role role1=roleRepository.findByRole("LIVRE");
         model.addAttribute("roles", user.getRoles());
         session.setAttribute("roles",user.getRoles());
+        System.out.println(bibli_user);
+        System.out.println(bibliographies);
         if (user.getRoles().contains(role1)){
-            model.addAttribute("bibliographies", bibliographies1);
+            model.addAttribute("bibliographies", bibli_user );
 
         }else{
-            model.addAttribute("bibliographies", bibliographies);
+            model.addAttribute("bibliographies", bibli_these);
 
         }
         model.addAttribute("bibliography", new Bibliography());
@@ -1114,7 +1129,7 @@ public class GroupeController {
         System.out.println("sdfffsfghjdg");
         Groupe groupe= groupeRepository.getOne(groupeId);
         These these= theseRepository.getOne(theseId);
-        List<Bibliography>bibliographies=bibliographyRepository.findAllByThese(these.getTheseId());
+        List<Bibliography>bibliographies=bibliographyRepository.findAllByThese(these.getTheseId(),Sort.by(Sort.Direction.DESC,"bibliographyId"));
         List<Bibliography> bibliographiesDispo= bibliographyRepository.findAllByDisponibility(true);
         List<Bibliography> bibliographies1=new ArrayList<>();
         for (Bibliography  bibliography : bibliographies){

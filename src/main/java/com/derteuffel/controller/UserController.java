@@ -9,6 +9,7 @@ import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -866,7 +867,7 @@ public class UserController {
     public String getBibLib(Model model, @PathVariable Long theseId, HttpSession session){
         System.out.println("sdfffsfghjdg");
         These these= theseRepository.getOne(theseId);
-        List<Bibliography>bibliographies=bibliographyRepository.findAllByThese(these.getTheseId());
+        List<Bibliography>bibliographies=bibliographyRepository.findAllByThese(these.getTheseId(),Sort.by(Sort.Direction.DESC,"bibliographyId"));
         List<Bibliography> bibliographiesDispo= bibliographyRepository.findAllByDisponibility(true);
         List<Bibliography> bibliographies1=new ArrayList<>();
         for (Bibliography  bibliography : bibliographies){
