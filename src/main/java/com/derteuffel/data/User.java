@@ -2,14 +2,14 @@ package com.derteuffel.data;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.internal.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
-import com.derteuffel.data.Panier;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.*;
@@ -128,17 +128,10 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user")
     @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<Education> educations;
-    public List<Panier> getPaniers() {
-        return paniers;
-    }
-
-    public void setPaniers(List<Panier> paniers) {
-        this.paniers = paniers;
-    }
 
     @OneToMany(mappedBy = "user")
     @OnDelete(action= OnDeleteAction.NO_ACTION)
-    private List<Panier> paniers;
+    private List<Commande> commandes;
 
     @OneToMany(mappedBy = "user")
     @OnDelete(action= OnDeleteAction.NO_ACTION)

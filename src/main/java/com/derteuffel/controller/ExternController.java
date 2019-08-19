@@ -1,5 +1,6 @@
 package com.derteuffel.controller;
 
+
 import com.derteuffel.data.*;
 import com.derteuffel.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.print.DocFlavor;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Stream;
 
 /**
  * Created by derteuffel on 07/05/2019.
@@ -252,9 +252,7 @@ public class ExternController {
     @Autowired
     private NiveauRepository niveauRepository;
     @Autowired
-    ArticleRepository articleRepository;
-    @Autowired
-    PanierRepository panierRepository;
+    UserRepository userRepository;
 
     @GetMapping("/catalogues")
     public String catalogues(){
@@ -310,25 +308,39 @@ public class ExternController {
     }
 
     @PostMapping("/commande/livre/save")
-    public String create_commande(Commande commande,Model model, String title,HttpSession session, String price, Boolean paiement){
-        commande.setTitle(title);
-        if (paiement.equals(true)){
-            commandeRepository.save(commande);
-            Panier panier=new Panier(true,true,new java.util.Date(), Double.parseDouble(price));
-            panierRepository.save(panier);
-            Article article=new Article(title,"je suis une commande",Double.parseDouble(price),panier);
-            articleRepository.save(article);
+    public String create_commande(Model model,  HttpSession session, HttpServletRequest request){
 
-            model.addAttribute("panier",panierRepository.getOne(panier.getId()));
-            System.out.println("je contient"+panierRepository.getOne(panier.getId()));
+        String paiement = request.getParameter("paiement");
+        Commande commande = new Commande();
+        commande.setTitle(request.getParameter("title"));
+        commande.setMontant(Double.parseDouble(request.getParameter("price")));
+        commande.setNomClient(request.getParameter("nomClient"));
+        commande.setLieuLivraison(request.getParameter("lieuLivraison"));
+        commande.setStatus(false);
+        Long time = System.currentTimeMillis();
+        commande.setDateReservation(new Date(time));
+        User connectedUser = userRepository.findById(Long.parseLong((String) session.getAttribute("userId"))).get();
+
+        try
+        {
+            commande.setDateLivraison(new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("dateLivraison")));
+
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+        commande.setTelephoneBeneficaire(request.getParameter("telephoneBeneficaire"));
+        commandeRepository.save(commande);
+        System.out.println("Commande" + commande);
+        if (paiement!=null){
+            model.addAttribute("commande",commande);
+
             return "payment/panier";
         }else {
-        commandeRepository.save(commande);
         return "redirect:/visitor/livre/"+(Long)session.getAttribute("bibliographyId");
         }
     }
-
-
 
     // student work methods implementations
     @GetMapping("/students_work")

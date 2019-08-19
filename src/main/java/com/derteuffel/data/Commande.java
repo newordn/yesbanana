@@ -25,6 +25,17 @@ public class Commande implements Serializable
     private String telephoneBeneficaire;
     private Boolean status;
 
+    @ManyToOne
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @ManyToMany
     @JoinTable(name = "commande_bibliography", joinColumns = @JoinColumn(name = "commande_id"), inverseJoinColumns = @JoinColumn(name = "bibliography_id"))
     private List<Bibliography> bibliographies;

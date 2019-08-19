@@ -1,7 +1,6 @@
 package com.derteuffel.repository;
 
 import com.derteuffel.data.These;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

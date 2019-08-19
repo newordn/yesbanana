@@ -47,7 +47,7 @@
 		<div class="container">
 			<div class="row">
 					<div class="alert alert-info">
-						<h4><span>Indiquer dans le formulaire vos informations qui permettrons de realiser votre commande et vous la livrér partout ou vous le souhaitez</span></h4>
+						<h4><span>Indiquer dans le formulaire vos informations qui permettrons de realiser votre commande et de vous la livrer partout ou vous le souhaitez</span></h4>
 					</div>
 					<!-- Shop Content -->
 
@@ -70,7 +70,7 @@
 										<input type="text" id="contact_form_name" name="nomClient" class="form-control" placeholder="Votre nom" required="required" data-error="Localisation is required.">
 									</div>
 									<div class="contact_form_inputs d-flex  flex-column justify-content-between align-items-between">
-										<label for="contact_form_localisation"> Date de livraison</label>
+										<label for="contact_form_localisation"> Date de livraison(minimun 3 jours après la commande)</label>
 										<input type="date" id="contact_form_localisation" name="dateLivraison" class="form-control" placeholder="Date de livraison" required="required" data-error="Localisation is required.">
 									</div>
 									<div class="contact_form_inputs d-flex  flex-column justify-content-between align-items-between">
@@ -79,15 +79,19 @@
 									</div>
 									<div class="contact_form_inputs d-flex  flex-column justify-content-between align-items-between">
 										<label for="contact_form_phone">Votre téléphone</label>
-										<input type="text" id="contact_form_phone" name="lieuLivraison" class="form-control" placeholder="Livraison" required="required" data-error="Localisation is required.">
+										<input type="text" id="contact_form_phone" name="telephoneBeneficaire" class="form-control" placeholder="Votre téléphone" required="required" data-error="Localisation is required.">
 									</div>
-									<div class="contact_form_inputs d-flex  flex-column justify-content-center align-items-center alert-info">
-										<label for="contact_form_status" style="font-size: 18px;">Option de paiement, Cochez la boite pour confirmer que vous voulez payer directement. Au cas contraire vous paierrez à la livraison</label>
-										<input type="checkbox" id="contact_form_status" name="paiement" >
+									<div class=" d-flex  flex-row  align-items-center alert-info pl-1 pr-1 pt-1">
+									<div>
+										<label for="contact_form_status" style="font-weight:bold;" class="mr-1">Cochez la boite pour confirmer que vous voulez payer directement. Au cas contraire vous paierrez à la livraison 	</label>
+									</div>
+										<input type="checkbox" id="contact_form_status" value="false" style="position:relative;margin-bottom: 0.4rem" name="paiement" >
+
 									</div>
 
 									<div class="contact_form_button">
-										<button type="submit" class="button contact_submit_button">Validé</button>
+										<button type="submit" th:if="${session.userId}!=null" class="button contact_submit_button">Validé</button>
+										<a th:href="@{/login/visitor}" th:if="${session.userId}==null" class="btn btn-primary">Connectez vous et passez votre commande</a>
 									</div>
 								</form>
 							</div><br><br>

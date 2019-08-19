@@ -47,8 +47,6 @@ public class HomeController {
     private PostRepository postRepository;
     @Autowired
     private FileUploadService fileUploadService;
-    @Autowired
-    private PanierRepository panierRepository;
 
     @Autowired
             private LivreRepository livreRepository;
@@ -276,23 +274,7 @@ public class HomeController {
     public String logout(HttpServletRequest request){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
-        List<Panier> paniers = user.getPaniers();
-        if (paniers.size()<=0){
-            System.out.println("je ne contient aucun panier");
-        }else {
-            Panier theLast = paniers.get(paniers.size() - 1);
-            if (theLast.getCount() == 0.0) panierRepository.delete(theLast);
-            Panier panier = null;
-            for (Panier panier1 : paniers) {
-                if (panier1.getStatus()) {
-                    panier = panier1;
-                }
-            }
-            if (panier != null) {
-                panier.setStatus(false);
-                panierRepository.save(panier);
-            }
-        }
+
         HttpSession session = request.getSession();
         session.invalidate();
 
