@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.*;
@@ -265,10 +266,7 @@ public class UserController {
             "Zimbabwe"
 
     );
-    private static final int BUTTONS_TO_SHOW = 3;
-    private static final int INITIAL_PAGE = 0;
-    private static final int INITIAL_PAGE_SIZE = 5;
-    private static final int[] PAGE_SIZES = { 5,6,7,8};
+
     @GetMapping("/users")
     public String allUsers(Model model, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -298,35 +296,33 @@ public class UserController {
 
 
     @GetMapping("/detail/{userId}")
-    public String user(Model model, @PathVariable Long userId, HttpSession session){
+    public String user(Model model, @PathVariable Long userId, HttpServletRequest request, HttpSession session){
 
+        session.setAttribute("lastUrl", request.getHeader("referer"));
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
         model.addAttribute("user",user);
         AddUserRole form= new AddUserRole();
 
         session.setAttribute("userId", user.getUserId());
-        AddUserRole editForm= addUserRoleRepository.findByUserId(user.getUserId());
         Set<Role> roles= roleService.findByGroupe(userId);
         List<Role> roles1= roleRepository.findAll();
         model.addAttribute("form",form);
-        model.addAttribute("update",editForm);
         model.addAttribute("roles", roles);
         model.addAttribute("roles1", roles1);
         return "user/detail";
     }
 
     @GetMapping("/staffs/{userId}")
-    public String getUser(Model model, @PathVariable Long userId, HttpSession session){
+    public String getUser(Model model, @PathVariable Long userId,HttpServletRequest request, HttpSession session){
+        session.setAttribute("lastUrl", request.getHeader("referer"));
         session.setAttribute("userId",userId);
         User user= userService.getById(userId);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user1=userService.findByName(auth.getName());
         model.addAttribute("user",user);
         AddUserRole form= new AddUserRole();
-        AddGroupeUser addGroupeUser = new AddGroupeUser();
-        AddGroupeUser editGroupe= addGroupeUserRepository.findByUserId(user.getUserId());
-        AddUserRole editForm= addUserRoleRepository.findByUserId(user.getUserId());
+        AddGroupeUser form1= new AddGroupeUser();
         Set<Role> roles= roleRepository.findByUsers_UserId(user1.getUserId());
         List<Groupe> groupes=groupeRepository.findByUsers_UserId(userId);
         System.out.println(groupes);
@@ -335,9 +331,7 @@ public class UserController {
         model.addAttribute("groupes1",groupes1);
         model.addAttribute("groupes",groupes);
         model.addAttribute("form",form);
-        model.addAttribute("addToGroupe",addGroupeUser);
-        model.addAttribute("editGroupe",editGroupe);
-        model.addAttribute("update",editForm);
+        model.addAttribute("form1",form1);
         model.addAttribute("roles", roles);
         session.setAttribute("roles",roles);
         model.addAttribute("roles1", roles1);
@@ -394,143 +388,33 @@ public class UserController {
     }
 
 
-    @PostMapping("/role/save1")
-    public String role(Model model, AddUserRole form, HttpSession session){
-        Long userId= (Long)session.getAttribute("userId");
-        Role role= roleRepository.getOne(form.getRoleId());
-        System.out.println(role.getRole());
-        User user= userRepository.getOne(userId);
-        System.out.println(user.getName());
-        user.setRoles(role);
-        form.setUserId(user.getUserId());
-        addUserRoleRepository.save(form);
-        userRepository.save(user);
-        return "redirect:/user/staffs/"+user.getUserId();
-    }
-    @PostMapping("/groupe/save1")
-    public String groupe(Model model, AddGroupeUser addGroupeUser, HttpSession session){
-        Long userId= (Long)session.getAttribute("userId");
-        Groupe groupe= groupeRepository.getOne(addGroupeUser.getGroupeId());
-        System.out.println(groupe.getGroupeName());
-        User user= userRepository.getOne(userId);
-        System.out.println(user.getName());
-        user.setGroupe(groupe);
-        addGroupeUser.setUserId(user.getUserId());
-        addGroupeUserRepository.save(addGroupeUser);
-        userRepository.save(user);
-        return "redirect:/user/staffs/"+user.getUserId();
-    }
 
     @PostMapping("/role/save")
-    public String roleProfil(@PathVariable Long userId ,Model model, AddUserRole form, HttpSession session){
+    public String roleProfil( Long userId , Long roleId, HttpSession session){
 
-        Role role= roleRepository.getOne(form.getRoleId());
+        Role role= roleRepository.getOne(roleId);
         System.out.println(role.getRole());
         User user= userRepository.getOne(userId);
         System.out.println(user.getName());
-        user.setRoles(role);
-        form.setUserId(user.getUserId());
-        addUserRoleRepository.save(form);
+        user.getRoles().clear();
+        user.getRoles().add(role);
         userRepository.save(user);
-        return "redirect:/user/staffs/"+user.getUserId();
+        return "redirect:"+session.getAttribute("lastUrl");
     }
 
     @PostMapping("/groupe/save")
-    public String groupeProfil(@PathVariable Long userId ,Model model, AddGroupeUser addGroupeUser, HttpSession session){
+    public String groupeProfil( Long userId , Long groupeId, HttpSession session){
 
-        Groupe groupe= groupeRepository.getOne(addGroupeUser.getGroupeId());
+        Groupe groupe= groupeRepository.getOne(groupeId);
         System.out.println(groupe.getGroupeName());
         User user= userRepository.getOne(userId);
         System.out.println(user.getName());
-        user.setGroupe(groupe);
-        addGroupeUser.setUserId(user.getUserId());
-        addGroupeUserRepository.save(addGroupeUser);
+        user.getGroupes().clear();
+        user.getGroupes().add(groupe);
         userRepository.save(user);
-        return "redirect:/user/staffs/"+user.getUserId();
+        return "redirect:"+session.getAttribute("lastUrl");
     }
 
-    @PostMapping("/role/update/{userId}")
-    public String updateRole(AddUserRole addUserRole, @PathVariable Long userId){
-        Role role= roleRepository.getOne(addUserRole.getRoleId());
-        User user= userRepository.getOne(userId);
-        for (Role role1 : user.getRoles()){
-            user.removeRelation(role1);
-        }
-        user.setRoles(role);
-        addUserRole.setUserId(user.getUserId());
-        addUserRoleRepository.save(addUserRole);
-        userRepository.save(user);
-        return "redirect:/user/staffs/"+user.getUserId();
-    }
-
-    @PostMapping("/groupe/edit/{userId}")
-    public String updateGroupe(AddGroupeUser addGroupeUser, @PathVariable Long userId){
-        Groupe groupe = groupeRepository.getOne(addGroupeUser.getGroupeId());
-        User user= userRepository.getOne(userId);
-        for (Groupe groupe1 : groupeRepository.findByUsers_UserId(user.getUserId())){
-            user.removeGroupeRelation(groupe1);
-        }
-        user.setGroupe(groupe);
-        addGroupeUser.setUserId(user.getUserId());
-        addGroupeUserRepository.save(addGroupeUser);
-        userRepository.save(user);
-        return "redirect:/user/staffs/"+user.getUserId();
-    }
-    @PostMapping("/role/update1/{userId}")
-    public String updateRole1(AddUserRole addUserRole, @PathVariable Long userId){
-        Role role= roleRepository.getOne(addUserRole.getRoleId());
-        User user= userRepository.getOne(userId);
-        System.out.println(user.getName());
-        System.out.println(user.getRoles());
-
-        for (Role role1 : user.getRoles()){
-            user.removeRelation(role1);
-        }
-
-        user.setRoles(role);
-        addUserRole.setUserId(user.getUserId());
-        addUserRoleRepository.save(addUserRole);
-        userRepository.save(user);
-        return "redirect:/user/staffs/"+user.getUserId();
-    }
-
-    @PostMapping("/groupe/edit1/{userId}")
-    public String updateGroupe2(AddGroupeUser addGroupeUser, @PathVariable Long userId){
-        Groupe groupe = groupeRepository.getOne(addGroupeUser.getGroupeId());
-        User user= userRepository.getOne(userId);
-        for (Groupe groupe1 : groupeRepository.findByUsers_UserId(user.getUserId())){
-            user.removeGroupeRelation(groupe1);
-        }
-        user.setGroupe(groupe);
-        addGroupeUser.setUserId(user.getUserId());
-        addGroupeUserRepository.save(addGroupeUser);
-        userRepository.save(user);
-        return "redirect:/user/staffs/"+user.getUserId();
-    }
-
-   /* @GetMapping("/updateRole")
-    public String updateRole(@RequestParam("userId") Long userId, @RequestParam("role") String role) {
-        User user = userService.getById(userId);
-        Role role1 = roleService.getById(user.getRole().getRoleId());
-        role1.setRole(role);
-        roleService.saveOrUpdate(role1);
-        user.setRole(role1);
-        userRepository.save(user);
-        return "redirect:/user";
-
-
-    }
-
-    @GetMapping("/update/role")
-    public String updateRoles(@RequestParam("userId") Long userId, @RequestParam("role") String role, HttpSession session) {
-        User user = userService.getById(userId);
-        Long groupeId = (Long) session.getAttribute("groupeId");
-        Role role1 = roleService.getById(user.getRole().getRoleId());
-        role1.setRole(role);
-        roleService.saveOrUpdate(role1);
-        return "redirect:/user";
-    }
-    */
 
 
     private String validate_url="yesbanana.org/validate/";
@@ -541,8 +425,6 @@ public class UserController {
                 .path("/downloadFile/")
                 .path(fileName)
                 .toUriString();
-/*
-            FileUploadRespone fileUploadRespone = new FileUploadRespone(fileName, fileDownloadUri);*/
         user.setImg("/downloadFile/" + fileName);
         user.setStatus(true);
         //user.setActive(true);
