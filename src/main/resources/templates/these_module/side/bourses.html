@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
 <title>YesBanana</title>
 <meta charset="utf-8">
@@ -64,13 +64,20 @@
 
 						<div class="">
 							<div class="">
-								<div class="container card row  pt-3 pb-3" th:each=" bourse : ${bourses}">
-                            <div class="card col-md-4 p-3">
-                                   <div class="card-body">
-									   <p th:text="${bourse.description}"></p>
-									   <a th:href="${bourse.link}" ><span>Visiter le site?</span></a>
-								   </div>
+								<div class="container pt-3 pb-3" th:each=" bourse : ${bourses}">
+                            <div class="row">
+                                <div class="card-img col-md-2 d-flex justify-content-center ">
+                                    <div class="rounded-circle bg-info text-white text-center" style="height: 60px; width: 60px" >
+                                        <span style="font-size: 30px" th:text="${#strings.substring(bourse.title,0,2)}"></span>
+                                    </div>
+                                </div>
+                                <div class="card-body col-md-10">
+                                    <a th:href="${bourse.link}" > <h3 th:text="${bourse.title}"  style="text-decoration: underline; color: #0b0b0b"></h3></a>
+                                    <a th:href="${bourse.link}"><span th:text="${bourse.link}"></span></a> </br>
+                                    <span th:text="${bourse.description}"></span>
+                                </div>
                             </div>
+                                    <hr>
                         </div>
 							</div>
 						</div>
