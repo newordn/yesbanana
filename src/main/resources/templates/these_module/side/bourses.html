@@ -67,8 +67,11 @@
 								<div class="container pt-3 pb-3" th:each=" bourse : ${bourses}">
                             <div class="row">
                                 <div class="card-img col-md-2 d-flex justify-content-center ">
-                                    <div class="rounded-circle bg-info text-white text-center" style="height: 60px; width: 60px" >
-                                        <span style="font-size: 30px" th:text="${#strings.substring(bourse.title,0,2)}"></span>
+                                    <div class="rounded-circle bg-info text-white text-center" th:if="${bourse.title != null }" style="height: 60px; width: 60px" >
+                                        <span style="font-size: 30px" th:text="${#strings.substring(bourse?.title,0,2)}"></span>
+                                    </div>
+                                    <div class="rounded-circle bg-info text-white text-center" th:unless="${bourse.title != null }" style="height: 60px; width: 60px" >
+                                        <span style="font-size: 30px" >D</span>
                                     </div>
                                 </div>
                                 <div class="card-body col-md-10">

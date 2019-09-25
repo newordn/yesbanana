@@ -1011,7 +1011,7 @@ var Tweenable = (function () {
   /**
    * Compute the midpoint of two Objects.  This method effectively calculates a
    * specific frame of animation that `{{#crossLink
-   * "Tweenable/tween:method"}}{{/crossLink}}` does many times over the course
+   * "Tweenable/tween:method"}}{{/crossLink}}` does many times over the entrepreneuriat
    * of a full tween.
    *
    *     var interpolatedValues = Tweenable.interpolate({

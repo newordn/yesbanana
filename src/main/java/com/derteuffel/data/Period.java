@@ -23,8 +23,7 @@ public class Period implements Serializable {
 
     private Boolean status;
 
-    @ManyToOne
-    private Course course;
+
     @OneToMany(mappedBy = "period")
     @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<Lesson> lessons;
@@ -63,13 +62,6 @@ public class Period implements Serializable {
         this.periodName = periodName;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
 
     public List<Lesson> getLessons() {
         return lessons;

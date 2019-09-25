@@ -223,7 +223,7 @@ public class EventController {
         model.addAttribute("selectedPageSize", evalPageSize);
         // add pages size
         model.addAttribute("pageSizes", PAGE_SIZES);
-        // templates.course logistique
+        // templates.entrepreneuriat logistique
         Page<Event> events= eventRepository.findAllByType("logistiques", new PageRequest(evalPage, evalPageSize));
         PagerModel pager3 = new PagerModel(events.getTotalPages(),events.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("events", events);
@@ -248,7 +248,7 @@ public class EventController {
         // add pages size
         model.addAttribute("pageSizes", PAGE_SIZES);
         //language
-        //templates.course it
+        //templates.entrepreneuriat it
         Page<Event> events= eventRepository.findAllByType("it", new PageRequest(evalPage, evalPageSize));
         PagerModel pager2 = new PagerModel(events.getTotalPages(),events.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("pager", pager2);
@@ -273,7 +273,7 @@ public class EventController {
         // add pages size
         model.addAttribute("pageSizes", PAGE_SIZES);
         //language
-        //templates.course admin finance
+        //templates.entrepreneuriat admin finance
         Page<Event> events= eventRepository.findAllByType("administration et finance", new PageRequest(evalPage, evalPageSize));
         PagerModel pager = new PagerModel(events.getTotalPages(),events.getNumber(),BUTTONS_TO_SHOW);
         model.addAttribute("pager", pager);

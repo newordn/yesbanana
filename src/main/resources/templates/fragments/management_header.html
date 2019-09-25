@@ -16,7 +16,7 @@
                     <li class="dropdown-item" th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'LIVRE'} or ${session.roles[0].role == 'ADMIN_MASTER'}" >
                         <a th:href="@{/groupe/livres}" class="black nav-link" >Consulter et ajouter des livres</a>
                     </li>
-                    <li class="dropdown-item" th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'ADMIN_MASTER'}" >
+                    <li class="dropdown-item" th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'ADMIN_MASTER'} or ${session.roles[0].role == 'BOURSE'}" >
                         <a th:href="@{/groupe/bourses}" class="black nav-link" >Bourses</a>
                     </li>
                     <li class="dropdown-item" th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'ADMIN_MASTER'}" >
@@ -60,8 +60,8 @@
                     <li class="dropdown-item" th:if=" ${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'}"><a  th:href="@{/colonie/colonies}" class="black nav-link">Colonie de vacances</a></li>
                 </ul>
             </li>
-            <li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if=" ${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'}" >Formations</a></li>
-            <!--li class="nav-item"><a th:href="@{/management/course/administration}" class="nav-link" th:if="${roles[0].role == 'ROOT_MASTER'}" >Formations</a></li-->
+            <li class="nav-item"><a th:href="@{/entrepreneuriat/entrepreneuriats}" class="nav-link" th:if=" ${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'}" >Entrepreneuriat</a></li>
+            <!--li class="nav-item"><a th:href="@{/management/entrepreneuriat/administration}" class="nav-link" th:if="${roles[0].role == 'ROOT_MASTER'}" >Formations</a></li-->
             <li class="nav-item dropdown text-center" sec:authorize="isFullyAuthenticated()">
                 <!-- insert the profile image-->
                 <a href="#">
