@@ -21,20 +21,14 @@
         <div class="container">
         	                <div style="font-size:1.2rem;text-align: center;"><i th:if="${error}" th:text="${error}" style="color:red;"></i> </div>
             <form method="POST" enctype="multipart/form-data" th:object="${user}" th:action="@{/user/visitor/buy/save}" class="appointment-form" id="appointment-form">
-                <h2>Inscription en tant que Visiteur</h2>
+                <h2 class="text-center">Formulaire d'abonnement a la bibliotheque virtuelle</h2>
                 <div class="form-group-1">
-                    <input  type="text" name="name" id="name" placeholder="Votre Nom"  />
-                    <input type="email" name="email"  placeholder="Votre Adresse Email" id="email"  />
-                    <div class="select-list">
-                        <select name="country" id="countrySelect">
-                            <option  value="">Choisir un pays</option>
-                            <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Society</option>
-                        </select>
-                    </div>
-                    <input type="text" name="number" id="number" placeholder="Numero de téléphone"  />
-                    <input type="text" name="region" id="region" placeholder="Region"  />
-                   <input type="password" name="password" id="password" placeholder="Mot de Passe"  />
-                   <input type="password"  id="repass" placeholder="Confirmer Mot de Passe"  />
+                    <input  type="text" name="name" id="name" placeholder="Nom..."  />
+                    <input type="email" name="email"  placeholder="Email..." id="email"  />
+
+                    <input type="text" name="number" id="number" placeholder="Téléphone..."  />
+                   <input type="password" name="password" id="password" placeholder="Mot de Passe..."  />
+                   <input type="password"  id="repass" placeholder="Verifier..."  />
 
                 </div>
                 <div class="form-submit">

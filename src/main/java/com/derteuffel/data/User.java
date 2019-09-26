@@ -36,10 +36,9 @@ public class User implements Serializable{
     @Column
     @Length(min = 6)
     private String password;
-    @NotNull
+
     @Column
     private String country;
-    @Column
     @NotNull
     private String region;
     @Column

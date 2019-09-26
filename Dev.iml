@@ -158,5 +158,12 @@
     <orderEntry type="library" name="Maven: org.unbescape:unbescape:1.1.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: com.h2database:h2:1.4.197" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.social:spring-social-core:2.0.0.M2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.social:spring-social-config:2.0.0.M2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.social:spring-social-web:2.0.0.M2" level="project" />
+    <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.social:spring-social-facebook:3.0.0.M1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.social:spring-social-linkedin:unknown" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.social:spring-social-google:1.0.0.RELEASE" level="project" />
   </component>
 </module>
