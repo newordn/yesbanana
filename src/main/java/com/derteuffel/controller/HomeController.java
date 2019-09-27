@@ -461,5 +461,33 @@ public class HomeController {
         return new FileUploadRespone(fileName, fileDownloadUri);
     }
 
+    @Autowired
+    private NewsletterRepository newsletterRepository;
+
+
+    @GetMapping("/newsletter")
+    public String newsletter(String email,HttpServletRequest request,HttpSession session, Model model){
+        session.setAttribute("lastUrl", request.getHeader("referer"));
+        Newsletter newsletter= new Newsletter();
+        newsletter.setEmail(email);
+        newsletterRepository.save(newsletter);
+        model.addAttribute("success","L'equipe de Yesbanana vous remercie pour votre inscription a notre Newsletter, un Mail vous a ete envoyer dans votre boite ");
+
+        MailService mailService = new MailService();
+        mailService.sendSimpleMessage(
+                newsletter.getEmail(),
+                // "derteuffel0@gmail.com",
+                "Yesbanana: Notification ",
+                "Felicitation vous avez souscrit avec succes a notre newsletter!!!, l'equipe de yesbanana vous remercie de la confiance que vous lui accordez et vous promet de vous garder informe sur toutes les nouveautes "+
+                        " retour vers le site yesbanana "+ session.getAttribute("lastUrl"));
+        return "newsletter/success";
+
+    }
+
+    @GetMapping("/backside")
+    public String back(HttpSession session){
+        return "redirect:"+session.getAttribute("lastUrl");
+    }
+
 
 }

@@ -13,9 +13,9 @@
 								<div class="newsletter_text"><p>...recevez en premier les nouveautés sur YesBanana.</p></div>
 							</div>
 							<div class="newsletter_content clearfix">
-								<form action="#" class="newsletter_form">
-									<input type="email" class="newsletter_input" required="required" placeholder="Entrer votre adresse email">
-									<button class="newsletter_button">Souscrire</button>
+								<form th:action="@{/newsletter}" method="get"  class="newsletter_form">
+									<input type="email" class="newsletter_input" name="email" required="required" placeholder="Entrer votre adresse email">
+									<button type="submit" class="newsletter_button">Souscrire</button>
 								</form>
 							</div>
 						</div>
