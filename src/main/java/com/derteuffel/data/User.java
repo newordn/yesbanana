@@ -149,7 +149,7 @@ public class User implements Serializable{
                 String category, String diplom, String expertDomain, Date beginningPeriod, Date endPeriod,
                 String dayWorkBeginning, String dayWorkEnd, String studentNumber, Boolean numberOfWorkers,
                 String anotherDetail, String classe, String experienceYear, String cv, List<These> theses,
-                Boolean status, Set<Role> roles, List<Groupe> groupes, Boolean autorization, String amount, Boolean par_mobile) {
+                Boolean status, Set<Role> roles, List<Groupe> groupes, Boolean autorization, String amount, Boolean par_mobile, List<Commande> commandes) {
         this.name = name;
         this.email = email;
         this.par_mobile=par_mobile;
@@ -181,6 +181,7 @@ public class User implements Serializable{
         this.roles = roles;
         this.groupes = groupes;
         this.amount=amount;
+        this.commandes=commandes;
     }
 
     public User(@NotNull @Size(min = 2) String name, @Email @NotNull String email,
@@ -238,6 +239,14 @@ public class User implements Serializable{
         this.theses = theses;
         this.roles = roles;
         this.groupes = groupes;
+    }
+
+    public List<Commande> getCommandes() {
+        return commandes;
+    }
+
+    public void setCommandes(List<Commande> commandes) {
+        this.commandes = commandes;
     }
 
     public List<Education> getEducations() {

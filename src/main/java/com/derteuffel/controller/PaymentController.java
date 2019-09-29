@@ -32,4 +32,15 @@ public class PaymentController {
         return "payment/paymentForm";
 
     }
+
+
+    @GetMapping("/payment/transactions")
+    public String transaction(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByName(auth.getName());
+
+        model.addAttribute("transactions",user.getCommandes());
+
+        return "payment/transactions";
+    }
 }
