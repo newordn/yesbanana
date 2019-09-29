@@ -1,7 +1,7 @@
  <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
  <head>
-     <title>YesBanana</title>
+     <title>Yesbanana</title>
      <meta charset="utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="description" content="OneTech shop project">
@@ -43,7 +43,7 @@
                         <h4 class="text-left"> Date :  <span th:text="${commande.dateReservation}"></span></h4>
                     </div>
                     <div class="col-6">
-                        <h4 class="text-right"><a class="btn btn-primary" th:href="@{'/payment/form/'+ ${commande.montant}}" >Passer la commande</a></h4>
+                        <h4 class="text-right"><a class="btn btn-primary" th:href="@{'/payment/form/'+ ${commande.commandeId}}" >Passer la commande</a></h4>
                     </div>
                 </div>
                 <h4>Montant total : <span th:text="${commande.montant}" class="text-center"></span> $ </h4>
@@ -61,7 +61,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="alert-info">
+                <div class=" card mx-2 alert text-center alert-info">
                     <h4>Confirmer votre paiement en cliquant sur le bouton passer la commande</h4>
                 </div>
             </div>

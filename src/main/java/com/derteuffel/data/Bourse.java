@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by derteuffel on 05/06/2019.
@@ -19,16 +20,18 @@ public class Bourse implements Serializable{
     private String description;
     private Boolean status;
     private Boolean suprime;
+    private Date createdDate=new Date();
 
     public Bourse() {
     }
 
-    public Bourse(String link, String title, String description, Boolean status, Boolean suprime) {
+    public Bourse(String link, String title, String description, Boolean status, Boolean suprime, Date createdDate) {
         this.link = link;
         this.title=title;
         this.description = description;
         this.status=status;
         this.suprime=suprime;
+        this.createdDate=createdDate;
     }
 
     public String getTitle() {

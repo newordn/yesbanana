@@ -308,38 +308,22 @@ public class ExternController {
     }
 
     @PostMapping("/commande/livre/save")
-    public String create_commande(Model model,  HttpSession session, HttpServletRequest request){
+    public String create_commande(Model model, Commande commande,  HttpSession session, HttpServletRequest request,String title, String price){
 
         String paiement = request.getParameter("paiement");
-        Commande commande = new Commande();
-        commande.setTitle(request.getParameter("title"));
-        commande.setMontant(Double.parseDouble(request.getParameter("price")));
-        commande.setNomClient(request.getParameter("nomClient"));
-        commande.setLieuLivraison(request.getParameter("lieuLivraison"));
+        commande.setTitle(title);
+        commande.setMontant(Double.parseDouble(price));
         commande.setStatus(false);
         Long time = System.currentTimeMillis();
         commande.setDateReservation(new Date(time));
-        User connectedUser = userRepository.findById(Long.parseLong((String) session.getAttribute("userId"))).get();
-
-        try
-        {
-            commande.setDateLivraison(new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("dateLivraison")));
-
-        }
-        catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
-        commande.setTelephoneBeneficaire(request.getParameter("telephoneBeneficaire"));
+        User connectedUser = userRepository.findById((Long) session.getAttribute("userId")).get();
+        commande.setUser(connectedUser);
         commandeRepository.save(commande);
         System.out.println("Commande" + commande);
-        if (paiement!=null){
-            model.addAttribute("commande",commande);
+        model.addAttribute("commande",commande);
 
             return "payment/panier";
-        }else {
-        return "redirect:/visitor/livre/"+(Long)session.getAttribute("bibliographyId");
-        }
+
     }
 
     // student work methods implementations

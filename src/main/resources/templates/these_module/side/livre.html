@@ -4,7 +4,7 @@
 <title>YesBanana</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Refresh" content="15; url=//localhost:8080/login/visitor" />
+    <meta http-equiv="Refresh" th:if="${session.userId}==null" content="15; url=//localhost:8080/login/visitor" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">

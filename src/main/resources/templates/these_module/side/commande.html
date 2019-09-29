@@ -81,13 +81,6 @@
 										<label for="contact_form_phone">Votre téléphone</label>
 										<input type="text" id="contact_form_phone" name="telephoneBeneficaire" class="form-control" placeholder="Votre téléphone" required="required" data-error="Localisation is required.">
 									</div>
-									<div class=" d-flex  flex-row  align-items-center alert-info pl-1 pr-1 pt-1">
-									<div>
-										<label for="contact_form_status" style="font-weight:bold;" class="mr-1">Cochez la boite pour confirmer que vous voulez payer directement. Au cas contraire vous paierrez à la livraison 	</label>
-									</div>
-										<input type="checkbox" id="contact_form_status" value="false" style="position:relative;margin-bottom: 0.4rem" name="paiement" >
-
-									</div>
 
 									<div class="contact_form_button">
 										<button type="submit" th:if="${session.userId}!=null" class="button contact_submit_button">Validé</button>
@@ -106,6 +99,7 @@
 </div>
 
 <div th:replace="~{../templates/fragments/footer :: footer}"></div>
+<div th:replace="~{../templates/fragments/login :: login}"></div>
 
 
 <script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>

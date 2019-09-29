@@ -17,7 +17,7 @@
 </head>
 <body>
 <script
-        src="https://www.paypal.com/sdk/js?client-id=AX1bgCA9UyX9fwXC1EuDBva_xyHGr5YIUO5T_T0xLT_WcUEewEkW8Il5sZ0yzcJ7FPGVpR7YKi9-Q5mi&disable-card=visa,mastercard,amex ">
+        src="https://www.paypal.com/sdk/js?client-id=ARyQ6dLUpHMngWL63lD9HsNHV86KT5F99ZYkSFhgfGAJoqcHY4dWcpnqmOF9CUZ9nL6UbUtfG_0TaZLz">
 </script>
 
 <div class="super_container">
@@ -45,7 +45,7 @@
                     </div>
                     <div style="margin-left:1rem">
                         <label for="amount">Montant &nbsp;</label>
-                        <input type="text" id="amount" class="input-field" th:value="${amount}" style="padding-left:1rem" name="amount" disabled>
+                        <input type="text" id="amount" class="input-field" th:value="${commande.montant}" style="padding-left:1rem" name="amount" disabled>
                         <strong>$</strong>
                     </div>
                     <div class="row d-flex text-center heading-section mb-5 justify-content-between" >
@@ -58,7 +58,7 @@
                         </div>
                     </div>
 
-                    <div class="row justify-content-center" id="mobile">
+                    <div class="row justify-content-center" style="display: none" id="mobile">
                         <form th:if="${session.userId}!=null" action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
 
                             <!-- payment value -->
@@ -71,15 +71,15 @@
                                 <div class="col-md-4 form-group">
                                     <select class="custom-select" id="operatorSelection">
                                         <option value="undefined">Opérateurs</option>
-                                        <option value="CM_ORANGEMONEY" >Orange Money</option>
-                                        <option value="CM_MTNMOBILEMONEY" >Mtn Mobile Money</option>
+                                        <option value="CD_ORANGEMONEY" >Orange Money</option>
+                                        <option value="CD_MTNMOBILEMONEY" >Mtn Mobile Money</option>
                                         <option value="vodacom">Vodacom Money</option>
                                         <option value="airtel">Airtel Money</option>
                                     </select>
                                 </div>
-                                <input type="hidden" th:value="${amount}" name="amount">
+                                <input type="hidden" th:value="${commande.montant}" name="amount">
                                 <div class="col-md-5">
-                                    <input type="text" id="phone_number" name="phone" style="width:100%;padding-left:2rem;" placeholder="Votre numéro de téléphone ex: 237693063228">
+                                    <input type="text" id="phone_number" name="phone" th:value="${commande.telephoneBeneficaire}" style="width:100%;padding-left:2rem;" placeholder="Votre numéro de téléphone ex: 237693063228">
                                 </div>
                                 <div class="col-md-3">
                                     <button type="button"  onClick="pay()" class="btn btn-primary " style="width:100%">Valider</button>
@@ -92,15 +92,15 @@
                                 <div class="col-md-4 form-group">
                                     <select class="custom-select" id="operatorSelection">
                                         <option value="undefined">Opérateurs</option>
-                                        <option value="CM_ORANGEMONEY" >Orange Money</option>
-                                        <option value="CM_MTNMOBILEMONEY" >Mtn Mobile Money</option>
+                                        <option value="CD_ORANGEMONEY" >Orange Money</option>
+                                        <option value="CD_MTNMOBILEMONEY" >Mtn Mobile Money</option>
                                         <option value="vodacom">Vodacom Money</option>
                                         <option value="airtel">Airtel Money</option>
                                     </select>
                                 </div>
-                                <input type="hidden" th:value="${amount}" name="amount">
+                                <input type="hidden" th:value="${commande.montant}" name="amount">
                                 <div class="col-md-5">
-                                    <input type="text" id="phone_number" name="phone" style="width:100%;padding-left:2rem;" placeholder="Votre numéro de téléphone ex: 237693063228">
+                                    <input type="text" id="phone_number" name="phone" th:value="${commande.telephoneBeneficaire}" style="width:100%;padding-left:2rem;" placeholder="Votre numéro de téléphone ex: 237693063228">
                                 </div>
                                 <div class="col-md-3">
                                     <button type="button"  onClick="pay()" class="btn btn-primary " style="width:100%">Valider</button>
@@ -147,5 +147,21 @@
 <script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
 <script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
 <script th:src="@{/new/js/shop_custom.js}"></script>
+<script th:src="@{/js/PaymentScripts/paymentMobileOrange.js}"></script>
+<script th:src="@{/js/PaymentScripts/paymentPaypal.js}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('input[type="radio"]').click(function() {
+            if($(this).attr('id') == 'mobileTrigger') {
+                $('#mobile').show();
+                $('#payPal').hide();
+            }
+            else if ($(this).attr('id')=='payPalTrigger') {
+                $('#payPal').show();
+                $('#mobile').hide();
+            }
+        });
+    });
+</script>
 </body>
 </html>
