@@ -3,6 +3,7 @@ package com.derteuffel.repository;
 import com.derteuffel.data.Event;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -14,12 +15,10 @@ import java.util.List;
  * Created by derteuffel on 05/01/2019.
  */
 @Repository
-public interface EventRepository extends PagingAndSortingRepository<Event, Long> {
-    @Query("select e from Event as e join e.region er where er.regionId=:id order by e.eventId desc")
-    List<Event> findAllByRegion(@Param("id") Long regionId);
-    @Query("select e from Event as e join e.region er where er.regionId=:id and e.type=:type order by e.eventId desc")
-    Page<Event> findAllByRegionAndType(@Param("id") Long educationId, @Param("type") String type, Pageable pageable);
-    Page<Event> findAllByType(String type, Pageable pageable);
+public interface EventRepository extends JpaRepository<Event, Long> {
+
+    @Query("select e from Event as e where e.type=:type or e.title=:title or e.description=:description order by e.eventId desc")
+    List<Event> findAllForSearch(@Param("title") String title, @Param("type") String type, @Param("description") String description);
     List<Event> findAllByType(String type);
 
 }

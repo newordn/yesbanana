@@ -21,108 +21,102 @@
     <link rel="stylesheet" th:href="@{/css/flaticon.css}">
     <link rel="stylesheet" th:href="@{/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <style>
-        .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
-    </style>
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><span>Acceuil</span></a>
+        <a class="navbar-brand text-center" th:href="@{/groupe/groupes}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Accueil</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a th:href="@{/course/administration}" class="nav-link ">Administration et Finances <i class="ion-ios-arrow-forward"></i></a></li>
-                <li class="nav-item "><a href="#" class="nav-link ">Voir plus</a></li>
-                <li class="nav-item">
-                    <div th:replace="~{../templates/payment/panierWidget :: panierWidgetFragment}">
-                    </div>
-                </li>
-            </ul>
+        <div th:replace="~{../templates/fragments/management_header :: management_header}">
         </div>
     </div>
 </nav>
-<!-- END nav -->
-<section class="ftco-section bg-light">
-    <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
-            <div class="col-md-7 heading-section text-center ftco-animate">
-                <h2>Planning des évènements</h2>
+<section class="ftco-section testimony-section">
+    <!-- Single Blog Post -->
+
+        <div class="container">
+            <div class="row justify-content-center mb-5 pb-3">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <h1>Module d'espace universitaire</h1>
+                </div>
             </div>
-        </div>
-        <div class="row d-flex">
-
-            <div class="col-md-4 d-flex ftco-animate" th:each=" admin : ${events}" style="height:600px">
-                <a th:href="@{/event/get/}+${admin.eventId}" style="color:black">
-                    <div class="blog-entry justify-content-end">
-                        <span  class="block-20" style="background-image: url('images/image_1.jpg');" th:style="'background-image:url(' + @{${admin?.image}} + ');'">
-                        </span>
-                        <div class="text p-4 float-right d-block">
-                            <div class="d-flex align-items-center pt-2 mb-4">
-                                <div class="one">
-                                    <span class="day" th:text="'$'+${admin?.price}">$14</span>
-                                </div>
-                            </div>
-                            <h3 class="heading mt-2"><span href="#" th:text="${admin?.title}"> Conférence autour de l'énergie.</span></h3>
-                            <p th:text="${admin.description}"></p>
-                            mise en ligne le :
-                            <p th:text="${admin?.creationDate}"><i class="fa fa-clock"></i> 26 Aout @ 9:00</p>
-
-                            date de début:
-                            <span th:text="${admin?.releaseDate}">12/18/2019</span>
+            <div class="container ftco-animate">
+                <div class="card text-center col-lg-8 offset-lg-2">
+                    <h3> Detail </h3>
+                    <br>
+                    <div class="card-img">
+                        <img th:src="${event.image}" width="300" height="350">
+                    </div>
+                    <div class="single_post_title row" >
+                        <div class="col-4">
+                            <h5><strong> Titre : </strong></h5>
+                        </div>
+                        <div class="col-8 text-left">
+                            <h5><span th:text="${event.title}"></span></h5>
                         </div>
                     </div>
-                </a>
+                    <div class="single_post_text">
+                        <div class="row">
+                            <div class="col-4">
+                                <h5><strong>Description : </strong></h5>
+                            </div>
+                            <div class="col-8 text-left">
+                                <h5><span th:text="${event.description}"></span></h5>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <h4><span>Type : </span></h4>
+                            </div>
+                            <div class="col-8 text-left">
+                                <h4><span th:text="${event.type}"></span></h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <h4><span>Date d'ajout : </span></h4>
+                            </div>
+                            <div class="col-8 text-left">
+                                <h4><span th:text="${event.creationDate}"></span></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a th:href="@{/event/activation/}+${event.eventId}" class="btn btn-outline-primary rounded-circle"><i class="fa fa-check"></i></a>
+                        <p th:if="${event.status}== false">
+                            <span>Privee</span>
+                        </p>
+                        <p th:unless="${event.status}== false">
+                            <span>Public</span>
+                        </p>
+                        <button type="button" onclick="showFile()" class="btn-outline-info btn"><i class="fa fa-file"></i> &nbsp;Voir Fichiers</button>
+
+                    </div>
+                    <div class="card-body text-left" id="files" style="display: none">
+                        <ul th:each="file : ${event.pieces}">
+                            <li><a th:href="${file}"><span th:text="'Fichier : '+${file}"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="mt-3 row d-flex justify-content-center" >
+                    <div class="col-md-5 mx-2">
+                        <a th:href="@{/event/events}" class="btn btn-outline-danger" style="width: 100%;color: #0b0b0b"><i class="fa fa-arrow-left"></i>&nbsp;Retour</a>
+                    </div>
+                    <div class="col-md-5 mx-2">
+                        <a th:href="@{/event/edit/}+${event.eventId}" class="btn btn-outline-primary pull-right" style="width: 100%;color: #0b0b0b">Modifier&nbsp;<i class="fa fa-pencil"></i></a>
+                    </div>
+                </div>
 
             </div>
-
         </div>
-    </div>
-
-    <div class="row " style="bottom: 1rem;width: 100%">
-        <div class="form-group col-12 col-sm-6 col-lg-3">
-            <select class="form-control pagination" id="pageSizeSelect">
-                <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
-                        th:value="${pageSize}"
-                        th:selected="${pageSize} == ${selectedPageSize}"></option>
-            </select>
-        </div>
-        <div th:if="${events.totalPages != 1}"
-             class="form-group col-12 col-sm-6 col-lg-9 pagination-centered">
-            <ul class="pagination">
-                <li th:class="${events.number == 0} ? disabled" class="page-item" ><a
-                        class="page-link"
-                        th:href="@{/event/admin(pageSize=${selectedPageSize}, page=1)}">«</a>
-                </li>
-                <li th:class="${events.number == 0} ? disabled" class="page-item" ><a
-                        class="page-link"
-                        th:href="@{/event/admin(pageSize=${selectedPageSize}, page=${events.number})}">←</a>
-                </li>
-                <li
-                        th:class="${events.number == (page - 1)} ? 'active pointer-disabled'"
-                        th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" class="page-item active" >
-                    <a class="page-link"
-                       th:href="@{/event/admin(pageSize=${selectedPageSize}, page=${page})}"
-                       th:text="${page}"></a>
-                </li>
-                <li
-                        th:class="${events.number + 1 == events.totalPages} ? disabled" class="page-item">
-                    <a class="page-link"
-                       th:href="@{/event/admin(pageSize=${selectedPageSize}, page=${events.number + 2})}">→</a>
-                </li>
-                <li
-                        th:class="${events.number + 1 == events.totalPages} ? disabled" class="page-item">
-                    <a class="page-link"
-                       th:href="@{/event/admin(pageSize=${selectedPageSize}, page=${events.totalPages})}">»</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    </div>
 </section>
 <section class="ftco-section-parallax">
     <div class="parallax-img d-flex align-items-center">
@@ -215,6 +209,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script th:src="@{/js/google-map.js}"></script>
 <script th:src="@{/js/main1.js}"></script>
+<script th:src="@{/js/crew.js}"></script>
 <script type="text/javascript">
     $("#hide1").css("display","none");
     $("#hide2").css("display","none");
@@ -240,22 +235,21 @@
         $("#hide2").css("display","none");
     },function(){})
     $("#ender4").hover(
-            function(){
-                $("#hide1").css("display","none");
-                $("#hide2").css("display","none");},
-            function(){})
+        function(){
+            $("#hide1").css("display","none");
+            $("#hide2").css("display","none");},
+        function(){})
 </script>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    $(document).ready(function() {
-        changePageAndSize();
-    });
-    function changePageAndSize() {
-        $('#pageSizeSelect').change(function(evt) {
-            window.location.replace("/event/admin?pageSize=" + this.value + "&page=1");
-        });
+
+<script type="text/javascript">
+    function showFile() {
+        var x = document.getElementById("files");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
     }
-    /*]]>*/
 </script>
 </body>
 </html>

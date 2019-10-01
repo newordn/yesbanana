@@ -17,8 +17,5 @@ public class EventRestController {
     @Autowired
     private EventRepository eventRepository;
 
-    @GetMapping("/event/events")
-    public List<Event> events(){
-        return  eventRepository.findAllByType("administration et finance");
-    }
+
 }

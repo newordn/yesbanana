@@ -31,25 +31,18 @@ public class Event implements Serializable {
     @Column
     private Date creationDate=new Date();
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
-    @Column
-    private Date releaseDate;
-    @Column
-    private Double price;
 
     private int likes=0;
 
     private  Boolean status;
 
-    @ManyToOne
-    private Region region;
+
 
     public Event() {
     }
 
     public Event(String title,String type, String description,String image, Date creationDate,ArrayList<String> pieces,
-                 Date releaseDate, Double price, int likes, Region region, Boolean status) {
+                 int likes, Boolean status) {
         this.title = title;
         this.status=status;
         this.type=type;
@@ -57,10 +50,7 @@ public class Event implements Serializable {
         this.image=image;
         this.pieces=pieces;
         this.creationDate = creationDate;
-        this.releaseDate = releaseDate;
-        this.price = price;
         this.likes = likes;
-        this.region = region;
     }
 
     public Boolean getStatus() {
@@ -111,22 +101,6 @@ public class Event implements Serializable {
         this.creationDate = creationDate;
     }
 
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
     public int getLikes() {
         return likes;
     }
@@ -134,15 +108,6 @@ public class Event implements Serializable {
     public void setLikes(int likes) {
         this.likes = likes;
     }
-
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
-    }
-
 
     public String getType() {
         return type;
