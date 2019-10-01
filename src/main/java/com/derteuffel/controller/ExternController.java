@@ -3,6 +3,7 @@ package com.derteuffel.controller;
 
 import com.derteuffel.data.*;
 import com.derteuffel.repository.*;
+import com.derteuffel.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -703,6 +704,28 @@ public class ExternController {
         Primaire primaire=primaireRepository.getOne(educationId);
         model.addAttribute("primaire",primaire);
         return "these_module/primaire/livre";
+    }
+
+    @Autowired
+    private EventService eventService;
+
+    @GetMapping("/event/events")
+    public String news(Model model){
+
+        List<Event> events=eventService.findByType("publicite");
+        List<Event> events2=eventService.findByType("stage");
+        List<Event> events3=eventService.findByType("emploi");
+        List<Event> events4=eventService.findByType("magazine");
+        List<Bourse> bourses= bourseRepository.findFirst12ByStatusAndSuprime(true,false, Sort.by(Sort.Direction.DESC,"bourseId"));
+
+        List<Event> events1=eventService.findAll();
+        model.addAttribute("bourses",bourses);
+        model.addAttribute("events1",events1);
+        model.addAttribute("events2",events2);
+        model.addAttribute("events3",events3);
+        model.addAttribute("events4",events4);
+        model.addAttribute("events",events);
+        return "these_module/event/events";
     }
 
 }

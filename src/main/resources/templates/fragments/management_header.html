@@ -20,7 +20,7 @@
                         <a th:href="@{/groupe/bourses}" class="black nav-link" >Bourses</a>
                     </li>
                     <li class="dropdown-item" th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'ADMIN_MASTER'}" >
-                        <a th:href="@{/groupe/info/universitaires}" class="black nav-link" >Info universitaires</a>
+                        <a th:href="@{/event/events}" class="black nav-link" >Info universitaires</a>
                     </li>
                 </ul>
             </li>

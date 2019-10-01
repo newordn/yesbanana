@@ -1232,7 +1232,7 @@ select option
 .banner_price
 {
 	font-size: 30px;
-	color: #df3b3b;
+	color: #7e8285;
 	margin-top: 87px;
 }
 .banner_price span
@@ -1270,6 +1270,8 @@ select option
 	top: -5px;
 	right: -52px;
 	z-index: 0;
+	width: 1170px;
+	height: 367px;
 }
 
 /*********************************
