@@ -21,5 +21,9 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     @Query("select e from Event as e where e.type=:type or e.title=:title or e.description=:description order by e.eventId desc")
     List<Event> findAllForSearch(@Param("title") String title, @Param("type") String type, @Param("description") String description);
     List<Event> findAllByType(String type, Sort sort);
+    List<Event> findFirst6ByType(String type, Sort sort);
+    List<Event> findFirst3ByType(String type, Sort sort);
+
+
 
 }

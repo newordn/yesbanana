@@ -57,15 +57,15 @@
                         <label for="usr">Type de publication :</label>
                         <select type="text" th:field="*{type}" class="form-control">
                             <option value="">Choisir un type de publication</option>
+                            <option value="nouvelle">Nouvelle</option>
                             <option value="magazine">Magazine</option>
-                            <option value="journal">Journal</option>
-                            <option value="publicite">publicite</option>
-                            <option value="annonce">Annonce</option>
+                            <option value="stage">Stage</option>
+                            <option value="emploi">Emploi</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="comment">Description:</label>
-                        <textarea class="form-control" rows="5" id="comment" th:field="*{description}" style="height: 200px"></textarea>
+                        <textarea class="form-control" rows="5" id="comment" th:field="*{description}" placeholder="Ce champ doit contenir au moins 150 caracteres" style="height: 200px"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Couverture de la publication :</label>

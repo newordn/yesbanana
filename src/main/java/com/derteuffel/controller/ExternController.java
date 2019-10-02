@@ -712,20 +712,56 @@ public class ExternController {
     @GetMapping("/event/events")
     public String news(Model model){
 
-        List<Event> events=eventService.findByType("publicite");
+        List<Event> events=eventService.findByType("nouvelle");
         List<Event> events2=eventService.findByType("stage");
         List<Event> events3=eventService.findByType("emploi");
         List<Event> events4=eventService.findByType("magazine");
         List<Bourse> bourses= bourseRepository.findFirst12ByStatusAndSuprime(true,false, Sort.by(Sort.Direction.DESC,"bourseId"));
 
         List<Event> events1=eventService.findAll();
+        List<Event> events5=eventService.findFirst6("nouvelle");
+        List<Event> events6=eventService.findFirst3("emploi");
+        List<Event> events7=eventService.findFirst3("stage");
+        events6.addAll(events7);
         model.addAttribute("bourses",bourses);
         model.addAttribute("events1",events1);
         model.addAttribute("events2",events2);
         model.addAttribute("events3",events3);
         model.addAttribute("events4",events4);
         model.addAttribute("events",events);
+        model.addAttribute("events5",events5);
+        model.addAttribute("events6",events5);
         return "these_module/event/events";
+    }
+
+
+    @GetMapping("/event/{eventId}")
+    public String event(Model model, @PathVariable Long eventId){
+
+        Event event= eventService.getOne(eventId);
+        event.setLikes(event.getLikes()+1);
+        eventService.save(event);
+        List<Event> events=eventService.findFirst3(event.getType());
+        model.addAttribute("event",event);
+        model.addAttribute("events",events);
+
+        return  "these_module/event/event";
+    }
+
+
+    @GetMapping("/event/like/{eventId}")
+    public String like(@PathVariable Long eventId){
+        Event event=eventService.getOne(eventId);
+        event.setLikes(event.getLikes()+1);
+        eventService.save(event);
+        return "redirect:/visitor/event/events";
+    }
+
+    @GetMapping("/events/{type}")
+    public String events(Model model, @PathVariable String type){
+        List<Event> events=eventService.findByType(type);
+        model.addAttribute("events",events);
+        return "these_module/event/list";
     }
 
 }

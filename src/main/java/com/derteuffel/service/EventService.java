@@ -37,4 +37,13 @@ public class EventService {
     public List<Event> findByType(String type){
         return eventRepository.findAllByType(type, Sort.by(Sort.Direction.DESC,"eventId"));
     }
+
+
+    public List<Event> findFirst6( String type){
+        return eventRepository.findFirst6ByType(type,Sort.by(Sort.Direction.DESC, "eventId"));
+    }
+
+    public List<Event> findFirst3( String type){
+        return eventRepository.findFirst3ByType(type,Sort.by(Sort.Direction.DESC, "eventId"));
+    }
 }
