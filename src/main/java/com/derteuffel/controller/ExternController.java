@@ -760,6 +760,7 @@ public class ExternController {
     @GetMapping("/events/{type}")
     public String events(Model model, @PathVariable String type){
         List<Event> events=eventService.findByType(type);
+        model.addAttribute("type",type);
         model.addAttribute("events",events);
         return "these_module/event/list";
     }
