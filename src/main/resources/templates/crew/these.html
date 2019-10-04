@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+
+    <!-- Title Page-->
+    <title>Contenu d'une thèse</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- thymeleaft -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <!-- thymeleaft-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+
+    <link th:href="@{/css/element.css}" rel="stylesheet">
+
+
+
+</head>
+
+<body class="userCrewWrapper">
+<!-- sidebar-->
+<nav th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</nav>
+<!-- sidebar-->
+
+<div id="content" style="padding-left: 15px;padding-right: 15px">
+    <!--navigation-->
+    <div th:replace="~{../templates/fragments/navigationcrewthese :: navigationcrewthese}">
+    </div>
+    <div>
+        <!-- these detail -->
+        <div class="container text-center" style="width:100%;">
+            <div  style="margin-top: 5.5rem">
+                <div class=" pt-3 pb-3 justify-content-center">
+                    <div class="detailabstract " style="padding:0" ><h2>Sommaire</h2>
+                        <div class="row">
+                            <div th:switch="${these1.fileType}" class="justify-content-center col-md-11">
+                                <div class="card" th:case="'IMAGE'" >
+                                    <div class="card-header alert-success">
+                                        <h4>Images Relatives</h4>
+                                    </div>
+                                    <div class="card-body pr-3 pl-3" th:each=" resume : ${these1.resumes}">
+                                        <img  th:src="${resume}" id="detailAbstract" width="300" height="250" alt="sommaire">
+                                    </div>
+                                </div>
+                                <div th:case="'DOCUMENT'" class="card">
+                                    <div class="card-header alert-success">
+                                        <h4>Documents Relatifs</h4>
+                                    </div>
+                                    <div class="card-body pr-3 pl-3">
+                                        <ul th:each=" resume : ${these1.resumes}">
+                                            <li><a th:href="${resume}" th:text="${resume}"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div th:case="'VIDEO'" class="card" >
+                                    <div class="card-header alert-success">
+                                        <h4>Videos Relatives</h4>
+                                    </div>
+                                    <div class="card-body pr-3 pl-3">
+                                        <ul th:each=" resume : ${these1.resumes}">
+                                            <li>
+                                                <video controls style="width: 400px;height: 300px">
+                                                    <source th:src="${resume}">
+                                                </video>
+                                                <br>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1 " style="padding:0">
+                                <a class="btn btn-success rounded-circle"  data-toggle="modal" data-target="#modal-edit" th:attr="data-target='#modal-edit'">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <span>Editer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Autre Sommaire</h4>
+                        </div>
+                        <div class="card-body">
+                            <p th:text="${these1.anotherSommaire}"></p>
+                        </div>
+                    </div>
+                    <div class=" justify-content-center">
+                        <div class="row mt-3" th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ADMIN_MASTER'} or ${session.roles[0].role == 'ROOT_MASTER'}" >
+                            <div class="col-md-4 mt-3">
+                                <a class="btn btn-success" th:href="@{/groupe/these/publish/}+${these1.theseId}+'/'+${groupe.groupeId}" style="width: 100%">Appr et publier </a>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <a class="btn btn-warning" th:href="@{/groupe/these/unPublish/form/}+${these1.theseId}+'/'+${groupe.groupeId}"  style="width: 100%">Renvoi pour modif</a>
+                                <div class="modal card modal-warning fade in" th:id="modal-warning+${these1.theseId}" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header text-center">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span></button>
+                                                <h5 class="modal-title">Envoi d'un message de correction d'une Thèse</h5>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="form-group">
+                                                    <label > Adresse email destinataire :</label>
+                                                    <input type="email" class="form-control" name="adresse">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label > Corps du message :</label>
+                                                    <textarea class="form-control" rows="10" name="contenue"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer text-center">
+                                                <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                                <a class="btn btn-danger" th:href="@{/groupe/these/unPublish/}+${these1.theseId}" ><i class="fa fa-check"></i>&nbsp;Envoye</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <a class="btn btn-secondary" th:href="@{/groupe/these/draft/}+${these1.theseId}+'/'+${groupe.groupeId}" style="width: 100%">Appr sans publier</a>
+                            </div>
+                        </div>
+                        <div th:if="${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'ADMIN_MASTER'}" >
+                            <a  class="btn btn-success mt-3" th:if="${these1.status} == true" >
+                                Status <span class="badge badge-light">Publier</span>
+                            </a>
+                            <a  class="btn btn-success mt-3" th:unless="${these1.status} == true" >
+                                Status <span class="badge badge-light">Pendding</span>
+                            </a>
+                        </div>
+                    </div>
+                    <br><hr>
+                    <h5><i>Ajouter par:</i> <span th:text="${these1?.user.name}"></span>  <i>le  <span th:text="${these1.created_at}"></span></i>    <i>à <span th:text="${these1.university}"></span></i> </h5>
+                </div>
+                <div class="modal card modal-warning alert-warning fade in" th:id="modal-edit" >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header text-center alert-info">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                <h5 class="modal-title">Modification du sommaire</h5>
+                            </div>
+                            <div class="modal-body text-center">
+                                <h3>Veuillez charger un nouveau sommaire s'il vous plait</h3>
+                            </div>
+                            <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/groupe/groupe/add/update/somaire}" th:object="${these1}">
+                                <div class="form-group">
+                                    <label > Type de fichiers a téléchargé :</label>
+                                    <select class="form-control" th:field="*{fileType}">
+                                        <option value="">Selectionner un type de fichiers</option>
+                                        <option value="DOCUMENT">DOCUMENTS</option>
+                                        <option value="IMAGE">IMAGE</option>
+                                        <option value="VIDEO">VIDEO</option>
+                                    </select>
+                                    <input type="hidden" name="groupeId" th:value="${groupe.groupeId}">
+                                </div>
+                                <div class="col-3" style="display: none;">
+                                    <div class="form-group">
+                                        <span class='error' id="departementError"></span>
+                                        <input type="text" th:field="*{departement}" id="departement" placeholder="Nom du chef des travaux" />
+                                    </div>
+                                </div>
+                                <div class="col-3" style="display: none;">
+                                    <div class="form-group">
+                                        <span class='error' id="motCleError"></span>
+                                        <input type="text" th:field="*{motCle}" id="motCle" placeholder="Nom du chef des travaux" />
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <p>Autre Sommaire:</p>
+                                    <textarea th:field="*{anotherSommaire}" cols="60" rows="5"></textarea>
+                                </div>
+                                <div class="custom-file mb-3">
+                                    <input type="file" multiple class="form-control-file border" id="customFile" name="files">
+                                    <input type="text" class="form-control-file border"  th:field="*{resumes}">
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Fermer</button>
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
+                                </div>
+                                <div style="display: none;">
+                                    <div class="row mb-4">
+                                        <!--theseId-->
+                                        <input type="hidden" th:field="*{theseId}"  >
+                                        <input type="hidden" name="userId" th:value="${these1?.user.userId}"  >
+                                        <!--theseId-->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+        });
+        $('#back').on('click', function(){
+            $('#sidebar').toggleClass('active')
+        });
+
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Universite et autres services</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <link th:href="@{/css/myStyle.css}" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<br>
+
+<div style="height: 100%">
+    <nav class="nav" style="width: 100%">
+        <a th:href="@{/groupe/groupes}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+        <h2 class="text-center col-11 offset-1" style="padding-top: 0.5rem;">Universite et autres services</h2>
+    </nav>
+    <br>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs sticky-top" role="tablist" style="height:auto; margin-top: 5rem;width: 100%">
+        <li class="nav-item">
+            <a class="nav-link"  th:href="@{/management/region/other/logement}+${region.regionId}">Logements</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"  th:href="@{/management/region/other/transport/}+${region.regionId}">Transport</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" th:href="@{/management/region/other/approvisionnement/}+${region.regionId}">Approvisionnement</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content" style="margin-top: 4.5rem; height: 100%; padding: 2rem;">
+        <div id="procurement" class="container tab-pane active"><br>
+           <h3>Approvisionnement</h3>
+            <!-- add university button start-->
+            <a sec:authorize="!hasRole('ROLE_USER')" type="button" class="addButton btn btn-primary rounded-circle" th:href="@{/management/other/form}">
+                <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+            </a>
+            <!-- add university button end-->
+        </div>
+    </div>
+</div>
+<!-- navigation -->
+<script th:src="@{/js/dashboard.js}"></script>
+<!-- script -->
+<!-- ##### All Javascript Script ##### -->
+
+</body>
+</html>

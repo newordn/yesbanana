@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<title>YesBanana</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="OneTech shop project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}"> 
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_styles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_responsive.css}">
+    <style>
+        .fsStyle {
+            border: 2px solid #999999;
+            border-radius: 2px;
+            padding-left: 1em;
+            padding-right: 1em;
+            text-align: center;
+        }
+        .legendStyle {
+            font-size: 100%;
+            color: #222222;
+            background-color: transparent;
+            margin-bottom:.15px;
+            width: auto;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="super_container">
+
+	<div th:replace="~{../templates/fragments/header :: header}"></div>
+
+	<!-- Shop -->
+
+	<div class="shop">
+		<div class="container">
+			<div class="row">
+				<div th:replace="~{../templates/fragments/side_travailler_avec_nous :: side_travailler_avec_nous}"></div>
+
+				<div class="col-lg-9">
+					
+					<!-- Shop Content -->
+
+					<div class="shop_content">
+						<div class="shop_bar clearfix">
+							<div class="shop_product_count"><span></span> Formulaire</div>
+							<div class="shop_sorting">Etudiant</div>
+						</div>
+
+						<div class="card p-3  mt-3" style="border-radius: 15px">
+							<div class="card-body">
+                        <form action="#" id="contact_form" class="p-2" method="POST" enctype="multipart/form-data" th:object="${user}" th:action="@{/user/create/visitor}">
+							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+								<input type="text" id="contact_form_name" name="name" class="contact_form_name input_field" placeholder="Nom"  data-error="Name is required.">
+								<input type="text" id="contact_form_email" class="contact_form_email input_field" placeholder="Email" name="email"  data-error="Email is required.">
+								<select class="contact_form_email input_field" name="country">
+									<option value="">Selectionner un pays</option>
+									<option th:each="countrySel : ${countries}" th:value="${countrySel}"
+                                    th:text="${countrySel}">Selectionner un pays</option>
+								</select>
+								
+							</div>
+							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+								<input type="text" id="contact_form_phone" name="number" class="contact_form_phone input_field" placeholder="Téléphone">
+								<input type="text" id="contact_form_localisation" name="region" class="contact_form_name input_field" placeholder="Region"  data-error="Localisation is required.">
+								<input type="text" id="contact_form_title" class="contact_form_email input_field" placeholder="Université" name="university"  data-error="Email is required.">
+								
+							</div>
+							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+								<input type="text" id="contact_form_price" name="faculty" class="contact_form_phone input_field" placeholder="Faculté">
+								<input type="text" id="contact_form_category" name="category" class="contact_form_name input_field" placeholder="Domaine"  data-error="Localisation is required.">
+								<label>Photo</label>
+								<input type="file" id="contact_form_files"   class="contact_form_email input_field" name="file" >
+								
+							</div>
+							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+								<label>Cv:</label>
+								<input type="file" id="contact_form_files1"   class="contact_form_email input_field" name="cvFile" >
+								<input type="text" id="contact_form_category1" name="anotherDetail" class="contact_form_name input_field" placeholder="Vos motivations" data-error="Localisation is required.">
+								<select class="contact_form_email input_field" name="category">
+									<option value="Etudiant">Etudiant</option>
+								</select>
+								
+							</div>
+							
+							<div class="contact_form_button">
+								<button type="submit" class="button contact_submit_button">Validé</button>
+							</div>
+						</form>
+							</div><br><br>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+					</div>
+<div th:replace="~{../templates/fragments/footer :: footer}"></div>
+
+<script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+<script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/new/js/contact_custom.js}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        // change checked button
+        $("#avance").click(function(){
+            $("#avance").prop("checked", true);
+            $("#rapide").prop("checked", false);
+            $("#form_rapide").css("display","none");
+            $("#form_avance").css("display","block");
+        });
+        $("#rapide").click(function(){
+            $("#rapide").prop("checked", true);
+            $("#avance").prop("checked", false);
+            $("#form_rapide").css("display","block");
+            $("#form_avance").css("display","none");
+        });
+
+    });
+</script>
+
+</body>
+
+</html>

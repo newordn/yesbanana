@@ -1,0 +1,89 @@
+ <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+ <head>
+     <title>Yesbanana</title>
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="description" content="OneTech shop project">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+     <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">
+     <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+     <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+     <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+     <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
+ </head>
+<body>
+<script
+        src="https://www.paypal.com/sdk/js?client-id=AX1bgCA9UyX9fwXC1EuDBva_xyHGr5YIUO5T_T0xLT_WcUEewEkW8Il5sZ0yzcJ7FPGVpR7YKi9-Q5mi&disable-card=visa,mastercard,amex ">
+</script>
+
+<div class="super_container">
+    <div th:replace="~{../templates/fragments/header::header}"></div>
+
+    <!-- Home -->
+
+    <div class="home">
+        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="new/images/shop_background.jpg"></div>
+        <div class="home_overlay"></div>
+        <div class="home_content d-flex flex-column align-items-center justify-content-center">
+            <h2 class="home_title">Contenu du panier</h2>
+        </div>
+    </div>
+
+    <!-- Shop -->
+
+    <div class="shop">
+        <div class="container">
+            <div class="container mb-3 card p-3" >
+                <div class="row">
+                    <div class="col-6">
+                        <h4 class="text-left"> Date :  <span th:text="${commande.dateReservation}"></span></h4>
+                    </div>
+                    <div class="col-6">
+                        <h4 class="text-right"><a class="btn btn-primary" th:href="@{'/payment/form/'+ ${commande.commandeId}}" >Passer la commande</a></h4>
+                    </div>
+                </div>
+                <h4>Montant total : <span th:text="${commande.montant}" class="text-center"></span> $ </h4>
+                <table class="table bordered" style="color:black">
+                    <thead>
+                    <th>Article</th>
+                    <th>Montant</th>
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${commande.title}">Cours d'anglais</td>
+                        <td th:text="${commande.montant}">25$</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                <div class=" card mx-2 alert text-center alert-info">
+                    <h4>Confirmer votre paiement en cliquant sur le bouton passer la commande</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{../templates/fragments/footer::footer}"></div>
+
+
+<script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+<script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/new/js/shop_custom.js}"></script>
+</body>
+</html>

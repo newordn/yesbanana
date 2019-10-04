@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modification du groupe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/style1.css}" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/css/element.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+
+
+</head>
+<body class="userCrewWrapper">
+<!-- sidebar-->
+<nav th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</nav>
+<!-- sidebar-->
+
+<div id="content" class="card modal-warning" style="padding-right: 15px;padding-left: 15px" >
+    <!--navigation-->
+    <div th:replace="~{../templates/fragments/navigationcrew :: navigationcrew}">
+    </div>
+    <!-- navigation -->
+
+    <!-- update crew form -->
+    <h3 class="text-center mt-5">Modifier les informations du groupe</h3>
+    <div class="modal-dialog justify-content-center mt-3" >
+        <form class="modal-content card text-center p-5" style="width:40rem;" th:object="${groupe}" th:action="@{/groupe/update/{groupeId}(groupeId=${groupe.groupeId})}" method="post">
+            <div class="form-group" >
+                <span class='error' id="nameError"></span>
+                <input type="text" th:field="*{groupeName}" id="groupeName" class="form-control" placeholder="Nom du groupe" />
+                <input type="text" th:field="*{status}"  class="form-control" style="display: none" placeholder="Nom du groupe" />
+            </div>
+                <span class='error' id="countryError"></span>
+                <select class="form-control mb-3" style="width: 100%" th:field="*{groupeCountry}" id="countrySelect">
+                    <option value="">Selection pays</option>
+                    <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
+                </select>
+            <div class="form-group" style="width: 100%">
+                <span class='error' id="regionError"></span>
+                <input type="text" th:field="*{groupeRegion}" id="groupeRegion" class="form-control" placeholder="Région" />
+            </div>
+            <div class="form-group">
+                <strong>Chef du groupe : </strong>
+                <select th:field="*{groupChief}">
+                    <option value=""></option>
+                    <option th:each="user : ${users}" class="form-control" th:value="${user.userId}" th:text="${user.name}">Nounamo Patrick</option>
+                </select>
+
+            </div>
+            <div class="form-group row form-button" style="width: 100%">
+                <div class=" col-md-6">
+                    <a   style="width:100%;" th:href="@{/groupe/groupes}" class="btn btn-danger">Retour</a>
+                </div>
+                <div class=" col-md-6">
+                    <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
+                </div>
+            </div>
+            </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+        });
+        $('#back').on('click', function(){
+            $('#sidebar').toggleClass('active')
+        });
+
+    });
+</script>
+
+</body>
+
+</html>

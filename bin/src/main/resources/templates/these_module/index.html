@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<title>YesBanana</title>
+<meta charset="utf-8">
+<meta name="description" content="OneTech shop project">
+<meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
+<link rel="stylesheet"  th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+<link th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}" rel="stylesheet">
+<link rel="stylesheet"  th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+<link rel="stylesheet"  th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+<link rel="stylesheet"  th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+<link rel="stylesheet"  th:href="@{/new/plugins/slick-1.8.0/slick.css}">
+<link rel="stylesheet"  th:href="@{/new/styles/main_styles.css}">
+<link rel="stylesheet"  th:href="@{/new/styles/responsive.css}">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<style>
+		.mouse{
+			cursor:pointer ;
+		}
+		.p{
+			font-size: 20px;
+		}
+	</style>
+
+</head>
+
+<body>
+
+<div class="super_container">
+
+	<div th:replace="~{../templates/fragments/header :: header}"></div>
+
+
+	<!-- Banner -->
+
+	<div class="banner mt-4">
+		<div class="banner_background pl-3 pr-3 row" >
+			<div class="col-md-7">
+				<div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+	                              <!--Indicators-->
+	                              <ol class="carousel-indicators">
+	                                <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
+	                                <li data-target="#carousel-example-1z" data-slide-to="1"></li>
+	                                <li data-target="#carousel-example-1z" data-slide-to="2"></li>
+	                              </ol>
+	                              <!--/.Indicators-->
+	                              <!--Slides-->
+	                              <div class="carousel-inner" role="listbox">
+	                                <!--First slide-->
+	                                <div class="carousel-item active">
+	                                  <img class="d-block w-100" th:src="@{/new/images/yesb-1.jpg}"
+	                                    alt="First slide">
+	                                </div>
+	                                <!--/First slide-->
+	                                <!--Second slide-->
+	                                <div class="carousel-item">
+	                                  <img class="d-block w-100" th:src="@{/new/images/yesb-2.jpg}"
+	                                    alt="Second slide">
+	                                </div>
+	                                <!--/Second slide-->
+	                                <!--Third slide-->
+	                                <div class="carousel-item">
+	                                  <img class="d-block w-100" th:src="@{/new/images/yesb-3.jpg}"
+	                                    alt="Third slide">
+	                                </div>
+	                                <!--/Third slide-->
+	                                <!--Third slide-->
+	                                <div class="carousel-item">
+	                                  <img class="d-block w-100" th:src="@{/new/images/yesb-4.jpg}"
+	                                    alt="Third slide">
+	                                </div>
+	                                <!--/Third slide-->
+	                                <!--Third slide-->
+	                                <div class="carousel-item">
+	                                  <img class="d-block w-100" th:src="@{/new/images/yesb-5.jpg}"
+	                                    alt="Third slide">
+	                                </div>
+	                                <!--/Third slide-->
+	                                  <!--Third slide-->
+	                                  <div class="carousel-item">
+	                                      <img class="d-block w-100" th:src="@{/new/images/yesb-6.jpg}"
+	                                           alt="Third slide">
+	                                  </div>
+	                                  <!--/Third slide-->
+	                                  <!--Third slide-->
+	                                  <div class="carousel-item">
+	                                      <img class="d-block w-100" th:src="@{/new/images/yesb-7.jpg}"
+	                                           alt="Third slide">
+	                                  </div>
+	                                  <!--/Third slide-->
+	                                  <!--Third slide-->
+	                                  <div class="carousel-item">
+	                                      <img class="d-block w-100" th:src="@{/new/images/yesb-8.jpg}"
+	                                           alt="Third slide">
+	                                  </div>
+	                                  <!--/Third slide-->
+									  <!--Third slide-->
+									  <div class="carousel-item">
+										  <img class="d-block w-100" th:src="@{/new/images/yesb-9.jpg}"
+											   alt="Third slide">
+									  </div>
+									  <!--/Third slide-->
+	                              </div>
+	                              <!--/.Slides-->
+	                              <!--Controls-->
+	                              <a class="carousel-control-prev"  href="#carousel-example-1z" role="button" data-slide="prev">
+									  <i class="fa fa-chevron-left fa-3x" style="color: #0d82d3"></i>
+	                                <span class="sr-only">Previous</span>
+	                              </a>
+	                              <a class="carousel-control-next"  href="#carousel-example-1z" role="button" data-slide="next">
+									  <i class="fa fa-chevron-right fa-3x" style="color: #0d82d3"></i>
+	                                <span class="sr-only">Next</span>
+	                              </a>
+	                              <!--/.Controls-->
+	            </div>
+            </div>
+			<div class="col-md-5 text-left">
+				<p class="p"><i class="fa fa-circle"></i>&nbsp;Yesbanana  est une plate forme de la Fondation  Joseph qui a pour objectif de promouvoir l’éducation et l’entrepreneuriat en Afrique.<strong class="text-info mouse" id="button_show">&nbsp;&nbsp;<i class="fa fa-chevron-circle-down fa-1x"></i>&nbsp;<span>Voir plus</span></strong><span id="paragraph1_show" style="display: none">
+					Lutter contre le sous développement de l’Afrique invite soit à revoir ou à compléter le système d’éducation actuel.
+					Revoir est une mission et décision des gouvernements mais compléter
+					est une contribution de tout citoyen digne d’appartenir à son pays..</br><strong class="text-info mouse" id="button_hide">&nbsp;&nbsp;<i class="fa fa-chevron-circle-up fa-1x" ></i>&nbsp;<span >Réduire</span></strong></span></p>
+				<br>
+				<p class="p"><i class="fa fa-circle"></i>&nbsp;Yesbanana  croit en de valeurs qui au fil de temps disparaissent à tous
+					les niveaux d’éducation. Voilà pourquoi on n’hésite pas à se poser la question pourquoi avec tant d’institutions
+					d’éducation,&nbsp;&nbsp;<strong class="text-info mouse" id="button_show1"><i class="fa fa-chevron-circle-down fa-1x" ></i>&nbsp;<span>Voir plus</span></strong><span id="paragraph1_show1" style="display: none">
+						l’Afrique forme très peu de citoyens dignes pour servir leur pays. Pourquoi les maux africains ne
+					se guérissent pas? Une remise en question de tout un système. Les générations passées ont toujours été fières de
+					l’éducation reçue comparée à celle d’aujourd’hui mais si cette  éducation avait été bien conçue et complétée avec
+					des valeurs citoyennes et d’entrepreneuriat, l’Afrique ne serait pas arrivé là où elle est actuellement..</br><strong class="text-info mouse"  id="button_hide1">&nbsp;&nbsp;<i class="fa fa-chevron-circle-up fa-1x"></i>&nbsp;<span>Réduire</span></strong></span></p><br>
+				<p class="p"><i class="fa fa-circle"></i>&nbsp;Voici la contribution de YesB: compléter le système éducatif formel et promouvoir et accompagner l’entrepreneuriat.</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Characteristics -->
+
+	<div class="characteristics">
+		<div class="container">
+			<div class="row">
+			</div>
+		</div>
+	</div>
+
+	<!-- Deals of the week -->
+
+	<div class="deals_featured mb-auto">
+		<div class="container">
+			<div class=" mb-auto " style="height: 630px;">
+				<div class="col d-flex flex-lg-row flex-column row  justify-content-start">
+					
+					<!-- Deals -->
+
+					<div class="deals" style="height: 600px">
+						<div class="deals_title">DECOUVERTE</div>
+						<div class="deals_slider_container">
+							
+							<!-- Deals Slider -->
+							<div class="owl-carousel owl-theme deals_slider">
+								
+								<!-- Deals Item -->
+								<div class="owl-item deals_item">
+									<div class="deals_image"><img th:src="@{/new/images/image-congo.jpg}" alt=""></div>
+									<div class="deals_content">
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category"><a href="#">Pays :</a></div>
+											<div class="deals_item_price_a ml-2">Republique Démocratique du Congo</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category"><a href="#">Capitale :</a></div>
+											<div class="deals_item_price_a ml-2">Kinshasa</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category">Continent :</div>
+											<div class="deals_item_price_a ml-2">Afrique</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category">Langue parler :</div>
+											<div class="deals_item_price_a ml-2">Francais</div>
+										</div>
+										<div class="available">
+											<div class="available_line d-flex flex-row justify-content-start">
+												<a href="#" class="btn btn-primary">Decouvrir la RDC</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Deals Item -->
+								<div class="owl-item deals_item">
+									<div class="deals_image"><img th:src="@{/new/images/kinshasa.svg.png}" alt=""></div>
+									<div class="deals_content">
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category"><a href="#">Province :</a></div>
+											<div class="deals_item_price_a ml-2">Kinshasa</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category"><a href="#">Capitale :</a></div>
+											<div class="deals_item_price_a ml-2">Kinshasa</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category">Population :</div>
+											<div class="deals_item_price_a ml-2">17 071 000 hab</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category">Superficie :</div>
+											<div class="deals_item_price_a ml-2">9 965 km2</div>
+										</div>
+										<div class="available">
+											<div class="available_line d-flex flex-row justify-content-start">
+												<a href="#" class="btn btn-primary">Decouvrir Kinshasa</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Deals Item -->
+								<div class="owl-item deals_item">
+									<div class="deals_image"><img th:src="@{/new/images/logo-cameroun.jpg}" alt=""></div>
+									<div class="deals_content">
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category"><a href="#">Pays :</a></div>
+											<div class="deals_item_price_a ml-2">Cameroun</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category"><a href="#">Capitale :</a></div>
+											<div class="deals_item_price_a ml-2">Yaounde</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category">Population :</div>
+											<div class="deals_item_price_a ml-2">24 050 000 hab</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category">Superficie :</div>
+											<div class="deals_item_price_a ml-2">475 440 km2</div>
+										</div>
+										<div class="available">
+											<div class="available_line d-flex flex-row justify-content-start">
+												<a href="#" class="btn btn-primary">Decouvrir le Cameroun</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Deals Item -->
+								<div class="owl-item deals_item">
+									<div class="deals_image"><img th:src="@{/new/images/logo-burundi.jpg}" alt=""></div>
+									<div class="deals_content">
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category"><a href="#">Pays :</a></div>
+											<div class="deals_item_price_a ml-2">Burundi</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category"><a href="#">Capitale :</a></div>
+											<div class="deals_item_price_a ml-2">Gitega</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category">Population :</div>
+											<div class="deals_item_price_a ml-2">11 099 298 hab</div>
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category">Superficie :</div>
+											<div class="deals_item_price_a ml-2">27 834 km2</div>
+										</div>
+										<div class="available">
+											<div class="available_line d-flex flex-row justify-content-start">
+												<a href="#" class="btn btn-primary">Decouvrir le Burundi</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+
+						<div class="deals_slider_nav_container">
+							<div class="deals_slider_prev deals_slider_nav"><i class="fas fa-chevron-left ml-auto"></i></div>
+							<div class="deals_slider_next deals_slider_nav"><i class="fas fa-chevron-right ml-auto"></i></div>
+						</div>
+					</div>
+					
+					<!-- Featured -->
+					<div class="featured" style="height: 500px">
+						<div class="tabbed_container">
+							<div class="tabs">
+								<ul class="clearfix">
+									<li class="active">Qui somme nous?</li>
+									<li>Une Question</li>
+									<li>Aide</li>
+								</ul>
+								<div class="tabs_line"><span></span></div>
+							</div>
+
+							<!-- Product Panel -->
+							<div class="product_panel panel active">
+								<div class="featured_slider slider" style="height: inherit">
+
+									<!-- Slider Item -->
+									<div class="featured_slider_item">
+										<div class="border_active"></div>
+										<div class="product_item discount card pr-2 pl-2 " style="height: 500px">
+											<div class="product_content" style="overflow: scroll;cursor: auto">
+											<span>Dans une société où les conditions difficiles socio économiques ont poussé dans la rue
+												les parents pour chercher comment nouer les deux bouts du mois, Ces derniers stressés par
+												les employeurs sans conscience familiale, le loisir sans valeur ajoutée a bien recruté ses
+												fans et a comblé bonnement la place de l’éducation parentale, et le tout devant des gouvernements
+												qui se remplacent sans se rendre compte de la qualité de l’éducation qui est tombée au plus
+												bas,...où l’universitaire ne sait même plus construire un raisonnement digne de son éducation, ne sait
+												pas faire de la recherche scientifique et professionnelle pour résoudre les problèmes de sa société et
+												n’est éduqué uniquement que pour travailler pour quelqu’un,... Yesbanana se veut de contribuer à côté de
+												tout ceux qui n’acceptent pas ces conditions et veulent poser un acte, un geste dans le sens de contribuer
+												à relever la qualité l’éducation. Rendre l’éducation accessible jusqu’au fin fond des villages africains où
+												les infrastructures demandent un investissement qui n’est pas encore là, voilà l’objectif de Yesbanana.
+												Aussi longtemps que le sacrifice des parents, éducateurs - enseignants et professeurs - l’emportera sur les
+												moyens mis à leur disposition par les gouvernements pour dispenser l’éducation de qualité et contribuer au
+												le lendemain meilleur de la future génération, le cycle de la pauvreté dans tous ses aspects sera combattue
+												autrement par l’investissement à l’éducation d’abord! Yesbanana est un outil qui contribue à l’effort des enseignants
+												et professeurs pour un lendemain de l’éducation meilleure. Les volets développés dans Yesbanana sont un complément
+												et support à la qualité de l’éducation actuellement dispensée dans le système africain où la recherche est au
+												bas, les enseignants actuel sont les fruits de l’enseignement du hier, où les meilleurs enseignants du hier ont
+												pris un autre chemin. Créer sa propre affaire est on dirait un mystère, l’identification de talents n’a pas de
+												place, promouvoir la croyance en soi n’est pas une priorité du système éducatif, découvrir n’est un sujet
+												d’encouragement et d’admiration, les valeurs ne sont pas enseignées mais les enfants les ramassent sur la rue.
+												Yesbanana contribue à relever ce défi et lutter contre le système qui engouffre l’éducation. Cet espace
+												virtuel est ouvert à tout celui qui croit que c’est possible, l’Afrique ne mérite pas la situation actuelle
+												et que le futur est un investissement. La facilité n’a pas de place là où les générations antérieures n’ont
+												pas investi, et que le dur travail couplé avec le sacrifice de soi même paie toujours. Il y a trop de loisir
+												que du travail dans notre système. Nous devons inverser la donne pour voir le cycle de pauvreté de génération
+												en génération tomber ou aussi pouvoir maintenir et/ou développer ce dont nous avons d’être fier aujourd’hui.</span>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="featured_slider_dots_cover"></div>
+							</div>
+
+							<!-- Product Panel -->
+
+							<div class="product_panel panel">
+								<div class="featured_slider slider">
+
+									<!-- Slider Item -->
+									<div class="featured_slider_item">
+										<div class="border_active"></div>
+										<div class="product_item discount " style="height: 500px">
+											<div class="product_content" style="overflow: scroll;">
+												<span> 3 - On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</span>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="featured_slider_dots_cover"></div>
+							</div>
+
+							<!-- Product Panel -->
+
+							<div class="product_panel panel">
+								<div class="featured_slider slider">
+
+									<!-- Slider Item -->
+									<div class="featured_slider_item">
+										<div class="border_active"></div>
+										<div class="product_item discount " style="height: 500px">
+											<div class="product_content" style="overflow: scroll;">
+												<p>2- On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="featured_slider_dots_cover"></div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Banner -->
+</div>
+	<div th:replace="~{../templates/fragments/footer :: footer}"></div>
+	<div th:replace="~{../templates/fragments/login :: login}"></div>
+
+<script th:src="@{/new/js/jquery-3.3.1.min.js}" ></script>
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/slick-1.8.0/slick.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/js/custom.js}"></script>
+<script>
+    $(document).ready(function(){
+        //first paragraphe
+        $("#button_hide").click(function(){
+            $("#paragraph1_show").hide();
+            $("#button_show").show();
+        });
+        $("#button_show").click(function(){
+            $("#paragraph1_show").show();
+           // $("#paragraph1_show1").hide();
+            $("#button_show").hide();
+        });
+
+        //second paragraph
+        $("#button_hide1").click(function(){
+            $("#paragraph1_show1").hide();
+            $("#button_show1").show();
+        });
+        $("#button_show1").click(function(){
+            $("#paragraph1_show1").show();
+            $("#button_show1").hide();
+        });
+    });
+</script>
+</body>
+
+</html>

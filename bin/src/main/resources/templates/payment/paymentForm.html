@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>YesBanana</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="OneTech shop project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
+</head>
+<body>
+<script
+        src="https://www.paypal.com/sdk/js?client-id=ARyQ6dLUpHMngWL63lD9HsNHV86KT5F99ZYkSFhgfGAJoqcHY4dWcpnqmOF9CUZ9nL6UbUtfG_0TaZLz">
+</script>
+
+<div class="super_container">
+    <div th:replace="~{../templates/fragments/header :: header}"></div>
+
+    <!-- Home -->
+
+    <div class="home">
+        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="new/images/shop_background.jpg"></div>
+        <div class="home_overlay"></div>
+        <div class="home_content d-flex flex-column align-items-center justify-content-center">
+            <h2 class="home_title">Page de Paiement</h2>
+        </div>
+    </div>
+
+    <!-- Shop -->
+
+    <div class="shop">
+        <div class="container">
+            <div class="container mb-3 card p-3" >
+                    <div class="row justify-content-center  pb-3">
+                        <div class="col-md-7 text-center heading-section ftco-animate">
+                            <h2 class="mb-1"><span>Effectuer un paiement</span></h2>
+                        </div>
+                    </div>
+                    <div style="margin-left:1rem">
+                        <label for="amount">Montant &nbsp;</label>
+                        <input type="text" id="amount" class="input-field" th:value="${commande.montant}" style="padding-left:1rem" name="amount" disabled>
+                        <strong>$</strong>
+                    </div>
+                    <div class="row d-flex text-center heading-section mb-5 justify-content-between" >
+
+                        <div class="col-6">
+                            <span><input type="radio"  id="payPalTrigger" name="pay_method" value="paypal" checked> Credit Card / PayPal</span>
+                        </div>
+                        <div class="col-6">
+                            <span><input type="radio" id="mobileTrigger" name="pay_method" value="mobile" > Mobile Money</span>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center" style="display: none" id="mobile">
+                        <form th:if="${session.userId}!=null" action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
+
+                            <!-- payment value -->
+                            <input type="hidden" th:value="${user.email}" id="user_email" name="user_email">
+                            <input type="hidden" th:value="${user.name}" id="user_name" name="user_name">
+                            <input type="hidden" th:value="${user.country}" id="user_country" name="user_country">
+                            <!-- payment value -->
+
+                            <div class="form-group d-flex ">
+                                <div class="col-md-4 form-group">
+                                    <select class="custom-select" id="operatorSelection">
+                                        <option value="undefined">Opérateurs</option>
+                                        <option value="CD_ORANGEMONEY" >Orange Money</option>
+                                        <option value="CD_MTNMOBILEMONEY" >Mtn Mobile Money</option>
+                                        <option value="vodacom">Vodacom Money</option>
+                                        <option value="airtel">Airtel Money</option>
+                                    </select>
+                                </div>
+                                <input type="hidden" th:value="${commande.montant}" name="amount">
+                                <div class="col-md-5">
+                                    <input type="text" id="phone_number" name="phone" th:value="${commande.telephoneBeneficaire}" style="width:100%;padding-left:2rem;" placeholder="Votre numéro de téléphone ex: 237693063228">
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button"  onClick="pay()" class="btn btn-primary " style="width:100%">Valider</button>
+                                </div>
+                            </div>
+                        </form>
+                        <form th:unless="${session.userId}!=null" action="#" class="subscribe-form mt-2" method="post" id="mobileForm">
+
+                            <div class="form-group d-flex ">
+                                <div class="col-md-4 form-group">
+                                    <select class="custom-select" id="operatorSelection">
+                                        <option value="undefined">Opérateurs</option>
+                                        <option value="CD_ORANGEMONEY" >Orange Money</option>
+                                        <option value="CD_MTNMOBILEMONEY" >Mtn Mobile Money</option>
+                                        <option value="vodacom">Vodacom Money</option>
+                                        <option value="airtel">Airtel Money</option>
+                                    </select>
+                                </div>
+                                <input type="hidden" th:value="${commande.montant}" name="amount">
+                                <div class="col-md-5">
+                                    <input type="text" id="phone_number" name="phone" th:value="${commande.telephoneBeneficaire}" style="width:100%;padding-left:2rem;" placeholder="Votre numéro de téléphone ex: 237693063228">
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button"  onClick="pay()" class="btn btn-primary " style="width:100%">Valider</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="row justify-content-center" id="payPal">
+
+                        <div id="paypal-button-container" class="row justify-content-center">
+
+                        </div>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div style="opacity:0">
+        <!-- success button -->
+        <a th:href="@{/payment/transactions}" id="transaction_success"><span>sucess</span></a>
+        <!-- success button -->
+
+
+        <!-- error button -->
+        <a th:href="@{/payment/error}" id="transaction_error"><span>error</span></a>
+        <!-- error button -->
+    </div>
+</div>
+<div th:replace="~{../templates/fragments/footer :: footer}"></div>
+
+
+<script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+<script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/new/js/shop_custom.js}"></script>
+<script th:src="@{/js/PaymentScripts/paymentMobileOrange.js}"></script>
+<script th:src="@{/js/PaymentScripts/paymentPayPal.js}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('input[type="radio"]').click(function() {
+            if($(this).attr('id') == 'mobileTrigger') {
+                $('#mobile').show();
+                $('#payPal').hide();
+            }
+            else if ($(this).attr('id')=='payPalTrigger') {
+                $('#payPal').show();
+                $('#mobile').hide();
+            }
+        });
+    });
+</script>
+</body>
+</html>

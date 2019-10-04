@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<title>YesBanana</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="OneTech shop project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+<link th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
+
+
+</head>
+
+<body>
+
+<div class="super_container">
+
+	<div th:replace="~{../templates/fragments/header :: header}"></div>
+
+
+	<!-- Home -->
+
+	<div class="home">
+		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
+		<div class="home_overlay"></div>
+		<div class="home_content d-flex flex-column align-items-center justify-content-center">
+			<h2 class="home_title">Etre accompagné par ?</h2>
+		</div>
+	</div>
+
+	<!-- Shop -->
+
+	<div class="shop">
+		<div class="container">
+			<div class="row">
+				<div th:replace="~{../templates/fragments/side_encadrement_travaux_scientifiques :: side_encadrement_travaux_scientifiques}"></div>
+
+
+				<div class="col-lg-9">
+					
+					<!-- Shop Content -->
+
+					<div class="shop_content">
+						<div class="shop_bar clearfix">
+							<div class="shop_product_count"><span></span></div>
+							<div class="shop_sorting">Professeur</div>
+						</div>
+
+						<div class="product_grid">
+							<div class="product_grid_border"></div><br><br>
+								<div class="container card border ">
+                            <div class="card-body">
+                                   ici contenu professeur
+                            </div>
+                        </div>
+							
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div th:replace="~{../templates/fragments/footer :: footer}"></div>
+
+
+<script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+<script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/new/js/shop_custom.js}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        // change checked button
+        $("#avance").click(function(){
+            $("#avance").prop("checked", true);
+            $("#rapide").prop("checked", false);
+            $("#form_rapide").css("display","none");
+            $("#form_avance").css("display","block");
+        });
+        $("#rapide").click(function(){
+            $("#rapide").prop("checked", true);
+            $("#avance").prop("checked", false);
+            $("#form_rapide").css("display","block");
+            $("#form_avance").css("display","none");
+        });
+
+    });
+</script>
+
+</body>
+
+</html>

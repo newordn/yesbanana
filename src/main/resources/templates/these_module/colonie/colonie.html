@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Yesbanana</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="OneTech shop project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/product_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/product_responsive.css}">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_responsive.css}">
+    <link rel="stylesheet"  th:href="@{/new/styles/main_styles1.css}">
+    <link rel="stylesheet"  th:href="@{/new/styles/responsive.css}">
+</head>
+<body>
+
+<div class="super_container">
+    <div th:replace="~{../templates/fragments/header :: header}"></div>
+
+    <!-- Home -->
+
+    <div class="home">
+        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
+        <div class="home_overlay"></div>
+        <div class="home_content d-flex flex-column align-items-center text-center justify-content-center">
+            <h2 class="home_title">Colonie de vacances</h2>
+        </div>
+    </div>
+
+    <!-- Single Product -->
+
+    <div class="single_product">
+        <div class="container">
+            <div class="row">
+
+                <!-- Images -->
+                <div class="col-lg-2 order-lg-1 order-2">
+                    <ul class="image_list" th:each=" colonie1 : ${colonies}">
+                        <a th:href="@{/visitor/colonie/}+${colonie1.colonieId}"> <li th:data-image="${colonie1.fichier[0]}"><img th:src="${colonie1.fichier[0]}" alt=""></li></a>
+                    </ul>
+                </div>
+
+                <!-- Selected Image -->
+                <div class="col-lg-5 order-lg-2 order-1">
+                    <div class="image_selected" >
+                        <!-- Deals -->
+
+                        <div class="deals">
+                            <div class="deals_title">PHOTO COUVERTURE</div>
+                            <div class="deals_slider_container">
+
+                                <!-- Deals Slider -->
+                                <div class="owl-carousel owl-theme deals_slider" >
+
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie.fichier[0]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie.fichier[1]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[2]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[3]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[4]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[5]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[6]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[6]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[7]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[8]}" alt=""></div>
+                                    </div>
+                                    <!-- Deals Item -->
+                                    <div class="owl-item deals_item">
+                                        <div class="deals_image"><img th:src="${colonie?.fichier[9]}" alt=""></div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="deals_slider_nav_container">
+                                <div class="deals_slider_prev deals_slider_nav"><i class="fas fa-chevron-left ml-auto"></i></div>
+                                <div class="deals_slider_next deals_slider_nav"><i class="fas fa-chevron-right ml-auto"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image_selected" >
+                        <video controls>
+                            <source th:src="${colonie.cover}">
+                        </video>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="col-lg-5 order-3">
+                    <div class="product_description">
+                        <div class="product_name"><span th:text="${colonie.title}"></span></div>
+                        <div class="product_category">
+                            <h6 th:if="${colonie.category}=='petit'"><strong>Age de : </strong><span >05 - 10 ans</span></h6>
+                            <h6 th:if="${colonie.category}=='cadet'"><strong>Age de : </strong><span >11 - 16 ans</span></h6>
+                            <p class="mt-2">Pays : <span th:text="${colonie.pays}"></span></p>
+                            <p class="mt-2">Site devant abriter l'activité : <span th:text="${colonie.site}"></span></p>
+                        </div>
+                        <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
+                        <div class="product_text"><p th:text="${colonie.activite}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at. Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.</p></div>
+                        <div class="order_info d-flex flex-row">
+                            <form action="#">
+                                <div class="clearfix" style="z-index: 1000;">
+
+                                    <!-- Product Quantity -->
+                                    <span>Saison</span>
+                                    <div class="product_quantity clearfix">
+                                        <span th:text="${colonie.saison}">Quantity: </span>
+
+                                    </div>
+                                        <!-- Product Quantity -->
+                                    <div class="product_quantity mt-3 clearfix">
+                                            <span th:text="${colonie.dateDebut}">Quantity: </span>
+
+                                        </div>
+                                    <!-- Product Quantity -->
+                                    <div class="product_quantity mt-3 clearfix" th:if="${colonie.type}=='vip'">
+                                        <span>Type: </span><span>V I P</span>
+                                    </div>
+                                    <!-- Product Quantity -->
+                                    <div class="product_quantity clearfix" th:if="${colonie.type}=='cadet'">
+                                        <span>Type: </span><span>S T A N D A R T</span>
+                                    </div>
+
+                                </div>
+                                <div class="product_price"><h6 th:text="'$ '+${colonie.price}"></h6></div>
+                                <p>Faite votre reservation pour  offrir des moments inoubliable a vos enfants avec l'équipe de Yesbanana.
+                                    Reserver en trois (03) étapes:
+                                </p>
+                                <p>
+                                    (01)&nbsp;<i class="fa fa-hand-o-right"></i>&nbsp;Connectez vous afin d'avoir
+                                    un compte et pouvoir ajouter des éléments dans votre panier pour éffectuer vos
+                                    paiements via le lien <a class="btn" data-toggle="modal" data-target="#login" style="color: #00b5e9">connexion</a> oû <a class="btn" data-toggle="modal" data-target="#inscription" style="color: #00b5e9">Inscrivez vous?</a> ici!
+                                </p>
+                                <p>
+                                    (02)&nbsp;<i class="fa fa-hand-o-right"></i>&nbsp;Vous etes deja connecter? c'est le moment de signaler vos conditions de reservation pour une activité via le bouton ci-dessous
+                                </p>
+                                <div class="button_container">
+                                    <a class="button cart_button" th:href="@{/reservation/form/}+${colonie.colonieId}">Reservez sur Yesbanana</a>
+                                </div>
+
+                                <p class="mt-4">
+                                    (03)&nbsp;<i class="fa fa-hand-o-right"></i>&nbsp;Finalisez votre resevation en ajoutant cette activité dans votre panier a fin de finaliser le paiement via le bouton ci-dessous
+                                </p>
+                                <div class="button_container">
+                                    <a class="button cart_button" href="#">Ajouter à mon Panier</a>
+                                </div>
+                            </form>
+                            <div th:replace="~{../templates/fragments/login :: login}"></div>
+                        </div>
+                    </div>
+                </div>
+                <div  class=" modal fade in" id="inscription" tabindex="-1" role="dialog" data-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered card p-3"  style="pointer-events:auto;" role="document" >
+                        <form  id="contact_form" enctype="multipart/form-data" th:object="${user}" th:action="@{/user/visitor/buy/save}" me>
+                            <h2 class="card-header bg-primary text-center" style="color: #FFFFFF;">Incription visiteur</h2>
+                            <div class="card-body mt-3 p-0">
+                                <div  class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                                    <input style="width: 100%" type="text" id="contact_form_name" name="name" class="contact_form_name input_field" placeholder="Nom d'utilisateur"  >
+                                </div>
+                                <div  class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                                    <input style="width: 100%" type="email" id="contact_form_email" class="contact_form_email input_field" placeholder="Adresse Email" name="email"  >
+                                </div>
+                                <div  class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                                    <input style="width: 100%" type="text"  name="number" class="contact_form_name input_field" placeholder="Numero de téléphone"  >
+                                </div>
+                                <div  class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                                    <input style="width: 100%" type="password"  class="contact_form_email input_field" placeholder="Mot de passe" name="password"  >
+                                </div>
+                                <div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                                    <select class="contact_form_email input_field" style="width: 100%" name="country">
+                                        <option value="">Selectionner un pays</option>
+                                        <option th:each="countrySel : ${countries}" th:value="${countrySel}"
+                                                th:text="${countrySel}">Selectionner un pays</option>
+                                    </select>
+                                </div>
+                                <div  class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                                    <input style="width: 100%" type="text"  class="contact_form_email input_field" placeholder="Région" name="region"  >
+                                </div>
+                            </div>
+                            <div class="form-group row form-button" style="width: 100%">
+                                <div class="col-6">
+                                    <button data-dismiss="modal" style="width:100%;background-color: #f5e211!important; " class="button cart_button" >Cancel</button>
+                                </div>
+                                <div class="col-6">
+                                    <button type="submit" id="submit" style="width:100%;"  class="button cart_button">Valider</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- addCrew-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{../templates/fragments/footer :: footer}"></div>
+<script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+<script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/new/js/shop_custom.js}"></script>
+<script th:src="@{/new/js/product_custom.js}"></script>
+<script th:src="@{/new/js/contact_custom.js}"></script>
+<script th:src="@{/new/js/custom.js}"></script>
+
+</body>
+</html>

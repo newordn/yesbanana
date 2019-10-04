@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+
+    <!-- Title Page-->
+    <title>Creation d'une thèse</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- thymeleaft -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/showTheses.css}" rel="stylesheet">
+    <link th:href="@{/css/style1.css}" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <!-- thymeleaft-->
+</head>
+<body class="row">
+<!--navigation-->
+<div th:replace="~{../templates/fragments/navigationcrewtheseupdate :: navigationcrewtheseupdate}">
+</div>
+<!-- navigation -->
+<!-- sidebar-->
+<div th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</div>
+<!-- sidebar-->
+
+<div class="col-11 offset-1 main">
+    <!-- showing theses-->
+    <div class="row content justify-content-center" style="margin-top: 5.5rem;">
+        <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/these/add/create}" th:object="${these}">
+            <!-- user id -->
+            <input type="number" name="userId" th:value="${session.userId}" style="display:none">
+            <!-- user id -->
+            <!--theseId-->
+            <input type="number" th:field="*{theseId}"  style="display:none">
+            <!--theseId-->
+            <!--groupeId-->
+            <input type="number" name="groupeId" th:value="${session.groupeId}"  style="display:none">
+            <!--groupeId-->
+            <div class="row mb-4">
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="universityError"></span>
+                        <input type="text" th:field="*{university}" id="university" placeholder="Université/Ecole" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="facultyError"></span>
+                        <input type="text" th:field="*{faculty}" id="faculty" placeholder="Faculté/Discipline" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="optionError"></span>
+                        <input type="text" th:field="*{options}" id="option" placeholder="Option" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="levelError"></span>
+                        <input type="text" th:field="*{level}" id="level" placeholder="Niveau" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="subjectError"></span>
+                        <input type="text" th:field="*{subject}" id="subject" placeholder="Sujet/Thème" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="dateError"></span>
+                        <input type="text" th:field="*{theseDate}" id="dateThese" placeholder="Date" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-4">
+                    <div class="img-upload-div">
+                        <input class="img-input" type="text" name="file" id="abstract"  placeholder="Sommaire">
+                        <input type="file" name="file" id="abstract_file" style="display:none">
+                        <button class="img-upload" type="button" id="addButton">+</button>
+                        <input class="img-input" type="text" th:field="*{resumes}"  style="display:none" placeholder="Sommaire">
+                    </div>
+                </div>
+                <div class="col-4">
+                        <span class='error' id="countryError"></span>
+                        <select th:field="*{country}" style="width: 100%" class="country" id="countrySelect">
+                            <option value="">Selection pays</option>
+                            <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
+                        </select>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <span class='error' id="regionError"></span>
+                        <input type="text" th:field="*{regions}" id="region" placeholder="Région" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-3">
+                    <div class="form-group">
+                        <span class='error' id="assistantError"></span>
+                        <input type="text" th:field="*{assistant}" id="assistant" placeholder="Nom de l'assistant" />
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <span class='error' id="studentError"></span>
+                        <input type="text" th:field="*{student}" id="student" placeholder="Nom de l'étudiant" />
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group ">
+                        <span class='error' id="profError"></span>
+                        <input type="text" th:field="*{profesor}" id="prof" placeholder="Nom de l'encadreur/prof" />
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <span class='error' id="workChiefError"></span>
+                        <input type="text" th:field="*{workChief}" id="workChief" placeholder="Nom du chef des travaux" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-6">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <h4>Bibliographie</h4>
+                            <ul class="list-group" id="bibliographyList">
+                            </ul>
+                            <input type="text" value="" style="display:none;" th:field="*{bibliography}" id="bibliography" placeholder="Bibliographie" />
+                            <button style="width:100%"  data-toggle="modal" data-target="#addBibliography"
+                                    class="img-upload addBL" type="button" id="addBibliographyBtn">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group row">
+                        <input type="text" value="" th:field="*{library}" style="display:none" id="library" placeholder="Bibliothèque" />
+
+                        <div class="col-12">
+                            <h4>Bibliothèque</h4>
+                            <ul class="list-group" id="libraryList">
+                            </ul>
+                            <button style="width:100%" data-toggle="modal" type="button" data-target="#addLibrary"
+                                    class="img-upload addBL" id="addlibraryBtn">+</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-12" style="text-align:center">
+                    <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'" style="width:25%;"   class="btn btn-success" >Valider</a>
+                    <div class="modal card modal-warning fade in" th:id="modal-warning" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span></button>
+                                    <h5 class="modal-title">Envoi d'un message de validation a l'administrateur pour activation d'une Thèse</h5>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <div class="form-group">
+                                        <label > Adresse email destinataire :</label>
+                                        <input type="email" class="form-control" name="adresse">
+                                    </div>
+                                    <div class="form-group">
+                                        <label > Corps du message :</label>
+                                        <textarea class="form-control" rows="10" name="contenue"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                    <button type="submit" class="btn btn-danger" ><i class="fa fa-check"></i>&nbsp;Envoye</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <a style="width:25%;" th:href="@{/groupe/these/}+${these.theseId}"  class="btn btn-warning" >Annuler</a>
+    </div>
+
+
+</div>
+<!-- addBibliography-->
+<div class=" modal fade" id="addBibliography" tabindex="-1" role="dialog">
+    <div class=" modal-dialog  modal-dialog-centered" style="box-sizing: content-box" role="document">
+        <form class="modal-content card " style="padding:2rem;">
+            <div class="form-group">
+                <input type="text" id="bibliographyAuthor" placeholder="Auteur" />
+            </div>
+            <div class="form-group">
+                <input type="text" id="bibliographyTitle" placeholder="Titre" />
+            </div>
+            <div class="form-group">
+                <input type="text" id="bibliographyContent" placeholder="Description" />
+            </div>
+            <div class="text-right">
+                <button type="button" class="btn btn-danger rounded-circle" style="width:3rem"
+                        data-dismiss="modal">
+                    <i class="zmdi zmdi-close"></i>
+                </button>
+                <button type="button" id="confirmBibliographyAdding" class="btn btn-primary rounded-circle" style="width:3rem">
+                    <i class="zmdi zmdi-check"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- addBibliography-->
+
+
+<!-- addLibrary-->
+<div class=" modal fade" id="addLibrary" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" style="box-sizing: content-box" role="document">
+        <form class="modal-content card " style="padding:2rem;">
+            <div class="form-group">
+                <input type="text" id="libraryContent" placeholder="Lien" />
+            </div>
+            <div class="text-right">
+                <button type="button" class="btn btn-danger rounded-circle" style="width:3rem" data-dismiss="modal">
+                    <i class="zmdi zmdi-close"></i>
+                </button>
+                <button type="button" id="confirmLibraryAdding" class="btn btn-primary rounded-circle" style="width:3rem">
+                    <i class="zmdi zmdi-check"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- addLibrary-->
+
+<!-- scripts-->
+<!--vendor scripts -->
+<div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+<!--vendor scripts -->
+<script th:src="@{/js/dashboard.js}"></script>
+<script th:src="@{/js/showTheses.js}"></script>
+<!-- scripts-->
+
+<!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+<!-- Popper js -->
+<script th:src="@{/js/bootstrap/popper.min.js}"></script>
+<!-- Bootstrap js -->
+<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+<!-- All Plugins js -->
+<script th:src="@{/js/plugins/plugins.js}"></script>
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
+
+</body>
+
+</html>

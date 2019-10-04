@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+
+    <!-- Title Page-->
+    <title>Votre Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link th:href="@{/css/style1.css}" rel="stylesheet">
+
+<body class="row">
+
+<div class="col-12 main" >
+    <!--navigation-->
+    <div th:replace="~{../templates/fragments/navigation :: navigation}">
+    </div>
+    <!-- navigation -->
+    <!-- update form-->
+    <div class="row content mt-5">
+        <div class="col-2 text-center">
+            <div class="profile-img-div" id="addButton">
+                <i class="zmdi zmdi-edit upload" id="upload"></i>
+                <img class="profile-img-1" id="img" th:src="${user.img}" name="file" alt="avatar">
+            </div>
+            <strong th:text="${user.name}">Neword Orquel</strong>
+
+        </div>
+        <div class="col-md-10">
+            <form method="post" enctype="multipart/form-data" id="register-form" th:action="@{/user/update}" th:object="${user}" class=" profil-form card">
+                <div class="row">
+                    <input type="hidden" th:field="*{userId}" id="userId" />
+                    <div class="col-md-6">
+                        <span class='error' id="nameError"></span>
+                        <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Votre Nom" />
+                    </div>
+                    <div class="col-md-6">
+                        <span class='error' id="emailError"></span>
+                        <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Votre Email" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md-6">
+                        <div class="form-group">
+                            <select th:field="*{country}" class="form-control" id="countrySelect" >
+                                <option value="">Selection pays</option>
+                                <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <span class='error' id="numberError"></span>
+                        <input type="text" th:field="*{number}" id="number" placeholder="Votre numero" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class='error' id="regionError"></span>
+                    <input type="text" th:field="*{region}" id="region" placeholder="Votre Région" />
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class='error' id="universityError"></span>
+                        <input type="text" th:field="*{university}" id="university" placeholder="Votre Université" />
+                    </div>
+                    <div class="col-md-6">
+                        <span class='error' id="facultyError"></span>
+                        <input type="text" th:field="*{faculty}" id="faculty" placeholder="Votre Faculté" />
+                    </div>
+                    </div>
+                <div class="row">
+                    <span class='error' id="categoryError"></span>
+                    <div class="selector col-md-6">
+                        <select th:field="*{category}" class="form-control" id="category">
+                            <option value="" selected="selected">Choisir une Category</option>
+                            <option value="Chef des travaux" >Chef des travaux</option>
+                            <option value="Assistant">Assistant</option>
+                            <option value="Encadreur">Encadreur</option>
+                            <option value="Etudiant">Etudiant</option>
+                        </select>
+                    </div>
+                    <span class='error' id="diplomError"></span>
+                    <div class="selector col-md-6">
+                        <select th:fiel="*{diplom}" class="form-control" id="diplom">
+                            <option value="" selected="selected">Choisir un Diplome</option>
+                            <option value="Master 1" >Master 1</option>
+                            <option value="Master 2">Master 2</option>
+                            <option value="Doctorat/PhD">Doctorat/PhD</option>
+                            <option value="Maitre de Conference">Maitre de Conference</option>
+                            <option value="Professeur Agregé">Professeur Agregé</option>
+                        </select>
+                    </div>
+                    </div>
+                <div class="row">
+                    <span class='error' id="expertDomainError"></span>
+                    <div class="col-md-4 form-group">
+                        <label for="expertDomain"></label>
+                        <input type="text" class="form-conrol" name="expertDomain" id="expertDomain" placeholder="Votre Domaine d'expertise" />
+                    </div>
+                    <span class='error' id="beginningPeriodError"></span>
+                    <div class=" col-md-4 form-group">
+                        <label for="beginningPeriod"></label>
+                        <input type="date" th:field="*{beginningPeriod}" class="form-control" id="beginningPeriod" placeholder="Début-période de disponibilité (2010-04-10)" />
+                    </div>
+                    <span class='error' id="endPeriodError"></span>
+                    <div class=" col-md-4 form-group">
+                        <label for="endPeriod"></label>
+                        <input type="date" class="form-control" th:field="*{endPeriod}" id="endPeriod" placeholder="Fin-période de disponibilité (2010-06-10)" />
+                    </div>
+                    </div>
+
+                <div class="row">
+                    <span class='error' id="dayWorkBeginningError"></span>
+                    <div class="form-group col-md-4">
+                        <select th:field="*{dayWorkBeginning}" class="form-control" id="dayWorkBeginning">
+                            <option value="" selected="selected">Debut de la journée</option>
+                            <option value="00:00" >00:00</option>
+                            <option value="01:00" >01:00</option>
+                            <option value="02:00" >02:00</option>
+                            <option value="03:00" >03:00</option>
+                            <option value="04:00" >04:00</option>
+                            <option value="05:00" >05:00</option>
+                            <option value="06:00" >06:00</option>
+                            <option value="07:00" >07:00</option>
+                            <option value="08:00" >08:00</option>
+                            <option value="09:00" >09:00</option>
+                            <option value="10:00" >10:00</option>
+                            <option value="11:00" >11:00</option>
+                            <option value="12:00" >12:00</option>
+                            <option value="13:00" >13:00</option>
+                            <option value="14:00" >14:00</option>
+                            <option value="15:00" >15:00</option>
+                            <option value="16:00" >16:00</option>
+                            <option value="17:00" >17:00</option>
+                            <option value="18:00" >18:00</option>
+                            <option value="19:00" >19:00</option>
+                            <option value="20:00" >20:00</option>
+                            <option value="21:00" >21:00</option>
+                            <option value="22:00" >22:00</option>
+                            <option value="23:00" >23:00</option>
+                        </select>
+                    </div>
+                    <span class='error' id="dayWorkEndError"></span>
+                    <div class="form-group col-md-4">
+                        <select th:field="*{dayWorkEnd}" class="form-control" id="dayWorkEnd">
+                            <option value="" selected="selected">Fin de la journée</option>
+                            <option value="00:00" >00:00</option>
+                            <option value="01:00" >01:00</option>
+                            <option value="02:00" >02:00</option>
+                            <option value="03:00" >03:00</option>
+                            <option value="04:00" >04:00</option>
+                            <option value="05:00" >05:00</option>
+                            <option value="06:00" >06:00</option>
+                            <option value="07:00" >07:00</option>
+                            <option value="08:00" >08:00</option>
+                            <option value="09:00" >09:00</option>
+                            <option value="10:00" >10:00</option>
+                            <option value="11:00" >11:00</option>
+                            <option value="12:00" >12:00</option>
+                            <option value="13:00" >13:00</option>
+                            <option value="14:00" >14:00</option>
+                            <option value="15:00" >15:00</option>
+                            <option value="16:00" >16:00</option>
+                            <option value="17:00" >17:00</option>
+                            <option value="18:00" >18:00</option>
+                            <option value="19:00" >19:00</option>
+                            <option value="20:00" >20:00</option>
+                            <option value="21:00" >21:00</option>
+                            <option value="22:00" >22:00</option>
+                            <option value="23:00" >23:00</option>
+                        </select>
+                    </div>
+                    <span class='error' id="studentNumberError"></span>
+                    <div class=" col-md-4 form-group">
+                        <input type="number" name="studentNumber" class="form-control" id="studentNumber" placeholder="Nombre d'étudiant a encadrer" />
+                    </div>
+                    </div>
+                <div class="row">
+                    <span class='error' id="numberOfWorkersError"></span>
+                    <div class=" selector col-md-6">
+                        <select th:field="*{numberOfWorkers}" class="form-control" id="numberOfWorkers">
+                            <option value="" selected="selected">Voulez vous travailler en groupe ou seul?</option>
+                            <option value="true">Oui</option>
+                            <option value="false">Non</option>
+                        </select>
+                    </div>
+
+                    <span class='error' id="numberInGroupeError"></span>
+                    <div class=" col-md-6 form-group">
+                        <input type="number" class="form-control" name="numberInGroupe" id="numberInGroupe" placeholder="Votre numéro dans le groupe" />
+                    </div>
+                    </div>
+                <div class="row">
+                    <span class='error' id="anotherDetailError"></span>
+                    <div class="col-md-6 form-group">
+                        <input type="text" name="anotherDetail" id="anotherDetail" placeholder="Autres informations" />
+                    </div>
+
+                    <div class="img-upload-div col-md-6">
+                        <input class="img-input" type="text" id="cv" placeholder=" Votre CV">
+                        <input class="img-input" type="text" th:field="*{cv}" style="display: none" placeholder=" Votre CV">
+                        <button class="img-upload btn btn-primary" type="button" id="addButtonCv">+</button>
+                        <input type="file" name="cvFile" id="file_image_cv" style="display:none">
+                    </div>
+                    </div>
+                <input  type="hidden" th:field="*{autorization}" />
+
+                <div class="col-md-7 p-0 justify-content-left">
+                    <input type="checkbox" class="form-check-input" id="passwordToggle" >
+                    <label class="form-check-label" for="passwordToggle">
+                        <strong>Modifier Votre Mot de passe</strong>
+                    </label>
+
+                </div>
+                <div class="row mt-4" id="passwordInputs" style="display:none">
+                    <div class="col-md-6 form-group">
+                        <span class='error' id="passwordError"></span>
+                        <input type="password" class="form-control" autocomplete="" name="password" id="password" placeholder="Mot de Passe" />
+                        <input autocomplete="" type="password" class="form-control" id="repass" placeholder="Confirmation Mot de Passe" />
+                    </div>
+                </div>
+                <input type="text"  th:field="*{img}" style="display: none">
+                <input type="file" name="file"   id="abstract_file" style="display:none">
+            <div class="save-button-div">
+                <input type="submit" style="display: none" id="submitUpdateForm">
+                <button class="btn btn-success save-button" type="button"  data-toggle="modal" data-target="#confirmPassModal"><i class="zmdi zmdi-check"></i></button>
+
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    <!-- update form -->
+
+</div>
+<!-- confirm password modal-->
+<div class=" modal fade" id="confirmPassModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class=" modal-content card p-3 text-center" >
+        <h5 class="text-center" style="color:red;font-style: italic" id="oldPasswordError"></h5>
+        <div class="form-group " >
+            <input type="password" class="form-control" id="oldPassword" placeholder="Ancien Mot de Passe">
+        </div>
+
+        <div class="text-right">
+            <button class="btn btn-danger" type="button" data-dismiss="modal">
+                <i class="zmdi zmdi-close"></i>
+            </button>
+            <button class="btn btn-success" type="submit"   id="confirmOldPass">
+                <i class="zmdi zmdi-check"></i>
+            </button>
+        </div>
+
+    </div>
+</div>
+</div>
+<!-- confirm password modal-->
+
+<!--script -->
+    <!--vendor scripts -->
+    <div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+    <!--vendor scripts -->
+<script th:src="@{/js/dashboard.js}"></script>
+<script th:src="@{/js/main.js}" type="module"></script>
+<!-- script -->
+<!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+<!-- Popper js -->
+<script th:src="@{/js/bootstrap/popper.min.js}"></script>
+<!-- Bootstrap js -->
+<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+<!-- All Plugins js -->
+<script th:src="@{/js/plugins/plugins.js}"></script>
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
+
+</body>

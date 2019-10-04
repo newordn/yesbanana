@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Autres Services</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
+    <!-- Bootstrap CSS-->
+    <!--link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all"-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<br>
+
+<div style="height: 100%">
+    <nav class="nav" style="width: 100%">
+        <a th:href="@{/groupe/groupes}" class="btn home" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+        <h2 class="text-center col-11 offset-1" style="padding-top: 0.5rem;">Autres Services</h2>
+    </nav>
+    <br>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" style="height:auto; margin-top: 5rem;width: 100%">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Module</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" th:href="@{/management/visitor/}+${session.regionId}">Visiteurs</a>
+                <a class="dropdown-item" th:href="@{/management/school/primary/}+${session.regionId}">Educations</a>
+                <a class="dropdown-item" th:href="@{/management/other/}+${session.regionId}">Autres services</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#logement">Logements</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#transport">Transport</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#procurement">Approvisionnement</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content" style="margin-top: 4.5rem; height: 100%; padding: 2rem;">
+        <div id="logement" class="container tab-pane active" style="height: inherit"><br>
+            <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/post/other/form/housing/}+${session.regionId}" style="bottom: 5rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
+            <div class="row ">
+                <!-- Blog Entries Column -->
+                <div class="col-md-8">
+                    <div class="card">
+                        <h1 class="my-4 text-center ">Logements</h1>
+                        <!-- Blog Post -->
+                        <div class="container" style="width: 90%" th:each="housing : ${posts_housings}">
+                            <div class="card mb-4">
+                                <img class="card-img-top" th:src="${housing.pieces[0]}"  alt="Card image cap">
+                                <br>
+                                <hr style="	border-top: 1px solid #8c8b8b;">
+                                <br>
+                                <div class="card-body">
+                                    <h2 class="card-title" th:text="${housing.title}">Titre de la publication</h2>
+                                    <p class="card-text" th:text="${housing.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                                    <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${housing.postId}">Voir detail &rarr;</a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-up"></i>&nbsp;<span th:text="${housing.likes}" class="badge badge-success"></span></a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-down"></i><span th:text="${housing.likes}" class="badge badge-danger"></span> </a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Créer le <span th:text="${housing.creationDate}"></span> by
+                                    <span th:text="${housing.user.name}"></span>
+                                </div>
+                            </div>
+                            <!-- Pagination -->
+                            <ul class="pagination justify-content-center mb-4">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&larr; Older</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Newer &rarr;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-md-4">
+
+                    <!-- Search Widget -->
+                    <div class="card my-2">
+                        <h5 class="card-header">Recherche</h5>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Chercher dans...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Aller!</button>
+                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Categories</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">Web Design</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">HTML</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Freebies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">JavaScript</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">CSS</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Tutorials</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Autres modules</h5>
+                        <div class="card-body">
+                            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- row -->
+        </div>
+        <div id="transport" class="container tab-pane fade"><br>
+            <div class="row ">
+                <!-- Blog Entries Column -->
+                <div class="col-md-8">
+                    <div class="card">
+                        <h1 class="my-4 text-center ">Transports</h1>
+                        <!-- Blog Post -->
+                        <div class="container" style="width: 90%" th:each="transport : ${posts_transports}">
+                            <div class="card mb-4">
+                                <img class="card-img-top" th:src="${transport.pieces[0]}"  alt="Card image cap">
+                                <br>
+                                <hr style="	border-top: 1px solid #8c8b8b;">
+                                <br>
+                                <div class="card-body">
+                                    <h2 class="card-title" th:text="${transport.title}">Titre de la publication</h2>
+                                    <p class="card-text" th:text="${transport.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                                    <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${transport.postId}">Voir detail &rarr;</a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-up"></i>&nbsp;<span th:text="${transport.likes}" class="badge badge-success"></span></a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-down"></i><span th:text="${transport.likes}" class="badge badge-danger"></span> </a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Créer le <span th:text="${transport.creationDate}"></span> by
+                                    <span th:text="${transport.user.name}"></span>
+                                </div>
+                            </div>
+                            <!-- Pagination -->
+                            <ul class="pagination justify-content-center mb-4">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&larr; Older</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Newer &rarr;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-md-4">
+
+                    <!-- Search Widget -->
+                    <div class="card my-2">
+                        <h5 class="card-header">Recherche</h5>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Chercher dans...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Aller!</button>
+                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Categories</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">Web Design</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">HTML</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Freebies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">JavaScript</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">CSS</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Tutorials</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Autres modules</h5>
+                        <div class="card-body">
+                            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- row -->
+            <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/post/other/form/transport/}+${session.regionId}" style="bottom: 5rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
+
+        </div>
+        <div id="procurement" class="container tab-pane fade"><br>
+            <div class="row ">
+                <!-- Blog Entries Column -->
+                <div class="col-md-8">
+                    <div class="card">
+                        <h1 class="my-4 text-center ">Approvisionnement</h1>
+                        <!-- Blog Post -->
+                        <div class="container" style="width: 90%" th:each="procurement : ${posts_procurements}">
+                            <div class="card mb-4">
+                                <img class="card-img-top" th:src="${procurement.pieces[0]}"  alt="Card image cap">
+                                <br>
+                                <hr style="	border-top: 1px solid #8c8b8b;">
+                                <br>
+                                <div class="card-body">
+                                    <h2 class="card-title" th:text="${procurement.title}">Titre de la publication</h2>
+                                    <p class="card-text" th:text="${procurement.description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                                    <a href="#" class="btn btn-primary" th:href="@{/post/detail/}+${procurement.postId}">Voir detail &rarr;</a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-up"></i>&nbsp;<span th:text="${procurement.likes}" class="badge badge-success"></span></a>
+                                    <a href="#" class="btn"  th:href="@{#}"><i class="fa fa-thumbs-down"></i><span th:text="${procurement.likes}" class="badge badge-danger"></span> </a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Créer le <span th:text="${procurement.creationDate}"></span> by
+                                    <span th:text="${procurement.user.name}"></span>
+                                </div>
+                            </div>
+                            <!-- Pagination -->
+                            <ul class="pagination justify-content-center mb-4">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&larr; Older</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Newer &rarr;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar Widgets Column -->
+                <div class="col-md-4">
+
+                    <!-- Search Widget -->
+                    <div class="card my-2">
+                        <h5 class="card-header">Recherche</h5>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Chercher dans...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Aller!</button>
+                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Categories</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">Web Design</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">HTML</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Freebies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">JavaScript</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">CSS</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Tutorials</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Autres modules</h5>
+                        <div class="card-body">
+                            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- row -->
+            <a th:if="${session.userRole=='root'}" class="btn addButton btn-primary rounded-circle" th:href="@{/post/other/form/procurements/}+${session.regionId}" style="bottom: 5rem; right: 5%;"> <i class="zmdi zmdi-plus zmdi-hc-2x"></i></a>
+
+        </div>
+    </div>
+</div>
+<!-- ##### Footer Area Start ##### -->
+<div class="bottom-footer-area" style=" position: fixed;left: 0;bottom: 0;width: 100%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p style="color: #c6cace;"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This site is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Yesbanana</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- navigation -->
+<script th:src="@{/js/dashboard.js}"></script>
+<!-- script -->
+<!-- ##### All Javascript Script ##### -->
+
+</body>
+</html>

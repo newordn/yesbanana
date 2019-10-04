@@ -1,0 +1,34 @@
+<!--navigation -->
+<div class="sticky-top" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navigationallthese">
+    <!--Navbar -->
+    <nav class=" navbar navbar-expand-lg navbar-expand-md navbar-light bg-light">
+        <a th:href="@{/groupe/groupes}" class="btn text-success" ><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+                aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav ml-auto nav-flex-icons ">
+                <li class="nav-item avatar dropdown">
+                    <a class="nav-link dropdown-toggle" th:text="${session.name}" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">
+                        <img th:if="${session.avatar}" th:src="${session.avatar}" class="rounded-circle z-depth-0" height="60" weight="60" alt="avatar image">
+                        <img th:unless="${session.avatar}"  th:src="@{/images/avatar.png}" class="rounded-circle z-depth-0" height="60" weight="60" alt="avatar image">
+                    </a><br>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="#"></a>
+                        <a class="dropdown-item" th:text="${session.name}">Profil</a>
+                        <a class="dropdown-item" th:href="@{/user/detail/}+${session.userId}">Profil</a>
+                        <a class="dropdown-item" th:href="@{/perform_logout}">Deconnexion</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+    <!-- navigation -->
+    <div class="sticky-top text-center">
+        <h4 class="bg-light">&nbsp;&nbsp;<i>Coup d'oeil sur toutes les theses</i></h4>
+    </div>
+</div>
+

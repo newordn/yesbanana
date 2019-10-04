@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<title>YesBanana</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="OneTech shop project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+	<link th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script th:src="@{/js/dataTable/crews.js}" type="text/javascript"></script>
+	<link th:href="@{/css/dataTablesResponsive.css}" rel="stylesheet">
+	<script th:src="@{/js/dataTablesResponsive.js}"></script>
+	<style>
+		.fsStyle {
+			border: 2px solid #999999;
+			border-radius: 2px;
+			padding-left: 1em;
+			padding-right: 1em;
+			text-align: center;
+		}
+		.legendStyle {
+			font-size: 100%;
+			color: #222222;
+			background-color: transparent;
+			margin-bottom:.15px;
+			width: auto;
+		}
+	</style>
+
+</head>
+
+<body>
+
+<div class="super_container">
+
+	<div th:replace="~{../templates/fragments/header :: header}"></div>
+	
+	<!-- Home -->
+
+	<div class="home">
+		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
+		<div class="home_overlay"></div>
+		<div class="home_content d-flex flex-column align-items-center justify-content-center">
+			<h2 class="home_title">Bibliothèque</h2>
+		</div>
+	</div>
+
+	<!-- Shop -->
+
+	<div class="shop">
+		<div class="container">
+			<div class="row mb-15">
+				<div th:replace="~{../templates/fragments/side_bibliotheque_recherche :: side_bibliotheque_recherche}"></div>
+
+				<div class="col-lg-9">
+					
+					<!-- Shop Content -->
+
+					<div class="shop_content">
+						<div class="shop_bar clearfix">
+							<div class="shop_product_count"><span th:text="${#lists.size(theses)}">186</span> éléments trouver</div>
+							<div class="shop_sorting">Catalogue de Yesbanana</div>
+						</div>
+
+						<div class="">
+							<div class="">
+							<!--form class="pl-5 pr-5" id="form_rapide" th:action="@{/visitor/search/catalogues}" method="get">
+								<div class="row mt-5 mb-5">
+									<div class="col-md-8 form-group">
+										<input type="text" class="form-control" name="motCle"  id="search_input" placeholder="Recherche ...">
+									</div>
+									<div class="col-md-4 form-group">
+										<button type="submit" class="btn btn-primary" id="valid_search"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp;Chercher</button>
+									</div>
+								</div>
+							</form-->
+                    <!--Table-->
+                    <table class="table text-left table-hover dt-responsive  table-lg display" id="crews">
+
+                        <!--Table head-->
+                        <thead>
+                        <tr>
+                            <th>Auteur</th>
+                            <th>Titre</th>
+                            <th>Grade/Département</th>
+                            <th>Université/Année</th>
+                            <th>Pays/Region</th>
+                            <th>Directeur et Co-directeur</th>
+                            <th>Consulter</th>
+                        </tr>
+                        </thead>
+                        <!--Table head-->
+
+                        <!--Table body-->
+                        <tbody>
+                        <tr th:each=" these : ${theses}">
+                            <td th:text="${these.student}">Kate</td>
+                            <td th:text="${these.subject}">Moss</td>
+                            <td th:text="${these.level}+''+${these.options}">USA / The United Kingdom / China / Russia </td>
+                            <td th:text="${these.university}+','+${these.theseDate}">New York City / Warsaw / Lodz / Amsterdam / London / Chicago</td>
+                            <td th:text="${these.regions}+'('+${these.country}+')'">Web Designer /UX designer / Ul designer / JavaScript Developer</td>
+                            <td th:text="'Professeur :'+${these.profesor}+' Assistant :'+${these.assistant}">23</td>
+                            <td ><a th:href="@{/visitor/search/bibliographies/}+${these.theseId}"> Bibliographies</a></td>
+                        </tr>
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+                    <!--Table-->
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div th:replace="~{../templates/fragments/login :: login}"></div>
+<div th:replace="~{../templates/fragments/footer :: footer}"></div>
+
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+<script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/new/js/shop_custom.js}"></script>
+</body>
+
+</html>

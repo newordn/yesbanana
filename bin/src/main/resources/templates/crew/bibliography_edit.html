@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+
+    <!-- Title Page-->
+    <title>Contenu d'une thèse</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- thymeleaft -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+
+
+</head>
+
+<body>
+<div class=" card modal-warning alert-warning"  >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center alert-info">
+                <h5 class="modal-title">Modification des elements d'un livre</h5>
+            </div>
+            <div class="modal-body text-center">
+                <h5>Veuillez renseigner le champ a modifier s'il vous plait</h5>
+            </div>
+            <form class=" text-left" style="width:100%;padding:1rem;"  method="post" th:action="@{/groupe/livre/edit}" th:object="${bibliography}" enctype="multipart/form-data">
+
+                <div class="mb-4">
+                    <div class="mt-3">
+                        <div class="form-group">
+                            <span class='error' id="assistantError"></span>
+                            <input type="text" th:field="*{auteur}" id="assistant" class="form-control" placeholder="Nom de l'auteur" />
+                            <input type="hidden" th:field="*{bibliographyId}"  />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="studentError"></span>
+                            <input type="text" th:field="*{title}" id="student" class="form-control" placeholder="Titre du livre" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="editeurError"></span>
+                            <input type="text" th:field="*{editeur}" id="editeur" class="form-control" placeholder="Editeur du livre" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="categoryError"></span>
+                            <input type="text" th:field="*{category}"  class="form-control" placeholder="Category" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="editionError"></span>
+                            <input type="text" th:field="*{edition}" id="edition" class="form-control" placeholder="Edition du livre" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="lieu_editionError"></span>
+                            <input type="text" th:field="*{lieu_edition}" id="lieu_edition" class="form-control" placeholder="Lieu d'édition du livre" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="faculteError"></span>
+                            <input type="text" th:field="*{faculte}"  class="form-control" placeholder="Faculte" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="optionError"></span>
+                            <input type="text" th:field="*{options}"  class="form-control" placeholder="Option" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="studentError"></span>
+                            <input type="text" th:field="*{annee_edition}" id="date_edition" class="form-control" placeholder="Date d'édition du livre" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group">
+                            <span class='error' id="indexationError"></span>
+                            <input type="text" th:field="*{indexation}" id="indexation" class="form-control" placeholder="Indexation du livre" />
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="form-group">
+                            <span class='error' id="priceError"></span>
+                            <p th:text="${bibliography.price}"></p>
+                            <input type="text" name="prix" id="price" class="form-control" placeholder="Prix du livre" />
+                            <input type="text" th:field="*{price}" style="display: none" class="form-control" placeholder="Prix du livre" />
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="form-group">
+                            <span class='error' id="pageNumberError"></span>
+                            <input type="text" th:field="*{pageNumber}" id="pageNumber" class="form-control" placeholder="Nombre de page du livre" />
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="form-group">
+                            <span class='error' id="isbnError"></span>
+                            <input type="text" th:field="*{isbnNumber}" id="isbnNumber" class="form-control" placeholder="ISBN" />
+                        </div>
+                    </div>
+                    <div class=" mt-3">
+                        <div class="form-group ">
+                            <span class='error' id="descriptionError"></span>
+                            <textarea class="form-control" id="description" rows="5" style="height: 100px" type="text" th:field="*{description}"  placeholder="Description " ></textarea>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="form-group">
+                            <span class='error' id="linkError"></span>
+                            <input type="url" th:field="*{link}" id="link" class="form-control" placeholder="Lien de telechargement du livre" />
+                        </div>
+                    </div>
+                    <div class="img-upload-div">
+                        <div class="custom-file mb-3">
+                            <p class="mt-2 mb-2">Photo de couverture:</p>
+                            <p class="mt-2 mb-2" th:text="${bibliography.couverture}">Photo de couverture:</p>
+                            <input type="file"  class="form-control-file border" id="customFile" name="file">
+                            <input type="text"  class="form-control-file border" style="display: none" id="customFile1" th:field="*{couverture}">
+                        </div>
+                    </div>
+                    <div class="img-upload-div">
+                        <div class="custom-file mb-3">
+                            <p class="mt-2 mb-2">Fichier du livre:</p>
+                            <p class="mt-2 mb-2" th:text="${bibliography.fichier}">Fichier du livre:</p>
+                            <input type="file"  class="form-control-file border" id="customFile3" name="document">
+                            <input type="text"  class="form-control-file border" id="customFile2" th:field="*{fichier}" style="display: none">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer text-center">
+                    <a th:href="@{/groupe/livres}" class="btn btn-warning pull-left">Retour</a>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--vendor scripts -->
+<div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+<!--vendor scripts -->
+
+<!-- scripts-->
+<!-- js -->
+<script th:src="@{/js/js.js}"></script>
+
+</body>
+
+</html>

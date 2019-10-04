@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<title>YesBanana</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="OneTech shop project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
+    <style>
+        .fsStyle {
+            border: 2px solid #999999;
+            border-radius: 2px;
+            padding-left: 1em;
+            padding-right: 1em;
+            text-align: center;
+        }
+        .legendStyle {
+            font-size: 100%;
+            color: #222222;
+            background-color: transparent;
+            margin-bottom:.15px;
+            width: auto;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $("a").click(function(){
+                alert("The paragraph was clicked.");
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+<div class="super_container">
+	<div th:replace="~{../templates/fragments/header :: header}"></div>
+	
+	<!-- Home -->
+
+	<div class="home">
+		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="new/images/shop_background.jpg"></div>
+		<div class="home_overlay"></div>
+		<div class="home_content d-flex flex-column align-items-center justify-content-center">
+			<h2 class="home_title">Catalogue de Yesbanana</h2>
+		</div>
+	</div>
+
+	<!-- Shop -->
+
+	<div class="shop">
+		<div class="container">
+			<div class="row mb-auto">
+				<div th:replace="~{../templates/fragments/side_bibliotheque_recherche :: side_bibliotheque_recherche}"></div>
+
+				<div class="col-lg-9">
+					
+					<!-- Shop Content -->
+
+					<div class="shop_content">
+						<div class="shop_bar clearfix">
+							<div class="shop_product_count"><span></span> Toutes les collections<br>Adultes et jeunes</div>
+							<div class="shop_sorting">Catalogue de Yesbanana</div>
+						</div>
+
+						<div class="">
+							<div class="">
+								<div class=" card border ">
+                            <div class="card-body">
+                                    <fieldset class="fsStyle">
+                                        <legend class="legendStyle"><span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Recherche par mot-clé &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></legend>
+                                        <div class="row mt-5 mb-4">
+                                            <div class="col-md-5">
+                                                <input type="checkbox" id="rapide" checked >
+                                                <label>&nbsp;Rapide</label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="checkbox" id="avance">
+                                                <label>&nbsp;Avancé</label>
+                                            </div>
+                                        </div>
+                                        <form class="pl-5 pr-5" id="form_rapide" th:action="@{/visitor/rapide/search/catalogues}" method="get">
+                                        <div class="row mt-5 mb-5">
+                                            <div class="col-md-8 form-group">
+                                                <input type="text" class="form-control" name="motCle"  id="search_input" placeholder="Recherche rapide ...">
+                                            </div>
+                                            <div class="col-md-4 form-group">
+                                                <button type="submit" class="btn btn-primary" id="valid_search"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp;Chercher</button>
+                                            </div>
+                                        </div>
+                                        </form>
+                                        <form class="pl-5 pr-5" id="form_avance" style="display: none" th:action="@{/visitor/avance/search/catalogues}" method="get">
+                                            <div class="row mt-5 mb-5">
+                                                <div class="col-md-8 form-group">
+                                                    <input type="text" class="form-control" name="motCle" placeholder="Recherche avancé ...">
+                                                </div>
+                                                <div class="col-md-4 form-group">
+                                                    <button type="submit" class="btn btn-primary" id="search_btn_avance"><i class="fa fa-search"></i>&nbsp;&nbsp;&nbsp;Chercher</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </fieldset>
+                            </div>
+                        </div>
+                            </div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div th:replace="~{../templates/fragments/login :: login}"></div>
+<div th:replace="~{../templates/fragments/footer :: footer}"></div>
+
+
+<script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+<script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/new/js/shop_custom.js}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        // change checked button
+        $("#avance").click(function(){
+            $("#avance").prop("checked", true);
+            $("#rapide").prop("checked", false);
+            $("#form_rapide").css("display","none");
+            $("#form_avance").css("display","block");
+        });
+        $("#rapide").click(function(){
+            $("#rapide").prop("checked", true);
+            $("#avance").prop("checked", false);
+            $("#form_rapide").css("display","block");
+            $("#form_avance").css("display","none");
+        });
+
+    });
+</script>
+
+</body>
+
+</html>

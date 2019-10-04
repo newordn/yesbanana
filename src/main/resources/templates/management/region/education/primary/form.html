@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulaire d'ajout d'un element de l'education primaire</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-3">
+    <div class="card card-body" style="height: 80%; width: 80%;margin-left: 100px">
+    <h2 class="text-center">Formulaire d'ajout d'un élément de l'education primaire</h2>
+    <form th:action="@{/management/primary/save}" th:object="${primary}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="usr">Titre de l'élément:</label>
+            <input type="text" class="form-control" id="usr" th:field="*{title}">
+        </div>
+        <div class="form-group">
+            <label for="realeseDate">Date de realisation:</label>
+            <input type="date" class="form-control" id="realeseDate" th:field="*{realeseDate}">
+        </div>
+        <div class="form-group">
+            <label for="comment">Brève appercue de l'element :</label>
+            <textarea class="form-control" rows="100" id="comment" th:field="*{description}" style="height: 200px"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="fileType">Type de fichiers a télécharger :</label>
+            <select id="fileType" th:field="*{fileType}" class="form-control">
+                <option value="">Choisir un type de fichiers </option>
+                <option value="PDF">PDF</option>
+                <option value="VIDEO">VIDEO</option>
+                <option value="AUDIO">AUDIO</option>
+                <option value="IMAGE">IMAGE</option>
+                <option value="SUITE OFFICE">SUITE OFFICE</option>
+            </select>
+        </div>
+        <p>Fichiers de l'element:</p>
+        <div class="custom-file mb-3">
+            <input type="file" multiple class="form-control-file border" id="customFile" name="files" placeholder="Entrer les fichiers en commençcant par une image en suite le reste ">
+        </div>
+        <div class="form-group">
+            <label for="type">Type de l'element :</label>
+                <select id="type" th:field="*{type}" class="form-control">
+                    <option value="">Choisir un type d'element </option>
+                    <option value="Colonie de vacances">Colonie de vacances </option>
+                </select>
+        </div>
+        <div class="mt-3 row" style=" width: 100%; padding-left: 15px">
+            <div class="col-12 col-sm-12 col-lg-6" style="width: 100%;padding-left: 20px;padding-right: 20px">
+                <a th:href="@{/management/region/primaire/colonie/}+${session.regionId}" class="btn btn-warning" style="width: 100%">Retour</a>
+            </div>
+            <div class="col-12 col-sm-12 col-lg-6" style="width: 100%;padding-left: 20px;padding-right: 20px">
+                <!--button type="submit" class="btn btn-primary" style="width: 100%">Validé</button-->
+                <a  data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'" class="btn btn-primary" style="width: 100%">Validé</a>
+                <div class="modal card modal-warning fade in" th:id="modal-warning" >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                <h5 class="modal-title">Envoi d'un message de validation a l'administrateur pour activation de la formation</h5>
+                            </div>
+                            <div class="modal-body text-center">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" name="adresse" placeholder="Entrer l'adresse Email du desinataire">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="10" name="contenue" placeholder="Corps du message"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer text-center">
+                                <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Retour</button>
+                                <button type="submit" class="btn btn-danger" ><i class="fa fa-check"></i>&nbsp;Envoye</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+        </div>
+</div>
+
+</body>
+</html>

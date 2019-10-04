@@ -1,0 +1,248 @@
+<div th:fragment="header"  xmlns:th="http://www.w3.org/1999/xhtml">
+	<!-- Header -->
+	
+	<header class="header">
+
+		<!-- Top Bar -->
+
+		<div class="top_bar">
+			<div class="container">
+				<div class="row">
+					<div class="col d-flex flex-row">
+						
+						<div class="top_bar_content ml-auto mr-auto ">
+							<div class="top_bar_menu text-center">
+								<h2>Bienvenue à Yesbanana</h2>
+								<h4 ><i>Booster l'éducation, la recherche et l'entrepreneuriat</i></h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>		
+		</div>
+
+		<!-- Header Main -->
+
+		<div class="header_main">
+			<div class="container">
+				<div class="row">
+
+					<!-- Logo -->
+					<div class="col-lg-2 col-sm-6 col-6 order-2">
+						<div class="logo_container">
+							<div class="logo"><a th:href="@{/}"><img th:src="@{/new/images/logo.png}" height="170" width="301"></a></div>
+						</div>
+					</div>
+
+					<!-- Search -->
+					<div class="col-lg-5 col-12 order-lg-3 order-4 text-lg-left text-right">
+						<div class="header_search">
+							<div class="header_search_content">
+								<div class="header_search_form_container" style="display: none!important;">
+									<form action="#" class="header_search_form clearfix">
+										<input type="search" required="required" style="display: none!important;" class="header_search_input" placeholder="Recherche...">
+										<div class="custom_dropdown">
+											<div class="custom_dropdown_list">
+												<span class="custom_dropdown_placeholder clc"></span>
+												<ul class="custom_list clc">
+
+												</ul>
+											</div>
+										</div>
+										<button type="submit" class="header_search_button trans_300" value="Submit"><img th:src="@{/new/images/search.png}" alt=""></button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-5 col-9 order-lg-3 order-2 text-lg-left text-right">
+						<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+							<div class="wishlist d-flex flex-row align-items-center justify-content-end" th:if="${session.userId}!=null">
+								<img th:src="@{/new/images/images_shopping.png}" alt="">
+								<div class="wishlist_text"><a th:href="@{/payment/panier}">Mon Panier</a></div>
+							</div>
+							<div class="wishlist d-flex flex-row align-items-center justify-content-end" th:if="${session.userId}!=null">
+								<img th:src="@{/new/images/images_transaction.png}" alt="">
+								<div class="wishlist_text"><a th:href="@{/payment/transactions}">Transactions</a></div>
+							</div>
+							<!--<div class="wishlist d-flex flex-row align-items-center justify-content-end" th:if="${session.userId}==null">
+								<img th:src="@{/new/images/profile_picture.png}" alt="">
+								<div class="wishlist_text"><a class="btn" data-toggle="modal" data-target="#login">Connexion</a></div>
+							</div>-->
+							<div class="wishlist d-flex flex-row align-items-center justify-content-end" th:if="${session.userId}!=null">
+								<img th:src="@{/new/images/logout_profile.jpg}" alt="">
+								<div class="wishlist_text"><a th:href="@{/perform_logout}">Déconnexion</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Main Navigation -->
+
+		<nav class="main_nav">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						
+						<div class="main_nav_content d-flex flex-row">
+
+							<!-- Categories Menu -->
+
+							<div class="cat_menu_container">
+								<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
+									<div class="cat_burger"><span></span><span></span><span></span></div>
+									<div class="cat_menu_text">Nos Services</div>
+								</div>
+
+								<ul class="cat_menu">
+									<li >
+										<a th:href="@{/visitor/livres}">Bibliothèques<i class="fas fa-chevron-right"></i></a>
+									</li>
+									<li ><a th:href="@{/visitor/bourses}">Bourses<i class="fas fa-university"></i></a></li>
+									<!--li><a th:href="@{/visitor/colonies}">Colonie de vacances<i class="fas fa-chevron-right"></i></a></li>
+									<li><a th:href="@{/entrepreneuriat/administration}">Création d'entreprise<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="#">Colonie de vacances<i class="fas fa-chevron-right"></i></a></li-->
+									<li><a th:href="@{/visitor/education/primaire}">Espace école Primaire Carolyn W<i class="fas fa-chevron-right"></i></a></li>
+									<li><a th:href="@{/visitor/event/events}">Espace Universitaire</a></li>
+									<!--li><a href="#">Espace école Secondaire Jean paul K<i class="fas fa-chevron-right"></i></a></li>
+									<li class="hassubs"><a href="#">Espace Universitaire<i class="fas fa-chevron-right"></i></a>
+										<ul>
+											<li>
+												<a th:href="@{#}">Info Inscription à l'université<i class="fas fa-leanpub"></i></a>
+											</li>
+											<li><a th:href="@{#}">Participation aux séminaire et ateliers<i class="fas fa-list-ul"></i></a></li>
+											<li class="hassubs"><a href="#">Opportunité de stage<i class="fas fa-chevron-right"></i></a>
+												<ul>
+													<li >
+														<a th:href="@{#}">National<i class="fas fa-leanpub"></i></a>
+													</li>
+													<li><a th:href="@{#}">International<i class="fas fa-list-ul"></i></a></li>
+												</ul>
+											</li>
+											<li>
+												<a th:href="@{#}">Opportunité emploi<i class="fas fa-leanpub"></i></a>
+											</li>
+										</ul>
+									</li-->
+								</ul>
+							</div>
+
+							<!-- Main Nav Menu -->
+
+							<div class="main_nav_menu ml-auto">
+								<ul class="standard_dropdown main_nav_dropdown">
+									<li><a th:href="@{/}">Accueil<i class="fas fa-chevron-down"></i></a></li>
+									<li class="hassubs">
+										<a href="#">Travailler avec nous<i class="fas fa-chevron-down"></i></a>
+										<ul>
+											
+											<li><a th:href="@{/visitor/why_work/with_us}">Pourquoi travailler avec nous?<i class="fas fa-chevron-down"></i></a></li>
+											<li><a th:href="@{/visitor/student}">Etudiant<i class="fas fa-chevron-down"></i></a></li>
+											<li class="hassubs"><a href="#">Expert<i class="fas fa-chevron-down"></i></a>
+												<ul>
+													<li><a th:href="@{/visitor/expert/universitory}">Universitaire<i class="fas fa-chevron-down"></i></a></li>
+													<li><a th:href="@{/visitor/expert/professional}">Professionnel<i class="fas fa-chevron-down"></i></a></li>
+												</ul>
+											</li>
+											<li class="hassubs"><a href="#">Enseignant<i class="fas fa-chevron-down"></i></a>
+												<ul>
+													<li><a th:href="@{/visitor/teacher/primaire}">Primaire<i class="fas fa-chevron-down"></i></a></li>
+													<li><a th:href="@{/visitor/teacher/secondaire}">Secondaire<i class="fas fa-chevron-down"></i></a></li>
+												</ul>
+											</li>
+											<li class="hassubs"><a href="#">Publications<i class="fas fa-chevron-down"></i></a>
+												<ul>
+													<li><a th:href="@{/visitor/publish/book/form}">Livre<i class="fas fa-chevron-down"></i></a></li>
+													<li><a th:href="@{/visitor/publish/sylabus/form}">Syllabus<i class="fas fa-chevron-down"></i></a></li>
+													<li><a th:href="@{#}">Magazines<i class="fas fa-chevron-down"></i></a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									<li class="hassubs">
+										<a href="#">Etre accompagné par ?<i class="fas fa-chevron-down"></i></a>
+										<ul>
+											<li><a th:href="@{/visitor/what_are/encadreur}">Qui est encadreur?<i class="fas fa-chevron-down"></i></a></li>
+											<li><a th:href="@{/visitor/professeurs}">Un Professeur<i class="fas fa-chevron-down"></i></a></li>
+											<li><a th:href="@{/visitor/chef/travaux}">Un Chef de travaux<i class="fas fa-chevron-down"></i></a></li>
+											<li class="hassubs"><a href="#">Enseignants<i class="fas fa-chevron-down"></i></a>
+												<ul>
+													<li><a th:href="@{/visitor/enseignants/primaire}">Ecole primaire<i class="fas fa-chevron-down"></i></a></li>
+													<li><a th:href="@{/visitor/enseignants/secondaire}">Ecole secondaire<i class="fas fa-chevron-down"></i></a></li>
+													</li>
+												</ul>
+											<li><a th:href="@{/visitor/expert/yesb}">Expert YesB<i class="fas fa-chevron-down"></i></a></li>
+										</ul>
+									</li>
+								
+								</ul>
+							</div>
+
+							<!-- Menu Trigger -->
+
+							<div class="menu_trigger_container ml-auto">
+								<div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
+									<div class="menu_burger">
+										<div class="menu_trigger_text">menu</div>
+										<div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+		
+		<!-- Menu -->
+
+		<div class="page_menu">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						
+						<div class="page_menu_content">
+							
+							<div class="page_menu_search">
+								<form action="#">
+									<input type="search" required="required" class="page_menu_search_input" placeholder="Recherche...">
+								</form>
+							</div>
+							<ul class="page_menu_nav">
+								<li class="page_menu_item">
+									<a th:href="@{/}">Accueil<i class="fa fa-angle-down"></i></a>
+								</li>
+
+								<li class="page_menu_item has-children"><a href="#">Travailler avec nous<i class="fa fa-angle-down"></i></a>
+									<ul class="page_menu_selection">
+										<li class="page_menu_item"><a th:href="@{/visitor/why_work/with_us}">Pourquoi travailler avec nous<i class="fa fa-angle-down"></i></a></li>
+										<li ><a th:href="@{/visitor/student}">Etudiant<i class="fa fa-angle-down"></i></a></li>
+										<li ><a th:href="@{/visitor/expert/universitory}">Universitaire<i class="fa fa-angle-down"></i></a></li>
+										<li ><a th:href="@{/visitor/expert/professional}">Professionnel<i class="fa fa-angle-down"></i></a></li>
+										<li ><a th:href="@{/visitor/teacher/primaire}">Primaire<i class="fa fa-angle-down"></i></a></li>
+										<li ><a th:href="@{/visitor/teacher/secondaire}">Secondaire<i class="fa fa-angle-down"></i></a></li>
+										<li ><a th:href="@{/visitor/publish/book/form}">Livres<i class="fa fa-angle-down"></i></a></li>
+										<li ><a th:href="@{/visitor/publish/sylabus/form}">Syllabus<i class="fa fa-angle-down"></i></a></li>
+									</ul>
+								</li>
+
+								<li class="page_menu_item"><a th:href="@{#}">Magazines<i class="fa fa-angle-down"></i></a></li>
+								<li class="page_menu_item"><a th:href="@{/visitor/what_are/encadreur}">Qui est encadreur?<i class="fa fa-angle-down"></i></a></li>
+								<li class="page_menu_item"><a th:href="@{/visitor/professeurs}">Professeur<i class="fa fa-angle-down"></i></a></li>
+								<li class="page_menu_item"><a th:href="@{/visitor/chef/travaux}">Chef de travaux<i class="fa fa-angle-down"></i></a></li>
+								<li class="page_menu_item"><a th:href="@{/visitor/enseignants}">Enseignants<i class="fa fa-angle-down"></i></a></li>
+								<li class="page_menu_item"><a th:href="@{/visitor/expert/yesb}">Expert YesB<i class="fa fa-angle-down"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</header>
+
+</div>

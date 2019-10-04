@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Yesbanana</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <link th:href="@{/css/crew.css} " rel="stylesheet">
+
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"  id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/groupe/groupes}"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;<span>Retour</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div th:replace="~{../templates/fragments/management_header :: management_header}">
+        </div>
+    </div>
+</nav>
+
+<section class="ftco-section testimony-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-12 text-center heading-section ftco-animate">
+                <h1>Universités</h1>
+                <h2 class="subheading"><span>Selectionner un pays</span></h2>
+            </div>
+        </div>
+        <div class="row ftco-animate">
+            <div class="item col-md-2" th:each="country : ${countries}">
+                <a th:href="@{/management/country/university/} + ${country.countryId}">
+                    <div class="testimony-wrap text-center py-4 pb-5">
+
+                        <div class="user-img mb-4" th:style="'background-image: url(' + @{/images/country.png} + ');'">
+                        </div>
+                        <div class="text">
+                            <p class="name" th:text="${country.countryName}">Cameroun</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+    </div>
+        </div>
+
+</section>
+<!-- add country button start-->
+<button th:if="${session.roles[0].role == 'ROOT'}" type="button" style="position:fixed; right:10px;bottom:10px;z-index:404982450" class="addButton btn btn-success rounded-circle" data-toggle="modal" data-target="#addCountry">
+    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+</button>
+<button th:if="${session.roles[0].role == 'ROOT_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;z-index:404982450" class="addButton btn btn-success rounded-circle" data-toggle="modal" data-target="#addCountry">
+    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+</button>
+<button th:if="${session.roles[0].role == 'ADMIN_MASTER'}" type="button" style="position:fixed; right:10px;bottom:10px;z-index:404982450" class="addButton btn btn-success rounded-circle" data-toggle="modal" data-target="#addCountry">
+    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+</button>
+
+<!--addCountry-->
+<div sec:authorize="!hasRole('ROLE_USER')" class=" modal fade" id="addCountry" tabindex="-1" role="dialog" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered"  role="document">
+        <form class="add-these-form modal-content card text-center" th:object="${country}" method="post" th:action="@{/management/country/form/save}">
+            <div class="row pt-3">
+                <span class='error' id="nameError"></span>
+                <!-- loop over available  country -->
+                <select class="form-control" th:field="*{countryName}" id="countrySelect" style="width: 100%">
+                    <option value="">Selection pays</option>
+                    <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel.countryName}">Côte d'ivoire</option>
+                </select>
+                <div class="form-group mt-3" style="width: 100%">
+                    <span class='error' id="countryStreetError"></span>
+                    <input type="text" style="width: inherit" class="form-control" th:field="*{countryStreet}" id="countryStreet" placeholder="Capitale" />
+                </div>
+            </div>
+            <div class="form-group row form-button" style="width: 100%">
+                <div class="col-6">
+                    <button data-dismiss="modal" style="width:100%;" class="btn btn-danger">Cancel</button>
+                </div>
+                <div class="col-6">
+                    <button type="submit" id="submit" style="width:100%;"  class="btn btn-success">Valider</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- addCountry-->
+<section class="ftco-section-parallax">
+    <div class="parallax-img d-flex align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+                    <h2>Souscrivez a notre  Newsletter</h2>
+                    <p>Restez informer en souscrivant a notre service de messagerie.</p>
+                    <div class="row d-flex justify-content-center mt-4 mb-4">
+                        <div class="col-md-8">
+                            <form action="#" class="subscribe-form">
+                                <div class="form-group d-flex">
+                                    <input type="text" class="form-control" placeholder="Entrer votre adresse email">
+                                    <input type="submit" value="Souscrire" class="submit px-3">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="ftco-footer ftco-bg-dark ftco-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Yesbanana</h2>
+                    <p>Votre plateforme digitale qui vous ouvre les portes du savoir dans toute son entiereté et sa rigueur.</p>
+                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4 ml-md-5">
+                    <h2 class="ftco-heading-2">Liens Utiles</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">Nos services</a></li>
+                        <li><a href="#" class="py-2 d-block">autres informations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Confidentialité</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="py-2 d-block">A propos</a></li>
+                        <li><a href="#" class="py-2 d-block">Conditions d'utilisations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Des Questions?</h2>
+                    <div class="block-23 mb-3">
+                        <ul>
+                            <li><span class="icon icon-map-marker"></span><span class="text">Congo Kinshasa</span></li>
+                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+237694126158 +23793063228</span></a></li>
+                            <li><span></span><span class="text"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.stellar.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/js/jquery.timepicker.min.js}"></script>
+<script th:src="@{/js/scrollax.min.js}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script th:src="@{/js/google-map.js}"></script>
+<script th:src="@{/js/main1.js}"></script>
+<script th:src="@{/js/crew.js}"></script>
+<script type="text/javascript">
+    $("#hide1").css("display","none");
+    $("#hide2").css("display","none");
+    $("#starter1").hover(function(){
+        $("#hide1").css("display","block");
+
+        $("#hide2").css("display","none");
+    })
+    $("#starter2").hover(function(){
+        $("#hide2").css("display","block");
+        $("#hide1").css("display","none");
+
+    })
+
+    $("#ender1").hover(function(){
+    },function(){
+        $("#hide1").css("display","none");
+
+    })
+
+    $("#ender3").hover(function(){
+        $("#hide1").css("display","none");
+        $("#hide2").css("display","none");
+    },function(){})
+    $("#ender4").hover(
+            function(){
+                $("#hide1").css("display","none");
+                $("#hide2").css("display","none");},
+            function(){})
+</script>
+</body>
+</html>

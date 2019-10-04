@@ -1,0 +1,60 @@
+				<div class="col-lg-3" th:fragment="side_creation_entreprise"  xmlns:th="http://www.w3.org/1999/xhtml">
+
+					<!-- Shop Sidebar -->
+					<div class="shop_sidebar">
+						<div class="sidebar_section">
+							<div class="sidebar_title">Colonie de vacances</div>
+							<hr>
+							<ul class="sidebar_categories">
+								<div class="btn-group dropright">
+									<button class="btn dropdown-toggle" type="button"  data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false">
+										Resevations par pays
+									</button>
+									<div class="dropdown-menu"  >
+										<a th:each="country : ${countries}" class="dropdown-item" th:href="@{/visitor/colonie/country/}+${country}" th:text="${country}">Action</a>
+									</div>
+								</div><hr>
+								<div class="btn-group dropright">
+									<button class=" btn dropdown-toggle" type="button"  data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false">
+										Resevations par site
+									</button>
+									<div class="dropdown-menu"  >
+										<a th:each="site : ${sites}" class="dropdown-item" th:href="@{/visitor/colonie/site/}+${site}" th:text="${site}">Action</a>
+									</div>
+								</div><hr>
+								<div class="btn-group dropright">
+									<button class="btn dropdown-toggle" type="button"  data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false">
+										Resevations par saison
+									</button>
+									<div class="dropdown-menu"  >
+										<a th:each="saison : ${saisons}" class="dropdown-item" th:href="@{/visitor/colonie/saison/}+${saison}" th:text="${saison}">Action</a>
+									</div>
+								</div><hr>
+								<div class="btn-group dropright">
+									<button class="btn dropdown-toggle" type="button"  data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false">
+										Resevations par categorie
+									</button>
+									<div class="dropdown-menu"  >
+										<a th:each="category : ${categories}" class="dropdown-item" th:href="@{/visitor/colonie/category/}+${category}" th:if="${category}=='petit'"><span>De 05 à 10 ans</span></a>
+										<a th:each="category : ${categories}" class="dropdown-item" th:href="@{/visitor/colonie/category/}+${category}" th:unless="${category}=='petit'"><span>De 11 à 16 ans</span></a>
+									</div>
+								</div><hr>
+								<div class="btn-group dropright">
+									<button class="btn  dropdown-toggle" type="button"  data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false">
+										Resevations par type
+									</button>
+									<div class="dropdown-menu"  >
+										<a th:each="type : ${types}" class="dropdown-item" th:href="@{/visitor/colonie/type/}+${type}" th:if="${type}=='vip'"><span>V I P</span></a>
+										<a th:each="type : ${types}" class="dropdown-item" th:href="@{/visitor/colonie/type/}+${type}" th:unless="${type}=='vip'"><span>STANDARD</span></a>
+									</div>
+								</div>
+							</ul>
+						</div>
+					</div>
+
+				</div>

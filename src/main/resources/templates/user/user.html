@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+
+    <!-- Title Page-->
+    <title>Votre Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/css/style1.css}" rel="stylesheet">
+
+<body class="row">
+<div class="col-12 main" >
+    <!--navigation-->
+    <div th:replace="~{../templates/fragments/navigation :: navigation}">
+    </div>
+    <!-- navigation -->
+    <!-- update form-->
+    <div class="row content mt-5">
+        <div class="col-2 text-center">
+            <div class="profile-img-div" id="addButton">
+                <i class="zmdi zmdi-edit upload" id="upload"></i>
+                <img class="profile-img-1" id="img" th:src="${user.img}" name="file" alt="avatar">
+            </div>
+            <strong th:text="${user.name}">Neword Orquel</strong>
+
+        </div>
+        <div class="col-10">
+            <form method="post" enctype="multipart/form-data" id="register-form" th:action="@{/user/modofier}" th:object="${user}" class=" profil-form card">
+                <div class="row">
+                    <input type="hidden" th:field="*{userId}" id="userId" />
+                    <div class="col-md-6 form-group">
+                        <span class='error' id="nameError"></span>
+                        <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Votre Nom" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <span class='error' id="emailError"></span>
+                        <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="Votre Email" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md-6">
+                        <div class="form-group">
+                            <select th:field="*{country}" class="form-control" id="countrySelect">
+                                <option value="">Selection pays</option>
+                                <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
+                            </select>
+                            <input type="text" th:field="*{number}" class="form-control" id="number" placeholder="Votre Numéro"  />
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <span class='error' id="regionError"></span>
+                        <input type="text" class="form-control" th:field="*{region}" id="region" placeholder="Votre Région" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <span class='error' id="universityError"></span>
+                        <input type="text" class="form-control" th:field="*{university}" id="university" placeholder="Votre Université" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <span class='error' id="facultyError"></span>
+                        <input type="text" class="form-control" th:field="*{faculty}" id="faculty" placeholder="Votre Faculté" />
+                    </div>
+                    <input  th:field="*{role.roleId}" id="role" placeholder="Votre Faculté" style="display: none"/>
+                    <input  th:field="*{autorization}" id="autorization" placeholder="autorisation" style="display: none"/>
+                </div>
+                <div class="col-md-7 p-0 justify-content-left">
+                    <input type="checkbox" class="form-check-input" id="passwordToggle">
+                    <label class="form-check-label" for="passwordToggle">
+                        <strong>Modifier Votre Mot de passe</strong>
+                    </label>
+
+                </div>
+                <div class="row mt-2" id="passwordInputs" style="display:none">
+                    <div class="col-md-6 form-group">
+                        <span class='error' id="passwordError"></span>
+                        <input type="password" class="form-control" autocomplete="" name="password" id="password" placeholder="Mot de Passe" />
+                        <input autocomplete="" type="password" class="form-control" id="repass" placeholder="Confirmation Mot de Passe" />
+                    </div>
+                </div>
+                <input type="text"  th:field="*{img}" style="display: none">
+                <input type="file" name="file"   id="abstract_file" style="display:none">
+            <div class="save-button-div">
+                <input type="submit" style="display: none" id="submitUpdateForm">
+                <button class="btn btn-success save-button" type="button"  data-toggle="modal" data-target="#confirmPassModal"><i class="zmdi zmdi-check"></i></button>
+
+            </div>
+            </form>
+        </div>
+    </div>
+    <!-- update form -->
+
+</div>
+<!-- confirm password modal-->
+<div class=" modal fade" id="confirmPassModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class=" modal-content card p-3 text-center" >
+        <h5 class="text-center" style="color:red;font-style: italic" id="oldPasswordError"></h5>
+        <div class="form-group " >
+            <input type="password" class="form-control" id="oldPassword" placeholder="Ancien Mot de Passe">
+        </div>
+
+        <div class="text-right">
+            <button class="btn btn-danger" type="button" data-dismiss="modal">
+                <i class="zmdi zmdi-close"></i>
+            </button>
+            <button class="btn btn-success" type="submit"   id="confirmOldPass">
+                <i class="zmdi zmdi-check"></i>
+            </button>
+        </div>
+
+    </div>
+</div>
+</div>
+<!-- confirm password modal-->
+
+<!--script -->
+    <!--vendor scripts -->
+    <div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+    <!--vendor scripts -->
+<script th:src="@{/js/dashboard.js}"></script>
+<script th:src="@{/js/main.js}" type="module"></script>
+<!-- script -->
+<!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+<!-- Popper js -->
+<script th:src="@{/js/bootstrap/popper.min.js}"></script>
+<!-- Bootstrap js -->
+<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+<!-- All Plugins js -->
+<script th:src="@{/js/plugins/plugins.js}"></script>
+<!-- Active js -->
+<script th:src="@{/js/active.js}"></script>
+
+</body>
+
+</html>

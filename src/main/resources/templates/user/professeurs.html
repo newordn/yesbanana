@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title Page-->
+    <title>Les utilisateurs de travailler avec nous</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/user.css}" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <script th:src="@{/js/dataTable/usersGroup.js}" type="text/javascript"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <link th:href="@{/css/element.css}" rel="stylesheet">
+    <link th:href="@{/css/dataTablesResponsive.css}" rel="stylesheet">
+
+    <!-- thymeleaft-->
+    <script defer th:src="@{https://use.fontawesome.com/releases/v5.0.13/js/solid.js}" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer th:src="@{https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js}" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+<body class="userCrewWrapper">
+<!-- sidebar-->
+<div id="content" style="padding-right: 15px;padding-left: 15px">
+    <!--navigation-->
+    <nav th:replace="~{../templates/fragments/navigationvisitorusers :: navigationvisitorusers}">
+    </nav>
+    <!-- navigation -->
+    <div style="margin-top: 5.5rem;">
+        <h4>Travailler en tant que expert universitaire (Professeur)</h4>
+        <table  class="table text-center table-hover dt-responsive table-lg display" id="users">
+            <thead class="text-white bg-secondary">
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Pays</th>
+            <th>Region</th>
+            <th>Numero</th>
+            <th>Rôle</th>
+            <th>Actions</th>
+            </thead>
+            <tbody>
+            <tr th:each="user: ${users}">
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.country}"></td>
+                <td th:text="${user.region}"></td>
+                <td th:text="${user.number}"></td>
+                <td th:if="${user.roles}" th:each="role : ${user.roles}">
+                    <span th:text="${role.role}"></span>
+                </td>
+                <td>
+                    <a sec:authorize="!hasRole('ROLE_USER')" th:href="@{/user/detail/}+${user.userId}"class=" btn btn-success" ><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${user.userId }" class="btn btn-danger" ><i class="fa fa-trash"></i></a>
+                </td>
+                <!-- Delete user modal -->
+                <div class="modal card modal-warning fade in" th:id="modal-warning+${user.userId }" >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span></button>
+                                <h5 class="modal-title">Supprimer un utilisateur</h5>
+                            </div>
+                            <div class="modal-body text-center">
+                                <h3>Etes vous sure de vouloir supprimer définitivement cette Utilisateur?</h3>
+                            </div>
+                            <div class="modal-footer text-center">
+                                <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Close</button>
+                                <a type="button" class="btn btn-danger" th:href="@{/user/delete/{userId}(userId=${user.userId})}"><i class="fa fa-check"></i>&nbsp;Yes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Delete user modal -->
+            </tr>
+            </tbody>
+        </table>
+        <!--button type="button" class="addButton btn btn-primary rounded-circle" data-toggle="modal" data-target="#addUserIntoCrew">
+            <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+        </button-->
+    </div>
+</div>
+<script th:src="@{/js/users.js}"></script>
+<script th:src="@{/js/dataTablesResponsive.js}"></script>
+</body>
+</html>

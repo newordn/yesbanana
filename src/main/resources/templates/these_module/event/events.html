@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Yesbanana</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Yesbanana project">
+	<meta name="viewport" content="width=device-width, initial-scale=1 ">
+	<link rel="stylesheet"  th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+	<link th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}" rel="stylesheet">
+	<link rel="stylesheet"  th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+	<link rel="stylesheet"  th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+	<link rel="stylesheet"  th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+	<link rel="stylesheet"  th:href="@{/new/plugins/slick-1.8.0/slick.css}">
+	<link rel="stylesheet"  th:href="@{/new/styles/main_styles.css}">
+	<link rel="stylesheet"  th:href="@{/new/styles/responsive.css}">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="super_container">
+
+	<!-- Header -->
+	<div th:replace="~{../templates/fragments/header :: header}"></div>
+
+	<!-- Banner -->
+
+
+	<!-- Banner -->
+
+    <div class="banner" th:if="${#lists.size(events1)>0}">
+        <div class="banner_background" th:style="'background-image:url('+${events1[0].image}+');'"></div>
+        <div class="container fill_height">
+            <div class="row fill_height">
+                <div class="banner_product_image"><img th:src="${events1[0].image}" style="height: inherit" alt=""></div>
+                <div class="col-lg-5 offset-lg-4 fill_height">
+                    <div class="banner_content">
+                        <h1 class="banner_text">Espace Universitaire</h1>
+                        <div class="banner_price" th:text="${events1[0].title}">$460</div>
+                        <h6 class="banner_text" th:text="'Ajoute le : '+${events1[0].creationDate}">Espace Universitaire</h6>
+                        <div class="banner_product_name" th:text="${#strings.substring(events1[0].description,0,120)}+'...'">Apple Iphone 6s</div>
+                        <div class="button banner_button"><a th:href="@{/visitor/event/}+${events1[0].eventId}">Ouvrir</a></div>
+                        <h6 th:if="${#lists.size(events1[0].pieces)<=1}"> <span th:text="${#lists.size(events1[0].pieces)}+' piece jointe'"></span>&nbsp;<i class="fa fa-file"></i></h6>
+                        <h6 th:unless="${#lists.size(events1[0].pieces)<=1} "> <span th:text="${#lists.size(events1[0].pieces)}+' pieces jointes'"></span>&nbsp;<i class="fa fa-file"></i></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<!-- Characteristics -->
+
+	<div class="characteristics">
+		<div class="container">
+			<div class="row">
+
+				<!-- Char. Item -->
+				<div class="col-lg-3 col-md-6 char_col">
+
+                    <a th:href="@{/visitor/bourses}">
+					    <div class="char_item d-flex flex-row align-items-center justify-content-start">
+						<div class="char_icon"><img th:src="@{/new/images/bourse.png}" height="42" width="42" alt=""></div>
+						<div class="char_content">
+							<div class="char_title">Bourses</div>
+							<div class="char_subtitle" th:text="${#lists.size(bourses)}">from $50</div>
+						</div>
+					</div>
+                    </a>
+				</div>
+
+				<!-- Char. Item -->
+				<div class="col-lg-3 col-md-6 char_col">
+
+                    <a th:href="@{/visitor/events/}+'stage'">
+                        <div class="char_item d-flex flex-row align-items-center justify-content-start">
+						<div class="char_icon"><img th:src="@{/new/images/internship.png}" alt=""></div>
+						<div class="char_content">
+							<div class="char_title">Stages</div>
+							<div class="char_subtitle" th:text="${#lists.size(events2)}">from $50</div>
+						</div>
+					</div>
+                    </a>
+				</div>
+
+				<!-- Char. Item -->
+				<div class="col-lg-3 col-md-6 char_col">
+                    <a th:href="@{/visitor/events/}+'emploi'">
+					    <div class="char_item d-flex flex-row align-items-center justify-content-start">
+						<div class="char_icon"><img th:src="@{/new/images/jobs.png}" alt=""></div>
+						<div class="char_content">
+							<div class="char_title">Offres d'Emplois</div>
+							<div class="char_subtitle" th:text="${#lists.size(events3)}">from $50</div>
+						</div>
+					</div>
+                    </a>
+				</div>
+
+				<!-- Char. Item -->
+				<div class="col-lg-3 col-md-6 char_col">
+
+                    <a th:href="@{/visitor/events/}+'nouvelle'">
+                        <div class="char_item d-flex flex-row align-items-center justify-content-start">
+						<div class="char_icon"><img th:src="@{/new/images/News.png}" alt=""></div>
+						<div class="char_content">
+							<div class="char_title">Nouvelles</div>
+							<div class="char_subtitle" th:text="${#lists.size(events4)}">from $50</div>
+						</div>
+					</div>
+                    </a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="banner_2">
+		<div class="banner_2_background" th:style=" 'background-image:url('+ @{/new/images/banner_2_background.jpg} +');'"></div>
+		<div class="banner_2_container">
+			<div class="banner_2_dots"></div>
+			<!-- Banner 2 Slider -->
+            <div class="owl-carousel owl-theme banner_2_slider" th:if="${#lists.size(events4) == 0}">
+
+               <div class="alert alert-danger"><span>Aucun element trouves dans la rubrique Magazines</span></div>
+
+
+            </div>
+
+			<div class="owl-carousel owl-theme banner_2_slider" th:unless="${#lists.size(events4) == 0}">
+
+				<!-- Banner 2 Slider Item -->
+				<div class="owl-item">
+					<div class="banner_2_item">
+						<div class="container fill_height">
+							<div class="row fill_height">
+								<div class="col-lg-4 col-md-6 fill_height">
+									<div class="banner_2_content">
+										<div class="banner_2_category">Magazines</div>
+										<div class="banner_2_title" th:text="${events4[0].title}">MacBook Air 13</div>
+										<div class="banner_2_text" th:text="${#strings.substring(events4[0].description,0,120)}+'...'">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
+										<div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
+										<div class="button banner_2_button"><a th:href="@{/visitor/event/}+${events4[0].eventId}">Explore</a></div>
+									</div>
+
+								</div>
+								<div class="col-lg-8 col-md-6 fill_height">
+									<div class="banner_2_image_container">
+										<div class="banner_2_image"><img th:src="${events4[0].image}" alt=""></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+                <!-- Banner 2 Slider Item -->
+                <div class="owl-item" th:if="${#lists.size(events4) > 1}">
+                    <div class="banner_2_item">
+                        <div class="container fill_height">
+                            <div class="row fill_height">
+                                <div class="col-lg-4 col-md-6 fill_height">
+                                    <div class="banner_2_content">
+                                        <div class="banner_2_category">Magazines</div>
+                                        <div class="banner_2_title" th:text="${events4[1].title}">MacBook Air 13</div>
+                                        <div class="banner_2_text" th:text="${#strings.substring(events4[1].description,0,120)}+'...'">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
+                                        <div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
+                                        <div class="button banner_2_button"><a th:href="@{/visitor/event/}+${events4[1].eventId}">Explore</a></div>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-8 col-md-6 fill_height">
+                                    <div class="banner_2_image_container">
+                                        <div class="banner_2_image"><img th:src="${events4[1].image}" alt=""></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Banner 2 Slider Item -->
+                <div class="owl-item" th:if="${#lists.size(events4) > 2}">
+                    <div class="banner_2_item">
+                        <div class="container fill_height">
+                            <div class="row fill_height">
+                                <div class="col-lg-4 col-md-6 fill_height">
+                                    <div class="banner_2_content">
+                                        <div class="banner_2_category">Magazines</div>
+                                        <div class="banner_2_title" th:text="${events4[2].title}">MacBook Air 13</div>
+                                        <div class="banner_2_text" th:text="${#strings.substring(events4[2].description,0,120)}+'...'">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
+                                        <div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
+                                        <div class="button banner_2_button"><a th:href="@{/visitor/event/}+${events4[2].eventId}">Explore</a></div>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-8 col-md-6 fill_height">
+                                    <div class="banner_2_image_container">
+                                        <div class="banner_2_image"><img th:src="${events4[2].image}" alt=""></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+		</div>
+	</div>
+
+
+	<!-- Adverts -->
+
+	<div class="adverts" th:if="${#lists.size(events5)==0}">
+		<div class="container">
+            <h3 class="advert_title"> Nouvelles</h3>
+            <br>
+            <h5 class="alert-danger">Aucun element trouve </h5>
+			<div class="row">
+				<div class=" advert_col">
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+    <div class="adverts" th:unless="${#lists.size(events5)==0}">
+        <div class="container">
+            <h3 class="advert_title"> Nouvelles</h3>
+            <div class="row" th:each="event : ${events5}">
+                <div class="col-lg-4 advert_col">
+
+                    <!-- Advert Item -->
+
+                    <a th:href="@{/visitor/event/}+${event.eventId}">
+                        <div class="advert d-flex flex-row align-items-center justify-content-start">
+                            <div class="advert_content">
+                                <div class="advert_title"><span th:text="${event.title}">Trends 2018</span></div>
+                                <div class="advert_text" th:text="${#strings.substring(event.description,0,120)}+'...'">Lorem ipsum dolor sit amet, consectetur adipiscing Donec et.</div>
+                            </div>
+                            <div class="ml-auto"><div class="advert_image"><img th:src="${event.image}" alt=""></div></div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+	<!-- Trends -->
+
+	<div class="trends">
+		<div class="trends_background" th:style="'background-image:url('+ @{/new/images/trends_background.jpg}+');'"></div>
+		<div class="trends_overlay"></div>
+		<div class="container">
+			<div class="row">
+
+				<!-- Trends Content -->
+				<div class="col-lg-3">
+					<div class="trends_container">
+						<h2 class="trends_title">Ofres d'emplois et Stages</h2>
+						<div class="trends_text"><p>Retrouver ici toutes les offres d'emplois et Stages professionnels disponible</p></div>
+						<div class="trends_slider_nav">
+							<div class="trends_prev trends_nav"><i class="fas fa-angle-left ml-auto"></i></div>
+							<div class="trends_next trends_nav"><i class="fas fa-angle-right ml-auto"></i></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Trends Slider -->
+				<div class="col-lg-9">
+					<div class="trends_slider_container">
+
+						<!-- Trends Slider -->
+
+						<div class="owl-carousel owl-theme trends_slider" th:each="emploi : ${events6}">
+
+							<!-- Trends Slider Item -->
+							<div class="owl-item">
+								<div class="trends_item is_new">
+									<div class="trends_image d-flex flex-column align-items-center justify-content-center"><img th:src="${emploi.image}" alt=""></div>
+									<div class="trends_content">
+										<div class="trends_category"><span th:text="${emploi.type}">Smartphones</span></div>
+										<div class="trends_info clearfix">
+											<div class="trends_name"><a th:text="${emploi.title}" th:href="@{/visitor/event/}+${emploi.eventId}">Jump White</a></div>
+											<div class="trends_price" th:text="${#strings.substring(emploi.creationDate,0,10)}">$379</div>
+										</div>
+									</div>
+									<ul class="trends_marks">
+										<li class="trends_mark trends_discount">-25%</li>
+										<li class="trends_mark trends_new"><span th:text="${emploi.likes}"></span></li>
+									</ul>
+									<div class="trends_fav"><a th:href="@{/visitor/event/like/}+${event.eventId}"></a><i class="fas fa-heart"></i></div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Reviews -->
+
+
+
+	<div th:replace="~{../templates/fragments/footer :: footer}"></div>
+
+
+
+</div>
+
+<script th:src="@{/new/js/jquery-3.3.1.min.js}" ></script>
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/slick-1.8.0/slick.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/js/custom.js}"></script>
+</body>
+
+</html>

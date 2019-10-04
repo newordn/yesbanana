@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Yesbanana</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="OneTech shop project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/product_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/product_responsive.css}">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_responsive.css}">
+    <link rel="stylesheet"  th:href="@{/new/styles/main_styles1.css}">
+    <link rel="stylesheet"  th:href="@{/new/styles/responsive.css}">
+
+    <style>
+        .blue-gradient{
+            background-image: linear-gradient(40deg,rgb(69,202,252),rgb(48,63,159))!important;
+            background-position-x: initial!important;
+            background-position-y: initial!important;
+            background-size: initial!important;
+            background-repeat-x:initial!important;
+            background-repeat-y:initial!important;
+            background-attachment:initial!important;
+            background-origin:initial!important;
+            background-clip:initial!important;
+            background-color:initial!important;
+        }
+        .white-text{
+            color: #FFFFFF;
+        }
+        .btn-rounded{
+            border-radius: 50%;
+        }
+        .th-lg{
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="super_container">
+    <div th:replace="~{../templates/fragments/header :: header}"></div>
+
+    <!-- Home -->
+
+    <div class="home">
+        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
+        <div class="home_overlay"></div>
+        <div class="home_content d-flex flex-column align-items-center text-center justify-content-center">
+            <h2 class="home_title">Education primaire</h2>
+        </div>
+    </div>
+
+    <!-- Single Product -->
+
+    <div class="single_product">
+        <div class="container">
+        <div class="row">
+            <table class="table text-left  table-bordered table-responsive " style="font-size: 16px">
+                <thead>
+                    <th>Niveau</th>
+                    <th>Matières et livres recommandés par le ministère</th>
+                </thead>
+                <tbody>
+                <tr th:each="niveau,i : ${niveaux}">
+                    <td><span th:text="${niveau.slug}"></span></td>
+                    <td style="padding: 0;">
+                        <table style="width: 100%">
+                            <tbody>
+                                <tr th:id="'row_1'+${niveau.niveauId}">
+                                    <td  style="color: #0b0b0b" ><span th:text="${matieres[i.index][0].name}"></span><br><strong class="text-primary" style="cursor: pointer" id="btn_show"><i class="fa fa-chevron-circle-down"></i><span>Voir plus</span></strong></td>
+                                    <td style="padding: 0;height: 100%" >
+                                        <table  style="width: 100%" >
+                                            <tbody id="table_3">
+                                            <tr>
+                                                <td th:if="${#lists.size(matieres[i.index][0].primaires)}>0">
+                                                    <a th:href="@{/visitor/primaire/}+${matieres[i.index][0].primaires[0].type}+'/'+${matieres[i.index][0].primaires[0].educationId}" th:text="${matieres[i.index][0].primaires[0].title}" class="btn">Mathématiques</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td th:if="${#lists.size(matiere.primaires)}>3" >
+                                                    <a th:href="@{/visitor/primaire/matiere/}+${matiere.name}+'/'+${matiere.classe}" ><i class="fa fa-chevron-circle-down fa-1x"></i>&nbsp;&nbsp;Voir plus</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                                <tr th:id="'row_all'+${niveau.niveauId}" th:each="matiere : ${matieres[i.index]}">
+                                    <td th:text="${matiere.name}" style="color: #0b0b0b" >Mathématiques</td>
+                                    <td style="padding: 0;" >
+                                        <table  style="width: 100%" >
+                                            <tbody>
+                                            <tr>
+                                                <td th:if="${#lists.size(matiere.primaires)}>0">
+                                                    <a th:href="@{/visitor/primaire/}+${matiere.primaires[0].type}+'/'+${matiere.primaires[0].educationId}" th:text="${matiere.primaires[0].title}" class="btn">Mathématiques</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td th:if="${#lists.size(matiere.primaires)}>3" >
+                                                    <a th:href="@{/visitor/primaire/matiere/}+${matiere.name}+'/'+${matiere.classe}" ><i class="fa fa-chevron-circle-down fa-1x"></i>&nbsp;&nbsp;Voir plus</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="alert alert-info">
+                <p style="font-size: 18px">Vous pouver consulter ou commender tous les livres scholaire pour vos enfants recomomandé par le ministère de l'education et profitez des livre complementaire que vous offres Yesbanana pour compléter la formation de vos enfants </p>
+            </div>
+
+
+            <!--div class="blue-gradient"><h4>En cours....</h4></div-->
+            <div class="row" th:each="niveau : ${niveaux}">
+                <div class="card col-md-4 card-columns au-card-bordered">
+                    <span th:text="${niveau.slug}" style="font-size: 18px"></span>
+                </div>
+                <div class="card col-md-8" >
+                    <div class="row" th:each="matiere : ${niveau.matieres}">
+                        <div class="card col-md-6 card-columns au-card-bordered">
+                            <a th:href="@{/visitor/primaire/matiere/}+${matiere.classe}+'/'+${matiere.name}" style="font-size: 18px">
+                                <span th:text="${matiere.name}" style="color: #0b0b0b">blablabla</span> &nbsp;&nbsp;&nbsp;&nbsp;<em th:if="${#lists.size(matiere.primaires)}<=1">(<span th:text="${#lists.size(matiere.primaires)}"></span> livre)</em>
+                                <em th:unless="${#lists.size(matiere.primaires)}<=1">(<span th:text="${#lists.size(matiere.primaires)}"></span> livres)</em>
+                            </a>
+                        </div>
+                        <div class="card col-md-6" >
+                            <a th:href="@{/visitor/primaire/}+${matiere.primaires[0].educationId}+'/'+${matiere.primaires[0].type}">
+                                <span th:text="${matiere.primaires[0].title}" style="font-size: 18px"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+		</div>
+    </div>
+    <div th:replace="~{../templates/fragments/login :: login}"></div>
+</div>
+
+<div th:replace="~{../templates/fragments/footer :: footer}"></div>
+<script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TweenMax.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/TimelineMax.min.js}"></script>
+<script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
+<script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
+<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+<script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
+<script th:src="@{/new/js/shop_custom.js}"></script>
+<script th:src="@{/new/js/product_custom.js}"></script>
+<script th:src="@{/new/js/contact_custom.js}"></script>
+<script th:src="@{/new/js/custom.js}"></script>
+</body>
+</html>

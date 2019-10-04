@@ -1,0 +1,123 @@
+<!--navigation -->
+<!--nav-- class="nav col-12"  xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navigation"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+    <a th:href="@{/these}" style="color:white">
+        <i class="zmdi zmdi-graduation-cap"></i>&nbsp;
+        Thèses</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a th:href="@{/groupe/groupes}" style="color:white">
+        <i class="zmdi zmdi-accounts"></i>&nbsp;
+        Régions</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a th:if="${session.userRole=='root'}" th:href="@{/user}" style="color:white"  sec:authorize="hasRole('root')">
+        <i class="zmdi zmdi-account"></i>&nbsp;Utilisateurs
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a th:if="${session.userRole=='root'}" th:href="@{/stats}" style="color:white"  sec:authorize="hasRole('root')">
+        <i class="zmdi zmdi-trending-down"></i>&nbsp;Statistiques</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
+    <div th:if="${session.avatar}">
+        <img class="profile-img" th:src="${session.avatar}" alt="avatar">
+    </div>
+    <div th:unless="${session.avatar}">
+        <img class="profile-img" th:src="@{/images/avatar.png}" alt="avatar">
+    </div>
+    <div class="dropdown show">
+        <a th:text="${session.name}" class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+           data-toggle="dropdown" style="background-color:transparent;color:white" aria-haspopup="true" aria-expanded="false">
+            Neword Newcom Orquel
+        </a>
+        
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" th:href="@{/user/update/}">Profil</a>
+            <a class="dropdown-item" th:href="@{/logout}">Deconnexion</a>
+        </div>
+
+
+</nav-->
+<!-- navigation -->
+
+<!-- ##### Preloader ##### -->
+<div xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navigationtheseupdate"
+     xmlns:sec="http://www.w3.org/1999/xhtml">
+<div id="preloader">
+    <i class="circle-preloader"></i>
+</div>
+
+<!-- ##### Header Area Start ##### -->
+<header class="header-area">
+
+    <!-- Top Header Area -->
+    <div class="top-header">
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col-12 h-100">
+                    <div class="header-content h-100 d-flex align-items-center justify-content-between">
+                        <div class="academy-logo">
+                            <a th:href="@{/groupe/groupes}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+                        </div>
+                        <div class="login-content classynav">
+                                <h3><span>Modification</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar Area -->
+    <div class="academy-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="academyNav">
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- close btn -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <h2><span>Formulaire de mise a jour de votre thèse</span></h2>
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+
+                    <!-- Calling Info -->
+                    <div class="calling-info">
+                        <div class="call-center row">
+                                <div class="classynav">
+                                    <ul>
+                                    <li>
+                                    <!-- insert the profile image-->
+                                    <div class="login-content" th:if="${session.avatar}">
+                                        <img class="profile-img" th:src="${session.avatar}" alt="avatar">
+                                    </div>
+                                    <div class="login-content" th:unless="${session.avatar}">
+                                        <img class="profile-img" th:src="@{/images/avatar.png}" alt="avatar">
+                                    <!--a href="#">Register / Login</a-->
+                                    </div>
+                                    <!-- insert the profile image-->
+                                    </li>
+                                    <li>
+                                        <a th:text="${session.name}"  href="#" style="background-color:transparent;color:white" aria-haspopup="true" aria-expanded="false">
+
+                                        </a>
+                                    </li>
+                                    </ul>
+                                </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+</div>
+<!-- ##### Header Area End ##### -->

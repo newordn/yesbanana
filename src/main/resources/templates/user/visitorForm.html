@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Yesbanana Registration</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" th:href="@{/connexion/fonts/material-icon/css/material-design-iconic-font.min.css}">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css">
+    <!-- Main css -->
+    <link rel="stylesheet" th:href="@{/connexion/css/style.css}">
+</head>
+<body>
+
+    <div class="main">
+        <a th:href="@{/}" class="btn btn-light" style="padding-left: 30px;"><i class="zmdi zmdi-home zmdi-hc"></i><br><span>Acceuil</span></a>
+        <div class="container">
+        	                <div style="font-size:1.2rem;text-align: center;"><i th:if="${error}" th:text="${error}" style="color:red;"></i> </div>
+            <form method="POST" enctype="multipart/form-data" th:object="${user}" th:action="@{/user/visitor/buy/save}" class="appointment-form" id="appointment-form">
+                <h2 class="text-center">Formulaire d'abonnement a la bibliotheque virtuelle</h2>
+                <div class="form-group-1">
+                    <input  type="text" name="name" id="name" placeholder="Nom..."  />
+                    <input type="email" name="email"  placeholder="Email..." id="email"  />
+
+                    <input type="text" name="number" id="number" placeholder="Téléphone..."  />
+                   <input type="password" name="password" id="password" placeholder="Mot de Passe..."  />
+                   <input type="password"  id="repass" placeholder="Verifier..."  />
+
+                </div>
+                <div class="form-submit">
+                	<a th:href="@{/login}" class="signup-image-link mb-3">Se connecter</a>
+                    <input type="submit" name="submit" id="submit" class="submit mt-3" value="Validé" style="width:80%;margin:auto" />
+                </div>
+            </form>
+        </div>
+			<!-- The Modal -->
+			  <div class="modal fade" id="myModal">
+			    <div class="modal-dialog">
+			      <div class="modal-content">
+			      
+			        <!-- Modal Header -->
+			        <div class="modal-header">
+			          <h4 class="modal-title" style="color: #000000">Partager sur les réseaux sociaux</h4>
+			          <button type="button" class="close" data-dismiss="modal">×</button>
+			        </div>
+			        
+			        <!-- Modal body -->
+			        <div class="modal-body">
+			          <p style="color: #000000">
+			          <a type="button" id="facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com" class="btn btn-social btn-facebook"><span class="fa fa-facebook"></span>    Facebook</a>
+			          <a type="button" id="twitter" class="btn btn-social btn-twitter" target="_blank" href="https://twitter.com/intent/tweet?text=my share text&amp;url=https://twitter.com"> <span class="fa fa-twitter"></span> Twitter</a>
+			          <a type="button" id="linkedin" class="btn btn-social btn-linkedin" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.linkedin.com"> <span class="fa fa-linkedin"></span> LinkedIn</a>
+			          </p>
+			        </div>
+			        
+			        <!-- Modal footer -->
+			        <div class="modal-footer">
+			          <button type="button" class="btn btn-danger" id="closemodal" >Fermer</button>
+			        </div>
+			        
+			      </div>
+			    </div>
+			  </div>
+		<!-- End modal -->		  
+    </div>
+
+    <!-- JS -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script th:src="@{/connexion/vendor/jquery/jquery.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/connexion/js/main.js}"></script>
+    <script type="module" th:src="@{/js/main.js}"></script>
+    <script type="module" th:src="@{/js/dashboard.js}"></script>
+    <script type="text/javascript">
+    	$(document).ready(function(){
+    	  $("#submit").click(function(event){
+    	    event.preventDefault();
+
+    	    $("#myModal").modal();
+    	    
+    	    var facebook=0;
+    	    $("#facebook").click(function(event){
+	    		facebook=1;
+	    	});
+    	    
+    	    var twitter=0;
+    	    
+    	    $("#twitter").click(function(event){
+    	    	twitter=1;
+	    	});
+    	    
+    	    var linkedin=0;
+    	    
+    	    $("#linkedin").click(function(event){
+    	    	linkedin=1;
+	    	});
+    	    $("#closemodal").click(function(event)
+    	     {
+    	    	if(facebook==1 && twitter==1 && linkedin==1)
+    	    	{
+    	    		 $.ajax({
+    	     	        type : 'POST',
+    	     	        url : '@{/user/visitor/buy/save}',
+    	     	        data : $('#appointment-form').serialize(),
+    	     	    });
+    	    	}
+    	    	else{
+    	    		alert("vous devez absolument partager sur les 3 réseaux sociaux");
+    	    		event.preventDefault();
+    	    	}
+    	    });
+    	  
+    	  });
+    	});
+    </script>
+   
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Confirmation d'inscription</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- Main css -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="main" style="background-color:rgb(250,250,250);position:absolute;left:50%;top:50%; transform: translate(-50%,-50%)">
+        <!-- Sing in  Form -->
+        <section class="sign-in" style="height: 100%;background-color:rgb(250,250,250)">
+            <div class="container">
+                <div class="signin-content">
+               <h3 class="text-center" style="color:blue;width:100%;text-align:center">Votre inscription a réussis avec success. </br> Un lien de confirmation vous a été envoyer par mail.</br>
+    Veuillez visiter votre boite mail pour terminer votre inscription.&nbsp;&nbsp; <a th:href="@{/login}">Retour</a></h3>
+                </div>
+                </div>  
+        </section>
+
+    </div>
+
+    <!-- script -->
+    <!--vendor scripts -->
+    <div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+    <!--vendor scripts -->
+<!--script -->
+
+</body><!-- by neword -->
+</html>

@@ -1,0 +1,86 @@
+<!-- ##### Preloader ##### -->
+<div id="preloader">
+    <i class="circle-preloader"></i>
+</div>
+
+<!-- ##### Header Area Start ##### -->
+<header class="header-area" xmlns:th="http://www.thymeleaf.org" th:fragment="visitor">
+
+    <!-- Top Header Area -->
+    <div class="top-header">
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col-12 h-100">
+                    <div class="header-content h-100 d-flex align-items-center justify-content-between">
+                        <div class="academy-logo">
+                            <a th:href="@{/}"><i class="zmdi zmdi-home zmdi-hc-2x"></i><br><span>Acceuil</span></a>
+                        </div>
+                        <div class="login-content">
+                            <a th:href="@{/login}">Staffs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar Area -->
+    <div class="academy-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="academyNav">
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- close btn -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul>
+                                <li><a th:href="@{/}">Acceuil</a></li>
+                                <li><a th:href="@{/deals}">Commencez avec nous?</a></li>
+                                <li><a href="#">Nous contacter</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Expert</a>
+                                            <ul class="dropdown">
+                                                <li><a th:href="@{/login/visitor/expert/universite}">Université</a></li>
+                                                <li><a th:href="@{/login/visitor/expert/professionnel}">Professionnel</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a th:href="@{/login/visitor/parent}">Parents</a></li>
+                                        <li><a th:href="@{/login/visitor/etudiant}">Etudiant</a></li>
+                                        <li><a href="#">Enseignant</a>
+                                            <ul class="dropdown">
+                                                <li><a th:href="@{/login/visitor/enseignant/primaire}">Primaire</a></li>
+                                                <li><a th:href="@{/login/visitor/enseignant/secondaire}">Secondaire</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+
+                    <!-- Calling Info -->
+                    <div class="calling-info">
+                        <div class="call-center">
+                            <a href="#"> <span>solutioneducationafrique@gmail.com</span></a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ##### Header Area End ##### -->

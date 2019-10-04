@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+
+    <!-- Title Page-->
+    <title>Creation d'une thèse</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- thymeleaft -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/showTheses.css}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <link th:href="@{/css/element.css}" rel="stylesheet">
+
+    <!--link th:href="@{/css/style1.css}" rel="stylesheet"-->
+    <!-- thymeleaft-->
+</head>
+<body class="userCrewWrapper">
+<!-- sidebar-->
+<nav th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</nav>
+<!-- sidebar-->
+
+<div id="content" style="padding-left: 15px;padding-right: 15px">
+    <!--navigation-->
+    <div th:replace="~{../templates/fragments/navigationcrewtheseadd :: navigationcrewtheseadd}">
+    </div>
+    <!-- navigation -->
+    <!-- showing theses-->
+    <div style="margin-top: 5.5rem;">
+        <form class=" text-center" style="width:100%;padding:1rem;" enctype="multipart/form-data" method="post" th:action="@{/these/add/save}" th:object="${these}">
+            <!-- user id -->
+            <input type="number" name="userId" th:value="${session.userId}" style="display:none">
+            <!-- user id -->
+            <!--theseId-->
+            <input type="number" th:field="*{theseId}"  style="display:none">
+            <!--theseId-->
+            <!--groupeId-->
+            <input type="number" name="groupeId" th:value="${session.groupeId}"  style="display:none">
+            <!--groupeId-->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <span class='error' id="universityError"></span>
+                        <input type="text" th:field="*{university}" id="university" class="form-control" placeholder="Université/Ecole" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <span class='error' id="facultyError"></span>
+                        <input type="text" th:field="*{faculty}" id="faculty" class="form-control" placeholder="Faculté/Discipline" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <span class='error' id="optionError"></span>
+                        <input type="text" th:field="*{options}" id="option" class="form-control" placeholder="Option" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <span class='error' id="levelError"></span>
+                        <input type="text" th:field="*{level}" class="form-control" id="level" placeholder="Niveau" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <span class='error' id="subjectError"></span>
+                        <input type="text" th:field="*{subject}" class="form-control" id="subject" placeholder="Sujet/Thème" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <span class='error' id="dateError"></span>
+                        <input type="text" th:field="*{theseDate}" class="form-control" id="dateThese" placeholder="Date" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="form-group col-md-3">
+                    <p class="mb-0">Type de fichier pour le sommaire:</p>
+                    <select class="form-control" th:field="*{fileType}">
+                        <option value="">Selectionner un type de fichiers</option>
+                        <option value="DOCUMENT">DOCUMENTS</option>
+                        <option value="IMAGE">IMAGE</option>
+                        <option value="VIDEO">VIDEO</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <div class="img-upload-div">
+                        <div class="custom-file mb-3">
+                            <p class="mb-0">Fichiers du Sommaire:</p>
+                            <input type="file" multiple class="form-control-file border" id="customFile" name="files">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <span class='error' id="countryError"></span>
+                        <input th:text="${session.groupeCountry}" class="form-control">
+                        <input type="text" name="country" id="country" class="form-control" style="display: none" th:value="${session.groupeCountry}" placeholder="Pays" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <span class='error' id="regionError"></span>
+                        <input th:text="${session.groupeRegion}" class="form-control" >
+                        <input type="text" name="regions" id="region" class="form-control" style="display: none" th:value="${session.groupeRegion}" placeholder="Région" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <span class='error' id="assistantError"></span>
+                        <input type="text" th:field="*{assistant}" class="form-control" id="assistant" placeholder="Nom de l'assistant" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <span class='error' id="studentError"></span>
+                        <input type="text" th:field="*{student}" class="form-control" id="student" placeholder="Nom de l'étudiant" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <span class='error' id="profError"></span>
+                        <input type="text" th:field="*{profesor}" id="prof" class="form-control" placeholder="Nom de l'encadreur/prof" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <span class='error' id="workChiefError"></span>
+                        <input type="text" th:field="*{workChief}" id="workChief" class="form-control" placeholder="Nom du chef des travaux" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <span class='error' id="anotherSommairetError"></span>
+                        <p>Autre Sommaire:</p>
+                        <textarea th:field="*{anotherSommaire}" cols="70" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <span class='error' id="departementError"></span>
+                        <p>Departement:</p>
+                        <input type="text" th:field="*{departement}" id="departement" class="form-control" placeholder="Departement ..." />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6 mb-2 mt-2">
+                    <a style="width:90%;" th:href="@{/groupe/groupe/}+${session.groupeId}"  class="btn btn-warning" >Annuler</a>
+                </div>
+                <div class="col-md-6 mb-2 mt-2">
+                    <button style="width:90%;" type="submit"  class="btn btn-success" sec:authorize="hasRole('ROLE_ROOT')"  >Validé</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+<script th:src="@{/js/dashboard.js}"></script>
+<script th:src="@{/js/showTheses.js}"></script>
+<!-- scripts-->
+
+<script>
+    $(document).ready(function () {
+
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+        });
+        $('#back').on('click', function(){
+            $('#sidebar').toggleClass('active')
+        });
+
+    });
+</script>
+
+</body>
+
+</html>

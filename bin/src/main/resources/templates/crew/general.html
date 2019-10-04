@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+
+    <!-- Title Page-->
+    <title>Contenu d'une thèse</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- thymeleaft -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+
+
+</head>
+
+<body>
+<div class=" card modal-warning alert-warning"  >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center alert-info">
+                <h5 class="modal-title">Modification des elements d'une thèse en general</h5>
+            </div>
+            <div class="modal-body text-center">
+                <h5>Veuillez renseigner le champ a modifier s'il vous plait</h5>
+            </div>
+            <form class=" text-center" style="width:100%;padding:1rem;"  method="post" th:action="@{/groupe/groupe/these/general/edit}" th:object="${these1}">
+
+                <div class="mb-4">
+                    <div class="col-12 col-sm-6 col-lg-12">
+                        <!--theseId-->
+                        <input type="hidden" th:field="*{theseId}"  >
+                        <input type="hidden" name="groupeId" th:value="${groupe.groupeId}"  >
+                        <!--theseId-->
+                        <div class=" mb-4">
+                            <div class="col-12 col-sm-6 col-lg-12">
+                                <div class="form-group">
+                                    <span class='error' id="universityError"></span>
+                                    <input type="text" th:field="*{university}" class="form-control" id="university" placeholder="Université/Ecole" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                <div class="form-group">
+                                    <span class='error' id="facultyError"></span>
+                                    <input type="text" th:field="*{faculty}" id="faculty" class="form-control" placeholder="Faculté/Discipline" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                <div class="form-group">
+                                    <span class='error' id="optionError"></span>
+                                    <input type="text" th:field="*{options}" class="form-control" id="option" placeholder="Option" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="col-12 col-sm-6 col-lg-12">
+                                <div class="form-group">
+                                    <span class='error' id="levelError"></span>
+                                    <input type="text" th:field="*{level}" class="form-control" id="level" placeholder="Niveau" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                <div class="form-group">
+                                    <span class='error' id="subjectError"></span>
+                                    <input type="text" class="form-control" th:field="*{subject}" id="subject" placeholder="Sujet/Thème" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                <div class="form-group">
+                                    <span class='error' id="motCleError"></span>
+                                    <input type="text" class="form-control" th:field="*{motCle}" id="motCle" placeholder="Entrer un mot clé" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                <div class="form-group">
+                                    <span class='error' id="dateError"></span>
+                                    <input type="text" class="form-control" th:field="*{theseDate}" id="dateThese" placeholder="Date" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" mb-4">
+                            <div class="col-12 col-sm-6 col-lg-12" style="display: none">
+                                <span class='error' id="countryError"></span>
+                                <select th:field="*{country}" style="width: 100%" class="form-control"  id="countrySelect">
+                                    <option value="">Selection pays</option>
+                                    <option th:each="countrySel : ${countries}" th:value="${countrySel}" th:text="${countrySel}">Côte d'ivoire</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3" style="display: none">
+                                <div class="form-group">
+                                    <span class='error' id="regionError"></span>
+                                    <input type="text" th:field="*{regions}" class="form-control"  id="region" placeholder="Région" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3">
+                                <div class="form-group ">
+                                    <span class='error' id="profError"></span>
+                                    <input type="text" th:field="*{departement}" class="form-control" id="prof" placeholder="Département" />
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: none;">
+                            <div class="row mb-4">
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <span class='error' id="assistantError"></span>
+                                        <input type="text" th:field="*{assistant}" id="assistant" placeholder="Nom de l'assistant" />
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <span class='error' id="studentError"></span>
+                                        <input type="text" th:field="*{student}" id="student" placeholder="Nom de l'étudiant" />
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group ">
+                                        <span class='error' id="profError"></span>
+                                        <input type="text" th:field="*{profesor}" id="prof" placeholder="Nom de l'encadreur/prof" />
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <span class='error' id="workChiefError"></span>
+                                        <input type="text" th:field="*{workChief}" id="workChief" placeholder="Nom du chef des travaux" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer text-center">
+                    <a th:href="@{/groupe/groupe/}+${groupe.groupeId}" class="btn btn-warning pull-left">Retour</a>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--vendor scripts -->
+<div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+<!--vendor scripts -->
+
+<!-- scripts-->
+<!-- js -->
+<script th:src="@{/js/js.js}"></script>
+
+</body>
+
+</html>

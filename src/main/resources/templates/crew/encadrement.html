@@ -1,0 +1,142 @@
+ <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="derteuffel">
+    <!-- Title Page-->
+    <title>Les groupes</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link th:href="@{/css/element.css}" rel="stylesheet">
+    <script defer th:src="@{https://use.fontawesome.com/releases/v5.0.13/js/solid.js}" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer th:src="@{https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js}" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/addTheses.css}" rel="stylesheet">
+    <link th:href="@{/css/crew.css} " rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+
+
+<body class="userCrewWrapper">
+<!-- sidebar-->
+<nav th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</nav>
+<!-- sidebar-->
+
+<div id="content" style="padding-left: 15px;padding-right: 15px">
+    <!--navigation-->
+    <div th:replace="~{../templates/fragments/navigationcrewallencadrement :: navigationcrewallencadrement}">
+    </div>
+    <div class="row content mt-3" >
+        <div class="col-md-3  text-center crew mb-2"  style="padding:.5rem;">
+            <div class="card">
+                <div  class=" deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
+                    <div class=" text-left" style="padding:0">
+                        <a th:href="@{/groupe/encadrement/chef/} + ${groupe.groupeId}" class="btn btn-success rounded-circle" sec:authorize="!hasRole('ROLE_USER')" style="color:black;cursor: pointer;text-decoration:none">
+                            <i class="zmdi zmdi-eye" ></i>
+                        </a>
+                    </div>
+                </div>
+                <div style="background-color:teal; color:white" >
+                    <span > Chef des Travaux</span>
+                    <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
+                        <span >C</span>
+                    </div>
+                </div>
+                <hr style="margin:.2rem">
+
+            </div>
+
+        </div>
+        <div class="col-md-3  text-center crew mb-2"  style="padding:.5rem;">
+            <div class="card">
+                <div  class="deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
+                    <div class="text-left" style="padding:0">
+                        <a th:href="@{/groupe/encadrement/assistant/} + ${groupe.groupeId}" class="btn btn-success rounded-circle" sec:authorize="!hasRole('ROLE_USER')" style="color:black;cursor: pointer;text-decoration:none">
+                            <i class="zmdi zmdi-eye" ></i>
+                        </a>
+                    </div>
+                </div>
+                <div style="background-color:teal; color:white" >
+                    <span >Assistant</span>
+                    <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
+                        <span >A</span>
+                    </div>
+                </div>
+                <hr style="margin:.2rem">
+            </div>
+        </div>
+        <div class="col-md-3  text-center crew mb-2"  style="padding:.5rem;">
+                <div class="card">
+                    <div  class="deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
+                        <div class="text-left" style="padding:0">
+                            <a th:href="@{/groupe/encadrement/encadreur/} + ${groupe.groupeId}" class="btn btn-success rounded-circle" sec:authorize="!hasRole('ROLE_USER')" style="color:black;cursor: pointer;text-decoration:none">
+                                <i class="zmdi zmdi-eye" ></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div style="background-color:teal; color:white" >
+                        <span > Encadreur</span>
+                        <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
+                            <span >E</span>
+                        </div>
+                    </div>
+                    <hr style="margin:.2rem">
+                </div>
+        </div>
+        <div class="col-md-3  text-center crew mb-2"  style="padding:.5rem;">
+            <div class="card">
+                <div  class="deleteUpdate " style="position:absolute;z-index:1000;width:100%;margin:auto"    >
+                    <div class="text-left" style="padding:0">
+                        <a th:href="@{/groupe/encadrement/etudiant/} + ${groupe.groupeId}" class="btn btn-success rounded-circle" style="color:black;cursor: pointer;text-decoration:none">
+                            <i class="zmdi zmdi-eye" ></i>
+                        </a>
+                    </div>
+                </div>
+                <div style="background-color:teal; color:white" >
+                    <span> Etudiant</span>
+                    <div class="card-img-top" style="color:white;line-height:5rem;font-size:5rem;background-color:lightseagreen;border-radius: 50%;width:5rem;margin:auto;height: 5rem;">
+                        <span>E</span>
+                    </div>
+                </div>
+                <hr style="margin:.2rem">
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<!--script-->
+<script>
+    $(document).ready(function () {
+
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+        });
+        $('#back').on('click', function(){
+            $('#sidebar').toggleClass('active')
+        });
+
+    });
+</script>
+<!--vendor scripts -->
+<script th:src="@{/js/crew.js}"></script>
+<!--script-->
+
+</body>
+
+</html>

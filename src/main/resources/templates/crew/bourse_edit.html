@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modification du groupe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <link th:href="@{/css/style1.css}" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS-->
+    <link th:href="@{/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/css/element.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+
+
+</head>
+<body>
+<div class=" card modal-warning alert-warning"  >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center alert-info">
+                <h5 class="modal-title">Modification des elements d'une bourse</h5>
+            </div>
+            <div class="modal-body text-center">
+                <h5>Veuillez renseigner le champ a modifier s'il vous plait</h5>
+            </div>
+            <form class=" text-center" style="width:100%;padding:1rem;"  th:object="${bourse}" method="post" th:action="@{/groupe/bourse/edit/{bourseId} (bourseId=${bourse.bourseId})}">
+
+                <div class="mb-4">
+                    <div class="col-12 col-sm-6 col-lg-12">
+                        <div class=" mb-4">
+                            <div class="col-12 col-sm-6 col-lg-12">
+                                <div class="form-group">
+                                    <span class='error' id="universityError"></span>
+                                    <input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Titre de la bourse" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" mb-4">
+                            <div class="col-12 col-sm-6 col-lg-12">
+                                <div class="form-group">
+                                    <span class='error' id="universityError"></span>
+                                    <input type="text" th:field="*{link}" class="form-control" id="university" placeholder="Lien de consultation de la bourse" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="col-12 col-sm-6 col-lg-12">
+                                <div class="form-group">
+                                    <span class='error' id="levelError"></span>
+                                    <textarea type="text" th:field="*{description}" id="region" rows="5" class="form-control" placeholder="Description " ></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-12 mt-3" style="display: none">
+                                <div class="form-group">
+                                    <span class='error' id="subjectError"></span>
+                                    <input type="text" name="status" th:value="${bourse.status}"  class="form-control" placeholder="Lien du site" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer text-center">
+                    <a th:href="@{/groupe/bourses}" class="btn btn-warning pull-left">Retour</a>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

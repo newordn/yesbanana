@@ -1,0 +1,25 @@
+<!--addCrew-->
+<div  class=" modal fade in" id="login" tabindex="-1" role="dialog" data-keyboard="false" th:fragment="login"  xmlns:th="http://www.w3.org/1999/xhtml" >
+    <div class="modal-dialog modal-dialog-centered card p-3"  style="pointer-events:auto;" role="document" >
+        <form  id="contact_form"  method="POST" th:action="@{/login}">
+            <h2 class="card-header bg-primary text-center" style="color: #FFFFFF;">Connexion d'un Visiteur</h2>
+            <div class="card-body mt-3 p-0">
+                <div  class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                    <input style="width: 100%" type="text" id="contact_form_name" name="name" class="contact_form_name input_field" placeholder="Nom d'utilisateur"  >
+                </div>
+                <div  class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+                    <input style="width: 100%" type="password" id="contact_form_email" class="contact_form_email input_field" placeholder="Mot de passe" name="password"  >
+                </div>
+            </div>
+            <div class="form-group row form-button" style="width: 100%">
+                <div class="col-6">
+                    <button data-dismiss="modal" style="width:100%;background-color: #f5e211!important; " class="button cart_button" >Cancel</button>
+                </div>
+                <div class="col-6">
+                    <button type="submit" id="submit" style="width:100%;"  class="button cart_button">Valider</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- addCrew-->

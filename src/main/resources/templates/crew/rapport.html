@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Neword">
+
+    <!-- Title Page-->
+    <title>Contenu d'une thèse</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- thymeleaft -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <!-- thymeleaft-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+
+    <link th:href="@{/css/element.css}" rel="stylesheet">
+
+
+
+</head>
+
+<body class="userCrewWrapper">
+<!-- sidebar-->
+<nav th:replace="~{../templates/fragments/sidebar :: sidebar}">
+</nav>
+<!-- sidebar-->
+
+<div id="content" style="padding-left: 15px;padding-right: 15px">
+    <!--navigation-->
+    <div th:replace="~{../templates/fragments/navigationcrewrapport :: navigationcrewrapport}">
+    </div>
+    <div>
+        <!-- these detail -->
+        <div class="container text-center" style="width:100%;">
+            <div  style="margin-top: 5.5rem">
+                <div class=" pt-3 pb-3 justify-content-center">
+                    <div class="detailabstract " style="padding:0" ><h2>Detail</h2>
+                        <br><br>
+                        <div class="card">
+                            <div class="card-body text-left">
+                                <p><strong>Nom de l'auteur :</strong>&nbsp;&nbsp;&nbsp;<span th:text="${rapport.userName}"></span></p>
+                                <p><strong>Fonction occuper :</strong>&nbsp;&nbsp;&nbsp;<span th:text="${rapport.occupation}"></span></p>
+                                <p><strong>Titre du rapport :</strong>&nbsp;&nbsp;&nbsp;<span th:text="${rapport.title}"></span></p>
+                                <p><strong>Recommandation :</strong>&nbsp;&nbsp;&nbsp;<span th:text="${rapport.recommandation}"></span></p>
+                                <p><strong>Lieu de réalisation :</strong>&nbsp;&nbsp;&nbsp;<span th:text="${rapport.lieu}"></span></p>
+                                <p><strong>Etat de réalisation :</strong>&nbsp;&nbsp;&nbsp;<span th:if="${rapport.status}== true" >Déja réaliser</span><span th:unless="${rapport.status}== true" >Non réaliser</span></p>
+                                <p><strong>Début de réalisation :</strong>&nbsp;&nbsp;&nbsp;<span th:text="${rapport.begin_date}"></span></p>
+                                <p><strong>Fin de réalisation :</strong>&nbsp;&nbsp;&nbsp;<span th:text="${rapport.end_date}"></span></p>
+                                <p><strong>Date d'enregistrement :</strong>&nbsp;&nbsp;&nbsp;<span th:text="${rapport.created_date}"></span></p>
+                            </div>
+                        </div>
+                        <div  class="justify-content-center col-md-12">
+                            <ul th:each="fichier : ${rapport.pieces}">
+                                <li class="menu-item">
+                                    <a th:href="${fichier}" th:text="${fichier}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Contenu</h4>
+                        </div>
+                        <div class="card-body">
+                            <p th:text="${rapport.description}"></p>
+                        </div>
+                    </div>
+                    <br><hr>
+                    <h5><i>Ajouter par:</i> <span th:text="${rapport.user.name}"></span>  <i>le  <span th:text="${rapport.created_date}"></span></i>    <i>à <span th:text="${rapport.lieu}"></span></i> </h5>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+        });
+        $('#back').on('click', function(){
+            $('#sidebar').toggleClass('active')
+        });
+
+    });
+</script>
+</body>
+
+</html>
