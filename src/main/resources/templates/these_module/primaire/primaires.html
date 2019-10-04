@@ -7,20 +7,9 @@
     <meta name="description" content="OneTech shop project">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/product_styles.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/product_responsive.css}">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_styles.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_responsive.css}">
-    <link rel="stylesheet"  th:href="@{/new/styles/main_styles1.css}">
-    <link rel="stylesheet"  th:href="@{/new/styles/responsive.css}">
+    <link th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/cart_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/cart_responsive.css}">
 
     <style>
         .blue-gradient{
@@ -51,83 +40,69 @@
 <div class="super_container">
     <div th:replace="~{../templates/fragments/header :: header}"></div>
 
-    <!-- Home -->
-
-    <div class="home">
-        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
-        <div class="home_overlay"></div>
-        <div class="home_content d-flex flex-column align-items-center text-center justify-content-center">
-            <h2 class="home_title">Education primaire</h2>
-        </div>
-    </div>
-
     <!-- Single Product -->
 
     <div class="single_product">
         <div class="container">
-            <!--table class="table text-left  table-bordered table-responsive  table-lg display" style="font-size: 16px">
-                <thead>
-                    <th>Niveau</th>
-                    <th>Matières et livres recommandés par le ministère</th>
-                </thead>
-                <tbody>
-                <tr th:each="niveau,i : ${niveaux}">
-                    <td><span th:text="${niveau.slug}"></span></td>
-                    <td style="padding: 0;">
-                        <table style="width: 100%">
-                            <tbody>
-                                <tr th:id="'row_1'+${niveau.niveauId}">
-                                    <td  style="color: #0b0b0b" ><span th:text="${matieres[i.index][0].name}"></span><br><strong class="text-primary" style="cursor: pointer" id="btn_show"><i class="fa fa-chevron-circle-down"></i><span>Voir plus</span></strong></td>
-                                    <td style="padding: 0;height: 100%" >
-                                        <table  style="width: 100%" >
-                                            <tbody id="table_3">
-                                            <tr>
-                                                <td th:if="${#lists.size(matieres[i.index][0].primaires)}>0">
-                                                    <a th:href="@{/visitor/primaire/}+${matieres[i.index][0].primaires[0].type}+'/'+${matieres[i.index][0].primaires[0].educationId}" th:text="${matieres[i.index][0].primaires[0].title}" class="btn">Mathématiques</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td th:if="${#lists.size(matiere.primaires)}>3" >
-                                                    <a th:href="@{/visitor/primaire/matiere/}+${matiere.name}+'/'+${matiere.classe}" ><i class="fa fa-chevron-circle-down fa-1x"></i>&nbsp;&nbsp;Voir plus</a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+            <!-- Cart -->
 
-                                    </td>
-                                </tr>
-                                <tr th:id="'row_all'+${niveau.niveauId}" th:each="matiere : ${matieres[i.index]}">
-                                    <td th:text="${matiere.name}" style="color: #0b0b0b" >Mathématiques</td>
-                                    <td style="padding: 0;" >
-                                        <table  style="width: 100%" >
-                                            <tbody>
-                                            <tr>
-                                                <td th:if="${#lists.size(matiere.primaires)}>0">
-                                                    <a th:href="@{/visitor/primaire/}+${matiere.primaires[0].type}+'/'+${matiere.primaires[0].educationId}" th:text="${matiere.primaires[0].title}" class="btn">Mathématiques</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td th:if="${#lists.size(matiere.primaires)}>3" >
-                                                    <a th:href="@{/visitor/primaire/matiere/}+${matiere.name}+'/'+${matiere.classe}" ><i class="fa fa-chevron-circle-down fa-1x"></i>&nbsp;&nbsp;Voir plus</a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+            <div class="cart_section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <div class="cart_container">
+                                <div class="cart_title">Education Primaire</div>
+                                <!-- Order Total -->
+                                <div class="order_total">
+                                    <div class="order_total_content text-md-left m-1 " style="font-size: 16px">
+                                        <div>Vous pouvez consulter des livres scolaire pour vos enfants recomomandé par le ministère de l'education et profitez des livres complementaire que vous offres
+                                            Yesbanana pour compléter la formation de vos enfants </div>
 
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                </tbody>
-            </table-->
-            <div class="alert alert-info">
-                <p style="font-size: 18px">Vous pouver consulter ou commender tous les livres scholaire pour vos enfants recomomandé par le ministère de l'education et profitez des livre complementaire que vous offres Yesbanana pour compléter la formation de vos enfants </p>
+                                    </div>
+                                </div>
+                                <div class="cart_items" th:each="niveau : ${niveaux}">
+                                    <a href="#" data-toggle="modal" data-target="#basicExampleModal" th:attr="data-target='#basicExampleModal'+${niveau.niveauId}">
+                                        <ul class="cart_list mt-4 btn-outline-primary" style="border-radius: 5px">
+                                        <li class="cart_item  clearfix">
+                                            <div class="cart_item_image"><img th:src="@{/new/images/shopping_cart.jpg}" alt=""></div>
+                                            <div class="cart_item_info  text-center" >
+                                                <h3 th:text="${niveau.slug}">PREMIERE ANNEE</h3>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    </a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" th:id="basicExampleModal+${niveau.niveauId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="exampleModalLabel">Table de Matieres</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div th:each="matiere : ${niveau.matieres}">
+                                                        <a th:href="@{/visitor/primaire/livres/}+${matiere.matiereId}" style="font-size: 18px"><i class="fa fa-arrow-right"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span th:text="${matiere.name}"></span></a>&nbsp;&nbsp;&nbsp;&nbsp; <em th:if="${#lists.size(matiere.primaires)}<=1">(<span th:text="${#lists.size(matiere.primaires)}"></span> livre)</em>
+                                                        <em th:unless="${#lists.size(matiere.primaires)}<=1">(<span th:text="${#lists.size(matiere.primaires)}"></span> livres)</em>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Retour</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-
-            <div class="blue-gradient"><h4>En cours....</h4></div>
+            <!--div class="blue-gradient"><h4>En cours....</h4></div-->
             <!--div class="row" th:each="niveau : ${niveaux}">
                 <div class="card col-md-4 card-columns au-card-bordered">
                     <span th:text="${niveau.slug}" style="font-size: 18px"></span>
@@ -152,7 +127,6 @@
         </div>
 
     </div>
-    <div th:replace="~{../templates/fragments/login :: login}"></div>
 </div>
 
 <div th:replace="~{../templates/fragments/footer :: footer}"></div>
@@ -164,14 +138,7 @@
 <script th:src="@{/new/plugins/scrollmagic/ScrollMagic.min.js}"></script>
 <script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
 <script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
-<script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
 <script th:src="@{/new/plugins/easing/easing.js}"></script>
-<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
-<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
-<script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
-<script th:src="@{/new/js/shop_custom.js}"></script>
-<script th:src="@{/new/js/product_custom.js}"></script>
-<script th:src="@{/new/js/contact_custom.js}"></script>
-<script th:src="@{/new/js/custom.js}"></script>
+<script th:src="@{/new/js/cart_custom.js}"></script>
 </body>
 </html>

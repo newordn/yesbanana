@@ -32,7 +32,7 @@ public interface PrimaireRepository extends JpaRepository<Primaire, Long> {
     List<Primaire> findByTypeAndClasse(String type, int classe);
    // Primaire findByType(String type);
 
-    List<Primaire> findAllByMatiere_MatiereId(Long matiereId);
+    List<Primaire> findAllByMatiere_MatiereIdAndStatus(Long matiereId, Boolean status);
 
 
 }

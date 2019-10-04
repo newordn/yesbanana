@@ -4,58 +4,71 @@
     <title>Yesbanana</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="OneTech shop project">
+    <meta name="description" content="Yesbanana project">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">
+    <link th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/OwlCarousel2-2.2.1/animate.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_styles.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/shop_responsive.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/product_styles.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/product_responsive.css}">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_styles.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/contact_responsive.css}">
-    <link rel="stylesheet"  th:href="@{/new/styles/main_styles1.css}">
-    <link rel="stylesheet"  th:href="@{/new/styles/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/blog_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/new/styles/blog_responsive.css}">
 </head>
 <body>
 
 <div class="super_container">
+    <!-- Single Product -->
+    <!-- Header -->
     <div th:replace="~{../templates/fragments/header :: header}"></div>
-
-    <!-- Home -->
 
     <div class="home">
         <div class="home_background parallax-window" data-parallax="scroll" data-image-src="new/images/shop_background.jpg"></div>
         <div class="home_overlay"></div>
-        <div class="home_content d-flex flex-column align-items-center text-center justify-content-center">
-            <h2 class="home_title">Education primaire</h2>
+        <div class="home_content d-flex flex-column align-items-center justify-content-center">
+            <h2 class="home_title">Education primaire |||
+                <span th:text="${matiere}">Offres d'emplois</span>
+
+            </h2>
         </div>
     </div>
 
-    <!-- Single Product -->
+    <!-- Blog -->
 
-    <div class="single_product">
-        <div class="container d-flex flex-column align-items-center text-center justify-content-center">
-                <ul style="width: 90%;font-size: 18px; " class="" th:each="livre : ${livres}">
-                    <li class="nav-item card p-3 alert-secondary text-center mt-1 mb-1">
-                        <a  th:href="@{/visitor/primaire/livre/}+${livre.educationId}" style="color: #0b0b0b"><span class="text-primary">Titre : </span><span th:text="${livre.title}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-primary">Ecrit par : </span>&nbsp;&nbsp;&nbsp;<span th:text="${livre.editeur}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-primary">année :</span>&nbsp;&nbsp;&nbsp;<span th:text="${livre.anne_edition}"></span></a>
-                    </li>
+    <div class="blog">
+        <div class="container" th:if="${#lists.size(livres)== 0}">
+            <div class="row">
+                <div class="col">
+                    <div class="blog_posts alert-danger alert" >
 
-                </ul>
+                        <h3>Aucun element trouve </h3>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class=" container mt-5 d-flex flex-column align-items-center text-center justify-content-center">
-            <a th:href="@{/visitor/education/primaire}"><i class="fa fa-long-arrow-left"></i>&nbsp;<span>Retourner à la liste</span></a>
+        <div class="container" th:unless="${#lists.size(livres)== 0}">
+            <div class="row">
+                <div class="col">
+                    <div class="blog_posts d-flex flex-row align-items-start justify-content-between" th:each="livre : ${livres}">
+
+                        <!-- Blog post -->
+                        <div class="blog_post col-md-4 mb-5 mt-2 px-1">
+                            <div class="blog_image" th:style="'background-image:url('+${livre.couverture}+');'"></div>
+                            <div class="blog_text" th:text="${#strings.substring(livre.description,0,120)}+'...'">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada.</div>
+                            <div class="blog_button"><a th:href="@{/visitor/primaire/}+${livre.educationId}">Voir plus</a></div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-    <div th:replace="~{../templates/fragments/login :: login}"></div>
+
+    <div th:replace="~{../templates/fragments/footer :: footer}"></div>
+
+
 </div>
-
-<div th:replace="~{../templates/fragments/footer :: footer}"></div>
 <script th:src="@{/new/js/jquery-3.3.1.min.js}"></script>
 <script th:src="@{/new/styles/bootstrap4/popper.js}"></script>
 <script th:src="@{/new/styles/bootstrap4/bootstrap.min.js}"></script>
@@ -65,13 +78,8 @@
 <script th:src="@{/new/plugins/greensock/animation.gsap.min.js}"></script>
 <script th:src="@{/new/plugins/greensock/ScrollToPlugin.min.js}"></script>
 <script th:src="@{/new/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
-<script th:src="@{/new/plugins/easing/easing.js}"></script>
-<script th:src="@{/new/plugins/Isotope/isotope.pkgd.min.js}"></script>
-<script th:src="@{/new/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
 <script th:src="@{/new/plugins/parallax-js-master/parallax.min.js}"></script>
-<script th:src="@{/new/js/shop_custom.js}"></script>
-<script th:src="@{/new/js/product_custom.js}"></script>
-<script th:src="@{/new/js/contact_custom.js}"></script>
-<script th:src="@{/new/js/custom.js}"></script>
+<script th:src="@{/new/plugins/easing/easing.js}"></script>
+<script th:src="@{/new/js/blog_custom.js}"></script>
 </body>
 </html>
