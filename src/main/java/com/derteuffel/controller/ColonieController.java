@@ -281,7 +281,7 @@ public class ColonieController {
     }
 
     @PostMapping("/save")
-    public String save(Colonie colonie, @RequestParam("files")MultipartFile[] files,@RequestParam("couverture")MultipartFile couverture, String prix){
+    public String save(Colonie colonie, @RequestParam("files")MultipartFile[] files,@RequestParam("couverture")MultipartFile couverture, String prix, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
         String fileName = fileUploadService.storeFile(couverture);
@@ -310,19 +310,25 @@ public class ColonieController {
             colonie.setFichier(filesPaths);
 
         }
+        if (colonie.getActivite().length()< 150){
 
-        colonie.setPrice(Double.parseDouble(prix));
-        colonie.setStatus(true);
-        colonie.setActive(false);
-        colonieRepository.save(colonie);
-        MailService backMessage = new MailService();
-        backMessage.sendSimpleMessage(
-                "solutioneducationafrique@gmail.com",
-                "Notification de l'ajout d'un evenement dans le module de colonie des vancances, Titre de l'activite : "+ colonie.getTitle(),
-                user.getName() + " vous notifi celon le contenue suivant :  veuillez bien prendre connaissance du message et apporter des modifications souligner"
-        );
+            model.addAttribute("errors", "ce le  champs description doit contenir au moins 150 charactere");
+            return "colonie/colonies";
+        }else {
 
-        return "redirect:/colonie/detail/"+colonie.getColonieId();
+            colonie.setPrice(Double.parseDouble(prix));
+            colonie.setStatus(true);
+            colonie.setActive(false);
+            colonieRepository.save(colonie);
+            MailService backMessage = new MailService();
+            backMessage.sendSimpleMessage(
+                    "solutioneducationafrique@gmail.com",
+                    "Notification de l'ajout d'un evenement dans le module de colonie des vancances, Titre de l'activite : " + colonie.getTitle(),
+                    user.getName() + " vous notifi celon le contenue suivant :  veuillez bien prendre connaissance du message et apporter des modifications souligner"
+            );
+
+            return "redirect:/colonie/detail/" + colonie.getColonieId();
+        }
 
     }
 

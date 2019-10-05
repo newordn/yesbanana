@@ -39,7 +39,7 @@ public class User implements Serializable{
 
     @Column
     private String country;
-    @NotNull
+    @Column
     private String region;
     @Column
     private String university;

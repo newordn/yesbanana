@@ -714,14 +714,14 @@ public class ExternController {
     @GetMapping("/event/events")
     public String news(Model model){
 
-        List<Event> events=eventService.findByType("nouvelle");
+        List<Event> events=eventService.findByType("topinfo");
         List<Event> events2=eventService.findByType("stage");
         List<Event> events3=eventService.findByType("emploi");
         List<Event> events4=eventService.findByType("magazine");
         List<Bourse> bourses= bourseRepository.findFirst12ByStatusAndSuprime(true,false, Sort.by(Sort.Direction.DESC,"bourseId"));
 
         List<Event> events1=eventService.findAll();
-        List<Event> events5=eventService.findFirst6("nouvelle");
+        List<Event> events5=eventService.findFirst6("topinfo");
         List<Event> events6=eventService.findFirst3("emploi");
         List<Event> events7=eventService.findFirst3("stage");
         events6.addAll(events7);
@@ -762,6 +762,17 @@ public class ExternController {
     @GetMapping("/events/{type}")
     public String events(Model model, @PathVariable String type){
         List<Event> events=eventService.findByType(type);
+        model.addAttribute("type",type);
+        model.addAttribute("events",events);
+        return "these_module/event/list";
+    }
+
+    @GetMapping("/events/{type}/{category}")
+    public String eventsByCategory(Model model, @PathVariable String category, @PathVariable String type){
+        List<Event> events=eventService.findFirst9(category,type);
+        List<String> elements= new ArrayList<>(Arrays.asList("sport","miss","photo","concert","look"));
+        model.addAttribute("elements",elements);
+        model.addAttribute("category",category);
         model.addAttribute("type",type);
         model.addAttribute("events",events);
         return "these_module/event/list";

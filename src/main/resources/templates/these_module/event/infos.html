@@ -31,26 +31,14 @@
             <h2 class="home_title" th:switch="${type}">Espace universitaire |||
                 <span th:case="emploi">Offres d'emplois</span>
                 <span th:case="stage">Stage professionnel</span>
-                <span th:case="topinfo">Top Info</span>
+                <span th:case="nouvelle">Nouvelles</span>
             </h2>
-        </div>
-    </div>
-
-    <!-- Shop -->
-
-    <div class="shop" th:if="${type == 'topinfo'}">
-        <div class="container">
-            <div class="row">
-                    <div th:replace="~{../templates/fragments/side_top_info :: side_top_info}"></div>
-
-                    <div th:replace="~{../templates/fragments/plus_info_content :: plus_info_content}"></div>
-            </div>
         </div>
     </div>
 
 <!-- Blog -->
 
-    <div class="blog" th:unless="${type == 'topinfo'}">
+    <div class="blog">
         <div class="container" th:if="${#lists.size(events)== 0}">
             <div class="row">
                 <div class="col">

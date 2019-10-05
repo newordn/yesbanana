@@ -69,7 +69,7 @@ public class EventController {
 
 
     @PostMapping("/save")
-    public String save(Event event, @RequestParam("couverture") MultipartFile couverture, @RequestParam("files") MultipartFile[] files){
+    public String save(Event event, @RequestParam("couverture") MultipartFile couverture, @RequestParam("files") MultipartFile[] files, Model model){
         String fileName = fileUploadService.storeFile(couverture);
 
         List<FileUploadRespone> pieces = Arrays.asList(files)
@@ -80,14 +80,25 @@ public class EventController {
         for (int i = 0; i < pieces.size(); i++) {
             filesPaths.add(pieces.get(i).getFileDownloadUri());
         }
+        if (event.getDescription().length() < 150){
+            model.addAttribute("errors","Le champ Description dois contenir au moins 150 characteres");
+            return "event/form";
+        }else {
+            if (event.getType().contains("topinfo") && event.getCategory().isEmpty()) {
 
-        event.setImage("/downloadFile/"+fileName);
-        event.setPieces(filesPaths);
+                model.addAttribute("errors", "Le champ Categorie ne peut etre vide lorsque le type top info est selectionner");
+                return "event/form";
+            } else {
 
-        event.setLikes(1);
-        event.setStatus(false);
-        eventService.save(event);
-        return "redirect:/event/event/"+event.getEventId();
+                event.setImage("/downloadFile/" + fileName);
+                event.setPieces(filesPaths);
+
+                event.setLikes(1);
+                event.setStatus(false);
+                eventService.save(event);
+                return "redirect:/event/event/" + event.getEventId();
+            }
+        }
 
     }
 

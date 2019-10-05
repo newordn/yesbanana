@@ -27,6 +27,8 @@ public class Event implements Serializable {
     @Column
     private String image;
     @Column
+    private String category;
+    @Column
     private ArrayList<String> pieces;
     @Column
     private Date creationDate=new Date();
@@ -42,15 +44,24 @@ public class Event implements Serializable {
     }
 
     public Event(String title,String type, String description,String image, Date creationDate,ArrayList<String> pieces,
-                 int likes, Boolean status) {
+                 int likes, Boolean status, String category) {
         this.title = title;
         this.status=status;
+        this.category=category;
         this.type=type;
         this.description = description;
         this.image=image;
         this.pieces=pieces;
         this.creationDate = creationDate;
         this.likes = likes;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Boolean getStatus() {
