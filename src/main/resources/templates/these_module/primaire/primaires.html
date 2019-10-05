@@ -53,16 +53,11 @@
                             <div class="cart_container">
                                 <div class="cart_title">Education Primaire</div>
                                 <!-- Order Total -->
-                                <div class="order_total">
-                                    <div class="order_total_content text-md-left m-1 " style="font-size: 16px">
-                                        <div>Vous pouvez consulter des livres scolaire pour vos enfants recomomandé par le ministère de l'education et profitez des livres complementaire que vous offres
-                                            Yesbanana pour compléter la formation de vos enfants </div>
-
-                                    </div>
-                                </div>
-                                <div class="cart_items" th:each="niveau : ${niveaux}">
+                                <p style="font-size: 16px">Vous pouvez consulter des livres scolaire pour vos enfants recomomandé par le ministère de l'education et profitez des livres complementaire que vous offres
+                                    Yesbanana pour compléter la formation de vos enfants </p>
+                                <div class="cart_items mx-5" th:each="niveau : ${niveaux}">
                                     <a href="#" data-toggle="modal" data-target="#basicExampleModal" th:attr="data-target='#basicExampleModal'+${niveau.niveauId}">
-                                        <ul class="cart_list mt-4 btn-outline-primary" style="border-radius: 5px">
+                                        <ul class="cart_list mt-1 btn-outline-primary" style="border-radius: 5px">
                                         <li class="cart_item  clearfix">
                                             <div class="cart_item_image"><img th:src="@{/new/images/shopping_cart.jpg}" alt=""></div>
                                             <div class="cart_item_info  text-center" >

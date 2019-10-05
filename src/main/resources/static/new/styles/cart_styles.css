@@ -1225,7 +1225,7 @@ select option
 }
 .cart_items
 {
-	margin-top: 67px;
+	margin-top: 30px;
 }
 .cart_list
 {
@@ -1240,8 +1240,8 @@ select option
 }
 .cart_item_image
 {
-	width: 133px;
-	height: 133px;
+	/*width: 133px;*/
+	height: 60px;
 	float: left;
 }
 .cart_item_image img
