@@ -74,29 +74,26 @@ public class UserRestController {
     }
 
     @PostMapping(value = "/mobile/login",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String,String> restLogin( @RequestBody Map<String,String> object){
-        System.out.println("i got it");
-        System.out.println(object);
-        Map map = new HashMap<String,String>();
-        if(object.get("login")==null || object.get("password") == null || object.get("login").isEmpty() || object.get("password").isEmpty())
-        {
-            System.out.println("here is ");
-            map.put("status", "false");
+    public Map<String,Boolean> restLogin( @RequestBody Map<String,String> object){
+
+        System.out.println("/mobile/login" + object);
+        Map map = new HashMap<String,Boolean>();
+
+        String mot_passe = object.get("password");
+        String login = object.get("login");
+        User user= userRepository.findByName(login);
+        if(user==null) {
+            map.put("status",false);
             return map;
         }
-        String mot_passe = object.get("password");
-        System.out.println(mot_passe);
-        User user= userRepository.findByName(object.get("login"));
-        System.out.println(user.getName());
-        System.out.println(user.getPassword());
 
-        if (user.getName().equals(object.get("login")) && bCryptPasswordEncoder.matches(mot_passe,user.getPassword())){
+        else if (user.getName().equals(object.get("login")) && bCryptPasswordEncoder.matches(mot_passe,user.getPassword())){
             user.setPar_mobile(true);
             userRepository.save(user);
-            map.put("status","true");
+            map.put("status",true);
             return map;
         }else {
-            map.put("status","false");
+            map.put("status",false);
             return map;
         }
     }
