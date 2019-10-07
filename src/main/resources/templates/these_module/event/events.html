@@ -34,8 +34,8 @@
         <div class="banner_background" th:style="'background-image:url('+${events1[0].image}+');'"></div>
         <div class="container fill_height">
             <div class="row fill_height">
-                <div class="banner_product_image"><img th:src="${events1[0].image}" style="height: inherit" alt=""></div>
-                <div class="col-lg-5 offset-lg-4 fill_height">
+                <div class="banner_product_image "><img th:src="${events1[0].image}" style="height: inherit" alt=""></div>
+                <div class="col-lg-5 offset-lg-5 fill_height">
                     <div class="banner_content">
                         <h1 class="banner_text">Espace Universitaire</h1>
                         <div class="banner_price" th:text="${events1[0].title}">$460</div>
@@ -231,8 +231,8 @@
     <div class="adverts" th:unless="${#lists.size(events5)==0}">
         <div class="container">
             <h3 class="advert_title"> Top Infos</h3>
-            <div class="row" th:each="event : ${events5}">
-                <div class="col-lg-4 advert_col">
+            <div class="row" >
+                <div class="col-lg-4 advert_col" th:each="event : ${events5}">
 
                     <!-- Advert Item -->
 
@@ -240,7 +240,7 @@
                         <div class="advert d-flex flex-row align-items-center justify-content-start">
                             <div class="advert_content">
                                 <div class="advert_title"><span th:text="${event.title}">Trends 2018</span></div>
-                                <div class="advert_text" th:text="${#strings.substring(event.description,0,120)}+'...'">Lorem ipsum dolor sit amet, consectetur adipiscing Donec et.</div>
+                                <div class="advert_text" th:text="${#strings.substring(event.description,0,100)}+'...'">Lorem ipsum dolor sit amet, consectetur adipiscing Donec et.</div>
                             </div>
                             <div class="ml-auto"><div class="advert_image d-flex justify-content-center"><img th:src="${event.image}" height="170" alt=""></div></div>
                         </div>
@@ -277,10 +277,10 @@
 
 						<!-- Trends Slider -->
 
-						<div class="owl-carousel owl-theme trends_slider" th:each="emploi : ${events6}">
+						<div class="owl-carousel owl-theme trends_slider" >
 
 							<!-- Trends Slider Item -->
-							<div class="owl-item">
+							<div class="owl-item" th:each="emploi : ${events6}">
 								<div class="trends_item is_new">
 									<div class="trends_image d-flex flex-column align-items-center justify-content-center"><img th:src="${emploi.image}"height="212" width="212" alt=""></div>
 									<div class="trends_content">
