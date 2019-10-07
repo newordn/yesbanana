@@ -37,12 +37,14 @@ public class UserRestController {
         User user= userRepository.findByName(object.get("name"));
         if (user!= null){
             map.put("status","false");
+            map.put("descriptif","Le nom d'utilisateur existe déjà");
             return map;
         }
 
         User user1= userRepository.findByEmail(object.get("email"));
         if (user1!= null){
             map.put("status","false");
+            map.put("descriptif","L'email de l'utilisateur existe déjà");
             return map;
         }
         User user2=new User();
@@ -50,6 +52,7 @@ public class UserRestController {
         user2.setEmail(object.get("email"));
         if (!object.get("password").equals(object.get("confirmPassword"))){
             map.put("status","false");
+            map.put("descriptif","Le mot de passe et le mot de passe confirmé ne sont pas égaux");
             return map;
         }else {
             user2.setPassword(bCryptPasswordEncoder.encode(object.get("password")));
