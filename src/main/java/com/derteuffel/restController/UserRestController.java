@@ -29,7 +29,7 @@ public class UserRestController {
     private String validate_url="yesbanana.org/validate/";
     // for asking code
     @PostMapping(value = "/mobile/password/code", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
-    public Map<String,Integer> resetAskingCode (@RequestBody Map<String,String> object)
+    public Map<String,Long> resetAskingCode (@RequestBody Map<String,String> object)
     {
         MailService mailService = new MailService();
         // create instance of Random class
@@ -41,8 +41,9 @@ public class UserRestController {
                 "Bienvenue sur Yesbanana, Code de Reinitialisation",
                 "Veuillez entrer le code de reinitialisation suivant : " + rand_int1);
 
-        Map map = new HashMap<String,Integer>();
-        map.put("code",rand_int1);
+        Map map = new HashMap<String,Long>();
+        map.put("id",userRepository.findByEmail(object.get("email")).getUserId());
+        map.put("code",new Long(rand_int1));
         return map;
 
     }
