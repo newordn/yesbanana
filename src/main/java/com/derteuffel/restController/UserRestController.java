@@ -27,7 +27,40 @@ public class UserRestController {
         return userRepository.findAllByOrderByUserIdDesc();
     }
     private String validate_url="yesbanana.org/validate/";
+    // for asking code
+    @PostMapping(value = "/mobile/password/code", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
+    public Map<String,Integer> resetAskingCode (@RequestBody Map<String,String> object)
+    {
+        MailService mailService = new MailService();
+        // create instance of Random class
+        Random rand = new Random();
+        // Generate random integers in range 0 to 999
+        int rand_int1 = rand.nextInt(1000);
+        mailService.sendSimpleMessage(
+                object.get("email"),
+                "Bienvenue sur Yesbanana, Code de Reinitialisation",
+                "Veuillez entrer le code de reinitialisation suivant : " + rand_int1);
 
+        Map map = new HashMap<String,Integer>();
+        map.put("code",rand_int1);
+        return map;
+
+    }
+    @PostMapping(value = "/mobile/password/reset", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
+    public Map<String,Boolean> resetPassword (@RequestBody Map<String,String> object)
+    {
+        User user = userRepository.getOne(Long.parseLong(object.get("id")));
+        Map map = new HashMap<String,Boolean>();
+        if(user==null) {
+            map.put("status",false);
+            return map;
+        }
+        user.setPassword(bCryptPasswordEncoder.encode(object.get("password")));
+        userRepository.save(user);
+        map.put("status",true);
+        return map;
+
+    }
     //users visitor management function
     @PostMapping(value = "/mobile/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
     public Map<String, String> restRegistration(@RequestBody Map<String,String> object){
