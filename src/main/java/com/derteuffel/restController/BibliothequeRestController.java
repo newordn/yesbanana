@@ -5,10 +5,12 @@ import com.derteuffel.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by derteuffel on 15/06/2019.
@@ -41,6 +43,12 @@ public class BibliothequeRestController {
         List<Bibliography> bibliographies=bibliographyRepository.findAllByDisponibility(true);
 
         return bibliographies;
+    }
+    @GetMapping("/livres/{id}")
+    public Bibliography livre(@PathVariable Long id){
+      Bibliography bib = bibliographyRepository.findById(id).orElse(null);
+
+       return bib;
     }
 
     @GetMapping("/bourses")
