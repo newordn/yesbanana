@@ -113,7 +113,7 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td th:if="${session.userId}!=null"><a th:href="${livre.fichier}" class="btn" style="color: #00b5e9">Ouvrir le Pdf </a>
+                                        <td th:if="${session.userId}!=null"><a th:href="@{${livre.fichier}}" class="btn" style="color: #00b5e9">Ouvrir le Pdf </a>
                                         </td>
                                         <td th:unless="${session.userId}!=null"><a th:href="@{/login/visitor}"  class="btn" style="color: #00b5e9">PDF Lecture en ligne </a>
                                         </td>
