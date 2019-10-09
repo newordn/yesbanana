@@ -77,7 +77,7 @@
                                 <div class="card-body col-md-10">
                                     <a th:href="${bourse.link}" > <h3 th:text="${bourse.title}"  style="text-decoration: underline; color: #0b0b0b"></h3></a>
                                     <a th:href="${bourse.link}"><span th:text="${bourse.link}"></span></a> </br>
-                                    <span th:text="${bourse.description}"></span>
+                                    <span th:text="${#strings.substring(bourse?.description,0,150)}"></span>
                                 </div>
                             </div>
                                     <hr>
