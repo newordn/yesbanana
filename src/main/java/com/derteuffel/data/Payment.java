@@ -1,8 +1,6 @@
 package com.derteuffel.data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -16,16 +14,19 @@ public class Payment implements Serializable {
     @GeneratedValue
     private Long paymentId;
     private  Double amount;
+    private String description;
     private String article;
     private Date paymentDate= new Date();
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
     public Payment() {
     }
 
-    public Payment(Double amount, String article, Date paymentDate) {
+    public Payment(Double amount, String article,String description,User user) {
         this.amount = amount;
         this.article = article;
-        this.paymentDate = paymentDate;
+        this.description = description;
+        this.user = user;
     }
 
     public Long getPaymentId() {
@@ -50,6 +51,13 @@ public class Payment implements Serializable {
 
     public void setArticle(String article) {
         this.article = article;
+    }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getPaymentDate() {

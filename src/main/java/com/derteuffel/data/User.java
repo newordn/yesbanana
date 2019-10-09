@@ -113,6 +113,18 @@ public class User implements Serializable{
     @NotNull
     private Boolean autorization=false;
 
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
+    @OneToMany(mappedBy = "user")
+    @OnDelete(action= OnDeleteAction.NO_ACTION)
+    private List<Payment> payments;
+
     @OneToMany(mappedBy = "user")
     @OnDelete(action= OnDeleteAction.NO_ACTION)
     private List<These> theses;
