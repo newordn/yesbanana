@@ -128,6 +128,7 @@ public class UserRestController {
             user.setPar_mobile(true);
             userRepository.save(user);
             map.put("status",true);
+            map.put("id",user.getUserId());
             return map;
         }else {
             map.put("status",false);

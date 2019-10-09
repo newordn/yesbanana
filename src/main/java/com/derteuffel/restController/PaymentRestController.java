@@ -1,5 +1,8 @@
 package com.derteuffel.restController;
 
+import com.derteuffel.data.Payment;
+import com.derteuffel.repository.UserRepository;
+import com.derteuffel.repository.PaymentRepository;
 import com.derteuffel.service.StripeService;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
@@ -18,6 +21,10 @@ public class PaymentRestController {
     @Autowired
     private StripeService paymentsService;
 
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     @PostMapping(value = "/mobile/do_payment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
     public Map<String, String > doPayment(@RequestBody Map<String,String> object)
@@ -31,7 +38,8 @@ public class PaymentRestController {
         chargeMap.put("description",object.get("description"));
         try{
             Charge charge = paymentsService.charge(chargeMap);
-
+            Payment payment= new Payment(Double.parseDouble(object.get("amount")),object.get("title"),object.get("description"),userRepository.findById(Long.parseLong(object.get("id"))).get());
+            paymentRepository.save(payment);
             map.put("status","true");
             System.out.println(charge);
         }catch(StripeException e)
