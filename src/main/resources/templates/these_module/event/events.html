@@ -59,12 +59,12 @@
 				<!-- Char. Item -->
 				<div class="col-lg-3 col-md-6 char_col">
 
-                    <a th:href="@{/visitor/bourses}">
+                    <a th:href="@{/visitor/events/}+${type}+'/'+'photo'">
 					    <div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img th:src="@{/new/images/bourse.png}" height="42" width="42" alt=""></div>
+						<div class="char_icon"><img th:src="@{/new/images/gallery.jpg}" height="42" width="42" alt=""></div>
 						<div class="char_content">
-							<div class="char_title">Bourses</div>
-							<div class="char_subtitle" th:text="${#lists.size(bourses)}">from $50</div>
+							<div class="char_title">Photo class : Beaux gars et belles filles</div>
+							<div class="char_subtitle" th:text="${#lists.size(events)}">from $50</div>
 						</div>
 					</div>
                     </a>
@@ -73,11 +73,11 @@
 				<!-- Char. Item -->
 				<div class="col-lg-3 col-md-6 char_col">
 
-                    <a th:href="@{/visitor/events/}+'stage'">
+                    <a th:href="@{/visitor/events/}+${type}+'/'+'look'">
                         <div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img th:src="@{/new/images/internship.png}" alt=""></div>
+						<div class="char_icon"><img th:src="@{/new/images/look.png}" height="42" width="42" alt=""></div>
 						<div class="char_content">
-							<div class="char_title">Stages</div>
+							<div class="char_title">New look a Kinshasa</div>
 							<div class="char_subtitle" th:text="${#lists.size(events2)}">from $50</div>
 						</div>
 					</div>
@@ -86,11 +86,11 @@
 
 				<!-- Char. Item -->
 				<div class="col-lg-3 col-md-6 char_col">
-                    <a th:href="@{/visitor/events/}+'emploi'">
+                    <a th:href="@{/visitor/events/}+${type}+'/'+'miss'">
 					    <div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img th:src="@{/new/images/jobs.png}" alt=""></div>
+						<div class="char_icon"><img th:src="@{/new/images/miss.png}" height="42" width="42" alt=""></div>
 						<div class="char_content">
-							<div class="char_title">Offres d'Emplois</div>
+							<div class="char_title">Concours de Miss Inter-universitaire</div>
 							<div class="char_subtitle" th:text="${#lists.size(events3)}">from $50</div>
 						</div>
 					</div>
@@ -100,11 +100,11 @@
 				<!-- Char. Item -->
 				<div class="col-lg-3 col-md-6 char_col">
 
-                    <a th:href="@{/visitor/events/}+'topinfo'">
+                    <a th:href="@{/visitor/events/}+${type}+'/'+'sport'">
                         <div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img th:src="@{/new/images/News.png}" alt=""></div>
+						<div class="char_icon"><img th:src="@{/new/images/sport.jpg}" height="42" width="42" alt=""></div>
 						<div class="char_content">
-							<div class="char_title">Top Infos</div>
+							<div class="char_title">Sports</div>
 							<div class="char_subtitle" th:text="${#lists.size(events5)}">from $50</div>
 						</div>
 					</div>
@@ -122,7 +122,7 @@
 			<!-- Banner 2 Slider -->
             <div class="owl-carousel owl-theme banner_2_slider" th:if="${#lists.size(events4) == 0}">
 
-               <div class="alert alert-danger"><span>Aucun element trouves dans la rubrique Magazines</span></div>
+               <div class="alert alert-danger"><span>Aucun element trouves dans la rubrique Sports</span></div>
 
 
             </div>
@@ -136,7 +136,7 @@
 							<div class="row fill_height">
 								<div class="col-lg-4 col-md-6 fill_height">
 									<div class="banner_2_content">
-										<div class="banner_2_category">Magazines</div>
+										<div class="banner_2_category">Sports</div>
 										<div class="banner_2_title" th:text="${events4[0].title}">MacBook Air 13</div>
 										<div class="banner_2_text" th:text="${#strings.substring(events4[0].description,0,120)}+'...'">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
 										<div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
@@ -161,7 +161,7 @@
                             <div class="row fill_height">
                                 <div class="col-lg-4 col-md-6 fill_height">
                                     <div class="banner_2_content">
-                                        <div class="banner_2_category">Magazines</div>
+                                        <div class="banner_2_category">Sports</div>
                                         <div class="banner_2_title" th:text="${events4[1].title}">MacBook Air 13</div>
                                         <div class="banner_2_text" th:text="${#strings.substring(events4[1].description,0,120)}+'...'">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
                                         <div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
@@ -187,7 +187,7 @@
                             <div class="row fill_height">
                                 <div class="col-lg-4 col-md-6 fill_height">
                                     <div class="banner_2_content">
-                                        <div class="banner_2_category">Magazines</div>
+                                        <div class="banner_2_category">Sports</div>
                                         <div class="banner_2_title" th:text="${events4[2].title}">MacBook Air 13</div>
                                         <div class="banner_2_text" th:text="${#strings.substring(events4[2].description,0,120)}+'...'">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
                                         <div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
@@ -215,7 +215,7 @@
 
 	<div class="adverts" th:if="${#lists.size(events5)==0}">
 		<div class="container">
-            <h3 class="advert_title"> Top Infos</h3>
+            <h3 class="advert_title"> Magazines</h3>
             <br>
             <h5 class="alert-danger">Aucun element trouve </h5>
 			<div class="row">
@@ -230,7 +230,7 @@
 
     <div class="adverts" th:unless="${#lists.size(events5)==0}">
         <div class="container">
-            <h3 class="advert_title"> Top Infos</h3>
+            <h3 class="advert_title"> Magazines</h3>
             <div class="row" >
                 <div class="col-lg-4 advert_col" th:each="event : ${events5}">
 
@@ -262,8 +262,8 @@
 				<!-- Trends Content -->
 				<div class="col-lg-3">
 					<div class="trends_container">
-						<h2 class="trends_title">Ofres d'emplois et Stages</h2>
-						<div class="trends_text"><p>Retrouver ici toutes les offres d'emplois et Stages professionnels disponible</p></div>
+						<h2 class="trends_title">New look et concour de Miss inter-universitaire</h2>
+						<div class="trends_text"><p>Retrouver toute l'actualite sur les nouveautes et le concours de miss inter-universitaire</p></div>
 						<div class="trends_slider_nav">
 							<div class="trends_prev trends_nav"><i class="fas fa-angle-left ml-auto"></i></div>
 							<div class="trends_next trends_nav"><i class="fas fa-angle-right ml-auto"></i></div>

@@ -192,7 +192,7 @@
                                                     <span class='error' id="nameError"></span>
                                                     <!-- loop over available  country -->
                                                     <input type="hidden" name="userId" th:value="${user.userId}">
-                                                    <select class="form-control" name="*roleId"  style="width: 100%">
+                                                    <select class="form-control" name="roleId"  style="width: 100%">
                                                         <option value="">Choisissez un role a attribuer</option>
                                                         <option th:each="role : ${roles1}" th:value="${role.roleId}" th:text="${role.role}">Côte d'ivoire</option>
                                                     </select>

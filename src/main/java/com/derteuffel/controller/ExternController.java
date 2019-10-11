@@ -714,18 +714,17 @@ public class ExternController {
     @GetMapping("/event/events")
     public String news(Model model){
 
-        List<Event> events=eventService.findByType("topinfo");
-        List<Event> events2=eventService.findByType("stage");
-        List<Event> events3=eventService.findByType("emploi");
-        List<Event> events4=eventService.findByType("magazine");
-        List<Bourse> bourses= bourseRepository.findFirst12ByStatusAndSuprime(true,false, Sort.by(Sort.Direction.DESC,"bourseId"));
+        List<Event> events=eventService.findByTypeAndCategory("magazine","photo");
+        List<Event> events2=eventService.findByTypeAndCategory("magazine","look");
+        List<Event> events3=eventService.findByTypeAndCategory("magazine","miss");
+        List<Event> events4=eventService.findByTypeAndCategory("magazine","sport");
+
 
         List<Event> events1=eventService.findAll();
-        List<Event> events5=eventService.findFirst6("topinfo");
-        List<Event> events6=eventService.findFirst3("emploi");
-        List<Event> events7=eventService.findFirst3("stage");
+        List<Event> events5=eventService.findFirst6("magazine","photo");
+        List<Event> events6=eventService.findFirst3("magazine","look");
+        List<Event> events7=eventService.findFirst3("magazine","miss");
         events6.addAll(events7);
-        model.addAttribute("bourses",bourses);
         model.addAttribute("events1",events1);
         model.addAttribute("events2",events2);
         model.addAttribute("events3",events3);
@@ -743,7 +742,7 @@ public class ExternController {
         Event event= eventService.getOne(eventId);
         event.setLikes(event.getLikes()+1);
         eventService.save(event);
-        List<Event> events=eventService.findFirst3(event.getType());
+        List<Event> events=eventService.findFirst3(event.getType(),event.getCategory());
         model.addAttribute("event",event);
         model.addAttribute("events",events);
 

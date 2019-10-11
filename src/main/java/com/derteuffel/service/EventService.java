@@ -39,15 +39,20 @@ public class EventService {
     }
 
 
-    public List<Event> findFirst6( String type){
-        return eventRepository.findFirst6ByTypeAndStatus(type,true,Sort.by(Sort.Direction.DESC, "eventId"));
+    public List<Event> findFirst6( String type, String category){
+        return eventRepository.findFirst6ByTypeAndCategoryAndStatus(type, category, true,Sort.by(Sort.Direction.DESC, "eventId"));
     }
 
-    public List<Event> findFirst3( String type){
-        return eventRepository.findFirst3ByTypeAndStatus(type,true,Sort.by(Sort.Direction.DESC, "eventId"));
+    public List<Event> findFirst3( String type, String category){
+        return eventRepository.findFirst3ByTypeAndCategoryAndStatus(type, category, true,Sort.by(Sort.Direction.DESC, "eventId"));
     }
 
     public List<Event> findFirst9(String category, String type){
-        return  eventRepository.findFirst9ByTypeAndCategoryAndStatus(type, category, true, Sort.by(Sort.Direction.DESC,"eventId"));
+        return  eventRepository.findFirst9ByTypeAndCategoryAndStatus(category, type, true, Sort.by(Sort.Direction.DESC,"eventId"));
     }
+
+    public List<Event> findByTypeAndCategory(String type, String category){
+        return eventRepository.findByTypeAndCategoryAndStatus(type,category,true,Sort.by(Sort.Direction.DESC,"eventId"));
+    }
+
 }

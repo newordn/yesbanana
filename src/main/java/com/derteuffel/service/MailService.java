@@ -21,11 +21,11 @@ public class MailService {
     }
     static public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(587);
+        mailSender.setHost("mail.yesbanana.org");
+        mailSender.setPort(25);
 
-        mailSender.setUsername("metoupeguy@gmail.com");
-        mailSender.setPassword("breakofdawn1994");
+        mailSender.setUsername("derteuffel0@yesbanana");
+        mailSender.setPassword("breakofdawn");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

@@ -84,7 +84,7 @@ public class EventController {
             model.addAttribute("errors","Le champ Description dois contenir au moins 150 characteres");
             return "event/form";
         }else {
-            if (event.getType().contains("topinfo") && event.getCategory().isEmpty()) {
+            if (event.getType().contains("magazine") && event.getCategory().isEmpty()) {
 
                 model.addAttribute("errors", "Le champ Categorie ne peut etre vide lorsque le type top info est selectionner");
                 return "event/form";
