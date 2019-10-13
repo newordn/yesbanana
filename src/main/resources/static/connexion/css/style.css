@@ -321,3 +321,22 @@ li.init {
     padding: 50px 30px 70px 30px; } }
 
 /*# sourceMappingURL=style.css.map */
+
+.share-btn-container{
+    width: 150px;
+    margin: 0 auto;
+}
+
+.share-advice{
+    color: #959595;
+    font-style: italic;
+    font-size: 0.9em;
+    margin: 5px 0;
+    display: block;
+}
+.share-btn{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+}
