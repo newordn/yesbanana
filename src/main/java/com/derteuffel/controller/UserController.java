@@ -6,6 +6,8 @@ import com.derteuffel.repository.*;
 import com.derteuffel.service.MailService;
 import com.derteuffel.service.RoleService;
 import com.derteuffel.service.UserService;
+import java.net.MalformedURLException;
+import java.net.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +28,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by derteuffel on 06/10/2018.
@@ -773,7 +777,15 @@ public class UserController {
 
 
     @GetMapping("/visitor/buy/form")
-    public String visitorForm(Model model){
+    public String visitorForm(Model model, HttpServletRequest request){
+        try {
+            model.addAttribute("sharelink", getURLBase(request) + "/visitor/livres"); // Lien de la page à poster
+        } catch (MalformedURLException ex) {
+            model.addAttribute("sharelink", "https://www.yesbanana.org/visitor/livres");
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        model.addAttribute("sharevia", ""); // Uniquement pour twitter, le nom de yesbanana sur twitter
+        model.addAttribute("sharetext", ""); // Uniquement pour twitter, un texte qui prérempli le tweet
         model.addAttribute("countries", countries );
         model.addAttribute("user", new User());
         return "user/visitorForm";
@@ -813,6 +825,14 @@ public class UserController {
         userRepository.save(user);
 
         return "redirect:"+session.getAttribute("lastUrl");
+    }
+    
+    public String getURLBase(HttpServletRequest request) throws MalformedURLException {
+
+        URL requestURL = new URL(request.getRequestURL().toString());
+        String port = requestURL.getPort() == -1 ? "" : ":" + requestURL.getPort();
+        return requestURL.getProtocol() + "://" + requestURL.getHost() + port;
+
     }
 
 }

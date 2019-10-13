@@ -31,6 +31,24 @@
                    <input type="password"  id="repass" placeholder="Verifier..."  />
 
                 </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <span class="share-advice">Vous devez partager pour pouvoir valider</span>
+                    </div>
+                </div>
+                <!-- Custom Social Network Button -->
+                <div class="row share-btn-container">
+                    <div class="col-4 text-center">
+                        <button type="button" id="share-btn-facebook"   class="col-xs-4 share-btn" th:attr="data-url=${sharelink}"><i class="fa fa-facebook"></i></button>
+                    </div>
+                    <div class="col-4 text-center">
+                        <button type="button" id="share-btn-twitter"    class="col-xs-4 share-btn" th:attr="data-url=${sharelink}"><i class="fa fa-twitter"></i></button>
+                    </div>
+                    <div class="col-4 text-center">
+                        <button type="button" id="share-btn-linkedin"   class="col-xs-4 share-btn" th:attr="data-url=${sharelink}"><i class="fa fa-linkedin"></i></button>
+                    </div>
+                </div>
+                <!-- End -->
                 <div class="form-submit">
                 	<a th:href="@{/login}" class="signup-image-link mb-3">Se connecter</a>
                     <input type="submit" name="submit" id="submit" class="submit mt-3" value="Validé" style="width:80%;margin:auto" />
@@ -77,8 +95,11 @@
     <script th:src="@{/connexion/js/main.js}"></script>
     <script type="module" th:src="@{/js/main.js}"></script>
     <script type="module" th:src="@{/js/dashboard.js}"></script>
-    <script type="text/javascript">
+    <script type="text/javascript" th:inline="javascript">
         $(document).ready(function(){
+
+            $("#submit").prop("disabled", true);
+            
             $("#submit").click(function(event){
                 event.preventDefault();
                 $("#myModal").modal();
@@ -116,6 +137,74 @@
                 });
 
             });
+            
+            /* Social Network Share */
+            $('#share-btn-twitter').click(e=>{
+                e.preventDefault();
+                
+                /*<![CDATA[*/
+                    let sharetext = /*[[${sharetext}]]*/ '';
+                    let sharevia = /*[[${sharevia}]]*/ '';
+                /*]]>*/
+
+                let clickedBtn = e.currentTarget;
+                let url = clickedBtn.getAttribute('data-url');
+
+                let shareUrl = "https://twitter.com/intent/tweet?url="+ encodeURIComponent(url);
+                if(sharetext != ''){
+                    shareUrl += "&text=" + encodeURIComponent(sharetext);
+                }
+                if(sharevia != ''){
+                    shareUrl += "&via=" + encodeURIComponent(sharevia);
+                }
+
+                createPopup(shareUrl, "Partagez sur Twitter");
+                $("#submit").prop("disabled", false); 
+
+            });
+
+            $('#share-btn-facebook').click(e=>{
+                e.preventDefault();
+
+                let clickedBtn = e.currentTarget;
+                let url = clickedBtn.getAttribute('data-url');
+
+                let shareUrl = "https://www.facebook.com/sharer/sharer.php?u="+ encodeURIComponent(url);
+
+                createPopup(shareUrl, "Partagez sur Facebook");
+                $("#submit").prop("disabled", false); 
+            });
+
+            $('#share-btn-linkedin').click(e=>{
+                e.preventDefault();
+
+                let clickedBtn = e.currentTarget;
+                let url = clickedBtn.getAttribute('data-url');
+
+                let shareUrl = "https://www.linkedin.com/shareArticle?url="+ encodeURIComponent(url);
+
+                createPopup(shareUrl, "Partagez sur LinkedIn");
+                $("#submit").prop("disabled", false); 
+
+            });
+
+
+            function createPopup(url, title, scrollbars = "yes", width = 640, height = 350){
+
+                let left = window.screenLeft || window.screenX; // screen width
+                let top = window.screenTop || window.screenY; // screen height
+
+                let currentWidth = window.innerWidth || document.documentElement.clientWidth; // current frame width
+                let currentHeight = window.innerHeight || document.documentElement.clientHeight; // current frame height
+
+                let popupLeft = left + currentWidth / 2 - width / 2;
+                let popupTop = top + currentHeight / 2 - height / 2;
+
+                window.open(url, title, "scrollbars=" + scrollbars + ", width="+ width + ", height=" + height + ", top=" + popupTop + ", left=" + popupLeft);
+                
+            }
+         
+            
         });
     </script>
 
