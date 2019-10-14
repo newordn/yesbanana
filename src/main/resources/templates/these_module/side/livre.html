@@ -4,7 +4,7 @@
 <title>YesBanana</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Refresh" th:if="${session.userId}==null" content="15; url=//localhost:8080/login/visitor" />
+    <meta http-equiv="Refresh" th:if="${session.userId}==null" content="180; url=//localhost:8080/login/visitor" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" th:href="@{/new/styles/bootstrap4/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/new/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}">
@@ -37,6 +37,12 @@
 			margin-bottom:.15px;
 			width: auto;
 		}
+        .row.vdivide [class*='col-']:not(:last-child):after {
+            background: #e0e0e0;
+            width: 1px;
+            content: "";
+            display: block;
+        }
 	</style>
 
 </head>
@@ -115,7 +121,7 @@
                                     <tr>
                                         <td th:if="${session.userId}!=null"><a th:href="@{${livre.fichier}}" class="btn" style="color: #00b5e9">Ouvrir le Pdf </a>
                                         </td>
-                                        <td th:unless="${session.userId}!=null"><a th:href="@{/login/visitor}"  class="btn" style="color: #00b5e9">PDF Lecture en ligne </a>
+                                        <td th:unless="${session.userId}!=null"><a data-toggle="modal" data-target="#basicExampleModal"  class="btn" style="color: #00b5e9">PDF Lecture en ligne </a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -126,6 +132,47 @@
                                         <td ><a th:href="@{/visitor/commande/livre/form/}+${livre.bibliographyId}" class="btn" style="color: #00b5e9">Commander imprimé </a>
                                         </td>
                                     </tr-->
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Option d'abonnement</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row vdivide">
+                                                        <div class="col-sm-6 card">
+                                                            <div class="card-header">
+                                                                <h4><span>Connexion</span></h4>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <span>Vous avez deja un compte? <br> Veuillez vous connecter pour continuer</span>
+                                                                <hr>
+                                                                <a class="btn btn-outline-success" th:href="@{/login/visitor}" th:text="'Connectez-vous'"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6 card">
+                                                                <div class="card-header">
+                                                                    <h4><span>Inscription</span></h4>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <span>Vous etes nouveau? <br> Veuillez vous inscrire pour profiter pleinement de nos services</span>
+                                                                    <hr>
+                                                                    <a class="btn btn-outline-warning" th:href="@{/user/visitor/buy/form}" th:text="'Creer un Compte'"></a>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </tbody>
                             </table>
                         </td>

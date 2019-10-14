@@ -802,7 +802,7 @@ public class UserController {
 
         User user2= userRepository.findByName(user.getName());
         if (user2 != null){
-            errors.rejectValue("nom", "user.error", "There is already a user registered with the email provided");
+            errors.rejectValue("name", "user.error", "There is already a user registered with the name provided");
 
         }
 
