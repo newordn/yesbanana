@@ -779,7 +779,8 @@ public class UserController {
     @GetMapping("/visitor/buy/form")
     public String visitorForm(Model model, HttpServletRequest request){
         try {
-            model.addAttribute("sharelink", getURLBase(request) + "/visitor/livres"); // Lien de la page à poster
+            model.addAttribute("sharelink_old", getURLBase(request) + "/visitor/livres"); // Lien de la page à poster
+            model.addAttribute("sharelink", "https://www.yesbanana.org/visitor/livres");
         } catch (MalformedURLException ex) {
             model.addAttribute("sharelink", "https://www.yesbanana.org/visitor/livres");
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
