@@ -759,7 +759,7 @@ public class    TheseController {
         These these = theseRepository.getOne(theseId);
         session.setAttribute("theseId", these.getTheseId());
         List<Bibliography> bibliographies=bibliographyRepository.findAllByThese(these.getTheseId(),Sort.by(Sort.Direction.DESC,"bibliographyId"));
-        List<Bibliography> bibliographiesDispo= bibliographyRepository.findAllByDisponibility(true);
+        List<Bibliography> bibliographiesDispo= bibliographyRepository.findAllByDisponibility(true, Sort.by(Sort.Direction.DESC, "bibliographyId"));
         List<Bibliography> bibliographies1=new ArrayList<>();
         for (Bibliography  bibliography : bibliographies){
             for (int i=0;i<bibliographiesDispo.size();i++){

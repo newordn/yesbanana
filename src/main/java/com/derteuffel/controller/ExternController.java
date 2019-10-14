@@ -261,7 +261,7 @@ public class ExternController {
     }
     @GetMapping("/livres")
     public String livres(Model model){
-        List<Bibliography> bibliographies=bibliographyRepository.findAllByDisponibility(true);
+        List<Bibliography> bibliographies=bibliographyRepository.findAllByDisponibility(true, Sort.by(Sort.Direction.DESC,"bibliographyId"));
         System.out.println(bibliographies.size());
         model.addAttribute("livres",bibliographies);
         return "these_module/side/search_livres";

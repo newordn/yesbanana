@@ -6,6 +6,7 @@ import com.derteuffel.data.Faculty;
 import com.derteuffel.data.Region;
 import com.derteuffel.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,7 +65,7 @@ public class CountryController {
 
     @GetMapping("/countries")
     public String findAll(Model model) {
-        List<Bibliography> bibliographies=bibliographyRepository.findAllByDisponibility(true);
+        List<Bibliography> bibliographies=bibliographyRepository.findAllByDisponibility(true, Sort.by(Sort.Direction.DESC,"bibliographyId"));
         List<String> faculties=new ArrayList<>();
 
         for (Bibliography bibliography : bibliographies){

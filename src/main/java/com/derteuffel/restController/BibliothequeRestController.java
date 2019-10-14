@@ -40,7 +40,7 @@ public class BibliothequeRestController {
 
     @GetMapping("/livres")
     public List<Bibliography> livres(){
-        List<Bibliography> bibliographies=bibliographyRepository.findAllByDisponibility(true);
+        List<Bibliography> bibliographies=bibliographyRepository.findAllByDisponibility(true, Sort.by(Sort.Direction.DESC,"bibliographyId"));
 
         return bibliographies;
     }
