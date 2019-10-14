@@ -28,12 +28,12 @@
 
                     <input type="text" name="number" id="number" placeholder="Téléphone..."  />
                    <input type="password" name="password" id="password" placeholder="Mot de Passe..."  />
-                   <input type="password"  id="repass" placeholder="Verifier..."  />
+                   <input type="password"  id="repass" placeholder="Confirmer..."  />
 
                 </div>
                 <div class="row">
                     <div class="col text-center">
-                        <span class="share-advice">Vous devez partager pour pouvoir valider</span>
+                        <span class="share-advice">Vous devez partager sur un des reseau avant de confirmer votre abonnement</span>
                     </div>
                 </div>
                 <!-- Custom Social Network Button -->
@@ -51,7 +51,7 @@
                 <!-- End -->
                 <div class="form-submit">
                 	<a th:href="@{/login}" class="signup-image-link mb-3">Se connecter</a>
-                    <input type="submit" name="submit" id="submit" class="submit mt-3" value="Validé" style="width:80%;margin:auto" />
+                    <input type="submit" name="submit" id="submit" class="submit mt-3" value="Enregistrer" style="width:80%;margin:auto" />
                 </div>
             </form>
         </div>
@@ -69,7 +69,7 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <p style="color: #000000">
-                            <a type="button" id="facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com" class="btn btn-social btn-facebook"><span class="fa fa-facebook"></span>    Facebook</a>
+                            <a type="button" id="facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?url=https://www.facebook.com" class="btn btn-social btn-facebook"><span class="fa fa-facebook"></span>    Facebook</a>
                             <a type="button" id="twitter" class="btn btn-social btn-twitter" target="_blank" href="https://twitter.com/intent/tweet?text=my share text&amp;url=https://twitter.com"> <span class="fa fa-twitter"></span> Twitter</a>
                             <a type="button" id="linkedin" class="btn btn-social btn-linkedin" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.linkedin.com"> <span class="fa fa-linkedin"></span> LinkedIn</a>
                         </p>
