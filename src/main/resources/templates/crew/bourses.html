@@ -63,12 +63,13 @@
             </div>
 
             <div class="col-12 ">
-                <table class="table text-center table-hover dt-responsive  table-lg display" id="crews">
+                <table class="table text-left table-hover dt-responsive  table-lg display" id="crews">
                     <thead class="text-white bg-secondary">
                     <tr>
                         <th>Titre</th>
                         <th>Lien du site</th>
                         <th>Description</th>
+                        <th>Delais</th>
                         <th>Etat</th>
                         <th>Actions</th>
                     </tr>
@@ -79,6 +80,9 @@
                         <td ><a th:href="${bourse.link}" th:text="${bourse.link}"></a></td>
 
                         <td th:text="${bourse.description}"></td>
+                        <td th:if="${bourse.deadLine.after(#dates.createNow())}"><span th:text="${bourse.deadLine}"></span>&nbsp;&nbsp;&nbsp;<span > <i class="fa fa-circle" style="color: #00ad5f"></i></span></td>
+                        <td th:unless="${bourse.deadLine.after(#dates.createNow())}"><span th:text="${bourse.deadLine}"></span>&nbsp;&nbsp;&nbsp;<span > <i class="fa fa-circle" style="color: #bd2130"></i></span></td>
+
                         <td th:if="${bourse.status}==true">
                             <span>Actif</span>
                             <a th:href="@{/groupe/bourse/active/}+${bourse.bourseId}"><i class="fa fa-check-square-o"></i></a>
@@ -115,12 +119,13 @@
 
             </div>
         </div>
+        <button th:if="${roles[0].role == 'ROOT'} or ${roles[0].role == 'ADMIN_MASTER'} or ${roles[0].role == 'ROOT_MASTER'}" type="button" style="position: center" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
+            <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
+        </button>
     </div>
 </section>
 
-<button th:if="${roles[0].role == 'ROOT'} or ${roles[0].role == 'ADMIN_MASTER'} or ${roles[0].role == 'ROOT_MASTER'}" type="button" style="position: center" class=" btn btn-primary rounded-circle" data-toggle="modal" data-target="#addCrew">
-    <i class="zmdi zmdi-plus zmdi-hc-2x"></i>
-</button>
+
 <!--addCrew-->
 <div  class=" modal fade" id="addCrew" tabindex="-1" role="dialog" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered"  role="document">
@@ -133,6 +138,10 @@
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="nameError"></span>
                     <input type="text" th:field="*{link}" id="name" class="form-control" placeholder="Lien de consultation de la bourse" />
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <span class='error' id="deadLineError"></span>
+                    <input type="date" th:field="*{deadLine}" id="deadLine" class="form-control" placeholder="Lien de consultation de la bourse" />
                 </div>
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="regionError"></span>
@@ -240,11 +249,8 @@
 <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
 <script th:src="@{/js/aos.js}"></script>
 <script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/jquery.timepicker.min.js}"></script>
 <script th:src="@{/js/scrollax.min.js}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script th:src="@{/js/google-map.js}"></script>
 <script th:src="@{/js/main1.js}"></script>
 <script th:src="@{/js/crew.js}"></script>
 <!-- All Plugins js -->

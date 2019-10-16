@@ -32,24 +32,50 @@
 
                 </div>
                 <div class="row">
-                    <div class="col text-center">
-                        <span class="share-advice">Vous devez partager sur un des reseau avant de confirmer votre abonnement</span>
+                    <div class="col text-center mb-3">
+                        <span class="share-advice" style="font-size: 16px">Bien vouloir partager sur un des reseaux avant de confirmer votre abonnement</span>
                     </div>
                 </div>
                 <!-- Custom Social Network Button -->
-                <div class="row share-btn-container">
-                    <div class="col-4 text-center">
-                        <button type="button" id="share-btn-facebook"   class="col-xs-4 share-btn" th:attr="data-url=${sharelink}"><i class="fa fa-facebook"></i></button>
+                <div class="row mb-5">
+                    <div class="col-3 text-center ">
+                        <button type="button" id="share-btn-facebook"   class="col-xs-3 share-btn" th:attr="data-url=${sharelink}"><i class="fa fa-facebook fa-2x text-info"></i></button>
                     </div>
-                    <div class="col-4 text-center">
-                        <button type="button" id="share-btn-twitter"    class="col-xs-4 share-btn" th:attr="data-url=${sharelink}"><i class="fa fa-twitter"></i></button>
+                    <div class="col-3 text-center">
+                        <button type="button" id="share-btn-twitter"    class="col-xs-3 share-btn" th:attr="data-url=${sharelink}"><i class="fa fa-twitter fa-2x text-info"></i></button>
                     </div>
-                    <div class="col-4 text-center">
-                        <button type="button" id="share-btn-linkedin"   class="col-xs-4 share-btn" th:attr="data-url=${sharelink}"><i class="fa fa-linkedin"></i></button>
+                    <div class="col-3 text-center">
+                        <button type="button" id="share-btn-linkedin"   class="col-xs-3 share-btn" th:attr="data-url=${sharelink}"><i class="fa fa-linkedin fa-2x text-info"></i></button>
+                    </div>
+                    <div class="col-3 text-center">
+                        <button type="button" onclick="showDiv()"   class="col-xs-3 share-btn" ><i class="fa fa-exclamation-circle fa-2x text-info"></i>Autres...</button>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div id="other_share_show" class="text-black-50 mt-4"  style="display: none" >
+                    <div class="card" >
+                            <div class="card-header">
+                                <h5 class="card-title"><span>Autre methode de partage</span></h5>
+                            </div>
+                            <div class="card-body">
+                                <p style="font-size: 16px"><span >Bien vouloir entrer 3 numeros de telephones pour partager</span></p>
+                                <div class="form-group">
+                                    <label for="numbers1">Numero 1 :</label>
+                                    <input type="text" name="numbers1" class="form-control" id="numbers1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="numbers2">Numero 2 :</label>
+                                    <input type="text" name="numbers2" class="form-control" id="numbers2">
+                                </div>
+                                <div class="form-group">
+                                    <label for="numbers3">Numero 3 :</label>
+                                    <input type="text" name="numbers3" class="form-control" id="numbers3">
+                                </div>
+                            </div>
                     </div>
                 </div>
                 <!-- End -->
-                <div class="form-submit">
+                <div class="form-submit mt-4">
                 	<a th:href="@{/login}" class="signup-image-link mb-3">Se connecter</a>
                     <input type="submit" name="submit" id="submit" class="submit mt-3" value="Enregistrer" style="width:80%;margin:auto" />
                 </div>
@@ -99,44 +125,7 @@
         $(document).ready(function(){
 
             $("#submit").prop("disabled", true);
-            
-            $("#submit").click(function(event){
-                event.preventDefault();
-                $("#myModal").modal();
 
-                var facebook=0;
-                $("#facebook").click(function(event){
-                    facebook=1;
-                });
-
-                var twitter=0;
-
-                $("#twitter").click(function(event){
-                    twitter=1;
-                });
-
-                var linkedin=0;
-
-                $("#linkedin").click(function(event){
-                    linkedin=1;
-                });
-                $("#closemodal").click(function(event)
-                {
-                    if(facebook==1 || twitter==1 || linkedin==1)
-                    {
-                        $.ajax({
-                            type : 'POST',
-                            url : '@{/user/visitor/buy/save}',
-                            data : $('#appointment-form').serialize(),
-                        });
-                    }
-                    else{
-                        alert("Vous devez absolument partager sur l'un des 3 réseaux sociaux pour continuer");
-                        event.preventDefault();
-                    }
-                });
-
-            });
             
             /* Social Network Share */
             $('#share-btn-twitter').click(e=>{
@@ -206,6 +195,22 @@
          
             
         });
+
+        function showDiv() {
+            $("#submit").prop("disabled", true);
+            var x = document.getElementById("other_share_show");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+                $('#numbers1').val('');
+                $('#numbers2').val('');
+                $('#numbers3').val('');
+            } else {
+                x.style.display = "block";
+            }
+            $("#submit").prop("disabled", false);
+
+        }
+
     </script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->

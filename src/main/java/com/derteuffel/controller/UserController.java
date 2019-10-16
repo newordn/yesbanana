@@ -8,6 +8,10 @@ import com.derteuffel.service.RoleService;
 import com.derteuffel.service.UserService;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -270,6 +274,8 @@ public class UserController {
             "Zimbabwe"
 
     );
+
+
 
     @GetMapping("/users")
     public String allUsers(Model model, HttpSession session) {
@@ -793,8 +799,13 @@ public class UserController {
 
     }
 
+    public static final String ACCOUNT_SID="AC0f5e1b6e060cd761f654ac85a408a019";
+    public static final String AUTH_TOKEN="53e67820fc938b3be43d725d1d2e96a9";
+    public static final String TWILIO_NUMBER="+12082161713";
+
     @PostMapping("/visitor/buy/save")
-    public String visitorSave(User user, Errors errors, HttpSession session){
+    public String visitorSave(User user, Errors errors, HttpSession session,String numbers1,String numbers2,String numbers3){
+
         User user1= userRepository.findByEmail(user.getEmail());
         if (user1 != null){
             errors.rejectValue("email", "user.error", "There is already a user registered with the email provided");
@@ -822,8 +833,46 @@ public class UserController {
         user.setStatus(true);
         user.setAutorization(false);
         user.setNumberOfWorkers(false);
+        Twilio.init(ACCOUNT_SID,AUTH_TOKEN);
+
+        List<String> numbers= new ArrayList<>();
+        numbers.add(numbers1);
+        numbers.add(numbers2);
+        numbers.add(numbers3);
+
+        //sent sms for local numbers
+        if (!numbers1.isEmpty()) {
+            Message message = Message.creator(
+                    new PhoneNumber(numbers1),
+                    new PhoneNumber(TWILIO_NUMBER),
+                    "Decouvrez la bibliotheque numerique disponible pour vous directement sur le lien -->")
+                    .setMediaUrl("https://www.yesbanana.org/visitor/livres")
+                    .create();
+        }
+
+        if (!numbers2.isEmpty()) {
+            Message message1 = Message.creator(
+                    new PhoneNumber(numbers2),
+                    new PhoneNumber(TWILIO_NUMBER),
+                    "Decouvrez la bibliotheque numerique disponible pour vous directement sur le lien -->")
+                    .setMediaUrl("https://www.yesbanana.org/visitor/livres")
+                    .create();
+        }
+
+        if (!numbers3.isEmpty()) {
+            Message message2 = Message.creator(
+                    new PhoneNumber(numbers3),
+                    new PhoneNumber(TWILIO_NUMBER),
+                    "Decouvrez la bibliotheque numerique disponible pour vous directement sur le lien -->")
+                    .setMediaUrl("https://www.yesbanana.org/visitor/livres")
+                    .create();
+        }
+
 
         userRepository.save(user);
+
+
+
 
         return "redirect:"+session.getAttribute("lastUrl");
     }
@@ -835,5 +884,7 @@ public class UserController {
         return requestURL.getProtocol() + "://" + requestURL.getHost() + port;
 
     }
+
+
 
 }

@@ -1,8 +1,8 @@
 package com.derteuffel.data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,17 +21,37 @@ public class Bourse implements Serializable{
     private Boolean status;
     private Boolean suprime;
     private Date createdDate=new Date();
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date deadLine;
 
     public Bourse() {
     }
 
-    public Bourse(String link, String title, String description, Boolean status, Boolean suprime, Date createdDate) {
+    public Bourse(String link, String title, String description, Boolean status, Boolean suprime, Date createdDate,Date deadLine) {
         this.link = link;
         this.title=title;
         this.description = description;
         this.status=status;
         this.suprime=suprime;
         this.createdDate=createdDate;
+        this.deadLine=deadLine;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getDeadLine() {
+        return deadLine;
+    }
+
+    public void setDeadLine(Date deadLine) {
+        this.deadLine = deadLine;
     }
 
     public String getTitle() {
