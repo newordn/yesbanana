@@ -80,8 +80,8 @@
                         <td ><a th:href="${bourse.link}" th:text="${bourse.link}"></a></td>
 
                         <td th:text="${bourse.description}"></td>
-                        <td th:if="${bourse.deadLine.after(#dates.createNow())}"><span th:text="${bourse.deadLine}"></span>&nbsp;&nbsp;&nbsp;<span > <i class="fa fa-circle" style="color: #00ad5f"></i></span></td>
-                        <td th:unless="${bourse.deadLine.after(#dates.createNow())}"><span th:text="${bourse.deadLine}"></span>&nbsp;&nbsp;&nbsp;<span > <i class="fa fa-circle" style="color: #bd2130"></i></span></td>
+                        <td th:if="${bourse?.deadLine.after(#dates.createNow())}"><span th:text="${bourse?.deadLine}"></span>&nbsp;&nbsp;&nbsp;<span > <i class="fa fa-circle" style="color: #00ad5f"></i></span></td>
+                        <td th:unless="${bourse?.deadLine.after(#dates.createNow())}"><span th:text="${bourse?.deadLine}"></span>&nbsp;&nbsp;&nbsp;<span > <i class="fa fa-circle" style="color: #bd2130"></i></span></td>
 
                         <td th:if="${bourse.status}==true">
                             <span>Actif</span>
