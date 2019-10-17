@@ -58,14 +58,26 @@
                         <select type="text" th:field="*{type}" class="form-control">
                             <option value="">Choisir un type de publication</option>
                             <option value="magazine">Magazine</option>
-                            <option value="journal">Journal</option>
-                            <option value="publicite">publicite</option>
-                            <option value="annonce">Annonce</option>
+                            <option value="stage">Stage</option>
+                            <option value="emploi">Emploi</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="comment">Description:</label>
                         <textarea class="form-control" rows="5" id="comment" th:field="*{description}" style="height: 200px"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <span th:text="${errors}" class="text-danger"></span><br>
+                        <label for="usr">Categorie :</label>
+                        <select type="text" th:field="*{category}" class="form-control">
+                            <option value="">Choisir une Categorie</option>
+                            <option value="sport">Sport</option>
+                            <option value="miss">Concour de Miss</option>
+                            <option value="concert">Concert</option>
+                            <option value="photo">Photo class : beaux gars et belles filles</option>
+                            <option value="look">New look a kinshasa</option>
+                            <option value="autre">Autres</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="couverture" ><span th:text="${event.image}"></span></label>

@@ -719,6 +719,7 @@ public class ExternController {
         List<Event> events2=eventService.findByTypeAndCategory("magazine","look");
         List<Event> events3=eventService.findByTypeAndCategory("magazine","miss");
         List<Event> events4=eventService.findByTypeAndCategory("magazine","sport");
+        List<Event> events8=eventService.findByTypeAndCategory("magazine","autre");
 
 
         List<Event> events1=eventService.findAll();
@@ -726,6 +727,7 @@ public class ExternController {
         List<Event> events6=eventService.findFirst3("magazine","look");
         List<Event> events7=eventService.findFirst3("magazine","miss");
         events6.addAll(events7);
+        events4.addAll(events8);
         model.addAttribute("events1",events1);
         model.addAttribute("events2",events2);
         model.addAttribute("events3",events3);
@@ -780,12 +782,12 @@ public class ExternController {
 
 
     @PostMapping("/livres/specifiques")
-    public String specifics_book(String name,String telephone, String theme, String amount, String number){
+    public String specifics_book(String name,String telephone, String theme, String amount, String email){
         MailService mailService = new MailService();
         mailService.sendSimpleMessage(
                 "info@yesbanana.org",
                 name+" souhaite avoir une documentation specifique ",
-                name+" souhaite avoir une documentation specifique des livres"+ "sur le theme : "+ theme+" pour un montant de :"+amount+"  Bien vouloir le contacter au : " + telephone + ", pour suivres sa commande"
+                name+" souhaite avoir une documentation specifique des livres"+ "sur le theme : "+ theme+" pour un montant de :"+amount+"  Bien vouloir le contacter au : " + telephone + " et/ou a l'adresse e-mail suivante :"+email+ ", pour suivres sa commande"
         );
 
         return "redirect:/visitor/livres";
