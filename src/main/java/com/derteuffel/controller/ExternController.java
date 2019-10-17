@@ -4,6 +4,7 @@ package com.derteuffel.controller;
 import com.derteuffel.data.*;
 import com.derteuffel.repository.*;
 import com.derteuffel.service.EventService;
+import com.derteuffel.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -775,6 +776,19 @@ public class ExternController {
         model.addAttribute("type",type);
         model.addAttribute("events",events);
         return "these_module/event/list";
+    }
+
+
+    @PostMapping("/livres/specifiques")
+    public String specifics_book(String name,String telephone, String theme, String amount, String number){
+        MailService mailService = new MailService();
+        mailService.sendSimpleMessage(
+                "info@yesbanana.org",
+                name+" souhaite avoir une documentation specifique ",
+                name+" souhaite avoir une documentation specifique des livres"+ "sur le theme : "+ theme+" pour un montant de :"+amount+"  Bien vouloir le contacter au : " + telephone + ", pour suivres sa commande"
+        );
+
+        return "redirect:/visitor/livres";
     }
 
 }
