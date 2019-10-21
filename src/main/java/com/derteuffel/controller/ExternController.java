@@ -766,7 +766,7 @@ public class ExternController {
         List<Event> events=eventService.findByType(type);
         model.addAttribute("type",type);
         model.addAttribute("events",events);
-        return "these_module/event/list";
+        return "these_module/event/infos";
     }
 
     @GetMapping("/events/{type}/{category}")

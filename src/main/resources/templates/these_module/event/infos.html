@@ -20,7 +20,7 @@
 <body>
 
 <div class="super_container">
-<!-- Single Product -->
+    <!-- Single Product -->
     <!-- Header -->
     <div th:replace="~{../templates/fragments/header :: header}"></div>
 
@@ -29,16 +29,27 @@
         <div class="home_overlay"></div>
         <div class="home_content d-flex flex-column align-items-center justify-content-center">
             <h2 class="home_title" th:switch="${type}">Espace universitaire |||
-                <span th:case="emploi">Offres d'emplois</span>
-                <span th:case="stage">Stage professionnel</span>
-                <span th:case="nouvelle">Nouvelles</span>
+                <span th:case="stage">Stages Professionels</span>
+                <span th:case="emploi">Offres d'Emplois</span>
             </h2>
         </div>
     </div>
 
-<!-- Blog -->
+    <!-- Shop -->
 
-    <div class="blog">
+    <div class="shop" th:if="${type} == 'magazine'">
+        <div class="container">
+            <div class="row">
+                <div th:replace="~{../templates/fragments/side_top_info :: side_top_info}"></div>
+
+                <div th:replace="~{../templates/fragments/plus_info_content :: plus_info_content}"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog -->
+
+    <div class="blog" th:unless="${type} == 'magazine'">
         <div class="container" th:if="${#lists.size(events)== 0}">
             <div class="row">
                 <div class="col">
@@ -53,18 +64,19 @@
         <div class="container" th:unless="${#lists.size(events)== 0}">
             <div class="row">
                 <div class="col">
-                    <div class="blog_posts d-flex flex-row align-items-start justify-content-between" th:each="event : ${events}">
-                        
-                        <!-- Blog post -->
-                        <div class="blog_post col-md-4 mb-5 mt-2 px-1">
+                    <div class="blog_posts d-flex flex-row align-items-start justify-content-between" >
+
+
+                        <div class="blog_post col-md-4 mb-5 mt-2 px-1" th:each="event : ${events}">
                             <div class="blog_image" th:style="'background-image:url('+${event.image}+');'"></div>
-                            <div class="blog_text" th:text="${#strings.substring(event.description,0,120)}+'...'">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada.</div>
+                            <div class="blog_text" th:if="${#strings.length(event.description)} < 120" th:text="${event.description}">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada.</div>
+                            <div class="blog_text" th:unless="${#strings.length(event.description)} < 120" th:text="${#strings.substring(event.description,0,120)}+'...'">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada.</div>
                             <div class="blog_button"><a th:href="@{/visitor/event/}+${event.eventId}">Voir plus</a></div>
                         </div>
-                        
+
                     </div>
                 </div>
-                    
+
             </div>
         </div>
     </div>

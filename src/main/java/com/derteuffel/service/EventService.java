@@ -38,6 +38,10 @@ public class EventService {
         return eventRepository.findAllByTypeAndStatus(type,true, Sort.by(Sort.Direction.DESC,"eventId"));
     }
 
+    public  List<Event> findByCategory(String category){
+        return eventRepository.findByCategoryAndStatus(category, true, Sort.by(Sort.Direction.DESC,"eventId"));
+    }
+
 
     public List<Event> findFirst6( String type, String category){
         return eventRepository.findFirst6ByTypeAndCategoryAndStatus(type, category, true,Sort.by(Sort.Direction.DESC, "eventId"));

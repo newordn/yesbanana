@@ -52,7 +52,7 @@
 
 <!-- Blog -->
 
-    <!--div class="blog" th:unless="${type == 'magazine'}">
+    <div class="blog" th:unless="${type == 'magazine'}">
         <div class="container" th:if="${#lists.size(events)== 0}">
             <div class="row">
                 <div class="col">
@@ -72,7 +72,8 @@
 
                         <div class="blog_post col-md-4 mb-5 mt-2 px-1">
                             <div class="blog_image" th:style="'background-image:url('+${event.image}+');'"></div>
-                            <div class="blog_text" th:text="${#strings.substring(event.description,0,120)}+'...'">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada.</div>
+                            <div class="blog_text" th:if="${#strings.length(event.description)} < 120" th:text="${event.description}">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada.</div>
+                            <div class="blog_text" th:unless="${#strings.length(event.description)} < 120" th:text="${#strings.substring(event.description,0,120)}+'...'">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada.</div>
                             <div class="blog_button"><a th:href="@{/visitor/event/}+${event.eventId}">Voir plus</a></div>
                         </div>
                         
@@ -81,7 +82,7 @@
                     
             </div>
         </div>
-    </div-->
+    </div>
 
     <div th:replace="~{../templates/fragments/footer :: footer}"></div>
 
