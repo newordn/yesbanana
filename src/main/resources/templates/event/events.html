@@ -81,7 +81,12 @@
                             <span>Public</span>
                             <a class="btn" th:href="@{/event/activation/}+${event.eventId}"><i class="fa fa-check-circle-o"></i></a>
                         </td>
-                        <td th:text="${event.description}"></td>
+                        <td th:if="${#strings.length(event.description)} < 150" >
+                            <span th:text="${event.description}"></span>
+                        </td>
+                        <td th:unless="${#strings.length(event.description)} < 150" >
+                            <span th:text="${#strings.substring(event.description,0,150)}"></span>
+                        </td>
                         <td>
                             <a th:href="@{'/event/event/'+${event.eventId}}"  class="btn">Ouvrir&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></a>
                             <a th:href="@{'/event/edit/'+${event.eventId}}"  class="btn">Editer&nbsp;&nbsp;<i class="fa fa-pencil"></i></a>

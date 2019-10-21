@@ -7,6 +7,7 @@ import com.derteuffel.repository.EventRepository;
 import com.derteuffel.service.EventService;
 import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpRequest;
@@ -20,6 +21,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +37,9 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/event")
 public class EventController {
+
+    @Value("${file.upload-dir}")
+    private String fileStorage;
 
     @Autowired
     private EventService eventService;
@@ -69,35 +77,39 @@ public class EventController {
 
 
     @PostMapping("/save")
-    public String save(Event event, @RequestParam("couverture") MultipartFile couverture, @RequestParam("files") MultipartFile[] files, Model model){
+    public String save(Event event, @RequestParam("couverture") MultipartFile couverture, @RequestParam("files") MultipartFile[] files, Model model) throws IOException {
         String fileName = fileUploadService.storeFile(couverture);
+
+        /*if ((!couverture.isEmpty())){
+            System.out.println(System.getProperty(fileStorage));
+            couverture.transferTo(new File(System.getProperty(fileStorage)+couverture.getOriginalFilename()));
+        }*/
+
 
         List<FileUploadRespone> pieces = Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
                 .collect(Collectors.toList());
         ArrayList<String> filesPaths = new ArrayList<String>();
+
         for (int i = 0; i < pieces.size(); i++) {
             filesPaths.add(pieces.get(i).getFileDownloadUri());
         }
-        if (event.getDescription().length() < 150){
-            model.addAttribute("errors","Le champ Description dois contenir au moins 150 characteres");
-            return "event/form";
-        }else {
+
             if (event.getType().contains("magazine") && event.getCategory().isEmpty()) {
 
                 model.addAttribute("errors", "Le champ Categorie ne peut etre vide lorsque le type top info est selectionner");
                 return "event/form";
             } else {
 
-                event.setImage("/downloadFile/" + fileName);
+                event.setImage("/downloadFile/"+fileName);
                 event.setPieces(filesPaths);
 
                 event.setLikes(1);
                 event.setStatus(false);
                 eventService.save(event);
                 return "redirect:/event/event/" + event.getEventId();
-            }
+
         }
 
     }
@@ -137,8 +149,10 @@ public class EventController {
 
 
     @GetMapping("/edit/{eventId}")
-    public String edit(@PathVariable Long eventId, Model model){
+    public String edit(@PathVariable Long eventId, Model model, HttpSession session){
         Event event=eventService.getOne(eventId);
+
+        session.setAttribute("files", event.getPieces());
 
         model.addAttribute("event",event);
 
@@ -147,7 +161,7 @@ public class EventController {
 
 
     @PostMapping("/update")
-    public String update(Event event, @RequestParam("couverture") MultipartFile couverture, @RequestParam("files") MultipartFile[] files){
+    public String update(Event event, @RequestParam("couverture") MultipartFile couverture, @RequestParam("files") MultipartFile[] files, HttpSession session){
 
         if (couverture.isEmpty()){
             event.setImage(event.getImage());
@@ -161,9 +175,7 @@ public class EventController {
                 .stream()
                 .map(file -> uploadFile(file))
                 .collect(Collectors.toList());
-        if (pieces.size()==0){
-            event.setPieces(event.getPieces());
-        }else {
+
             ArrayList<String> filesPaths = new ArrayList<String>();
             for(int i=0;i<pieces.size();i++)
             {
@@ -172,8 +184,13 @@ public class EventController {
 
             }
 
-            event.setPieces(filesPaths);
-        }
+            if (filesPaths.size() == 1 && filesPaths.contains("/downloadFile/"+"null")){
+                event.setPieces((ArrayList<String>)session.getAttribute("files"));
+            }else {
+
+                event.setPieces(filesPaths);
+            }
+
 
         eventService.save(event);
 

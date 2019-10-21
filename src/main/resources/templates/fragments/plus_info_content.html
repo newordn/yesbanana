@@ -14,7 +14,13 @@
 									<div class="blog_image" th:if="${event.image}"  th:style="'background-image:url('+${event.image}+');'"></div>
 									<div class="blog_image" th:unless="${event.image}"  th:style="'background-image:url('+@{/new/images/blog_1.jpg}+');'"></div>
 									<div class="blog_text"><span th:text="${event.title}"></span>
-										<br><span th:text="${#strings.substring(event.description,0,90)}+'...'"></span>
+										<br>
+										<p th:if="${#strings.length(event.description)} < 90">
+											<span th:text="${event.description}"></span>
+										</p>
+										<p th:unless="${#strings.length(event.description)} < 90">
+											<span th:text="${#strings.substring(event.description,0,90)}+'...'"></span>
+										</p>
 									</div>
 									<div class="blog_button"><a th:href="@{/visitor/event/}+${event.eventId}">Decouvrir</a></div>
 								</div>

@@ -79,9 +79,22 @@
                         <td th:text="${bourse.title}"></td>
                         <td ><a th:href="${bourse.link}" th:text="${bourse.link}"></a></td>
 
-                        <td th:text="${bourse.description}"></td>
-                        <td th:if="${bourse?.deadLine.after(#dates.createNow())}"><span th:text="${bourse?.deadLine}"></span>&nbsp;&nbsp;&nbsp;<span > <i class="fa fa-circle" style="color: #00ad5f"></i></span></td>
-                        <td th:unless="${bourse?.deadLine.after(#dates.createNow())}"><span th:text="${bourse?.deadLine}"></span>&nbsp;&nbsp;&nbsp;<span > <i class="fa fa-circle" style="color: #bd2130"></i></span></td>
+                        <td th:if="${#strings.length(bourse.description)}< 150" >
+                            <span th:text="${bourse.description}"></span>
+                        </td>
+                        <td th:unless="${#strings.length(bourse.description)}< 150" >
+                            <span th:text="${#strings.substring(bourse.description,0,150)}"></span>
+                        </td>
+                        <td th:if="${bourse.deadLine}!= null"> <p th:if="${bourse.deadLine.after(#dates.createNow())}">
+                            <span th:text="${bourse.deadLine}"></span>&nbsp;&nbsp;&nbsp;<span > <i class="fa fa-circle" style="color: #00ad5f"></i></span>
+                        </p>
+                            <p th:unless="${bourse.deadLine.after(#dates.createNow())}">
+                                <span th:text="${bourse.deadLine}"></span>&nbsp;&nbsp;&nbsp;<span > <i class="fa fa-circle" style="color: #bd2130"></i></span>
+                            </p>
+                        </td>
+                        <td th:unless="${bourse.deadLine}!= null">
+                            <span>Date limite non definie</span>
+                        </td>
 
                         <td th:if="${bourse.status}==true">
                             <span>Actif</span>
@@ -141,7 +154,7 @@
                 </div>
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="deadLineError"></span>
-                    <input type="date" th:field="*{deadLine}" id="deadLine" class="form-control" placeholder="Lien de consultation de la bourse" />
+                    <input type="date" th:field="*{deadLine}" id="deadLine" class="form-control"  />
                 </div>
                 <div class="form-group" style="width: 100%">
                     <span class='error' id="regionError"></span>

@@ -28,17 +28,19 @@
         <div class="home_background parallax-window" data-parallax="scroll" data-image-src="new/images/shop_background.jpg"></div>
         <div class="home_overlay"></div>
         <div class="home_content d-flex flex-column align-items-center justify-content-center">
-            <h2 class="home_title" th:switch="${type}">Espace universitaire |||
-                <span th:case="emploi">Offres d'emplois</span>
-                <span th:case="stage">Stage professionnel</span>
-                <span th:case="topinfo">Top Info</span>
+            <h2 class="home_title" th:switch="${category}">Espace universitaire |||
+                <span th:case="miss">Concours de Miss Inter-Universitaire</span>
+                <span th:case="sport">Sports</span>
+                <span th:case="photo">Photo class : beaux gars et belles filles</span>
+                <span th:case="look">New look a kinshasa</span>
+                <span th:case="autre">Autres</span>
             </h2>
         </div>
     </div>
 
     <!-- Shop -->
 
-    <div class="shop" th:if="${type == 'topinfo'}">
+    <div class="shop" th:if="${type == 'magazine'}">
         <div class="container">
             <div class="row">
                     <div th:replace="~{../templates/fragments/side_top_info :: side_top_info}"></div>
@@ -50,7 +52,7 @@
 
 <!-- Blog -->
 
-    <div class="blog" th:unless="${type == 'topinfo'}">
+    <div class="blog" th:unless="${type == 'magazine'}">
         <div class="container" th:if="${#lists.size(events)== 0}">
             <div class="row">
                 <div class="col">

@@ -68,22 +68,34 @@
                             <div class="row">
                                 <div class="card-img col-md-2 d-flex justify-content-center ">
                                     <div class="rounded-circle bg-info text-white text-center" th:if="${bourse.title != null }" style="height: 60px; width: 60px" >
-                                        <span style="font-size: 30px" th:text="${#strings.substring(bourse?.title,0,2)}"></span>
+                                        <span style="font-size: 30px" th:text="${#strings.substring(bourse.title,0,2)}"></span>
                                     </div>
                                     <div class="rounded-circle bg-info text-white text-center" th:unless="${bourse.title != null }" style="height: 60px; width: 60px" >
                                         <span style="font-size: 30px" >D</span>
                                     </div>
                                 </div>
                                 <div class="card-body col-md-10">
-									<p style="font-size: 16px">Ajouter le : <span th:text="${#dates.format(bourse?.createdDate,'dd-MM-yyyy')}"></span>&nbsp; a &nbsp;<span th:text="${#dates.format(bourse?.createdDate,'HH:mm')}"></span></p>
+									<p style="font-size: 16px">Ajouter le : <span th:text="${#dates.format(bourse.createdDate,'dd-MM-yyyy')}"></span>&nbsp; a &nbsp;<span th:text="${#dates.format(bourse?.createdDate,'HH:mm')}"></span></p>
                                     <a th:href="${bourse.link}" > <h3 th:text="${bourse.title}"  style="text-decoration: underline; color: #0b0b0b"></h3></a>
                                     <a th:href="${bourse.link}"><span th:text="${bourse.link}"></span></a> </br>
-                                    <span th:text="${#strings.substring(bourse?.description,0,150)}+' ...'"></span>
-									<div class="alert bg-success mt-3 " th:if="${bourse?.deadLine.after(#dates.createNow())}">
-										<p class="text-white" style="font-size: 16px">Disponible jusqu'au <span th:text="${#dates.format(bourse?.deadLine,'dd-MM-yyyy')}"></span>&nbsp; a &nbsp;<span th:text="${#dates.format(bourse?.deadLine,'HH:mm')}"></span></p>
+                                    <p th:if="${#strings.length(bourse.description)} < 150">
+										<span th:text="${bourse.description}"></span>
+									</p>
+									<p th:unless="${#strings.length(bourse.description)} < 150">
+										<span th:text="${#strings.substring(bourse.description,0,150)}+' ...'"></span>
+									</p>
+									<div th:if="${bourse.deadLine}== null">
+										<div class="alert bg-warning">
+											<p>Date inconue!!!!</p>
+										</div>
 									</div>
-									<div class="alert bg-danger mt-3 " th:unless="${bourse?.deadLine.after(#dates.createNow())}">
-										<p class="text-white" style="font-size: 16px">Cette offre est depasse depuis  <span th:text="${#dates.format(bourse?.deadLine,'dd-MM-yyyy')}"></span>&nbsp; a &nbsp;<span th:text="${#dates.format(bourse?.deadLine,'HH:mm')}"></span></p>
+									<div th:unless="${bourse.deadLine}== null">
+										<div class="alert bg-success mt-3 " th:if="${bourse.deadLine.after(#dates.createNow())}">
+											<p class="text-white" style="font-size: 16px">Disponible jusqu'au <span th:text="${#dates.format(bourse.deadLine,'dd-MM-yyyy')}"></span>&nbsp; a &nbsp;<span th:text="${#dates.format(bourse?.deadLine,'HH:mm')}"></span></p>
+										</div>
+										<div class="alert bg-danger mt-3 " th:unless="${bourse.deadLine.after(#dates.createNow())}">
+											<p class="text-white" style="font-size: 16px">Cette offre est depasse depuis  <span th:text="${#dates.format(bourse.deadLine,'dd-MM-yyyy')}"></span>&nbsp; a &nbsp;<span th:text="${#dates.format(bourse?.deadLine,'HH:mm')}"></span></p>
+										</div>
 									</div>
 								</div>
                             </div>

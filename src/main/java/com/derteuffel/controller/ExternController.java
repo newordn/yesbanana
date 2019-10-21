@@ -733,7 +733,7 @@ public class ExternController {
         model.addAttribute("events3",events3);
         model.addAttribute("events4",events4);
         model.addAttribute("events",events);
-        model.addAttribute("events5",events5);
+        model.addAttribute("photos",events5);
         model.addAttribute("events6",events6);
         return "these_module/event/events";
     }
