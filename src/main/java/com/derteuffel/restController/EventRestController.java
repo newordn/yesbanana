@@ -16,6 +16,10 @@ public class EventRestController {
 
     @Autowired
     private EventRepository eventRepository;
-
+    @GetMapping("/mobile/events")
+    public List<Event> getEvents()
+    {
+        return eventRepository.findAll();
+    }
 
 }
