@@ -57,7 +57,7 @@
                         <label for="usr">Type de publication :</label>
                         <select type="text" th:field="*{type}" class="form-control">
                             <option value="">Choisir un type de publication</option>
-                            <option value="magazine">Magazine</option>
+                            <option value="magazine" onclick="showCategory()">Magazine</option>
                             <option value="stage">Stage</option>
                             <option value="emploi">Emploi</option>
                         </select>
@@ -66,7 +66,7 @@
                         <label for="comment">Description:</label>
                         <textarea class="form-control" rows="5" id="comment" th:field="*{description}" placeholder="Ce champ doit contenir au moins 150 caracteres" style="height: 200px"></textarea>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="category" style="display: none">
                         <span th:text="${errors}" class="text-danger"></span><br>
                         <label for="usr">Categorie :</label>
                         <select type="text" th:field="*{category}" class="form-control">
@@ -221,6 +221,17 @@
                 $("#hide1").css("display","none");
                 $("#hide2").css("display","none");},
             function(){})
+</script>
+
+<script type="text/javascript">
+    function showCategory() {
+        var id= document.getElementById("category");
+        if (id.style.display === "block"){
+            id.style.display = "none";
+        } else {
+            id.style.display = "block";
+        }
+    }
 </script>
 </body>
 </html>
