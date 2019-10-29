@@ -29,6 +29,7 @@ import javax.persistence.EntityManager;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.sql.Date;
@@ -291,9 +292,10 @@ public class GroupeController {
     
     // for listing all the crews
     @GetMapping("/groupes")
-    public String findAllByParentOrderByGroupeIdDesc(Model model, HttpSession session) {
+    public String findAllByParentOrderByGroupeIdDesc(Model model, HttpSession session, HttpServletRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
+        session= request.getSession();
         session.setAttribute("userId",user.getUserId());
         session.setAttribute("avatar",user.getImg());
         session.setAttribute("name", user.getName());
@@ -309,7 +311,8 @@ public class GroupeController {
             return "redirect:/groupe/livres";
         }else if (user.getRoles().containsAll(new HashSet<Role>(Arrays.asList(role)))) {
             System.out.println("je suis visiteur");
-            return "redirect:"+session.getAttribute("lastUrl");
+            System.out.println((String) session.getAttribute("lastUrl"));
+            return "redirect:/backside";
 
         }else {
             System.out.println("je suis dedans" );

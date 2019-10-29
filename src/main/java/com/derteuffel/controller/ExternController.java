@@ -793,4 +793,11 @@ public class ExternController {
         return "redirect:/visitor/livres";
     }
 
+
+    @GetMapping("/visitor/read/{fileUrl}")
+    public  String readPdf(@PathVariable String fileUrl, Model model){
+        model.addAttribute("file",fileUrl);
+        return "these_module/side/pdf";
+    }
+
 }

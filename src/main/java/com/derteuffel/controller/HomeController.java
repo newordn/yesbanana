@@ -263,9 +263,12 @@ public class HomeController {
         }
 
     @GetMapping("/login/visitor")
-    public String loginVisitor(HttpServletRequest request, HttpSession session)
+    public String loginVisitor(HttpServletRequest request)
     {
-        session.setAttribute("lastUrl", request.getHeader("referer"));
+        String referer= request.getHeader("Referer");
+        request.getSession().setAttribute("lastUrl", referer);
+        System.out.println(referer);
+        System.out.println("this tis my position");
         return "loginVisitor";
     }
 
@@ -315,8 +318,8 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public  String about(HttpServletRequest request, HttpSession session){
-        session.setAttribute("lastUrl", request.getHeader("referer"));
+    public  String about(HttpServletRequest request){
+        request.getSession().setAttribute("lastUrl", request.getHeader("Referer"));
         return "these_module/index";
     }
 
@@ -324,16 +327,7 @@ public class HomeController {
     public  String contact(){
         return "contact";
     }
-    @GetMapping("/other/{regionId}")
-    public String other(Model model, HttpSession session){
 
-        return "other";
-    }
-
-    @GetMapping("/school/lesson/trial")
-    public String oneLesson(){
-        return "training/detail/one";
-    }
 
 
     @GetMapping("/education")
@@ -342,13 +336,7 @@ public class HomeController {
         model.addAttribute("countries", countries);
         return "country/educations";
     }
-    @GetMapping("/education/region/{countryId}")
-    public String region(Model model, @PathVariable Long countryId){
-        Country country= countryRepository.getOne(countryId);
-        List<Region> regions= regionRepository.findAllByCountry(country.getCountryId());
-        model.addAttribute("regions", regions);
-        return "region/education";
-    }
+
 
     @GetMapping("/visitor/student")
     public String student(Model model)
@@ -467,7 +455,7 @@ public class HomeController {
 
     @GetMapping("/newsletter")
     public String newsletter(String email,HttpServletRequest request,HttpSession session, Model model){
-        session.setAttribute("lastUrl", request.getHeader("referer"));
+        request.getSession().setAttribute("lastUrl", request.getHeader("Referer"));
         Newsletter newsletter= new Newsletter();
         newsletter.setEmail(email);
         newsletterRepository.save(newsletter);
@@ -479,14 +467,15 @@ public class HomeController {
                 // "derteuffel0@gmail.com",
                 "Yesbanana: Notification ",
                 "Felicitation vous avez souscrit avec succes a notre newsletter!!!, l'equipe de yesbanana vous remercie de la confiance que vous lui accordez et vous promet de vous garder informe sur toutes les nouveautes "+
-                        " retour vers le site yesbanana "+ session.getAttribute("lastUrl"));
+                        " retour vers le site yesbanana "+ (String) request.getSession().getAttribute("lastUrl"));
         return "newsletter/success";
 
     }
 
     @GetMapping("/backside")
-    public String back(HttpSession session){
-        return "redirect:"+session.getAttribute("lastUrl");
+    public String back(HttpServletRequest request){
+        System.out.println((String) request.getSession().getAttribute("lastUrl"));
+        return "redirect:"+(String) request.getSession().getAttribute("lastUrl");
     }
 
 
