@@ -70,8 +70,8 @@
 
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
-							<div class="shop_product_count"><span th:text="${#lists.size(theses)}">186</span> éléments trouver</div>
-							<div class="shop_sorting">Catalogue de Yesbanana</div>
+							<div class="shop_product_count"><span th:text="${livre.title}"></span></div>
+							<div class="shop_sorting">Contenu du livre</div>
 						</div>
 
 						<div class="">
@@ -86,38 +86,11 @@
 									</div>
 								</div>
 							</form-->
-                    <!--Table-->
-                    <table class="table text-left table-hover dt-responsive  table-lg display" id="crews">
-
-                        <!--Table head-->
-                        <thead>
-                        <tr>
-                            <th>Auteur</th>
-                            <th>Titre</th>
-                            <th>Grade/Département</th>
-                            <th>Université/Année</th>
-                            <th>Pays/Region</th>
-                            <th>Directeur et Co-directeur</th>
-                            <th>Consulter</th>
-                        </tr>
-                        </thead>
-                        <!--Table head-->
-
-                        <!--Table body-->
-                        <tbody>
-                        <tr th:each=" these : ${theses}">
-                            <td th:text="${these.student}">Kate</td>
-                            <td th:text="${these.subject}">Moss</td>
-                            <td th:text="${these.level}+''+${these.options}">USA / The United Kingdom / China / Russia </td>
-                            <td th:text="${these.university}+','+${these.theseDate}">New York City / Warsaw / Lodz / Amsterdam / London / Chicago</td>
-                            <td th:text="${these.regions}+'('+${these.country}+')'">Web Designer /UX designer / Ul designer / JavaScript Developer</td>
-                            <td th:text="'Professeur :'+${these.profesor}+' Assistant :'+${these.assistant}">23</td>
-                            <td ><a th:href="@{/visitor/search/bibliographies/}+${these.theseId}"> Bibliographies</a></td>
-                        </tr>
-                        </tbody>
-                        <!--Table body-->
-                    </table>
-                    <!--Table-->
+                    		<div class="card">
+								<div class="card-body">
+									<embed th:src="${livre.fichier}+'#toolbar=0'" type="application/pdf" width="100%" height="600">
+								</div>
+							</div>
 							</div>
 						</div>
 

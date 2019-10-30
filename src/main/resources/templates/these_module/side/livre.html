@@ -119,7 +119,7 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td th:if="${session.userId}!=null"><a th:href="@{/visitor/read/}+${livre.fichier}" class="btn" style="color: #00b5e9">Ouvrir le Pdf </a>
+                                        <td th:if="${session.userId}!=null"><a  th:href="@{/visitor/read/pdf/}+${livre.bibliographyId}" class="btn" style="color: #00b5e9">Ouvrir le Pdf </a>
                                         </td>
                                         <td th:unless="${session.userId}!=null"><a data-toggle="modal" data-target="#basicExampleModal"  class="btn" style="color: #00b5e9">PDF Lecture en ligne </a>
                                         </td>
@@ -181,6 +181,29 @@
                             <hr>
                             <a class="btn btn-outline-warning" th:href="@{/user/visitor/buy/form}" th:text="'Creer un Compte'"></a>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade in" id="basicReadPdfModal" tabindex="-1" data-keyboard="false" role="dialog">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Lecture de votre livre</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <embed th:src="${livre.fichier}" width="500" height="500">
+
                     </div>
                 </div>
             </div>

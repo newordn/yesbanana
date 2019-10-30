@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
@@ -786,18 +784,20 @@ public class ExternController {
         MailService mailService = new MailService();
         mailService.sendSimpleMessage(
                 "info@yesbanana.org",
-                name+" souhaite avoir une documentation specifique ",
-                name+" souhaite avoir une documentation specifique des livres"+ "sur le theme : "+ theme+" pour un montant de :"+amount+"  Bien vouloir le contacter au : " + telephone + " et/ou a l'adresse e-mail suivante :"+email+ ", pour suivres sa commande"
+                name + " souhaite avoir une documentation specifique ",
+                name + " souhaite avoir une documentation specifique des livres"+ "sur le theme : "+ theme+" pour un montant de :"+amount+"  Bien vouloir le contacter au : " + telephone + " et/ou a l'adresse e-mail suivante :"+email+ ", pour suivres sa commande"
         );
 
         return "redirect:/visitor/livres";
     }
 
 
-    @GetMapping("/visitor/read/{fileUrl}")
-    public  String readPdf(@PathVariable String fileUrl, Model model){
-        model.addAttribute("file",fileUrl);
-        return "these_module/side/pdf";
+    @GetMapping("/read/pdf/{bibliographyId}")
+    public  String readPdf(@PathVariable Long bibliographyId, Model model){
+        Bibliography livre= bibliographyRepository.getOne(bibliographyId);
+
+        model.addAttribute("livre",livre);
+        return "these_module/side/search_catalogues";
     }
 
 }

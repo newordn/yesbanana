@@ -312,7 +312,7 @@ public class GroupeController {
         }else if (user.getRoles().containsAll(new HashSet<Role>(Arrays.asList(role)))) {
             System.out.println("je suis visiteur");
             System.out.println((String) session.getAttribute("lastUrl"));
-            return "redirect:/backside";
+            return "redirect:"+(String) session.getAttribute("lastUrl");
 
         }else {
             System.out.println("je suis dedans" );
