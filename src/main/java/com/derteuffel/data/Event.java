@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.DoubleSummaryStatistics;
+import java.util.List;
 
 /**
  * Created by derteuffel on 05/01/2019.
@@ -32,6 +33,8 @@ public class Event implements Serializable {
     private ArrayList<String> pieces;
     @Column
     private Date creationDate=new Date();
+    @OneToMany(mappedBy = "event")
+    private List<Comment> comments;
 
 
     private int likes=0;
@@ -54,6 +57,15 @@ public class Event implements Serializable {
         this.pieces=pieces;
         this.creationDate = creationDate;
         this.likes = likes;
+    }
+
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public String getCategory() {

@@ -52,7 +52,7 @@ public class EventService {
     }
 
     public List<Event> findFirst9(String category, String type){
-        return  eventRepository.findFirst9ByTypeAndCategoryAndStatus(category, type, true, Sort.by(Sort.Direction.DESC,"eventId"));
+        return  eventRepository.findFirst9ByTypeAndCategoryAndStatus(category, type, true);
     }
 
     public List<Event> findByTypeAndCategory(String type, String category){

@@ -66,20 +66,77 @@
         </div>
         <div class="container" th:unless="${#lists.size(events)== 0}">
             <div class="row">
-                <div class="col">
-                    <div class="blog_posts d-flex flex-row align-items-start justify-content-between" th:each="event : ${events}">
-                        
+                <div class="col-md-8 col-sm-6">
+                    <div class="blog_posts  mt-5 px-5" th:each="event : ${events}">
 
-                        <div class="blog_post col-md-4 mb-5 mt-2 px-1">
-                            <div class="blog_image" th:style="'background-image:url('+${event.image}+');'"></div>
-                            <div class="blog_text" th:if="${#strings.length(event.description)} < 120" th:text="${event.description}">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada.</div>
-                            <div class="blog_text" th:unless="${#strings.length(event.description)} < 120" th:text="${#strings.substring(event.description,0,120)}+'...'">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada.</div>
-                            <div class="blog_button"><a th:href="@{/visitor/event/}+${event.eventId}">Voir plus</a></div>
+
+
+                        <div class="blog_post  px-1" >
+                            <p class="py-2 px-3"><span th:text="${event.title}">
+                            </span>
+                                <br>
+                                <span>Ajouter le :</span> <span th:text="${#dates.format(event.creationDate,'dd-MM-yyyy')}"></span>&nbsp;&nbsp;&nbsp; a &nbsp;<span th:text="${#dates.format(event.creationDate,'HH:mm')}"></span></p>
+                            <a th:href="@{/visitor/event/}+${event.eventId}" >
+                                <div class="blog_image" th:style="'background-image:url('+${event.image}+');'"></div>
+                                <div class="blog_text" style="color: #0b0b0b" th:if="${#strings.length(event.description)} < 120" th:text="${event.description}">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada.</div>
+                                <div class="blog_text" style="color: #0b0b0b"  th:unless="${#strings.length(event.description)} < 120" th:text="${#strings.substring(event.description,0,120)}+'...'">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada.
+                                </div> </a>
+                            <hr>
+                            <div class="row">
+                                <div class="pull-left col-sm-6 col-md-6" th:if="${session.userId} == null"><a class="btn"  th:onclick="|addComment('${event.eventId}')|"><i class="fa fa-comment"></i>&nbsp;&nbsp; Commenter</a></div>
+                                <div class="product-text col-sm-6 col-md-6 pull-right pr-3" th:if="${#lists.size(event.comments)} <= 1">
+                                    <a  th:onclick="|showComment('${event.eventId}')|"><span th:text="${#lists.size(event.comments)}"></span> &nbsp;&nbsp; commentaire</a></div>
+                                <div class="product-text col-sm-6 col-md-6 pull-right pr-3" th:unless="${#lists.size(event.comments)} <= 1"><span th:text="${#lists.size(event.comments)}"></span> &nbsp;&nbsp; commentaires</div>
+                            </div>
+                            <hr>
+                            <div th:unless="${session.userId} == null">
+                                <div class="mt-2 p-3">
+
+                                    <div class="card-body"></div>
+                                </div>
+                                <div class="mt-3 px-5" >
+                                    <form th:action="@{/visitor/event/add/comment/}+${event.eventId}" th:object="${comment}" method="post">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" th:field="*{content}" placeholder="Votre commentaire...">
+                                        </div>
+                                        <button type="submit" class="button btn-secondary">Publier</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="mt-2 p-3" th:id="comments+${event.eventId}" style="display: none">
+                                <div class="card-body" th:if="${#lists.size(event.comments)} < 1">
+                                    Aucun commentaire trouver
+                                </div>
+                                <div class="card-body " th:each="comment : ${event.comments}" th:unless="${#lists.size(event.comments)}<1">
+                                    <div class="alert-secondary p-3" style="border-radius: 25px">
+                                        <span th:text="${comment.publisher}"></span>&nbsp;&nbsp;:&nbsp;&nbsp;<span th:text="${comment.content}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 px-5" th:id="commentForm+${event.eventId}" style="display: none">
+                                <form th:action="@{/visitor/event/add/comment/}+${event.eventId}" th:object="${comment}" method="post">
+                                    <div class="form-group ">
+                                        <input type="text" class="form-control" th:field="*{content}" placeholder="Votre commentaire...">
+                                        <input type="text" class="form-control mt-3" th:field="*{publisher}" placeholder="Votre nom...">
+                                    </div>
+                                    <button type="submit" class="button btn-secondary">Publier</button>
+                                </form>
+                            </div>
                         </div>
-                        
+
+
+
                     </div>
                 </div>
-                    
+                <div class="col-md-4 col-sm-6">
+                    <div class="card mt-5">
+                        <div class="card-header bg-secondary text-white text-center">
+                            <h5 th:text="'Espace publicites'"></h5>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -103,6 +160,19 @@
 <script th:src="@{/new/plugins/easing/easing.js}"></script>
 <script th:src="@{/new/js/blog_custom.js}"></script>
 <script th:src="@{/new/js/shop_custom.js}"></script>
+<script type="text/javascript">
+    function showComment(id) {
+        var x = document.getElementById("comments"+id);
 
+        x.style.display = "block";
+
+    }
+    function addComment(id) {
+        var x = document.getElementById("commentForm"+id);
+
+        x.style.display = "block";
+
+    }
+</script>
 </body>
 </html>

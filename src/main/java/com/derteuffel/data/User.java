@@ -152,6 +152,7 @@ public class User implements Serializable{
     @JoinTable(name = "user_groupe", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "groupe_id"))
     private List<Groupe> groupes;
 
+
     public User() {
     }
 
@@ -252,6 +253,7 @@ public class User implements Serializable{
         this.roles = roles;
         this.groupes = groupes;
     }
+
 
     public List<Commande> getCommandes() {
         return commandes;

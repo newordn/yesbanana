@@ -26,7 +26,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findFirst3ByTypeAndStatus(String type, Boolean status, Sort sort);
 
     List<Event> findByCategoryAndStatus(String category, Boolean status, Sort sort);
-    List<Event> findFirst9ByTypeAndCategoryAndStatus(String type, String category, Boolean status, Sort sort);
+    List<Event> findFirst9ByTypeAndCategoryAndStatus(String type, String category, Boolean status);
     List<Event> findByTypeAndCategoryAndStatus(String type, String category, Boolean status, Sort sort);
 
 

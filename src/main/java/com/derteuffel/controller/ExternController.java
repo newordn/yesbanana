@@ -3,10 +3,14 @@ package com.derteuffel.controller;
 
 import com.derteuffel.data.*;
 import com.derteuffel.repository.*;
+import com.derteuffel.service.CommentService;
 import com.derteuffel.service.EventService;
 import com.derteuffel.service.MailService;
+import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -253,6 +257,8 @@ public class ExternController {
     private NiveauRepository niveauRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/catalogues")
     public String catalogues(){
@@ -745,6 +751,7 @@ public class ExternController {
         eventService.save(event);
         List<Event> events=eventService.findFirst3(event.getType(),event.getCategory());
         model.addAttribute("event",event);
+        model.addAttribute("comment",new Comment());
         model.addAttribute("events",events);
 
         return  "these_module/event/event";
@@ -764,15 +771,20 @@ public class ExternController {
         List<Event> events=eventService.findByType(type);
         model.addAttribute("type",type);
         model.addAttribute("events",events);
+        model.addAttribute("comment",new Comment());
         return "these_module/event/infos";
     }
 
     @GetMapping("/events/{type}/{category}")
     public String eventsByCategory(Model model, @PathVariable String category, @PathVariable String type){
-        List<Event> events=eventService.findFirst9(category,type);
+        System.out.println(category);
+        System.out.println(type);
+        List<Event> events=eventService.findByTypeAndCategory(type,category);
+        System.out.println(events.size());
         List<String> elements= new ArrayList<>(Arrays.asList("sport","miss","photo","concert","look"));
         model.addAttribute("elements",elements);
         model.addAttribute("category",category);
+        model.addAttribute("comment",new Comment());
         model.addAttribute("type",type);
         model.addAttribute("events",events);
         return "these_module/event/list";
@@ -800,4 +812,22 @@ public class ExternController {
         return "these_module/side/search_catalogues";
     }
 
+
+    @Autowired
+    private CommentService commentService;
+
+
+    @PostMapping("/event/add/comment/{eventId}")
+    public String addComment(Comment comment,@PathVariable Long eventId){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+         Event event=eventService.getOne(eventId);
+
+        if (comment.getPublisher().isEmpty()){
+            comment.setPublisher(user.getName());
+        }
+        comment.setEvent(event);
+        commentService.save(comment);
+        return "redirect:/visitor/events/"+event.getType();
+    }
 }

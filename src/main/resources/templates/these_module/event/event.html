@@ -43,7 +43,7 @@
                     <div class="product_category" th:text="${event.type}">Laptops</div>
                     <div class="product_name" th:text="${event.title}">MacBook Air 13</div>
                     <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
-                    <div class="product_text"><p th:text="${event.description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at. Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.</p></div>
+                    <div class="product_text"><p th:text="${event.description}" style="height: 250px;overflow: scroll">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at. Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.</p></div>
                     <div class="order_info d-flex flex-row">
                         <form action="#">
                             <div class="clearfix" style="z-index: 1000;">
@@ -69,6 +69,22 @@
                             <div class="product_price" ><i class="fa fa-file-archive"></i>&nbsp;&nbsp;<span th:text="${#lists.size(event.pieces)}+' Fichiers associes'"></span></div>
                             <div class="button_container">
                                 <button type="button" onclick="showFile()" class="button cart_button">Voir les fichiers</button>
+                                <hr>
+                                <div class="product-text text-right" th:if="${#lists.size(event.comments)} <= 1"><span th:text="${#lists.size(event.comments)}"></span> &nbsp;&nbsp; commentaire</div>
+                                <div class="product-text text-right" th:unless="${#lists.size(event.comments)} <= 1"><span th:text="${#lists.size(event.comments)}"></span> &nbsp;&nbsp; commentaires</div>
+                                <hr>
+                                <div class="mt-3 "><a class="btn" onclick="addComment()"><i class="fa fa-comment"></i>&nbsp;&nbsp; Commenter</a></div>
+                                <div class="mt-3 ">
+                                    <form th:action="@{/visitor/event/add/comment/}+${event.eventId}" th:object="${comment}" method="post">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" th:field="*{content}" placeholder="Votre commentaire...">
+                                        </div>
+                                        <button type="submit" class="button btn-secondary">Publier</button>
+                                    </form>
+                                </div>
+                                <div class="mt-5" id="comments" style="display: none">
+                                    <hr>
+                                </div>
                                 <div class="mt-5" id="files" style="display: none">
                                     <ul  th:each="file : ${event.pieces}">
                                         <li class="mx-2"> <a th:href="${file}" th:text="${file}"></a></li><hr>
@@ -109,6 +125,13 @@
         } else {
             x.style.display = "block";
         }
+    }
+
+    function addComment() {
+        var x = document.getElementById("comments");
+
+            x.style.display = "block";
+
     }
 </script>
 </body>
