@@ -51,6 +51,16 @@
                     <br>
                     <div class="card-img">
                         <img th:src="${event.image}" width="300" height="350">
+
+                        <button type="button" onclick="showEdit()"><i class="fa fa-pencil"></i></button>
+                        <div class="card mt-3 px-3" id="editDiv" style="display: none">
+                            <form th:action="@{/event/update/file/}+${event.eventId}" method="post" th:object="${event}" enctype="multipart/form-data">
+                                <div class="form-group mt-2">
+                                    <input type="file" name="file" class="form-control-file">
+                                    <button type="submit" id="submit"><i class="fa fa-check"></i></button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="single_post_title row" >
                         <div class="col-4">
@@ -102,6 +112,15 @@
                         <ul th:each="file : ${event.pieces}">
                             <li><a th:href="${file}"><span th:text="'Fichier : '+${file}"></span></a></li>
                         </ul>
+                        <button type="button" onclick="showEdits()"><i class="fa-pencil"></i></button>
+                        <div class="card mt-3 px-3" id="editsDiv" style="display: none">
+                            <form th:action="@{/event/update/files/}+${event.eventId}" method="post" th:object="${event}" enctype="multipart/form-data">
+                                <div class="form-group mt-2">
+                                    <input type="file" name="files" multiple class="form-control-file">
+                                    <button type="submit" id="submits"><i class="fa fa-check"></i></button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
 
@@ -249,6 +268,14 @@
         } else {
             x.style.display = "block";
         }
+    }
+    function showEdit() {
+        var x = document.getElementById("editDiv");
+            x.style.display = "block";
+    }
+    function showEdits() {
+        var x = document.getElementById("editsDiv");
+        x.style.display = "block";
     }
 </script>
 </body>

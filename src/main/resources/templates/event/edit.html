@@ -47,11 +47,13 @@
         <div class="container ftco-animate">
             <div class="card card-body alert-info" style="height: 80%; width: 80%;margin-left: 100px">
                 <h2 class="text-center">Formulaire de modification dans espace universitaire </h2>
-                <form th:action="@{/event/update}" th:object="${event}" method="post" enctype="multipart/form-data" >
+                <form th:action="@{/event/update/}+${event.eventId}" th:object="${event}" method="post"  >
                     <div class="form-group">
                         <label for="usr">Titre :</label>
                         <input type="text" class="form-control" id="usr" th:field="*{title}">
                         <input type="hidden" class="form-control" th:field="*{eventId}">
+                        <input th:field="*{likes}" type="text" style="display: none">
+                        <input th:field="*{status}" type="text" style="display: none">
                     </div>
                     <div class="form-group">
                         <label for="usr">Type de publication :</label>
@@ -77,18 +79,6 @@
                             <option value="look">New look a kinshasa</option>
                             <option value="autre">Autres</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="couverture" ><span th:text="${event.image}"></span></label>
-                        <input name="couverture" type="file" id="couverture"  class="form-control-file border">
-                        <input th:field="*{image}" type="text" style="display: none">
-                    </div>
-                    <div class="form-group">
-                        <label for="file" th:each="piece : ${event.pieces}"><span th:text="${piece}"></span></label>
-                        <input name="files" type="file" id="file" multiple class="form-control-file border">
-                        <input th:field="*{pieces}" type="text" style="display: none">
-                        <input th:field="*{likes}" type="text" style="display: none">
-                        <input th:field="*{status}" type="text" style="display: none">
                     </div>
                     <div class="mt-3 row d-flex justify-content-center" >
                         <div class="col-md-5 mx-2">

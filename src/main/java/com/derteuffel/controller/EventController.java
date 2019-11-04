@@ -160,36 +160,15 @@ public class EventController {
     }
 
 
-    @PostMapping("/update")
-    public String update(Event event, @RequestParam("couverture") MultipartFile couverture, @RequestParam("files") MultipartFile[] files, HttpSession session){
+    @PostMapping("/update/{eventId}")
+    public String update(@PathVariable Long eventId,String category, String description, String title, String type){
 
-        if (couverture.isEmpty()){
-            event.setImage(event.getImage());
-        }else {
-            String fileName = fileUploadService.storeFile(couverture);
-            event.setImage("/downloadFile/"+fileName);
+        Event event= eventService.getOne(eventId);
 
-        }
-
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-
-            ArrayList<String> filesPaths = new ArrayList<String>();
-            for(int i=0;i<pieces.size();i++)
-            {
-
-                filesPaths.add(pieces.get(i).getFileDownloadUri());
-
-            }
-
-            if (filesPaths.size() == 1 && filesPaths.contains("/downloadFile/"+"null")){
-                event.setPieces((ArrayList<String>)session.getAttribute("files"));
-            }else {
-
-                event.setPieces(filesPaths);
-            }
+        event.setCategory(category);
+        event.setDescription(description);
+        event.setTitle(title);
+        event.setType(type);
 
 
         eventService.save(event);
@@ -202,6 +181,43 @@ public class EventController {
     public String delete(@PathVariable Long eventId){
         eventService.delete(eventId);
         return "redirect:/event/events";
+    }
+
+
+    @PostMapping("/update/file/{eventId}")
+    public String updateFile(@PathVariable Long eventId, @RequestParam("file") MultipartFile file){
+        Event event=eventService.getOne(eventId);
+
+        String fileName = fileUploadService.storeFile(file);
+        event.setImage("/downloadFile/"+fileName);
+
+        eventService.save(event);
+
+        return "redirect:/event/event/"+event.getEventId();
+
+    }
+
+    @PostMapping("/update/files/{eventId}")
+    public String updateFiles(@PathVariable Long eventId, @RequestParam("files") MultipartFile[] files){
+        Event event=eventService.getOne(eventId);
+
+        List<FileUploadRespone> pieces= Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(file))
+                .collect(Collectors.toList());
+
+        ArrayList<String> filesPaths = new ArrayList<String>();
+        for(int i=0;i<pieces.size();i++)
+        {
+
+            filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+        }
+
+        event.setPieces(filesPaths);
+
+        eventService.save(event);
+        return "redirect:/event/event/"+event.getEventId();
     }
 
 
