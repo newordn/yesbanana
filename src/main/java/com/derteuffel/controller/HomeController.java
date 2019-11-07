@@ -5,6 +5,7 @@ import com.derteuffel.repository.*;
 import com.derteuffel.service.MailService;
 import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -306,7 +307,8 @@ public class HomeController {
         return "redirect:/login";
 
     }
-
+    @Value("${file.upload-dir}")
+    private String fileStorage;
     @GetMapping("/about")
     public  String home(){
         return "index";
@@ -319,6 +321,7 @@ public class HomeController {
 
     @GetMapping("/")
     public  String about(HttpServletRequest request){
+        System.out.println(fileStorage);
         request.getSession().setAttribute("lastUrl", request.getHeader("Referer"));
         return "these_module/index";
     }
