@@ -817,8 +817,8 @@ public class ExternController {
     private CommentService commentService;
 
 
-    @PostMapping("/event/add/comment/{eventId}")
-    public String addComment(Comment comment,@PathVariable Long eventId){
+    @PostMapping("/events/add/comment/{eventId}")
+    public String addComments(Comment comment,@PathVariable Long eventId){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
          Event event=eventService.getOne(eventId);
@@ -829,5 +829,19 @@ public class ExternController {
         comment.setEvent(event);
         commentService.save(comment);
         return "redirect:/visitor/events/"+event.getType();
+    }
+
+    @PostMapping("/event/add/comment/{eventId}")
+    public String addComment(Comment comment,@PathVariable Long eventId){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user=userService.findByName(auth.getName());
+        Event event=eventService.getOne(eventId);
+
+        if (comment.getPublisher().isEmpty()){
+            comment.setPublisher(user.getName());
+        }
+        comment.setEvent(event);
+        commentService.save(comment);
+        return "redirect:/visitor/event/"+event.getEventId();
     }
 }
