@@ -725,6 +725,7 @@ public class ExternController {
         List<Event> events4=eventService.findByTypeAndCategory("magazine","sport");
         List<Event> events8=eventService.findByTypeAndCategory("magazine","autre");
 
+        System.out.println(events4);
 
         List<Event> events1=eventService.findAll();
         List<Event> events5=eventService.findFirst6("magazine","photo");
@@ -781,7 +782,7 @@ public class ExternController {
         System.out.println(type);
         List<Event> events=eventService.findByTypeAndCategory(type,category);
         System.out.println(events.size());
-        List<String> elements= new ArrayList<>(Arrays.asList("sport","miss","photo","concert","look"));
+        List<String> elements= new ArrayList<>(Arrays.asList("sport","miss","photo","look"));
         model.addAttribute("elements",elements);
         model.addAttribute("category",category);
         model.addAttribute("comment",new Comment());
