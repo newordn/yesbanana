@@ -102,7 +102,7 @@
 				<!-- Char. Item -->
 				<div class="col-lg-3 col-md-6 char_col">
 
-                    <a th:href="@{/visitor/events/}+'magazine/'+'sport' or @{/visitor/events/}+'magazine/'+'autre'">
+                    <a th:href="@{/visitor/events/}+'magazine/'+'sport'">
                         <div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img th:src="@{/new/images/sport.jpg}" height="42" width="42" alt=""></div>
 						<div class="char_content">
@@ -134,12 +134,13 @@
 				<!-- Banner 2 Slider Item -->
 				<div class="owl-item">
 					<div class="banner_2_item">
-						<div class="container fill_height">
+						<div class="px-4 fill_height">
 							<div class="row fill_height">
 								<div class="col-lg-4 col-md-6 fill_height">
 									<div class="banner_2_content">
-										<div class="banner_2_category">Sports</div>
-										<div class="banner_2_title" th:text="${events4[0].title}">MacBook Air 13</div>
+										<div class="banner_2_category"><h3>Sports</h3></div>
+										<div class="banner_2_title" th:if="${#strings.length(events4[0].title)} < 45 " th:text="${events4[0].title}">MacBook Air 13</div>
+										<div class="banner_2_title" th:unless="${#strings.length(events4[0].title)} < 45 " th:text="${#strings.substring(events4[0].title,0,42)}+'...'">MacBook Air 13</div>
 										<div class="banner_2_text" th:if="${#strings.length(events4[0].description)} < 120" th:text="${events4[0].description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
 										<div class="banner_2_text" th:unless="${#strings.length(events4[0].description)} < 120" th:text="${#strings.substring(events4[0].description,0,120)}+'...'">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
 										<div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
@@ -149,7 +150,7 @@
 								</div>
 								<div class="col-lg-8 col-md-6 fill_height">
 									<div class="banner_2_image_container">
-										<div class="banner_2_image"><img th:src="${events4[0].image}" height="550" width="750" alt=""></div>
+										<div class="banner_2_image"><img th:src="${events4[0].image}" style="height: 400px; width: 300px!important;" alt=""></div>
 									</div>
 								</div>
 							</div>
@@ -160,13 +161,14 @@
                 <!-- Banner 2 Slider Item -->
                 <div class="owl-item" th:if="${#lists.size(events4) > 1}">
                     <div class="banner_2_item">
-                        <div class="container fill_height">
+                        <div class="px-4 fill_height">
                             <div class="row fill_height">
                                 <div class="col-lg-4 col-md-6 fill_height">
                                     <div class="banner_2_content">
-                                        <div class="banner_2_category">Sports</div>
-                                        <div class="banner_2_title" th:text="${events4[1].title}">MacBook Air 13</div>
-                                        <div class="banner_2_text" th:if="${#strings.length(events4[1].description)} < 120" th:text="${events4[1].description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
+                                        <div class="banner_2_category"><h3>Sports</h3></div>
+                                        <div class="banner_2_title" th:if="${#strings.length(events4[1].title)} < 45 " th:text="${events4[1].title}">MacBook Air 13</div>
+                                        <div class="banner_2_title" th:unless="${#strings.length(events4[1].title)} < 45 " th:text="${#strings.substring(events4[1].title,0,42)}+'...'">MacBook Air 13</div>
+										<div class="banner_2_text" th:if="${#strings.length(events4[1].description)} < 120" th:text="${events4[1].description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
                                         <div class="banner_2_text" th:unless="${#strings.length(events4[1].description)} < 120" th:text="${#strings.substring(events4[1].description,0,120)}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
                                         <div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
                                         <div class="button banner_2_button"><a th:href="@{/visitor/event/}+${events4[1].eventId}">Explore</a></div>
@@ -175,7 +177,7 @@
                                 </div>
                                 <div class="col-lg-8 col-md-6 fill_height">
                                     <div class="banner_2_image_container">
-                                        <div class="banner_2_image"><img th:src="${events4[1].image}" alt=""></div>
+                                        <div class="banner_2_image"><img th:src="${events4[1].image}" style="height: 400px; width: 300px!important;" alt=""></div>
                                     </div>
                                 </div>
                             </div>
@@ -187,12 +189,13 @@
                 <!-- Banner 2 Slider Item -->
                 <div class="owl-item" th:if="${#lists.size(events4) > 2}">
                     <div class="banner_2_item">
-                        <div class="container fill_height">
+                        <div class="px-4 fill_height">
                             <div class="row fill_height">
                                 <div class="col-lg-4 col-md-6 fill_height">
                                     <div class="banner_2_content">
-                                        <div class="banner_2_category">Sports</div>
-                                        <div class="banner_2_title" th:text="${events4[2].title}">MacBook Air 13</div>
+                                        <div class="banner_2_category"><h3>Sports</h3></div>
+                                        <div class="banner_2_title" th:if="${#strings.length(events4[2].title)} < 45 " th:text="${events4[2].title}">MacBook Air 13</div>
+                                        <div class="banner_2_title" th:unless="${#strings.length(events4[2].title)} < 45 " th:text="${#strings.substring(events4[2].title,0,42)}+'...'">MacBook Air 13</div>
                                         <div class="banner_2_text" th:if="${#strings.length(events4[2].description)} < 120" th:text="${events4[2].description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
                                         <div class="banner_2_text" th:unless="${#strings.length(events4[2].description)} < 120" th:text="${#strings.substring(events4[2].description,0,120)}+'...'">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
                                         <div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
@@ -202,7 +205,7 @@
                                 </div>
                                 <div class="col-lg-8 col-md-6 fill_height">
                                     <div class="banner_2_image_container">
-                                        <div class="banner_2_image"><img th:src="${events4[2].image}" alt=""></div>
+                                        <div class="banner_2_image"><img th:src="${events4[2].image}" style="height: 400px; width: 300px!important;" alt=""></div>
                                     </div>
                                 </div>
                             </div>
@@ -219,8 +222,8 @@
 	<!-- Adverts -->
 
 	<div class="adverts" th:if="${#lists.size(photos)==0}">
-		<div class="container">
-            <h3 class="advert_title"> PhotoGraphies</h3>
+		<div class="px-4">
+            <h3 class="advert_title"> Photographies</h3>
             <br>
             <h5 class="alert-danger">Aucun element trouve </h5>
 			<div class="row">
@@ -234,8 +237,8 @@
 	</div>
 
     <div class="adverts" th:unless="${#lists.size(photos)==0}">
-        <div class="container">
-            <h3 class="advert_title"> PhotoGraphies</h3>
+        <div class="px-4">
+            <h3 class="advert_title"> Photographies</h3>
             <div class="row" >
                 <div class="col-lg-4 advert_col" th:each="event : ${photos}">
 
@@ -244,10 +247,18 @@
                     <a th:href="@{/visitor/event/}+${event.eventId}">
                         <div class="advert d-flex flex-row align-items-center justify-content-start">
                             <div class="advert_content">
-                                <div class="advert_title" th:if="${#strings.length(event.title)} < 60"><span th:text="${event.title}">Trends 2018</span></div>
-                                <div class="advert_title" th:unless="${#strings.length(event.title)} < 60"><span th:text="${#strings.substring(event.title,0,60)}+'...'">Trends 2018</span></div>
-                                <div class="advert_text" th:if="${#strings.length(event.description)} < 100" th:text="${event.description}">Lorem ipsum dolor sit amet, consectetur adipiscing Donec et.</div>
-                                <div class="advert_text" th:unless="${#strings.length(event.description)} < 100" th:text="${#strings.substring(event.description,0,100)}+'...'">Lorem ipsum dolor sit amet, consectetur adipiscing Donec et.</div>
+                                <div class="advert_title" th:if="${#strings.length(event.title)} < 30">
+									<strong>
+										<span th:text="${event.title}">Trends 2018</span>
+									</strong>
+								</div>
+                                <div class="advert_title" th:unless="${#strings.length(event.title)} < 30">
+									<strong>
+										<span th:text="${#strings.substring(event.title,0,30)}+'...'">Trends 2018</span>
+									</strong>
+								</div>
+                                <div class="advert_text" th:if="${#strings.length(event.description)} < 70" th:text="${event.description}">Lorem ipsum dolor sit amet, consectetur adipiscing Donec et.</div>
+                                <div class="advert_text" th:unless="${#strings.length(event.description)} < 70" th:text="${#strings.substring(event.description,0,70)}+'...'">Lorem ipsum dolor sit amet, consectetur adipiscing Donec et.</div>
                             </div>
                             <div class="ml-auto"><div class="advert_image d-flex justify-content-center"><img th:src="${event.image}" height="170" alt=""></div></div>
                         </div>
@@ -263,14 +274,14 @@
 	<div class="trends">
 		<div class="trends_background" th:style="'background-image:url('+ @{/new/images/trends_background.jpg}+');'"></div>
 		<div class="trends_overlay"></div>
-		<div class="container">
+		<div class="px-4">
 			<div class="row">
 
 				<!-- Trends Content -->
 				<div class="col-lg-3">
 					<div class="trends_container">
-						<h2 class="trends_title">New look et concour de Miss inter-universitaire</h2>
-						<div class="trends_text"><p>Retrouver toute l'actualite sur les nouveautes et le concours de miss inter-universitaire</p></div>
+						<h2 class="trends_title">New look et concours de Miss inter-universitaire</h2>
+						<div class="trends_text"><p>Retrouver toute l'actualite et les nouveautes sur le concours de miss inter-universitaire</p></div>
 						<div class="trends_slider_nav">
 							<div class="trends_prev trends_nav"><i class="fas fa-angle-left ml-auto"></i></div>
 							<div class="trends_next trends_nav"><i class="fas fa-angle-right ml-auto"></i></div>

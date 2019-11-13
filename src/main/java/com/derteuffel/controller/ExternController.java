@@ -781,13 +781,21 @@ public class ExternController {
         System.out.println(category);
         System.out.println(type);
         List<Event> events=eventService.findByTypeAndCategory(type,category);
-        System.out.println(events.size());
+
+        if (category.contains("sport")){
+            List<Event> events1= eventService.findByTypeAndCategory(type,"autre");
+            events1.addAll(events);
+            System.out.println(events1);
+            model.addAttribute("events", events1);
+        }else {
+            System.out.println(events);
+            model.addAttribute("events",events);
+        }
         List<String> elements= new ArrayList<>(Arrays.asList("sport","miss","photo","look"));
         model.addAttribute("elements",elements);
         model.addAttribute("category",category);
         model.addAttribute("comment",new Comment());
         model.addAttribute("type",type);
-        model.addAttribute("events",events);
         return "these_module/event/list";
     }
 

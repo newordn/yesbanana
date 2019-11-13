@@ -18,9 +18,13 @@
 
 
 										<div class="blog_post  px-1" >
-											<p class="py-2 px-3"><span th:text="${event.title}"></span>
+											<p class="py-2 px-3">
+												<span th:text="${event?.title}"></span>
 												<br>
-												<span>Ajouter le :</span> <span th:text="${#dates.format(event.creationDate,'dd-MM-yyyy')}"></span>&nbsp;&nbsp;&nbsp; a &nbsp;<span th:text="${#dates.format(event.creationDate,'HH:mm')}"></span></p>
+												<span>Ajouter le :</span>
+												<span th:text="${#dates.format(event.creationDate,'dd-MM-yyyy')}"></span>&nbsp;&nbsp;&nbsp; a &nbsp;
+												<span th:text="${#dates.format(event.creationDate,'HH:mm')}"></span>
+											</p>
 											<a th:href="@{/visitor/event/}+${event.eventId}" >
 												<div class="blog_image" th:style="'background-image:url('+${event.image}+');'"></div>
 												<div class="blog_text" style="color: #0b0b0b" th:if="${#strings.length(event.description)} < 120" th:text="${event.description}">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada.</div>
