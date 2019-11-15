@@ -78,14 +78,15 @@ public class EventController {
 
     @PostMapping("/save")
     public String save(Event event, @RequestParam("couverture") MultipartFile couverture, @RequestParam("files") MultipartFile[] files, Model model) throws IOException {
-        //String fileName = fileUploadService.storeFile(couverture);
+        String fileName = fileUploadService.storeFile(couverture);
 
-        if ((!couverture.isEmpty())){
-            System.out.println(System.getProperty(fileStorage));
-            couverture.transferTo(new File(System.getProperty(fileStorage)+"/"+couverture.getOriginalFilename()));
+       /* System.out.println("test access");
+        if (!(couverture.isEmpty())){
+            System.out.println("inside if"+ fileStorage);
+            couverture.transferTo(new File(fileStorage+"/"+couverture.getOriginalFilename()));
         }
 
-        System.out.println(fileStorage);
+        System.out.println("je suis la"+fileStorage);*/
 
         List<FileUploadRespone> pieces = Arrays.asList(files)
                 .stream()
@@ -103,7 +104,7 @@ public class EventController {
                 return "event/form";
             } else {
 
-                event.setImage(fileStorage+"/"+couverture.getOriginalFilename());
+                event.setImage("/downloadFile/"+fileName);
                 event.setPieces(filesPaths);
 
                 event.setLikes(1);

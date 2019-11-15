@@ -66,7 +66,7 @@
                         <label for="comment">Description:</label>
                         <textarea class="form-control" rows="5" id="comment" th:field="*{description}" placeholder="Ce champ doit contenir au moins 150 caracteres" style="height: 200px"></textarea>
                     </div>
-                    <div class="form-group" id="category" style="display: none">
+                    <div class="form-group" id="category">
                         <span th:text="${errors}" class="text-danger"></span><br>
                         <label for="usr">Categorie :</label>
                         <select type="text" th:field="*{category}" class="form-control">
