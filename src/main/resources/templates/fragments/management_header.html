@@ -58,6 +58,7 @@
                     <li class="dropdown-item" th:if=" ${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'}"><a  th:href="@{/management/countries/other}" class="black nav-link" >Autres services</a></li>
                     <li class="dropdown-item" th:if=" ${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'} or ${session.roles[0].role == 'ECOLE'}"><a  th:href="@{/primaire/primaires}" class="black nav-link">Education primaire</a></li>
                     <li class="dropdown-item" th:if=" ${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'}"><a  th:href="@{/colonie/colonies}" class="black nav-link">Colonie de vacances</a></li>
+                    <li class="dropdown-item" th:if=" ${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'}"><a  th:href="@{/publicite/publicites}" class="black nav-link">Publicitees</a></li>
                 </ul>
             </li>
             <li class="nav-item"><a th:href="@{/entrepreneuriat/entrepreneuriats}" class="nav-link" th:if=" ${session.roles[0].role == 'ROOT'} or ${session.roles[0].role == 'ROOT_MASTER'}" >Entrepreneuriat</a></li>

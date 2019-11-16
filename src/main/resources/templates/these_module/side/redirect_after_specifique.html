@@ -1,0 +1,39 @@
+<!DOCTYPE>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Confirmation d'inscription</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- Main css -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="main" style="background-color:rgb(250,250,250);position:absolute;left:50%;top:50%; transform: translate(-50%,-50%)">
+        <!-- Sing in  Form -->
+        <section class="sign-in" style="height: 100%;background-color:rgb(250,250,250)">
+            <div class="container">
+                <div class="signin-content">
+               <br class="text-center" style="color:blue;width:100%;text-align:center">Votre demande  de documentation spécifique  a été soumise avec succès. </br> Vous serez contacter par la suite par un membre de l'équipe.</br>
+en suite un lien vous sera envoyer dans votre boite mail</h3>
+                </div>
+                <a th:href="@{/visitor/livres}"> Retourner ?</a>
+                </div>  
+        </section>
+
+    </div>
+
+    <!-- script -->
+    <!--vendor scripts -->
+    <div th:insert="~{../templates/fragments/scripts :: scripts}"></div>
+    <!--vendor scripts -->
+<!--script -->
+
+</body><!-- by neword -->
+</html>

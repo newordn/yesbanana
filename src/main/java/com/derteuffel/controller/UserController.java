@@ -841,7 +841,7 @@ public class UserController {
         numbers.add(numbers3);
 
         //sent sms for local numbers
-        if (!numbers1.isEmpty()) {
+      /*  if (!numbers1.isEmpty()) {
             Message message = Message.creator(
                     new PhoneNumber(numbers1),
                     new PhoneNumber(TWILIO_NUMBER),
@@ -866,7 +866,7 @@ public class UserController {
                     "Decouvrez la bibliotheque numerique disponible pour vous directement sur le lien -->")
                     .setMediaUrl("https://www.yesbanana.org/visitor/livres")
                     .create();
-        }
+        }*/
 
 
         userRepository.save(user);
@@ -874,7 +874,7 @@ public class UserController {
 
 
 
-        return "redirect:"+session.getAttribute("lastUrl");
+        return "redirect:/login/visitor";
     }
     
     public String getURLBase(HttpServletRequest request) throws MalformedURLException {

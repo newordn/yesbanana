@@ -809,7 +809,7 @@ public class ExternController {
                 name + " souhaite avoir une documentation specifique des livres"+ "sur le theme : "+ theme+" pour un montant de :"+amount+"  Bien vouloir le contacter au : " + telephone + " et/ou a l'adresse e-mail suivante :"+email+ ", pour suivres sa commande"
         );
 
-        return "redirect:/visitor/livres";
+        return "these_module/side/redirect_after_specifique";
     }
 
 
