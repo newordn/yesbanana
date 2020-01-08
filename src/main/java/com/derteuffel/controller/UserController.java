@@ -833,7 +833,7 @@ public class UserController {
         user.setStatus(true);
         user.setAutorization(false);
         user.setNumberOfWorkers(false);
-        Twilio.init(ACCOUNT_SID,AUTH_TOKEN);
+       // Twilio.init(ACCOUNT_SID,AUTH_TOKEN);
 
         List<String> numbers= new ArrayList<>();
         numbers.add(numbers1);

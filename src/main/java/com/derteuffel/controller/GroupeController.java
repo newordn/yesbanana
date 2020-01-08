@@ -9,7 +9,12 @@ import com.derteuffel.service.MailService;
 import com.derteuffel.service.RoleService;
 import com.derteuffel.service.TheseService;
 import com.derteuffel.service.UserService;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.data.domain.Page;
@@ -31,9 +36,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -426,9 +434,12 @@ public class GroupeController {
             }
         }
 
+        ArrayList<String> editions = new ArrayList<>();
         for (Bibliography bibliography: bibliographies){
             if (bibliography.getThese()== null){
                 bibli_these.add(bibliography);
+                editions.add(bibliography.getEdition());
+                System.out.println(editions);
             }
         }
         Role role1=roleRepository.findByRole("LIVRE");
@@ -446,6 +457,105 @@ public class GroupeController {
         model.addAttribute("bibliography", new Bibliography());
         return "livres/all/livres";
     }
+
+    public List<String> removeDuplicates(List<String> list)
+    {
+        if (list == null){
+            return new ArrayList<>();
+        }
+
+        // Create a new ArrayList
+        List<String> newList = new ArrayList<String>();
+        // Traverse through the first list
+        for (String element : list) {
+
+            // If this element is not present in newList
+            // then add it
+
+            if (element !=null && !newList.contains(element) && !element.isEmpty()) {
+
+                newList.add(element);
+            }
+        }
+        // return the new list
+        return newList;
+    }
+    /// generate list of all editions houses method
+    @Value("${file.upload-dir}")
+    private String fileStorage;
+    private static String FILE ;
+    private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
+            Font.BOLD);
+    private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
+            Font.NORMAL, BaseColor.RED);
+    private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
+            Font.BOLD);
+    private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
+            Font.BOLD);
+
+    @GetMapping("/generatePdf")
+    public String generatePdf() throws BadElementException {
+
+        try{
+            FILE = fileStorage + "/editions.pdf";
+            Document document = new Document();
+            PdfWriter.getInstance(document,new FileOutputStream(FILE));
+            document.open();
+
+
+        List<Bibliography> bibliographies = bibliographyRepository.findAll();
+
+        Paragraph paragraph = new Paragraph();
+        paragraph.add(new Paragraph("Liste des maison d'editions et d'edition",catFont));
+
+        PdfPTable table = new PdfPTable(3);
+
+        PdfPCell c1 = new PdfPCell(new Phrase("Index"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+        c1 = new PdfPCell(new Phrase("Edition"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+         c1 = new PdfPCell(new Phrase("Maison d'edition"));
+         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+         table.addCell(c1);
+
+         table.setHeaderRows(1);
+
+         for (int i=0; i< bibliographies.size(); i++){
+             int num = i+1;
+             String numString = new String(""+num);
+             table.addCell(numString);
+             if (bibliographies.get(i).getEdition() != null) {
+                 table.addCell(bibliographies.get(i).getEdition());
+             }else {
+                 table.addCell("Case vide");
+             }
+
+             if (bibliographies.get(i).getLieu_edition() != null){
+                 table.addCell(bibliographies.get(i).getLieu_edition());
+             }else {
+                 table.addCell("Case vide");
+             }
+         }
+         document.add(paragraph);
+         document.add(new Paragraph(""));
+         document.add(table);
+         document.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(FILE);
+        return "redirect:/downloadFile/editions.pdf";
+
+
+    }
+
+
     @GetMapping("/rapports/{groupeId}")
     public String get_rapports(@PathVariable Long groupeId, HttpSession session, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
