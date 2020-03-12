@@ -38,6 +38,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
@@ -69,8 +72,7 @@ public class GroupeController {
     private RoleService roleService;
     @Autowired
     private StudentWorkRepository studentWorkRepository;
-    @Autowired
-    FileUploadService fileUploadService;
+
     @Autowired
     private BibliographyRepository bibliographyRepository;
     @Autowired
@@ -955,19 +957,24 @@ public class GroupeController {
 
     @PostMapping("/rapport/edit")
     public String save_edit_rapport(Rapport rapport, HttpSession session,Long groupeId,Long userId, @RequestParam("files") MultipartFile[] files){
-        System.out.println(rapport.getPieces());
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        if (pieces.size()<=1){
+
+        if ( files.length <=1){
             rapport.setPieces((ArrayList<String>)session.getAttribute("pieces"));
         }else {
-        ArrayList<String> filesPaths = new ArrayList<String>();
-        for(int i=0;i<pieces.size();i++)
-        {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
-        }
+            ArrayList<String> filesPaths = new ArrayList<String>();
+
+            for (MultipartFile file : files){
+                if (!(file.isEmpty())){
+                    try{
+                        byte[] bytes = file.getBytes();
+                        Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                        Files.write(path,bytes);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+                }
+            }
             rapport.setPieces(filesPaths);
 
         }
@@ -984,14 +991,19 @@ public class GroupeController {
     public String save__rapport(Rapport rapport,Long groupeId,Long userId, @RequestParam("files") MultipartFile[] files){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
         ArrayList<String> filesPaths = new ArrayList<String>();
-        for(int i=0;i<pieces.size();i++)
-        {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+        for (MultipartFile file : files){
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+            }
         }
         rapport.setPieces(filesPaths);
         rapport.setUserName(user.getName());
@@ -1139,16 +1151,23 @@ public class GroupeController {
     public String update(These these, @RequestParam("files") MultipartFile[] files,Long userId, HttpSession session, Long groupeId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
-        List<FileUploadRespone> pieces = Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        if (pieces.size()<=1){
+
+        if (files.length<=1){
             these.setResumes(these.getResumes());
         }else {
             ArrayList<String> filesPaths = new ArrayList<String>();
-            for (int i = 0; i < pieces.size(); i++) {
-                filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+            for (MultipartFile file : files){
+                if (!(file.isEmpty())){
+                    try{
+                        byte[] bytes = file.getBytes();
+                        Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                        Files.write(path,bytes);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+                }
             }
             these.setResumes(filesPaths);
         }
@@ -1206,16 +1225,7 @@ public class GroupeController {
         return "redirect:/groupe/groupe/equipe/"+ these.getTheseId()+"/"+groupe.getGroupeId();
 
     }
-    public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
-        String fileName = fileUploadService.storeFile(file);
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
-        return new FileUploadRespone(fileName, fileDownloadUri);
-    }
     @GetMapping("/groupe/equipe/{theseId}/{groupeId}")
     public String getEquipe(Model model, @PathVariable Long theseId,@PathVariable Long groupeId, HttpSession session){
         Optional<These> optional= theseRepository.findById(theseId);
@@ -1350,11 +1360,29 @@ public class GroupeController {
 
     @PostMapping("/syllabus/save")
     public String save(Syllabus syllabus,@RequestParam("file") MultipartFile file,@RequestParam("photo")MultipartFile photo, String publishPrice){
-        String fileName= fileUploadService.storeFile(file);
-        String fileName1= fileUploadService.storeFile(photo);
 
-        syllabus.setPieces("/downloadFile/"+fileName);
-        syllabus.setCouverture("/downloadFile/"+fileName1);
+        if (!(file.isEmpty())){
+            try{
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            syllabus.setPieces("/downloadFile/"+file.getOriginalFilename());
+        }
+        if (!(photo.isEmpty())){
+            try{
+                byte[] bytes = photo.getBytes();
+                Path path = Paths.get(fileStorage+photo.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            syllabus.setCouverture("/downloadFile/"+photo.getOriginalFilename());
+        }
+
+
         syllabus.setPublishPrice(Double.parseDouble(publishPrice));
         syllabus.setStatus(false);
         syllabus.setSuprimee(true);
@@ -1465,8 +1493,8 @@ public class GroupeController {
     @PostMapping("/livre/edit")
     public String sauvegarder_modification(Bibliography bibliography, String prix,HttpSession session, @RequestParam("file")MultipartFile file, @RequestParam("document") MultipartFile document){
 
-        String fileName = fileUploadService.storeFile(file);
-        String fileName1 = fileUploadService.storeFile(document);
+
+
         if (prix.isEmpty()){
             bibliography.setPrice((Double)session.getAttribute("price"));
         }else {
@@ -1476,13 +1504,31 @@ public class GroupeController {
         if (file.isEmpty()){
             bibliography.setCouverture(bibliography.getCouverture());
         }else {
-            bibliography.setCouverture("/downloadFile/"+fileName);
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                bibliography.setCouverture("/downloadFile/"+file.getOriginalFilename());
+            }
         }
 
         if (document.isEmpty()){
             bibliography.setFichier(bibliography.getFichier());
         }else {
-            bibliography.setFichier("/downloadFile/"+fileName1);
+            if (!(document.isEmpty())){
+                try{
+                    byte[] bytes = document.getBytes();
+                    Path path = Paths.get(fileStorage+document.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                bibliography.setFichier("/downloadFile/"+document.getOriginalFilename());
+            }
         }
 
         bibliography.setPagePrice(0.0);
@@ -1496,8 +1542,8 @@ public class GroupeController {
     public String save(Bibliography bibliography, String price, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file, @RequestParam("document") MultipartFile document){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
-        String fileName = fileUploadService.storeFile(file);
-        String fileName1 = fileUploadService.storeFile(document);
+
+
         Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
         Bibliography bibliography2=bibliographyRepository.findByAuteur(bibliography.getAuteur());
         if (bibliography1 != null && bibliography2!=null){
@@ -1511,8 +1557,26 @@ public class GroupeController {
             model.addAttribute("roles",user.getRoles());
             return "publication/publications_livres";
         }else {
-            bibliography.setCouverture("/downloadFile/"+fileName);
-            bibliography.setFichier("/downloadFile/"+fileName1);
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                bibliography.setCouverture("/downloadFile/"+file.getOriginalFilename());
+            }
+            if (!(document.isEmpty())){
+                try{
+                    byte[] bytes = document.getBytes();
+                    Path path = Paths.get(fileStorage+document.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                bibliography.setFichier("/downloadFile/"+document.getOriginalFilename());
+            }
             if (!price.isEmpty()){
                 bibliography.setPrice(Double.parseDouble(price));
             }else {
@@ -1530,8 +1594,7 @@ public class GroupeController {
     public String save_book(Bibliography bibliography, String price, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file, @RequestParam("document") MultipartFile document){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
-        String fileName = fileUploadService.storeFile(file);
-        String fileName1= fileUploadService.storeFile(document);
+
         List<Bibliography> bibliographies1= bibliographyRepository.findAllByTitle(bibliography.getTitle());
         List<Bibliography> bibliographies2= bibliographyRepository.findAllByAuteur(bibliography.getAuteur());
 
@@ -1546,8 +1609,27 @@ public class GroupeController {
             model.addAttribute("roles",user.getRoles());
             return "livres/all/livres";
         }else {
-            bibliography.setFichier("/downloadFile/"+fileName1);
-            bibliography.setCouverture("/downloadFile/"+fileName);
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                bibliography.setCouverture("/downloadFile/"+file.getOriginalFilename());
+            }
+            if (!(document.isEmpty())){
+                try{
+                    byte[] bytes = document.getBytes();
+                    Path path = Paths.get(fileStorage+document.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                bibliography.setFichier("/downloadFile/"+document.getOriginalFilename());
+            }
+
             if (!price.isEmpty()){
                 bibliography.setPrice(Double.parseDouble(price));
             }else {

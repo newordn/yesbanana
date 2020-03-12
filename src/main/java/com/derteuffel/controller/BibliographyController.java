@@ -10,6 +10,7 @@ import com.derteuffel.service.MailService;
 import com.derteuffel.service.UserService;
 import org.hibernate.annotations.GeneratorType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -28,14 +32,15 @@ import java.util.List;
 @RequestMapping("/bibliography")
 public class BibliographyController {
 
+    @Value("${file.upload-dir}")
+    private String fileStorage;
     @Autowired
     private BibliographyRepository bibliographyRepository;
     @Autowired
     private TheseRepository theseRepository;
     @Autowired
     private GroupeRepository groupeRepository;
-    @Autowired
-    private FileUploadService fileUploadService;
+
     @Autowired
     private UserService userService;
 
@@ -54,8 +59,7 @@ public class BibliographyController {
     public String save(Bibliography bibliography,String faculte, String option, Errors errors, Model model, HttpSession session, @RequestParam("file") MultipartFile file, @RequestParam("document") MultipartFile document){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
-        String fileName = fileUploadService.storeFile(file);
-        String fileName1 = fileUploadService.storeFile(document);
+
     Bibliography bibliography1= bibliographyRepository.findByTitle(bibliography.getTitle());
         if (bibliography1 != null){
             errors.rejectValue("title","bibliography.error","il existe deja une reference avec ce titre");
@@ -64,9 +68,28 @@ public class BibliographyController {
             model.addAttribute("error","il existe deja une reference avec ce titre");
             return "crew/editBiblio";
         }else {
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                bibliography.setCouverture("/downloadFile/"+file.getOriginalFilename());
+            }
+            if (!(document.isEmpty())){
+                try{
+                    byte[] bytes = document.getBytes();
+                    Path path = Paths.get(fileStorage+document.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                bibliography.setFichier("/downloadFile/"+document.getOriginalFilename());
+            }
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
-            bibliography.setCouverture("/downloadFile/"+fileName);
-            bibliography.setFichier("/downloadFile/"+fileName1);
+
             bibliography.setPrice(0.0);
             bibliography.setPagePrice(0.0);
             bibliography.setFaculte(faculte);
@@ -90,16 +113,32 @@ public class BibliographyController {
         if (file.isEmpty()){
             bibliography.setCouverture(bibliography.getCouverture());
         }else {
-            String fileName = fileUploadService.storeFile(file);
-            bibliography.setCouverture("/downloadFile/"+fileName);
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                bibliography.setCouverture("/downloadFile/"+file.getOriginalFilename());
+            }
         }
 
         if (document.isEmpty()){
             bibliography.setFichier(bibliography.getFichier());
         }else {
 
-            String fileName1 = fileUploadService.storeFile(document);
-            bibliography.setFichier("/downloadFile/"+fileName1);
+            if (!(document.isEmpty())){
+                try{
+                    byte[] bytes = document.getBytes();
+                    Path path = Paths.get(fileStorage+document.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                bibliography.setFichier("/downloadFile/"+document.getOriginalFilename());
+            }
         }
             bibliography.setThese(theseRepository.getOne((Long)session.getAttribute("theseId")));
         Groupe groupe= groupeRepository.getOne(groupeId);

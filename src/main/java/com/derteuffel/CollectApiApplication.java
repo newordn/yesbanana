@@ -3,36 +3,19 @@ package com.derteuffel;
 
 
 
-import com.derteuffel.controller.FileStorageProperties;
-import com.derteuffel.controller.GroupeController;
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.sun.mail.smtp.SMTPTransport;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.io.FileOutputStream;
-import java.util.Date;
-import java.util.Properties;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@EnableConfigurationProperties({
-		FileStorageProperties.class
-})
-
-
-public class CollectApiApplication  {
+@ComponentScan
+public class CollectApiApplication extends SpringBootServletInitializer {
 
 	@Value("${file.upload-dir}")
 	private String fileStorage;
@@ -54,4 +37,8 @@ public class CollectApiApplication  {
 		SpringApplication.run(CollectApiApplication.class);
 	}
 
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(CollectApiApplication.class);
+	}
 }

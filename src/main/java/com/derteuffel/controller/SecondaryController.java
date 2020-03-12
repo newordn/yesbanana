@@ -31,8 +31,6 @@ public class SecondaryController {
     @Autowired
     private SecondaryRepository secondaryRepository;
 
-    @Autowired
-    private FileUploadService fileUploadService;
 
     @Autowired
     private RegionRepository regionRepository;

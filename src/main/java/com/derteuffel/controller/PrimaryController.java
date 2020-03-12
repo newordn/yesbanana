@@ -7,6 +7,7 @@ import com.derteuffel.repository.PrimaireRepository;
 import com.derteuffel.repository.RegionRepository;
 import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,8 +39,6 @@ public class PrimaryController {
     private PrimaireRepository primaireRepository;
 
     @Autowired
-    private FileUploadService fileUploadService;
-    @Autowired
     private MatiereRepository matiereRepository;
 
     @Autowired
@@ -51,26 +53,35 @@ public class PrimaryController {
         return "primaire/form";
     }
 
-    public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
-        String fileName = fileUploadService.storeFile(file);
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
 
-        return new FileUploadRespone(fileName, fileDownloadUri);
-    }
-
+    @Value("${file.upload-dir}")
+    private String fileStorage;
 
     @PostMapping("/save")
     public String save(Primaire primaire, @RequestParam("file")MultipartFile file, @RequestParam("photo")MultipartFile photo){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
-        String fileName = fileUploadService.storeFile(photo);
-        String fileName1 = fileUploadService.storeFile(file);
-        primaire.setCouverture("/downloadFile/" + fileName);
-        primaire.setPieces("/downloadFile/" + fileName1);
+        if (!(file.isEmpty())){
+            try{
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            primaire.setPieces("/downloadFile/"+file.getOriginalFilename());
+        }
+        if (!(photo.isEmpty())){
+            try{
+                byte[] bytes = photo.getBytes();
+                Path path = Paths.get(fileStorage+photo.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            primaire.setCouverture("/downloadFile/"+photo.getOriginalFilename());
+        }
         primaire.setStatus(false);
         primaire.setUser(user);
         primaireRepository.save(primaire);
@@ -83,15 +94,27 @@ public class PrimaryController {
     public String update(Primaire primaire, @RequestParam("file")MultipartFile file,Long userId, @RequestParam("photo")MultipartFile photo){
         User user=userService.getById(userId);
         if (!photo.isEmpty()) {
-            String fileName = fileUploadService.storeFile(photo);
-            primaire.setCouverture("/downloadFile/" + fileName);
+            try{
+                byte[] bytes = photo.getBytes();
+                Path path = Paths.get(fileStorage+photo.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            primaire.setCouverture("/downloadFile/"+photo.getOriginalFilename());
         }else {
             primaire.setCouverture(primaire.getCouverture());
         }
 
         if (!file.isEmpty()) {
-            String fileName1 = fileUploadService.storeFile(file);
-            primaire.setPieces("/downloadFile/" + fileName1);
+            try{
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            primaire.setPieces("/downloadFile/"+file.getOriginalFilename());
         }else {
             primaire.setPieces(primaire.getPieces());
         }

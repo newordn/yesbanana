@@ -12,6 +12,7 @@ import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Font;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -28,6 +29,9 @@ import javax.servlet.http.HttpSession;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,8 +51,7 @@ public class    TheseController {
     // attributes
     @Autowired
     private TheseRepository theseRepository;
-    @Autowired
-    private FileUploadService fileUploadService;
+
     @Autowired
     private UserService userService;
 
@@ -410,16 +413,9 @@ public class    TheseController {
         return new FileSystemResource(create(currentPage, workbook));
     }
 
-    public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
-        String fileName = fileUploadService.storeFile(file);
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
-        return new FileUploadRespone(fileName, fileDownloadUri);
-    }
+    @Value("${file.upload-dir}")
+    private String fileStorage;
 
     // for saving a these
     @PostMapping("/add/create")
@@ -437,13 +433,19 @@ public class    TheseController {
             model.addAttribute("error", "il existe deja une reference avec ce titre");
             return "crew/theseForm";
         } else {
-            List<FileUploadRespone> pieces = Arrays.asList(files)
-                    .stream()
-                    .map(file -> uploadFile(file))
-                    .collect(Collectors.toList());
             ArrayList<String> filesPaths = new ArrayList<String>();
-            for (int i = 0; i < pieces.size(); i++) {
-                filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+            for (MultipartFile file : files){
+                if (!(file.isEmpty())){
+                    try{
+                        byte[] bytes = file.getBytes();
+                        Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                        Files.write(path,bytes);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+                }
             }
             these.setResumes(filesPaths);
             these.setGroupe(groupe);
@@ -497,13 +499,19 @@ public class    TheseController {
             model.addAttribute("error", "il existe deja une reference avec ce titre");
             return "crew/theseForm1";
         } else {
-            List<FileUploadRespone> pieces = Arrays.asList(files)
-                    .stream()
-                    .map(file -> uploadFile(file))
-                    .collect(Collectors.toList());
             ArrayList<String> filesPaths = new ArrayList<String>();
-            for (int i = 0; i < pieces.size(); i++) {
-                filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+            for (MultipartFile file : files){
+                if (!(file.isEmpty())){
+                    try{
+                        byte[] bytes = file.getBytes();
+                        Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                        Files.write(path,bytes);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+                }
             }
             Long groupeId = (Long) session.getAttribute("groupeId");
             these.setResumes(filesPaths);
@@ -556,16 +564,23 @@ public class    TheseController {
         these.setWorkChief((String) session.getAttribute("workChief"));
         these.setStates(true);
 
-        List<FileUploadRespone> pieces = Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        if (pieces.size()<=1){
+
+        if (files.length<=1){
             theseRepository.save(these);
         }else {
             ArrayList<String> filesPaths = new ArrayList<String>();
-            for (int i = 0; i < pieces.size(); i++) {
-                filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+            for (MultipartFile file : files){
+                if (!(file.isEmpty())){
+                    try{
+                        byte[] bytes = file.getBytes();
+                        Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                        Files.write(path,bytes);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+                }
             }
             these.setResumes(filesPaths);
             theseRepository.save(these);
@@ -594,16 +609,23 @@ public class    TheseController {
         these.setDepartement((String) session.getAttribute("departement"));
         these.setMotCle((String) session.getAttribute("motCle"));
         these.setStatus((Boolean) session.getAttribute("status"));
-        List<FileUploadRespone> pieces = Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        if (pieces.size()<=1){
+
+        if (files.length<=1){
             these.setResumes((ArrayList<String>) session.getAttribute("resumes"));
         }else {
             ArrayList<String> filesPaths = new ArrayList<String>();
-            for (int i = 0; i < pieces.size(); i++) {
-                filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+            for (MultipartFile file : files){
+                if (!(file.isEmpty())){
+                    try{
+                        byte[] bytes = file.getBytes();
+                        Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                        Files.write(path,bytes);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+                }
             }
             these.setResumes(filesPaths);
         }

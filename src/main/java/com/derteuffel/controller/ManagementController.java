@@ -6,6 +6,7 @@ import com.derteuffel.repository.*;
 import com.derteuffel.service.MailService;
 import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -56,8 +60,6 @@ public class ManagementController {
     private UserService userService;
     @Autowired
     private PeriodRepository periodRepository;
-    @Autowired
-    private FileUploadService fileUploadService;
     @Autowired
     private EventRepository eventRepository;
     @Autowired
@@ -823,16 +825,7 @@ public class ManagementController {
 
 
 
-    public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
-        String fileName = fileUploadService.storeFile(file);
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
-        return new FileUploadRespone(fileName, fileDownloadUri);
-    }
 
 
     @GetMapping("/course/delete/{courseId}")
@@ -954,23 +947,31 @@ public class ManagementController {
         }
 
     }
+    @Value("${file.upload-dir}")
+    private String fileStorage;
+
 
     @PostMapping("/lesson/edit/root/{lessonId}")
     public String editLessonROOT(Lesson lesson, HttpSession session, @RequestParam("files") MultipartFile[] files){
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        if (pieces.size() <= 1) {
+
+
+        if (files.length <= 1) {
             lesson.setPieces(lesson.getPieces());
         }else {
-        ArrayList<String> filesPaths = new ArrayList<String>();
-        for(int i=0;i<pieces.size();i++)
-        {
+            ArrayList<String> filesPaths = new ArrayList<String>();
 
-                filesPaths.add(pieces.get(i).getFileDownloadUri());
-
-        }
+            for (MultipartFile file : files){
+                if (!(file.isEmpty())){
+                    try{
+                        byte[] bytes = file.getBytes();
+                        Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                        Files.write(path,bytes);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+                }
+            }
             lesson.setPieces(filesPaths);
 
         }
@@ -985,20 +986,23 @@ public class ManagementController {
     public String editLessonADMIN(Lesson lesson, HttpSession session, @RequestParam("files") MultipartFile[] files, String adresse, String contenue){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user=userService.findByName(auth.getName());
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        if (pieces.size() <= 1) {
+        ArrayList<String> filesPaths = new ArrayList<String>();
+
+        for (MultipartFile file : files){
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+            }
+        }
+        if (files.length <= 1) {
             lesson.setPieces(lesson.getPieces());
         }else {
-            ArrayList<String> filesPaths = new ArrayList<String>();
-            for(int i=0;i<pieces.size();i++)
-            {
-
-                filesPaths.add(pieces.get(i).getFileDownloadUri());
-
-            }
             lesson.setPieces(filesPaths);
 
         }
@@ -1018,18 +1022,19 @@ public class ManagementController {
     @PostMapping(value = "/lesson/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String lessonSave(Lesson lesson, HttpSession session, @RequestParam("files") MultipartFile[] files,  String adresse, String contenue, String price){
 
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-
         ArrayList<String> filesPaths = new ArrayList<String>();
 
-        for(int i=0;i<pieces.size();i++)
-        {
-
-                filesPaths.add(pieces.get(i).getFileDownloadUri());
-
+        for (MultipartFile file : files){
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+            }
         }
             lesson.setPrice(Double.parseDouble(price));
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -1228,27 +1233,49 @@ public class ManagementController {
 
     @PostMapping("/event/primaire/save")
     public  String eventSavePrimaire(Event event, @RequestParam("file") MultipartFile file){
-        String fileName = fileUploadService.storeFile(file);
+        if (!(file.isEmpty())){
+            try{
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            event.setImage("/downloadFile/"+file.getOriginalFilename());
+        }
 
-        event.setImage("/downloadFile/"+fileName);
         eventRepository.save(event);
         return "redirect:/management/primaire/events";
     }
 
     @PostMapping("/event/secondary/save")
     public  String eventSaveSecondary(Event event, @RequestParam("file") MultipartFile file){
-        String fileName = fileUploadService.storeFile(file);
-
-        event.setImage("/downloadFile/"+fileName);
+        if (!(file.isEmpty())){
+            try{
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            event.setImage("/downloadFile/"+file.getOriginalFilename());
+        }
         eventRepository.save(event);
         return "redirect:/management/secondary/events";
     }
 
     @PostMapping("/event/civic/save")
     public  String eventSaveEducation(Event event, @RequestParam("files") MultipartFile files){
-        String fileName = fileUploadService.storeFile(files);
-
-        event.setImage("/downloadFile/"+fileName);
+        if (!(files.isEmpty())){
+            try{
+                byte[] bytes = files.getBytes();
+                Path path = Paths.get(fileStorage+files.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            event.setImage("/downloadFile/"+files.getOriginalFilename());
+        }
         eventRepository.save(event);
         return "redirect:/management/civic/events";
     }

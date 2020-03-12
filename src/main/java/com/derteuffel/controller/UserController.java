@@ -13,6 +13,7 @@ import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -31,6 +32,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,9 +49,7 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private FileUploadServices fileUploadServices;
-    @Autowired FileUploadService fileUploadService;
+
     @Autowired
     private RoleService roleService;
     @Autowired
@@ -425,17 +427,23 @@ public class UserController {
         return "redirect:"+session.getAttribute("lastUrl");
     }
 
+    @Value("${file.upload-dir}")
+    private String fileStorage;
 
 
     private String validate_url="yesbanana.org/validate/";
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String createUser(@Valid User user, Model model, @RequestParam("file") MultipartFile file, BindingResult bindingResult, String role) {
-        String fileName = fileUploadServices.storeFile(file);
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-        user.setImg("/downloadFile/" + fileName);
+        if (!(file.isEmpty())){
+            try{
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            user.setImg("/downloadFile/"+file.getOriginalFilename());
+        }
         user.setStatus(true);
         //user.setActive(true);
 
@@ -481,14 +489,16 @@ public class UserController {
 
     @PostMapping(value = "/visitor/create/post", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String create_visitor(HttpSession session,@Valid User user, Model model, @RequestParam("file") MultipartFile file, BindingResult bindingResult, String role) {
-        String fileName = fileUploadServices.storeFile(file);
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-/*
-            FileUploadRespone fileUploadRespone = new FileUploadRespone(fileName, fileDownloadUri);*/
-        user.setImg("/downloadFile/" + fileName);
+        if (!(file.isEmpty())){
+            try{
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            user.setImg("/downloadFile/"+file.getOriginalFilename());
+        }
         user.setStatus(true);
         user.setPar_mobile(false);
         //user.setActive(true);
@@ -532,12 +542,27 @@ public class UserController {
     }
     @PostMapping(value = "/create/visitor", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String createVisitor(@Valid User user, Model model, @RequestParam("file") MultipartFile file, @RequestParam("cvFile") MultipartFile cvFile, BindingResult bindingResult, String role) {
-        String fileName = fileUploadServices.storeFile(file);
-        user.setImg("/downloadFile/" + fileName);
+        if (!(file.isEmpty())){
+            try{
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+           user.setImg("/downloadFile/"+file.getOriginalFilename());
+        }
         if (!cvFile.isEmpty()) {
-            String fileNameCv = fileUploadService.storeFile(cvFile);
-
-            user.setCv("/downloadFile/" + fileNameCv);
+            if (!(cvFile.isEmpty())){
+                try{
+                    byte[] bytes = cvFile.getBytes();
+                    Path path = Paths.get(fileStorage+cvFile.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+               user.setCv("/downloadFile/"+file.getOriginalFilename());
+            }
         }
         user.setStatus(true);
         user.setPar_mobile(false);
@@ -612,9 +637,16 @@ public class UserController {
     @PostMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
         public String updateUser ( User user, @RequestParam("file") MultipartFile file,HttpSession session, @RequestParam("cvFile") MultipartFile cvFile){
             if(!file.isEmpty()) {
-                String fileName = fileUploadService.storeFile(file);
-
-                user.setImg("/downloadFile/" + fileName);
+                if (!(file.isEmpty())){
+                    try{
+                        byte[] bytes = file.getBytes();
+                        Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                        Files.write(path,bytes);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    user.setImg("/downloadFile/"+file.getOriginalFilename());
+                }
 
             }
             else
@@ -622,8 +654,16 @@ public class UserController {
                 user.setImg(user.getImg());
             }
         if (!cvFile.isEmpty()){
-            String fileNameCv= fileUploadServices.storeFile(cvFile);
-                user.setCv("/downloadFile/"+fileNameCv);
+            if (!(cvFile.isEmpty())){
+                try{
+                    byte[] bytes = cvFile.getBytes();
+                    Path path = Paths.get(fileStorage+cvFile.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                user.setCv("/downloadFile/"+cvFile.getOriginalFilename());
+            }
         }else {
             user.setCv(user.getCv());
         }
@@ -687,8 +727,16 @@ public class UserController {
     @PostMapping(value = "/modifier", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String updateUser1 ( User user, @RequestParam("file") MultipartFile file){
         if(!file.isEmpty()) {
-            String fileName = fileUploadServices.storeFile(file);
-            user.setImg("/downloadFile/" + fileName);
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+              user.setImg("/downloadFile/"+file.getOriginalFilename());
+            }
         }
         else
         {

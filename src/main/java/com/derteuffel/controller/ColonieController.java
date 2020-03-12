@@ -8,6 +8,7 @@ import com.derteuffel.repository.ReservationRepository;
 import com.derteuffel.service.MailService;
 import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,8 +37,6 @@ public class ColonieController {
 
     @Autowired
     private ColonieRepository colonieRepository;
-    @Autowired
-    private FileUploadService fileUploadService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -242,6 +244,9 @@ public class ColonieController {
 
     );
 
+    @Value("${file.upload-dir}")
+    private String fileStorage;
+
     @GetMapping("/colonies")
     public String lists_all(Model model, HttpSession session){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -269,47 +274,43 @@ public class ColonieController {
         return "colonie/colonie";
     }
 
-    public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
-        String fileName = fileUploadService.storeFile(file);
-
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
-        return new FileUploadRespone(fileName, fileDownloadUri);
-    }
 
     @PostMapping("/save")
     public String save(Colonie colonie, @RequestParam("files")MultipartFile[] files,@RequestParam("couverture")MultipartFile couverture, String prix, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByName(auth.getName());
-        String fileName = fileUploadService.storeFile(couverture);
         if (couverture.isEmpty()){
             System.out.println("je suis vide");
             colonie.setCover("/downloadFile/new/images/blog_1.jpg");
         }else {
-            System.out.println("je suis charger");
-            colonie.setCover("/downloadFile/"+fileName);
-        }
-
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-        if (pieces.size() == 0) {
-            colonie.setFichier(colonie.getFichier());
-        }else {
-            ArrayList<String> filesPaths = new ArrayList<String>();
-            for(int i=0;i<pieces.size();i++)
-            {
-
-                filesPaths.add(pieces.get(i).getFileDownloadUri());
-
+            if (!(couverture.isEmpty())){
+                try{
+                    byte[] bytes = couverture.getBytes();
+                    Path path = Paths.get(fileStorage+couverture.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                colonie.setCover("/downloadFile/"+couverture.getOriginalFilename());
             }
-            colonie.setFichier(filesPaths);
-
         }
+        ArrayList<String> filesPaths = new ArrayList<String>();
+
+        for (MultipartFile file : files){
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+            }
+        }
+        colonie.setFichier(filesPaths);
+
+
         if (colonie.getActivite().length()< 150){
 
             model.addAttribute("errors", "ce le  champs description doit contenir au moins 150 charactere");
@@ -341,32 +342,38 @@ public class ColonieController {
             colonie.setPrice(Double.parseDouble(prix));
         }
 
-        String fileName = fileUploadService.storeFile(couverture);
         if (couverture.isEmpty()){
             colonie.setCover(colonie.getCover());
         }else {
-            colonie.setCover("/downloadFile/"+fileName);
+            if (!(couverture.isEmpty())){
+                try{
+                    byte[] bytes = couverture.getBytes();
+                    Path path = Paths.get(fileStorage+couverture.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                colonie.setCover("/downloadFile/"+couverture.getOriginalFilename());
+            }
         }
 
-        List<FileUploadRespone> pieces = Arrays.asList(files)
-                    .stream()
-                    .map(file -> uploadFile(file))
-                    .collect(Collectors.toList());
-            if (pieces.size() <= 1) {
-                System.out.println("je suis la");
-                System.out.println(pieces.size());
-                colonieRepository.save(colonie);
-            } else {
-                ArrayList<String> filesPaths = new ArrayList<String>();
-                for (int i = 0; i < pieces.size(); i++) {
+        ArrayList<String> filesPaths = new ArrayList<String>();
 
-                    filesPaths.add(pieces.get(i).getFileDownloadUri());
-
+        for (MultipartFile file : files){
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-                colonie.setFichier(filesPaths);
-                colonieRepository.save(colonie);
+                filesPaths.add("/downloadFile/"+file.getOriginalFilename());
             }
+        }
+        colonie.setFichier(filesPaths);
 
+                 colonieRepository.save(colonie);
 
         return "redirect:/colonie/detail/"+colonie.getColonieId();
     }

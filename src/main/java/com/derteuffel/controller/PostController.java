@@ -35,8 +35,7 @@ public class PostController {
     private PostRepository postRepository;
     @Autowired
     private RegionRepository regionRepository;
-    @Autowired
-    private FileUploadService fileUploadService;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -49,16 +48,7 @@ public class PostController {
     }
 
 
-    public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
-        String fileName = fileUploadService.storeFile(file);
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
-        return new FileUploadRespone(fileName, fileDownloadUri);
-    }
 
     @GetMapping("/detail/{postId}")
     public String findById(Model model,@PathVariable Long postId) {

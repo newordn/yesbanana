@@ -39,15 +39,15 @@ public class PubliciteController {
     @PostMapping("/save")
     public String save(Publicite publicite, @RequestParam("file") MultipartFile file, @RequestParam("fichier") MultipartFile fichier) throws IOException {
         if (!(file.isEmpty())){
-            file.transferTo(new File(System.getProperty(fileStorage)+"/"+file.getOriginalFilename()));
+            file.transferTo(new File(System.getProperty(fileStorage)+file.getOriginalFilename()));
         }
 
         if (!(fichier.isEmpty())){
-            fichier.transferTo(new File(System.getProperty(fileStorage)+"/"+fichier.getOriginalFilename()));
+            fichier.transferTo(new File(System.getProperty(fileStorage)+fichier.getOriginalFilename()));
         }
 
-        publicite.setCouverture(fileStorage+"/"+file.getOriginalFilename());
-        publicite.setFile(fileStorage+"/"+fichier.getOriginalFilename());
+        publicite.setCouverture(fileStorage+file.getOriginalFilename());
+        publicite.setFile(fileStorage+fichier.getOriginalFilename());
 
         publiciteService.save(publicite);
 

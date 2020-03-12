@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -44,8 +45,6 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @Autowired
-    private FileUploadService fileUploadService;
 
     @Autowired
     private UserService userService;
@@ -64,21 +63,21 @@ public class EventController {
         return "event/form";
     }
 
-    public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
-        String fileName = fileUploadService.storeFile(file);
-
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
-        return new FileUploadRespone(fileName, fileDownloadUri);
-    }
 
 
     @PostMapping("/save")
     public String save(Event event, @RequestParam("couverture") MultipartFile couverture, @RequestParam("files") MultipartFile[] files, Model model) throws IOException {
-        String fileName = fileUploadService.storeFile(couverture);
+
+        if (!(couverture.isEmpty())){
+            try{
+                byte[] bytes = couverture.getBytes();
+                Path path = Paths.get(fileStorage+couverture.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            event.setImage("/downloadFile/"+couverture.getOriginalFilename());
+        }
 
        /* System.out.println("test access");
         if (!(couverture.isEmpty())){
@@ -88,14 +87,19 @@ public class EventController {
 
         System.out.println("je suis la"+fileStorage);*/
 
-        List<FileUploadRespone> pieces = Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
         ArrayList<String> filesPaths = new ArrayList<String>();
 
-        for (int i = 0; i < pieces.size(); i++) {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
+        for (MultipartFile file : files){
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+            }
         }
 
             if (event.getType().contains("magazine") && event.getCategory().isEmpty()) {
@@ -104,7 +108,6 @@ public class EventController {
                 return "event/form";
             } else {
 
-                event.setImage("/downloadFile/"+fileName);
                 event.setPieces(filesPaths);
 
                 event.setLikes(1);
@@ -191,8 +194,16 @@ public class EventController {
     public String updateFile(@PathVariable Long eventId, @RequestParam("file") MultipartFile file){
         Event event=eventService.getOne(eventId);
 
-        String fileName = fileUploadService.storeFile(file);
-        event.setImage("/downloadFile/"+fileName);
+        if (!(file.isEmpty())){
+            try{
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            event.setImage("/downloadFile/"+file.getOriginalFilename());
+        }
 
         eventService.save(event);
 
@@ -204,17 +215,19 @@ public class EventController {
     public String updateFiles(@PathVariable Long eventId, @RequestParam("files") MultipartFile[] files){
         Event event=eventService.getOne(eventId);
 
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-
         ArrayList<String> filesPaths = new ArrayList<String>();
-        for(int i=0;i<pieces.size();i++)
-        {
 
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
-
+        for (MultipartFile file : files){
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+            }
         }
 
         event.setPieces(filesPaths);

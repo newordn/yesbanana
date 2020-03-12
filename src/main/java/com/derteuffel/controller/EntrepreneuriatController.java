@@ -11,6 +11,7 @@ import com.derteuffel.repository.PeriodRepository;
 import com.derteuffel.service.EntrepreneuriatService;
 import com.derteuffel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -23,6 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,21 +43,10 @@ public class EntrepreneuriatController {
     @Autowired
     private EntrepreneuriatService entrepreneuriatService;
 
-    @Autowired
-    private FileUploadService fileUploadService;
-
+    @Value("${file.upload-dir}")
+    private String fileStorage;
     @Autowired
     private UserService userService;
-    public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
-        String fileName = fileUploadService.storeFile(file);
-
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
-        return new FileUploadRespone(fileName, fileDownloadUri);
-    }
 
 
     @GetMapping("/form")
@@ -65,13 +58,19 @@ public class EntrepreneuriatController {
     @PostMapping("/save")
     public String save(Entrepreneuriat entrepreneuriat, String price, @RequestParam("files") MultipartFile[] files){
         entrepreneuriat.setPrice(Double.parseDouble(price));
-        List<FileUploadRespone> pieces = Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
         ArrayList<String> filesPaths = new ArrayList<String>();
-        for (int i = 0; i < pieces.size(); i++) {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+        for (MultipartFile file : files){
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+            }
         }
         entrepreneuriat.setPieces(filesPaths);
 
@@ -130,26 +129,21 @@ public class EntrepreneuriatController {
     public String edit(Entrepreneuriat entrepreneuriat, @RequestParam("files") MultipartFile[] files, String price, String prix){
 
         System.out.println(files.length);
-            List<FileUploadRespone> pieces = Arrays.asList(files)
-                    .stream()
-                    .map(file -> uploadFile(file))
-                    .collect(Collectors.toList());
-        System.out.println("longueur "+ entrepreneuriat.getPieces());
-            if (pieces.size()<1) {
-                System.out.println("je n'est pas ete modifier");
-                if (price.isEmpty()) {
-                    entrepreneuriat.setPrice(Double.parseDouble(prix));
-                } else {
-                    entrepreneuriat.setPrice(Double.parseDouble(price));
-                }
+        ArrayList<String> filesPaths = new ArrayList<String>();
 
-                entrepreneuriat.setPieces(entrepreneuriat.getPieces());
-                entrepreneuriatService.save(entrepreneuriat);
-            }else {
-            ArrayList<String> filesPaths = new ArrayList<String>();
-            for (int i = 0; i < pieces.size(); i++) {
-                filesPaths.add(pieces.get(i).getFileDownloadUri());
+        for (MultipartFile file : files){
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                filesPaths.add("/downloadFile/"+file.getOriginalFilename());
             }
+        }
+
             System.out.println("here i'm empty"+price);
             if (price.isEmpty()){
                 entrepreneuriat.setPrice(Double.parseDouble(prix));
@@ -158,8 +152,6 @@ public class EntrepreneuriatController {
             }
             entrepreneuriat.setPieces(filesPaths);
             entrepreneuriatService.save(entrepreneuriat);
-        }
-
 
         return "redirect:/entrepreneuriat/entrepreneuriat/"+entrepreneuriat.getEntrepreneuriatId();
     }

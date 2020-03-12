@@ -19,6 +19,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,9 +49,6 @@ public class HomeController {
     private RegionRepository regionRepository;
     @Autowired
     private PostRepository postRepository;
-    @Autowired
-    private FileUploadService fileUploadService;
-
     @Autowired
             private LivreRepository livreRepository;
     @Autowired
@@ -393,14 +393,19 @@ public class HomeController {
 
     @PostMapping("/visitor/livre/save")
     public String saveLivre(Livre post, @RequestParam("files") MultipartFile[] files, String publishPrice) {
-        List<FileUploadRespone> pieces= Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
         ArrayList<String> filesPaths = new ArrayList<String>();
-        for(int i=0;i<pieces.size();i++)
-        {
-            filesPaths.add(pieces.get(i).getFileDownloadUri());
+
+        for (MultipartFile file : files){
+            if (!(file.isEmpty())){
+                try{
+                    byte[] bytes = file.getBytes();
+                    Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                    Files.write(path,bytes);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                filesPaths.add("/downloadFile/"+file.getOriginalFilename());
+            }
         }
 
         System.out.println(filesPaths);
@@ -422,11 +427,28 @@ public class HomeController {
 
     @PostMapping("/visitor/syllabus/save")
     public String save(Syllabus syllabus,@RequestParam("file") MultipartFile file,@RequestParam("photo")MultipartFile photo, String publishPrice){
-        String fileName= fileUploadService.storeFile(file);
-        String fileName1= fileUploadService.storeFile(photo);
+        if (!(photo.isEmpty())){
+            try{
+                byte[] bytes = photo.getBytes();
+                Path path = Paths.get(fileStorage+photo.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            syllabus.setCouverture("/downloadFile/"+photo.getOriginalFilename());
+        }
+        if (!(file.isEmpty())){
+            try{
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(fileStorage+file.getOriginalFilename());
+                Files.write(path,bytes);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            syllabus.setPieces("/downloadFile/"+file.getOriginalFilename());
+        }
 
-        syllabus.setPieces("/downloadFile/"+fileName);
-        syllabus.setCouverture("/downloadFile/"+fileName1);
+
         syllabus.setPublishPrice(Double.parseDouble(publishPrice));
         syllabus.setStatus(false);
         syllabus.setSuprimee(true);
@@ -441,16 +463,7 @@ public class HomeController {
         return "redirect:/";
 
     }
-    public FileUploadRespone uploadFile(@RequestParam("file") MultipartFile file) {
-        String fileName = fileUploadService.storeFile(file);
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
-        return new FileUploadRespone(fileName, fileDownloadUri);
-    }
 
     @Autowired
     private NewsletterRepository newsletterRepository;
